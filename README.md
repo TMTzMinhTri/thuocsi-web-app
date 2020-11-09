@@ -1,3 +1,5 @@
-# web
+Nextjs
 
-Main public website, used for customer make order
+## run dev
+
+`yarn dev`
