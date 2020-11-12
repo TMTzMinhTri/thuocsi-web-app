@@ -1,15 +1,35 @@
 {
-  "name": "web",
-  "version": "0.1.0",
+  "name": "thuocsi.vn",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "cross-env NODE_ENV=test mocha",
+    "lint:check": "eslint --ext=js,jsx src",
+    "lint:fix": "eslint --ext=js,jsx --fix src",
+    "git-reset": "git reset --hard HEAD"
   },
+  "pre-commit": "lint:check",
   "dependencies": {
-    "next": "10.0.1",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "@material-ui/core": "latest",
+    "@thuocsi/nextjs-components": "git+ssh://git@thuocsi/thuocsi.vn-sdk/nextjs-components.git",
+    "@thuocsi/nextjs-lib": "git+ssh://git@thuocsi/thuocsi.vn-sdk/nextjs-lib.git#v0.1.0",
+    "clsx": "latest",
+    "next": "latest",
+    "pre-commit": "^1.2.2",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }
