@@ -1,8 +1,14 @@
+# web
+
+Main public website, used for customer make order
+
+## language
+
 Nextjs
 
 ## install
 
-`yarn install`
+`yarn install` | `npm install`
 
 ## run dev
 
@@ -10,4 +16,9 @@ Nextjs
 
 ## check eslint
 
-`yarn run lint:check`
+`yarn lint:check`
+
+## pages
+
+- index
+- about
