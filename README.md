@@ -53,6 +53,8 @@ import Layout from 'component/Layout';
 ./pages/api/mock/....
 ```
 
+[Document router API](https://nextjs.org/docs/api-routes/introduction)
+
 #### How to use mock API:
 
 - create new API in folder ./src/api/mock/getuser.js
