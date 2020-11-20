@@ -1,41 +1,44 @@
-# web
+# Web
 
 Main public website, used for customer make order
 
-## language
+## Stack
 
-Nextjs
+Nextjs with material design
 
-## install
+[NextJs](https://nextjs.org/)
+[Material Design](https://material.io/components/app-bars-top)
+
+## Install
 
 `yarn install` | `npm install`
 
 `npm install:clean`
 
-## run dev
+## Run dev
 
 `yarn dev`
 
-## check eslint
+## Check eslint
 
 `yarn lint:check`
 
-## build
+## Build
 
 `yarn build`
 
-## start
+## Start production
 
 `yarn start`
 
-## pages
+## Pages
 
-- index
-- about
+- / --> ./src/index
+- /about --> ./src/about.html
 
 ---
 
-### simple page
+### Implement new simple page
 
 ```
 import Layout from 'component/Layout';
@@ -43,3 +46,14 @@ import Layout from 'component/Layout';
     ...
     </Layout>
 ```
+
+### implement Mock API
+
+```
+./pages/api/mock/....
+```
+
+#### How to use mock API:
+
+- create new API in folder ./src/api/mock/getuser.js
+- call to url : /api/mock/getuser
