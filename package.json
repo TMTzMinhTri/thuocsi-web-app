@@ -9,6 +9,7 @@
     "test": "cross-env NODE_ENV=test mocha",
     "lint:check": "eslint --ext=js,jsx src",
     "lint:fix": "eslint --ext=js,jsx --fix src",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf yarn.lock && yarn install && yarn dev",
     "git-reset": "git reset --hard HEAD"
   },
   "pre-commit": "lint:check",

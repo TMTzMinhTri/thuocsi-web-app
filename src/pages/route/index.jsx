@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 export default function RouterComp() {
   const router = useRouter();
-  console.log('router ', router);
   const ID = router.query.id;
 
   function handleOnClick() {
@@ -13,10 +12,7 @@ export default function RouterComp() {
   return (
     <>
       <Head>Hello router</Head>
-      <h1>
-        Hello Id :
-        {ID}
-      </h1>
+      <h1>{ID}</h1>
       <Link href="/">
         <button className="active">go to dashboard</button>
       </Link>
