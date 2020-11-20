@@ -10,6 +10,8 @@ Nextjs
 
 `yarn install` | `npm install`
 
+`npm install:clean`
+
 ## run dev
 
 `yarn dev`
@@ -18,7 +20,26 @@ Nextjs
 
 `yarn lint:check`
 
+## build
+
+`yarn build`
+
+## start
+
+`yarn start`
+
 ## pages
 
 - index
 - about
+
+---
+
+### simple page
+
+```
+import Layout from 'component/Layout';
+    <Layout>
+    ...
+    </Layout>
+```
