@@ -20,7 +20,6 @@ export default function Layout({ title, children }) {
       </Head>
       <div id="main">{children}</div>
 
-      {/* footer */}
       <Footer />
     </div>
   );
