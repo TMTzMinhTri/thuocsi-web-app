@@ -8,6 +8,7 @@ Nextjs with material design
 
 [NextJs](https://nextjs.org/)
 [Material Design](https://material.io/components/app-bars-top)
+[Material Icon](https://material.io/resources/icons/?style=baseline)
 
 ## Install
 
