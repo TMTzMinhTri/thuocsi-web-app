@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import Copyright from './Copyright';
+import Footer from './Footer';
 
 export default function Layout({ title, children }) {
   return (
@@ -20,9 +20,8 @@ export default function Layout({ title, children }) {
       </Head>
       <div id="main">{children}</div>
 
-      <footer>
-        <Copyright />
-      </footer>
+      {/* footer */}
+      <Footer />
     </div>
   );
 }
