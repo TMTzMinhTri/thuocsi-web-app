@@ -9,8 +9,6 @@ import clsx from 'clsx';
 import useStyles from './style';
 
 const Footer = () => {
-  // const [open, setOpen] = React.useState(false);
-
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -23,14 +21,6 @@ const Footer = () => {
       node.parentNode.removeChild(node);
     };
   }, []);
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
 
   return (
     <Box className={classes.globalStyle}>
@@ -112,14 +102,6 @@ const Footer = () => {
                     </Link>
                     <Link href="/10">
                       <Typography className={classes.link}>Quy chế hoạt động</Typography>
-                      {/* <Modal open={open} handleClose={handleClose}>
-                        <div>
-                          <h2 id="transition-modal-title">Transition modal</h2>
-                          <p id="transition-modal-description">
-                            react-transition-group animates me.
-                          </p>
-                        </div>
-                      </Modal> */}
                     </Link>
                     <Link href="/11">
                       <Typography className={classes.link}>
