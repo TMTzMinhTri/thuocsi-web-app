@@ -18,11 +18,13 @@
     "@thuocsi/nextjs-components": "git+ssh://git@thuocsi/thuocsi.vn-sdk/nextjs-components.git",
     "@thuocsi/nextjs-lib": "git+ssh://git@thuocsi/thuocsi.vn-sdk/nextjs-lib.git#v0.1.0",
     "clsx": "latest",
+    "fg-loadcss": "^3.1.0",
     "next": "latest",
     "pre-commit": "^1.2.2",
     "prop-types": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-transition-group": "^4.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
