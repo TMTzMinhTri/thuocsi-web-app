@@ -25,7 +25,9 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-transition-group": "^4.4.1"
+    "react-slick": "^0.27.13",
+    "react-transition-group": "^4.4.1",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

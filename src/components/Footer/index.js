@@ -26,7 +26,7 @@ const Footer = () => {
     <Box className={classes.globalStyle}>
       <Container maxWidth="lg">
         <Grid display="flex" justify="space-between" container>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <Box>
               <Link href="/">
                 <Image src="/images/footer/logo_footer.svg" width="164" height="40" />
