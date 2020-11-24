@@ -26,13 +26,13 @@ const Footer = () => {
     <Box className={classes.globalStyle}>
       <Container maxWidth="lg">
         <Grid display="flex" justify="space-between" container>
-          <Grid xs={6}>
+          <Grid>
             <Box>
-              <Link href="/">
+              <Link href="/aaa">
                 <Image src="/images/footer/logo_footer.svg" width="164" height="40" />
               </Link>
             </Box>
-            <Box mb={2}>
+            <Box>
               <Typography className={classes.mb1}>
                 <b>
                   <span className={classes.primaryColor}>thuocsi.vn</span>
