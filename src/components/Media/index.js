@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Grid, Box } from '@material-ui/core';
 import Image from 'next/image';
+import { LOGO_SEEDSTAR, LOGO_TCCS, LOGO_PITCHPALACE, LOGO_NTTDATA } from '../../constants/Images';
 
 import useStyles from './style';
 
@@ -17,16 +18,16 @@ const Media = () => {
       <Grid direction="column" container>
         <Grid className={classes.container} container item xs={12} alignItems="center">
           <Grid className={classes.hoverLink} item xs={3}>
-            <Image src="/images/media/logo_seedstar.png" width="168" height="76" />
+            <Image src={LOGO_SEEDSTAR} width="168" height="76" />
           </Grid>
           <Grid className={classes.hoverLink} item xs={3}>
-            <Image src="/images/media/logo_tccs.png" width="162" height="99" />
+            <Image src={LOGO_TCCS} width="162" height="99" />
           </Grid>
           <Grid className={classes.hoverLink} item xs={3}>
-            <Image src="/images/media/logo_pitchpalace.png" width="182" height="190" />
+            <Image src={LOGO_PITCHPALACE} width="182" height="190" />
           </Grid>
           <Grid className={classes.hoverLink} item xs={3}>
-            <Image src="/images/media/logo_nttdata.png" width="166" height="203" />
+            <Image src={LOGO_NTTDATA} width="166" height="203" />
           </Grid>
         </Grid>
         <Grid className={classes.container} container item xs={12} alignItems="center">
