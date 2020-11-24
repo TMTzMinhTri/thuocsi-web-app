@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core/styles';
 import FontSize from '../FontSize';
 
 const noDecoration = {
@@ -12,7 +13,10 @@ const LinkStyled = {
   display: 'flex',
 };
 
+const LinkStyleMaked = makeStyles(LinkStyled);
+
 export default {
   LinkStyled,
   noDecoration,
+  LinkStyleMaked,
 };
