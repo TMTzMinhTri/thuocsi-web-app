@@ -2,25 +2,15 @@ import React from 'react';
 import { Grid, Box, Container, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-import Icon from '@material-ui/core/Icon';
-import { loadCSS } from 'fg-loadcss';
+import Facebook from '@material-ui/icons/Facebook';
+import EmailOutlined from '@material-ui/icons/EmailOutlined';
+import Call from '@material-ui/icons/Call';
 import clsx from 'clsx';
 
 import useStyles from './style';
 
 const Footer = () => {
   const classes = useStyles();
-
-  React.useEffect(() => {
-    const node = loadCSS(
-      'https://use.fontawesome.com/releases/v5.12.0/css/all.css',
-      document.querySelector('#font-awesome-css'),
-    );
-
-    return () => {
-      node.parentNode.removeChild(node);
-    };
-  }, []);
 
   return (
     <Box className={classes.globalStyle}>
@@ -35,7 +25,7 @@ const Footer = () => {
             <Box mb={2}>
               <Typography className={classes.mb1}>
                 <b>
-                  <span className={classes.primaryColor}>thuocsi.vn</span>
+                  <span className={classes.primaryColor}>thuocsi.vn </span>
                   là website thuộc sở hữu của công ty TNHH Buymed.
                 </b>
               </Typography>
@@ -170,7 +160,7 @@ const Footer = () => {
             <Box>
               <p className={classes.footerHeader}>LIÊN HÊ</p>
               <Box mb={2} display="flex" flexDirection="row" alignItems="center">
-                <Icon
+                <Box
                   style={{
                     color: '#fff',
                     width: '30px',
@@ -180,33 +170,20 @@ const Footer = () => {
                     justifyContent: 'center',
                     backgroundColor: '#dc4e41',
                     borderRadius: '50%',
-                    fontSize: '16px',
                   }}
-                  className="far fa-envelope"
-                />
+                >
+                  <EmailOutlined style={{ width: '20x', height: '20px' }} />
+                </Box>
                 <Link href="/">
                   <Typography className={clsx(classes.contact, classes.divider, classes.link)}>
                     hotro@thuocsi.vn
                   </Typography>
                 </Link>
-                <Icon
-                  style={{
-                    color: '#fff',
-                    width: '30px',
-                    height: '30px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: '#3b5998',
-                    borderRadius: '50%',
-                    fontSize: '16px',
-                  }}
-                  className="fab fa-facebook-f"
-                />
+                <Facebook style={{ color: '#3b5998', fontSize: 30 }} />
               </Box>
               <Box display="flex" flexDirection="row" alignItems="center">
                 <Box>
-                  <Icon
+                  <Box
                     style={{
                       color: '#fff',
                       width: '30px',
@@ -216,10 +193,15 @@ const Footer = () => {
                       justifyContent: 'center',
                       backgroundColor: '#dc4e41',
                       borderRadius: '50%',
-                      fontSize: '16px',
                     }}
-                    className="fa fa-phone"
-                  />
+                  >
+                    <Call
+                      style={{
+                        width: '22px',
+                        height: '22px',
+                      }}
+                    />
+                  </Box>
                 </Box>
                 <Link href="tel:02873008840">
                   <Typography className={clsx(classes.contact, classes.link)}>

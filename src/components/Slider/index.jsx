@@ -139,7 +139,7 @@ const SliderComp = () => {
 
   const sliderItem = data.map((item) => (
     <>
-      <Card className={classes.root}>
+      <Card key={item.id} className={classes.root}>
         <CardHeader
           avatar={
             <Avatar src={item.avatar} aria-label="recipe" className={classes.large} />
