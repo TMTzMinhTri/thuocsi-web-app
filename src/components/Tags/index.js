@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Tags(props) {
-  const { name } = props;
+  const { name, key } = props;
   const classes = useStyles();
   return (
-    <div>
-      <Card className={classes.root}>{name}</Card>
-    </div>
+    <Card className={classes.root} key={key}>
+      {name}
+    </Card>
   );
 }
 
