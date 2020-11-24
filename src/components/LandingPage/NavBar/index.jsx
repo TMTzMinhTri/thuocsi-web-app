@@ -33,8 +33,27 @@ function onMouseOver(e) {
   e.target.style.background = 'red';
 }
 
-export default function Navbar() {
+function renderMostSearched(data, classes) {
+  if (!data || data.length === 0) {
+    return null;
+  }
+
+  const listItems = data.map(({ name, id }) => (
+    <TagsComp name={name} key={`id-${id}`} href="/" color="white" />
+  ));
+  return (
+    <div className={classes.navBarContaint}>
+      <Typography variant="h5" className={classes.textSearch}>
+        <strong>Tìm Kiếm nhiều nhất</strong>
+      </Typography>
+      {listItems}
+    </div>
+  );
+}
+
+export default function Navbar({ mostResearched }) {
   const classes = useStyle();
+  const mostSearchedEle = renderMostSearched(mostResearched, classes);
   return (
     <div className={classes.navbarClass}>
       <div className={classes.navBarContaint}>
@@ -58,17 +77,7 @@ export default function Navbar() {
           <LocalOfferIcon />
         </LinkComp>
       </div>
-      <div className={classes.navBarContaint}>
-        <Typography variant="h5" className={classes.textSearch}>
-          <strong>Tìm Kiếm nhiều nhất</strong>
-        </Typography>
-        <TagsComp name="#Mega" href="/" color="white" />
-        <TagsComp name="#Dermatix" href="/" color="white" />
-        <TagsComp name="#Rohto" href="/" color="white" />
-        <TagsComp name="#Pfizer" href="/" color="white" />
-        <TagsComp name="#Greencross" href="/" color="white" />
-        <TagsComp name="#Cetaphill" href="/" color="white" />
-      </div>
+      {mostSearchedEle}
     </div>
   );
 }
