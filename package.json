@@ -16,8 +16,6 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.9.1",
-    "@thuocsi/nextjs-components": "git+ssh://git@thuocsi/thuocsi.vn-sdk/nextjs-components.git",
-    "@thuocsi/nextjs-lib": "git+ssh://git@thuocsi/thuocsi.vn-sdk/nextjs-lib.git#v0.1.0",
     "clsx": "latest",
     "fg-loadcss": "^3.1.0",
     "next": "latest",
