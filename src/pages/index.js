@@ -5,14 +5,15 @@ import ProductClient from '../clients/ProductClient';
 
 export async function getServerSideProps() {
   const resultMostResearched = await ProductClient.loadDataMostSearch();
-  return { props: { mostResearched: resultMostResearched } };
+  const resultFeedback = await ProductClient.loadFeedback();
+  return { props: { mostResearched: resultMostResearched, feedback: resultFeedback } };
 }
 
-export default function Index({ mostResearched }) {
+export default function Index({ mostResearched, feedback }) {
   const title = 'Thuocsi.vn';
   return (
     <Layout title={title}>
-      <LandingPage mostResearched={mostResearched} />
+      <LandingPage mostResearched={mostResearched} feedback={feedback} />
     </Layout>
   );
 }

@@ -2,5 +2,5 @@
 
 export default (req, res) => {
   res.statusCode = 200;
-  res.json({ name: 'API users list mock' });
+  res.json({ data: 'API users list mock' });
 };

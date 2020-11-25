@@ -39,7 +39,7 @@ function renderMostSearched(data, classes) {
   }
 
   const listItems = data.map(({ name, id }) => (
-    <TagsComp name={name} key={`id-${id}`} href="/" color="white" />
+    <TagsComp name={name} key={`tags-${id}`} href="/" color="white" />
   ));
   return (
     <div className={classes.navBarContaint}>

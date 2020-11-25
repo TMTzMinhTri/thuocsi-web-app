@@ -8,6 +8,15 @@ async function loadDataMostSearch() {
   return result.data;
 }
 
+async function loadFeedback() {
+  const res = await fetch(`${API_HOST}/feedback`, {
+    method: 'GET',
+  });
+  const result = await res.json();
+  return result.data;
+}
+
 export default {
   loadDataMostSearch,
+  loadFeedback,
 };

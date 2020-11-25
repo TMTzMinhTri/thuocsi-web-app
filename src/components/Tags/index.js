@@ -15,13 +15,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Tags(props) {
-  const { name, key } = props;
+  const { name } = props;
   const classes = useStyles();
-  return (
-    <Card className={classes.root} key={key}>
-      {name}
-    </Card>
-  );
+  return <Card className={classes.root}>{name}</Card>;
 }
 
 export default Tags;
