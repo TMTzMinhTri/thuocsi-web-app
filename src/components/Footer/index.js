@@ -8,6 +8,23 @@ import Call from '@material-ui/icons/Call';
 import clsx from 'clsx';
 
 import useStyles from './style';
+import {
+  LINK_APPLESTORE,
+  LINK_GOOGLEPLAY,
+  LINK_LICENSE,
+  LINK_REGISTER,
+  LOGO_AHAMOVE,
+  LOGO_GHN,
+  LOGO_GHTK,
+  LOGO_LOZA,
+  LOGO_GRAB,
+  LOGO_NINJA,
+  LOGO_MOBILE,
+  LOGO_GOOGLEPLAY,
+  LOGO_APPSTORE,
+  LOGO_FOOTER_REGISTER,
+  LOGO_FOOTER_SVG,
+} from '../../constants/Images';
 
 const Footer = () => {
   const classes = useStyles();
@@ -19,7 +36,7 @@ const Footer = () => {
           <Grid item xs={6}>
             <Box>
               <Link href="/aaa">
-                <Image src="/images/footer/logo_footer.svg" width="164" height="40" />
+                <Image src={LOGO_FOOTER_SVG} width="164" height="40" />
               </Link>
             </Box>
             <Box>
@@ -46,13 +63,13 @@ const Footer = () => {
               <span>Tại Sở Kế Hoạch Và Đầu Tư Thành Phố Hồ Chí Minh</span>
               <span>
                 Số Giấy Phép Sàn Thương Mại Điện Tử:
-                <Link href="https://buymed-storage.s3-ap-southeast-1.amazonaws.com/trading_license/1.+Trading+License+-+Buymed+(GC+20+June+2019)+(VN).pdf">
+                <Link href={LINK_LICENSE}>
                   <span className={classes.link}> 0314758651/KD-0368</span>
                 </Link>
               </span>
-              <Link href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=52200">
+              <Link href={LINK_REGISTER}>
                 <Box mt={2}>
-                  <Image src="/images/footer/logo_register.png" width="117" height="44" />
+                  <Image src={LOGO_FOOTER_REGISTER} width="117" height="44" />
                 </Box>
               </Link>
             </Box>
@@ -107,7 +124,7 @@ const Footer = () => {
               <Box>
                 <Box className={classes.brandWrap}>
                   <Image
-                    src="/images/footer/logo_ghtk.png"
+                    src={LOGO_GHTK}
                     width="128"
                     height="32"
                     className={classes.footerDelivery}
@@ -115,7 +132,7 @@ const Footer = () => {
                 </Box>
                 <Box className={classes.brandWrap}>
                   <Image
-                    src="/images/footer/logo_ahamove.png"
+                    src={LOGO_AHAMOVE}
                     width="107"
                     height="32"
                     className={classes.footerDelivery}
@@ -123,7 +140,18 @@ const Footer = () => {
                 </Box>
                 <Box className={classes.brandWrap}>
                   <Image
-                    src="/images/footer/logo_grab.png"
+                    src={LOGO_GRAB}
+                    width="79"
+                    height="32"
+                    className={classes.footerDelivery}
+                  />
+                </Box>
+                <Box className={classes.brandWrap}>
+                  <Image src={LOGO_GHN} width="46" height="32" className={classes.footerDelivery} />
+                </Box>
+                <Box className={classes.brandWrap}>
+                  <Image
+                    src={LOGO_LOZA}
                     width="79"
                     height="32"
                     className={classes.footerDelivery}
@@ -131,23 +159,7 @@ const Footer = () => {
                 </Box>
                 <Box className={classes.brandWrap}>
                   <Image
-                    src="/images/footer/logo_ghn.png"
-                    width="46"
-                    height="32"
-                    className={classes.footerDelivery}
-                  />
-                </Box>
-                <Box className={classes.brandWrap}>
-                  <Image
-                    src="/images/footer/logo_loza.png"
-                    width="79"
-                    height="32"
-                    className={classes.footerDelivery}
-                  />
-                </Box>
-                <Box className={classes.brandWrap}>
-                  <Image
-                    src="/images/footer/logo_ninja.png"
+                    src={LOGO_NINJA}
                     width="79"
                     height="32"
                     className={classes.footerDelivery}
@@ -214,25 +226,15 @@ const Footer = () => {
               <small>Từ T2 đến T6: 8:00 - 18:00</small>
             </Box>
             <Box>
-              <Image src="/images/footer/img_mobileapp.png" width="445" height="445" />
+              <Image src={LOGO_MOBILE} width="445" height="445" />
             </Box>
 
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
-              <Link href="https://apps.apple.com/vn/app/thuocsi/id1518730923">
-                <Image
-                  className={classes.link}
-                  src="/images/footer/logo_appstore.png"
-                  width="159"
-                  height="48"
-                />
+              <Link href={LINK_APPLESTORE}>
+                <Image className={classes.link} src={LOGO_APPSTORE} width="159" height="48" />
               </Link>
-              <Link href="https://play.google.com/store/apps/details?id=com.buymed.app&hl=en_US">
-                <Image
-                  className={classes.link}
-                  src="/images/footer/logo_googleplay.png"
-                  width="162"
-                  height="51"
-                />
+              <Link href={LINK_GOOGLEPLAY}>
+                <Image className={classes.link} src={LOGO_GOOGLEPLAY} width="162" height="51" />
               </Link>
             </Box>
           </Grid>
