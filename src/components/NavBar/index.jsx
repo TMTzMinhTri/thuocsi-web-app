@@ -5,10 +5,10 @@ import OpacityIcon from '@material-ui/icons/Opacity';
 import CartIcon from '@material-ui/icons/AddShoppingCart';
 import StoreIcon from '@material-ui/icons/Storefront';
 import WhatShotIcon from '@material-ui/icons/Whatshot';
-import LinkStyledClass from '../../../constants/Styled/Link/index';
+import LinkStyledClass from '../../constants/Styled/Link/index';
 // comp
-import LinkComp from '../../LinkComp/index';
-import TagsComp from '../../Tags/index';
+import LinkComp from '../LinkComp/index';
+import TagsComp from '../Tags/index';
 
 const { LinkStyled } = LinkStyledClass;
 // background

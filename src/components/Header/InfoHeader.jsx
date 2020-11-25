@@ -2,11 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 import { makeStyles } from '@material-ui/core';
 import { CardTravel, House, NewReleases } from '@material-ui/icons';
-import ButtonLandingPage from '../../Buttons/ButtonLandingPage';
-import LinkComp from '../../LinkComp/index';
+import ButtonLandingPage from '../Buttons/ButtonLandingPage';
+import LinkComp from '../LinkComp/index';
 
-import PATHS from '../../../constants/Paths';
-import IMAGES from '../../../constants/Images';
+import PATHS from '../../constants/Paths';
+import IMAGES from '../../constants/Images';
 
 const useStyles = makeStyles(() => ({
   headerInfo: {
