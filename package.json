@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 80",
     "test": "cross-env NODE_ENV=test mocha",
     "lint:check": "eslint --ext=js,jsx src",
     "lint:fix": "eslint --ext=js,jsx --fix src",
@@ -16,8 +16,6 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.9.1",
-    "@thuocsi/nextjs-components": "git+ssh://git@thuocsi/thuocsi.vn-sdk/nextjs-components.git",
-    "@thuocsi/nextjs-lib": "git+ssh://git@thuocsi/thuocsi.vn-sdk/nextjs-lib.git#v0.1.0",
     "clsx": "latest",
     "next": "latest",
     "pre-commit": "^1.2.2",
@@ -26,7 +24,8 @@
     "react-dom": "latest",
     "react-slick": "^0.27.13",
     "react-transition-group": "^4.4.1",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "swr": "^0.3.9"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

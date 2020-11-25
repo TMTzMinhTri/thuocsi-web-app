@@ -7,32 +7,6 @@ import { Card, makeStyles, CardHeader, Avatar, CardContent, Typography, Box } fr
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const data = [{
-  id: '1',
-  avatar: 'https://assets.thuocsi.vn/assets/testimonial/ms_anh-0f18d4903ee5d30ca79d458b799c4c2afa8e1d742e244885a218f831f68789b4.jpg',
-  customer: 'Cô Lan Anh',
-  title: 'Chủ nhà thuốc Hòa Bình - Buôn Mê Thuột',
-  comment: 'Địa chỉ đáng tin cậy. Đầy đủ hàng, giao hàng nhanh và thuận tiện',
-}, {
-  id: '2',
-  avatar: 'https://assets.thuocsi.vn/assets/testimonial/ms_anh-0f18d4903ee5d30ca79d458b799c4c2afa8e1d742e244885a218f831f68789b4.jpg',
-  customer: 'Cô Lan Anh',
-  title: 'Chủ nhà thuốc Hòa Bình - Buôn Mê Thuột',
-  comment: 'Địa chỉ đáng tin cậy. Đầy đủ hàng, giao hàng nhanh và thuận tiện',
-}, {
-  id: '3',
-  avatar: 'https://assets.thuocsi.vn/assets/testimonial/ms_anh-0f18d4903ee5d30ca79d458b799c4c2afa8e1d742e244885a218f831f68789b4.jpg',
-  customer: 'Cô Lan Anh',
-  title: 'Chủ nhà thuốc Hòa Bình - Buôn Mê Thuột',
-  comment: 'Địa chỉ đáng tin cậy. Đầy đủ hàng, giao hàng nhanh và thuận tiện',
-}, {
-  id: '4',
-  avatar: 'https://assets.thuocsi.vn/assets/testimonial/ms_anh-0f18d4903ee5d30ca79d458b799c4c2afa8e1d742e244885a218f831f68789b4.jpg',
-  customer: 'Cô Lan Anh',
-  title: 'Chủ nhà thuốc Hòa Bình - Buôn Mê Thuột',
-  comment: 'Chị biết và đặt thuocsi được hơn 1 năm, chị có thể dễ dàng xem giá các thuốc và cân chỉnh đơn hàng ngoài ra mỗi ngày đều có sản phẩm mới giúp nhà thuốc đa dạng hơn danh mục hàng.',
-}];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 555,
@@ -102,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SliderComp = () => {
+const SliderComp = ({ feedback }) => {
   const classes = useStyles();
   const ref = useRef({});
 
@@ -137,30 +111,28 @@ const SliderComp = () => {
     ],
   };
 
-  const sliderItem = data.map((item) => (
-    <>
-      <Card key={item.id} className={classes.root}>
-        <CardHeader
-          avatar={
-            <Avatar src={item.avatar} aria-label="recipe" className={classes.large} />
+  const sliderItem = feedback.map((item) => (
+    <Card key={`slider-${item.id}`} className={classes.root}>
+      <CardHeader
+        avatar={
+          <Avatar src={item.avatar} aria-label="recipe" className={classes.large} />
           }
-          title={item.customer}
-          subheader={item.title}
-          className={classes.CardHeader}
-          classes={{
-            title: classes.headerCustomer,
-            subheader: classes.headerTitle,
-          }}
-        />
-        <CardContent className={classes.cardContent}>
-          <Typography className={classes.commentStyle} variant="body2" color="textSecondary" component="p">
-            <FormatQuoteIcon className={clsx(classes.rotate, classes.quote)} />
-            {item.comment}
-            <FormatQuoteIcon className={classes.quote} />
-          </Typography>
-        </CardContent>
-      </Card>
-    </>
+        title={item.customer}
+        subheader={item.title}
+        className={classes.CardHeader}
+        classes={{
+          title: classes.headerCustomer,
+          subheader: classes.headerTitle,
+        }}
+      />
+      <CardContent className={classes.cardContent}>
+        <Typography className={classes.commentStyle} variant="body2" color="textSecondary" component="p">
+          <FormatQuoteIcon className={clsx(classes.rotate, classes.quote)} />
+          {item.comment}
+          <FormatQuoteIcon className={classes.quote} />
+        </Typography>
+      </CardContent>
+    </Card>
   ));
   return (
     <Box className={classes.wrapperMedia} component="div">

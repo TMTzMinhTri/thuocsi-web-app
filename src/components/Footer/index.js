@@ -18,11 +18,11 @@ const Footer = () => {
         <Grid display="flex" justify="space-between" container>
           <Grid item xs={6}>
             <Box>
-              <Link href="/">
+              <Link href="/aaa">
                 <Image src="/images/footer/logo_footer.svg" width="164" height="40" />
               </Link>
             </Box>
-            <Box mb={2}>
+            <Box>
               <Typography className={classes.mb1}>
                 <b>
                   <span className={classes.primaryColor}>thuocsi.vn </span>

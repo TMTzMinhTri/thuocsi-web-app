@@ -4,15 +4,15 @@ import Header from './Header/index';
 import NavBar from './NavBar';
 import Footer from '../Footer/index';
 import Media from '../Media';
-import Slider from '../Slider';
+import SliderComp from '../Slider';
 
-export default function LandingPage() {
+export default function LandingPage({ mostResearched, feedback }) {
   return (
     <div>
       <Header />
-      <NavBar />
+      <NavBar mostResearched={mostResearched} />
       <div style={{ height: '800px' }} />
-      <Slider />
+      <SliderComp feedback={feedback} />
       <Media />
       <Footer />
     </div>
