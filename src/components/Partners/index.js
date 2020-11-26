@@ -15,12 +15,11 @@ const useStyles = makeStyles(() => ({
 
 const Partners = () => {
   const classes = useStyles();
-
   const ref = useRef({});
-
   const partnerItem = image.map((item) => (
     <Image src={item.url} key={`partner-${item.id}`} width={item.width} height={item.height} />
   ));
+
   return (
     <Box component="div">
       <Box maxWidth="1140px" m="auto">
