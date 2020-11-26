@@ -46,7 +46,8 @@ export const settingsPartner = {
 export const linkItemLeft = [
   {
     id: 1,
-    href: '',
+    href:
+      'https://thuocsi.zendesk.com/hc/vi/articles/360029452912-C%C3%A1ch-%C4%91%C4%83ng-k%C3%BD-v%C3%A0-%C4%91%C4%83ng-nh%E1%BA%ADp-t%C3%A0i-kho%E1%BA%A3n-t%E1%BA%A1i-thuocsi-vn',
     title: 'Cách đăng ký và đăng nhập tài khoản tại thuocsi.vn',
   },
   {
