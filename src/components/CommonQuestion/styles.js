@@ -14,14 +14,27 @@ export default makeStyles(() => ({
     '&:hover': {
       color: '#00b46e',
     },
-    buttonOutlined: {
-      background: 'white',
-      color: '#00b46e!important',
-      borderColor: '#00b46e',
-      width: '200px!important',
-      height: '3em',
-      fontWeight: 500,
-      lineHeight: 2,
+  },
+  label: {
+    color: '#00b46e',
+    width: '174px',
+    height: '34px',
+    fontWeight: 500,
+    lineHeight: 2,
+  },
+  outlined: {
+    border: '1px solid #00b46e',
+    padding: '6px 12px',
+  },
+  root: {
+    '&:hover span': {
+      transition: '.6s all',
+      color: 'black',
     },
+    borderRadius: '50px',
+    backgroundColor: '#fff',
+  },
+  center: {
+    textAlign: 'center',
   },
 }));
