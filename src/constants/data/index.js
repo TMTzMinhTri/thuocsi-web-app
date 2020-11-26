@@ -1,4 +1,4 @@
-export const image = [
+export const imagePartnerSlider = [
   { id: 1, url: '/images/partner/logo_anthien.jpg', width: '185px', height: '185px' },
   { id: 2, url: '/images/partner/logo_domesco.jpg', width: '185px', height: '185px' },
   { id: 3, url: '/images/partner/logo_gsk.jpg', width: '185px', height: '93px' },
@@ -43,7 +43,7 @@ export const settingsPartner = {
   ],
 };
 
-export const linkItemLeft = [
+export const linkQuestionItemLeft = [
   {
     id: 1,
     href:
@@ -76,7 +76,7 @@ export const linkItemLeft = [
   },
 ];
 
-export const linkItemRight = [
+export const linkQuestionItemRight = [
   {
     id: 1,
     href:

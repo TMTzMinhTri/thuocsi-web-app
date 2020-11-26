@@ -3,7 +3,11 @@ import { Box, Grid, Button } from '@material-ui/core';
 
 import LinkComp from '../LinkComp';
 import useStyles from './styles';
-import { linkItemLeft, linkItemRight } from '../../constants/data';
+import {
+  linkQuestionItemRight,
+  linkQuestionItemLeft,
+  LINK_ALL_QUESTION,
+} from '../../constants/data';
 
 const renderLinkItem = (data, classes) =>
   data.map((item) => (
@@ -30,17 +34,17 @@ const CommonQuestion = () => {
 
         <Grid container>
           <Grid style={{ display: 'flex' }} direction="column" item sm={6}>
-            {renderLinkItem(linkItemLeft, classes)}
+            {renderLinkItem(linkQuestionItemLeft, classes)}
           </Grid>
           <Grid style={{ display: 'flex' }} direction="column" item sm={6}>
-            {renderLinkItem(linkItemRight, classes)}
+            {renderLinkItem(linkQuestionItemRight, classes)}
           </Grid>
         </Grid>
 
         <Box display="flex" mt={2} justifyContent="center">
           <Button
             classes={{ label: classes.label, outlined: classes.outlined, root: classes.root }}
-            href="/"
+            href={LINK_ALL_QUESTION}
             variant="outlined"
           >
             Xem tất cả câu hỏi

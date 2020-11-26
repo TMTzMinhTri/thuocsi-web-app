@@ -5,7 +5,7 @@ import { makeStyles, Box } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import { image, settingsPartner } from '../../constants/data';
+import { imagePartnerSlider, settingsPartner } from '../../constants/data';
 
 const useStyles = makeStyles(() => ({
   center: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 const Partners = () => {
   const classes = useStyles();
   const ref = useRef({});
-  const partnerItem = image.map((item) => (
+  const partnerItem = imagePartnerSlider.map((item) => (
     <Image src={item.url} key={`partner-${item.id}`} width={item.width} height={item.height} />
   ));
 
