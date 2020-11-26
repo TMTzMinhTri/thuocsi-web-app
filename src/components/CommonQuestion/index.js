@@ -5,15 +5,12 @@ import LinkComp from '../LinkComp';
 import useStyles from './styles';
 import { linkItemLeft, linkItemRight } from '../../constants/data';
 
-const RenderLinkItem = (data) => {
-  const classes = useStyles();
-
-  return data.map((item) => (
+const renderLinkItem = (data, classes) =>
+  data.map((item) => (
     <LinkComp className={classes.link} href="/">
       {item.title}
     </LinkComp>
   ));
-};
 
 const CommonQuestion = () => {
   const classes = useStyles();
@@ -33,10 +30,10 @@ const CommonQuestion = () => {
 
         <Grid container>
           <Grid style={{ display: 'flex' }} direction="column" item sm={6}>
-            {RenderLinkItem(linkItemLeft)}
+            {renderLinkItem(linkItemLeft, classes)}
           </Grid>
           <Grid style={{ display: 'flex' }} direction="column" item sm={6}>
-            {RenderLinkItem(linkItemRight)}
+            {renderLinkItem(linkItemRight, classes)}
           </Grid>
         </Grid>
 
