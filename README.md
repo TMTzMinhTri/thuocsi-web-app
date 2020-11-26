@@ -32,6 +32,23 @@ Main public website, used for customer make order.
 
 - `yarn start`
 
+## Project Structure
+
+- `/assets` - Image, fonts, raw file ...
+- `/config` - Contains config file
+- `/public` - File Static Image , css ....
+- `/src` - Contains pages , clients , components , constants , styles , utils ...
+  - `/pages` - index , landing page
+  - `/components` - Component
+  - `/client` - Client request to server
+  - `/styles` - File css can import
+  - `/constants` - Data constants
+- `/test` - Contains test file
+
+## Architecture
+
+- Clients --> FE (NextJS - Pages ) --> /api (FE Nextjs) ---(proxy)--> BE ( Golang/ API Gateway )
+
 ## Pages
 
 - / --> ./src/index
@@ -48,7 +65,7 @@ import Layout from 'component/Layout';
     </Layout>
 ```
 
-### implement Mock API
+### Implement Mock API
 
 ```
  ./pages/api/mock/....
