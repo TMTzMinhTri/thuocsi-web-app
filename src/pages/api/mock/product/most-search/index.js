@@ -21,6 +21,18 @@ export default (req, res) => {
         id: 4,
         name: '#Rohto',
       },
+      {
+        id: 5,
+        name: '#Pfizer',
+      },
+      {
+        id: 6,
+        name: '#Greencross',
+      },
+      {
+        id: 7,
+        name: '#Catephill',
+      },
     ],
   });
 };

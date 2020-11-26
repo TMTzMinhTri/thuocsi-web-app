@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import OpacityIcon from '@material-ui/icons/Opacity';
 import CartIcon from '@material-ui/icons/AddShoppingCart';
 import StoreIcon from '@material-ui/icons/Storefront';
 import WhatShotIcon from '@material-ui/icons/Whatshot';
-import LinkStyledClass from '../../../constants/Styled/Link/index';
+import LinkStyledClass from '../../constants/Styled/Link/index';
 // comp
-import LinkComp from '../../LinkComp/index';
-import TagsComp from '../../Tags/index';
+import LinkComp from '../LinkComp/index';
+import TagsComp from '../Tags/index';
 
 const { LinkStyled } = LinkStyledClass;
 // background
@@ -17,6 +17,17 @@ const useStyle = makeStyles({
     padding: '10px',
     alignItems: 'center !important',
     background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
+    position: 'sticky',
+    top: 0,
+    zIndex: 500,
+  },
+  navbarShrinClass: {
+    padding: '10px',
+    alignItems: 'center !important',
+    background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
+    position: 'sticky',
+    top: 0,
+    zIndex: 500,
   },
   navBarContaint: {
     display: 'flex',
@@ -52,10 +63,12 @@ function renderMostSearched(data, classes) {
 }
 
 export default function Navbar({ mostResearched }) {
+  const [isShrink] = useState(false);
   const classes = useStyle();
   const mostSearchedEle = renderMostSearched(mostResearched, classes);
+  const navBarClass = isShrink ? classes.navbarClass : classes.navbarShrinClass;
   return (
-    <div className={classes.navbarClass}>
+    <div className={navBarClass}>
       <div className={classes.navBarContaint}>
         <LinkComp name="Sản phẩm" href="/" color="white" onMouseOver={onMouseOver}>
           <StoreIcon />

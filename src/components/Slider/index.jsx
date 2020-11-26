@@ -2,7 +2,15 @@ import React, { useRef } from 'react';
 import clsx from 'clsx';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import Slider from 'react-slick';
-import { Card, makeStyles, CardHeader, Avatar, CardContent, Typography, Box } from '@material-ui/core';
+import {
+  Card,
+  makeStyles,
+  CardHeader,
+  Avatar,
+  CardContent,
+  Typography,
+  Box,
+} from '@material-ui/core';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -78,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SliderComp = ({ feedback }) => {
   const classes = useStyles();
+
   const ref = useRef({});
 
   const settings = {
@@ -114,9 +123,7 @@ const SliderComp = ({ feedback }) => {
   const sliderItem = feedback.map((item) => (
     <Card key={`slider-${item.id}`} className={classes.root}>
       <CardHeader
-        avatar={
-          <Avatar src={item.avatar} aria-label="recipe" className={classes.large} />
-          }
+        avatar={<Avatar src={item.avatar} aria-label="recipe" className={classes.large} />}
         title={item.customer}
         subheader={item.title}
         className={classes.CardHeader}
@@ -126,7 +133,12 @@ const SliderComp = ({ feedback }) => {
         }}
       />
       <CardContent className={classes.cardContent}>
-        <Typography className={classes.commentStyle} variant="body2" color="textSecondary" component="p">
+        <Typography
+          className={classes.commentStyle}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
           <FormatQuoteIcon className={clsx(classes.rotate, classes.quote)} />
           {item.comment}
           <FormatQuoteIcon className={classes.quote} />
@@ -138,7 +150,9 @@ const SliderComp = ({ feedback }) => {
     <Box className={classes.wrapperMedia} component="div">
       <Box maxWidth="1140px" m="auto">
         <Box pt={5} pb={10}>
-          <Box className={classes.center} component="h2" fontWeight="fontWeightBold">Khách hàng nói gì về thuocsi</Box>
+          <Box className={classes.center} component="h2" fontWeight="fontWeightBold">
+            Khách hàng nói gì về thuocsi
+          </Box>
           <Slider ref={ref} {...settings}>
             {sliderItem}
           </Slider>

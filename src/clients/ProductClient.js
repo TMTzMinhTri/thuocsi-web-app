@@ -1,7 +1,7 @@
 import { API_HOST } from '../../config/index';
 
 async function loadDataMostSearch() {
-  const res = await fetch(`${API_HOST}/most-search`, {
+  const res = await fetch(`${API_HOST}/product/most-search`, {
     method: 'GET',
   });
   const result = await res.json();

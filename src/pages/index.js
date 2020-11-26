@@ -1,6 +1,5 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import LandingPage from '../components/LandingPage';
+import LandingPage from './landingpage/index';
 import ProductClient from '../clients/ProductClient';
 
 export async function getServerSideProps() {
@@ -10,10 +9,5 @@ export async function getServerSideProps() {
 }
 
 export default function Index({ mostResearched, feedback }) {
-  const title = 'Thuocsi.vn';
-  return (
-    <Layout title={title}>
-      <LandingPage mostResearched={mostResearched} feedback={feedback} />
-    </Layout>
-  );
+  return <LandingPage mostResearched={mostResearched} feedback={feedback} />;
 }
