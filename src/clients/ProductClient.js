@@ -1,18 +1,12 @@
-import { API_HOST } from '../../config/index';
+import { GET } from './Clients';
 
 async function loadDataMostSearch() {
-  const res = await fetch(`${API_HOST}/product/most-search`, {
-    method: 'GET',
-  });
-  const result = await res.json();
+  const result = await GET('/product/most-search');
   return result.data;
 }
 
 async function loadFeedback() {
-  const res = await fetch(`${API_HOST}/feedback`, {
-    method: 'GET',
-  });
-  const result = await res.json();
+  const result = await GET('/feedback');
   return result.data;
 }
 
