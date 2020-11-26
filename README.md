@@ -1,36 +1,53 @@
-# Web
+# BuyMed Web Application
 
-Main public website, used for customer make order
+Main public website, used for customer make order.
 
 ## Stack
 
-Nextjs with material design
+- Nextjs with material design
 
-[NextJs](https://nextjs.org/)
-[Material Design](https://material.io/components/app-bars-top)
-[Material Icon](https://material.io/resources/icons/?style=baseline)
+- [NextJs](https://nextjs.org/)
+- [Material Design](https://material.io/components/app-bars-top)
+- [Material Icon](https://material.io/resources/icons/?style=baseline)
 
 ## Install
 
-`yarn install` | `npm install`
+- `yarn install` | `npm install`
 
-`npm install:clean`
+- `npm install:clean`
 
 ## Run dev
 
-`yarn dev`
+- `yarn dev`
 
 ## Check eslint
 
-`yarn lint:check`
+- `yarn lint:check`
 
 ## Build
 
-`yarn build`
+- `yarn build`
 
 ## Start production
 
-`yarn start`
+- `yarn start`
+
+## Project Structure
+
+- `/assets` - Image, fonts, raw file ...
+- `/config` - Contains config file
+- `/public` - File Static Image , css ....
+- `/src` - Contains pages , clients , components , constants , styles , utils ...
+  - `/pages` - index , landing page
+  - `/components` - Component
+  - `/client` - Client request to server
+  - `/styles` - File css can import
+  - `/constants` - Data constants
+- `/test` - Contains test file
+
+## Architecture
+
+- Clients --> FE (NextJS - Pages ) --> /api (FE Nextjs) ---(proxy)--> BE ( Golang/ API Gateway )
 
 ## Pages
 
@@ -48,13 +65,13 @@ import Layout from 'component/Layout';
     </Layout>
 ```
 
-### implement Mock API
+### Implement Mock API
 
 ```
-./pages/api/mock/....
+ ./pages/api/mock/....
 ```
 
-[Document router API](https://nextjs.org/docs/api-routes/introduction)
+- [Document router API](https://nextjs.org/docs/api-routes/introduction)
 
 #### How to use mock API:
 

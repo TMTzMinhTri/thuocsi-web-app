@@ -7,7 +7,7 @@ import Footer from '../../components/Footer/index';
 import Media from '../../components/Media';
 import { SliderComp, CommonQuestion, Partners } from '../../components';
 
-export default function LandingPage({ mostResearched, feedback }) {
+export default function LandingPage({ mostResearched = [], feedback = [] }) {
   const title = 'Thuocsi.vn';
   return (
     <Layout title={title}>
