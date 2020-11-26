@@ -5,7 +5,7 @@ import Header from '../../components/Header/index';
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer/index';
 import Media from '../../components/Media';
-import SliderComp from '../../components/Slider';
+import { SliderComp, CommonQuestion, Partners } from '../../components';
 
 export default function LandingPage({ mostResearched = [], feedback = [] }) {
   const title = 'Thuocsi.vn';
@@ -14,6 +14,8 @@ export default function LandingPage({ mostResearched = [], feedback = [] }) {
       <Header />
       <NavBar mostResearched={mostResearched} />
       <div style={{ height: '800px' }} />
+      <Partners />
+      <CommonQuestion />
       <SliderComp feedback={feedback} />
       <Media />
       <Footer />
