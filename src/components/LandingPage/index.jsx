@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import Footer from '../Footer/index';
 import Media from '../Media';
 import SliderComp from '../Slider';
+import CommonQuestion from '../CommonQuestion';
 
 export default function LandingPage({ mostResearched, feedback }) {
   return (
@@ -12,6 +13,7 @@ export default function LandingPage({ mostResearched, feedback }) {
       <Header />
       <NavBar mostResearched={mostResearched} />
       <div style={{ height: '800px' }} />
+      <CommonQuestion />
       <SliderComp feedback={feedback} />
       <Media />
       <Footer />

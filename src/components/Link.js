@@ -8,9 +8,7 @@ import MuiLink from '@material-ui/core/Link';
 
 const NextComposed = React.forwardRef((props, ref) => {
   // eslint-disable-next-line react/prop-types
-  const {
-    as, href, replace, scroll, passHref, shallow, prefetch, ...other
-  } = props;
+  const { as, href, replace, scroll, passHref, shallow, prefetch, ...other } = props;
 
   return (
     <NextLink
