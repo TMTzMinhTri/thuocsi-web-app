@@ -3,14 +3,17 @@ import LandingPage from './landingpage/index';
 import ProductClient from '../clients/ProductClient';
 
 export async function getServerSideProps() {
-  const resultMostResearched = await ProductClient.loadDataMostSearch();
-  const resultFeedback = await ProductClient.loadFeedback();
-  const resultInfoBanner = await ProductClient.getInfoBanner();
+  const [mostResearched, feedback, infoBanner] = await Promise.all([
+    ProductClient.loadDataMostSearch(),
+    ProductClient.loadFeedback(),
+    ProductClient.getInfoBanner(),
+  ]);
+
   return {
     props: {
-      mostResearched: resultMostResearched,
-      feedback: resultFeedback,
-      infoBanner: resultInfoBanner,
+      mostResearched,
+      feedback,
+      infoBanner,
     },
   };
 }

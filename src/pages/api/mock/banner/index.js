@@ -8,7 +8,7 @@ export default (req, res) => {
       {
         id: '1',
         alt: 'Ngày Đái Tháo Đường 14.11',
-        image: '/images/slider/slider01.png)',
+        image: '/images/slider/slider01.png',
         link: '',
       },
       {
