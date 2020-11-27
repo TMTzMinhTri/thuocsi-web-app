@@ -43,6 +43,20 @@ export const settingsPartner = {
   ],
 };
 
+export const settingsSliderBanner = {
+  className: 'section-outstanding__slider',
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  dots: true,
+  dotsClass: 'slick-dots slick-thumb',
+  arrows: false,
+  infinite: true,
+  rows: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+  swipeToSlide: true,
+};
+
 export const linkQuestionItemLeft = [
   {
     id: 1,

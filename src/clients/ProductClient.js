@@ -10,7 +10,13 @@ async function loadFeedback() {
   return result.data;
 }
 
+async function getInfoBanner() {
+  const result = await GET('/banner');
+  return result.data;
+}
+
 export default {
   loadDataMostSearch,
   loadFeedback,
+  getInfoBanner,
 };

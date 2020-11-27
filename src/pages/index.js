@@ -5,9 +5,18 @@ import ProductClient from '../clients/ProductClient';
 export async function getServerSideProps() {
   const resultMostResearched = await ProductClient.loadDataMostSearch();
   const resultFeedback = await ProductClient.loadFeedback();
-  return { props: { mostResearched: resultMostResearched, feedback: resultFeedback } };
+  const resultInfoBanner = await ProductClient.getInfoBanner();
+  return {
+    props: {
+      mostResearched: resultMostResearched,
+      feedback: resultFeedback,
+      infoBanner: resultInfoBanner,
+    },
+  };
 }
 
-export default function Index({ mostResearched, feedback }) {
-  return <LandingPage mostResearched={mostResearched} feedback={feedback} />;
+export default function Index({ mostResearched, feedback, infoBanner }) {
+  return (
+    <LandingPage mostResearched={mostResearched} feedback={feedback} infoBanner={infoBanner} />
+  );
 }
