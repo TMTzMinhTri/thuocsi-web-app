@@ -1,0 +1,19 @@
+.banner_bg_img {
+    background-image: radial-gradient(circle, #f4f7fc 17%, #e0e8f7 100%);
+    background-color: #343a40;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    min-height: 530px;
+}
+
+.banner_img {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 100%;
+    min-height: 530px;
+    position: absolute;
+    top: 0;
+}

@@ -25,7 +25,7 @@ function LinkComp(props) {
 
   return (
     <Link href={href} className={classes.linkRoot} onMouseOver={onMouseOver}>
-      <a className={clsx(classes.root, className)} href="/">
+      <a className={clsx(classes.root, className)} href={href}>
         {children}
         <Typography variant={variant}>{name}</Typography>
       </a>

@@ -11,7 +11,7 @@ import {
 
 const renderLinkItem = (data, classes) =>
   data.map((item) => (
-    <LinkComp className={classes.link} href="/">
+    <LinkComp key={`question-${item.id}`} className={classes.link} href={item.href}>
       {item.title}
     </LinkComp>
   ));
@@ -33,10 +33,10 @@ const CommonQuestion = () => {
         </Box>
 
         <Grid container>
-          <Grid style={{ display: 'flex' }} direction="column" item sm={6}>
+          <Grid container style={{ display: 'flex' }} direction="column" item sm={6}>
             {renderLinkItem(linkQuestionItemLeft, classes)}
           </Grid>
-          <Grid style={{ display: 'flex' }} direction="column" item sm={6}>
+          <Grid container style={{ display: 'flex' }} direction="column" item sm={6}>
             {renderLinkItem(linkQuestionItemRight, classes)}
           </Grid>
         </Grid>
