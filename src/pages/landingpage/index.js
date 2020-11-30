@@ -5,7 +5,7 @@ import Header from '../../components/Header/index';
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer/index';
 import Media from '../../components/Media';
-import { SliderComp, CommonQuestion, Partners } from '../../components';
+import { SliderComp, CommonQuestion, Partners, WhyBuymed } from '../../components';
 import BannerSlider from '../../components/BannerSlider';
 
 export default function LandingPage({ mostResearched = [], feedback = [], infoBanner = [] }) {
@@ -15,6 +15,7 @@ export default function LandingPage({ mostResearched = [], feedback = [], infoBa
       <Header />
       <NavBar mostResearched={mostResearched} />
       <BannerSlider infoBanner={infoBanner} />
+      <WhyBuymed />
       <CommonQuestion />
       <Partners />
       <SliderComp feedback={feedback} />

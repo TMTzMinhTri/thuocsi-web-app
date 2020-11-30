@@ -51,7 +51,7 @@ a {
 }
 
 .slick-dots {
-  bottom: 25px;
+  bottom: 25px!important;
 }
 
 .slick-list {

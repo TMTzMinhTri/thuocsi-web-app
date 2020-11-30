@@ -1,0 +1,20 @@
+.global_style {
+    padding: 3rem 0;
+    background-color: #343a40;
+    color: #f4f7fc;
+    font-size: 16px;
+}
+
+.primary_color {
+    color: #00b46e
+}
+
+.bolder {
+    font-weight: bolder;
+}
+
+.footer_delivery {
+    height: 2rem;
+    background-color: #fff;
+    border-radius: 5px;
+}
