@@ -4,8 +4,8 @@ import { Box } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import { settingsSliderBanner } from '../../constants/data';
-import useDragDetection from '../../hooks/useDragDetection';
+import { settingsSliderBanner } from '../../../constants/data';
+import { useDragDetection } from '../../../hooks';
 import styles from './styles.module.css';
 
 const BannerSlider = ({ infoBanner }) => {
@@ -17,21 +17,25 @@ const BannerSlider = ({ infoBanner }) => {
     }
   };
   const sliderItem = infoBanner.map((item) => {
-    // eslint-disable-next-line operator-linebreak
-    const checkCondition =
-      item.link.length > 0 ? (
-        <a alt={item.alt} title={item.alt} href={item.link}>
-          <Box position="relative">
-            <Box className={styles.banner_bg_img} />
-            <Box style={{ backgroundImage: `url(${item.image})` }} className={styles.banner_img} />
-          </Box>
-        </a>
-      ) : (
-        <Box position="relative">
-          <Box className={styles.banner_bg_img} />
-          <Box style={{ backgroundImage: `url(${item.image})` }} className={styles.banner_img} />
-        </Box>
-      );
+    const { link, image, alt } = item;
+    const urlImage = `url(${image})`;
+    const ItemBox = () => (
+      <Box position="relative">
+        <Box className={styles.banner_bg_img} />
+        <Box style={{ backgroundImage: urlImage }} className={styles.banner_img} />
+      </Box>
+    );
+
+    const checkCondition = () => {
+      if (link && link.length > 0) {
+        return (
+          <a alt={alt} title={alt} href={link}>
+            {ItemBox}
+          </a>
+        );
+      }
+      return ItemBox;
+    };
 
     return (
       <div

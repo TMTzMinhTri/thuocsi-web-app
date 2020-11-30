@@ -31,4 +31,4 @@ function ButtonLandingPage(props) {
   );
 }
 
-export default ButtonLandingPage;
+export default React.memo(ButtonLandingPage);
