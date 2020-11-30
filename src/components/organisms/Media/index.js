@@ -10,7 +10,7 @@ import {
   LOGO_E27,
   LOGO_FORBES,
   LOGO_INVESTGLOBAL,
-} from '../../../constants/Images';
+} from '../../../constants';
 
 import useStyles from './style';
 
@@ -33,7 +33,7 @@ const Media = () => {
             <Image src={LOGO_TCCS} width="162" height="99" />
           </Grid>
           <Grid className={classes.hoverLink} item xs={3}>
-            <Image src={LOGO_PITCHPALACE} width="182" height="190" />
+            <Image src={LOGO_PITCHPALACE} width="182" height="190" />ý
           </Grid>
           <Grid className={classes.hoverLink} item xs={3}>
             <Image src={LOGO_NTTDATA} width="166" height="203" />

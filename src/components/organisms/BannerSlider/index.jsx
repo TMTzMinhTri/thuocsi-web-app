@@ -8,6 +8,24 @@ import { settingsSliderBanner } from '../../../constants/data';
 import { useDragDetection } from '../../../hooks';
 import styles from './styles.module.css';
 
+const checkCondition = ({ link, image, alt }) => {
+  const urlImage = `url(${image})`;
+  const ItemBox = (
+    <Box position="relative">
+      <Box className={styles.banner_bg_img} />
+      <Box style={{ backgroundImage: urlImage }} className={styles.banner_img} />
+    </Box>
+  );
+  if (link && link.length > 0) {
+    return (
+      <a alt={alt} title={alt} href={link}>
+        {ItemBox}
+      </a>
+    );
+  }
+  return ItemBox;
+};
+
 const BannerSlider = ({ infoBanner }) => {
   const { handleMouseDown, dragging } = useDragDetection();
   const ref = useRef({});
@@ -16,34 +34,16 @@ const BannerSlider = ({ infoBanner }) => {
       e.preventDefault();
     }
   };
+
   const sliderItem = infoBanner.map((item) => {
-    const { link, image, alt } = item;
-    const urlImage = `url(${image})`;
-    const ItemBox = () => (
-      <Box position="relative">
-        <Box className={styles.banner_bg_img} />
-        <Box style={{ backgroundImage: urlImage }} className={styles.banner_img} />
-      </Box>
-    );
-
-    const checkCondition = () => {
-      if (link && link.length > 0) {
-        return (
-          <a alt={alt} title={alt} href={link}>
-            {ItemBox}
-          </a>
-        );
-      }
-      return ItemBox;
-    };
-
+    const itemSlider = checkCondition(item);
     return (
       <div
         key={`slider-${item.id}`}
         onMouseDownCapture={handleMouseDown}
         onClickCapture={handleChildClick}
       >
-        {checkCondition}
+        {itemSlider}
       </div>
     );
   });

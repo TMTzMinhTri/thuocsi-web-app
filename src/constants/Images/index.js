@@ -24,11 +24,7 @@ export const LINK_REGISTER = 'http://online.gov.vn/HomePage/WebsiteDisplay.aspx?
 export const LINK_APPLESTORE = 'https://apps.apple.com/vn/app/thuocsi/id1518730923';
 export const LINK_GOOGLEPLAY = `${process.env.LINK_GOOGLEPLAY}`;
 export const LINK_LICENSE = `${process.env.LINK_LICENSE}`;
-// OTHER
-const LOGO_THUOCSI_SVG = '/images/logo_thuocsi.svg';
-const FAVICON_DEFAULT = '/images/favicon.ico';
 
-export default {
-  LOGO_THUOCSI_SVG,
-  FAVICON_DEFAULT,
-};
+// OTHER
+export const LOGO_THUOCSI_SVG = '/images/logo_thuocsi.svg';
+export const FAVICON_DEFAULT = '/images/favicon.ico';
