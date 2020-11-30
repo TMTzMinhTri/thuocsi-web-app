@@ -10,7 +10,7 @@ import {
   LOGO_E27,
   LOGO_FORBES,
   LOGO_INVESTGLOBAL,
-} from '../../constants/Images';
+} from '../../../constants/Images';
 
 import useStyles from './style';
 

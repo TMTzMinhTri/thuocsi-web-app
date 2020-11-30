@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Tags(props) {
+function Tag(props) {
   const { name } = props;
   const classes = useStyles();
   return <Card className={classes.root}>{name}</Card>;
 }
 
-export default Tags;
+export default React.memo(Tag);

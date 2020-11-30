@@ -5,7 +5,7 @@ import { makeStyles, Box } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import { imagePartnerSlider, settingsPartner } from '../../constants/data';
+import { imagePartnerSlider, settingsPartner } from '../../../constants/data';
 
 const useStyles = makeStyles(() => ({
   center: {
@@ -42,4 +42,4 @@ const Partners = () => {
   );
 };
 
-export default Partners;
+export default React.memo(Partners);

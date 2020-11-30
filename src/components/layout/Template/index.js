@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import Footer from './Footer';
+import Footer from '../../organisms/Footer';
 
 export default function Layout({ title, children }) {
   return (
