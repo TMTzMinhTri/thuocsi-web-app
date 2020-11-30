@@ -24,7 +24,7 @@ import {
   LOGO_APPSTORE,
   LOGO_FOOTER_REGISTER,
   LOGO_FOOTER_SVG,
-} from '../../../constants/Images';
+} from '../../../constants';
 
 import Copyright from '../../mocules/Copyright';
 
