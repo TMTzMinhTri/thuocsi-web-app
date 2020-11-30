@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalComponent({ children, open, handleClose }) {
+function ModalComponent({ children, open, handleClose }) {
   const classes = useStyles();
 
   return (
@@ -38,3 +38,5 @@ export default function ModalComponent({ children, open, handleClose }) {
     </Modal>
   );
 }
+
+export default React.memo(ModalComponent);

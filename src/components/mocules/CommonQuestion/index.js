@@ -1,12 +1,11 @@
 import React from 'react';
 import { Box, Grid, Button } from '@material-ui/core';
-
-import LinkComp from '../LinkComp';
+import { LinkComp } from '../../atoms';
 import {
   linkQuestionItemRight,
   linkQuestionItemLeft,
   LINK_ALL_QUESTION,
-} from '../../constants/data';
+} from '../../../constants/data';
 import styles from './styles.module.css';
 
 const renderLinkItem = (data) =>

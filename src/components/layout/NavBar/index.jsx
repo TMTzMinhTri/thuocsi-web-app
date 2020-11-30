@@ -5,10 +5,10 @@ import OpacityIcon from '@material-ui/icons/Opacity';
 import CartIcon from '@material-ui/icons/AddShoppingCart';
 import StoreIcon from '@material-ui/icons/Storefront';
 import WhatShotIcon from '@material-ui/icons/Whatshot';
-import LinkStyledClass from '../../constants/Styled/Link/index';
+import LinkStyledClass from '../../../constants/Styled/Link/index';
 // comp
-import LinkComp from '../LinkComp/index';
-import TagsComp from '../Tags/index';
+// import { LinkComp, TagComp } from '../..';
+import { LinkComp, TagComp } from '../../atoms';
 
 const { LinkStyled } = LinkStyledClass;
 // background
@@ -50,7 +50,7 @@ function renderMostSearched(data, classes) {
   }
 
   const listItems = data.map(({ name, id }) => (
-    <TagsComp name={name} key={`tags-${id}`} href="/" color="white" />
+    <TagComp name={name} key={`tags-${id}`} href="/" color="white" />
   ));
   return (
     <div className={classes.navBarContaint}>
@@ -62,7 +62,7 @@ function renderMostSearched(data, classes) {
   );
 }
 
-export default function Navbar({ mostResearched }) {
+export default function NavBar({ mostResearched }) {
   const [isShrink] = useState(false);
   const classes = useStyle();
   const mostSearchedEle = renderMostSearched(mostResearched, classes);
@@ -82,7 +82,7 @@ export default function Navbar({ mostResearched }) {
           <CartIcon />
         </LinkComp>
 
-        <LinkComp name="   Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
+        <LinkComp name="Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
           <WhatShotIcon />
         </LinkComp>
 
