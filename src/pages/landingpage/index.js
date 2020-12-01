@@ -7,10 +7,10 @@ import {
   Template,
   NavBar,
   Media,
-  Footer,
   Header,
   BannerSlider,
-} from '../../components';
+  WhyBuymed,
+} from 'components';
 
 export default function LandingPage({ mostResearched = [], feedback = [], infoBanner = [] }) {
   const title = 'Thuocsi.vn';
@@ -19,11 +19,11 @@ export default function LandingPage({ mostResearched = [], feedback = [], infoBa
       <Header />
       <NavBar mostResearched={mostResearched} />
       <BannerSlider infoBanner={infoBanner} />
+      <WhyBuymed />
       <CommonQuestion />
       <Partners />
       <SliderComp feedback={feedback} />
       <Media />
-      <Footer />
     </Template>
   );
 }

@@ -50,8 +50,8 @@ a {
   display: none;
 }
 
-.slick-dots {
-  bottom: 25px;
+.slick-thumb {
+  bottom: 25px!important;
 }
 
 .slick-list {

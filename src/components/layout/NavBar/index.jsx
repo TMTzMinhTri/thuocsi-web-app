@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import OpacityIcon from '@material-ui/icons/Opacity';
-import CartIcon from '@material-ui/icons/AddShoppingCart';
-import StoreIcon from '@material-ui/icons/Storefront';
-import WhatShotIcon from '@material-ui/icons/Whatshot';
-import LinkStyledClass from '../../../constants/Styled/Link/index';
+import { LocalOffer, Opacity, AddShoppingCart, Storefront, Whatshot } from '@material-ui/icons';
+import LinkStyledClass from 'constants/Styled/Link/index';
 // comp
-// import { LinkComp, TagComp } from '../..';
 import { LinkComp, TagComp } from '../../atoms';
 
 const { LinkStyled } = LinkStyledClass;
@@ -71,23 +66,23 @@ export default function NavBar({ mostResearched }) {
     <div className={navBarClass}>
       <div className={classes.navBarContaint}>
         <LinkComp name="Sản phẩm" href="/" color="white" onMouseOver={onMouseOver}>
-          <StoreIcon />
+          <Storefront />
         </LinkComp>
 
         <LinkComp name="Hoạt Chất" href="/" color="white" onMouseOver={onMouseOver}>
-          <OpacityIcon />
+          <Opacity />
         </LinkComp>
 
         <LinkComp name="Đặt Hàng Nhanh" href="/" color="white" onMouseOver={onMouseOver}>
-          <CartIcon />
+          <AddShoppingCart />
         </LinkComp>
 
-        <LinkComp name="   Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
-          <WhatShotIcon />
+        <LinkComp name="Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
+          <Whatshot />
         </LinkComp>
 
         <LinkComp name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
-          <LocalOfferIcon />
+          <LocalOffer />
         </LinkComp>
       </div>
       {mostSearchedEle}

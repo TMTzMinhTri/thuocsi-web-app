@@ -4,7 +4,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import FontSize from '../../../constants/Styled/FontSize/index';
+import FontSize from 'constants/Styled/FontSize/index';
 
 const useStyles = makeStyles({
   linkRoot: {
