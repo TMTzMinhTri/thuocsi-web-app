@@ -32,7 +32,10 @@
         "map": [
           ["components", "./src/components"],
           ["hooks", "./src/hooks"],
-          ["constants", "./src/constants"]
+          ["constants", "./src/constants"],
+          ["clients", "./src/clients"],
+          ["pages", "./src/pages"],
+          ["styles", "./src/styles"]
         ]
       }
     }
