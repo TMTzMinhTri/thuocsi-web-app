@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Grid } from '@material-ui/core';
 import { Group, HighQuality, LocalShippingOutlined, NewReleases } from '@material-ui/icons';
+
 import styles from './style.module.css';
 
 const WhyBuymed = () => (

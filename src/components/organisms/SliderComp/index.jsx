@@ -10,11 +10,10 @@ import {
   Typography,
   Box,
 } from '@material-ui/core';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 import { settingsCustomer } from 'constants/data';
+
 import styles from './styles.module.css';
 
 const SliderComp = ({ feedback }) => {
