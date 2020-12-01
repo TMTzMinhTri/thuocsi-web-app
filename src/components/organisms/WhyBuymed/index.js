@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Grid } from '@material-ui/core';
-import { HighQuality, LocalShippingOutlinedIcon, NewReleases } from '@material-ui/icons';
-import Group from '@material-ui/icons/Group';
+import { Group, HighQuality, LocalShippingOutlined, NewReleases } from '@material-ui/icons';
 import styles from './style.module.css';
 
 const WhyBuymed = () => (
@@ -36,7 +35,7 @@ const WhyBuymed = () => (
         </Grid>
         <Grid className={styles.reason_item} item md={3}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12}>
-            <LocalShippingOutlinedIcon style={{ fontSize: 110, color: '#fff' }} />
+            <LocalShippingOutlined style={{ fontSize: 110, color: '#fff' }} />
           </Grid>{' '}
           <Grid className={styles.reason_content} item md={12}>
             <Box fontSize="18px" fontWeight="fontWeightBold" color="#fff">

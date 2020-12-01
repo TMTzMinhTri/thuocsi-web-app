@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Box, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Facebook, EmailOutlined, Call } from '@material-ui/icons/Facebook';
+import { Facebook, EmailOutlined, Call } from '@material-ui/icons';
 import clsx from 'clsx';
 
 import {
@@ -11,7 +11,7 @@ import {
   LOGO_MOBILE,
   LOGO_GOOGLEPLAY,
   LOGO_APPSTORE,
-} from 'constants';
+} from 'constants/Images';
 import styles from '../styles.module.css';
 
 const FooterRightItem = () => (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import { LocalOfferIcon, OpacityIcon, CartIcon, StoreIcon, WhatShotIcon } from '@material-ui/icons/LocalOffer';
+import { LocalOffer, Opacity, AddShoppingCart, Storefront, Whatshot } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
@@ -66,23 +66,23 @@ export default function NavBar({ mostResearched }) {
     <div className={navBarClass}>
       <div className={classes.navBarContaint}>
         <LinkComp name="Sản phẩm" href="/" color="white" onMouseOver={onMouseOver}>
-          <StoreIcon />
+          <Storefront />
         </LinkComp>
 
         <LinkComp name="Hoạt Chất" href="/" color="white" onMouseOver={onMouseOver}>
-          <OpacityIcon />
+          <Opacity />
         </LinkComp>
 
         <LinkComp name="Đặt Hàng Nhanh" href="/" color="white" onMouseOver={onMouseOver}>
-          <CartIcon />
+          <AddShoppingCart />
         </LinkComp>
 
         <LinkComp name="Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
-          <WhatShotIcon />
+          <Whatshot />
         </LinkComp>
 
         <LinkComp name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
-          <LocalOfferIcon />
+          <LocalOffer />
         </LinkComp>
       </div>
       {mostSearchedEle}

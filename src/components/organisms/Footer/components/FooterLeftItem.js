@@ -14,7 +14,7 @@ import {
   LOGO_NINJA,
   LOGO_FOOTER_REGISTER,
   LOGO_FOOTER_SVG,
-} from 'constants';
+} from 'constants/Images';
 import styles from '../styles.module.css';
 
 const FooterLeftItem = () => (

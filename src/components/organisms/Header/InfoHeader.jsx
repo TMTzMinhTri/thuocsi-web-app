@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { CardTravel, House, NewReleases } from '@material-ui/icons';
-import { LOGO_THUOCSI_SVG, PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants';
+import { LOGO_THUOCSI, PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from '../../../constants';
 import { ButtonLandingPage, LinkComp } from '../../atoms';
 
 import styles from './styles.module.css';
@@ -29,7 +29,7 @@ export default function InfoHeader() {
       </div>
       <div className={styles.login}>
         <div className={styles.logo}>
-          <Image src={LOGO_THUOCSI_SVG} width="164px" height="45px" />
+          <Image src={LOGO_THUOCSI} width="164px" height="45px" />
         </div>
 
         <div className={styles.div_buttons}>
