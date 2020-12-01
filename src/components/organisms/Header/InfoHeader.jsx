@@ -1,9 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { CardTravel, House, NewReleases } from '@material-ui/icons';
-import { LOGO_THUOCSI, PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from '../../../constants';
-import { ButtonLandingPage, LinkComp } from '../../atoms';
+import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
+import { LOGO_THUOCSI } from 'constants/Images';
 
+import { ButtonLandingPage, LinkComp } from '../../atoms';
 import styles from './styles.module.css';
 
 export default function InfoHeader() {

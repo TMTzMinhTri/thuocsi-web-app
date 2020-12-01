@@ -4,8 +4,8 @@ import Slider from 'react-slick';
 import { Box } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 import { imagePartnerSlider, settingsPartner } from 'constants/data';
+
 import styles from './styles.module.css';
 
 const Partners = () => {
