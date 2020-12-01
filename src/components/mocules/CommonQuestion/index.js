@@ -1,11 +1,7 @@
 import React from 'react';
 import { Box, Grid, Button } from '@material-ui/core';
+import { linkQuestionItemRight, linkQuestionItemLeft, LINK_ALL_QUESTION } from 'constants/data';
 import { LinkComp } from '../../atoms';
-import {
-  linkQuestionItemRight,
-  linkQuestionItemLeft,
-  LINK_ALL_QUESTION,
-} from '../../../constants/data';
 import styles from './styles.module.css';
 
 const renderLinkItem = (data) =>
@@ -16,7 +12,7 @@ const renderLinkItem = (data) =>
   ));
 
 const CommonQuestion = () => (
-  <Box py={5} className={styles.Wrapper}>
+  <Box py={5} className={styles.wrapper}>
     <Box maxWidth="1140px" m="auto">
       <Box
         className={styles.center}

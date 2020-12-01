@@ -12,12 +12,55 @@ export const imagePartnerSlider = [
   { id: 11, url: '/images/partner/logo_vpc.jpg', width: '185px', height: '185px' },
 ];
 
+export const imageMediaTop = [
+  { id: 1, url: '/images/media/logo_seedstar.png', width: '168px', height: '76px' },
+  { id: 2, url: '/images/media/logo_tccs.png', width: '162px', height: '99px' },
+  { id: 3, url: '/images/media/logo_pitchpalace.png', width: '182px', height: '190px' },
+  { id: 4, url: '/images/media/logo_nttdata.png', width: '166px', height: '203x' },
+];
+
+export const imageMediaBottom = [
+  { id: 1, url: '/images/media/logo_echelon.png', width: '165px', height: '103px', dark: true },
+  { id: 2, url: '/images/media/logo_investglobal.png', width: '166px', height: '166px' },
+  { id: 3, url: '/images/media/logo_forbes.png', width: '166px', height: '94px' },
+  { id: 4, url: '/images/media/logo_e27.png', width: '166px', height: '166px' },
+];
+
+export const settingsCustomer = {
+  className: 'section-outstanding__slider',
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  dots: true,
+  dotsClass: 'slick-dots slick-client',
+  arrows: false,
+  infinite: true,
+  rows: 1,
+  autoplay: true,
+  autoplaySpeed: 2000,
+  responsive: [
+    {
+      breakpoint: 1198,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        rows: 1,
+      },
+    },
+    {
+      breakpoint: 576,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        rows: 1,
+      },
+    },
+  ],
+};
+
 export const settingsPartner = {
   className: 'section-outstanding__slider',
   slidesToShow: 6,
   slidesToScroll: 1,
-  dots: true,
-  dotsClass: 'slick-dots slick-thumb',
   arrows: false,
   infinite: true,
   rows: 1,

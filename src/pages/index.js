@@ -1,6 +1,6 @@
 import React from 'react';
+import ProductClient from 'clients/ProductClient';
 import LandingPage from './landingpage/index';
-import ProductClient from '../clients/ProductClient';
 
 export async function getServerSideProps() {
   const [mostResearched, feedback, infoBanner] = await Promise.all([

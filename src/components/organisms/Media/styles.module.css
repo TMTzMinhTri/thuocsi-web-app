@@ -1,0 +1,23 @@
+.media_wrapper {
+    margin-top: 48px!important;
+    margin-bottom: 48px!important;
+}
+
+.dark {
+    background-color: #343a40;
+}
+
+.container {
+    max-width: 50rem!important;
+    margin: 0 auto!important;
+}
+
+.hover_link {
+    will-change: transform;
+    transition: transform 0.2s;
+}
+
+.hover_link:hover {
+    transform-origin: center center;
+    transform: scale(1.1, 1.1)
+}
