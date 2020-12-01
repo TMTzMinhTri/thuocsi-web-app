@@ -1,0 +1,41 @@
+ .header_info {
+     background-color: #f4f7fc;
+     justify-content: flex-end !important;
+     align-items: center !important;
+     display: flex;
+     height: 32px;
+     padding-right: 32px;
+ }
+
+ .link {
+     padding: 5px;
+ }
+
+ .no_decoration {
+     text-decoration: none;
+     font-size: 12px;
+ }
+
+ .small_button {
+     font-size: fontSize;
+     padding: 3px;
+ }
+
+ .login {
+     padding: 15px!important;
+     display: flex;
+     justify-content: space-between !important;
+     align-items: center;
+ }
+
+ .logo {
+     padding: 15px;
+ }
+
+ .div_buttons {
+     padding: 15px;
+ }
+
+ .buttons {
+     padding: 15px;
+ }
