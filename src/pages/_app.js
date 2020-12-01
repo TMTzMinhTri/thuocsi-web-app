@@ -10,6 +10,7 @@ import '../styles/globals.css';
 export default function MyApp(props) {
   const { Component, pageProps } = props;
 
+  // config https://material-ui.com/guides/server-rendering/
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
