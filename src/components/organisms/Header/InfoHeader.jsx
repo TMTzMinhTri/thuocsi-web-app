@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { CardTravel, House, NewReleases } from '@material-ui/icons';
+import { LOGO_THUOCSI_SVG, PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants';
 import { ButtonLandingPage, LinkComp } from '../../atoms';
 
-import { LOGO_THUOCSI_SVG, PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from '../../../constants';
 import styles from './styles.module.css';
 
 export default function InfoHeader() {

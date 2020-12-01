@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Grid, Box } from '@material-ui/core';
 import Image from 'next/image';
 
-import { imageMediaTop, imageMediaBottom } from '../../../constants/data';
+import { imageMediaTop, imageMediaBottom } from 'constants/data';
 import styles from './styles.module.css';
 
 const renderMediaItem = (data) =>

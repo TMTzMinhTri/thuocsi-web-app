@@ -14,8 +14,8 @@ import {
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { settingsCustomer } from 'constants/data';
 import styles from './styles.module.css';
-import { settingsCustomer } from '../../../constants/data';
 
 const SliderComp = ({ feedback }) => {
   const ref = useRef({});

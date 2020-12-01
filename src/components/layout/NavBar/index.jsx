@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import OpacityIcon from '@material-ui/icons/Opacity';
-import CartIcon from '@material-ui/icons/AddShoppingCart';
-import StoreIcon from '@material-ui/icons/Storefront';
-import WhatShotIcon from '@material-ui/icons/Whatshot';
-import LinkStyledClass from '../../../constants/Styled/Link/index';
+import { LocalOfferIcon, OpacityIcon, CartIcon, StoreIcon, WhatShotIcon } from '@material-ui/icons/LocalOffer';
+import LinkStyledClass from 'constants/Styled/Link/index';
 // comp
-// import { LinkComp, TagComp } from '../..';
 import { LinkComp, TagComp } from '../../atoms';
 
 const { LinkStyled } = LinkStyledClass;

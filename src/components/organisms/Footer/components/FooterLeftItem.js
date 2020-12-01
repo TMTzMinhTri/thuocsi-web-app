@@ -3,7 +3,6 @@ import { Grid, Box, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import styles from '../styles.module.css';
 import {
   LINK_LICENSE,
   LINK_REGISTER,
@@ -15,7 +14,8 @@ import {
   LOGO_NINJA,
   LOGO_FOOTER_REGISTER,
   LOGO_FOOTER_SVG,
-} from '../../../../constants';
+} from 'constants';
+import styles from '../styles.module.css';
 
 const FooterLeftItem = () => (
   <Grid item xs={6}>

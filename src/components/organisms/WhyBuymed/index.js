@@ -1,8 +1,6 @@
 import React from 'react';
 import { Box, Grid } from '@material-ui/core';
-import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined';
-import HighQuality from '@material-ui/icons/HighQuality';
-import NewReleases from '@material-ui/icons/NewReleases';
+import { HighQuality, LocalShippingOutlinedIcon, NewReleases } from '@material-ui/icons';
 import Group from '@material-ui/icons/Group';
 import styles from './style.module.css';
 
