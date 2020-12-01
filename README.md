@@ -8,7 +8,10 @@ Main public website, used for customer make order.
 
 - [NextJs](https://nextjs.org/)
 - [Material Design](https://material.io/components/app-bars-top)
+- [NextJs & Material Config ](https://material-ui.com/guides/server-rendering/)
 - [Material Icon](https://material.io/resources/icons/?style=baseline)
+- [Atomic-Design Chappter 1](https://atomicdesign.bradfrost.com/chapter-1/)
+- [Atomic-Design Chappter 2](https://atomicdesign.bradfrost.com/chapter-2/)
 
 ## Install
 
@@ -40,6 +43,10 @@ Main public website, used for customer make order.
 - `/src` - Contains pages , clients , components , constants , styles , utils ...
   - `/pages` - index , landing page
   - `/components` - Component
+    - `atoms` - Document Atomic designs [Link](https://atomicdesign.bradfrost.com/chapter-1/)
+    - `mocules` - Document Atomic designs [Link](https://atomicdesign.bradfrost.com/chapter-1/)
+    - `organisms` - Document Atomic designs [Link](https://atomicdesign.bradfrost.com/chapter-1/)
+    - `layout` - Document Atomic designs [Link](https://atomicdesign.bradfrost.com/chapter-1/)
   - `/client` - Client request to server
   - `/styles` - File css can import
   - `/constants` - Data constants

@@ -17,6 +17,7 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.9.1",
     "clsx": "latest",
+    "eslint-import-resolver-alias": "^1.1.2",
     "next": "latest",
     "pre-commit": "^1.2.2",
     "prop-types": "latest",
