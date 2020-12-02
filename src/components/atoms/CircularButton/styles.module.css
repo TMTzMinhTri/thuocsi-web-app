@@ -1,4 +1,4 @@
-.root {
+.button_root {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,57 +22,4 @@
 .icon {
     font-size: 1.3rem!important;
     font-weight: bold;
-}
-
-
-
-
-
-
-
-
-
-.root_input {
-    height: 1.5rem;
-    margin-left: 0.25em;
-    margin-right: 0.25em;
-    font-weight: 500;
-    font-size: 1rem;
-    background-color: white;
-    color: #f9b514!important;
-    min-width: 0;
-    border-radius: 0.25rem!important;
-    border: 1px solid #ced4da!important; 
-}
-
-.input {
-    text-align: center;
-    font-weight: bold!important;
-}
-
-.focus {
-    border: 1px solid #35ffb0!important;
-    box-shadow: 0 0 0 0.2rem rgb(0 180 110 / 25%)!important;
-    color: #495057!important;
-    outline: 0!important;
-    border-color: transparent !important;
-}
-
-
-
-
-
-
-
-.product_price {
-    color: #00b46e;
-    font-weight: 500;
-    display: inline-block;
-}
-
-.product_old_price {
-    color: #919aa3;
-    font-size: 0.75em;
-    text-decoration: line-through;
-    display: inline-block;
 }
