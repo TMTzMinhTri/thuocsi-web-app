@@ -18,26 +18,26 @@ const TagTypeProps = {
     color: '#fff',
     icon: <ThumbUp className={styles.icon} />,
   },
-  INVOICE_EXPORTABLE: {
+  EXPORTABLE_INVOICE: {
     text: 'Hóa đơn nhanh',
     backgroundColor: '#f8f9fa',
     color: '#00b46e',
     icon: <Receipt className={styles.icon} />,
   },
-  CLOSE_DATE: {
+  CLOSE_TO_EXPIRED_DATE: {
     text: 'Cận date: ',
     backgroundColor: '#f8f9fa',
     color: '#00b46e',
     icon: <Receipt className={styles.icon} />,
   },
 
-  PROMOTE: {
+  PROMOTION: {
     text: 'Khuyến mãi',
     backgroundColor: '#dc3545',
     color: '#fff',
   },
 
-  USE_VIETNAMSE: {
+  USE_VIETNAMSE_PRODUCT: {
     text: 'Người Việt dùng hàng Việt',
     backgroundColor: '#f8f9fa',
     color: '#00b46e',
