@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlusButton, MinusButton, Ribbon } from 'components';
+import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components';
 import TagType from 'components/mocules/TagType';
 import getFormattedDate from 'utils/DateTimeUtils';
 
@@ -7,7 +7,8 @@ const date = getFormattedDate(new Date());
 
 const test = () => (
   <>
-    <Ribbon />
+    <RibbonPriceUp />
+    <RibbonPriceDown />
     <PlusButton />
     <MinusButton />
     <TagType type="BEST_SELLER" />
