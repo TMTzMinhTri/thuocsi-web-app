@@ -50,7 +50,7 @@
     border-right-color: #f9b514;
 }
 
-.ribbon.price_up::after {
+.ribbon.price_down::after {
     border-left-color: #dc3545;
     border-right-color: #dc3545;
 }
