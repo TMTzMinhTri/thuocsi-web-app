@@ -7,3 +7,4 @@ export { default as MinusButton } from './CircularButton/MinusButton';
 export { default as CustomButton } from './Button';
 export { default as Tag } from './Tag';
 export { default as InputComp } from './Input';
+export { default as Ribbon } from './Ribbon/RibbonPriceUp';
