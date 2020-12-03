@@ -25,7 +25,7 @@ const TagTypeProps = {
     icon: <Receipt className={styles.icon} />,
   },
   CLOSE_TO_EXPIRED_DATE: {
-    text: 'Cận date: ',
+    text: 'Cận date',
     backgroundColor: '#f8f9fa',
     color: '#00b46e',
     icon: <Receipt className={styles.icon} />,
