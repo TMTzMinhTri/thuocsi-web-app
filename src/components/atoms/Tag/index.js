@@ -8,7 +8,7 @@ const Tag = ({ backgroundColor, text, color, icon, date = null }) => (
     {icon}
     <Typography className={styles.text}>
       {text}
-      {date}
+      {date && `: ${date}`}
     </Typography>
   </Box>
 );

@@ -1,4 +1,6 @@
-.button_root {
+.icon {
+    font-size: 1.3rem!important;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;

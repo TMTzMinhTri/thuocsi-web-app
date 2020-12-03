@@ -1,14 +1,14 @@
 import React from 'react';
 import { CircularButton } from 'components';
 import TagType from 'components/mocules/TagType';
-import getFormattedDate from 'constants/Utils/DateUtils';
+import getFormattedDate from 'utils/DateTimeUtils';
 
 const date = getFormattedDate(new Date());
 
 const test = () => (
   <>
-    <CircularButton />
-    <CircularButton plus />
+    <CircularButton type="PLUS" />
+    <CircularButton type="MINUS" />
     <TagType type="BEST_SELLER" />
     <TagType type="EXPORTABLE_INVOICE" />
     <TagType type="PROMOTION" />
