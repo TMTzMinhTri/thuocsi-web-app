@@ -1,0 +1,22 @@
+
+.product_action {
+    justify-content: flex-start;
+    padding: 0!important;
+    margin-bottom: 10px;
+
+}
+
+.product_action button:nth-child(3) {
+    margin-left: 0!important;
+}
+
+.product_action div:nth-child(2) {
+    margin-left: 4px!important;
+    margin-right: 4px!important;
+}
+
+.not_support {
+    font-size: 85%!important;
+    font-weight: 400!important;
+    color: #dc3545 !important;
+}

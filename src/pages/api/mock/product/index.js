@@ -67,7 +67,7 @@ export default (req, res) => {
         price: 30000,
         status: 'price_down',
         price_percent: 19.23423423,
-        not_support_delivery: true,
+        not_support_delivery: false,
       },
       {
         id: 5,
@@ -99,7 +99,7 @@ export default (req, res) => {
         price: 30000,
         status: 'price_down',
         price_percent: 19.23423423,
-        not_support_delivery: true,
+        not_support_delivery: false,
       },
       {
         id: 7,
@@ -115,7 +115,7 @@ export default (req, res) => {
         price: 30000,
         status: 'price_down',
         price_percent: 19.23423423,
-        not_support_delivery: true,
+        not_support_delivery: false,
       },
     ],
   });

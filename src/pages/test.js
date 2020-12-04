@@ -19,7 +19,7 @@ const date = getFormattedDate(new Date());
 const test = ({ products }) => (
   <>
     {products.map((item) => (
-      <ProductCard product={item} />
+      <ProductCard key={item.id} product={item} />
     ))}
     <RibbonPriceUp />
     <RibbonPriceDown />
