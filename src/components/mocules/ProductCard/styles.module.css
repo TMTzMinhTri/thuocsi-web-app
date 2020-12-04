@@ -1,0 +1,122 @@
+.root_card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: inherit;
+    max-width: 17em;
+    min-width: 0;
+    transition: box-shadow 0.2s, transform 0.2s;
+    box-shadow: 0px 3px 20px rgb(0 0 0 / 8%);
+    will-change: box-shadow, transform;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,0.125);
+    border-radius: 10px;
+}
+
+.root_card:hover {
+    box-shadow: 0px 8px 20px rgb(0 0 0 / 20%);
+    transform: translateY(-1px);
+    transition: box-shadow 0.2s, transform 0.2s;
+    z-index: 1;
+}
+
+.button_container {
+    justify-self: center;
+    height: 100%;
+    width: 100%;
+    max-width: 240px;
+}
+
+.product_card {
+    height: 100%;
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: unset!important;
+}
+
+.product_content {
+    padding: 0!important;
+    margin-bottom: 20px;
+}
+
+.product_image {
+    margin-bottom: 1.5rem!important;
+}
+
+.product_name {
+    font-size: 16px!important;
+    line-height: 1.2!important;
+    color: #343a40;
+    text-transform: capitalize;
+    transition: color 0.2s;
+    font-weight: 500!important;
+    word-wrap: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.product_name:hover {
+   color: #00b46e;
+   transition: color 0.2s;
+}
+
+.product_type {
+    font-size: 80%!important;
+    font-weight: 400!important;
+}
+
+.muted {
+    color: #919aa3 !important;
+}
+
+.product_action {
+    justify-content: flex-start;
+    padding: 0!important;
+    margin-bottom: 10px;
+
+}
+
+.product_action button:nth-child(3) {
+    margin-left: 0!important;
+}
+
+.product_action div:nth-child(2) {
+    margin-left: 4px!important;
+    margin-right: 4px!important;
+}
+
+.product_category {
+    font-size: 12px!important;
+    text-transform: capitalize;
+}
+
+.product_category a {
+    text-decoration: none;
+    color: #495057;
+    transition: color 0.2s;
+}
+
+.product_category a:not(:last-child) {
+    margin-right: 4px;
+}
+
+.product_category a:hover {
+    color: #00b46e;
+}
+
+.product_tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.product_tags > * {
+    margin-bottom: 5px;
+    margin-right: 5px;
+}

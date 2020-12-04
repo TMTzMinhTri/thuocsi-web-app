@@ -1,12 +1,26 @@
 import React from 'react';
-import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components';
+import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp, ProductCard } from 'components';
 import TagType from 'components/mocules/TagType';
 import getFormattedDate from 'utils/DateTimeUtils';
+import ProductClient from 'clients/ProductClient';
+
+export async function getServerSideProps() {
+  const [products] = await Promise.all([ProductClient.loadDataProduct()]);
+
+  return {
+    props: {
+      products,
+    },
+  };
+}
 
 const date = getFormattedDate(new Date());
 
-const test = () => (
+const test = ({ products }) => (
   <>
+    {products.map((item) => (
+      <ProductCard product={item} />
+    ))}
     <RibbonPriceUp />
     <RibbonPriceDown />
     <PlusButton />

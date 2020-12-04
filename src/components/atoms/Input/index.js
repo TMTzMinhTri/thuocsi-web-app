@@ -7,6 +7,7 @@ const InputComp = memo(() => (
   <Input
     classes={{ root: styles.root_input, input: styles.input, focused: styles.focus }}
     disableUnderline
+    placeholder="0"
   />
 ));
 
