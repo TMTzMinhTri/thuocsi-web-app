@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import CustomModal from './Modal';
 
 const Modal = styled(CustomModal)`
-  animation-duration: 0s !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default React.memo(Modal);

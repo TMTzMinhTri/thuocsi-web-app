@@ -4,3 +4,5 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
   console.warn = function () {};
   console.info = function () {};
 }
+
+module.exports = {};

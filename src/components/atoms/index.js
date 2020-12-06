@@ -1,11 +1,12 @@
 export { default as Modal } from './Modal';
 export { default as TagComp } from './TagComp';
+export { default as Button } from './Button';
 export { default as LinkComp } from './LinkComp';
 export { default as ButtonLandingPage } from './ButtonLandingPage';
 export { default as PlusButton } from './CircularButton/PlusButton';
 export { default as MinusButton } from './CircularButton/MinusButton';
-export { default as CustomButton } from './Button';
 export { default as Tag } from './Tag';
-export { default as InputComp } from './Input';
+export { default as Input } from './Input';
 export { default as RibbonPriceUp } from './Ribbon/RibbonPriceUp';
 export { default as RibbonPriceDown } from './Ribbon/RibbonPriceDown';
+export { default as CheckBox } from './CheckBox';
