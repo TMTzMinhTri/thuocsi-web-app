@@ -7,3 +7,4 @@ export { default as StatusProduct } from './StatusProduct';
 export { default as DealSection } from './DealSection';
 export { default as SignInForm } from './SignInForm';
 export { default as AuthModal } from './AuthModal';
+export { default as CountdownTimer } from './CountdownTimer';

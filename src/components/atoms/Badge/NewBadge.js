@@ -4,6 +4,8 @@ import clsx from 'clsx';
 
 import styles from './styles.module.css';
 
-const NewBadge = () => <Box className={clsx(styles.badge_product, styles.new_badge)}>Mới</Box>;
+const NewBadge = ({ children }) => (
+  <Box className={clsx(styles.badge_product, styles.new_badge)}>{children}</Box>
+);
 
 export default NewBadge;

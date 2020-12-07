@@ -4,9 +4,6 @@ import { TagType } from 'components/mocules';
 import { ProductCard } from 'components/organisms';
 import getFormattedDate from 'utils/DateTimeUtils';
 import ProductClient from 'clients/ProductClient';
-import LinearProgress from '@material-ui/core/LinearProgress';
-
-import styles from './style.module.css';
 
 export async function getServerSideProps() {
   const [products] = await Promise.all([ProductClient.loadDataProduct()]);
@@ -29,19 +26,6 @@ const test = ({ products }) => (
     <RibbonPriceDown />
     <PlusButton />
     <MinusButton />
-    <LinearProgress
-      classes={{
-        root: styles.root_process,
-        bar: {
-          borderRadius: 5,
-          backgroundColor: 'red',
-        },
-        barColorPrimary: styles.bar_background,
-        colorPrimary: styles.blur_background,
-      }}
-      variant="determinate"
-      value={50}
-    />
 
     <TagType type="BEST_SELLER" />
     <TagType type="EXPORTABLE_INVOICE" />

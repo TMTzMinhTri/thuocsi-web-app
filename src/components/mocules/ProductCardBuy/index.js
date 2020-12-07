@@ -2,8 +2,9 @@ import React from 'react';
 import { CardActions, Typography, Box } from '@material-ui/core';
 import formatCurrency from 'utils/FormarCurrency';
 import { MinusButton, PlusButton, InputProduct } from '../../atoms';
-import styles from './styles.module.css';
 import DealSection from '../DealSection';
+
+import styles from './styles.module.css';
 
 const ProductCardBuy = ({
   max_product: maxProduct,

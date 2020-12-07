@@ -1,6 +1,8 @@
 .deal_section {
     display: flex;
+    
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .root_process {
@@ -16,7 +18,7 @@
 
 .process_wrapper {
     position: relative;
-    flex: 50%;
+    flex: 50%!important;
 }
 
 .process_content {

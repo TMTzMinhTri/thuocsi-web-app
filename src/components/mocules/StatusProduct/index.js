@@ -7,8 +7,8 @@ const StatusProduct = ({ is_new: isNew, status, is_event: isEvent }) => {
 
   return (
     <>
-      {isNew && <NewBadge />}
-      {isEvent && <EventBadge />}
+      {isNew && <NewBadge>Mới</NewBadge>}
+      {isEvent && <EventBadge>x1.5 Điểm Tích Lũy</EventBadge>}
       {statusProps}
     </>
   );

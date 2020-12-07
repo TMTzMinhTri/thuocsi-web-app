@@ -38,7 +38,7 @@ function CountdownTimer({ dealEndDay, ...otherProps }) {
     }
 
     timerComponents.push(
-      <span>
+      <span key={`timer-${Math.random()}`}>
         {timeLeft[interval]}
         {interval === 'days' ? ' ngày ' : null}
       </span>,
