@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from './Button';
+import CustomButton from './Button';
 
 // const ButtonTypes = (theme, backgroundColor?) => ({
 //   primary: {
@@ -9,7 +9,7 @@ import Button from './Button';
 //   },
 // });
 
-const CustomButton = styled(Button)`
+const Button = styled(CustomButton)`
   &,
   &:hover,
   &:foucs {
@@ -27,4 +27,4 @@ const CustomButton = styled(Button)`
   }
 `;
 
-export default React.memo(CustomButton);
+export default React.memo(Button);

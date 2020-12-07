@@ -1,6 +1,7 @@
 import React from 'react';
-import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp, ProductCard } from 'components';
-import TagType from 'components/mocules/TagType';
+import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
+import { TagType } from 'components/mocules';
+import { ProductCard } from 'components/organisms';
 import getFormattedDate from 'utils/DateTimeUtils';
 import ProductClient from 'clients/ProductClient';
 import LinearProgress from '@material-ui/core/LinearProgress';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import Footer from '../../organisms/Footer';
+import { Footer } from 'components/organisms';
 
 export default function Layout({ title, children }) {
   return (
@@ -19,7 +19,6 @@ export default function Layout({ title, children }) {
         <title>{title}</title>
       </Head>
       <div id="main">{children}</div>
-
       <Footer />
     </div>
   );

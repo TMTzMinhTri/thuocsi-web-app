@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
-import { ProductCardBuy, ProductCardContent, StatusProduct } from 'components/mocules';
+import { ProductCardBuy, ProductCardContent, StatusProduct } from '../../mocules';
 
 import styles from './styles.module.css';
 

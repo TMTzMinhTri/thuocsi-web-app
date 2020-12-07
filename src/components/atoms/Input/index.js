@@ -1,14 +1,16 @@
-import React, { memo } from 'react';
-import { Input } from '@material-ui/core';
+import React from 'react';
+import styled from 'styled-components';
+import InputCustom from './Input';
 
-import styles from './styles.module.css';
+const Input = styled(InputCustom)`
+  //   padding: 0.25rem;
+  font-size: 1rem;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  margin: 1rem 1rem;
+  height: 50px;
+  width: 300px;
+  border: none;
+`;
 
-const InputComp = memo(() => (
-  <Input
-    classes={{ root: styles.root_input, input: styles.input, focused: styles.focus }}
-    disableUnderline
-    placeholder="0"
-  />
-));
-
-export default InputComp;
+export default React.memo(Input);
