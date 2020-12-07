@@ -45,7 +45,7 @@ function CountdownTimer({ dealEndDay, ...otherProps }) {
     );
   });
   return (
-    <div {...otherProps}>{timerComponents.length ? timerComponents : <span>Time's up!</span>}</div>
+    <div {...otherProps}>{timerComponents.length ? timerComponents : <span>Hết hạn</span>}</div>
   );
 }
 

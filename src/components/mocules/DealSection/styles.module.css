@@ -1,5 +1,6 @@
 .deal_section {
     display: flex;
+    margin-bottom: 10px;
 }
 
 .root_process {
