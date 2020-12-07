@@ -8,7 +8,11 @@ const StatusProduct = ({ is_new: isNew, status, is_event: isEvent }) => {
   return (
     <>
       {isNew && <NewBadge>Mới</NewBadge>}
-      {isEvent && <EventBadge>x1.5 Điểm Tích Lũy</EventBadge>}
+      {isEvent && (
+        <EventBadge url="https://thuocsi.vn/events/nguoi-viet-dung-hang-viet-nhan-1-5-diem-tich-luy">
+          x1.5 Điểm Tích Lũy
+        </EventBadge>
+      )}
       {statusProps}
     </>
   );
