@@ -1,0 +1,11 @@
+.root_process {
+        height: 16px!important;
+}
+
+.bar_background {
+    background-image: linear-gradient(to right, #f9b514 0%, #dc3545 70%)!important
+}
+
+.blur_background {
+    background-color: #f6cdd1!important;
+}

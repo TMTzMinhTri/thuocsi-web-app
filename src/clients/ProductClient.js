@@ -15,8 +15,14 @@ async function getInfoBanner() {
   return result.data;
 }
 
+async function loadDataProduct() {
+  const result = await GET('/product');
+  return result.data;
+}
+
 export default {
   loadDataMostSearch,
   loadFeedback,
   getInfoBanner,
+  loadDataProduct,
 };
