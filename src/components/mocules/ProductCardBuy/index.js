@@ -2,8 +2,8 @@ import React from 'react';
 import { CardActions, Typography, Box } from '@material-ui/core';
 import formatCurrency from 'utils/FormarCurrency';
 import { MinusButton, PlusButton, InputComp } from '../../atoms';
-
 import styles from './styles.module.css';
+import DealSection from '../DealSection';
 
 const ProductCardBuy = ({
   max_product: maxProduct,
@@ -11,8 +11,10 @@ const ProductCardBuy = ({
   price,
   deal_price: dealPrice,
   hasEvent,
+  deal_end_day: dealEndDay,
 }) => (
   <>
+    <DealSection dealEndDay={dealEndDay} />
     {noSupportDelivery ? (
       <Typography className={styles.text_danger}>Chưa hỗ trợ giao tỉnh</Typography>
     ) : (

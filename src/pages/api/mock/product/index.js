@@ -12,7 +12,7 @@ export default (req, res) => {
         deal: true,
         deal_price: 20000,
         deal_start_day: '2020-11-01T02:36:00.000Z',
-        deal_end_day: '2020-11-20T02:36:00.000Z',
+        deal_end_day: '2021-11-20T02:36:00.000Z',
         tags: ['BEST_SELLER', 'PROMOTION', 'FLASH_SALE'],
         type: 'Chai 100 viên',
         category: ['Cơ Xương Khớp', 'Da Liễu', 'Dầu Xoa, Cao Xoa', 'Đông Y'],

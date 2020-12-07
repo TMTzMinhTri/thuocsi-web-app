@@ -11,3 +11,4 @@ export { default as RibbonPriceUp } from './Ribbon/RibbonPriceUp';
 export { default as RibbonPriceDown } from './Ribbon/RibbonPriceDown';
 export { default as NewBadge } from './Badge/NewBadge';
 export { default as EventBadge } from './Badge/EventBadge';
+export { default as CountdownTimer } from './CountdownTimer';

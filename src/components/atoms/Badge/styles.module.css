@@ -34,6 +34,10 @@
     background: #dc3545;
 }
 
+.event_badge:hover {
+    color: #17a2b8;
+}
+
 .event_badge::after {
     border-top: 0.1875rem solid #dc3545;
 }
