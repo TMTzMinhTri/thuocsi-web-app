@@ -15,8 +15,29 @@
     margin-right: 4px!important;
 }
 
-.not_support {
+.text_danger {
     font-size: 85%!important;
     font-weight: 400!important;
     color: #dc3545 !important;
+    line-height: 2!important;
 }
+
+.price_wrapper {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+
+.deal_price {
+    font-size: 16px!important;
+    color: #00b46e;
+    font-weight: 500!important;
+    margin-right: 4px!important;
+}
+
+.old_price {
+    color: #919aa3;
+    font-size: 12px!important;
+    text-decoration: line-through;
+}
+

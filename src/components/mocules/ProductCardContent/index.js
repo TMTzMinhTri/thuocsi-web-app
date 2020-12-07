@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, CardContent } from '@material-ui/core';
 import clsx from 'clsx';
-import { TagType } from 'components/mocules';
+import TagType from '../TagType';
 
 import styles from './styles.module.css';
 

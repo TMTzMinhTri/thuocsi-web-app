@@ -20,6 +20,7 @@ export default (req, res) => {
         status: 'price_down',
         price_percent: 19.23423423,
         not_support_delivery: true,
+        is_event: true,
       },
       {
         id: 2,
@@ -36,6 +37,7 @@ export default (req, res) => {
         status: 'price_down',
         price_percent: 19.23423423,
         not_support_delivery: true,
+        hasEvent: true,
       },
       {
         id: 3,
@@ -52,6 +54,7 @@ export default (req, res) => {
         status: 'price_down',
         price_percent: 19.23423423,
         not_support_delivery: true,
+        hasEvent: true,
       },
       {
         id: 4,
@@ -65,9 +68,11 @@ export default (req, res) => {
         type: 'Chai 100 viên',
         category: ['Cơ Xương Khớp', 'Da Liễu', 'Dầu Xoa, Cao Xoa', 'Đông Y'],
         price: 30000,
+        max_product: 1000,
         status: 'price_down',
-        price_percent: 19.23423423,
+        price_percent: 19.2323423,
         not_support_delivery: false,
+        is_new: true,
       },
       {
         id: 5,
