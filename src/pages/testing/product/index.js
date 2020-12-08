@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
 import { TagType, SearchInput, CardInfo } from 'components/mocules';
-import { ProductCardHorizontal } from 'components/organisms';
+import { ProductCardVertical, ProductCardHorizontal } from 'components/organisms';
 import getFormattedDate from 'utils/DateTimeUtils';
 import ProductClient from 'clients/ProductClient';
 
@@ -20,9 +20,9 @@ const date = getFormattedDate(new Date());
 
 const test = ({ products }) => (
   <>
-    {/* {products.map((item) => (
+    {products.map((item) => (
       <ProductCardVertical key={item.id} product={item} type="column" />
-    ))} */}
+    ))}
     <>
       <Box
         style={{
