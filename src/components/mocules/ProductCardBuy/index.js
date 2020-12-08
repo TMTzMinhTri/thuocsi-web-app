@@ -1,6 +1,7 @@
 import React from 'react';
 import { CardActions, Typography, Box } from '@material-ui/core';
 import formatCurrency from 'utils/FormarCurrency';
+import clsx from 'clsx';
 import { MinusButton, PlusButton, InputProduct } from '../../atoms';
 import DealSection from '../DealSection';
 
@@ -13,16 +14,20 @@ const ProductCardBuy = ({
   deal_price: dealPrice,
   hasEvent,
   deal_end_day: dealEndDay,
-  type,
+  row,
 }) => (
   <>
-    <DealSection dealEndDay={dealEndDay} />
-    {noSupportDelivery ? (
+    {row && <DealSection dealEndDay={dealEndDay} />}
+    {noSupportDelivery && row ? (
       <Typography className={styles.text_danger}>Chưa hỗ trợ giao tỉnh</Typography>
     ) : (
       <>
         {hasEvent ? (
-          <Box className={styles.price_wrapper}>
+          <Box
+            className={
+              row ? styles.price_wrapper : clsx(styles.price_wrapper, styles.price_wrapper_column)
+            }
+          >
             <Typography className={styles.deal_price}>{formatCurrency(dealPrice)}</Typography>
             <Typography className={styles.old_price}>{formatCurrency(price)}</Typography>
           </Box>
@@ -36,7 +41,7 @@ const ProductCardBuy = ({
         )}
         <CardActions className={styles.product_action}>
           <MinusButton />
-          <InputProduct type={type} />
+          <InputProduct type="column" />
           <PlusButton />
         </CardActions>
       </>
