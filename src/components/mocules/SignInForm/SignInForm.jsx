@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AccountCircle, Visibility, VisibilityOff } from '@material-ui/icons';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
-import Link from 'next/link';
 import { Button, Input, CheckBox } from 'components/atoms';
 
 const SignInForm = React.memo((props) => {
@@ -34,26 +33,43 @@ const SignInForm = React.memo((props) => {
 
   return (
     <div className={className}>
-      <FormControl>
-        <Input
-          id="username"
-          startAdornment={IconAccount}
-          placeholder="Nhập số điện thoại hoặc email"
-          variant="outlined"
-        />
-        <Input
-          id="password"
-          type={showPassword ? 'text' : 'password'}
-          startAdornment={IconPassword}
-          endAdornment={IconEndPassword}
-          placeholder="Nhập Mật khẩu"
-          variant="outlined"
-        />
-        <CheckBox isChecked="true" label="Nhớ mật khẩu" />
-        <Link href="/">Quên mật khẩu</Link>
-        <Button>Đăng nhập</Button>
-        <div>để nhận Ưu đãi hấp dẫn, đăng ký thành viên</div>
-      </FormControl>
+      <form className={className}>
+        <FormControl className="form-control">
+          <Input
+            id="username"
+            startAdornment={IconAccount}
+            placeholder="Nhập số điện thoại hoặc email"
+            variant="outlined"
+          />
+        </FormControl>
+        <FormControl className="form-control">
+          <Input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            startAdornment={IconPassword}
+            endAdornment={IconEndPassword}
+            placeholder="Nhập Mật khẩu"
+            variant="outlined"
+          />
+        </FormControl>
+        <div className="rememberPassword">
+          <CheckBox isChecked label="Nhớ mật khẩu" />
+        </div>
+        <div className="forgetPassword">
+          <a href="/" className="forgetPassword">
+            Quên mật khẩu
+          </a>
+        </div>
+        <Button className="btnLogin">Đăng nhập</Button>
+        <div className="register">
+          <span className="text-capitalize">
+            Để nhận Ưu đãi hấp dẫn,
+            <a href="/" style={{ color: '#f9b514', padding: '2px' }}>
+              đăng ký thành viên
+            </a>
+          </span>
+        </div>
+      </form>
     </div>
   );
 });

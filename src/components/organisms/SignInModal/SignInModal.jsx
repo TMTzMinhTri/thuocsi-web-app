@@ -8,7 +8,7 @@ const SignInModal = React.memo((props) => {
       visible={visible}
       className={className}
       onCancel={onCancel}
-      title="Đăng nhập"
+      title="Đăng nhập Thành viên"
     >
       <SignInForm />
     </AuthModal>

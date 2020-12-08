@@ -6,3 +6,4 @@ export { default as Header } from './Header';
 export { default as Media } from './Media';
 export { default as WhyBuymed } from './WhyBuymed';
 export { default as SignInModal } from './SignInModal';
+export { default as ForgetPasswordModal } from './ForgetPasswordModal';

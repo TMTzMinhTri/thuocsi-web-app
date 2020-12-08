@@ -9,7 +9,7 @@ const Input = styled(InputCustom)`
   border-radius: 0.25rem;
   margin: 1rem 1rem;
   height: 50px;
-  width: 300px;
+  width: 100%;
   border: none;
 `;
 

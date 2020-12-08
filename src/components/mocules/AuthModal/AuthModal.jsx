@@ -8,7 +8,13 @@ const AuthModal = memo((props) => {
   const { onCancel, onClose, visible, children, title, className, restProps } = props;
 
   return (
-    <Modal className={className} onCancel={onCancel} open={visible} {...restProps}>
+    <Modal
+      className={className}
+      onCancel={onCancel}
+      open={visible}
+      {...restProps}
+      onClose={onClose}
+    >
       <div className="auth-modal-content">
         <div className="auth-modal-header">
           <header className="auth-modal-title">{title}</header>

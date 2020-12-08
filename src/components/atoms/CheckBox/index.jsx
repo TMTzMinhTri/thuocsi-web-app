@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import CheckBoxCustom from './CheckBox';
 
 const CheckBox = styled(CheckBoxCustom)`
-  // color: ${(props) => (props.isChecked ? '#fff' : '#000')};
-  input {
+  .MuiCheckbox-colorSecondary.Mui-checked {
     color: green;
   }
   input.checked {

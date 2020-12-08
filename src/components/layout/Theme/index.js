@@ -12,6 +12,21 @@ const Theme = createMuiTheme({
   modal: {
     background: '#f4f7fc',
   },
+  colors: {
+    primary: '#000',
+    secondary: '#fff',
+  },
+  button: {
+    color: {
+      primary: '#000',
+      secondary: '#fff',
+    },
+    background: {
+      primary: '#66bb6a',
+      success: '#66bb6a',
+      warning: '#ffb74d',
+    },
+  },
   palette: {
     primary: {
       main: '#556cd6',
@@ -30,12 +45,12 @@ const Theme = createMuiTheme({
       main: '#ff9800',
       dark: '#f57c00',
     },
-    // success: {
-    //   default: '#66bb6a',
-    //   main: '#66bb6a',
-    //   dark: '#47824a',
-    //   light: '#00e676',
-    // },
+    success: {
+      default: '#66bb6a',
+      main: '#66bb6a',
+      dark: '#47824a',
+      light: '#00e676',
+    },
   },
 });
 

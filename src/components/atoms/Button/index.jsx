@@ -1,30 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import CustomButton from './Button';
+import Button from './Button';
 
-// const ButtonTypes = (theme, backgroundColor?) => ({
-//   primary: {
-//     color: theme.button.primary,
-//     backgroundColor: backgroundColor || theme.button.background.primary,
-//   },
-// });
+const buttonTypes = (theme, backgroundColor) => ({
+  primary: {
+    color: theme.button.color.primary,
+    background: backgroundColor || theme.button.background.primary,
+  },
+  success: {
+    color: theme.button.color.primary,
+    background: backgroundColor || theme.button.background.success,
+  },
+  warning: {
+    color: theme.button.color.primary,
+    background: backgroundColor || theme.button.background.warning,
+  },
+});
 
-const Button = styled(CustomButton)`
-  &,
-  &:hover,
-  &:foucs {
-  }
-  ,
-  &:active {
-  }
-  ,
-  &[disabled] {
-    font-weight: 500;
-    font-style: normal;
-    border-color: none;
-    display: flex;
-    align-items: center;
-  }
+const CustomButton = styled(Button)`
+  color: ${({ theme, type = 'primary' }) => buttonTypes(theme)[type].color} !important;
+  background-color: ${({ theme, type = 'primary', backgroundColor }) =>
+    buttonTypes(theme, backgroundColor)[type].background} !important;
+  margin-right: 10px !important;
+  border-radius: 50px !important;
 `;
 
-export default React.memo(Button);
+export default React.memo(CustomButton);

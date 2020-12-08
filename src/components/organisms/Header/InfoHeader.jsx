@@ -1,13 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
+import { useModal } from 'hooks';
+
 import { CardTravel, House, NewReleases } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
-
-import { ButtonLandingPage, LinkComp } from '../../atoms';
+import { LinkComp, Button } from '../../atoms';
 import styles from './styles.module.css';
+import SignInModal from '../SignInModal';
 
 export default function InfoHeader() {
+  const [isShowingLogin, toggleLogin] = useModal(false);
   return (
     <div>
       <div className={styles.header_info}>
@@ -33,9 +36,15 @@ export default function InfoHeader() {
           <Image src={LOGO_THUOCSI} width="164px" height="45px" />
         </div>
 
+        <SignInModal visible={isShowingLogin} />
+
         <div className={styles.div_buttons}>
-          <ButtonLandingPage name="Đăng Nhập" color="red" />
-          <ButtonLandingPage name="Tạo Tài Khoản" />
+          <Button variant="contained" type="warning" onClick={toggleLogin}>
+            Đăng nhập
+          </Button>
+          <Button variant="contained" type="success">
+            Tạo Tài Khoản
+          </Button>
         </div>
       </div>
     </div>
