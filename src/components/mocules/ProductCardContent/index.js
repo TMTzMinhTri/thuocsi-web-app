@@ -18,8 +18,13 @@ const ProductCardContent = ({
   // price,
   // status,
   // price_percent,
+  row,
 }) => (
-  <CardContent className={styles.product_content}>
+  <CardContent
+    className={
+      row ? styles.product_content : clsx(styles.product_content, styles.product_content_column)
+    }
+  >
     <a href="/">
       <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
         {name}
@@ -38,19 +43,21 @@ const ProductCardContent = ({
     >
       {type}
     </Typography>
-    <Typography
-      className={clsx(styles.product_category, styles.muted)}
-      variant="body2"
-      color="textSecondary"
-      component="p"
-    >
-      Nhóm:{' '}
-      {category.map((item) => (
-        <a key={item + Math.random() + 1} href="/">
-          {item}
-        </a>
-      ))}
-    </Typography>
+    {row && (
+      <Typography
+        className={clsx(styles.product_category, styles.muted)}
+        variant="body2"
+        color="textSecondary"
+        component="p"
+      >
+        Nhóm:{' '}
+        {category.map((item) => (
+          <a key={item + Math.random() + 1} href="/">
+            {item}
+          </a>
+        ))}
+      </Typography>
+    )}
   </CardContent>
 );
 
