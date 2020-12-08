@@ -3,6 +3,11 @@
     margin-bottom: 16px;
 }
 
+.product_content_column {
+    flex: 50%;
+    max-width: 50%;
+}
+
 .product_image {
     margin-bottom: 1.5rem!important;
 }
