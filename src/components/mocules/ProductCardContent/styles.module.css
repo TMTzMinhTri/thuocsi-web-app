@@ -8,6 +8,8 @@
 }
 
 .product_name {
+    display: inline-block!important;
+    align-items: flex-start;
     font-size: 16px!important;
     line-height: 1.2!important;
     color: #343a40;

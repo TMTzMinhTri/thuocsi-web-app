@@ -13,6 +13,7 @@ const ProductCardBuy = ({
   deal_price: dealPrice,
   hasEvent,
   deal_end_day: dealEndDay,
+  type,
 }) => (
   <>
     <DealSection dealEndDay={dealEndDay} />
@@ -35,7 +36,7 @@ const ProductCardBuy = ({
         )}
         <CardActions className={styles.product_action}>
           <MinusButton />
-          <InputProduct />
+          <InputProduct type={type} />
           <PlusButton />
         </CardActions>
       </>
