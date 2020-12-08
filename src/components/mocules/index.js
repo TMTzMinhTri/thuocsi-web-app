@@ -1,5 +1,11 @@
 export { default as CommonQuestion } from './CommonQuestion';
 export { default as Copyright } from './Copyright';
+export { default as TagType } from './TagType';
+export { default as ProductCardBuy } from './ProductCardBuy';
+export { default as ProductCardContent } from './ProductCardContent';
+export { default as StatusProduct } from './StatusProduct';
+export { default as DealSection } from './DealSection';
 export { default as SignInForm } from './SignInForm';
 export { default as AuthModal } from './AuthModal';
 export { default as ForgetPasswordForm } from './ForgetPasswordForm';
+export { default as CountdownTimer } from './CountdownTimer';

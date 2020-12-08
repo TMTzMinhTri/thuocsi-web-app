@@ -1,0 +1,43 @@
+
+.product_action {
+    justify-content: flex-start;
+    padding: 0!important;
+    margin-bottom: 10px;
+
+}
+
+.product_action button:nth-child(3) {
+    margin-left: 0!important;
+}
+
+.product_action div:nth-child(2) {
+    margin-left: 4px!important;
+    margin-right: 4px!important;
+}
+
+.text_danger {
+    font-size: 85%!important;
+    font-weight: 400!important;
+    color: #dc3545 !important;
+    line-height: 2!important;
+}
+
+.price_wrapper {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+
+.deal_price {
+    font-size: 16px!important;
+    color: #00b46e;
+    font-weight: 500!important;
+    margin-right: 4px!important;
+}
+
+.old_price {
+    color: #919aa3;
+    font-size: 12px!important;
+    text-decoration: line-through;
+}
+

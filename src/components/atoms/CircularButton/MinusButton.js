@@ -7,7 +7,10 @@ import styles from './styles.module.css';
 
 const MinusButton = memo(() => (
   <>
-    <IconButton classes={{ root: clsx(styles.button_root, styles.plus) }} className={styles.minus}>
+    <IconButton
+      classes={{ root: clsx(styles.button_root, styles.button_root_minus, styles.minus) }}
+      className={styles.minus}
+    >
       <Remove className={styles.icon} />
     </IconButton>
   </>

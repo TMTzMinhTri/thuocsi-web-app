@@ -1,5 +1,5 @@
-import { AuthModal, SignInForm } from 'components/mocules';
 import React from 'react';
+import { AuthModal, SignInForm } from '../../mocules';
 
 const SignInModal = React.memo((props) => {
   const { className, visible, onCancel } = props;
