@@ -15,6 +15,7 @@ const ProductCardBuy = ({
   hasEvent,
   deal_end_day: dealEndDay,
   row,
+  type,
 }) => (
   <>
     {row && <DealSection dealEndDay={dealEndDay} />}
@@ -32,16 +33,30 @@ const ProductCardBuy = ({
             <Typography className={styles.old_price}>{formatCurrency(price)}</Typography>
           </Box>
         ) : (
-          <Box className={styles.price_wrapper}>
+          <Box
+            className={
+              row ? styles.price_wrapper : clsx(styles.price_wrapper, styles.price_wrapper_column)
+            }
+          >
             <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
           </Box>
         )}
         {maxProduct > 0 && (
-          <Typography className={styles.text_danger}>Đặt tối đa {maxProduct} sản phẩm</Typography>
+          <Typography
+            className={
+              row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
+            }
+          >
+            Đặt tối đa {maxProduct} sản phẩm
+          </Typography>
         )}
-        <CardActions className={styles.product_action}>
+        <CardActions
+          className={
+            row ? styles.product_action : clsx(styles.product_action, styles.product_action_column)
+          }
+        >
           <MinusButton />
-          <InputProduct type="column" />
+          <InputProduct type={type} />
           <PlusButton />
         </CardActions>
       </>
