@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import {
-  AccountCircle,
+  AccountCircle as AccountIcon,
   Visibility,
   VisibilityOff,
   EmailOutlined as EmailIcon,
@@ -29,7 +29,7 @@ const SignUpForm = React.memo((props) => {
 
   const IconAccount = (
     <InputAdornment position="start">
-      <AccountCircle />
+      <AccountIcon />
     </InputAdornment>
   );
   const IconPassword = (
@@ -107,10 +107,10 @@ const SignUpForm = React.memo((props) => {
             variant="outlined"
           />
         </FormControl>
-        <div className="rememberPassword">
+        <div className="agree-term">
           <CheckBox checked={isCheckAgree} label="Tôi đã đọc và đồng ý với điều khoản sử dụng *" />
         </div>
-        <div className="register">
+        <div className="link-login">
           <span className="text-capitalize">
             Nếu bạn đã có tài khoản, vui lòng
             <a href="#top" style={{ color: '#f9b514', padding: '2px' }} onClick={handleClickSignIn}>
@@ -118,7 +118,7 @@ const SignUpForm = React.memo((props) => {
             </a>
           </span>
         </div>
-        <Button className="btnLogin" color="white">
+        <Button className="btn-register" color="white">
           Tạo tài khoản
         </Button>
       </form>

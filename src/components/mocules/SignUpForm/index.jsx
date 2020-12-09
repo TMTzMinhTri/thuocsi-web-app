@@ -10,7 +10,7 @@ const SignUpForm = styled(SignUpFormCustom)`
   .form-control {
     width: ${({ width = 400 }) => width}px;
   }
-  .rememberPassword {
+  .agree-term {
     align-self: flex-start;
     font-size: 13px;
   }
@@ -19,7 +19,7 @@ const SignUpForm = styled(SignUpFormCustom)`
     text-decoration: none;
     background-color: transparent;
   }
-  .btnLogin {
+  .btn-register {
     background: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
     color: white;
     height: 50px;
@@ -28,7 +28,7 @@ const SignUpForm = styled(SignUpFormCustom)`
     padding: 1.5rem;
     margin: 1rem;
   }
-  .register {
+  .link-login {
     padding: 1rem;
   }
 `;
