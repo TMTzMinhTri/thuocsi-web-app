@@ -49,7 +49,7 @@ const test = ({ products }) => (
     <RibbonPriceDown />
     <PlusButton />
     <MinusButton />
-    <CardInfo promo />
+    <CardInfo quantity={21231} total="3.000.000 đ" cart />
     <TagType type="BEST_SELLER" />
     <TagType type="EXPORTABLE_INVOICE" />
     <TagType type="PROMOTION" />

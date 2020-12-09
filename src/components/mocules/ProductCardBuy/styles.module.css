@@ -30,7 +30,7 @@
 .text_danger_column {
     position: absolute;
     right: 20px;
-    bottom: 20px;
+    bottom: 5px;
 }
 
 .price_wrapper {
