@@ -8,14 +8,11 @@ const SignInForm = styled(SignInFormCustom)`
   justify-content: center;
   align-items: center;
   .form-control {
-    width: 400px;
+    width: ${({ width = 400 }) => width}px;
   }
   .rememberPassword {
-    padding: 0px 1rem;
     align-self: flex-start;
-  }
-  .forgetPassword {
-    padding: 1rem;
+    font-size: 13px;
   }
   a.forgetPassword {
     color: #00b46e;
@@ -29,9 +26,10 @@ const SignInForm = styled(SignInFormCustom)`
     bow-shadow: 0px 3px 20px rgba(0, 0, 0, 0.08);
     width: 100%;
     padding: 1.5rem;
+    margin: 1rem;
   }
   .register {
-    padding: 1.5rem;
+    padding: 1rem;
   }
 `;
 

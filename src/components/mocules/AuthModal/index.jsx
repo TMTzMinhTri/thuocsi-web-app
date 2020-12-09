@@ -7,7 +7,7 @@ const AuthModal = styled(AuthModalCustom)`
     &-content {
       font-size: 13px;
       position: relative;
-      width: 500px;
+      width: ${({ width = 500 }) => width}px;
       background: ${({ theme }) => theme.modal.background};
       border: 1px solid rgba(0, 0, 0, 0.2);
       boxshadow: theme.shadows[5];
@@ -22,7 +22,7 @@ const AuthModal = styled(AuthModalCustom)`
       border-bottom: 1px solid rgba(195, 204, 220, 0.4);
     }
     &-title {
-      padding: 10px;
+      padding: 1rem 2rem;
       font-size: larger;
       font-weight: 500;
       margin-bottom: 0;
@@ -33,6 +33,7 @@ const AuthModal = styled(AuthModalCustom)`
       background-color: transparent;
       border: 0;
       color: #000;
+      opacity: 0.5;
     }
     &-body {
       position: relative;

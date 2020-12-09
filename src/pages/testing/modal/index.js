@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { SignInModal, ForgetPasswordModal } from 'components';
 import { Button } from '@material-ui/core';
@@ -7,6 +7,11 @@ import useModal from 'hooks/useModal';
 export default function ModalTest() {
   const [isShowModal, toggle] = useModal();
   const [isShowModalForgetPassword, toggleForgetPassword] = useModal();
+  const handleChangeForget = useCallback(() => {
+    toggle();
+    toggleForgetPassword();
+  }, [toggle, toggleForgetPassword]);
+
   return (
     <>
       <div>
@@ -14,7 +19,12 @@ export default function ModalTest() {
           Show modal Login
         </Button>
       </div>
-      <SignInModal className="hello" visible={isShowModal} onClose={toggle}>
+      <SignInModal
+        className="hello"
+        visible={isShowModal}
+        onClose={toggle}
+        onChangeForget={handleChangeForget}
+      >
         <div>
           <title>title</title>
           <body>heelloo</body>
