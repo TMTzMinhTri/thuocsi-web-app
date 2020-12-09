@@ -64,3 +64,19 @@
     margin-bottom: 5px;
     margin-right: 5px;
 }
+
+.product_title_wrap {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.product_title_column_wrap {
+    flex-direction: row!important;
+    align-items: center;
+}
+
+.product_title {
+    flex: 70%;
+}
+

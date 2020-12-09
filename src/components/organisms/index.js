@@ -8,3 +8,4 @@ export { default as WhyBuymed } from './WhyBuymed';
 export { default as ProductCard } from './ProductCard';
 export { default as SignInModal } from './SignInModal';
 export { default as ForgetPasswordModal } from './ForgetPasswordModal';
+export { default as QuickOrderList } from './QuickOrderList';
