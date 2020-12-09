@@ -3,7 +3,12 @@
     justify-content: flex-start;
     padding: 0!important;
     margin-bottom: 10px;
+}
 
+.product_action_column {
+    flex: 18%;
+    max-width: 18%;
+    justify-content: flex-end;
 }
 
 .product_action button:nth-child(3) {
@@ -22,10 +27,23 @@
     line-height: 2!important;
 }
 
+.text_danger_column {
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+}
+
 .price_wrapper {
     display: flex;
     align-items: baseline;
     margin-bottom: 10px;
+}
+
+.price_wrapper_column {
+    flex-direction: column!important;
+    align-items: center;
+    flex: 15%;
+    max-width: 15%;
 }
 
 .deal_price {

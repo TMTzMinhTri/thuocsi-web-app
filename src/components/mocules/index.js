@@ -9,3 +9,5 @@ export { default as SignInForm } from './SignInForm';
 export { default as AuthModal } from './AuthModal';
 export { default as ForgetPasswordForm } from './ForgetPasswordForm';
 export { default as CountdownTimer } from './CountdownTimer';
+export { default as SearchInput } from './SearchInput';
+export { default as CardInfo } from './CardInfo';

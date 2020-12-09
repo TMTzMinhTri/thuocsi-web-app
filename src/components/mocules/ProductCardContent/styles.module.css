@@ -3,11 +3,19 @@
     margin-bottom: 16px;
 }
 
+.product_content_column {
+    flex: 60%;
+    max-width: 60%;
+    margin-bottom: 0!important;
+}
+
 .product_image {
     margin-bottom: 1.5rem!important;
 }
 
 .product_name {
+    display: inline-block!important;
+    align-items: flex-start;
     font-size: 16px!important;
     line-height: 1.2!important;
     color: #343a40;
@@ -27,8 +35,11 @@
 }
 
 .product_type {
+    flex: 30%;
     font-size: 80%!important;
     font-weight: 400!important;
+    text-align: center;
+    margin-top: 6px;
 }
 
 .muted {
@@ -60,7 +71,21 @@
     margin-bottom: 10px;
 }
 
+.product_tags_column {
+    margin-bottom: 0!important;
+}
+
 .product_tags > * {
     margin-bottom: 5px;
     margin-right: 5px;
 }
+
+.product_title_wrap {
+    display: flex;
+    align-items: center;
+}
+
+.product_title {
+    flex: 70%;
+}
+

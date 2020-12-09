@@ -1,7 +1,8 @@
 import React from 'react';
+import { Box } from '@material-ui/core';
 import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
-import { TagType } from 'components/mocules';
-import { ProductCard } from 'components/organisms';
+import { TagType, SearchInput, CardInfo } from 'components/mocules';
+import { ProductCardVertical, ProductCardHorizontal } from 'components/organisms';
 import getFormattedDate from 'utils/DateTimeUtils';
 import ProductClient from 'clients/ProductClient';
 
@@ -20,13 +21,35 @@ const date = getFormattedDate(new Date());
 const test = ({ products }) => (
   <>
     {products.map((item) => (
-      <ProductCard key={item.id} product={item} />
+      <ProductCardVertical key={item.id} product={item} type="column" />
     ))}
+    <>
+      <Box
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 400,
+          backgroundColor: '#fff',
+          paddingRight: 20,
+          paddingLeft: 20,
+          paddingTop: 12,
+          paddingBottom: 12,
+          boxShadow: '0px 3px 20px rgba(0,0,0,0.08)',
+          borderTopLeftRadius: '10px',
+          borderTopRightRadius: '10px',
+        }}
+      >
+        <SearchInput />
+      </Box>
+      {products.map((item) => (
+        <ProductCardHorizontal key={item.id} product={item} />
+      ))}
+    </>
     <RibbonPriceUp />
     <RibbonPriceDown />
     <PlusButton />
     <MinusButton />
-
+    <CardInfo quantity={21231} total="3.000.000 đ" cart />
     <TagType type="BEST_SELLER" />
     <TagType type="EXPORTABLE_INVOICE" />
     <TagType type="PROMOTION" />
