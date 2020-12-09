@@ -5,6 +5,7 @@ export { default as BannerSlider } from './BannerSlider';
 export { default as Header } from './Header';
 export { default as Media } from './Media';
 export { default as WhyBuymed } from './WhyBuymed';
-export { default as ProductCard } from './ProductCard';
+export { default as ProductCardHorizontal } from './ProductCardHorizontal';
+export { default as ProductCardVertical } from './ProductCardVertical';
 export { default as SignInModal } from './SignInModal';
 export { default as ForgetPasswordModal } from './ForgetPasswordModal';
