@@ -1,23 +1,28 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import Image from 'next/image';
 import { useModal } from 'hooks';
 
 import { CardTravel, House, NewReleases } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
+import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { LinkComp, Button } from '../../atoms';
 import styles from './styles.module.css';
-import SignInModal from '../SignInModal';
-import ForgetPasswordModal from '../ForgetPasswordModal';
 
-export default function InfoHeader() {
+const InfoHeader = memo(() => {
   const [isShowingLogin, toggleLogin] = useModal();
+  const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
 
   const handleChangeForget = useCallback(() => {
     toggleLogin();
     toggleForgetPassword();
   }, [toggleLogin, toggleForgetPassword]);
+
+  const handleChangeSignIn = useCallback(() => {
+    toggleSignUp();
+    toggleLogin();
+  }, [toggleSignUp, toggleLogin]);
 
   return (
     <div>
@@ -52,15 +57,23 @@ export default function InfoHeader() {
 
         <ForgetPasswordModal visible={isShowingForgetPassword} onClose={toggleForgetPassword} />
 
+        <SignUpModal
+          visible={isShowingSignUp}
+          onClose={toggleSignUp}
+          onChangeSignIn={handleChangeSignIn}
+        />
+
         <div className={styles.div_buttons}>
           <Button variant="contained" type="warning" onClick={toggleLogin}>
             Đăng nhập
           </Button>
-          <Button variant="contained" type="success" color="white">
+          <Button variant="contained" type="success" color="white" onClick={toggleSignUp}>
             Tạo Tài Khoản
           </Button>
         </div>
       </div>
     </div>
   );
-}
+});
+
+export default InfoHeader;
