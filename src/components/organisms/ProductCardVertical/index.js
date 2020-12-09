@@ -4,7 +4,7 @@ import { ProductCardBuy, ProductCardContent, StatusProduct } from '../../mocules
 
 import styles from './styles.module.css';
 
-const ProductCard = ({ product }) => (
+const ProductCardVertical = ({ product, type }) => (
   <Box className={styles.button_container}>
     <Box className={styles.root_card}>
       <StatusProduct {...product} />
@@ -18,11 +18,11 @@ const ProductCard = ({ product }) => (
             title="Contemplative Reptile"
           />
         </CardActionArea>
-        <ProductCardContent {...product} />
-        <ProductCardBuy {...product} />
+        <ProductCardContent row {...product} />
+        <ProductCardBuy type={type} row {...product} />
       </Card>
     </Box>
   </Box>
 );
 
-export default ProductCard;
+export default ProductCardVertical;

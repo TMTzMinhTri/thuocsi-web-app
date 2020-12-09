@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import SignInFormCustom from './SignInForm';
+import SignUpFormCustom from './SignUpForm';
 
-const SignInForm = styled(SignInFormCustom)`
+const SignUpForm = styled(SignUpFormCustom)`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@ const SignInForm = styled(SignInFormCustom)`
   .form-control {
     width: ${({ width = 400 }) => width}px;
   }
-  .rememberPassword {
+  .agree-term {
     align-self: flex-start;
     font-size: 13px;
   }
@@ -19,7 +19,7 @@ const SignInForm = styled(SignInFormCustom)`
     text-decoration: none;
     background-color: transparent;
   }
-  .btnLogin {
+  .btn-register {
     background: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
     color: white;
     height: 50px;
@@ -28,9 +28,9 @@ const SignInForm = styled(SignInFormCustom)`
     padding: 1.5rem;
     margin: 1rem;
   }
-  .register {
+  .link-login {
     padding: 1rem;
   }
 `;
 
-export default React.memo(SignInForm);
+export default React.memo(SignUpForm);

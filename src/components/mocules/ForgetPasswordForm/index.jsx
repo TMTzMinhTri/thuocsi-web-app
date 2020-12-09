@@ -8,13 +8,15 @@ const styledForgetPasswordForm = styled(ForgetPasswordForm)`
   justify-content: center;
   align-items: center;
 
+  .form-forget-password {
+  }
+
   .form-control {
-    width: 400px;
+    width: ${({ width = 450 }) => width}px;
   }
 
   .btnForgetPassword {
     background: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
-    color: white;
     height: 50px;
     bow-shadow: 0px 3px 20px rgba(0, 0, 0, 0.08);
     width: 100%;
