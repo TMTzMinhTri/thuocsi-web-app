@@ -4,8 +4,9 @@
 }
 
 .product_content_column {
-    flex: 50%;
-    max-width: 50%;
+    flex: 60%;
+    max-width: 60%;
+    margin-bottom: 0!important;
 }
 
 .product_image {
@@ -34,8 +35,11 @@
 }
 
 .product_type {
+    flex: 30%;
     font-size: 80%!important;
     font-weight: 400!important;
+    text-align: center;
+    margin-top: 6px;
 }
 
 .muted {
@@ -67,7 +71,21 @@
     margin-bottom: 10px;
 }
 
+.product_tags_column {
+    margin-bottom: 0!important;
+}
+
 .product_tags > * {
     margin-bottom: 5px;
     margin-right: 5px;
 }
+
+.product_title_wrap {
+    display: flex;
+    align-items: center;
+}
+
+.product_title {
+    flex: 70%;
+}
+

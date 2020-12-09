@@ -15,7 +15,7 @@ const ProductCardHorizontal = ({ product }) => (
               alt="Contemplative Reptile"
               height="50"
               width="50"
-              image="/images/slider/slider01.png    "
+              image="/images/slider/slider01.png"
               title="Contemplative Reptile"
             />
           </CardActionArea>

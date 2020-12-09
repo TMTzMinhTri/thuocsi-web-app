@@ -6,8 +6,8 @@
 }
 
 .product_action_column {
-    flex: 20%;
-    max-width: 20%;
+    flex: 18%;
+    max-width: 18%;
     justify-content: flex-end;
 }
 
@@ -42,8 +42,8 @@
 .price_wrapper_column {
     flex-direction: column!important;
     align-items: center;
-    flex: 20%;
-    max-width: 20%;
+    flex: 15%;
+    max-width: 15%;
 }
 
 .deal_price {
