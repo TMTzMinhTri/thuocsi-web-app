@@ -7,7 +7,6 @@ import { Button, Input, CheckBox } from 'components/atoms';
 const SignInForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
   const { className, isChecked, onClickForget } = props;
-  console.log('onClickForget > ', onClickForget);
 
   const handleClickForget = useCallback(
     (e) => {
