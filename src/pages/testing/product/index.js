@@ -49,7 +49,7 @@ const test = ({ products }) => (
     <RibbonPriceDown />
     <PlusButton />
     <MinusButton />
-    <CardInfo />
+    <CardInfo promo />
     <TagType type="BEST_SELLER" />
     <TagType type="EXPORTABLE_INVOICE" />
     <TagType type="PROMOTION" />

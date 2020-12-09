@@ -4,7 +4,7 @@ import { LocalOffer } from '@material-ui/icons';
 import clsx from 'clsx';
 import styles from './style.module.css';
 
-const CardInfo = ({ cart, promo }) => (
+const CardInfo = ({ cart, promo, total, quantity }) => (
   <Grid className={styles.container} container>
     <Grid container item>
       <Grid
@@ -13,11 +13,11 @@ const CardInfo = ({ cart, promo }) => (
         item
       >
         <Typography className={styles.text}>Số lượng</Typography>
-        <Typography className={clsx(styles.number, styles.quantity)}>92024</Typography>
+        <Typography className={clsx(styles.number, styles.quantity)}>{quantity}</Typography>
       </Grid>
       <Grid xs={6} className={clsx(styles.wrapper, styles.text_right, styles.total_border)} item>
         <Typography className={styles.text}>Tổng tiền</Typography>
-        <Typography className={clsx(styles.number, styles.price)}>144.604.649 đ</Typography>
+        <Typography className={clsx(styles.number, styles.price)}>{total}</Typography>
       </Grid>
     </Grid>
     {promo && (
