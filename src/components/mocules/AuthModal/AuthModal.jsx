@@ -5,16 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const AuthModal = memo((props) => {
-  const { onCancel, onClose, visible, children, title, className, restProps } = props;
+  const { onClose, visible, children, title, className, restProps } = props;
 
   return (
-    <Modal
-      className={className}
-      onCancel={onCancel}
-      open={visible}
-      {...restProps}
-      onClose={onClose}
-    >
+    <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className="auth-modal-content">
         <div className="auth-modal-header">
           <header className="auth-modal-title">{title}</header>

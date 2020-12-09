@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AccountCircle, Visibility, VisibilityOff } from '@material-ui/icons';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
@@ -6,7 +6,15 @@ import { Button, Input, CheckBox } from 'components/atoms';
 
 const SignInForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className } = props;
+  const { className, isChecked, onClickForget } = props;
+
+  const handleClickForget = useCallback(
+    (e) => {
+      e.preventDefault();
+      onClickForget();
+    },
+    [onClickForget],
+  );
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -18,7 +26,7 @@ const SignInForm = React.memo((props) => {
     </InputAdornment>
   );
   const IconPassword = (
-    <InputAdornment>
+    <InputAdornment position="start">
       <LockOutlinedIcon />
     </InputAdornment>
   );
@@ -53,18 +61,20 @@ const SignInForm = React.memo((props) => {
           />
         </FormControl>
         <div className="rememberPassword">
-          <CheckBox isChecked label="Nhớ mật khẩu" />
+          <CheckBox checked={isChecked} label="Nhớ mật khẩu" />
         </div>
         <div className="forgetPassword">
-          <a href="/" className="forgetPassword">
+          <a href="/" className="forgetPassword" onClick={handleClickForget}>
             Quên mật khẩu
           </a>
         </div>
-        <Button className="btnLogin">Đăng nhập</Button>
+        <Button className="btnLogin" color="white">
+          Đăng nhập
+        </Button>
         <div className="register">
           <span className="text-capitalize">
             Để nhận Ưu đãi hấp dẫn,
-            <a href="/" style={{ color: '#f9b514', padding: '2px' }}>
+            <a href="#top" style={{ color: '#f9b514', padding: '2px' }}>
               đăng ký thành viên
             </a>
           </span>

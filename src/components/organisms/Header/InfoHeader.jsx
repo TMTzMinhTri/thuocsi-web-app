@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 import { useModal } from 'hooks';
 
@@ -8,9 +8,17 @@ import { LOGO_THUOCSI } from 'constants/Images';
 import { LinkComp, Button } from '../../atoms';
 import styles from './styles.module.css';
 import SignInModal from '../SignInModal';
+import ForgetPasswordModal from '../ForgetPasswordModal';
 
 export default function InfoHeader() {
-  const [isShowingLogin, toggleLogin] = useModal(false);
+  const [isShowingLogin, toggleLogin] = useModal();
+  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
+
+  const handleChangeForget = useCallback(() => {
+    toggleLogin();
+    toggleForgetPassword();
+  }, [toggleLogin, toggleForgetPassword]);
+
   return (
     <div>
       <div className={styles.header_info}>
@@ -36,13 +44,19 @@ export default function InfoHeader() {
           <Image src={LOGO_THUOCSI} width="164px" height="45px" />
         </div>
 
-        <SignInModal visible={isShowingLogin} />
+        <SignInModal
+          visible={isShowingLogin}
+          onClose={toggleLogin}
+          onChangeForget={handleChangeForget}
+        />
+
+        <ForgetPasswordModal visible={isShowingForgetPassword} onClose={toggleForgetPassword} />
 
         <div className={styles.div_buttons}>
           <Button variant="contained" type="warning" onClick={toggleLogin}>
             Đăng nhập
           </Button>
-          <Button variant="contained" type="success">
+          <Button variant="contained" type="success" color="white">
             Tạo Tài Khoản
           </Button>
         </div>

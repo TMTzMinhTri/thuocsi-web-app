@@ -13,7 +13,7 @@ const ForgetPasswordForm = React.memo((props) => {
 
   return (
     <div className={className}>
-      <form className={className}>
+      <form className={`form-forget-password ${className}`}>
         <FormControl className="form-control">
           <Input
             id="username"
@@ -22,7 +22,9 @@ const ForgetPasswordForm = React.memo((props) => {
             variant="outlined"
           />
         </FormControl>
-        <Button className="btnForgetPassword">Gửi Link khôi phục</Button>
+        <Button className="btnForgetPassword" color="white">
+          Gửi Link khôi phục
+        </Button>
       </form>
     </div>
   );
