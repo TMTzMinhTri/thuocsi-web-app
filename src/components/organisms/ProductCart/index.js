@@ -7,24 +7,20 @@ import { ProductCardBuy, ProductCardContent } from '../../mocules';
 // import ConfirmModal from '../ConfirmModal';
 import styles from './styles.module.css';
 
-const ProductCart = ({ product, toggle, important, handleSetImportant }) => {
-  const handleSetImportance = () => {
-    // console.log('key', key);
-    // const newId = setId(id);
-    toggle();
-    handleSetImportant(product.is_star);
+const ProductCart = React.memo((props) => {
+  console.log('render ', props);
+  const { product, onClickShowModal } = props;
+  const handleSetImportant = () => {
+    onClickShowModal(product.id);
   };
   return (
     <Box className={styles.button_container}>
       <Box className={styles.root_card}>
-        <Box onClick={handleSetImportance} className={styles.important_item}>
-          <Grade className={important ? styles.important_item_active : styles.star_icon} />
+        <Box onClick={handleSetImportant} className={styles.important_item}>
+          <Grade
+            className={product.isImportant ? styles.important_item_active : styles.star_icon}
+          />
         </Box>
-        {/* <ConfirmModal
-          handleSetImportant={handleSetImportant}
-          visible={isShowModal}
-          onClose={toggle}
-        /> */}
         <Card className={styles.product_card}>
           <Box className={styles.product_image}>
             <CardActionArea>
@@ -44,5 +40,5 @@ const ProductCart = ({ product, toggle, important, handleSetImportant }) => {
       </Box>
     </Box>
   );
-};
+});
 export default ProductCart;

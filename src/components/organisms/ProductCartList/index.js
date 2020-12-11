@@ -7,18 +7,33 @@ import ConfirmModal from '../ConfirmModal';
 import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
-const ProductCartList = ({ products }) => {
+const ProductCartList = (props) => {
+  const { products } = props;
   const [isShowModal, toggle] = useModal();
-  const [important, setImportant] = useState(false);
-  // const [id, setId] = useState('');
+  const [idSelecting, setIdSelecting] = useState(null);
+  const [productList, setProductList] = useState(products);
 
-  const handleSetImportant = (value) => {
-    // console.log(id);
-    setImportant(!value);
+  const handleShowModal = (id) => {
+    setIdSelecting(id);
+    toggle();
+  };
+
+  const handleSetImportant = () => {
+    const tmpProducts = products.map((item) => {
+      if (item.id === idSelecting) {
+        const isImportant = item.isImportant ? !item.isImportant : true;
+        return { ...item, isImportant };
+      }
+      return item;
+    });
+    setProductList(tmpProducts);
+    toggle();
   };
 
   return (
     <>
+      <ConfirmModal onClickOk={handleSetImportant} visible={isShowModal} onClose={toggle} />
+
       <Box className={styles.instruction_text}>
         <Star className={styles.star_icon} />
         <Typography>
@@ -27,23 +42,13 @@ const ProductCartList = ({ products }) => {
         </Typography>
       </Box>
       <Box mb={2}>
-        {products.map((item) => (
+        {productList.map((item) => (
           <ProductCart
-            id={`product-cart-${item.id}`}
-            handleSetImportant={handleSetImportant}
-            // setId={setId}
-            toggle={toggle}
-            setImportant={setImportant}
-            important={important}
+            onClickShowModal={handleShowModal}
             key={`product-cart-${item.id}`}
             product={item}
           />
         ))}
-        <ConfirmModal
-          handleSetImportant={handleSetImportant}
-          visible={isShowModal}
-          onClose={toggle}
-        />
       </Box>
       <Box className={styles.instruction_text}>
         <Info className={styles.info_icon} />

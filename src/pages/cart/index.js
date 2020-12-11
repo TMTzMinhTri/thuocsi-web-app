@@ -7,6 +7,7 @@ import ProductClient from 'clients/ProductClient';
 import styles from './style.module.css';
 
 export async function getServerSideProps() {
+  // get products
   const [products] = await Promise.all([ProductClient.loadDataProduct()]);
 
   return {
@@ -28,9 +29,11 @@ export default function Cart({ mostResearched = [], products = [] }) {
         </Box>
         <Grid container spacing={3}>
           <Grid sm={8} item>
+            {/* san pham  */}
             <ProductCartList products={products} />
           </Grid>
           <Grid sm={4} item>
+            {/* gio hang */}
             <CardInfo
               className={styles.card_info}
               cart

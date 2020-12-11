@@ -8,9 +8,7 @@ import clsx from 'clsx';
 import styles from './style.module.css';
 
 const ConfirmModal = memo((props) => {
-  console.log('render/....');
-
-  const { onClose, handleSetImportant, visible, className, restProps } = props;
+  const { onClose, onClickOk, visible, className, restProps } = props;
 
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
@@ -25,8 +23,10 @@ const ConfirmModal = memo((props) => {
           </Typography>
         </Box>
         <Box mt={2} textAlign="center">
-          <Button className={clsx(styles.btn, styles.outlined_btn)}>Không</Button>
-          <Button onClick={handleSetImportant} className={clsx(styles.btn, styles.fill_btn)}>
+          <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
+            Không
+          </Button>
+          <Button onClick={onClickOk} className={clsx(styles.btn, styles.fill_btn)}>
             Có
           </Button>
         </Box>
