@@ -1,25 +1,21 @@
+import { ACCOUNT_API, CUSTOMER_API } from 'constants/APIUri';
 import { GET, POST } from './Clients';
 
 export async function login(body) {
-  const result = await POST({ url: '/core/account/v1/authentication', body });
+  const result = await POST({
+    url: ACCOUNT_API.AUTHENTICATION,
+    body: { ...body, type: 'CUSTOMER' },
+  });
   return result;
 }
 
 export async function signUp(body) {
-  //   {
-  //     "name": "customer 1235",
-  //     "phone": "123123135312",
-  //     "email": "1231123s35@m.vn",
-  //     "scope": "PHARMACY",
-  //     "referCode": "asdasdasdasda",
-  //     "password": "password"
-  // }
-  const result = await POST({ url: '/customer/customer/v1/register', body: JSON.stringify(body) });
+  const result = await POST({ url: CUSTOMER_API.REGISTER, body });
   return result;
 }
 
 export async function getUser() {
-  const result = await GET({ url: '/customer/customer/v1/me' });
+  const result = await GET({ url: CUSTOMER_API.INFO });
   return result;
 }
 

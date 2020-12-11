@@ -10,20 +10,16 @@ const SignUpModal = React.memo((props) => {
 
   const handleSignUp = (data) => {
     setIsLoading(true);
+
     AuthClient.signUp(data)
       .then((result) => {
         if (!isValid(result)) {
-          setHasAlert('Đã có lỗi xảy ra');
-          return;
+          setHasAlert(`Đã có lỗi xảy ra ${result.message}`);
         }
         // notification
-        // eslint-disable-next-line no-console
-        console.log('register ok ', result);
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-        setHasAlert('Đã có lỗi xảy ra');
+        setHasAlert(`Đã có lỗi xảy ra ${error.message}`);
       })
       .finally(() => {
         setIsLoading(false);

@@ -21,6 +21,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "clsx": "latest",
+    "js-cookie": "^2.2.1",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
