@@ -13,8 +13,12 @@ const SignUpModal = React.memo((props) => {
     AuthClient.signUp(data)
       .then((result) => {
         if (!isValid(result)) {
-          setHasAlert('');
+          setHasAlert('Đã có lỗi xảy ra');
+          return;
         }
+        // notification
+        // eslint-disable-next-line no-console
+        console.log('register ok ', result);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
@@ -22,7 +26,7 @@ const SignUpModal = React.memo((props) => {
         setHasAlert('Đã có lỗi xảy ra');
       })
       .finally(() => {
-        setIsLoading(true);
+        setIsLoading(false);
       });
   };
 

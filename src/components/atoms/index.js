@@ -13,3 +13,4 @@ export { default as RibbonPriceDown } from './Ribbon/RibbonPriceDown';
 export { default as NewBadge } from './Badge/NewBadge';
 export { default as EventBadge } from './Badge/EventBadge';
 export { default as CheckBox } from './CheckBox';
+export { default as SnackBar } from './SnackBar';

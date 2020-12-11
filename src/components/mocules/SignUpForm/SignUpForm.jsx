@@ -13,15 +13,20 @@ import { Button, Input, CheckBox } from 'components/atoms';
 
 import { FormDataUtils } from 'utils';
 
+import { ENUM_SCOPE } from 'constants/Enums';
+
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickSignIn, isCheckAgree, onClickSignUp } = props;
+  const { className, onClickSignIn, isCheckAgree, onClickSignUp, hasAlert } = props;
 
-  const handleSubmitSignUp = (e) => {
-    const data = FormDataUtils.convert(e);
-    e.preventDefault();
-    onClickSignUp(data);
-  };
+  const handleSubmitSignUp = useCallback(
+    (e) => {
+      const data = FormDataUtils.convert(e);
+      e.preventDefault();
+      onClickSignUp(data);
+    },
+    [onClickSignUp],
+  );
 
   const handleClickSignIn = useCallback(
     (e) => {
@@ -70,9 +75,17 @@ const SignUpForm = React.memo((props) => {
     </InputAdornment>
   );
 
+  const errorElement = () => {
+    if (hasAlert) {
+      return <div>{hasAlert}</div>;
+    }
+    return null;
+  };
+
   return (
     <div className={className}>
       <form className={className} onSubmit={handleSubmitSignUp}>
+        {errorElement}
         <FormControl className="form-control">
           <Input
             id="username"
@@ -121,7 +134,17 @@ const SignUpForm = React.memo((props) => {
           />
         </FormControl>
         <div className="agree-term">
-          <CheckBox checked={isCheckAgree} label="Tôi đã đọc và đồng ý với điều khoản sử dụng *" />
+          <CheckBox
+            checked={isCheckAgree}
+            name="agreeTerm"
+            label="Tôi đã đọc và đồng ý với điều khoản sử dụng *"
+          />
+        </div>
+        <div className="agree-term">
+          <CheckBox name="scope" value={ENUM_SCOPE.PHARMACY} label="Nhà thuốc" />
+          <CheckBox name="scope" value={ENUM_SCOPE.CLINIC} label="phòng khám" />
+          {/* DRUGSTORE */}
+          <CheckBox name="scope" value={ENUM_SCOPE.DRUGSTORE} label="Quầy thuốc" />
         </div>
         <div className="link-login">
           <span className="text-capitalize">
