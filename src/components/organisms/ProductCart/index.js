@@ -8,7 +8,6 @@ import { ProductCardBuy, ProductCardContent } from '../../mocules';
 import styles from './styles.module.css';
 
 const ProductCart = React.memo((props) => {
-  console.log('render ', props);
   const { product, onClickShowModal } = props;
   const handleSetImportant = () => {
     onClickShowModal(product.id);
