@@ -1,11 +1,13 @@
-import { API_HOST } from '../../config/index';
+import { API_HOST, MOCK_API_HOST } from '../../config/index';
 
-async function request({ url, method, body }) {
-  const link = `${API_HOST}${url}`;
+async function request({ url, headers, method, body, mock = false }) {
+  const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
+
   const res = await fetch(link, {
     method,
     credentials: 'same-origin',
     headers: {
+      ...headers,
       'Content-Type': 'application/json',
     },
     body,
@@ -14,25 +16,24 @@ async function request({ url, method, body }) {
   return result;
 }
 
-export async function GET(url) {
-  return request({ url, method: 'GET' });
+export async function GET({ url, mock }) {
+  return request({ url, method: 'GET', mock });
 }
 
-async function POST(url, body) {
-  return request({ url, method: 'POST', body });
+export async function POST({ url, body, mock }) {
+  return request({ url, method: 'POST', body, mock });
 }
 
-async function PUT(url, body) {
-  return request({ url, method: 'PUT', body });
+export async function PUT({ url, body, mock }) {
+  return request({ url, method: 'PUT', body, mock });
 }
 
-async function DELETE(url, body) {
-  return request({ url, method: 'DELETE', body });
+export async function DELETE({ url, body, mock }) {
+  return request({ url, method: 'DELETE', body, mock });
 }
 
-export default {
-  GET,
-  POST,
-  PUT,
-  DELETE,
-};
+export async function isValid(resp) {
+  return resp && resp.data && resp.status && resp.status === 'OK';
+}
+
+export default { GET, POST, PUT, DELETE, isValid };

@@ -11,9 +11,17 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
 import { Button, Input, CheckBox } from 'components/atoms';
 
+import { FormDataUtils } from 'utils';
+
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickSignIn, isCheckAgree } = props;
+  const { className, onClickSignIn, isCheckAgree, onClickSignUp } = props;
+
+  const handleSubmitSignUp = (e) => {
+    const data = FormDataUtils.convert(e);
+    e.preventDefault();
+    onClickSignUp(data);
+  };
 
   const handleClickSignIn = useCallback(
     (e) => {
@@ -64,10 +72,11 @@ const SignUpForm = React.memo((props) => {
 
   return (
     <div className={className}>
-      <form className={className}>
+      <form className={className} onSubmit={handleSubmitSignUp}>
         <FormControl className="form-control">
           <Input
             id="username"
+            name="name"
             startAdornment={IconAccount}
             placeholder="Nhập tên (bắt buộc)"
             variant="outlined"
@@ -76,6 +85,7 @@ const SignUpForm = React.memo((props) => {
         <FormControl className="form-control">
           <Input
             id="phonenumber"
+            name="phone"
             startAdornment={IconPhone}
             placeholder="Nhập số điện thoại (bắt buộc)"
             variant="outlined"
@@ -84,6 +94,7 @@ const SignUpForm = React.memo((props) => {
         <FormControl className="form-control">
           <Input
             id="email"
+            name="email"
             startAdornment={IconEmail}
             placeholder="Nhập email"
             variant="outlined"
@@ -92,6 +103,7 @@ const SignUpForm = React.memo((props) => {
         <FormControl className="form-control">
           <Input
             id="password"
+            name="password"
             type={showPassword ? 'text' : 'password'}
             startAdornment={IconPassword}
             endAdornment={IconEndPassword}
@@ -102,6 +114,7 @@ const SignUpForm = React.memo((props) => {
         <FormControl className="form-control">
           <Input
             id="inviter"
+            name="referCode"
             startAdornment={IconInviter}
             placeholder="Nhập số điện thoại người giới thiệu hoặc mã nhóm."
             variant="outlined"
@@ -118,7 +131,7 @@ const SignUpForm = React.memo((props) => {
             </a>
           </span>
         </div>
-        <Button className="btn-register" color="white">
+        <Button className="btn-register" color="white" type="submit">
           Tạo tài khoản
         </Button>
       </form>

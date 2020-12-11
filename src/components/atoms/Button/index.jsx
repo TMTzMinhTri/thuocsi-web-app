@@ -18,10 +18,10 @@ const buttonTypes = ({ theme, backgroundColor, color }) => ({
 });
 
 const CustomButton = styled(Button)`
-  color: ${({ theme, type = 'primary', color }) =>
-    buttonTypes({ theme, color })[type].color} !important;
-  background-color: ${({ theme, type = 'primary', backgroundColor }) =>
-    buttonTypes({ theme, backgroundColor })[type].background} !important;
+  color: ${({ theme, btnType = 'primary', color }) =>
+    buttonTypes({ theme, color })[btnType].color} !important;
+  background-color: ${({ theme, btnType = 'primary', backgroundColor }) =>
+    buttonTypes({ theme, backgroundColor })[btnType].background} !important;
   margin-right: 10px !important;
   border-radius: 50px !important;
 `;
