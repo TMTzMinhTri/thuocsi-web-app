@@ -19,11 +19,14 @@ const ProductCardContent = ({
   // status,
   // price_percent,
   row,
+  cart,
+  className,
 }) => (
   <CardContent
-    className={
-      row ? styles.product_content : clsx(styles.product_content, styles.product_content_column)
-    }
+    className={`${className}
+      ${
+        row ? styles.product_content : clsx(styles.product_content, styles.product_content_column)
+      }`}
   >
     <Box
       className={
@@ -53,7 +56,7 @@ const ProductCardContent = ({
         {type}
       </Typography>
     </Box>
-    {row && (
+    {row && cart && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"

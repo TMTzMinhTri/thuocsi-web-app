@@ -21,6 +21,7 @@ export default (req, res) => {
         price_percent: 19.23423423,
         not_support_delivery: true,
         is_event: true,
+        is_star: true,
       },
       {
         id: 2,

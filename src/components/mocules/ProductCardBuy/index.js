@@ -1,5 +1,6 @@
 import React from 'react';
-import { CardActions, Typography, Box } from '@material-ui/core';
+import { CardActions, Typography, Box, IconButton } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import { MinusButton, PlusButton, InputProduct } from '../../atoms';
@@ -17,6 +18,7 @@ const ProductCardBuy = ({
   row,
   type,
   searchInput,
+  cart,
 }) => (
   <>
     {row && <DealSection dealEndDay={dealEndDay} />}
@@ -59,6 +61,11 @@ const ProductCardBuy = ({
           <MinusButton />
           <InputProduct searchInput={searchInput} type={type} />
           <PlusButton />
+          {cart && (
+            <IconButton>
+              <Delete className={styles.icon} />
+            </IconButton>
+          )}
         </CardActions>
       </>
     )}
