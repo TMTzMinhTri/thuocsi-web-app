@@ -2,7 +2,7 @@ import { GET } from './Clients';
 
 async function loadDataMostSearch() {
   const url = '/product/most-search';
-  const result = await GET({ url, mock: true });
+  const result = await GET({ url });
   return result.data;
 }
 
