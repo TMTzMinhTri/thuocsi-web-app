@@ -1,25 +1,100 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextareaAutosize, Button } from '@material-ui/core';
 import { Star, Info } from '@material-ui/icons';
 import useModal from 'hooks/useModal';
 
 import ConfirmModal from '../ConfirmModal';
+import ErrorModal from '../ErrorModal';
+import RemoveProductModal from '../RemoveProductModal';
 import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
 const ProductCartList = (props) => {
-  const { products } = props;
+  const { products, onGetQuantity } = props;
   const [isShowModal, toggle] = useModal();
+  const [isShowModalWarning, toggleWarning] = useModal();
+  const [isShowModalUnset, toggleUnset] = useModal();
+  const [isShowModalRemove, toggleRemove] = useModal();
   const [idSelecting, setIdSelecting] = useState(null);
   const [productList, setProductList] = useState(products);
+  const [form, setForm] = useState({});
+
+  useEffect(() => {
+    let newObj = {};
+    products.forEach((val) => {
+      newObj = {
+        ...newObj,
+        [val.id]: 1
+      };
+    });
+    setForm(newObj);
+  }, []);
+
+  useEffect(() => {
+    if(form[idSelecting] < 1) {
+      setForm({
+        ...form,
+        [idSelecting]: 1
+      }); 
+      toggleRemove();
+    }
+    onGetQuantity(form);
+  }, [form])
+
 
   const handleShowModal = (id) => {
     setIdSelecting(id);
-    toggle();
+    const filterItem = productList.find((item) => item.id === id);
+    if (filterItem?.isImportant === true) {
+      toggleUnset();
+    } else {
+      toggle();
+    }
   };
 
   const handleSetImportant = () => {
-    const tmpProducts = products.map((item) => {
+    const tmpProducts = productList.map((item) => {
+      if (item.id === idSelecting) {
+        const isImportant = item.isImportant ? !item.isImportant : true;
+        return { ...item, isImportant };
+      }
+      return item;
+    });
+    setProductList([...tmpProducts]);
+    toggle();
+  };
+
+  const handleErr = () => {
+    const importantList = productList.filter((item) => item.isImportant === true);
+
+    const filterItem = productList.find((item) => item.id === idSelecting);
+
+    if (filterItem?.isImportant === false || filterItem?.isImportant === undefined) {
+      if (importantList.length >= (Math.floor((productList.length * 20) / 100) || 1)) {
+        toggleWarning();
+        toggle();
+      } else {
+        handleSetImportant();
+      }
+    } else {
+      handleSetImportant();
+    }
+  };
+  console.log(form)
+
+
+  const handleRemove = (id) => {
+    const newList = productList.filter((item) => item.id !== id);
+    const newForm = {...form}
+    delete newForm[id]
+
+    setProductList(newList);
+    setForm(newForm);
+    toggleRemove();
+  };
+
+  const handleUnsetImportant = () => {
+    const tmpProducts = productList.map((item) => {
       if (item.id === idSelecting) {
         const isImportant = item.isImportant ? !item.isImportant : true;
         return { ...item, isImportant };
@@ -27,12 +102,52 @@ const ProductCartList = (props) => {
       return item;
     });
     setProductList(tmpProducts);
-    toggle();
+    toggleUnset();
+  };
+
+  const handleShowModalDelete = (id) => {
+    setIdSelecting(id);
+    toggleRemove();
+  };
+
+  const handleOnChange = (e, id) => {
+    const { value } = e.target;
+    setForm({
+      ...form,
+      [id]: parseInt(value)
+    });
+  }
+
+  const handleExtraDecrement = (id) => {
+    handleDecrement(id)
+  }
+  
+  const handleDecrement = (id) => {
+    setIdSelecting(id)
+    console.log('before ',form[id])
+    if(form[id] >= 1) {
+      setForm({
+        ...form,
+        [id]: form[id] - 1
+      });    
+    } 
+
+  };
+
+  const handleIncrement = (id) => {
+  
+    setForm({
+      ...form,
+      [id]: form[id] + 1
+    });
   };
 
   return (
     <>
-      <ConfirmModal onClickOk={handleSetImportant} visible={isShowModal} onClose={toggle} />
+      <RemoveProductModal setForm={setForm} id={idSelecting} onRemove={handleRemove} visible={isShowModalRemove} onClose={toggleRemove} />
+      <ErrorModal visible={isShowModalWarning} onClose={toggleWarning} />
+      <ConfirmModal onClickOk={handleErr} visible={isShowModal} onClose={toggle} />
+      <ConfirmModal unset onClickOk={handleUnsetImportant} visible={isShowModalUnset} onClose={toggleUnset} />
 
       <Box className={styles.instruction_text}>
         <Star className={styles.star_icon} />
@@ -47,7 +162,12 @@ const ProductCartList = (props) => {
             onClickShowModal={handleShowModal}
             key={`product-cart-${item.id}`}
             product={item}
-          />
+            onRemove={handleShowModalDelete}
+            onChange={handleOnChange}
+            onDecrement={handleExtraDecrement}
+            onIncrement={handleIncrement}
+            form={form}
+            />
         ))}
       </Box>
       <Box className={styles.instruction_text}>

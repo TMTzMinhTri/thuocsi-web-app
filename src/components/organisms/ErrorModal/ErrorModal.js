@@ -7,8 +7,8 @@ import clsx from 'clsx';
 
 import styles from './style.module.css';
 
-const ConfirmModal = memo((props) => {
-  const { onClose, onClickOk, visible, className, unset, restProps } = props;
+const ErrorModal = memo((props) => {
+  const { onClose, visible, className, restProps } = props;
 
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
@@ -19,15 +19,12 @@ const ConfirmModal = memo((props) => {
           </Box>
           <Typography className={styles.modal_title}>Xin xác nhận</Typography>
           <Typography className={styles.modal_content}>
-           Bạn có chắc bạn muốn {unset && "bỏ"} đánh dấu sản phẩm này là quan trọng trong đơn hàng hiện tại?
+          Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm
           </Typography>
         </Box>
         <Box mt={2} textAlign="center">
-          <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
-            Không
-          </Button>
-          <Button onClick={onClickOk} className={clsx(styles.btn, styles.fill_btn)}>
-            Có
+          <Button variant="contained" color="primary" className={styles.btn} onClick={onClose}>
+            OK
           </Button>
         </Box>
       </Box>
@@ -35,4 +32,4 @@ const ConfirmModal = memo((props) => {
   );
 });
 
-export default ConfirmModal;
+export default ErrorModal;

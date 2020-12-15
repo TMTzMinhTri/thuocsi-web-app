@@ -8,7 +8,7 @@ import { ProductCardBuy, ProductCardContent } from '../../mocules';
 import styles from './styles.module.css';
 
 const ProductCart = React.memo((props) => {
-  const { product, onClickShowModal } = props;
+  const { product, onClickShowModal, onRemove, onChange, form, onIncrement, onDecrement } = props;
   const handleSetImportant = () => {
     onClickShowModal(product.id);
   };
@@ -34,7 +34,15 @@ const ProductCart = React.memo((props) => {
             </CardActionArea>
           </Box>
           <ProductCardContent className={styles.product_content} row {...product} />
-          <ProductCardBuy cart {...product} />
+          <ProductCardBuy   
+            {...product} 
+            onRemove={onRemove} 
+            onChange={onChange}
+            onDecrement={onDecrement}
+            onIncrement={onIncrement}
+            form={form}
+            cart 
+          />
         </Card>
       </Box>
     </Box>

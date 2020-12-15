@@ -13,3 +13,5 @@ export { default as QuickOrderList } from './QuickOrderList';
 export { default as SignUpModal } from './SignUpModal';
 export { default as ProductCartList } from './ProductCartList';
 export { default as ConfirmModal } from './ConfirmModal';
+export { default as ErrorModal } from './ErrorModal';
+export { default as RemoveProductModal } from './RemoveProductModal';
