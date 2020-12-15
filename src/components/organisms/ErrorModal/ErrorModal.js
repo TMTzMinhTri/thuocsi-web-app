@@ -19,7 +19,7 @@ const ErrorModal = memo((props) => {
           </Box>
           <Typography className={styles.modal_title}>Xin xác nhận</Typography>
           <Typography className={styles.modal_content}>
-          Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm
+            Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm
           </Typography>
         </Box>
         <Box mt={2} textAlign="center">

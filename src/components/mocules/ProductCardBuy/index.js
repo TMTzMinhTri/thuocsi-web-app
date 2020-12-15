@@ -24,7 +24,7 @@ const ProductCardBuy = ({
   onChange,
   onIncrement,
   onDecrement,
-  form
+  form,
 }) => (
   <>
     {row && <DealSection dealEndDay={dealEndDay} />}

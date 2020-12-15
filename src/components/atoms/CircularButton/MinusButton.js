@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 import styles from './styles.module.css';
 
-const MinusButton = memo(({...restProps}) => (
+const MinusButton = memo(({ ...restProps }) => (
   <>
     <IconButton
       {...restProps}

@@ -3,8 +3,7 @@ import { Input } from '@material-ui/core';
 
 import styles from './styles.module.css';
 
-const InputProduct = memo(({ searchInput, key, onChange, id, form }) => {
-  return (
+const InputProduct = memo(({ searchInput, key, onChange, id, form }) => (
   <Input
     name={`input-${id}`}
     key={key}
@@ -15,6 +14,6 @@ const InputProduct = memo(({ searchInput, key, onChange, id, form }) => {
     onChange={(e) => onChange(e, id)}
     value={form[id] || 0}
   />
-)});
+));
 
 export default InputProduct;

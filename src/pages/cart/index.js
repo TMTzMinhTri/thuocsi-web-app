@@ -18,12 +18,12 @@ export async function getServerSideProps() {
 
 export default function Cart({ mostResearched = [], products = [] }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-  const [quantity, setQuantity] = useState(products.length)
+  const [quantity, setQuantity] = useState(products.length);
   const handleGetQuantity = (quanity) => {
-    const sum = Object.keys(quanity).reduce((sum,key)=>sum+parseFloat(quanity[key]||0),0);
-    setQuantity(sum)
-  }
-  
+    const sum = Object.keys(quanity).reduce((sum, key) => sum + parseFloat(quanity[key] || 0), 0);
+    setQuantity(sum);
+  };
+
   return (
     <Template title={title}>
       <Header />

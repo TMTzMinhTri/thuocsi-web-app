@@ -34,14 +34,14 @@ const ProductCart = React.memo((props) => {
             </CardActionArea>
           </Box>
           <ProductCardContent className={styles.product_content} row {...product} />
-          <ProductCardBuy   
-            {...product} 
-            onRemove={onRemove} 
+          <ProductCardBuy
+            {...product}
+            onRemove={onRemove}
             onChange={onChange}
             onDecrement={onDecrement}
             onIncrement={onIncrement}
             form={form}
-            cart 
+            cart
           />
         </Card>
       </Box>

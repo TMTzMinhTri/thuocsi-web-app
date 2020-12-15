@@ -24,23 +24,22 @@ const ProductCartList = (props) => {
     products.forEach((val) => {
       newObj = {
         ...newObj,
-        [val.id]: 1
+        [val.id]: 1,
       };
     });
     setForm(newObj);
   }, []);
 
   useEffect(() => {
-    if(form[idSelecting] < 1) {
+    if (form[idSelecting] < 1) {
       setForm({
         ...form,
-        [idSelecting]: 1
-      }); 
+        [idSelecting]: 1,
+      });
       toggleRemove();
     }
     onGetQuantity(form);
-  }, [form])
-
+  }, [form]);
 
   const handleShowModal = (id) => {
     setIdSelecting(id);
@@ -80,13 +79,12 @@ const ProductCartList = (props) => {
       handleSetImportant();
     }
   };
-  console.log(form)
-
+  console.log(form);
 
   const handleRemove = (id) => {
     const newList = productList.filter((item) => item.id !== id);
-    const newForm = {...form}
-    delete newForm[id]
+    const newForm = { ...form };
+    delete newForm[id];
 
     setProductList(newList);
     setForm(newForm);
@@ -114,31 +112,29 @@ const ProductCartList = (props) => {
     const { value } = e.target;
     setForm({
       ...form,
-      [id]: parseInt(value)
+      [id]: parseInt(value),
     });
-  }
+  };
 
   const handleExtraDecrement = (id) => {
-    handleDecrement(id)
-  }
-  
+    handleDecrement(id);
+  };
+
   const handleDecrement = (id) => {
-    setIdSelecting(id)
-    console.log('before ',form[id])
-    if(form[id] >= 1) {
+    setIdSelecting(id);
+    console.log('before ', form[id]);
+    if (form[id] >= 1) {
       setForm({
         ...form,
-        [id]: form[id] - 1
-      });    
-    } 
-
+        [id]: form[id] - 1,
+      });
+    }
   };
 
   const handleIncrement = (id) => {
-  
     setForm({
       ...form,
-      [id]: form[id] + 1
+      [id]: form[id] + 1,
     });
   };
 
@@ -167,7 +163,7 @@ const ProductCartList = (props) => {
             onDecrement={handleExtraDecrement}
             onIncrement={handleIncrement}
             form={form}
-            />
+          />
         ))}
       </Box>
       <Box className={styles.instruction_text}>

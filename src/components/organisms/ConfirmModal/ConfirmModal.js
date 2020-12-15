@@ -19,7 +19,7 @@ const ConfirmModal = memo((props) => {
           </Box>
           <Typography className={styles.modal_title}>Xin xác nhận</Typography>
           <Typography className={styles.modal_content}>
-           Bạn có chắc bạn muốn {unset && "bỏ"} đánh dấu sản phẩm này là quan trọng trong đơn hàng hiện tại?
+            Bạn có chắc bạn muốn {unset && 'bỏ'} đánh dấu sản phẩm này là quan trọng trong đơn hàng hiện tại?
           </Typography>
         </Box>
         <Box mt={2} textAlign="center">
