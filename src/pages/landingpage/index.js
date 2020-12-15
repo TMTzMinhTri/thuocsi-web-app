@@ -12,15 +12,15 @@ import {
   WhyBuymed,
 } from 'components';
 
-// import { useAuth } from 'context';
+import { useAuth } from 'context';
 
 export default function LandingPage({ mostResearched = [], feedback = [], infoBanner = [] }) {
   const title = 'Thuocsi.vn';
   // example use useAuth
-  // const { user } = useAuth();
-  // if (user) {
-  //   console.log('USer : ', user);
-  // }
+  const { user } = useAuth();
+  if (user) {
+    console.log('USer : ', user);
+  }
   return (
     <Template title={title}>
       <Header />
