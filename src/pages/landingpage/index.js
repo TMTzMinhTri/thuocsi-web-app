@@ -19,7 +19,7 @@ export default function LandingPage({ mostResearched = [], feedback = [], infoBa
   // example use useAuth
   const { user } = useAuth();
   if (user) {
-    console.log('USer : ', user);
+    // console.log('USer : ', user);
   }
   return (
     <Template title={title}>
