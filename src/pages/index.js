@@ -2,11 +2,11 @@ import React from 'react';
 import ProductClient from 'clients/ProductClient';
 import LandingPage from './landingpage/index';
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const [mostResearched, feedback, infoBanner] = await Promise.all([
-    ProductClient.loadDataMostSearch(),
-    ProductClient.loadFeedback(),
-    ProductClient.getInfoBanner(),
+    ProductClient.loadDataMostSearch(context),
+    ProductClient.loadFeedback(context),
+    ProductClient.getInfoBanner(context),
   ]);
 
   return {

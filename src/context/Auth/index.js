@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
 
     Cookies.set(ACCESS_TOKEN, bearerToken);
     Cookies.set(REMEMBER_ME, rememberMe);
+
     const DateExpired = new Date(expiredTime);
     if (rememberMe) {
       Cookies.set(ACCESS_TOKEN_LONGLIVE, bearerToken, {
