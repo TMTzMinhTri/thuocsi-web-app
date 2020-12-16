@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { NoSsr } from '@material-ui/core';
 
 function CountdownTimer({ dealEndDay, ...otherProps }) {
   const calculateTimeLeft = () => {
@@ -49,7 +50,9 @@ function CountdownTimer({ dealEndDay, ...otherProps }) {
     );
   });
   return (
-    <div {...otherProps}>{timerComponents.length ? timerComponents : <span>Hết hạn</span>}</div>
+    <NoSsr>
+      <div {...otherProps}>{timerComponents.length ? timerComponents : <span>Hết hạn</span>}</div>
+    </NoSsr>
   );
 }
 

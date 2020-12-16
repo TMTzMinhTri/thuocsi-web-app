@@ -4,8 +4,8 @@ import { LocalOffer } from '@material-ui/icons';
 import clsx from 'clsx';
 import styles from './style.module.css';
 
-const CardInfo = ({ cart, promo, total, quantity }) => (
-  <Grid className={styles.container} container>
+const CardInfo = ({ cart, promo, total, quantity, className }) => (
+  <Grid className={clsx(styles.container, className)} container>
     <Grid container item>
       <Grid
         xs={6}

@@ -1,5 +1,6 @@
 import React from 'react';
-import { CardActions, Typography, Box } from '@material-ui/core';
+import { CardActions, Typography, Box, IconButton } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import { MinusButton, PlusButton, InputProduct } from '../../atoms';
@@ -16,6 +17,16 @@ const ProductCardBuy = ({
   deal_end_day: dealEndDay,
   row,
   type,
+  searchInput,
+  cart,
+  id,
+  onRemove,
+  onChange,
+  onIncrement,
+  onDecrement,
+  form,
+  value,
+  name,
 }) => (
   <>
     {row && <DealSection dealEndDay={dealEndDay} />}
@@ -55,9 +66,22 @@ const ProductCardBuy = ({
             row ? styles.product_action : clsx(styles.product_action, styles.product_action_column)
           }
         >
-          <MinusButton />
-          <InputProduct type={type} />
-          <PlusButton />
+          <MinusButton onClick={() => onDecrement(id)} />
+          <InputProduct
+            form={form}
+            id={id}
+            onChange={onChange}
+            searchInput={searchInput}
+            type={type}
+            value={value}
+            name={name}
+          />
+          <PlusButton onClick={() => onIncrement(id)} />
+          {cart && (
+            <IconButton onClick={() => onRemove(id)}>
+              <Delete className={styles.icon} />
+            </IconButton>
+          )}
         </CardActions>
       </>
     )}

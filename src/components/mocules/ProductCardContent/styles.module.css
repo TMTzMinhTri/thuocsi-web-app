@@ -4,8 +4,6 @@
 }
 
 .product_content_column {
-    flex: 60%;
-    max-width: 60%;
     margin-bottom: 0!important;
 }
 
@@ -82,6 +80,12 @@
 
 .product_title_wrap {
     display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.product_title_column_wrap {
+    flex-direction: row!important;
     align-items: center;
 }
 
