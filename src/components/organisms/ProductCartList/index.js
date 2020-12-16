@@ -28,6 +28,10 @@ const ProductCartList = (props) => {
       };
     });
     setForm(newObj);
+    setCartList(() => productList.map((item) => ({
+      ...item,
+      quantity: form[item.id] || 1,
+    })));
   }, []);
 
   useEffect(() => {

@@ -20,12 +20,13 @@ export async function getServerSideProps() {
 export default function Cart({ mostResearched = [], products = [] }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [cart, setCartList] = useState();
-
+  console.log(cart);
   const getQuantity = cart?.reduce((acc, cum) => acc + cum.quantity, 0) || products.length;
   const cartPriceTotal = cart?.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
+
   return (
     <Template title={title}>
       <Header />
@@ -46,7 +47,7 @@ export default function Cart({ mostResearched = [], products = [] }) {
               cart
               promo
               quantity={getQuantity}
-              total={FormarCurrency(cartPriceTotal)}
+              total={FormarCurrency((cartPriceTotal || 0))}
             />
           </Grid>
         </Grid>
