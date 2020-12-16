@@ -43,13 +43,11 @@
     }
   },
   "rules": {
-    "max-len": ["error", { "code": 280 }],
     "react/prop-types": "off",
     "react/forbid-prop-types": 0,
     "react/require-default-props": "off",
     "react/no-unescaped-entities": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/jsx-first-prop-new-line": "off",
     "react/button-has-type": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-one-expression-per-line": "off",

@@ -3,9 +3,9 @@ import { Input } from '@material-ui/core';
 
 import styles from './styles.module.css';
 
-const InputProduct = memo(({ searchInput, key, onChange, id, form }) => (
+const InputProduct = memo(({ name, searchInput, key, onChange, id, form }) => (
   <Input
-    name={`input-${id}`}
+    name={`${name}-${id}`}
     key={key}
     inputRef={searchInput}
     classes={{ root: styles.root_input, input: styles.input, focused: styles.focus }}

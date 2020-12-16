@@ -6,6 +6,7 @@ import styles from './styles.module.css';
 
 const ProductCardHorizontal = ({ product }) => {
   const searchInput = useRef(null);
+  const { image } = product;
 
   const handleFocus = () => {
     searchInput.current.focus();
@@ -21,7 +22,7 @@ const ProductCardHorizontal = ({ product }) => {
                 alt="Contemplative Reptile"
                 height="50"
                 width="50"
-                image="/images/slider/slider01.png"
+                image={image}
                 title="Contemplative Reptile"
               />
             </CardActionArea>

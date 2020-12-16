@@ -65,7 +65,13 @@ const ProductCardBuy = ({
           }
         >
           <MinusButton onClick={() => onDecrement(id)} />
-          <InputProduct form={form} id={id} onChange={onChange} searchInput={searchInput} type={type} />
+          <InputProduct
+            form={form}
+            id={id}
+            onChange={onChange}
+            searchInput={searchInput}
+            type={type}
+          />
           <PlusButton onClick={() => onIncrement(id)} />
           {cart && (
             <IconButton onClick={() => onRemove(id)}>

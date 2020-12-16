@@ -1,10 +1,8 @@
 import React from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { Grade } from '@material-ui/icons';
-// import useModal from 'hooks/useModal';
 
 import { ProductCardBuy, ProductCardContent } from '../../mocules';
-// import ConfirmModal from '../ConfirmModal';
 import styles from './styles.module.css';
 
 const ProductCart = React.memo((props) => {

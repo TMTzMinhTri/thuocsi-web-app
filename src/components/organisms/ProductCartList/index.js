@@ -28,10 +28,11 @@ const ProductCartList = (props) => {
       };
     });
     setForm(newObj);
-    setCartList(() => productList.map((item) => ({
-      ...item,
-      quantity: form[item.id] || 1,
-    })));
+    setCartList(() =>
+      productList.map((item) => ({
+        ...item,
+        quantity: form[item.id] || 1,
+      })));
   }, []);
 
   useEffect(() => {
@@ -43,10 +44,11 @@ const ProductCartList = (props) => {
       toggleRemove();
     }
 
-    setCartList(() => productList.map((item) => ({
-      ...item,
-      quantity: form[item.id] || 1,
-    })));
+    setCartList(() =>
+      productList.map((item) => ({
+        ...item,
+        quantity: form[item.id] || 1,
+      })));
   }, [form]);
 
   const handleShowModal = (id) => {
@@ -144,10 +146,21 @@ const ProductCartList = (props) => {
 
   return (
     <>
-      <RemoveProductModal setForm={setForm} id={idSelecting} onRemove={handleRemove} visible={isShowModalRemove} onClose={toggleRemove} />
+      <RemoveProductModal
+        setForm={setForm}
+        id={idSelecting}
+        onRemove={handleRemove}
+        visible={isShowModalRemove}
+        onClose={toggleRemove}
+      />
       <ErrorModal visible={isShowModalWarning} onClose={toggleWarning} />
       <ConfirmModal onClickOk={handleErr} visible={isShowModal} onClose={toggle} />
-      <ConfirmModal unset onClickOk={handleUnsetImportant} visible={isShowModalUnset} onClose={toggleUnset} />
+      <ConfirmModal
+        unset
+        onClickOk={handleUnsetImportant}
+        visible={isShowModalUnset}
+        onClose={toggleUnset}
+      />
 
       <Box className={styles.instruction_text}>
         <Star className={styles.star_icon} />
