@@ -7,6 +7,7 @@ import { AuthProvider } from 'context';
 import { Theme } from 'components';
 
 import '../styles/globals.css';
+import CartContextProvider from 'context/CartContext';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -28,11 +29,13 @@ export default function MyApp(props) {
       </Head>
 
       <ThemeProvider theme={Theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
+        <CartContextProvider>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </CartContextProvider>
       </ThemeProvider>
     </>
   );
