@@ -42,6 +42,16 @@ export const CartReducer = (state, action) => {
         ...sumItems(state.cartItems),
         cartItems: [...state.cartItems],
       };
+    case 'INCREASE_BY':
+      // eslint-disable-next-line no-param-reassign
+      state.cartItems[
+        state.cartItems.findIndex((item) => item.id === action.payload.productItem.id)
+      ].quantity = action.payload.q;
+      return {
+        ...state,
+        ...sumItems(state.cartItems),
+        cartItems: [...state.cartItems],
+      };
     case 'DECREASE':
       // eslint-disable-next-line no-param-reassign
       state.cartItems[
