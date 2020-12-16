@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { LocalOffer, Opacity, AddShoppingCart, Storefront, Whatshot } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
+import { Toggle } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
 
@@ -32,6 +33,12 @@ const useStyle = makeStyles({
   LinkStyled,
   textSearch: {
     color: 'white',
+  },
+  navBarRight: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginRight: '10%',
   },
 });
 
@@ -84,6 +91,9 @@ export default function NavBar({ mostResearched }) {
         <LinkComp name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
           <LocalOffer />
         </LinkComp>
+        <div className={classes.navBarRight}>
+          <Toggle />
+        </div>
       </div>
       {mostSearchedEle}
     </div>
