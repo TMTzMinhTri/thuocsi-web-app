@@ -1,23 +1,23 @@
 import { GET } from './Clients';
 
-async function loadDataMostSearch() {
+async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
-  const result = await GET({ url });
+  const result = await GET({ url, ctx });
   return result.data;
 }
 
-async function loadFeedback() {
-  const result = await GET({ url: '/feedback', mock: true });
+async function loadFeedback(ctx) {
+  const result = await GET({ url: '/feedback', mock: true, ctx });
   return result.data;
 }
 
-async function getInfoBanner() {
-  const result = await GET({ url: '/banner', mock: true });
+async function getInfoBanner(ctx) {
+  const result = await GET({ url: '/banner', mock: true, ctx });
   return result.data;
 }
 
-async function loadDataProduct() {
-  const result = await GET({ url: '/product', mock: true });
+async function loadDataProduct(ctx) {
+  const result = await GET({ url: '/product', mock: true, ctx });
   return result.data;
 }
 
