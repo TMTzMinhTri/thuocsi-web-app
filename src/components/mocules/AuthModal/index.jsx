@@ -10,7 +10,7 @@ const AuthModal = styled(AuthModalCustom)`
       width: ${({ width = 500 }) => width}px;
       background: ${({ theme }) => theme.modal.background};
       border: 1px solid rgba(0, 0, 0, 0.2);
-      boxshadow: theme.shadows[5];
+      box-shadow: theme.shadows[5];
       border-radius: 1.25em;
       outline: 0;
     }

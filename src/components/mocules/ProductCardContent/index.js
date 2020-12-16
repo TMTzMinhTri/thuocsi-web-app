@@ -19,13 +19,22 @@ const ProductCardContent = ({
   // status,
   // price_percent,
   row,
+  cart,
+  className,
 }) => (
   <CardContent
-    className={
-      row ? styles.product_content : clsx(styles.product_content, styles.product_content_column)
-    }
+    className={`${className}
+      ${
+        row ? styles.product_content : clsx(styles.product_content, styles.product_content_column)
+      }`}
   >
-    <Box className={styles.product_title_wrap}>
+    <Box
+      className={
+        row
+          ? styles.product_title_wrap
+          : clsx(styles.product_title_wrap, styles.product_title_column_wrap)
+      }
+    >
       <Box className={styles.product_title}>
         <a href="/">
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
@@ -47,7 +56,7 @@ const ProductCardContent = ({
         {type}
       </Typography>
     </Box>
-    {row && (
+    {row && cart && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"

@@ -6,8 +6,8 @@
 }
 
 .product_action_column {
-    flex: 18%;
-    max-width: 18%;
+    flex: 25%;
+    max-width: 25%;
     justify-content: flex-end;
 }
 
@@ -59,3 +59,6 @@
     text-decoration: line-through;
 }
 
+.icon {
+    color: #c3ccdc
+}

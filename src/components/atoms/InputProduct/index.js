@@ -3,11 +3,16 @@ import { Input } from '@material-ui/core';
 
 import styles from './styles.module.css';
 
-const InputProduct = memo(() => (
+const InputProduct = memo(({ name, searchInput, key, onChange, id, value }) => (
   <Input
+    name={name}
+    key={key}
+    inputRef={searchInput}
     classes={{ root: styles.root_input, input: styles.input, focused: styles.focus }}
     disableUnderline
     placeholder="0"
+    onChange={(e) => onChange(e, id)}
+    value={value}
   />
 ));
 
