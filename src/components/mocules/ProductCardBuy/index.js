@@ -25,6 +25,8 @@ const ProductCardBuy = ({
   onIncrement,
   onDecrement,
   form,
+  value,
+  name,
 }) => (
   <>
     {row && <DealSection dealEndDay={dealEndDay} />}
@@ -71,6 +73,8 @@ const ProductCardBuy = ({
             onChange={onChange}
             searchInput={searchInput}
             type={type}
+            value={value}
+            name={name}
           />
           <PlusButton onClick={() => onIncrement(id)} />
           {cart && (

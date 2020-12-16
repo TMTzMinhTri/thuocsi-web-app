@@ -32,7 +32,8 @@ const ProductCartList = (props) => {
       productList.map((item) => ({
         ...item,
         quantity: form[item.id] || 1,
-      })));
+      })),
+    );
   }, []);
 
   useEffect(() => {
@@ -48,7 +49,8 @@ const ProductCartList = (props) => {
       productList.map((item) => ({
         ...item,
         quantity: form[item.id] || 1,
-      })));
+      })),
+    );
   }, [form]);
 
   const handleShowModal = (id) => {
@@ -180,6 +182,8 @@ const ProductCartList = (props) => {
             onDecrement={handleDecrement}
             onIncrement={handleIncrement}
             form={form}
+            value={form[item.id] || 0}
+            name={`cart-${item.id}`}
           />
         ))}
       </Box>

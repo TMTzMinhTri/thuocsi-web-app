@@ -6,7 +6,17 @@ import { ProductCardBuy, ProductCardContent } from '../../mocules';
 import styles from './styles.module.css';
 
 const ProductCart = React.memo((props) => {
-  const { product, onClickShowModal, onRemove, onChange, form, onIncrement, onDecrement } = props;
+  const {
+    product,
+    onClickShowModal,
+    onRemove,
+    onChange,
+    form,
+    onIncrement,
+    onDecrement,
+    value,
+    name,
+  } = props;
   const handleSetImportant = () => {
     onClickShowModal(product.id);
   };
@@ -39,7 +49,9 @@ const ProductCart = React.memo((props) => {
             onDecrement={onDecrement}
             onIncrement={onIncrement}
             form={form}
+            value={value}
             cart
+            name={name}
           />
         </Card>
       </Box>
