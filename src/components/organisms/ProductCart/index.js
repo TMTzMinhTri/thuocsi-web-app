@@ -26,7 +26,7 @@ const ProductCart = React.memo((props) => {
                 alt="Contemplative Reptile"
                 height="80"
                 width="80"
-                image="/images/slider/slider01.png"
+                image={product.image}
                 title="Contemplative Reptile"
               />
             </CardActionArea>
