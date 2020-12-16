@@ -3,7 +3,6 @@ import { Modal } from 'components/atoms';
 import { Button, Typography, Box } from '@material-ui/core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import clsx from 'clsx';
 
 import styles from './style.module.css';
 

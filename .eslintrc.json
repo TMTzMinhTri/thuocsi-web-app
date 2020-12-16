@@ -42,7 +42,7 @@
     }
   },
   "rules": {
-    "max-len": ["error", { "code": 80 }],
+    "max-len": ["error", { "code": 280 }],
     "react/prop-types": "off",
     "react/forbid-prop-types": 0,
     "react/require-default-props": "off",

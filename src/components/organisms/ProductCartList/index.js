@@ -10,7 +10,7 @@ import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
 const ProductCartList = (props) => {
-  const { products, onGetQuantity } = props;
+  const { products, setCartList } = props;
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
   const [isShowModalUnset, toggleUnset] = useModal();
@@ -38,7 +38,11 @@ const ProductCartList = (props) => {
       });
       toggleRemove();
     }
-    onGetQuantity(form);
+
+    setCartList(() => productList.map((item) => ({
+      ...item,
+      quantity: form[item.id] || 1,
+    })));
   }, [form]);
 
   const handleShowModal = (id) => {
@@ -79,7 +83,6 @@ const ProductCartList = (props) => {
       handleSetImportant();
     }
   };
-  console.log(form);
 
   const handleRemove = (id) => {
     const newList = productList.filter((item) => item.id !== id);
@@ -112,17 +115,12 @@ const ProductCartList = (props) => {
     const { value } = e.target;
     setForm({
       ...form,
-      [id]: parseInt(value),
+      [id]: parseInt(value, 10),
     });
-  };
-
-  const handleExtraDecrement = (id) => {
-    handleDecrement(id);
   };
 
   const handleDecrement = (id) => {
     setIdSelecting(id);
-    console.log('before ', form[id]);
     if (form[id] >= 1) {
       setForm({
         ...form,
@@ -132,6 +130,8 @@ const ProductCartList = (props) => {
   };
 
   const handleIncrement = (id) => {
+    setIdSelecting(id);
+
     setForm({
       ...form,
       [id]: form[id] + 1,
@@ -160,7 +160,7 @@ const ProductCartList = (props) => {
             product={item}
             onRemove={handleShowModalDelete}
             onChange={handleOnChange}
-            onDecrement={handleExtraDecrement}
+            onDecrement={handleDecrement}
             onIncrement={handleIncrement}
             form={form}
           />
