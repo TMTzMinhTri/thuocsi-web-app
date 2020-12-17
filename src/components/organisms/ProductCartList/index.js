@@ -32,8 +32,7 @@ const ProductCartList = (props) => {
       productList.map((item) => ({
         ...item,
         quantity: form[item.id] || 1,
-      })),
-    );
+      })));
   }, []);
 
   useEffect(() => {
@@ -49,8 +48,7 @@ const ProductCartList = (props) => {
       productList.map((item) => ({
         ...item,
         quantity: form[item.id] || 1,
-      })),
-    );
+      })));
   }, [form]);
 
   const handleShowModal = (id) => {
