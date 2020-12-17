@@ -28,12 +28,6 @@ const ProductCartList = (props) => {
       };
     });
     setForm(newObj);
-    setCartList(() =>
-      productList.map((item) => ({
-        ...item,
-        quantity: form[item.id] || 1,
-      })),
-    );
   }, []);
 
   useEffect(() => {
@@ -45,12 +39,11 @@ const ProductCartList = (props) => {
       toggleRemove();
     }
 
-    setCartList(() =>
-      productList.map((item) => ({
-        ...item,
-        quantity: form[item.id] || 1,
-      })),
-    );
+    const reduceProductList = productList.map((item) => ({
+      ...item,
+      quantity: form[item.id] || 1,
+    }));
+    setCartList(reduceProductList);
   }, [form]);
 
   const handleShowModal = (id) => {
