@@ -71,9 +71,9 @@ export const CartReducer = (state, action) => {
       return {
         ...state,
         // eslint-disable-next-line max-len
-        ...sumItems(currentItem.quantity !== 0 ? state.cartItems : state.cartItems.filter((item) => item.id !== action.payload.id)),
+        ...sumItems(currentItem && currentItem.quantity !== 0 ? state.cartItems : state.cartItems.filter((item) => item.id !== action.payload.id)),
         // eslint-disable-next-line max-len
-        cartItems: currentItem.quantity !== 0 ? [...state.cartItems] : [...state.cartItems.filter((item) => item.id !== action.payload.id)],
+        cartItems: currentItem && currentItem.quantity !== 0 ? [...state.cartItems] : [...state.cartItems.filter((item) => item.id !== action.payload.id)],
       };
     case 'CHECKOUT':
       return {

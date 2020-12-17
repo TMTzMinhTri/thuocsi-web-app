@@ -3,6 +3,7 @@ import { Box, Typography, TextareaAutosize, Button } from '@material-ui/core';
 import { Star, Info } from '@material-ui/icons';
 import useModal from 'hooks/useModal';
 
+import { useCart } from 'context';
 import ConfirmModal from '../ConfirmModal';
 import ErrorModal from '../ErrorModal';
 import RemoveProductModal from '../RemoveProductModal';
@@ -18,6 +19,7 @@ const ProductCartList = (props) => {
   const [idSelecting, setIdSelecting] = useState(null);
   const [productList, setProductList] = useState(products);
   const [form, setForm] = useState({});
+  const { increase, decrease, removeProduct } = useCart();
 
   useEffect(() => {
     let newObj = {};
@@ -32,8 +34,7 @@ const ProductCartList = (props) => {
       productList.map((item) => ({
         ...item,
         quantity: form[item.id] || 1,
-      })),
-    );
+      })));
   }, []);
 
   useEffect(() => {
@@ -49,8 +50,7 @@ const ProductCartList = (props) => {
       productList.map((item) => ({
         ...item,
         quantity: form[item.id] || 1,
-      })),
-    );
+      })));
   }, [form]);
 
   const handleShowModal = (id) => {
@@ -92,7 +92,7 @@ const ProductCartList = (props) => {
     }
   };
 
-  const handleRemove = (id) => {
+  const handleRemove = (id, product) => {
     const newList = productList.filter((item) => item.id !== id);
     const newForm = { ...form };
     delete newForm[id];
@@ -100,6 +100,7 @@ const ProductCartList = (props) => {
     setProductList(newList);
     setForm(newForm);
     toggleRemove();
+    removeProduct(product);
   };
 
   const handleUnsetImportant = () => {
@@ -127,7 +128,7 @@ const ProductCartList = (props) => {
     });
   };
 
-  const handleDecrement = (id) => {
+  const handleDecrement = (id, product) => {
     setIdSelecting(id);
     if (form[id] >= 1) {
       setForm({
@@ -135,15 +136,16 @@ const ProductCartList = (props) => {
         [id]: form[id] - 1,
       });
     }
+    decrease(product);
   };
 
-  const handleIncrement = (id) => {
+  const handleIncrement = (id, product) => {
     setIdSelecting(id);
-
     setForm({
       ...form,
       [id]: form[id] + 1,
     });
+    increase(product);
   };
 
   return (
