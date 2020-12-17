@@ -6,7 +6,6 @@ import { CardTravel, House, NewReleases } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
-import { useCart } from 'context';
 import { LinkComp, Button } from '../../atoms';
 import styles from './styles.module.css';
 
@@ -14,8 +13,6 @@ const InfoHeader = memo(() => {
   const [isShowingLogin, toggleLogin] = useModal();
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
-
-  const { itemCount } = useCart();
 
   const handleChangeForget = useCallback(() => {
     toggleLogin();
@@ -74,7 +71,6 @@ const InfoHeader = memo(() => {
           </Button>
         </div>
       </div>
-      cart count: {itemCount}
     </div>
   );
 });
