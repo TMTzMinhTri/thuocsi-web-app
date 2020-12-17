@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Template, NavBar, Header, ProductCartList, CardInfo } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
@@ -20,7 +20,7 @@ import styles from './style.module.css';
 
 export default function Cart({ mostResearched = [] }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-  // const [cart, setCartList] = useState();
+  const [, setCartList] = useState();
   const { cartItems } = useCart();
   // const getQuantity = cart?.reduce((acc, cum) => acc + cum.quantity, 0) || products.length;
   // const cartPriceTotal = cart?.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -39,7 +39,7 @@ export default function Cart({ mostResearched = [] }) {
             <Grid container spacing={3}>
               <Grid sm={8} item>
                 {/* san pham  */}
-                <ProductCartList products={cartItems} />
+                <ProductCartList setCartList={setCartList} products={cartItems} />
               </Grid>
               <Grid sm={4} item>
                 {/* gio hang */}
