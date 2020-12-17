@@ -33,6 +33,8 @@ export default function TestCart() {
     clearCart,
     increaseBy,
     cartItems,
+    addImportant,
+    removeImportant,
   } = useCart();
   return (
     <Container>
@@ -44,6 +46,8 @@ export default function TestCart() {
         <Button onClick={() => clearCart()}>clearCart</Button>
         <Button onClick={() => increase(productItem)}>increase</Button>
         <Button onClick={() => decrease(productItem)}>decrease</Button>
+        <Button onClick={() => addImportant(productItem)}>addImportant</Button>
+        <Button onClick={() => removeImportant(productItem)}>removeImportant</Button>
       </Box>
       <Box mt={5}>
         <h3>Cart list</h3>

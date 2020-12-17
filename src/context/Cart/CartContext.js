@@ -37,6 +37,14 @@ export const CartContextProvider = ({ children }) => {
     dispatch({ type: 'CHECKOUT' });
   };
 
+  const addImportant = (payload) => {
+    dispatch({ type: 'ADD_IMPORTANT', payload });
+  };
+
+  const removeImportant = (payload) => {
+    dispatch({ type: 'REMOVE_IMPORTANT', payload });
+  };
+
   const contextValues = {
     removeProduct,
     addProduct,
@@ -45,6 +53,8 @@ export const CartContextProvider = ({ children }) => {
     clearCart,
     handleCheckout,
     increaseBy,
+    addImportant,
+    removeImportant,
     ...state,
   };
 

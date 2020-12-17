@@ -81,6 +81,26 @@ export const CartReducer = (state, action) => {
         checkout: true,
         ...sumItems([]),
       };
+    case 'ADD_IMPORTANT':
+      // eslint-disable-next-line no-param-reassign
+      state.cartItems[
+        state.cartItems.findIndex((item) => item.id === action.payload.id)
+      ].important = true;
+      return {
+        ...state,
+        ...sumItems(state.cartItems),
+        cartItems: [...state.cartItems],
+      };
+    case 'REMOVE_IMPORTANT':
+      // eslint-disable-next-line no-param-reassign
+      delete state.cartItems[
+        state.cartItems.findIndex((item) => item.id === action.payload.id)
+      ].important;
+      return {
+        ...state,
+        ...sumItems(state.cartItems),
+        cartItems: [...state.cartItems],
+      };
     case 'CLEAR':
       return {
         cartItems: [],
