@@ -4,7 +4,7 @@ import { ProductCardBuy, ProductCardContent, StatusProduct } from '../../mocules
 
 import styles from './styles.module.css';
 
-const ProductCardVertical = ({ product, type, cart }) => {
+const ProductCardVertical = ({ product, type, cart, onIncrement, value }) => {
   const { image } = product;
 
   return (
@@ -24,7 +24,15 @@ const ProductCardVertical = ({ product, type, cart }) => {
             </CardActionArea>
             <ProductCardContent row {...product} />
           </Box>
-          <ProductCardBuy cart={cart} type={type} row {...product} />
+          <ProductCardBuy
+            value={value}
+            product={product}
+            onIncrement={onIncrement}
+            cart={cart}
+            type={type}
+            row
+            {...product}
+          />
         </Card>
       </Box>
     </Box>

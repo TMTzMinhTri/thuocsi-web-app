@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, TextareaAutosize, Button } from '@material-ui/core';
 import { Star, Info } from '@material-ui/icons';
 import useModal from 'hooks/useModal';
@@ -11,42 +11,14 @@ import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
 const ProductCartList = (props) => {
-  const { products, setCartList } = props;
+  const { products } = props;
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
   const [isShowModalUnset, toggleUnset] = useModal();
   const [isShowModalRemove, toggleRemove] = useModal();
   const [idSelecting, setIdSelecting] = useState(null);
   const [productList, setProductList] = useState(products);
-  const [form, setForm] = useState({});
-  const { increase, decrease, removeProduct } = useCart();
-
-  useEffect(() => {
-    let newObj = {};
-    products.forEach((val) => {
-      newObj = {
-        ...newObj,
-        [val.id]: 1,
-      };
-    });
-    setForm(newObj);
-  }, []);
-
-  useEffect(() => {
-    if (form[idSelecting] < 1) {
-      setForm({
-        ...form,
-        [idSelecting]: 1,
-      });
-      toggleRemove();
-    }
-
-    const reduceProductList = productList.map((item) => ({
-      ...item,
-      quantity: form[item.id] || 1,
-    }));
-    setCartList(reduceProductList);
-  }, [form]);
+  const { increase, decrease, removeProduct, increaseBy } = useCart();
 
   const handleShowModal = (id) => {
     setIdSelecting(id);
@@ -87,15 +59,10 @@ const ProductCartList = (props) => {
     }
   };
 
-  const handleRemove = (id, product) => {
-    const newList = productList.filter((item) => item.id !== id);
-    const newForm = { ...form };
-    delete newForm[id];
-
-    setProductList(newList);
-    setForm(newForm);
+  const handleRemove = () => {
+    const filterItem = products.find((item) => item.id === idSelecting);
     toggleRemove();
-    removeProduct(product);
+    removeProduct(filterItem);
   };
 
   const handleUnsetImportant = () => {
@@ -115,39 +82,34 @@ const ProductCartList = (props) => {
     toggleRemove();
   };
 
-  const handleOnChange = (e, id) => {
+  const handleOnChange = (e, product) => {
     const { value } = e.target;
-    setForm({
-      ...form,
-      [id]: parseInt(value, 10),
-    });
-  };
-
-  const handleDecrement = (id, product) => {
-    setIdSelecting(id);
-    if (form[id] >= 1) {
-      setForm({
-        ...form,
-        [id]: form[id] - 1,
-      });
+    if (value === '0') {
+      removeProduct(product);
+      return;
     }
-    decrease(product);
+    if (/^\d+$/.test(value)) {
+      increaseBy({ product, q: parseInt(value, 10) });
+    }
   };
 
-  const handleIncrement = (id, product) => {
-    setIdSelecting(id);
-    setForm({
-      ...form,
-      [id]: form[id] + 1,
-    });
+  const handleDecrement = (product) => {
+    setIdSelecting(product.id);
+    if (product.quantity === 1) {
+      toggleRemove();
+    } else {
+      decrease(product);
+    }
+  };
+
+  const handleIncrement = (product) => {
     increase(product);
   };
 
   return (
     <>
       <RemoveProductModal
-        setForm={setForm}
-        id={idSelecting}
+        product={products}
         onRemove={handleRemove}
         visible={isShowModalRemove}
         onClose={toggleRemove}
@@ -169,7 +131,7 @@ const ProductCartList = (props) => {
         </Typography>
       </Box>
       <Box mb={2}>
-        {productList.map((item) => (
+        {products.map((item) => (
           <ProductCart
             onClickShowModal={handleShowModal}
             key={`product-cart-${item.id}`}
@@ -178,9 +140,8 @@ const ProductCartList = (props) => {
             onChange={handleOnChange}
             onDecrement={handleDecrement}
             onIncrement={handleIncrement}
-            form={form}
-            value={form[item.id] || 0}
             name={`cart-${item.id}`}
+            value={item.quantity}
           />
         ))}
       </Box>
