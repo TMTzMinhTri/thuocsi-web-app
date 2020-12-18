@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { makeStyles, Typography, Badge, IconButton } from '@material-ui/core';
-import { LocalOffer, Opacity, AddShoppingCart, Storefront, Whatshot, LocalMallOutlined } from '@material-ui/icons';
+import {
+  LocalOffer,
+  Opacity,
+  AddShoppingCart,
+  Storefront,
+  Whatshot,
+  LocalMallOutlined,
+} from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
-import { useCart } from 'context';
+import { useAuth } from 'context';
 import { Toggle } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
@@ -67,8 +74,9 @@ function renderMostSearched(data, classes) {
 
 export default function NavBar({ mostResearched }) {
   const [isShrink] = useState(false);
-  const { itemCount } = useCart();
   const classes = useStyle();
+  const { isAuthenticated } = useAuth();
+
   const mostSearchedEle = renderMostSearched(mostResearched, classes);
   const navBarClass = isShrink ? classes.navbarClass : classes.navbarShrinClass;
   return (
@@ -93,16 +101,18 @@ export default function NavBar({ mostResearched }) {
         <LinkComp name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
           <LocalOffer />
         </LinkComp>
-        <div className={classes.navBarRight}>
-          <LinkComp href="/cart">
-            <IconButton aria-label="cart">
-              <Badge badgeContent={itemCount} invisible={false} color="secondary">
-                <LocalMallOutlined />
-              </Badge>
-            </IconButton>
-          </LinkComp>
-          <Toggle />
-        </div>
+        {isAuthenticated ? (
+          <div className={classes.navBarRight}>
+            <LinkComp href="/cart">
+              <IconButton aria-label="cart">
+                <Badge badgeContent={4} color="secondary">
+                  <LocalMallOutlined />
+                </Badge>
+              </IconButton>
+            </LinkComp>
+            <Toggle />
+          </div>
+        ) : null}
       </div>
       {mostSearchedEle}
     </div>

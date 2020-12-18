@@ -1,16 +1,15 @@
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE } from 'constants/Cookies';
+import { CookiesParser } from 'utils';
 import { API_HOST, MOCK_API_HOST } from '../../config/index';
 
-const cookiesPareser = (cookies) =>
-  cookies.split(';').reduce((res, c) => {
-    const [key, val] = c.trim().split('=').map(decodeURIComponent);
-    try {
-      return Object.assign(res, { [key]: JSON.parse(val) });
-    } catch (error) {
-      return Object.assign(res, { [key]: val });
-    }
-  }, {});
+export async function getSessionToken(ctx) {
+  const tk = CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN);
+  if (tk && tk.length > 0) {
+    return tk;
+  }
+  return CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN_LONGLIVE);
+}
 
 async function request(props) {
   const { url, headers = {}, method, body, mock = true, isAuth = true, ctx = null } = props;
@@ -22,19 +21,13 @@ async function request(props) {
 
   if (isAuth) {
     if (ctx) {
-      const cookies = ctx?.req?.headers?.cookie || null;
-      if (cookies) {
-        const CookiesCtx = cookiesPareser(cookies);
-        const AuthorizationValue = CookiesCtx[ACCESS_TOKEN_LONGLIVE];
-        if (AuthorizationValue) {
-          // eslint-disable-next-line no-param-reassign
-          headers.Authorization = `Bearer ${AuthorizationValue}`;
-        }
+      const AuthorizationValue = getSessionToken(ctx);
+      if (AuthorizationValue) {
+        headers.Authorization = `Bearer ${AuthorizationValue}`;
       }
     } else {
       const AuthorizationValue = Cookies.get(ACCESS_TOKEN);
       if (AuthorizationValue) {
-        // eslint-disable-next-line no-param-reassign
         headers.Authorization = `Bearer ${AuthorizationValue}`;
       }
     }
@@ -73,4 +66,4 @@ export function isValid(resp) {
   return resp && resp.data && resp.status && resp.status === 'OK';
 }
 
-export default { GET, POST, PUT, DELETE, isValid };
+export default { GET, POST, PUT, DELETE, isValid, getSessionToken };
