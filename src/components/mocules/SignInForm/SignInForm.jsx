@@ -70,7 +70,7 @@ const SignInForm = React.memo((props) => {
           />
         </FormControl>
         <div className="rememberPassword">
-          <CheckBox name="remember_me" label="Nhớ mật khẩu" />
+          <CheckBox name="rememberMe" label="Nhớ mật khẩu" />
         </div>
         <div className="forgetPassword">
           <a href="/" className="forgetPassword" onClick={handleClickForget}>
