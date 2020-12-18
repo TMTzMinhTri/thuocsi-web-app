@@ -12,7 +12,7 @@ export async function getSessionToken(ctx) {
 }
 
 async function request(props) {
-  const { url, headers = {}, method, body, mock = true, isAuth = true, ctx = null } = props;
+  const { url, headers = {}, method, body, mock = false, isAuth = true, ctx = null } = props;
   /*
     mock api : folder:  /api
     dev / production : /backend
