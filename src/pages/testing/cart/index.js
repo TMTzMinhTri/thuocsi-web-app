@@ -4,7 +4,7 @@ import { Button } from 'components/atoms';
 import { useCart } from 'context';
 
 const productItem = {
-  id: 2,
+  id: 1,
   name: 'Băng cá nhân vải độ dính cao urgo durable (h/102m)',
   image: '',
   deal: true,
@@ -36,7 +36,9 @@ export default function TestCart() {
   } = useCart();
   return (
     <Container>
-      <Box mt={2}>cart count: {itemCount} - cart total: {total}</Box>
+      <Box mt={2}>
+        cart count: {itemCount} - cart total: {total}
+      </Box>
       <Box mt={5}>
         <Button onClick={() => increaseBy({ productItem, q: 100 })}>increaseBy 100</Button>
         <Button onClick={() => addProduct(productItem)}>addProduct</Button>
@@ -47,16 +49,17 @@ export default function TestCart() {
       </Box>
       <Box mt={5}>
         <h3>Cart list</h3>
-        {cartItems && cartItems.map((item) => (
-          <Paper style={{ marginBottom: 10 }} elevation={1} variant="outlined" key={item.id}>
-            <Box p={2}>
-              <strong>id: {item.id}</strong>
-              <p>name: {item.name}</p>
-              <p>price: {item.deal_price}</p>
-              <p>quantity: {item.quantity}</p>
-            </Box>
-          </Paper>
-        ))}
+        {cartItems
+          && cartItems.map((item) => (
+            <Paper style={{ marginBottom: 10 }} elevation={1} variant="outlined" key={item.id}>
+              <Box p={2}>
+                <strong>id: {item.id}</strong>
+                <p>name: {item.name}</p>
+                <p>price: {item.deal_price}</p>
+                <p>quantity: {item.quantity}</p>
+              </Box>
+            </Paper>
+          ))}
       </Box>
     </Container>
   );

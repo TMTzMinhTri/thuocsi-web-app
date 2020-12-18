@@ -29,7 +29,7 @@ export default function Cart({ mostResearched = [] }) {
       <Header />
       <NavBar mostResearched={mostResearched} />
       <Container className={styles.wrapper} maxWidth="lg">
-        {cartItems ? (
+        {cartItems && cartItems.length > 0 ? (
           <>
             <Box mb={1.5}>
               <Typography className={styles.cart_title} variant="h5" component="h3">
@@ -43,11 +43,7 @@ export default function Cart({ mostResearched = [] }) {
               </Grid>
               <Grid sm={4} item>
                 {/* gio hang */}
-                <CardInfo
-                  className={styles.card_info}
-                  cart
-                  promo
-                />
+                <CardInfo className={styles.card_info} cart promo />
               </Grid>
             </Grid>
           </>

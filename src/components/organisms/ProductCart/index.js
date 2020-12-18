@@ -11,11 +11,10 @@ const ProductCart = React.memo((props) => {
     onClickShowModal,
     onRemove,
     onChange,
-    form,
     onIncrement,
     onDecrement,
-    value,
     name,
+    value,
   } = props;
   const handleSetImportant = () => {
     onClickShowModal(product.id);
@@ -49,10 +48,9 @@ const ProductCart = React.memo((props) => {
             onChange={onChange}
             onDecrement={onDecrement}
             onIncrement={onIncrement}
-            form={form}
-            value={value}
             cart
             name={name}
+            value={value}
           />
         </Card>
       </Box>
