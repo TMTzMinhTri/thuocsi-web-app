@@ -6,8 +6,8 @@ import { ProductCardVertical, ProductCardHorizontal, BestSaleProduct } from 'com
 import getFormattedDate from 'utils/DateTimeUtils';
 import ProductClient from 'clients/ProductClient';
 
-export async function getServerSideProps(context) {
-  const [products] = await Promise.all([ProductClient.loadDataCart(context)]);
+export async function getServerSideProps() {
+  const [products] = await Promise.all([ProductClient.loadDataProduct()]);
 
   return {
     props: {

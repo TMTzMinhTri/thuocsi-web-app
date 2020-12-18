@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { makeStyles, Typography, Badge, IconButton } from '@material-ui/core';
+import { makeStyles, Typography, Badge, IconButton, Icon } from '@material-ui/core';
 import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
-import Icon from '@material-ui/core/Icon';
+import { useCart } from 'context';
 import { Toggle } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
@@ -98,6 +98,7 @@ function renderMostSearched(data, classes) {
 
 export default function NavBar({ mostResearched }) {
   const [isShrink] = useState(false);
+  const { itemCount } = useCart();
   const classes = useStyle();
   const mostSearchedEle = renderMostSearched(mostResearched, classes);
   const navBarClass = isShrink ? classes.navbarClass : classes.navbarShrinClass;
@@ -126,7 +127,7 @@ export default function NavBar({ mostResearched }) {
         <div className={classes.navBarRight}>
           <LinkComp className={classes.navBarRightLink} href="/cart">
             <IconButton aria-label="cart" className={classes.clear}>
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={itemCount} invisible={false} color="secondary">
                 <LocalMallOutlined className={classes.rIcon} />
               </Badge>
             </IconButton>
