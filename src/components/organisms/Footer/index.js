@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Box, Container } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 
 import Copyright from 'components/mocules/Copyright';
 import FooterLeftItem from './components/FooterLeftItem';
@@ -8,14 +8,14 @@ import styles from './styles.module.css';
 
 const FooterComp = () => (
   <footer>
-    <Box className={styles.global_style}>
+    <div className={styles.global_style}>
       <Container maxWidth="lg">
         <Grid display="flex" justify="space-between" container>
           <FooterLeftItem />
           <FooterRightItem />
         </Grid>
       </Container>
-    </Box>
+    </div>
     <Copyright />
   </footer>
 );
