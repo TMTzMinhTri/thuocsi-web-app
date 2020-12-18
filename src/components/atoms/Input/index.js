@@ -11,8 +11,15 @@ const Input = styled(InputCustom)`
   height: 50px;
   width: 100%;
   border: none;
-  & input {
-    padding 0.25rem;
+
+  // .MuiOutlinedInput-notchedOutline {
+  //   border: 4px solid #20c997 !important;
+  //   border-radius: 0.25rem !important;
+  // }
+
+  .MuiOutlinedInput-root .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border: 4px solid #20c997 !important;
+    border-radius: 0.25rem !important;
   }
 `;
 
