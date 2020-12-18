@@ -32,7 +32,7 @@ const FooterLeftItem = () => (
         </b>
       </Typography>
     </div>
-    <div className={clsx(styles.info_wrap, styles.mb3)} display="flex" flexDirection="column" alignItems="flex-start">
+    <div className={clsx(styles.info_wrap, styles.mb3)}>
       <b>Công Ty TNHH Buymed</b>
       <span>
         Địa Chỉ: <b>248A Nơ Trang Long, Phuờng 12, Quận Bình Thạnh, Hồ Chí Minh</b>
