@@ -13,3 +13,4 @@ export { default as CountdownTimer } from './CountdownTimer';
 export { default as SearchInput } from './SearchInput';
 export { default as CardInfo } from './CardInfo';
 export { default as Toggle } from './Toggle';
+export { default as SliderProduct } from './SliderProduct';

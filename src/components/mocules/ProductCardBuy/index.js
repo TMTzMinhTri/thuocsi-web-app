@@ -29,9 +29,21 @@ const ProductCardBuy = ({
   value,
 }) => (
   <>
-    {row && <DealSection dealEndDay={dealEndDay} />}
+    {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
     {noSupportDelivery && row ? (
-      <Typography className={styles.text_danger}>Chưa hỗ trợ giao tỉnh</Typography>
+      <Box mb={2}>
+        <Box
+          mb={2}
+          className={
+            row ? styles.price_wrapper : clsx(styles.price_wrapper, styles.price_wrapper_column)
+          }
+        >
+          <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
+        </Box>
+        <Typography textAlign="center" className={clsx(styles.text_danger, styles.center)}>
+          Chưa hỗ trợ giao tỉnh
+        </Typography>
+      </Box>
     ) : (
       <>
         {hasEvent ? (

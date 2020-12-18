@@ -15,3 +15,4 @@ export { default as ProductCartList } from './ProductCartList';
 export { default as ConfirmModal } from './ConfirmModal';
 export { default as ErrorModal } from './ErrorModal';
 export { default as RemoveProductModal } from './RemoveProductModal';
+export { default as BestSaleProduct } from './BestSaleProduct';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { Grade } from '@material-ui/icons';
-
+import { MISSING_IMAGE } from 'constants/Images';
 import { ProductCardBuy, ProductCardContent } from '../../mocules';
 import styles from './styles.module.css';
 
@@ -35,7 +35,7 @@ const ProductCart = React.memo((props) => {
                 alt="Contemplative Reptile"
                 height="80"
                 width="80"
-                image={product.image}
+                image={product.image || MISSING_IMAGE}
                 title="Contemplative Reptile"
               />
             </CardActionArea>
