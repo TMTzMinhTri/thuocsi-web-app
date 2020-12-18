@@ -27,7 +27,6 @@ export const imageMediaBottom = [
 ];
 
 export const settingsCustomer = {
-  className: 'section-outstanding__slider',
   slidesToShow: 2,
   slidesToScroll: 1,
   dots: true,
@@ -57,8 +56,38 @@ export const settingsCustomer = {
   ],
 };
 
-export const settingsPartner = {
+export const settingsProduct = {
   className: 'section-outstanding__slider',
+  slidesToShow: 5,
+  slidesToScroll: 1,
+  dots: true,
+  dotsClass: 'slick-dots slick-client',
+  arrows: true,
+  infinite: true,
+  rows: 1,
+  autoplay: true,
+  autoplaySpeed: 2000,
+  responsive: [
+    {
+      breakpoint: 1198,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        rows: 1,
+      },
+    },
+    {
+      breakpoint: 576,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        rows: 1,
+      },
+    },
+  ],
+};
+
+export const settingsPartner = {
   slidesToShow: 6,
   slidesToScroll: 1,
   arrows: false,
@@ -87,7 +116,6 @@ export const settingsPartner = {
 };
 
 export const settingsSliderBanner = {
-  className: 'section-outstanding__slider',
   slidesToShow: 1,
   slidesToScroll: 1,
   dots: true,
