@@ -21,9 +21,14 @@ async function loadDataProduct(ctx) {
   return result.data;
 }
 
+async function loadDataCart(ctx) {
+  const res = await GET({ url: '/cart', mock: true, ctx });
+  return res.data;
+}
 export default {
   loadDataMostSearch,
   loadFeedback,
   getInfoBanner,
   loadDataProduct,
+  loadDataCart,
 };
