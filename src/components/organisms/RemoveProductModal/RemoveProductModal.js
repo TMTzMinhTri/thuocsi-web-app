@@ -6,8 +6,7 @@ import clsx from 'clsx';
 import styles from './style.module.css';
 
 const RemoveProductModal = memo((props) => {
-  const { onClose, id, onRemove, visible, className, restProps } = props;
-
+  const { onClose, onRemove, visible, className, restProps } = props;
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <Box className={styles.confirm_modal_wrap}>
@@ -24,7 +23,7 @@ const RemoveProductModal = memo((props) => {
           <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
             Không
           </Button>
-          <Button onClick={() => onRemove(id)} className={clsx(styles.btn, styles.fill_btn)}>
+          <Button onClick={() => onRemove()} className={clsx(styles.btn, styles.fill_btn)}>
             Có
           </Button>
         </Box>
