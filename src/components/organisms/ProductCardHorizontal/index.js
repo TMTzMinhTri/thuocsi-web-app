@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
+import { MISSING_IMAGE } from 'constants/Images';
 import { ProductCardBuy, ProductCardContent } from '../../mocules';
 
 import styles from './styles.module.css';
@@ -22,7 +23,7 @@ const ProductCardHorizontal = ({ product }) => {
                 alt="Contemplative Reptile"
                 height="50"
                 width="50"
-                image={image}
+                image={image || MISSING_IMAGE}
                 title="Contemplative Reptile"
               />
             </CardActionArea>
