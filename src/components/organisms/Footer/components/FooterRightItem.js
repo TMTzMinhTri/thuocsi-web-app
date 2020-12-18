@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Facebook, EmailOutlined, Call } from '@material-ui/icons';
@@ -16,50 +16,50 @@ import styles from '../styles.module.css';
 
 const FooterRightItem = () => (
   <Grid xs={5} item>
-    <Box>
+    <div>
       <p className={styles.footer_header}>LIÊN HÊ</p>
-      <Box mb={2} display="flex" flexDirection="row" alignItems="center">
-        <Box className={styles.icon_circle}>
+      <div className={styles.email_wrap}>
+        <div className={styles.icon_circle}>
           <EmailOutlined style={{ width: '20x', height: '20px' }} />
-        </Box>
+        </div>
         <Link href="/">
           <Typography className={clsx(styles.contact, styles.divider, styles.link)}>
             hotro@thuocsi.vn
           </Typography>
         </Link>
         <Facebook style={{ color: '#3b5998', fontSize: 30 }} />
-      </Box>
-      <Box display="flex" flexDirection="row" alignItems="center">
-        <Box>
-          <Box className={styles.icon_circle}>
+      </div>
+      <div className={styles.phone_wrap}>
+        <div>
+          <div className={styles.icon_circle}>
             <Call
               style={{
                 width: '22px',
                 height: '22px',
               }}
             />
-          </Box>
-        </Box>
+          </div>
+        </div>
         <Link href="tel:02873008840">
           <Typography className={clsx(styles.contact, styles.link)}>02 873 008 840</Typography>
         </Link>
-      </Box>
-    </Box>
-    <Box>
+      </div>
+    </div>
+    <div>
       <small>Từ T2 đến T6: 8:00 - 18:00</small>
-    </Box>
-    <Box mb={2}>
+    </div>
+    <div className={styles.mb2}>
       <Image src={LOGO_MOBILE} width="445" height="445" />
-    </Box>
+    </div>
 
-    <Box display="flex" flexWrap="wrap" justifyContent="space-around">
+    <div className={styles.download_area}>
       <a href={LINK_APPLESTORE}>
         <Image src={LOGO_APPSTORE} width="159" height="48" />
       </a>
       <a href={LINK_GOOGLEPLAY}>
         <Image src={LOGO_GOOGLEPLAY} width="162" height="51" />
       </a>
-    </Box>
+    </div>
   </Grid>
 );
 

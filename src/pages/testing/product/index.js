@@ -2,17 +2,12 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
 import { TagType, SearchInput, CardInfo } from 'components/mocules';
-import {
-  ProductCardVertical,
-  ProductCardHorizontal,
-  ProductCart,
-  ProductCartList,
-} from 'components/organisms';
+import { ProductCardVertical, ProductCardHorizontal, BestSaleProduct } from 'components/organisms';
 import getFormattedDate from 'utils/DateTimeUtils';
 import ProductClient from 'clients/ProductClient';
 
-export async function getServerSideProps() {
-  const [products] = await Promise.all([ProductClient.loadDataProduct()]);
+export async function getServerSideProps(context) {
+  const [products] = await Promise.all([ProductClient.loadDataCart(context)]);
 
   return {
     props: {
@@ -25,10 +20,11 @@ const date = getFormattedDate(new Date());
 
 const test = ({ products }) => (
   <>
-    <ProductCartList products={products} />
-    {products.map((item) => (
+    <BestSaleProduct products={products} />
+    {/* <ProductCartList products={products} /> */}
+    {/* {products.map((item) => (
       <ProductCart key={item.id} product={item} type="column" />
-    ))}
+    ))} */}
     {products.map((item) => (
       <ProductCardVertical key={item.id} product={item} type="column" />
     ))}

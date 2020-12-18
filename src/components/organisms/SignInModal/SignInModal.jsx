@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from 'context';
 import { AuthClient, isValid } from 'clients';
+import { useRouter } from 'next/router';
 import { AuthModal, SignInForm } from '../../mocules';
 
 const SignInModal = React.memo((props) => {
@@ -8,9 +9,12 @@ const SignInModal = React.memo((props) => {
   const [hasAlert, setHasAlert] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const router = useRouter();
 
   const handleLogin = (data) => {
+    const { rememberMe } = data;
     setIsLoading(true);
+
     AuthClient.login(data)
       .then((result) => {
         if (!isValid(result)) {
@@ -18,7 +22,10 @@ const SignInModal = React.memo((props) => {
           return;
         }
         const userInfo = result.data[0];
-        login(userInfo);
+        login(userInfo, rememberMe === '');
+
+        // redirect to quick-order - when login success
+        router.push('/quick-order');
       })
       .catch((error) => {
         setHasAlert(`Đã có lỗi xảy ra ${error}`);

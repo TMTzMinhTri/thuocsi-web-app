@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
-import { LocalOffer, Opacity, AddShoppingCart, Storefront, Whatshot } from '@material-ui/icons';
+import { makeStyles, Typography, Badge, IconButton } from '@material-ui/core';
+import { LocalOffer, Opacity, AddShoppingCart, Storefront, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { Toggle } from '../../mocules';
 // comp
@@ -92,6 +92,13 @@ export default function NavBar({ mostResearched }) {
           <LocalOffer />
         </LinkComp>
         <div className={classes.navBarRight}>
+          <LinkComp href="/cart">
+            <IconButton aria-label="cart">
+              <Badge badgeContent={4} color="secondary">
+                <LocalMallOutlined />
+              </Badge>
+            </IconButton>
+          </LinkComp>
           <Toggle />
         </div>
       </div>

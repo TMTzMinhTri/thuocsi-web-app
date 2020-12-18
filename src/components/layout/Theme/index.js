@@ -3,6 +3,34 @@ import { red } from '@material-ui/core/colors';
 
 // Create a theme instance.
 const Theme = createMuiTheme({
+  overrides: {
+    MuiOutlinedInput: {
+      root: {
+        position: 'relative',
+        '& $notchedOutline': {
+          borderColor: 'rgba(0, 0, 0, 0.23)',
+        },
+        '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
+          borderColor: '#20c997',
+          // Reset on touch devices, it doesn't add specificity
+          '@media (hover: none)': {
+            borderColor: 'rgba(0, 0, 0, 0.23)',
+          },
+        },
+        '&$focused $notchedOutline': {
+          borderColor: '#20c997',
+          borderWidth: 3,
+        },
+      },
+    },
+    MuiFormLabel: {
+      root: {
+        '&$focused': {
+          color: '#4A90E2',
+        },
+      },
+    },
+  },
   typography: {
     fontFamily: 'Roboto, sans-serif',
     subtitle2: {

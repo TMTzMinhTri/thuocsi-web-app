@@ -8,7 +8,7 @@ const WhyBuymed = () => (
   <Box className={styles.why_buymed_wrapper}>
     <Box maxWidth="1140px" m="auto">
       <Grid container>
-        <Grid className={styles.reason_item} item md={3} xs={12}>
+        <Grid className={styles.reason_item} item md={3} xs={6}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12}>
             <HighQuality style={{ fontSize: 110, color: '#fff' }} />
           </Grid>
@@ -21,7 +21,7 @@ const WhyBuymed = () => (
             </Box>
           </Grid>
         </Grid>
-        <Grid className={styles.reason_item} item md={3}>
+        <Grid className={styles.reason_item} item md={3} xs={6}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12}>
             <NewReleases style={{ fontSize: 110, color: '#fff' }} />
           </Grid>{' '}
@@ -34,7 +34,7 @@ const WhyBuymed = () => (
             </Box>
           </Grid>
         </Grid>
-        <Grid className={styles.reason_item} item md={3}>
+        <Grid className={styles.reason_item} item md={3} xs={6}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12}>
             <LocalShippingOutlined style={{ fontSize: 110, color: '#fff' }} />
           </Grid>{' '}
@@ -47,7 +47,7 @@ const WhyBuymed = () => (
             </Box>
           </Grid>
         </Grid>
-        <Grid className={styles.reason_item} item md={3}>
+        <Grid className={styles.reason_item} item md={3} xs={6}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12}>
             <Group style={{ fontSize: 110, color: '#fff' }} />
           </Grid>{' '}

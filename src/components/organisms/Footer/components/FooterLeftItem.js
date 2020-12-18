@@ -1,8 +1,8 @@
 import React from 'react';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import clsx from 'clsx';
 import {
   LINK_LICENSE,
   LINK_REGISTER,
@@ -19,20 +19,20 @@ import styles from '../styles.module.css';
 
 const FooterLeftItem = () => (
   <Grid item xs={6}>
-    <Box>
+    <div>
       <a href="/aaa">
         <Image src={LOGO_FOOTER_SVG} width="164" height="40" />
       </a>
-    </Box>
-    <Box>
+    </div>
+    <div>
       <Typography className={styles.mb1}>
         <b>
           <span className={styles.primary_color}>thuocsi.vn </span>
           là website thuộc sở hữu của công ty TNHH Buymed.
         </b>
       </Typography>
-    </Box>
-    <Box className={styles.mb3} display="flex" flexDirection="column" alignItems="flex-start">
+    </div>
+    <div className={clsx(styles.info_wrap, styles.mb3)} display="flex" flexDirection="column" alignItems="flex-start">
       <b>Công Ty TNHH Buymed</b>
       <span>
         Địa Chỉ: <b>248A Nơ Trang Long, Phuờng 12, Quận Bình Thạnh, Hồ Chí Minh</b>
@@ -48,12 +48,12 @@ const FooterLeftItem = () => (
         </Link>
       </span>
       <a href={LINK_REGISTER}>
-        <Box mt={2}>
+        <div className={styles.mt2}>
           <Image src={LOGO_FOOTER_REGISTER} width="117" height="44" />
-        </Box>
+        </div>
       </a>
-    </Box>
-    <Box className={styles.mb3}>
+    </div>
+    <div className={styles.mb3}>
       <p className={styles.footer_header}>THÔNG TIN CHUNG</p>
       <Grid container>
         <Grid sm={6} item>
@@ -96,30 +96,30 @@ const FooterLeftItem = () => (
           </>
         </Grid>
       </Grid>
-    </Box>
-    <Box>
+    </div>
+    <div>
       <p className={styles.footer_header}>DỊCH VỤ GIAO HÀNG</p>
-      <Box>
-        <Box className={styles.brand_wrap}>
+      <div>
+        <div className={styles.brand_wrap}>
           <Image src={LOGO_GHTK} width="128" height="32" className={styles.footer_delivery} />
-        </Box>
-        <Box className={styles.brand_wrap}>
+        </div>
+        <div className={styles.brand_wrap}>
           <Image src={LOGO_AHAMOVE} width="107" height="32" className={styles.footer_delivery} />
-        </Box>
-        <Box className={styles.brand_wrap}>
+        </div>
+        <div className={styles.brand_wrap}>
           <Image src={LOGO_GRAB} width="79" height="32" className={styles.footer_delivery} />
-        </Box>
-        <Box className={styles.brand_wrap}>
+        </div>
+        <div className={styles.brand_wrap}>
           <Image src={LOGO_GHN} width="46" height="32" className={styles.footer_delivery} />
-        </Box>
-        <Box className={styles.brand_wrap}>
+        </div>
+        <div className={styles.brand_wrap}>
           <Image src={LOGO_LOZA} width="79" height="32" className={styles.footer_delivery} />
-        </Box>
-        <Box className={styles.brand_wrap}>
+        </div>
+        <div className={styles.brand_wrap}>
           <Image src={LOGO_NINJA} width="79" height="32" className={styles.footer_delivery} />
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   </Grid>
 );
 

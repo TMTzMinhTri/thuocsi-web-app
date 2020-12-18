@@ -63,10 +63,10 @@ const InfoHeader = memo(() => {
         />
 
         <div className={styles.div_buttons}>
-          <Button variant="contained" type="warning" onClick={toggleLogin}>
+          <Button variant="contained" btnType="warning" onClick={toggleLogin}>
             Đăng nhập
           </Button>
-          <Button variant="contained" type="success" color="white" onClick={toggleSignUp}>
+          <Button variant="contained" btnType="primary" color="white" onClick={toggleSignUp}>
             Tạo Tài Khoản
           </Button>
         </div>
