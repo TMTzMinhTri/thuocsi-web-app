@@ -11,16 +11,21 @@ const SignInModal = React.memo((props) => {
   const { login } = useAuth();
   const router = useRouter();
 
+  const validateAuthen = (data) => {};
   const handleLogin = (data) => {
+    const { rememberMe } = data;
+    console.log('handleLogin ', data);
     setIsLoading(true);
+
     AuthClient.login(data)
       .then((result) => {
+        console.log('result authen ', result);
         if (!isValid(result)) {
           setHasAlert('Đã có nhiều lỗi xảy ra');
           return;
         }
         const userInfo = result.data[0];
-        login(userInfo);
+        login(userInfo, rememberMe === '');
 
         // redirect to quick-order - when login success
         router.push('/quick-order');
