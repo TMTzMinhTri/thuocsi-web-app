@@ -11,15 +11,12 @@ const SignInModal = React.memo((props) => {
   const { login } = useAuth();
   const router = useRouter();
 
-  const validateAuthen = (data) => {};
   const handleLogin = (data) => {
     const { rememberMe } = data;
-    console.log('handleLogin ', data);
     setIsLoading(true);
 
     AuthClient.login(data)
       .then((result) => {
-        console.log('result authen ', result);
         if (!isValid(result)) {
           setHasAlert('Đã có nhiều lỗi xảy ra');
           return;
