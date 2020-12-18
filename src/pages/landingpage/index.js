@@ -20,7 +20,6 @@ export default function LandingPage(props) {
   // example use useAuth
   const { user } = useAuth();
   if (user) {
-    // eslint-disable-next-line no-console
     console.log('USer : ', user);
   }
   return (
