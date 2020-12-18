@@ -24,9 +24,9 @@ const ProductCardBuy = ({
   onChange,
   onIncrement,
   onDecrement,
-  form,
-  value,
   name,
+  product,
+  value,
 }) => (
   <>
     {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
@@ -78,9 +78,9 @@ const ProductCardBuy = ({
             row ? styles.product_action : clsx(styles.product_action, styles.product_action_column)
           }
         >
-          <MinusButton onClick={() => onDecrement(id)} />
+          <MinusButton onClick={() => onDecrement(product)} />
           <InputProduct
-            form={form}
+            product={product}
             id={id}
             onChange={onChange}
             searchInput={searchInput}
@@ -88,7 +88,7 @@ const ProductCardBuy = ({
             value={value}
             name={name}
           />
-          <PlusButton onClick={() => onIncrement(id)} />
+          <PlusButton onClick={() => onIncrement(product)} />
           {cart && (
             <IconButton onClick={() => onRemove(id)}>
               <Delete className={styles.icon} />

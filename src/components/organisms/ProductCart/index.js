@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { Grade } from '@material-ui/icons';
-
+import { MISSING_IMAGE } from 'constants/Images';
 import { ProductCardBuy, ProductCardContent } from '../../mocules';
 import styles from './styles.module.css';
 
@@ -11,11 +11,10 @@ const ProductCart = React.memo((props) => {
     onClickShowModal,
     onRemove,
     onChange,
-    form,
     onIncrement,
     onDecrement,
-    value,
     name,
+    value,
   } = props;
   const handleSetImportant = () => {
     onClickShowModal(product.id);
@@ -36,7 +35,7 @@ const ProductCart = React.memo((props) => {
                 alt="Contemplative Reptile"
                 height="80"
                 width="80"
-                image={product.image}
+                image={product.image || MISSING_IMAGE}
                 title="Contemplative Reptile"
               />
             </CardActionArea>
@@ -44,14 +43,14 @@ const ProductCart = React.memo((props) => {
           <ProductCardContent className={styles.product_content} row {...product} />
           <ProductCardBuy
             {...product}
+            product={product}
             onRemove={onRemove}
             onChange={onChange}
             onDecrement={onDecrement}
             onIncrement={onIncrement}
-            form={form}
-            value={value}
             cart
             name={name}
+            value={value}
           />
         </Card>
       </Box>

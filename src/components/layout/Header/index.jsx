@@ -26,7 +26,6 @@ const InfoHeader = memo(() => {
     toggleSignUp();
     toggleLogin();
   }, [toggleSignUp, toggleLogin]);
-
   return (
     <div>
       <div className={styles.header_info}>
