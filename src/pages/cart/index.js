@@ -7,9 +7,9 @@ import ProductClient from 'clients/ProductClient';
 import FormarCurrency from 'utils/FormarCurrency';
 import styles from './style.module.css';
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   // get products
-  const [products] = await Promise.all([ProductClient.loadDataCart(context)]);
+  const [products] = await Promise.all([ProductClient.loadDataProduct()]);
   return {
     props: {
       products,
