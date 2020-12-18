@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-import { Template, NavBar, Header, ProductCartList, CardInfo } from 'components';
+import { Template, NavBar, Header, ProductCartList, CardInfo, LinkComp } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { Button } from 'components/atoms';
-import Link from 'next/link';
 import { useCart } from 'context';
 import styles from './style.module.css';
 
@@ -38,7 +37,7 @@ export default function Cart({ mostResearched = [] }) {
           <Container>
             <Typography className={styles.card_title_empty}>Giỏ hàng của bạn trống</Typography>
             <Box justifyContent="center" display="flex">
-              <Link href="/quick-order">
+              <LinkComp href="/quick-order">
                 <Button
                   className={styles.card_button_empty}
                   variant="contained"
@@ -47,7 +46,7 @@ export default function Cart({ mostResearched = [] }) {
                 >
                   Về trang đặt hàng nhanh
                 </Button>
-              </Link>
+              </LinkComp>
             </Box>
           </Container>
         )}
