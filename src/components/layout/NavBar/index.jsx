@@ -9,7 +9,7 @@ import {
   LocalMallOutlined,
 } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
-import { useAuth, useCart } from 'context';
+import { useAuth } from 'context';
 import { Toggle } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
