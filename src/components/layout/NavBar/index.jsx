@@ -68,8 +68,6 @@ const useStyle = makeStyles({
   },
   navBarRightLink: {
     marginRight: 10,
-  },
-  clear: {
     padding: 0,
   },
 });
@@ -126,7 +124,7 @@ export default function NavBar({ mostResearched }) {
         </LinkComp>
         <div className={classes.navBarRight}>
           <LinkComp className={classes.navBarRightLink} href="/cart">
-            <IconButton aria-label="cart" className={classes.clear}>
+            <IconButton aria-label="cart">
               <Badge badgeContent={itemCount} invisible={false} color="secondary">
                 <LocalMallOutlined className={classes.rIcon} />
               </Badge>

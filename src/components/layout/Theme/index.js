@@ -60,7 +60,10 @@ const Theme = createMuiTheme({
       main: '#556cd6',
     },
     secondary: {
-      main: '#19857b',
+      main: '#ff4fae',
+    },
+    thirdly: {
+      main: '#f9b514',
     },
     error: {
       main: red.A400,
