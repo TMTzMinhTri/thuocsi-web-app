@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles, Typography, Badge, IconButton } from '@material-ui/core';
-import { LocalOffer, Opacity, AddShoppingCart, Storefront, Whatshot, LocalMallOutlined } from '@material-ui/icons';
+import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
+import Icon from '@material-ui/core/Icon';
 import { Toggle } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
@@ -10,7 +11,7 @@ const { LinkStyled } = LinkStyledClass;
 // background
 const useStyle = makeStyles({
   navbarClass: {
-    padding: '10px',
+    padding: 1,
     alignItems: 'center !important',
     background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
     position: 'sticky',
@@ -18,7 +19,7 @@ const useStyle = makeStyles({
     zIndex: 500,
   },
   navbarShrinClass: {
-    padding: '10px',
+    padding: 1,
     alignItems: 'center !important',
     background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
     position: 'sticky',
@@ -39,6 +40,37 @@ const useStyle = makeStyles({
     flex: 1,
     justifyContent: 'flex-end',
     marginRight: '10%',
+  },
+  link: {
+    alignItems: 'center',
+    padding: 12,
+    borderBottomWidth: 3,
+    borderBottomColor: 'transparent',
+    borderBottomStyle: 'solid',
+    transition: 'all 0.5s',
+    '&:hover': {
+      borderBottomColor: '#fbcb5b',
+    },
+    '& .MuiTypography-root': {
+      fontWeight: 500,
+      fontSize: 16,
+    },
+  },
+  navIcon: {
+    fontSize: 19,
+    width: 'auto',
+    height: 19,
+    marginRight: 10,
+  },
+  rIcon: {
+    color: '#fff',
+    fontSize: 22,
+  },
+  navBarRightLink: {
+    marginRight: 10,
+  },
+  clear: {
+    padding: 0,
   },
 });
 
@@ -72,30 +104,30 @@ export default function NavBar({ mostResearched }) {
   return (
     <div className={navBarClass}>
       <div className={classes.navBarContaint}>
-        <LinkComp name="Sản phẩm" href="/" color="white" onMouseOver={onMouseOver}>
-          <Storefront />
+        <LinkComp className={classes.link} name="Sản phẩm" href="/" color="white" onMouseOver={onMouseOver}>
+          <Icon className={`icon-product ${classes.navIcon}`} />
         </LinkComp>
 
-        <LinkComp name="Hoạt Chất" href="/" color="white" onMouseOver={onMouseOver}>
-          <Opacity />
+        <LinkComp className={classes.link} name="Hoạt Chất" href="/" color="white" onMouseOver={onMouseOver}>
+          <Icon className={`icon-ingredients ${classes.navIcon}`} />
         </LinkComp>
 
-        <LinkComp name="Đặt Hàng Nhanh" href="/" color="white" onMouseOver={onMouseOver}>
-          <AddShoppingCart />
+        <LinkComp className={classes.link} name="Đặt Hàng Nhanh" href="/" color="white" onMouseOver={onMouseOver}>
+          <Icon className={`icon-quick-order ${classes.navIcon}`} />
         </LinkComp>
 
-        <LinkComp name="Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
-          <Whatshot />
+        <LinkComp className={classes.link} name="Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
+          <Whatshot className={classes.navIcon} />
         </LinkComp>
 
-        <LinkComp name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
-          <LocalOffer />
+        <LinkComp className={classes.link} name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
+          <LocalOffer className={classes.navIcon} />
         </LinkComp>
         <div className={classes.navBarRight}>
-          <LinkComp href="/cart">
-            <IconButton aria-label="cart">
+          <LinkComp className={classes.navBarRightLink} href="/cart">
+            <IconButton aria-label="cart" className={classes.clear}>
               <Badge badgeContent={4} color="secondary">
-                <LocalMallOutlined />
+                <LocalMallOutlined className={classes.rIcon} />
               </Badge>
             </IconButton>
           </LinkComp>
