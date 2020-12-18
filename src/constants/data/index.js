@@ -27,7 +27,6 @@ export const imageMediaBottom = [
 ];
 
 export const settingsCustomer = {
-  // className: 'section-outstanding__slider',
   slidesToShow: 2,
   slidesToScroll: 1,
   dots: true,
@@ -89,7 +88,6 @@ export const settingsProduct = {
 };
 
 export const settingsPartner = {
-  // className: 'section-outstanding__slider',
   slidesToShow: 6,
   slidesToScroll: 1,
   arrows: false,
@@ -118,7 +116,6 @@ export const settingsPartner = {
 };
 
 export const settingsSliderBanner = {
-  // className: 'section-outstanding__slider',
   slidesToShow: 1,
   slidesToScroll: 1,
   dots: true,
