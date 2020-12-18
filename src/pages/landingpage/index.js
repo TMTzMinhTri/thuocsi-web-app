@@ -14,12 +14,13 @@ import {
 
 import { useAuth } from 'context';
 
-export default function LandingPage({ mostResearched = [], feedback = [], infoBanner = [] }) {
+export default function LandingPage(props) {
+  const { mostResearched = [], feedback = [], infoBanner = [] } = props;
   const title = 'Thuocsi.vn';
   // example use useAuth
   const { user } = useAuth();
   if (user) {
-    // console.log('USer : ', user);
+    console.log('USer : ', user);
   }
   return (
     <Template title={title}>

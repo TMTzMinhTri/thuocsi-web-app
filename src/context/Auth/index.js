@@ -43,10 +43,7 @@ export const AuthProvider = ({ children }) => {
   const loadUserFromCookies = useCallback(async () => {
     const res = await getUserInfo();
     if (res) {
-      const token = Cookies.get(ACCESS_TOKEN);
-      if (token) {
-        setUser(res.data[0]);
-      }
+      setUser(res.data[0]);
     }
     setIsLoading(false);
   }, [setUser, setIsLoading, getUserInfo]);
