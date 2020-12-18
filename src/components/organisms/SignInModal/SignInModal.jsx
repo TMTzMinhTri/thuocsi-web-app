@@ -12,7 +12,9 @@ const SignInModal = React.memo((props) => {
   const router = useRouter();
 
   const handleLogin = (data) => {
+    const { rememberMe } = data;
     setIsLoading(true);
+
     AuthClient.login(data)
       .then((result) => {
         if (!isValid(result)) {
@@ -20,7 +22,7 @@ const SignInModal = React.memo((props) => {
           return;
         }
         const userInfo = result.data[0];
-        login(userInfo);
+        login(userInfo, rememberMe === '');
 
         // redirect to quick-order - when login success
         router.push('/quick-order');
