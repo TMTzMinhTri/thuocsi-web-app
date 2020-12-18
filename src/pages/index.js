@@ -4,7 +4,7 @@ import { AuthClient } from 'clients';
 import LandingPage from './landingpage/index';
 
 export async function getServerSideProps(context) {
-  const { loggedIn, user } = await AuthClient.getUserWithContext(context);
+  const { loggedIn = false, user } = await AuthClient.getUserWithContext(context);
 
   if (loggedIn) {
     const [mostResearched, feedback, infoBanner] = await Promise.all([
@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  return { loggedIn };
+  return { props: { loggedIn } };
 }
 
 export default function Index(props) {
