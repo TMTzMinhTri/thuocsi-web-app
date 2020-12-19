@@ -1,31 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { makeStyles, Typography, Badge, IconButton, Icon } from '@material-ui/core';
 import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { useCart } from 'context';
+import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
 import { Toggle } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
+import styles from './styles.module.css';
 
 const { LinkStyled } = LinkStyledClass;
 // background
 const useStyle = makeStyles({
-  navbarClass: {
-    padding: 1,
-    alignItems: 'center !important',
-    background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
-    position: 'sticky',
-    top: 0,
-    zIndex: 500,
-  },
-  navbarShrinClass: {
-    padding: 1,
-    alignItems: 'center !important',
-    background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
-    position: 'sticky',
-    top: 0,
-    zIndex: 500,
-  },
   navBarContaint: {
     display: 'flex',
     alignItems: 'center !important',
@@ -95,14 +83,35 @@ function renderMostSearched(data, classes) {
 }
 
 export default function NavBar({ mostResearched }) {
-  const [isShrink] = useState(false);
   const { itemCount } = useCart();
   const classes = useStyle();
   const mostSearchedEle = renderMostSearched(mostResearched, classes);
-  const navBarClass = isShrink ? classes.navbarClass : classes.navbarShrinClass;
+  const nav = useRef();
+
+  useEffect(() => {
+    if (!nav.current) return undefined;
+    const currentNav = nav.current;
+    const sticky = currentNav.offsetTop;
+    const scrollCallBack = window.addEventListener('scroll', () => {
+      if (typeof window !== 'undefined' && window.pageYOffset > sticky) {
+        currentNav.classList.add(styles.sticky);
+      } else {
+        currentNav.classList.remove(styles.sticky);
+      }
+    });
+    return () => {
+      window.removeEventListener('scroll', scrollCallBack);
+    };
+  }, []);
+
   return (
-    <div className={navBarClass}>
+    <div ref={nav} className={styles.navBar}>
       <div className={classes.navBarContaint}>
+        <div className={styles.logoNav}>
+          <Link href="/">
+            <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
+          </Link>
+        </div>
         <LinkComp className={classes.link} name="Sản phẩm" href="/" color="white" onMouseOver={onMouseOver}>
           <Icon className={`icon-product ${classes.navIcon}`} />
         </LinkComp>
