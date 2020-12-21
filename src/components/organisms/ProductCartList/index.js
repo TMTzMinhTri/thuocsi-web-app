@@ -17,6 +17,7 @@ const ProductCartList = (props) => {
   const [isShowModalUnset, toggleUnset] = useModal();
   const [isShowModalRemove, toggleRemove] = useModal();
   const [idSelecting, setIdSelecting] = useState(null);
+  const [productSelected, setProductSelected] = useState([]);
   const [productList, setProductList] = useState(products);
   const { increase, decrease, removeProduct, increaseBy } = useCart();
 
@@ -79,6 +80,8 @@ const ProductCartList = (props) => {
 
   const handleShowModalDelete = (id) => {
     setIdSelecting(id);
+    const filterItem = products.find((item) => item.id === id);
+    setProductSelected(filterItem);
     toggleRemove();
   };
 
@@ -95,6 +98,8 @@ const ProductCartList = (props) => {
 
   const handleDecrement = (product) => {
     setIdSelecting(product.id);
+    const filterItem = products.find((item) => item.id === product.id);
+    setProductSelected(filterItem);
     if (product.quantity === 1) {
       toggleRemove();
     } else {
@@ -109,7 +114,7 @@ const ProductCartList = (props) => {
   return (
     <>
       <RemoveProductModal
-        product={products}
+        product={productSelected}
         onRemove={handleRemove}
         visible={isShowModalRemove}
         onClose={toggleRemove}

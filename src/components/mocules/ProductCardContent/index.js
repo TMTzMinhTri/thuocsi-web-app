@@ -19,6 +19,7 @@ const ProductCardContent = ({
   // status,
   // price_percent,
   row,
+  tag,
   // cart,
   className,
 }) => (
@@ -41,11 +42,13 @@ const ProductCardContent = ({
             {name}
           </Typography>
         </a>
+        {tag && (
         <div className={clsx(styles.product_tags, styles.product_tags_column)}>
           {tags.map((item) => (
             <TagType key={item + Math.random() + 1} type={item} />
           ))}
         </div>
+        )}
       </Box>
       <Typography
         className={clsx(styles.product_type, styles.muted)}
@@ -56,7 +59,7 @@ const ProductCardContent = ({
         {type}
       </Typography>
     </Box>
-    {category && row && (
+    {(row === category) && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"

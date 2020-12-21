@@ -1,5 +1,5 @@
 const ACCOUNT_API_PREFIX = '/core/account/v1';
-const CUSTOMER_API_PREFIX = '/customer/customer/v1';
+const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
 
 const AUTHENTICATION = `${ACCOUNT_API_PREFIX}/authentication`;
 export const ACCOUNT_API = {

@@ -3,7 +3,7 @@ import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE } from 'constants/Cookies';
 import { CookiesParser } from 'utils';
 import { API_HOST, MOCK_API_HOST } from '../../config/index';
 
-export async function getSessionToken(ctx) {
+export function getSessionToken(ctx) {
   const tk = CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN);
   if (tk && tk.length > 0) {
     return tk;
@@ -23,7 +23,7 @@ async function request(props) {
     if (ctx) {
       const AuthorizationValue = getSessionToken(ctx);
       if (AuthorizationValue) {
-        headers.Authorization = `Bearer ${AuthorizationValue}`;
+        headers.Authorization = `Bearer ${AuthorizationValue}=`;
       }
     } else {
       const AuthorizationValue = Cookies.get(ACCESS_TOKEN);
@@ -32,7 +32,7 @@ async function request(props) {
       }
     }
   }
-
+  console.log('header', headers);
   const res = await fetch(link, {
     method,
     credentials: 'same-origin',
@@ -43,6 +43,7 @@ async function request(props) {
     body: typeof body === 'object' ? JSON.stringify(body) : body,
   });
   const result = await res.json();
+  console.log('result', result);
   return result;
 }
 
