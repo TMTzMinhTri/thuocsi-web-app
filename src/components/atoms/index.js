@@ -16,3 +16,5 @@ export { default as CheckBox } from './CheckBox';
 export { default as SnackBar } from './SnackBar';
 export { default as MenuDropDownItem } from './MenuDropDownItem';
 export { default as MenuDropDown } from './MenuDropDown';
+export { default as InputInfo } from './InfoInput';
+export { default as InfoFormControl } from './InfoFormControl';
