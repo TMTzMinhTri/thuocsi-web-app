@@ -3,7 +3,7 @@ import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE } from 'constants/Cookies';
 import { CookiesParser } from 'utils';
 import { API_HOST, MOCK_API_HOST } from '../../config/index';
 
-export async function getSessionToken(ctx) {
+export function getSessionToken(ctx) {
   const tk = CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN);
   if (tk && tk.length > 0) {
     return tk;
@@ -18,11 +18,11 @@ async function request(props) {
     dev / production : /backend
    */
   const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
-
   if (isAuth) {
     if (ctx) {
       const AuthorizationValue = getSessionToken(ctx);
       if (AuthorizationValue) {
+        headers['user-agent'] = ctx.req.headers['user-agent'];
         headers.Authorization = `Bearer ${AuthorizationValue}`;
       }
     } else {
