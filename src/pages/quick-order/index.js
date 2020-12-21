@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 
 import { Template, NavBar, Header, QuickOrderList, CardInfo } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
-import { useCart } from 'context';
+import ProductClient from 'clients/ProductClient';
 import styles from './style.module.css';
 
-export default function Cart({ mostResearched = [] }) {
+export async function getServerSideProps() {
+  const [products] = await Promise.all([ProductClient.loadDataProduct()]);
+
+  return {
+    props: {
+      products,
+    },
+  };
+}
+
+export default function Cart({ mostResearched = [], products }) {
   const title = 'Đặt hàng nhanh – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
-  const { cartItems } = useCart();
   return (
     <Template title={title}>
       <Header />
@@ -22,7 +31,7 @@ export default function Cart({ mostResearched = [] }) {
         <Grid container spacing={3}>
           <Grid sm={8} item>
             {/* san pham  */}
-            <QuickOrderList setCartList={setCartList} products={cartItems} />
+            <QuickOrderList setCartList={setCartList} products={products} />
           </Grid>
           <Grid sm={4} item>
             {/* gio hang */}
