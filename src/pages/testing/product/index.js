@@ -1,14 +1,12 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
-import { TagType, SearchInput, CardInfo } from 'components/mocules';
-import { ProductCardVertical, ProductCardHorizontal, BestSaleProduct } from 'components/organisms';
+import { TagType, CardInfo } from 'components/mocules';
+import { BestSaleProduct } from 'components/organisms';
 import getFormattedDate from 'utils/DateTimeUtils';
 import ProductClient from 'clients/ProductClient';
 
 export async function getServerSideProps(ctx) {
   const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
-  console.log('data', products);
   return {
     props: {
       products,
@@ -18,19 +16,17 @@ export async function getServerSideProps(ctx) {
 
 const date = getFormattedDate(new Date());
 
-const test = ({ products }) => {
-  console.log(products);
-  return (
-    <>
-      {/* <BestSaleProduct products={products} /> */}
-      {/* <ProductCartList products={products} /> */}
-      {/* {products.map((item) => (
+const test = ({ products }) => (
+  <>
+    <BestSaleProduct products={products} />
+    {/* <ProductCartList products={products} /> */}
+    {/* {products.map((item) => (
       <ProductCart key={item.id} product={item} type="column" />
     ))} */}
-      {/* {products.map((item) => (
+    {/* {products.map((item) => (
       <ProductCardVertical key={item.id} product={item} type="column" />
     ))} */}
-      {/* <>
+    {/* <>
       <Box
         style={{
           position: 'sticky',
@@ -52,28 +48,27 @@ const test = ({ products }) => {
         <ProductCardHorizontal key={item.id} product={item} />
       ))}
     </> */}
-      <RibbonPriceUp />
-      <RibbonPriceDown />
-      <PlusButton />
-      <MinusButton />
-      <CardInfo quantity={21231} total="3.000.000 đ" cart />
-      <TagType type="BEST_SELLER" />
-      <TagType type="EXPORTABLE_INVOICE" />
-      <TagType type="PROMOTION" />
-      <TagType type="USE_VIETNAMSE_PRODUCT" />
-      <TagType type="FLASH_SALE" />
-      <TagType type="OUT_OF_STOCKS" />
-      <TagType type="DROP_SHIP" />
-      <TagType type="CHANGE_STYLE" />
-      <TagType type="STOP_PRODUCING" />
-      <TagType type="ONLY_THUOCSI" />
-      <TagType type="HARD_TO_BUY" />
-      <TagType type="NEW" />
-      <TagType type="PRICE_DOWN" />
-      <TagType type="PRICE_UP" />
-      <TagType date={date} type="CLOSE_TO_EXPIRED_DATE" />
-    </>
-  );
-};
+    <RibbonPriceUp />
+    <RibbonPriceDown />
+    <PlusButton />
+    <MinusButton />
+    <CardInfo quantity={21231} total="3.000.000 đ" cart />
+    <TagType type="BEST_SELLER" />
+    <TagType type="EXPORTABLE_INVOICE" />
+    <TagType type="PROMOTION" />
+    <TagType type="USE_VIETNAMSE_PRODUCT" />
+    <TagType type="FLASH_SALE" />
+    <TagType type="OUT_OF_STOCKS" />
+    <TagType type="DROP_SHIP" />
+    <TagType type="CHANGE_STYLE" />
+    <TagType type="STOP_PRODUCING" />
+    <TagType type="ONLY_THUOCSI" />
+    <TagType type="HARD_TO_BUY" />
+    <TagType type="NEW" />
+    <TagType type="PRICE_DOWN" />
+    <TagType type="PRICE_UP" />
+    <TagType date={date} type="CLOSE_TO_EXPIRED_DATE" />
+  </>
+);
 
 export default test;

@@ -18,12 +18,12 @@ async function request(props) {
     dev / production : /backend
    */
   const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
-
   if (isAuth) {
     if (ctx) {
       const AuthorizationValue = getSessionToken(ctx);
       if (AuthorizationValue) {
-        headers.Authorization = `Bearer ${AuthorizationValue}=`;
+        headers['user-agent'] = ctx.req.headers['user-agent'];
+        headers.Authorization = `Bearer ${AuthorizationValue}`;
       }
     } else {
       const AuthorizationValue = Cookies.get(ACCESS_TOKEN);
@@ -32,7 +32,6 @@ async function request(props) {
       }
     }
   }
-  console.log('header', headers);
   const res = await fetch(link, {
     method,
     credentials: 'same-origin',
@@ -43,7 +42,6 @@ async function request(props) {
     body: typeof body === 'object' ? JSON.stringify(body) : body,
   });
   const result = await res.json();
-  console.log('result', result);
   return result;
 }
 

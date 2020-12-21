@@ -1,6 +1,8 @@
 const CookiesParser = (cookies) =>
   cookies.split(';').reduce((res, c) => {
-    const [key, val] = c.trim().split('=').map(decodeURIComponent);
+    const i = c.indexOf('=');
+    const key = c.substr(0, i).trim();
+    const val = c.substr(i + 1).trim();
     try {
       return Object.assign(res, { [key]: JSON.parse(val) });
     } catch (error) {

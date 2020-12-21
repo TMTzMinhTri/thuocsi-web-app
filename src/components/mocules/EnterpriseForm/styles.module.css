@@ -1,0 +1,18 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 30px 8px;
+  border-radius: 10px!important;
+}
+
+.title {
+  display: flex;
+  flex: 1;
+  color: black;
+  justify-content: center;
+}
+
+.display_none {
+  display: none;
+}

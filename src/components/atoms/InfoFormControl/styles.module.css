@@ -1,0 +1,50 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding: 30px 8px;
+    border-radius: 10px!important;
+  }
+  .account_form_input {
+    height: 24px;
+  }
+  .form_control {
+    width: 100%;
+    margin-top: 20px!important;
+  }
+  .required {
+    color: red;
+  }
+  
+  .input_label {
+    color: black;
+    font-weight: 500;
+    line-height: 2em;
+    font-size: 1rem;
+  }
+  
+  .title {
+    display: flex;
+    flex: 1;
+    color: black;
+    justify-content: center;
+  }
+  
+  .input_adornment {
+      font-size: 16;
+      padding: 8px 12px;
+  }
+  
+  .input_adornment:focus {
+    border-color: #00b46e;
+  
+  }
+  
+  .padding_none {
+    padding: 0!important;
+  }
+  
+  .padding_none > .MuiOutlinedInput-adornedEnd {
+    padding-right: 0!important;
+  }
+  
