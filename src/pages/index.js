@@ -1,18 +1,32 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import LandingPage from '../components/LandingPage';
-import ProductClient from '../clients/ProductClient';
+import ProductClient from 'clients/ProductClient';
+import { AuthClient } from 'clients';
+import LandingPage from './landingpage/index';
 
-export async function getServerSideProps() {
-  const resultMostResearched = await ProductClient.loadDataMostSearch();
-  return { props: { mostResearched: resultMostResearched } };
+export async function getServerSideProps(context) {
+  const { loggedIn = false, user } = await AuthClient.getUserWithContext(context);
+
+  if (loggedIn) {
+    const [mostResearched, feedback, infoBanner] = await Promise.all([
+      ProductClient.loadDataMostSearch(context),
+      ProductClient.loadFeedback(context),
+      ProductClient.getInfoBanner(context),
+    ]);
+
+    return {
+      props: {
+        user,
+        loggedIn,
+        mostResearched,
+        feedback,
+        infoBanner,
+      },
+    };
+  }
+
+  return { props: { loggedIn } };
 }
 
-export default function Index({ mostResearched }) {
-  const title = 'Thuocsi.vn';
-  return (
-    <Layout title={title}>
-      <LandingPage mostResearched={mostResearched} />
-    </Layout>
-  );
+export default function Index(props) {
+  return <LandingPage {...props} />;
 }

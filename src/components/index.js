@@ -1,2 +1,4 @@
-export { default as Footer } from './Footer';
-export { default as Modal } from './Modal';
+export * from './atoms';
+export * from './layout';
+export * from './organisms';
+export * from './mocules';

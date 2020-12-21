@@ -1,13 +1,8 @@
-module.exports = {
-  webpack: (config, {
-    buildId, dev, isServer, defaultLoaders, webpack,
-  }) => {
-    // Note: we provide webpack above so you should not `require` it
-    // Perform customizations to webpack config
-    config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  console.log = function () {};
+  console.debug = function () {};
+  console.warn = function () {};
+  console.info = function () {};
+}
 
-    // Nextjs đã cáu hình sẵn một phần webpack rồi
-    // Important: return the modified config
-    return config;
-  },
-};
+module.exports = {};

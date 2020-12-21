@@ -1,0 +1,43 @@
+.badge_product {
+    position: absolute;
+    left: -0.25em;
+    top: 1rem;
+    color: white;
+    padding: 3.3px 6.67px;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    z-index: 3;
+}
+
+.badge_product::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: -0.1875rem;
+    border-left: 0.1875rem solid transparent;
+}
+
+.new_badge {
+    background: #f9b514;
+    
+}
+
+.new_badge::after {
+    border-top: 0.1875rem solid #bc8505;
+}
+
+.event_badge {
+    background: #dc3545;
+}
+
+.event_badge:hover {
+    color: #17a2b8;
+}
+
+.event_badge::after {
+    border-top: 0.1875rem solid #dc3545;
+}

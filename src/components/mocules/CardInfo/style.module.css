@@ -1,0 +1,74 @@
+.text {
+    font-weight: 500!important;
+    margin-bottom: 0.5rem !important;
+}
+
+
+.number {
+    font-weight: bolder!important;
+    font-size: 20px!important;
+}
+
+.quantity {
+    color: #f9b514 !important;
+}
+
+.price {
+    color: #00b46e !important;
+}
+
+.wrapper {
+    padding: 12px 16px
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 3px 20px rgba(0,0,0,0.08);
+}
+
+.icon_promo {
+    margin-right: 16px;
+}
+
+.promo_text {
+    color: #00b46e;
+    font-weight: 500;
+}
+
+.promo_text:hover {
+    color: #00683f
+}
+
+.text_right {
+    text-align: right;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.quantity_border {
+    border-right: 1px solid rgba(195,204,220,0.4);
+    border-bottom: 1px solid rgba(195,204,220,0.4);
+}
+
+.total_border {
+    border-bottom: 1px solid rgba(195,204,220,0.4);
+}
+
+.promo_border {
+    border-bottom: 1px solid rgba(195,204,220,0.4);
+    font-weight: 500;
+    color: #919aa3;
+}
+
+.btn {
+    width: 100%;
+    color: #212529!important;
+    background-color: #f9b514!important;
+    border-color: #f9b514!important;
+    border-radius: 50px!important;
+    text-transform: capitalize!important;
+    font-size: 16px!important;
+}
