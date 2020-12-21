@@ -29,5 +29,6 @@ export const LINK_LICENSE = `${DOMAIN_STORAGE}/trading_license/1.+Trading+Licens
 
 // OTHER
 export const LOGO_THUOCSI = '/images/logo_thuocsi.svg';
+export const LOGO_THUOCSI_SHORTENED = '/images/logo_icon_thuocsi.svg';
 export const FAVICON_DEFAULT = '/images/favicon.ico';
 export const MISSING_IMAGE = '/images/default/missing.png';

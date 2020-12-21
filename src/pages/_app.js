@@ -10,6 +10,7 @@ import { AuthProvider, CartContextProvider } from 'context';
 import { Theme } from 'components';
 
 import '../styles/globals.css';
+import '../styles/icomoon.css';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;

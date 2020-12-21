@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Dehaze as DehazeIcon,
+  MenuRounded as MenuRoundedIcon,
   AccountCircle as AccountCircleIcon,
   AssignmentTurnedIn as AssignmentTurnedInIcon,
   Share as ShareIcon,
@@ -35,6 +35,10 @@ const useStyles = makeStyles({
     },
     borderBottom: '1px solid black',
   },
+  toggleBtn: {
+    color: '#fff',
+    minWidth: 'auto',
+  },
 });
 
 export default function Toggle() {
@@ -52,8 +56,8 @@ export default function Toggle() {
 
   return (
     <>
-      <Button aria-haspopup="true" onClick={handleClick} cursor="pointer">
-        <DehazeIcon />
+      <Button className={classes.toggleBtn} aria-haspopup="true" onClick={handleClick} cursor="pointer">
+        <MenuRoundedIcon />
       </Button>
       <MenuDropDown anchorEl={anchorEl} open={open} handleClose={handleClose}>
         <MenuItem onClick={handleClose} className={classes.menuItemClass}>
