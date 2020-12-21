@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { makeStyles, Typography, Badge, IconButton, Icon, Container } from '@material-ui/core';
 import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
-import { useCart } from 'context';
+import { useCart, useAuth } from 'context';
 import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
 import { Toggle } from '../../mocules';
 // comp
@@ -60,6 +60,8 @@ function renderMostSearched(data, classes) {
 export default function NavBar({ mostResearched }) {
   const { itemCount } = useCart();
   const classes = useStyle();
+  const { isAuthenticated } = useAuth();
+
   const mostSearchedEle = renderMostSearched(mostResearched, classes);
   const nav = useRef();
 
@@ -107,16 +109,18 @@ export default function NavBar({ mostResearched }) {
           <LinkComp className={classes.link} name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
             <LocalOffer className={styles.navIcon} />
           </LinkComp>
-          <div className={styles.navBarRight}>
-            <LinkComp className={styles.navBarRightLink} href="/cart">
-              <IconButton aria-label="cart">
-                <Badge badgeContent={itemCount} invisible={false} color="secondary">
-                  <LocalMallOutlined className={styles.rIcon} />
-                </Badge>
-              </IconButton>
-            </LinkComp>
-            <Toggle />
-          </div>
+          {isAuthenticated ? (
+            <div className={styles.navBarRight}>
+              <LinkComp className={styles.navBarRightLink} href="/cart">
+                <IconButton aria-label="cart">
+                  <Badge badgeContent={itemCount} invisible={false} color="secondary">
+                    <LocalMallOutlined className={styles.rIcon} />
+                  </Badge>
+                </IconButton>
+              </LinkComp>
+              <Toggle />
+            </div>
+          ) : null}
         </div>
         {mostSearchedEle}
       </Container>
