@@ -1,0 +1,21 @@
+.wrapper {
+  padding: 48px 0;
+}
+.cart_title {
+  font-weight: 500 !important;
+  font-size: 1.75rem !important;
+}
+.card_info {
+  position: sticky;
+  top: 5em;
+  z-index: 400;
+}
+.card_title_empty {
+  margin-bottom: 1rem !important;
+  text-align: center;
+}
+.card_button_empty {
+  margin-right: 0 !important;
+  text-transform: unset !important;
+  font-size: 1rem !important;
+}

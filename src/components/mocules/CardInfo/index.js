@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { LocalOffer } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
+import { LinkComp } from '../../atoms';
 import styles from './style.module.css';
 
 const CardInfo = ({ cart, promo, className }) => {
@@ -37,7 +38,12 @@ const CardInfo = ({ cart, promo, className }) => {
         </Grid>
       )}
       <Grid className={styles.wrapper} xs={12} container item>
-        <Button className={styles.btn}>{cart ? 'Tiếp tục thanh toán' : 'Xem giỏ hàng'}</Button>
+        { cart ? (
+          <LinkComp href="/payment" className={styles.btn}>Tiếp tục thanh toán</LinkComp>
+        ) : (
+          <LinkComp href="/cart" className={styles.btn}>Xem giỏ hàng</LinkComp>
+        )}
+
       </Grid>
     </Grid>
   );
