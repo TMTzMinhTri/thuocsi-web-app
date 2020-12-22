@@ -14,7 +14,7 @@ const ProductCardBuy = ({
   max_product: maxProduct,
   not_support_delivery: noSupportDelivery,
   price,
-  deal_price: dealPrice,
+  dealPrice,
   hasEvent,
   deal_end_day: dealEndDay,
   row,
@@ -49,12 +49,6 @@ const ProductCardBuy = ({
   };
   return (
     <>
-      <RemoveProductModal
-        product={product}
-        visible={isShowModalRemove}
-        onClose={toggleRemove}
-        onRemove={handleRemove}
-      />
       {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
       {noSupportDelivery && row ? (
         <Box mb={2}>
@@ -96,7 +90,7 @@ const ProductCardBuy = ({
                 row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
               }
           >
-            Đặt tối đa {maxProduct} sản phẩm
+            Đặt tối đa {price} sản phẩm
           </Typography>
           )}
           <CardActions
@@ -125,6 +119,12 @@ const ProductCardBuy = ({
           </CardActions>
         </>
       )}
+      <RemoveProductModal
+        product={product}
+        visible={isShowModalRemove}
+        onClose={toggleRemove}
+        onRemove={handleRemove}
+      />
     </>
   );
 };

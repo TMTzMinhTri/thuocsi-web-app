@@ -32,7 +32,6 @@ async function request(props) {
       }
     }
   }
-
   const res = await fetch(link, {
     method,
     credentials: 'same-origin',

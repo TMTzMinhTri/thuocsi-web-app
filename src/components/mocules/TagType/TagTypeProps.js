@@ -12,14 +12,14 @@ import {
 import styles from './style.module.css';
 
 const TagTypeProps = {
-  BEST_SELLER: {
+  'Bán chạy': {
     text: 'Bán chạy',
     backgroundColor: '#00b46e',
     color: '#fff',
     icon: <ThumbUp className={styles.icon} />,
   },
 
-  EXPORTABLE_INVOICE: {
+  'Hoá đơn nhanh': {
     text: 'Hóa đơn nhanh',
     backgroundColor: '#f8f9fa',
     color: '#00b46e',
@@ -39,13 +39,13 @@ const TagTypeProps = {
     color: '#fff',
   },
 
-  USE_VIETNAMSE_PRODUCT: {
-    text: 'Người Việt dùng hàng Việt',
+  'Hàng việt': {
+    text: 'Hàng việt',
     backgroundColor: '#f8f9fa',
     color: '#00b46e',
   },
 
-  FLASH_SALE: {
+  'Flash sale': {
     text: 'Flash Sale',
     backgroundColor: '#f8f9fa',
     color: '#f9b514',
@@ -63,6 +63,13 @@ const TagTypeProps = {
     text: 'Dropship',
     backgroundColor: '#f8f9fa',
     color: '#f9b514',
+  },
+
+  'Giao nhanh': {
+    text: 'Giao nhanh',
+    backgroundColor: '#00b46e',
+    color: '#fff',
+    icon: <ThumbUp className={styles.icon} />,
   },
 
   CHANGE_STYLE: {

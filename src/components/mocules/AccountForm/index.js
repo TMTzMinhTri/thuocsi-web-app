@@ -13,7 +13,7 @@ const AccountForm = () => {
   const IconEndPassword = () => (
     <InputAdornment className={styles.padding_none}>
       <IconButton onClick={handleClickShowPassword}>
-        {isShowPassword ? <Visibility /> : <VisibilityOff />}
+        {isShowPassword ? <VisibilityOff /> : <Visibility />}
       </IconButton>
     </InputAdornment>
   );

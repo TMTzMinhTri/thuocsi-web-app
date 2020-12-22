@@ -20,6 +20,8 @@ const BestSaleProduct = ({ products }) => {
           key={`bestsale-${item.id}`}
           product={item}
           value={item.quantity || 0}
+          tag
+          category
         />
       ))}
     </SliderProduct>

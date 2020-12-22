@@ -5,22 +5,33 @@ import Card from '@material-ui/core/Card';
 import Image from 'next/image';
 import { MISSING_IMAGE } from 'constants/Images';
 import clsx from 'clsx';
-import formatCurrency from 'utils/FormarCurrency';
+import FormatCurrency from 'utils/FormarCurrency';
 import styles from './style.module.css';
 
 const RemoveProductModal = memo((props) => {
   const { onClose, onRemove, visible, className, restProps, product } = props;
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
-      <Box className={styles.confirm_modal_wrap}>
+      <div className={styles.confirm_modal_wrap}>
         <Box textAlign="center">
-          <Box className={styles.warning_icon}>
+          <div className={styles.warning_icon}>
             <Typography className={styles.text_icon}>!</Typography>
-          </Box>
+          </div>
           <Typography className={styles.modal_title}>Xin xác nhận</Typography>
-          <Typography className={styles.modal_content}>
-            Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng?
-          </Typography>
+          <div className={styles.modal_content_wrap}>
+            <Typography className={styles.modal_content}>
+              Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng?
+            </Typography>
+            <div className={styles.cart_box}>
+              <div className={styles.cart_img}>
+                <Image src={product.image || MISSING_IMAGE} width="77" height="58" />
+              </div>
+              <div className={styles.cart_info}>
+                <div className={styles.cart_name}>{product.name}</div>
+                <div className={styles.cart_price}>{FormatCurrency(product.price || 0)}</div>
+              </div>
+            </div>
+          </div>
         </Box>
         {product
           && (
@@ -39,7 +50,7 @@ const RemoveProductModal = memo((props) => {
                 {product.name && product.name}
               </div>
               <div className={styles.remove_item_cart_price}>
-                {product.price && formatCurrency(product.price)}
+                {product.price && FormatCurrency(product.price)}
               </div>
             </div>
           </Card>
@@ -53,7 +64,7 @@ const RemoveProductModal = memo((props) => {
             Có
           </Button>
         </Box>
-      </Box>
+      </div>
     </Modal>
   );
 });
