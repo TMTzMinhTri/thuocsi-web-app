@@ -1,4 +1,7 @@
-import { makeStyles, Tab } from '@material-ui/core';
+import React from 'react';
+import { makeStyles, Grid } from '@material-ui/core';
+import { InfoTabs } from 'components/mocules';
+import styles from './styles.module.css';
 
 const useStyles = makeStyles(() => ({
   tabRoot: {
@@ -14,6 +17,7 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
     backgroundColor: 'inherit',
     display: 'flex',
+    padding: '50px 0',
   },
   tabs: {
     width: '35%',
@@ -36,26 +40,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const TabMenu = ({ index, icon, label }) => {
+export default function InfoContainer({ children, value, title }) {
   const classes = useStyles();
   return (
-    <Tab
-      label={label}
-      id={`vertical-tab-${index}`}
-      aria-controls={`vertical-tabpanel-${index}`}
-      fullWidth
-      icon={icon}
-      centered="false"
-      className={classes.tabWrapper}
-      disableFocusRipple
-      disableRipple
-      classes={{
-        root: classes.tabRoot,
-        wrapper: classes.tabWrapper,
-        selected: classes.tabSelected,
-      }}
-    />
-  );
-};
+    <div className={classes.root}>
+      <InfoTabs value={value} />
 
-export default TabMenu;
+      <Grid container direction="column" spacing={4} xs={12}>
+        <Grid item xs={12}>
+          <div className={styles.title}>{title}</div>
+        </Grid>
+        <Grid container direction="column" value={value} spacing={1} xs={12}>
+          {children}
+        </Grid>
+      </Grid>
+    </div>
+  );
+}

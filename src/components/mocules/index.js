@@ -19,3 +19,4 @@ export { default as DeliveryForm } from './DeliveryForm';
 export { default as OrderInfoTabs } from './OrderInfoTabs';
 export { default as SliderProduct } from './SliderProduct';
 export { default as HeaderUser } from './HeaderUser';
+export { default as InfoTabs } from './InfoTabs';
