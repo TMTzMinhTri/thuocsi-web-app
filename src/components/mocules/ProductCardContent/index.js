@@ -13,12 +13,15 @@ const ProductCardContent = ({
   // deal_start_day,
   // deal_end_day,
   tags,
-  type,
+  unit,
+  volume,
+  cate,
   category,
   // price,
   // status,
   // price_percent,
   row,
+  tag,
   // cart,
   className,
 }) => (
@@ -41,11 +44,13 @@ const ProductCardContent = ({
             {name}
           </Typography>
         </a>
+        {tag && (
         <div className={clsx(styles.product_tags, styles.product_tags_column)}>
           {tags.map((item) => (
             <TagType key={item + Math.random() + 1} type={item} />
           ))}
         </div>
+        )}
       </Box>
       <Typography
         className={clsx(styles.product_type, styles.muted)}
@@ -53,10 +58,10 @@ const ProductCardContent = ({
         color="textSecondary"
         component="p"
       >
-        {type}
+        {unit} {volume}
       </Typography>
     </Box>
-    {category && row && (
+    {(row === cate) && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"
@@ -65,8 +70,8 @@ const ProductCardContent = ({
       >
         Nhóm:{' '}
         {category.map((item) => (
-          <a key={item + Math.random() + 1} href="/">
-            {item}
+          <a key={item.code + Math.random() + 1} href="/">
+            {item.name}
           </a>
         ))}
       </Typography>

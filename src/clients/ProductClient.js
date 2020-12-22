@@ -17,7 +17,7 @@ async function getInfoBanner(ctx) {
 }
 
 async function loadDataProduct(ctx) {
-  const result = await GET({ url: '/product', mock: true, ctx });
+  const result = await GET({ url: '/marketplace/product/v1/products', ctx, isAuth: true });
   return result.data;
 }
 

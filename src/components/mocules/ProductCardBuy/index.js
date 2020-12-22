@@ -12,7 +12,6 @@ const ProductCardBuy = ({
   max_product: maxProduct,
   not_support_delivery: noSupportDelivery,
   price,
-  deal_price: dealPrice,
   hasEvent,
   deal_end_day: dealEndDay,
   row,
@@ -52,7 +51,7 @@ const ProductCardBuy = ({
               row ? styles.price_wrapper : clsx(styles.price_wrapper, styles.price_wrapper_column)
             }
           >
-            <Typography className={styles.deal_price}>{formatCurrency(dealPrice)}</Typography>
+            <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
             <Typography className={styles.old_price}>{formatCurrency(price)}</Typography>
           </Box>
         ) : (
@@ -70,7 +69,7 @@ const ProductCardBuy = ({
               row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
             }
           >
-            Đặt tối đa {maxProduct} sản phẩm
+            Đặt tối đa {price} sản phẩm
           </Typography>
         )}
         <CardActions

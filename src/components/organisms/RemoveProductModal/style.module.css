@@ -88,4 +88,44 @@
     font-weight: 400!important;
     line-height: normal!important;
     text-align: center;
+    padding-bottom: 20px;
+}
+
+.cart_box {
+    display: flex;
+    padding: 16px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 3px 20px rgba(0,0,0,0.08);
+}
+
+.cart_img {
+    margin-right: 16px;
+}
+
+.cart_info {
+    text-align: left !important;
+}
+
+.cart_name {
+    color: #343a40;
+    text-transform: capitalize;
+    transition: color 0.2s;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.cart_name:hover {
+    color: #00b46e;
+    transition: color 0.2s;
+}
+
+
+.cart_price {
+    color: #00b46e;
+    font-weight: 500;
+}
+
+.modal_content_wrap {
+    padding: 0 45px
 }

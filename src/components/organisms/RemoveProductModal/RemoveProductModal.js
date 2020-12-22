@@ -1,23 +1,36 @@
 import React, { memo } from 'react';
 import { Modal } from 'components/atoms';
 import { Button, Typography, Box } from '@material-ui/core';
+import Image from 'next/image';
 import clsx from 'clsx';
-
+import { MISSING_IMAGE } from 'constants/Images';
+import FormarCurrency from 'utils/FormarCurrency';
 import styles from './style.module.css';
 
 const RemoveProductModal = memo((props) => {
-  const { onClose, onRemove, visible, className, restProps } = props;
+  const { onClose, product, onRemove, visible, className, restProps } = props;
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
-      <Box className={styles.confirm_modal_wrap}>
+      <div className={styles.confirm_modal_wrap}>
         <Box textAlign="center">
-          <Box className={styles.warning_icon}>
+          <div className={styles.warning_icon}>
             <Typography className={styles.text_icon}>!</Typography>
-          </Box>
+          </div>
           <Typography className={styles.modal_title}>Xin xác nhận</Typography>
-          <Typography className={styles.modal_content}>
-            Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng?
-          </Typography>
+          <div className={styles.modal_content_wrap}>
+            <Typography className={styles.modal_content}>
+              Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng?
+            </Typography>
+            <div className={styles.cart_box}>
+              <div className={styles.cart_img}>
+                <Image src={product.image || MISSING_IMAGE} width="77" height="58" />
+              </div>
+              <div className={styles.cart_info}>
+                <div className={styles.cart_name}>{product.name}</div>
+                <div className={styles.cart_price}>{FormarCurrency(product.price || 0)}</div>
+              </div>
+            </div>
+          </div>
         </Box>
         <Box mt={2} textAlign="center">
           <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
@@ -27,7 +40,7 @@ const RemoveProductModal = memo((props) => {
             Có
           </Button>
         </Box>
-      </Box>
+      </div>
     </Modal>
   );
 });
