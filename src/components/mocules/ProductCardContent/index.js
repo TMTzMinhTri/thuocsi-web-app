@@ -47,7 +47,7 @@ const ProductCardContent = ({
         {tag && (
         <div className={clsx(styles.product_tags, styles.product_tags_column)}>
           {tags.map((item) => (
-            <TagType key={item + Math.random() + 1} type={item} />
+            <TagType key={item + Math.random() + 1} type={item.slug} />
           ))}
         </div>
         )}
