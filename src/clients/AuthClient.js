@@ -46,7 +46,7 @@ export async function signUp(body) {
 }
 
 export async function getUser() {
-  const result = await GET({ url: CUSTOMER_API.INFO });
+  const result = await GET({ url: CUSTOMER_API.INFO, mock: true });
   return result;
 }
 

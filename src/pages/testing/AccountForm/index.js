@@ -1,16 +1,10 @@
-import {
-  InfoContainer,
-  // AccountInfoFormContainer,
-  // OrderInfoFormContainer,
-  ShareList,
-} from 'components';
+import { InfoContainer, ReferralList } from 'components';
 import { Container } from '@material-ui/core';
 
 const TestingAccountForm = () => (
   <Container>
-    <InfoContainer value={3} title="Đơn hàng của tôi">
-      {/* <AccountInfoFormContainer /> */}
-      <ShareList />
+    <InfoContainer value={3} title="Giới thiệu bạn bè">
+      <ReferralList />
     </InfoContainer>
   </Container>
 );

@@ -12,7 +12,15 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    return {};
+    return {
+      props: {
+        user: {
+          name: '',
+          phone: '',
+          email: '',
+        },
+      },
+    };
   }
 }
 
