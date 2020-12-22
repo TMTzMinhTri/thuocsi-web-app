@@ -6,7 +6,7 @@ export default (req, res) => {
       {
         accountID: 79,
         districtCode: null,
-        email: '',
+        email: 'anhthuanga@gmail.com',
         lastUpdatedTime: '2020-12-10T09:26:31.564154141Z',
         name: 'nguyenchinhthuan3',
         phone: '01341434567',

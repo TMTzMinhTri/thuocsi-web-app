@@ -12,20 +12,30 @@ const ButtonUploadFile = () => (
   </InputAdornment>
 );
 
-const EnterpriseForm = () => (
+const EnterpriseForm = ({ scope, drugstoreName, bussinessName, handleChangeValue }) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}> Thông tin doanh nghiệp </h1>
     <Grid container spacing={2}>
-      <InfoFormControl xs={3} label="Bạn là" htmlFor="nameIs">
-        <InputInfo id="nameIs" value="Nhà thuốc" disabled />
+      <InfoFormControl xs={3} label="Bạn là" htmlFor="scope">
+        <InputInfo id="scope" value={scope} disabled />
       </InfoFormControl>
 
       <InfoFormControl xs={9} label="Tên nhà thuốc/phòng khám" htmlFor="drugstoreName">
-        <InputInfo id="drugstoreName" placeholder="Dược Hoàng Vũ" />
+        <InputInfo
+          id="drugstoreName"
+          placeholder="Dược Hoàng Vũ"
+          value={drugstoreName}
+          onChange={(e) => handleChangeValue('drugstoreName', e.target.value)}
+        />
       </InfoFormControl>
 
       <InfoFormControl xs={12} label="Tên người đại diện pháp luật" htmlFor="bussinessName">
-        <InputInfo id="bussinessName" placeholder="Trần Thị B" />
+        <InputInfo
+          id="bussinessName"
+          placeholder="Trần Thị B"
+          value={bussinessName}
+          onChange={(e) => handleChangeValue('bussinessName', e.target.value)}
+        />
       </InfoFormControl>
 
       <InfoFormControl
@@ -48,9 +58,14 @@ const EnterpriseForm = () => (
     </Grid>
 
     <Grid container spacing={3}>
-      <InfoFormControl xs={4} label="Tỉnh/Thành phố" htmlFor="province" isRequired>
-        <NativeSelect id="province" input={<InputInfo />} IconComponent={ExpandMoreIcon}>
-          <option value="" aria-label="None">
+      <InfoFormControl xs={4} label="Tỉnh/Thành phố" htmlFor="billProvince" isRequired>
+        <NativeSelect
+          id="billProvince"
+          input={<InputInfo />}
+          IconComponent={ExpandMoreIcon}
+          value={0}
+        >
+          <option aria-label="billProvince" value={0}>
             Chọn Tỉnh/Thành Phố...
           </option>
           <option value={10}>Tp.Hồ Chí Minh</option>
@@ -59,9 +74,9 @@ const EnterpriseForm = () => (
         </NativeSelect>
       </InfoFormControl>
 
-      <InfoFormControl xs={4} label="Quận/Huyện" htmlFor="district" isRequired>
-        <NativeSelect id="district" input={<InputInfo />} IconComponent={ExpandMoreIcon}>
-          <option value="" aria-label="None">
+      <InfoFormControl xs={4} label="Quận/Huyện" htmlFor="billDistrict" isRequired>
+        <NativeSelect id="billDistrict" input={<InputInfo />} IconComponent={ExpandMoreIcon}>
+          <option value="" aria-label="billDistrict">
             Chọn Quận/Huyện...
           </option>
           <option value={10}>Quận 1</option>
@@ -70,9 +85,9 @@ const EnterpriseForm = () => (
         </NativeSelect>
       </InfoFormControl>
 
-      <InfoFormControl xs={4} label="Phường/Xã" htmlFor="ward" isRequired>
-        <NativeSelect id="ward" input={<InputInfo />} IconComponent={ExpandMoreIcon}>
-          <option value="" aria-label="None">
+      <InfoFormControl xs={4} label="Phường/Xã" htmlFor="billWard" isRequired>
+        <NativeSelect id="billWard" input={<InputInfo />} IconComponent={ExpandMoreIcon}>
+          <option value="" aria-label="billWard">
             Chọn Phường/Xã...
           </option>
           <option value={10}>Phường Long Bình Tân</option>

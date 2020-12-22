@@ -46,11 +46,11 @@ export default function InfoContainer({ children, value, title }) {
     <div className={classes.root}>
       <InfoTabs value={value} />
 
-      <Grid container direction="column" spacing={4} xs={12}>
+      <Grid container direction="column" spacing={4}>
         <Grid item xs={12}>
           <div className={styles.title}>{title}</div>
         </Grid>
-        <Grid container direction="column" value={value} spacing={1} xs={12}>
+        <Grid container direction="column" value={value} spacing={1}>
           {children}
         </Grid>
       </Grid>

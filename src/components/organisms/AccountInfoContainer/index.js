@@ -1,26 +1,48 @@
+import { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { AccountForm, EnterpriseForm, DeliveryForm } from 'components/mocules';
 import UpdateButton from './UpdateButton';
 
-const AccountInfoFormContainer = () => (
-  <Grid item>
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
-        <AccountForm />
-      </Grid>
-      <Grid item xs={12}>
-        <EnterpriseForm />
-      </Grid>
-      <Grid item xs={12}>
-        <DeliveryForm />
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container justify="center">
-          <UpdateButton />
+const parseScopeName = (scope) => {
+  if (scope === 'PHARMACY') {
+    return 'Nhà Thuốc';
+  }
+  return '';
+};
+
+const AccountInfoFormContainer = ({ user }) => {
+  const [value, setValue] = useState({
+    name: user.name,
+    phone: user.phone,
+    email: user.email,
+    password: '',
+    scope: parseScopeName(user.scope),
+    drugstoreName: '',
+    bussinessName: '',
+  });
+  const handleSetValue = (key, val) => {
+    setValue({ ...value, [key]: val });
+  };
+  return (
+    <Grid item>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <AccountForm {...value} handleSetValue={handleSetValue} />
+        </Grid>
+        <Grid item xs={12}>
+          <EnterpriseForm {...value} handleSetValue={handleSetValue} />
+        </Grid>
+        <Grid item xs={12}>
+          <DeliveryForm {...value} handleSetValue={handleSetValue} />
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container justify="center">
+            <UpdateButton />
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
-  </Grid>
-);
+  );
+};
 
 export default AccountInfoFormContainer;
