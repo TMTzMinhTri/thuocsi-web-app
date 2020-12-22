@@ -1,27 +1,24 @@
 import { Grid } from '@material-ui/core';
 import { AccountForm, EnterpriseForm, DeliveryForm } from 'components/mocules';
-import styles from './styles.module.css';
+import UpdateButton from './UpdateButton';
 
-const AccountInfoFormContainer = ({ value }) => (
-  <Grid
-    container
-    direction="column"
-    value={value}
-    spacing={4}
-    id="vertical-tabpanel-0"
-    aria-labelledby="vertical-tab-0"
-  >
-    <Grid item xs={12} justify="center">
-      <div className={styles.title}>Cập nhật hồ sơ</div>
-    </Grid>
-    <Grid item xs={12}>
-      <AccountForm />
-    </Grid>
-    <Grid item xs={12}>
-      <EnterpriseForm />
-    </Grid>
-    <Grid item xs={12}>
-      <DeliveryForm />
+const AccountInfoFormContainer = () => (
+  <Grid item>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <AccountForm />
+      </Grid>
+      <Grid item xs={12}>
+        <EnterpriseForm />
+      </Grid>
+      <Grid item xs={12}>
+        <DeliveryForm />
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container justify="center">
+          <UpdateButton />
+        </Grid>
+      </Grid>
     </Grid>
   </Grid>
 );

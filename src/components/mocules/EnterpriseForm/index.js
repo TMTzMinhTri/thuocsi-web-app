@@ -28,13 +28,13 @@ const EnterpriseForm = () => (
         <InputInfo id="bussinessName" placeholder="Trần Thị B" />
       </InfoFormControl>
 
-      <InfoFormControl xs={12} label="Giấy phép kinh doanh phòng khám/nhà thuốc" htmlFor="license">
-        <InputInfo
-          id="license"
-          endAdornment={<ButtonUploadFile />}
-          component="span"
-          variant="contained"
-        />
+      <InfoFormControl
+        xs={12}
+        label="Giấy phép kinh doanh phòng khám/nhà thuốc"
+        htmlFor="license"
+        variant="contained"
+      >
+        <InputInfo id="license" endAdornment={<ButtonUploadFile />} component="span" />
       </InfoFormControl>
     </Grid>
     <h1 className={styles.title}> Thông tin xuất hoá đơn </h1>

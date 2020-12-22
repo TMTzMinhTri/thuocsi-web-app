@@ -2,11 +2,12 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import Input from '../Input';
 
-const BootstrapInput = withStyles((theme) => ({
+const InfoInput = withStyles((theme) => ({
   root: {
     'label + &': {
       marginTop: theme.spacing(3),
     },
+    height: '2.4em!important',
   },
   input: {
     borderRadius: 4,
@@ -24,4 +25,4 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(Input);
 
-export default React.memo(BootstrapInput);
+export default React.memo(InfoInput);

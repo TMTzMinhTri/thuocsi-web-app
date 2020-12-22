@@ -1,20 +1,31 @@
-import { Template, NavBar, Header, InfoContainer } from 'components';
+import { Template, NavBar, Header, AccountInfoFormContainer, InfoContainer } from 'components';
+import { Container } from '@material-ui/core';
+import { AuthClient } from 'clients';
 
-import { Container, Box } from '@material-ui/core';
+export async function getServerSideProps() {
+  const user = await Promise.all([AuthClient.getUser()]);
+  console.log(user);
+  return {
+    props: {
+      user,
+    },
+  };
+}
 
-const MyAccount = ({ mostResearched = [] }) => {
-  const title = 'Cập nhật thông tin – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-
+const MyAccount = ({ mostResearched = [], user }) => {
+  const title = 'Cập nhật hồ sơ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+  console.log(user);
   return (
     <Template title={title}>
       <Header />
       <NavBar mostResearched={mostResearched} />
       <Container maxWidth="lg">
-        <Box p={5}>
-          <InfoContainer />
-        </Box>
+        <InfoContainer value={1} title="Cập nhật hồ sơ">
+          <AccountInfoFormContainer />
+        </InfoContainer>
       </Container>
     </Template>
   );
 };
+
 export default MyAccount;
