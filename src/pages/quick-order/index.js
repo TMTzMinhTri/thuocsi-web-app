@@ -5,8 +5,8 @@ import { Container, Typography, Box, Grid } from '@material-ui/core';
 import ProductClient from 'clients/ProductClient';
 import styles from './style.module.css';
 
-export async function getServerSideProps() {
-  const [products] = await Promise.all([ProductClient.loadDataProduct()]);
+export async function getServerSideProps(ctx) {
+  const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
 
   return {
     props: {

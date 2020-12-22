@@ -22,15 +22,6 @@ const RemoveProductModal = memo((props) => {
             <Typography className={styles.modal_content}>
               Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng?
             </Typography>
-            <div className={styles.cart_box}>
-              <div className={styles.cart_img}>
-                <Image src={product.image || MISSING_IMAGE} width="77" height="58" />
-              </div>
-              <div className={styles.cart_info}>
-                <div className={styles.cart_name}>{product.name}</div>
-                <div className={styles.cart_price}>{FormatCurrency(product.price || 0)}</div>
-              </div>
-            </div>
           </div>
         </Box>
         {product

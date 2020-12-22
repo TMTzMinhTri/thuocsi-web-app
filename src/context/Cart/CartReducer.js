@@ -9,8 +9,7 @@ export const sumItems = (cartItems) => {
   const itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
   // eslint-disable-next-line max-len
   const total = cartItems
-    .reduce((totalItem, product) => totalItem + product.price * product.quantity, 0)
-    .toFixed(2);
+    .reduce((totalItem, product) => totalItem + product.price * product.quantity, 0);
   return { itemCount, total };
 };
 
