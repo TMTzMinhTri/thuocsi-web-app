@@ -9,6 +9,7 @@
     flex: 25%;
     max-width: 25%;
     justify-content: flex-end;
+    margin-bottom: 0!important;
 }
 
 .product_action button:nth-child(3) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
 import { TagType, CardInfo } from 'components/mocules';
-import { BestSaleProduct } from 'components/organisms';
+import { BestSaleProduct, ProductCardHorizontal } from 'components/organisms';
 import getFormattedDate from 'utils/DateTimeUtils';
 import ProductClient from 'clients/ProductClient';
 
@@ -19,6 +19,9 @@ const date = getFormattedDate(new Date());
 const test = ({ products }) => (
   <>
     <BestSaleProduct products={products} />
+    {products.map((item) => (
+      <ProductCardHorizontal key={item.id} product={item} />
+    ))}
     {/* <ProductCartList products={products} /> */}
     {/* {products.map((item) => (
       <ProductCart key={item.id} product={item} type="column" />

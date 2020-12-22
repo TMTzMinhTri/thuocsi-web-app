@@ -28,7 +28,7 @@ const ProductCardHorizontal = ({ product }) => {
               />
             </CardActionArea>
           </Box>
-          <ProductCardContent {...product} />
+          <ProductCardContent tag cate {...product} />
           <ProductCardBuy searchInput={searchInput} {...product} />
         </Card>
       </Box>

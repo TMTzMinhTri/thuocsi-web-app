@@ -12,14 +12,14 @@ import {
 import styles from './style.module.css';
 
 const TagTypeProps = {
-  'Bán chạy': {
+  'ban-chay': {
     text: 'Bán chạy',
     backgroundColor: '#00b46e',
     color: '#fff',
     icon: <ThumbUp className={styles.icon} />,
   },
 
-  'Hoá đơn nhanh': {
+  'hoa-don-nhanh': {
     text: 'Hóa đơn nhanh',
     backgroundColor: '#f8f9fa',
     color: '#00b46e',
@@ -45,7 +45,7 @@ const TagTypeProps = {
     color: '#00b46e',
   },
 
-  'Flash sale': {
+  'flash-sale': {
     text: 'Flash Sale',
     backgroundColor: '#f8f9fa',
     color: '#f9b514',
@@ -65,7 +65,7 @@ const TagTypeProps = {
     color: '#f9b514',
   },
 
-  'Giao nhanh': {
+  'giao-nhanh': {
     text: 'Giao nhanh',
     backgroundColor: '#00b46e',
     color: '#fff',
