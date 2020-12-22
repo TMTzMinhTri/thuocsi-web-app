@@ -19,9 +19,14 @@ const ProductCart = React.memo((props) => {
     value,
   } = props;
   const [isShowModal, toggle] = useModal();
-  const { addImportant, removeImportant } = useCart();
+  const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
   const handleSetImportant = () => {
+    const importantList = cartItems.filter((item) => item.important === true);
+    if (importantList.length >= (Math.floor((cartItems.length * 20) / 100) || 1)) {
+      console.log('error');
+      return;
+    }
     if (product.important) {
       setUnset(true);
     } else {
@@ -30,7 +35,7 @@ const ProductCart = React.memo((props) => {
     toggle();
   };
 
-  const handleImportant = () => {
+  const handleConfirmImportantModal = () => {
     if (product.important) {
       removeImportant(product);
     } else {
@@ -77,7 +82,7 @@ const ProductCart = React.memo((props) => {
         </Card>
       </Box>
       <ConfirmModal
-        onClickOk={handleImportant}
+        onClickOk={handleConfirmImportantModal}
         unset={unset}
         visible={isShowModal}
         onClose={toggle}
