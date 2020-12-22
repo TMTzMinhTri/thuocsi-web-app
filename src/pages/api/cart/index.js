@@ -7,7 +7,7 @@ export default (req, res) => {
     data: {
       userID: 'anpham',
       voucher: '',
-      id: 100,
+      sku: 'SP01',
       product: [{
         brand: 'Hàng nội địa',
         category: [

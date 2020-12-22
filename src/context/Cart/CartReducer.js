@@ -16,8 +16,22 @@ export const sumItems = (cartItems) => {
 export const CartReducer = (state, action) => {
   const { cartItems } = state;
   switch (action.type) {
+    case 'FETCH_SUCCESS':
+      return {
+        ...state,
+        ...sumItems([...action.payload]),
+        cartItems: [...action.payload],
+        loading: false,
+      };
+    case 'FETCH_ERROR':
+      return {
+        ...state,
+        ...sumItems([]),
+        cartItems: [],
+        loading: false,
+      };
     case 'ADD_ITEM':
-      if (!cartItems.find((item) => item.id === action.payload.id)) {
+      if (!cartItems.find((item) => item.sku === action.payload.sku)) {
         cartItems.push({
           ...action.payload,
           quantity: 1,
@@ -32,12 +46,12 @@ export const CartReducer = (state, action) => {
     case 'REMOVE_ITEM':
       return {
         ...state,
-        ...sumItems(cartItems.filter((item) => item.id !== action.payload.id)),
-        cartItems: [...cartItems.filter((item) => item.id !== action.payload.id)],
+        ...sumItems(cartItems.filter((item) => item.sku !== action.payload.sku)),
+        cartItems: [...cartItems.filter((item) => item.sku !== action.payload.sku)],
       };
     case 'INCREASE':
       // eslint-disable-next-line no-param-reassign
-      if (!cartItems.find((item) => item.id === action.payload.id)) {
+      if (!cartItems.find((item) => item.sku === action.payload.sku)) {
         cartItems.push({
           ...action.payload,
           quantity: 1,
@@ -45,7 +59,7 @@ export const CartReducer = (state, action) => {
       } else {
         // eslint-disable-next-line no-param-reassign
         cartItems[
-          cartItems.findIndex((item) => item.id === action.payload.id)
+          cartItems.findIndex((item) => item.sku === action.payload.sku)
         ].quantity += 1;
       }
       return {
@@ -56,7 +70,7 @@ export const CartReducer = (state, action) => {
     case 'INCREASE_BY':
       // eslint-disable-next-line no-param-reassign
       cartItems[
-        cartItems.findIndex((item) => item.id === action.payload.product.id)
+        cartItems.findIndex((item) => item.sku === action.payload.product.sku)
       ].quantity = action.payload.q;
       return {
         ...state,
@@ -65,7 +79,7 @@ export const CartReducer = (state, action) => {
       };
     case 'DECREASE':
       // eslint-disable-next-line no-case-declarations
-      const currentItem = cartItems[cartItems.findIndex((item) => item.id === action.payload.id)];
+      const currentItem = cartItems[cartItems.findIndex((item) => item.sku === action.payload.sku)];
       if (currentItem && currentItem.quantity !== 0) {
         currentItem.quantity -= 1;
       }
@@ -75,13 +89,13 @@ export const CartReducer = (state, action) => {
         ...sumItems(
           currentItem && currentItem.quantity !== 0
             ? cartItems
-            : cartItems.filter((item) => item.id !== action.payload.id),
+            : cartItems.filter((item) => item.sku !== action.payload.sku),
         ),
         // eslint-disable-next-line max-len
         cartItems:
           currentItem && currentItem.quantity !== 0
             ? [...cartItems]
-            : [...cartItems.filter((item) => item.id !== action.payload.id)],
+            : [...cartItems.filter((item) => item.sku !== action.payload.sku)],
       };
     case 'CHECKOUT':
       return {
@@ -92,7 +106,7 @@ export const CartReducer = (state, action) => {
     case 'ADD_IMPORTANT':
       // eslint-disable-next-line no-param-reassign
       state.cartItems[
-        state.cartItems.findIndex((item) => item.id === action.payload.id)
+        state.cartItems.findIndex((item) => item.sku === action.payload.sku)
       ].important = true;
       return {
         ...state,
@@ -102,7 +116,7 @@ export const CartReducer = (state, action) => {
     case 'REMOVE_IMPORTANT':
       // eslint-disable-next-line no-param-reassign
       delete state.cartItems[
-        state.cartItems.findIndex((item) => item.id === action.payload.id)
+        state.cartItems.findIndex((item) => item.sku === action.payload.sku)
       ].important;
       return {
         ...state,
