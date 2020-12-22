@@ -110,7 +110,7 @@ export default function OrderInfoTabs() {
               </div>
             </Grid>
 
-            <Grid item xs={3} direction="row">
+            <Grid item xs={3}>
               <div className={styles.price}> 3.024.100đ</div>
             </Grid>
 
