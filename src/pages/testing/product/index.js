@@ -2,7 +2,7 @@ import React from 'react';
 import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
 import { TagType, CardInfo } from 'components/mocules';
 import { BestSaleProduct, ProductCardHorizontal } from 'components/organisms';
-import getFormattedDate from 'utils/DateTimeUtils';
+import { DateTimeUtils } from 'utils';
 import ProductClient from 'clients/ProductClient';
 
 export async function getServerSideProps(ctx) {
@@ -14,7 +14,7 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-const date = getFormattedDate(new Date());
+const date = DateTimeUtils.getFormattedDate(new Date());
 
 const test = ({ products }) => (
   <>

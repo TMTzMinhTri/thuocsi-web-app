@@ -8,8 +8,16 @@ export const ACCOUNT_API = {
 
 const REGISTER = `${CUSTOMER_API_PREFIX}/register`;
 const INFO = `${CUSTOMER_API_PREFIX}/me`;
+const WALLET = `${CUSTOMER_API_PREFIX}/wallets`;
+const ORDER = `${CUSTOMER_API_PREFIX}/orders`;
+const REFERRAL = `${CUSTOMER_API_PREFIX}/referrals`;
+const PROMO = `${CUSTOMER_API_PREFIX}/promos`;
 
 export const CUSTOMER_API = {
   REGISTER,
   INFO,
+  WALLET,
+  ORDER,
+  REFERRAL,
+  PROMO,
 };

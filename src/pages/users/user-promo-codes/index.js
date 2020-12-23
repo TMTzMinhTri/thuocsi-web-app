@@ -1,20 +1,20 @@
-import { Template, NavBar, Header, ReferralList, InfoContainer } from 'components';
+import { Template, NavBar, Header, PromoList, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
 import { AuthClient, CustomerClient } from 'clients';
 
 export async function getServerSideProps() {
   try {
-    const [user, wallet, referrals] = await Promise.all([
+    const [user, wallet, promos] = await Promise.all([
       AuthClient.getUser(),
       CustomerClient.getWallet(),
-      CustomerClient.getReferral(),
+      CustomerClient.getPromo(),
     ]);
     if (!user) throw new Error('Cannot get user');
     return {
       props: {
         user: user.data[0],
         wallet: wallet.data[0],
-        referrals,
+        promos,
       },
     };
   } catch (error) {
@@ -34,15 +34,15 @@ export async function getServerSideProps() {
   }
 }
 
-const MyReferral = ({ mostResearched = [], wallet, referrals }) => {
-  const title = 'Giới thiệu bạn bè – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+const MyReferral = ({ mostResearched = [], wallet, promos }) => {
+  const title = 'Mã giảm giá của tôi – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title}>
       <Header />
       <NavBar mostResearched={mostResearched} />
       <Container maxWidth="lg">
-        <InfoContainer value={3} title="Giới thiệu bạn bè" wallet={wallet}>
-          <ReferralList referrals={referrals} />
+        <InfoContainer value={4} title="Mã giảm giá của tôi" wallet={wallet}>
+          <PromoList promos={promos} />
         </InfoContainer>
       </Container>
     </Template>

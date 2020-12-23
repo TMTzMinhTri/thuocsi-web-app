@@ -8,6 +8,8 @@ import {
   TableCell,
   makeStyles,
 } from '@material-ui/core';
+import { Button } from 'components/atoms';
+import { DateTimeUtils } from 'utils';
 import styles from './styles.module.css';
 
 const useStyles = makeStyles({
@@ -17,37 +19,18 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(phone, code, expiredDate, referral, paid, smsStatus) {
-  return { phone, code, expiredDate, referral, paid, smsStatus };
-}
 const heads = [
   'Số điện thoại',
   'Mã giới thiệu',
-  'Người được giới thiệu',
   'Thời gian hết hạn',
+  'Người được giới thiệu',
   'Số đơn hàng đã thanh toán',
   'Gửi lại SMS',
 ];
-const rows = [
-  createData(
-    '0376543271',
-    'DBA3674F63875',
-    '29/12/2020 12:01:13',
-    'Chưa tạo tài khoản',
-    0,
-    'Chưa thể gửi lại. Trong vòng 3 giờ, bạn chỉ có thể gửi 1 tin SMS!',
-  ),
-  createData(
-    '0376543271',
-    'DBA3674F63875',
-    '29/12/2020 12:01:13',
-    'Chưa tạo tài khoản',
-    0,
-    'Chưa thể gửi lại. Trong vòng 3 giờ, bạn chỉ có thể gửi 1 tin SMS!',
-  ),
-];
 
-function DenseTable() {
+const SendSMSButton = () => <Button classes={{ root: styles.button_send_sms }}>Gửi SMS</Button>;
+
+function ReferralTable({ referrals }) {
   const classes = useStyles();
 
   return (
@@ -63,17 +46,27 @@ function DenseTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {referrals.map((row) => (
             <TableRow key={row.code} hover>
               <TableCell component="th" scope="row">
                 {row.phone}
               </TableCell>
               <TableCell align="left">{row.code}</TableCell>
-              <TableCell align="left">{row.expiredDate}</TableCell>
-              <TableCell align="left">{row.referral}</TableCell>
+              <TableCell align="left">
+                {DateTimeUtils.getFormattedDate(new Date(row.expiredAt), 'DD/MM/YYYY HH:mm:ss')}
+              </TableCell>
+              <TableCell align="left">
+                {row.isRegister ? row.userName : 'Chưa tạo tài khoản'}
+              </TableCell>
               <TableCell align="left">{row.paid}</TableCell>
               <TableCell align="left" className={styles.text_danger}>
-                {row.smsStatus}
+                {row.canSendSMS ? (
+                  <SendSMSButton />
+                ) : (
+                  <span className={styles.text_danger}>
+                    Chưa thể gửi lại. Trong vòng 3 giờ, bạn chỉ có thể gửi 1 tin SMS!
+                  </span>
+                )}
               </TableCell>
             </TableRow>
           ))}
@@ -83,4 +76,4 @@ function DenseTable() {
   );
 }
 
-export default DenseTable;
+export default ReferralTable;
