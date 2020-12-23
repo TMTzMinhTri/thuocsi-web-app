@@ -3,7 +3,6 @@ import React from 'react';
 import { Template, NavBar, Header, QuickOrderList, CardInfo } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import ProductClient from 'clients/ProductClient';
-
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {

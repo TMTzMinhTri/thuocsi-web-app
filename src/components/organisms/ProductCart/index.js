@@ -1,28 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { Grade } from '@material-ui/icons';
 import { MISSING_IMAGE } from 'constants/Images';
+import useModal from 'hooks/useModal';
+import { useCart } from 'context';
 import { ProductCardBuy, ProductCardContent } from '../../mocules';
+import ConfirmModal from '../ConfirmModal';
+import ErrorModal from '../ErrorModal';
 import styles from './styles.module.css';
 
 const ProductCart = React.memo((props) => {
   const {
     product,
-    onClickShowModal,
-    onRemove,
-    onChange,
-    onIncrement,
-    onDecrement,
     name,
-    value,
   } = props;
+  const [isShowModal, toggle] = useModal();
+  const [isShowModalWarning, toggleWarning] = useModal();
+  const { addImportant, removeImportant, cartItems } = useCart();
+  const [unset, setUnset] = useState(false);
   const handleSetImportant = () => {
-    onClickShowModal(product.id);
+    const importantList = cartItems.filter((item) => item.important === true);
+    if (product.important) {
+      setUnset(true);
+    } else {
+      if (importantList.length >= (Math.floor((cartItems.length * 20) / 100) || 1)) {
+        toggleWarning();
+        return;
+      }
+      setUnset(false);
+    }
+    toggle();
   };
+
+  const handleConfirmImportantModal = () => {
+    if (product.important) {
+      removeImportant(product);
+    } else {
+      addImportant(product);
+    }
+    toggle();
+  };
+
   return (
     <Box className={styles.button_container}>
       <Box className={styles.root_card}>
-        <Box onClick={handleSetImportant} className={styles.important_item}>
+        <Box
+          onClick={handleSetImportant}
+          className={[styles.important_item, product.important && styles.important_item_active]}
+        >
           <Grade
             className={product.isImportant ? styles.important_item_active : styles.star_icon}
           />
@@ -32,11 +57,10 @@ const ProductCart = React.memo((props) => {
             <CardActionArea>
               <CardMedia
                 component="img"
-                alt="Contemplative Reptile"
+                alt={product.name}
                 height="80"
                 width="80"
                 image={product.image || MISSING_IMAGE}
-                title="Contemplative Reptile"
               />
             </CardActionArea>
           </Box>
@@ -44,16 +68,18 @@ const ProductCart = React.memo((props) => {
           <ProductCardBuy
             {...product}
             product={product}
-            onRemove={onRemove}
-            onChange={onChange}
-            onDecrement={onDecrement}
-            onIncrement={onIncrement}
             cart
             name={name}
-            value={value}
           />
         </Card>
       </Box>
+      <ConfirmModal
+        onClickOk={handleConfirmImportantModal}
+        unset={unset}
+        visible={isShowModal}
+        onClose={toggle}
+      />
+      <ErrorModal visible={isShowModalWarning} onClose={toggleWarning} />
     </Box>
   );
 });

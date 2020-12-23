@@ -90,23 +90,23 @@ export default function NavBar({ mostResearched }) {
               <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
             </Link>
           </div>
-          <LinkComp className={classes.link} name="Sản phẩm" href="/" color="white" onMouseOver={onMouseOver}>
+          <LinkComp className={classes.link} name="Sản phẩm" href="/products?current_tab=new_arrival" color="white" onMouseOver={onMouseOver}>
             <Icon className={`icon-product ${styles.navIcon}`} />
           </LinkComp>
 
-          <LinkComp className={classes.link} name="Hoạt Chất" href="/" color="white" onMouseOver={onMouseOver}>
+          <LinkComp className={classes.link} name="Hoạt Chất" href="/ingredients" color="white" onMouseOver={onMouseOver}>
             <Icon className={`icon-ingredients ${styles.navIcon}`} />
           </LinkComp>
 
-          <LinkComp className={classes.link} name="Đặt Hàng Nhanh" href="/" color="white" onMouseOver={onMouseOver}>
+          <LinkComp className={classes.link} name="Đặt Hàng Nhanh" href="/quick-order" color="white" onMouseOver={onMouseOver}>
             <Icon className={`icon-quick-order ${styles.navIcon}`} />
           </LinkComp>
 
-          <LinkComp className={classes.link} name="Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
+          <LinkComp className={classes.link} name="Khuyến Mãi" href="/deals" color="white" onMouseOver={onMouseOver}>
             <Whatshot className={styles.navIcon} />
           </LinkComp>
 
-          <LinkComp className={classes.link} name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
+          <LinkComp className={classes.link} name="Mã Giảm Giá" href="/promo-codes" color="white" onMouseOver={onMouseOver}>
             <LocalOffer className={styles.navIcon} />
           </LinkComp>
           {isAuthenticated ? (
