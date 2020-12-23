@@ -25,8 +25,15 @@ async function loadDataCart(ctx) {
 async function loadDataProduct(ctx) {
   const result = await GET({ url: '/marketplace/product/v1/products', ctx, isAuth: true });
   const cart = await loadDataCart();
-  GetQuantityProduct(result, cart);
-  return result.data;
+  const cartObject = {};
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const item of cart.product) {
+    cartObject[item.sku] = item;
+  }
+
+  const productListWithPrice = GetQuantityProduct(result, cartObject);
+  return productListWithPrice;
 }
 export default {
   loadDataMostSearch,

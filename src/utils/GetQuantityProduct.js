@@ -1,10 +1,14 @@
-const GetQuantityProduct = async (products, cart) => {
-  // eslint-disable-next-line array-callback-return
-  cart.product.filter((cartItem) => products.data.some((product) => {
-    if (product.sku === cartItem.sku) {
-      // eslint-disable-next-line no-param-reassign
-      product.quantity = cartItem.quantity;
+const GetQuantityProduct = (products, cart) => {
+  const productList = [];
+  products.data.forEach((product, index) => {
+    const id = product.sku;
+    if (id === cart[id].sku) {
+      productList.push({ ...product, quantity: cart[product.sku].quantity });
+    } else {
+      productList.push(product);
     }
-  }));
+  });
+
+  return productList;
 };
 export default GetQuantityProduct;
