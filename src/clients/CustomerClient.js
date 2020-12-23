@@ -16,8 +16,13 @@ export async function getWallet() {
   return result;
 }
 
+export async function getPromo() {
+  const result = await GET({ url: CUSTOMER_API.PROMO, mock: true });
+  return result.data;
+}
 export default {
   getOrder,
   getReferral,
   getWallet,
+  getPromo,
 };

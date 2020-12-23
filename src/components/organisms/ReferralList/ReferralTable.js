@@ -53,7 +53,7 @@ function ReferralTable({ referrals }) {
               </TableCell>
               <TableCell align="left">{row.code}</TableCell>
               <TableCell align="left">
-                {DateTimeUtils.getFormattedDate(new Date(row.expiredAt))}
+                {DateTimeUtils.getFormattedDate(new Date(row.expiredAt), 'DD/MM/YYYY HH:mm:ss')}
               </TableCell>
               <TableCell align="left">
                 {row.isRegister ? row.userName : 'Chưa tạo tài khoản'}

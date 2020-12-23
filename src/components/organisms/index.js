@@ -19,3 +19,4 @@ export { default as BestSaleProduct } from './BestSaleProduct';
 export { default as AccountInfoFormContainer } from './AccountInfoContainer';
 export { default as OrderInfoFormContainer } from './OrderInfoContainer';
 export { default as ReferralList } from './ReferralList';
+export { default as PromoList } from './PromoList';
