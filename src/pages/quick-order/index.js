@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Template, NavBar, Header, QuickOrderList, CardInfo } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
@@ -7,7 +7,6 @@ import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
   const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
-
   return {
     props: {
       products,
@@ -15,9 +14,8 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-export default function Cart({ mostResearched = [], products }) {
+export default function QuickOrderPage({ mostResearched = [], products = [] }) {
   const title = 'Đặt hàng nhanh – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-  const [, setCartList] = useState();
   return (
     <Template title={title}>
       <Header />
@@ -31,7 +29,7 @@ export default function Cart({ mostResearched = [], products }) {
         <Grid container spacing={3}>
           <Grid sm={8} item>
             {/* san pham  */}
-            <QuickOrderList setCartList={setCartList} products={products} />
+            <QuickOrderList products={products} />
           </Grid>
           <Grid sm={4} item>
             {/* gio hang */}
