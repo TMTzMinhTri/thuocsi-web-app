@@ -80,11 +80,11 @@ const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total }) => 
           </div>
           <div>
             <span className={styles.order_detail_label}>Ngày mua: </span>
-            {DateTimeUtils.getFormattedDate(new Date(createdAt))}
+            {DateTimeUtils.getFormattedDate(new Date(createdAt), 'DD/MM/YYYY HH:mm:ss')}
           </div>
           <div>
             <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
-            {DateTimeUtils.getFormattedWithDate(new Date(deliveryAt))}
+            {DateTimeUtils.getFormattedWithDate(new Date(deliveryAt), 'd(DD/MM/YYYY)')}
           </div>
         </Grid>
 

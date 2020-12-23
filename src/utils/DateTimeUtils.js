@@ -14,10 +14,7 @@ function getFormattedDate(date, format = 'DD/MM/YYYY') {
   const hour = date.getHours();
   const minute = date.getMinutes();
   const second = date.getSeconds();
-  const dayOfWeek = date.getDay();
-
   return format
-    .replace('d', getDayOfWeek(dayOfWeek))
     .replace('DD', String(day).padStart(2, '0'))
     .replace('MM', String(month).padStart(2, '0'))
     .replace('YYYY', year)
@@ -29,7 +26,7 @@ function getFormattedDate(date, format = 'DD/MM/YYYY') {
 function getFormattedWithDate(date, format = 'd (DD/MM/YYYY)') {
   const dayOfWeek = date.getDay();
 
-  return format.replace('d', getDayOfWeek(dayOfWeek)) + getFormattedDate(date, format);
+  return getFormattedDate(date, format).replace('d', getDayOfWeek(dayOfWeek));
 }
 
 export default {
