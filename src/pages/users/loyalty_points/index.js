@@ -1,6 +1,7 @@
-import { Template, NavBar, Header, ReferralList, InfoContainer } from 'components';
-import { Container } from '@material-ui/core';
+import { Template, NavBar, Header, InfoContainer } from 'components';
+import { Container, Grid } from '@material-ui/core';
 import { AuthClient, CustomerClient } from 'clients';
+import styles from './styles.module.css';
 
 export async function getServerSideProps() {
   try {
@@ -34,18 +35,20 @@ export async function getServerSideProps() {
   }
 }
 
-const MyReferral = ({ mostResearched = [], wallet, referrals }) => {
-  const title = 'Giới thiệu bạn bè – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+const MyLoyaltyPoint = ({ mostResearched = [], wallet }) => {
+  const title = 'Điểm tích luỹ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title}>
       <Header />
       <NavBar mostResearched={mostResearched} />
       <Container maxWidth="lg">
-        <InfoContainer value={3} title="Giới thiệu bạn bè" wallet={wallet}>
-          <ReferralList referrals={referrals} />
+        <InfoContainer value={5} title="Điểm tích luỹ" wallet={wallet}>
+          <Grid item xs={12} className={styles.loyalty_point_row}>
+            Bạn đang có <span className={styles.point}>{wallet.loyaltyPoint}</span> điểm tích lũy.
+          </Grid>
         </InfoContainer>
       </Container>
     </Template>
   );
 };
-export default MyReferral;
+export default MyLoyaltyPoint;

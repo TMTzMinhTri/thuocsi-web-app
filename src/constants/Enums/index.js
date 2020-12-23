@@ -4,6 +4,13 @@ export const ENUM_SCOPE = {
   CLINIC: 'CLINIC',
 };
 
+export const ENUM_ORDER_STATUS = {
+  PENDING: 'pending',
+  ALL: 'all',
+  COMPLETED: 'completed',
+  CANCEL: 'cancel',
+};
+
 export const ENUM_TYPE = {};
 
 export default {
