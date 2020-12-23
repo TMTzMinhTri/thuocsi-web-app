@@ -46,15 +46,16 @@ const ProductCardBuy = ({
   const handleOnIncreaseBy = (val) => {
     if (val === '0') {
       removeProduct(product);
+      return;
     }
     increaseBy({ product, q: parseInt(val, 10) });
-    setValue(product.quantity);
+    setValue(product.quantity || 0);
   };
 
   const handler = useCallback(debounce((val) => handleOnIncreaseBy(val), 2000), []);
 
   const handleInputChange = (e) => {
-    const curValue = e.target.value;
+    const curValue = e.target.value || 0;
     if ((/^\d+$/.test(curValue)) && curValue < 1000) {
       setValue(curValue);
       handler(curValue);

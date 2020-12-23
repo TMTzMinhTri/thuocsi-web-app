@@ -69,9 +69,17 @@ export const CartReducer = (state, action) => {
       };
     case 'INCREASE_BY':
       // eslint-disable-next-line no-param-reassign
-      cartItems[
-        cartItems.findIndex((item) => item.sku === action.payload.product.sku)
-      ].quantity = action.payload.q;
+      if (!cartItems.find((item) => item.sku === action.payload.sku)) {
+        cartItems.push({
+          ...action.payload.product,
+          quantity: action.payload.q,
+        });
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        cartItems[
+          cartItems.findIndex((item) => item.sku === action.payload.sku)
+        ].quantity = action.payload.q;
+      }
       return {
         ...state,
         ...sumItems(cartItems),
