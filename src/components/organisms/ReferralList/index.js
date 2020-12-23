@@ -3,7 +3,7 @@ import { Button, Grid } from '@material-ui/core';
 import styles from './styles.module.css';
 import ReferralTable from './ReferralTable';
 
-const ReferralList = () => (
+const ReferralList = ({ referrals }) => (
   <Grid item>
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -17,7 +17,7 @@ const ReferralList = () => (
         </Grid>
         <Grid container>
           <Grid item xs={12}>
-            <ReferralTable />
+            <ReferralTable referrals={referrals} />
           </Grid>
         </Grid>
       </Grid>

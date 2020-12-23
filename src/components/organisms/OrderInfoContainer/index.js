@@ -3,7 +3,7 @@ import { OrderInfoTabs } from 'components/mocules';
 import { PATH_INFO_BILL } from 'constants/Paths';
 import styles from './styles.module.css';
 
-const OrderInfoContainer = () => (
+const OrderInfoContainer = ({ orders, handleSetOrderStatus }) => (
   <Grid item>
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -13,7 +13,7 @@ const OrderInfoContainer = () => (
         </div>
       </Grid>
       <Grid item xs={12}>
-        <OrderInfoTabs />
+        <OrderInfoTabs orders={orders} handleSetOrderStatus={handleSetOrderStatus} />
       </Grid>
     </Grid>
   </Grid>

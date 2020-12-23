@@ -40,11 +40,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function InfoContainer({ children, value, title }) {
+export default function InfoContainer({ children, value, title, wallet }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <InfoTabs value={value} />
+      <InfoTabs value={value} {...wallet} />
 
       <div>
         <Grid item xs={12}>

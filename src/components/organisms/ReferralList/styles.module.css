@@ -32,3 +32,9 @@
 .text_danger {
   color: #dc3545 !important;
 }
+
+.button_send_sms {
+  color: #fff !important;
+  background-color: #17a2b8 !important;
+  border-color: #17a2b8 !important;
+}
