@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { CardActions, Typography, Box, IconButton } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import useModal from 'hooks/useModal';
 import { useCart } from 'context';
+import { debounce } from 'lodash';
 import { MinusButton, PlusButton, InputProduct } from '../../atoms';
 import DealSection from '../DealSection';
 import RemoveProductModal from '../../organisms/RemoveProductModal';
@@ -22,31 +23,43 @@ const ProductCardBuy = ({
   searchInput,
   cart,
   id,
-  // onRemove,
-  onChange,
-  // onIncrement,
-  // onDecrement,
   name,
   product,
-  // value,
 }) => {
+  const [value, setValue] = useState(product.quantity || 0);
   const [isShowModalRemove, toggleRemove] = useModal();
-  const {
-    increase,
-    decrease,
-    removeProduct,
-    // increaseBy,
-  } = useCart();
-  const removeProductOutCart = () => {
-    toggleRemove();
-  };
-  const handleRemove = () => {
-    removeProduct(product);
-  };
+  const { increase, decrease, removeProduct, increaseBy } = useCart();
+  const removeProductOutCart = () => { toggleRemove(); };
+  const handleRemove = () => { removeProduct(product); };
   const handleDecrease = () => {
     if (cart && product.quantity < 2) return;
     decrease(product);
+    setValue(product.quantity);
   };
+
+  const handleIncrease = () => {
+    increase(product);
+    setValue(product.quantity);
+  };
+
+  const handleOnIncreaseBy = (val) => {
+    if (val === '0') {
+      removeProduct(product);
+    }
+    increaseBy({ product, q: parseInt(val, 10) });
+    setValue(product.quantity);
+  };
+
+  const handler = useCallback(debounce((val) => handleOnIncreaseBy(val), 2000), []);
+
+  const handleInputChange = (e) => {
+    const curValue = e.target.value;
+    if ((/^\d+$/.test(curValue)) && curValue < 1000) {
+      setValue(curValue);
+      handler(curValue);
+    }
+  };
+
   return (
     <>
       {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
@@ -104,13 +117,13 @@ const ProductCardBuy = ({
             <InputProduct
               product={product}
               id={id}
-              onChange={onChange}
+              onChange={handleInputChange}
               searchInput={searchInput}
               type={type}
-              value={product && product.quantity && product.quantity}
+              value={value}
               name={name}
             />
-            <PlusButton onClick={() => increase(product)} />
+            <PlusButton onClick={() => handleIncrease()} />
             {cart && (
             <IconButton onClick={removeProductOutCart}>
               <Delete className={styles.icon} />

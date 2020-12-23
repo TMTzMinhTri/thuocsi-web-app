@@ -6,30 +6,27 @@ import useModal from 'hooks/useModal';
 import { useCart } from 'context';
 import { ProductCardBuy, ProductCardContent } from '../../mocules';
 import ConfirmModal from '../ConfirmModal';
+import ErrorModal from '../ErrorModal';
 import styles from './styles.module.css';
 
 const ProductCart = React.memo((props) => {
   const {
     product,
-    onRemove,
-    onChange,
-    onIncrement,
-    onDecrement,
     name,
-    value,
   } = props;
   const [isShowModal, toggle] = useModal();
+  const [isShowModalWarning, toggleWarning] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
   const handleSetImportant = () => {
     const importantList = cartItems.filter((item) => item.important === true);
-    if (importantList.length >= (Math.floor((cartItems.length * 20) / 100) || 1)) {
-      console.log('error');
-      return;
-    }
     if (product.important) {
       setUnset(true);
     } else {
+      if (importantList.length >= (Math.floor((cartItems.length * 20) / 100) || 1)) {
+        toggleWarning();
+        return;
+      }
       setUnset(false);
     }
     toggle();
@@ -71,13 +68,8 @@ const ProductCart = React.memo((props) => {
           <ProductCardBuy
             {...product}
             product={product}
-            onRemove={onRemove}
-            onChange={onChange}
-            onDecrement={onDecrement}
-            onIncrement={onIncrement}
             cart
             name={name}
-            value={value}
           />
         </Card>
       </Box>
@@ -87,6 +79,7 @@ const ProductCart = React.memo((props) => {
         visible={isShowModal}
         onClose={toggle}
       />
+      <ErrorModal visible={isShowModalWarning} onClose={toggleWarning} />
     </Box>
   );
 });
