@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, CardContent, Box } from '@material-ui/core';
 import clsx from 'clsx';
+import { v4 as uuidv4 } from 'uuid';
 import TagType from '../TagType';
 
 import styles from './styles.module.css';
@@ -47,7 +48,7 @@ const ProductCardContent = ({
         {tag && (
         <div className={clsx(styles.product_tags, styles.product_tags_column)}>
           {tags.map((item) => (
-            <TagType key={item + Math.random() + 1} type={item.slug} />
+            <TagType key={uuidv4()} type={item.slug} />
           ))}
         </div>
         )}
@@ -70,7 +71,7 @@ const ProductCardContent = ({
       >
         Nhóm:{' '}
         {category.map((item) => (
-          <a key={item.code + Math.random() + 1} href="/">
+          <a key={uuidv4()} href="/">
             {item.name}
           </a>
         ))}

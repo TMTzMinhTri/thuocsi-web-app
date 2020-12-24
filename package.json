@@ -20,16 +20,19 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.57",
+    "@welldone-software/why-did-you-render": "^6.0.3",
     "clsx": "latest",
     "js-cookie": "^2.2.1",
     "next": "latest",
+    "nextjs-auth-hoc": "^1.0.5",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-slick": "^0.27.13",
     "react-transition-group": "^4.4.1",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

@@ -17,6 +17,13 @@ async function getInfoBanner(ctx) {
   return result.data;
 }
 
+async function loadDataProductDetail(ctx) {
+  console.log('slug', ctx.query.slug);
+
+  const result = await GET({ url: `/marketplace/product/v1/products?q=${ctx.query.slug}`, ctx, isAuth: true });
+  return result.data;
+}
+
 async function loadDataCart(ctx) {
   const res = await GET({ url: '/cart', mock: true, ctx });
   return res.data;
@@ -41,4 +48,5 @@ export default {
   getInfoBanner,
   loadDataProduct,
   loadDataCart,
+  loadDataProductDetail,
 };
