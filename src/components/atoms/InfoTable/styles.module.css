@@ -1,0 +1,9 @@
+.table_head {
+  color: #212529;
+  padding: 0.75rem !important;
+}
+
+.table {
+  margin: 30px !important;
+  border-radius: 30px !important;
+}
