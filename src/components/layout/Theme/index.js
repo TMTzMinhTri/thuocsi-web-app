@@ -30,6 +30,28 @@ const Theme = createMuiTheme({
         },
       },
     },
+    MuiFab: {
+      root: {
+        backgroundColor: '#fff',
+        textTransform: 'unset',
+        borderColor: '#00b46e',
+
+        '&$extended': {
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 5,
+          paddingBottom: 5,
+          borderRadius: 25,
+          height: 38,
+          color: '#919aa3',
+          boxShadow: '3px 3px 6px rgba(0,0,0,0.08)',
+          '&:hover': {
+            color: '#343a40',
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+    },
   },
   typography: {
     fontFamily: 'Roboto, sans-serif',
