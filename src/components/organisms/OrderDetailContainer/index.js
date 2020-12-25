@@ -1,36 +1,8 @@
-import { Paper, Grid, Button, withStyles } from '@material-ui/core';
-import InsertCommentIcon from '@material-ui/icons/InsertComment';
-import PrintIcon from '@material-ui/icons/Print';
+import { Paper, Grid } from '@material-ui/core';
+import { ResponseButton, PrintInvoiceButton } from 'components/atoms';
 import { OrderDetailStep, OrderDetailInfo, OrderDetailProduct } from 'components/mocules';
 import { DateTimeUtils } from 'utils';
 import styles from './styles.module.css';
-
-const ResponseButton = withStyles({
-  root: {
-    color: '#17a2b8',
-    border: '1px solid #17a2b8',
-    borderRadius: '20px',
-    padding: '0.25rem 0.5rem',
-    fontSize: '0.875rem',
-    width: '10rem',
-    margin: '0.25em',
-    textTransform: 'none',
-  },
-})(Button);
-
-const PrintInvoiceButton = withStyles({
-  root: {
-    color: ' #212529',
-    border: '1px solid #f9b514',
-    borderRadius: '20px',
-    padding: '0.25rem 0.5rem',
-    fontSize: '0.875rem',
-    width: '10rem',
-    margin: '0.25em',
-    backgroundColor: '#f9b514',
-    textTransform: 'none',
-  },
-})(Button);
 
 const OrderDetailContainer = ({ order }) => (
   <Grid container>
@@ -50,17 +22,17 @@ const OrderDetailContainer = ({ order }) => (
                 <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryAt))}</span>
               </div>
             </Grid>
-            <ResponseButton startIcon={<InsertCommentIcon />}> Gửi phản hồi</ResponseButton>
+            <ResponseButton />
           </Grid>
         </Grid>
       </Paper>
     </Grid>
 
-    <Grid item>
+    <Grid item className={styles.print_invoice}>
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container direction="row">
           <Grid item xs={3}>
-            <PrintInvoiceButton startIcon={<PrintIcon />}> Xuất hoá đơn</PrintInvoiceButton>
+            <PrintInvoiceButton />
           </Grid>
 
           <Grid item container direction="column" justify="center" xs={5}>

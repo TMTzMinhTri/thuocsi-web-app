@@ -1,7 +1,7 @@
 .container {
-  width: 57vw;
   margin-bottom: 1rem;
   padding: 1rem;
+  width: 100%;
 }
 
 .title {
@@ -31,4 +31,8 @@
 
 .text_danger {
   color: #dc3545 !important;
+}
+
+.print_invoice {
+  width: 100%;
 }

@@ -35,3 +35,12 @@
 .product_price {
   font-weight: bold !important;
 }
+
+.table {
+  min-width: 650px;
+  margin-top: 15px !important;
+  overflow: hidden !important;
+}
+
+.table [class*='MuiTableContainer-root'] {
+}
