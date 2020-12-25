@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 const OrderDetailInfo = ({ name, address, email, phone }) => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <div>
       <Grid container spacing={2}>
         <Grid item xs={5}>
           <Paper className={classes.paper} elevation={3} classes={{ root: styles.info_left_paper }}>

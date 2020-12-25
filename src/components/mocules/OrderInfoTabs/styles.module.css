@@ -22,3 +22,12 @@
   width: 100%;
   height: 100%;
 }
+
+.indicator {
+  display: none;
+}
+
+.paper {
+  padding: 15px;
+  margin-bottom: 15px;
+}

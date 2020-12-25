@@ -15,5 +15,6 @@
 }
 
 .info_left_paper {
-  padding-bottom: 52px !important;
+  /* padding-bottom: 52px !important; */
+  height: 100%;
 }

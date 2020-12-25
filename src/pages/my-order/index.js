@@ -16,7 +16,7 @@ export async function getServerSideProps() {
       props: {
         user: user.data[0],
         wallet: wallet.data[0],
-        orders,
+        orders: orders.data,
       },
     };
   } catch (error) {
@@ -46,15 +46,14 @@ export async function getServerSideProps() {
   }
 }
 
-const MyOrder = ({ mostResearched = [], wallet, orders: orderR }) => {
+const MyOrder = ({ mostResearched = [], wallet, orders: orderR = [] }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [orders, setOrders] = useState(orderR);
   const [orderStatus, setOrderStatus] = useState(ENUM_ORDER_STATUS.ALL);
-
   useEffect(() => {
     async function getOrders() {
       const ods = await CustomerClient.getOrder({ status: orderStatus });
-      setOrders(ods);
+      setOrders(ods.data);
     }
     getOrders();
   }, [orderStatus]);

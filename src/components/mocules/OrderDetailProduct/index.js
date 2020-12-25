@@ -5,24 +5,14 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  makeStyles,
   TableBody,
   Grid,
 } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import { FormarCurrency } from 'utils';
 import styles from './styles.module.css';
-// import Image from 'next/image';
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-    marginTop: '15px!important',
-  },
-});
 
 const OrderDetailProduct = ({ products, promo }) => {
-  const classes = useStyles();
   const getTotalByProduct = (price, quantity) => price * quantity;
   const getTotal = () => {
     let sum = products.reduce(
@@ -33,8 +23,8 @@ const OrderDetailProduct = ({ products, promo }) => {
     return sum;
   };
   return (
-    <TableContainer component={Paper} className={classes.table}>
-      <Table aria-label="simple table">
+    <TableContainer component={Paper} className={styles.table}>
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell />

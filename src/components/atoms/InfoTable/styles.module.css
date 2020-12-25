@@ -4,6 +4,6 @@
 }
 
 .table {
-  margin: 30px !important;
+  min-width: 650px;
   border-radius: 30px !important;
 }
