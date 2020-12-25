@@ -1,16 +1,15 @@
 import React from 'react';
 import ProductClient from 'clients/ProductClient';
 import { AuthClient } from 'clients';
-import { customerFeedbackData } from 'constants/data';
 import LandingPage from './landingpage/index';
 
 export async function getServerSideProps(context) {
   const { isAuthenticated = false, user } = await AuthClient.getUserWithContext(context);
 
   if (isAuthenticated) {
-    const [mostResearched, feedback, infoBanner] = await Promise.all([
+    const [mostResearched, infoBanner] = await Promise.all([
       ProductClient.loadDataMostSearch(context),
-      ProductClient.loadFeedback(),
+      // ProductClient.loadFeedback(),
       ProductClient.getInfoBanner(),
     ]);
 
@@ -19,7 +18,6 @@ export async function getServerSideProps(context) {
         user,
         isAuthenticated,
         mostResearched,
-        feedback,
         infoBanner,
       },
     };
@@ -29,5 +27,5 @@ export async function getServerSideProps(context) {
 }
 
 export default function Index(props) {
-  return <LandingPage data={customerFeedbackData} {...props} />;
+  return <LandingPage {...props} />;
 }
