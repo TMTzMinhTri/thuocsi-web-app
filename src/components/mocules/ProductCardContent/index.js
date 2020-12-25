@@ -46,11 +46,11 @@ const ProductCardContent = ({
           </Typography>
         </a>
         {tag && (
-        <div className={clsx(styles.product_tags, styles.product_tags_column)}>
-          {tags.map((item) => (
-            <TagType key={uuidv4()} type={item.slug} />
-          ))}
-        </div>
+          <div className={clsx(styles.product_tags, styles.product_tags_column)}>
+            {tags.map((item) => (
+              <TagType key={uuidv4()} type={item.slug} />
+            ))}
+          </div>
         )}
       </Box>
       <Typography
@@ -62,7 +62,7 @@ const ProductCardContent = ({
         {unit} {volume}
       </Typography>
     </Box>
-    {(row === cate) && (
+    {row === cate && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"

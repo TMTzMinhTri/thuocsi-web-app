@@ -6,7 +6,7 @@ import { ThemeProvider as StyledTheme } from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { AuthProvider, CartContextProvider } from 'context';
+import { AuthProvider, CartContextProvider, ProtectRoute } from 'context';
 import { Theme } from 'components';
 
 import '../styles/globals.css';
@@ -55,17 +55,18 @@ export default function MyApp(props) {
         />
       </Head>
 
-      <MuiThemeProvider theme={Theme}>
-        <StyledTheme theme={Theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <CartContextProvider>
-            <AuthProvider>
-              <Component {...pageProps} />
-            </AuthProvider>
-          </CartContextProvider>
-        </StyledTheme>
-      </MuiThemeProvider>
+      <AuthProvider>
+        <ProtectRoute>
+          <MuiThemeProvider theme={Theme}>
+            <StyledTheme theme={Theme}>
+              <CssBaseline />
+              <CartContextProvider>
+                <Component {...pageProps} />
+              </CartContextProvider>
+            </StyledTheme>
+          </MuiThemeProvider>
+        </ProtectRoute>
+      </AuthProvider>
     </>
   );
 }
