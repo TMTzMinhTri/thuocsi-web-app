@@ -197,3 +197,27 @@ export const linkQuestionItemRight = [
 // eslint-disable-next-line operator-linebreak
 export const LINK_ALL_QUESTION =
   'https://thuocsi.zendesk.com/hc/vi/categories/360001885792-C%C3%A2u-h%E1%BB%8Fi-th%C6%B0%E1%BB%9Dng-g%E1%BA%B7p-Q-A-';
+
+export const SORT_PRODUCT = [
+  { label: 'Sản phẩm mới',
+    value: 'new_arrival',
+  },
+  { label: 'Bán chạy nhất',
+    value: 'bestsellers',
+  },
+  { label: 'Phù hợp nhất',
+    value: 'best_match',
+  },
+  { label: 'Giá: Cao đến Thấp',
+    value: 'highestprice',
+  },
+  { label: 'Giá: Thấp đến Cao',
+    value: 'lowestprice',
+  },
+  { label: 'Tên: A-Z',
+    value: 'alphabet_az',
+  },
+  { label: 'Tên: Z-A',
+    value: 'alphabet_za',
+  },
+];

@@ -52,6 +52,20 @@ const Theme = createMuiTheme({
         },
       },
     },
+    MuiPagination: {
+      root: {
+        padding: 10,
+      },
+    },
+    MuiPaginationItem: {
+      page: {
+        color: '#fff',
+        background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
+        '&$disabled': {
+          opacity: 0.18,
+        },
+      },
+    },
   },
   typography: {
     fontFamily: 'Roboto, sans-serif',

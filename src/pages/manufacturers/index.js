@@ -28,7 +28,7 @@ export async function getServerSideProps(ctx) {
 // eslint-disable-next-line camelcase
 export default function Products({ mostResearched = [], products = [], brands = [], group = [], current_tab = '', page = '', sort = '', slug = '' }) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-  const cat = 'products';
+  const cat = 'manufacturers';
   return (
     <Template title={title}>
       <Header />
