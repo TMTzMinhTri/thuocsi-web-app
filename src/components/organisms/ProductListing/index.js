@@ -194,7 +194,12 @@ export default function ProductListing({
               </Grid>
             </div>
             <div className={styles.pagging}>
-              <Pagination count={10} />
+              <Pagination
+                count={count}
+                size="large"
+                boundaryCount={2}
+                onChange={handleChangePage}
+              />
             </div>
           </main>
         )}
