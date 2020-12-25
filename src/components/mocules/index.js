@@ -21,3 +21,4 @@ export { default as SliderProduct } from './SliderProduct';
 export { default as HeaderUser } from './HeaderUser';
 export { default as InfoTabs } from './InfoTabs';
 export { default as MultiImageBox } from './MultiImageBox';
+export { default as ProductDetailTabs } from './ProductDetailTabs';

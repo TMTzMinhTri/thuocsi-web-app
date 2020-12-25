@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
   Paper,
@@ -8,18 +8,23 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Tab,
   Button,
   IconButton,
   Popover,
 } from '@material-ui/core';
-import { TabContext, TabList, TabPanel } from '@material-ui/lab';
-import { useRouter } from 'next/router';
-import { useAuth } from 'context';
+import FormarCurrency from 'utils/FormarCurrency';
+import { tabsProductData } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchDollar } from '@fortawesome/free-solid-svg-icons';
-import { MultiImageBox, InputProduct, MinusButton, PlusButton, TagType } from 'components';
+import {
+  MultiImageBox,
+  InputProduct,
+  MinusButton,
+  PlusButton,
+  TagType,
+  ProductDetailTabs,
+} from 'components';
 import { ProductClient } from 'clients';
 import styles from './styles.module.css';
 
@@ -34,16 +39,9 @@ export async function getServerSideProps(ctx) {
 
 export default function ProductDetail({ products }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { name, unit, volume, description, ingredient, madeBy, category, tags } = products[0];
+  const { name, price, unit, volume, ingredient, madeBy, category, tags } = products[0];
   const [value, setValue] = React.useState('1');
-  const { user, isLoading } = useAuth();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (!user && !isLoading) {
-      router.push('/');
-    }
-  }, [user, isLoading, router]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -57,7 +55,7 @@ export default function ProductDetail({ products }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? 'detail-product-popover' : undefined;
 
   return (
     <div className={styles.detail_wrapper}>
@@ -100,7 +98,7 @@ export default function ProductDetail({ products }) {
                 <hr className={styles.divider} />
                 <div className={styles.price_info}>
                   <div className={styles.product_price_group}>
-                    <span className={styles.product_price}>44.000</span>
+                    <span className={styles.product_price}>{FormarCurrency(price)}</span>
                   </div>
                   <IconButton onClick={handleClick} aria-label="close">
                     <FontAwesomeIcon icon={faSearchDollar} />
@@ -119,9 +117,7 @@ export default function ProductDetail({ products }) {
                       horizontal: 'center',
                     }}
                   >
-                    <p className={styles.popover_header}>
-                      Giá bán tham khảo
-                    </p>
+                    <p className={styles.popover_header}>Giá bán tham khảo</p>
                     <TableContainer classes={{ root: styles.table }} component={Paper}>
                       <Table aria-label="simple table">
                         <TableHead>
@@ -233,28 +229,12 @@ export default function ProductDetail({ products }) {
             </div>
           </Grid>
           <Grid item md={9}>
-            <div className={styles.root}>
-              <TabContext value={value}>
-                <div>
-                  <TabList
-                    TabIndicatorProps={{ className: styles.indicator }}
-                    onChange={handleChange}
-                    aria-label="simple tabs example"
-                  >
-                    <Tab classes={{ root: styles.tab }} label="Thông tin chung" value="1" />
-                    <Tab classes={{ root: styles.tab }} label="Chỉ định" value="2" />
-                    <Tab classes={{ root: styles.tab }} label="Liều lượng - Cách dùng" value="3" />
-                    <Tab classes={{ root: styles.tab }} label="Chống chỉ định" value="4" />
-                    <Tab classes={{ root: styles.tab }} label="Tương tác thuốc" value="5" />
-                    <Tab classes={{ root: styles.tab }} label="Bảo quản" value="6" />
-                    <Tab classes={{ root: styles.tab }} label="Quá liều" value="7" />
-                  </TabList>
-                </div>
-                <TabPanel value="1">{description}</TabPanel>
-                <TabPanel value="2">Item Two</TabPanel>
-                <TabPanel value="3">Item Three</TabPanel>
-              </TabContext>
-            </div>
+            <ProductDetailTabs
+              handleChange={handleChange}
+              data={tabsProductData}
+              product={products[0]}
+              value={value}
+            />
           </Grid>
         </Grid>
       </div>

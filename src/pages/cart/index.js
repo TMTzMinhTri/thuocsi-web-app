@@ -1,39 +1,12 @@
 import React, { useState } from 'react';
-
 import { Template, NavBar, Header, ProductCartList, CardInfo, LinkComp } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
-import Cookies from 'js-cookie';
-import { Auth } from 'nextjs-auth-hoc';
-
 import { Button } from 'components/atoms';
 import { useCart } from 'context';
+
 import styles from './style.module.css';
 
-// export async function getServerSideProps(ctx) {
-//   const { isAuthenticated, isLoading } = useAuth();
-//   const router = useRouter();
-
-//   if (!(isAuthenticated || isLoading)) {
-//     router.push('/');
-//   }
-
-//   return {
-//     // props: {
-//     //   products,
-//     // },
-//   };
-// }
-
 function Cart({ mostResearched = [] }) {
-  // const { user, isLoading } = useAuth();
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!(user || isLoading)) {
-  //     router.push('/');
-  //   }
-  // });
-  console.log(Cookies.get('ts_auth_access_token_longlive'));
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
   const { cartItems } = useCart();
@@ -82,4 +55,4 @@ function Cart({ mostResearched = [] }) {
   );
 }
 
-export default Auth({ action: 'RINA' })(Cart);
+export default Cart;

@@ -16,12 +16,10 @@ const useToggle = () => {
   }, []);
 
   return {
-    models: { open },
-    operations: {
-      handleOpen,
-      handleClose,
-      handleToggle,
-    },
+    open,
+    handleOpen,
+    handleClose,
+    handleToggle,
   };
 };
 

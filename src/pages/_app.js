@@ -8,16 +8,10 @@ import { MuiThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { AuthProvider, CartContextProvider } from 'context';
 import { Theme } from 'components';
-import whyDidYouRender from '@welldone-software/why-did-you-render';
 
 import '../styles/globals.css';
 import '../styles/icomoon.css';
 
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-  whyDidYouRender(React, {
-    trackAllPureComponents: true,
-  });
-}
 export default function MyApp(props) {
   const { Component, pageProps } = props;
 

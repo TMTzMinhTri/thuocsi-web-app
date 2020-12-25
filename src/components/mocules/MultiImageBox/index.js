@@ -1,38 +1,29 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react';
 import clsx from 'clsx';
-import Grid from '@material-ui/core/Grid';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import { Grid, ButtonBase, Modal, Backdrop, IconButton } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import IconButton from '@material-ui/core/IconButton';
+import { ArrowLeft, ArrowRight } from '@material-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
-
 import useToggle from 'hooks/useToggle';
-
 import Image from 'next/image';
 import useMultiImageBox from 'hooks/useMultiImageBox';
-// import useMultiImageBoxStyles from './MultiImageBox.styles';
+
 import styles from './styles.module.css';
 
 const MultiImageBox = ({ loading, images, imageType }) => {
   const {
-    models: { selectedImage },
-    operations: { handleNext, handlePrevious, handleImageSelection, handleKeyDown },
+    selectedImage,
+    handlePrevious,
+    handleNext,
+    handleKeyDown,
+    handleImageSelection,
   } = useMultiImageBox({ images });
-  const {
-    models: { open },
-    operations: { handleOpen, handleClose },
-  } = useToggle();
+  const { open, handleOpen, handleClose } = useToggle();
 
   return (
     <>
       <Grid container direction="row" justify="flex-start" classes={{ root: styles.container }}>
-        <Grid item xs={12} style={{ marginBottom: 10, flex: '80%' }}>
+        <Grid item xs={12} style={{ flex: '80%' }}>
           {loading ? (
             <Skeleton variant="rect" classes={{ root: styles.imageMain }} />
           ) : (
@@ -89,7 +80,7 @@ const MultiImageBox = ({ loading, images, imageType }) => {
         >
           <Grid container alignItems="center" justify="center" direction="row">
             <IconButton classes={{ root: styles.modalButton }} onClick={handlePrevious}>
-              <ArrowLeftIcon />
+              <ArrowLeft />
             </IconButton>
             <Image
               alt={
@@ -101,7 +92,7 @@ const MultiImageBox = ({ loading, images, imageType }) => {
               src={images[selectedImage]}
             />
             <IconButton classes={{ root: styles.modalButton }} onClick={handleNext}>
-              <ArrowRightIcon />
+              <ArrowRight />
             </IconButton>
           </Grid>
         </Backdrop>

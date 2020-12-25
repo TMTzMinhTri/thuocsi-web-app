@@ -56,13 +56,11 @@ const useMultiImageBox = ({ images = [] }) => {
   }, []);
 
   return {
-    models: { selectedImage },
-    operations: {
-      handlePrevious,
-      handleNext,
-      handleKeyDown,
-      handleImageSelection,
-    },
+    selectedImage,
+    handlePrevious,
+    handleNext,
+    handleKeyDown,
+    handleImageSelection,
   };
 };
 
