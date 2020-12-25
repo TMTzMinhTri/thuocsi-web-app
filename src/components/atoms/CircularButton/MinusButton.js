@@ -5,12 +5,12 @@ import clsx from 'clsx';
 
 import styles from './styles.module.css';
 
-const MinusButton = memo(({ ...restProps }) => (
+const MinusButton = memo(({ className, ...restProps }) => (
   <>
     <IconButton
       {...restProps}
       classes={{ root: clsx(styles.button_root, styles.button_root_minus, styles.minus) }}
-      className={styles.minus}
+      className={clsx(styles.minus, className)}
     >
       <Remove className={styles.icon} />
     </IconButton>

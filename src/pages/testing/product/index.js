@@ -1,35 +1,52 @@
 import React from 'react';
 import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
 import { TagType, CardInfo } from 'components/mocules';
-import { BestSaleProduct, ProductCardHorizontal } from 'components/organisms';
-import { DateTimeUtils } from 'utils';
-import ProductClient from 'clients/ProductClient';
+// import { BestSaleProduct, ProductCardHorizontal } from 'components/organisms';
+// import {DateTimeUtils} from 'utils';
+// import ProductClient from 'clients/ProductClient';
 
-export async function getServerSideProps(ctx) {
-  const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
-  return {
-    props: {
-      products,
-    },
-  };
-}
+// export async function getServerSideProps(ctx) {
+//   const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+//   return {
+//     props: {
+//       products,
+//     },
+//   };
+// }
 
-const date = DateTimeUtils.getFormattedDate(new Date());
+// const date = DateTimeUtils.getFormattedDate(new Date());
 
-const test = ({ products }) => (
-  <>
-    <BestSaleProduct products={products} />
+const Test = () =>
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     minHeight: '100vh',
+//     padding: theme.spacing(4),
+//   },
+// }));
+// const classes = useStyles();
+
+  (
+    <>
+      {/* <BestSaleProduct products={products} />
     {products.map((item) => (
       <ProductCardHorizontal key={item.id} product={item} />
-    ))}
-    {/* <ProductCartList products={products} /> */}
-    {/* {products.map((item) => (
+    ))} */}
+
+      {/* {products.map((item) => (
+
+        <Grid classes={{ root: classes.root }} container alignItems="center" justify="center">
+          <MultiImageBox loading={false} imageType="main" images={item.imageUrls} />
+        </Grid>
+      ))} */}
+
+      {/* <ProductCartList products={products} /> */}
+      {/* {products.map((item) => (
       <ProductCart key={item.id} product={item} type="column" />
     ))} */}
-    {/* {products.map((item) => (
+      {/* {products.map((item) => (
       <ProductCardVertical key={item.id} product={item} type="column" />
     ))} */}
-    {/* <>
+      {/* <>
       <Box
         style={{
           position: 'sticky',
@@ -51,27 +68,26 @@ const test = ({ products }) => (
         <ProductCardHorizontal key={item.id} product={item} />
       ))}
     </> */}
-    <RibbonPriceUp />
-    <RibbonPriceDown />
-    <PlusButton />
-    <MinusButton />
-    <CardInfo quantity={21231} total="3.000.000 đ" cart />
-    <TagType type="BEST_SELLER" />
-    <TagType type="EXPORTABLE_INVOICE" />
-    <TagType type="PROMOTION" />
-    <TagType type="USE_VIETNAMSE_PRODUCT" />
-    <TagType type="FLASH_SALE" />
-    <TagType type="OUT_OF_STOCKS" />
-    <TagType type="DROP_SHIP" />
-    <TagType type="CHANGE_STYLE" />
-    <TagType type="STOP_PRODUCING" />
-    <TagType type="ONLY_THUOCSI" />
-    <TagType type="HARD_TO_BUY" />
-    <TagType type="NEW" />
-    <TagType type="PRICE_DOWN" />
-    <TagType type="PRICE_UP" />
-    <TagType date={date} type="CLOSE_TO_EXPIRED_DATE" />
-  </>
-);
-
-export default test;
+      <RibbonPriceUp />
+      <RibbonPriceDown />
+      <PlusButton />
+      <MinusButton />
+      <CardInfo quantity={21231} total="3.000.000 đ" cart />
+      <TagType type="BEST_SELLER" />
+      <TagType type="EXPORTABLE_INVOICE" />
+      <TagType type="PROMOTION" />
+      <TagType type="USE_VIETNAMSE_PRODUCT" />
+      <TagType type="FLASH_SALE" />
+      <TagType type="OUT_OF_STOCKS" />
+      <TagType type="DROP_SHIP" />
+      <TagType type="CHANGE_STYLE" />
+      <TagType type="STOP_PRODUCING" />
+      <TagType type="ONLY_THUOCSI" />
+      <TagType type="HARD_TO_BUY" />
+      <TagType type="NEW" />
+      <TagType type="PRICE_DOWN" />
+      <TagType type="PRICE_UP" />
+      {/* <TagType date={date} type="CLOSE_TO_EXPIRED_DATE" /> */}
+    </>
+  );
+export default Test;

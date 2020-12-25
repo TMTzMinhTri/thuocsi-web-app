@@ -1,5 +1,5 @@
-import { TableRow, TableCell } from '@material-ui/core';
-import { Button, InfoTable } from 'components/atoms';
+import { TableRow, TableCell, Button } from '@material-ui/core';
+import { InfoTable } from 'components/atoms';
 import { DateTimeUtils } from 'utils';
 import styles from './styles.module.css';
 
@@ -12,7 +12,11 @@ const heads = [
   'Gửi lại SMS',
 ];
 
-const SendSMSButton = () => <Button classes={{ root: styles.button_send_sms }}>Gửi SMS</Button>;
+const SendSMSButton = () => (
+  <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+    <Button classes={{ root: styles.button_send_sms }}>Gửi SMS</Button>
+  </div>
+);
 
 function ReferralTable({ referrals }) {
   return (

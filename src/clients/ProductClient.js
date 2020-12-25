@@ -7,13 +7,24 @@ async function loadDataMostSearch(ctx) {
   return result.data;
 }
 
-async function loadFeedback(ctx) {
-  const result = await GET({ url: '/feedback', mock: true, ctx });
+async function loadFeedback() {
+  const result = await GET({ url: '/feedback', mock: true });
   return result.data;
 }
 
-async function getInfoBanner(ctx) {
-  const result = await GET({ url: '/banner', mock: true, ctx });
+async function getInfoBanner() {
+  const result = await GET({ url: '/banner', mock: true });
+  return result.data;
+}
+
+async function loadDataProductDetail({ ctx = {} }) {
+  const { query } = ctx;
+  const url = `/marketplace/product/v1/products?q=${query.slug}`;
+  const result = await GET({
+    url,
+    ctx,
+    isAuth: true,
+  });
   return result.data;
 }
 
@@ -23,7 +34,7 @@ async function loadDataCart(ctx) {
 }
 
 async function loadDataProduct(ctx) {
-  const result = await GET({ url: '/marketplace/product/v1/products', ctx, isAuth: true });
+  const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true });
   const cart = await loadDataCart();
   const cartObject = {};
 
@@ -41,4 +52,5 @@ export default {
   getInfoBanner,
   loadDataProduct,
   loadDataCart,
+  loadDataProductDetail,
 };

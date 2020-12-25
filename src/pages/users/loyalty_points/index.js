@@ -41,13 +41,15 @@ const MyLoyaltyPoint = ({ mostResearched = [], wallet }) => {
     <Template title={title}>
       <Header />
       <NavBar mostResearched={mostResearched} />
-      <Container maxWidth="lg">
-        <InfoContainer value={5} title="Điểm tích luỹ" wallet={wallet}>
-          <Grid item xs={12} className={styles.loyalty_point_row}>
-            Bạn đang có <span className={styles.point}>{wallet.loyaltyPoint}</span> điểm tích lũy.
-          </Grid>
-        </InfoContainer>
-      </Container>
+      <div style={{ backgroundColor: '#f4f7fc' }}>
+        <Container maxWidth="lg">
+          <InfoContainer value={5} title="Điểm tích luỹ" wallet={wallet}>
+            <Grid item xs={12} className={styles.loyalty_point_row}>
+              Bạn đang có <span className={styles.point}>{wallet.loyaltyPoint}</span> điểm tích lũy.
+            </Grid>
+          </InfoContainer>
+        </Container>
+      </div>
     </Template>
   );
 };

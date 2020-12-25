@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import Slider from 'react-slick';
 import { Box } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
@@ -57,4 +57,4 @@ const BannerSlider = ({ infoBanner }) => {
   );
 };
 
-export default BannerSlider;
+export default memo(BannerSlider);
