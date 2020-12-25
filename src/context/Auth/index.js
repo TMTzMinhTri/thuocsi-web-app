@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { AuthClient, isValid } from 'clients';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cookies';
+import LoadingScreen from 'components/organisms/LoadingScreen';
 
 const AuthContext = createContext({});
 
@@ -81,3 +82,11 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+
+export const ProtectRoute = ({ children }) => {
+  const { isLoading } = useAuth();
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+  return children;
+};

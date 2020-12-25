@@ -10,6 +10,7 @@ import {
 } from '@material-ui/icons';
 import { makeStyles, Button, MenuItem, Typography } from '@material-ui/core';
 
+import { useAuth } from 'context';
 import { MenuDropDown, MenuDropDownItem } from '../../atoms';
 
 const useStyles = makeStyles({
@@ -46,6 +47,8 @@ export default function Toggle() {
   const open = Boolean(anchorEl);
   const classes = useStyles();
 
+  const { logout } = useAuth();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -56,7 +59,12 @@ export default function Toggle() {
 
   return (
     <>
-      <Button className={classes.toggleBtn} aria-haspopup="true" onClick={handleClick} cursor="pointer">
+      <Button
+        className={classes.toggleBtn}
+        aria-haspopup="true"
+        onClick={handleClick}
+        cursor="pointer"
+      >
         <MenuRoundedIcon />
       </Button>
       <MenuDropDown anchorEl={anchorEl} open={open} handleClose={handleClose}>
@@ -94,7 +102,7 @@ export default function Toggle() {
         <MenuDropDownItem handleClick={handleClose} text="Điểm tích luỹ">
           <MonetizationOnIcon />
         </MenuDropDownItem>
-        <MenuDropDownItem handleClick={handleClose} text="Đăng xuất">
+        <MenuDropDownItem handleClick={logout} text="Đăng xuất">
           <ExitToAppIcon />
         </MenuDropDownItem>
       </MenuDropDown>

@@ -15,8 +15,8 @@ const InfoHeader = memo(() => {
   const [isShowingLogin, toggleLogin] = useModal();
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
-
   const { user, isAuthenticated } = useAuth();
+
   const handleChangeForget = useCallback(() => {
     toggleLogin();
     toggleForgetPassword();

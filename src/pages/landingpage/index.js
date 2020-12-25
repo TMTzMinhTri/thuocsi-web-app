@@ -12,19 +12,15 @@ import {
   WhyBuymed,
 } from 'components';
 
-import { useAuth } from 'context';
+// import { useAuth } from 'context';
 
 export default function LandingPage(props) {
   const { mostResearched = [], feedback = [], infoBanner = [] } = props;
   const title = 'Thuocsi.vn';
-  // example use useAuth
-  const { user } = useAuth();
-  if (user) {
-    console.log('USer : ', user);
-  }
+
   return (
     <Template title={title}>
-      <Header />
+      <Header {...props} />
       <NavBar mostResearched={mostResearched} />
       <BannerSlider infoBanner={infoBanner} />
       <WhyBuymed />
