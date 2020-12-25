@@ -15,7 +15,7 @@ import {
 import { useAuth } from 'context';
 
 export default function LandingPage(props) {
-  const { mostResearched = [], feedback = [], infoBanner = [] } = props;
+  const { mostResearched = [], data, infoBanner = [] } = props;
   const title = 'Thuocsi.vn';
   // example use useAuth
   const { user } = useAuth();
@@ -30,7 +30,7 @@ export default function LandingPage(props) {
       <WhyBuymed />
       <CommonQuestion />
       <Partners />
-      <SliderComp feedback={feedback} />
+      <SliderComp feedback={data} />
       <Media />
     </Template>
   );
