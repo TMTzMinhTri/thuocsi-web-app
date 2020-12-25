@@ -20,7 +20,7 @@ const CustomTab = withStyles({
 })(Tab);
 
 export default function OrderInfoTabs({ orders, handleSetOrderStatus }) {
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
   const classes = useStyles();
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -42,7 +42,6 @@ export default function OrderInfoTabs({ orders, handleSetOrderStatus }) {
               disableFocusRipple
               disableRipple
               onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.ALL)}
-              selected
             />
             <CustomTab
               label="Chờ Xác Nhận"
@@ -67,7 +66,7 @@ export default function OrderInfoTabs({ orders, handleSetOrderStatus }) {
       </Grid>
       <Grid item xs={12}>
         {orders.map((order) => (
-          <OrderRow {...order} />
+          <OrderRow {...order} key={order.orderID} />
         ))}
       </Grid>
     </Grid>

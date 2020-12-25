@@ -70,7 +70,11 @@ const MyOrder = ({ mostResearched = [], wallet, orders: orderR }) => {
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>
-            <OrderInfoFormContainer orders={orders} handleSetOrderStatus={handleSetOrderStatus} />
+            <OrderInfoFormContainer
+              orders={orders}
+              handleSetOrderStatus={handleSetOrderStatus}
+              orderStatus={orderStatus}
+            />
           </InfoContainer>
         </Container>
       </div>
