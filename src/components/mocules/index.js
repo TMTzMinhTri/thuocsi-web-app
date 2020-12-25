@@ -22,3 +22,6 @@ export { default as HeaderUser } from './HeaderUser';
 export { default as InfoTabs } from './InfoTabs';
 export { default as MultiImageBox } from './MultiImageBox';
 export { default as ProductDetailTabs } from './ProductDetailTabs';
+export { default as OrderDetailStep } from './OrderDetailStep';
+export { default as OrderDetailInfo } from './OrderDetailInfo';
+export { default as OrderDetailProduct } from './OrderDetailProduct';
