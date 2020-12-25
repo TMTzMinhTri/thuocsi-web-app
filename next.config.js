@@ -5,4 +5,8 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
   console.info = function () {};
 }
 
-module.exports = {};
+module.exports = {
+  images: {
+    domains: ['assets.thuocsi.vn'],
+  },
+};

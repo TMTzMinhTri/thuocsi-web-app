@@ -7,8 +7,9 @@ body {
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+
 a {
-  color: inherit;
+  color: #00b46e;
   text-decoration: none;
 }
 
@@ -18,6 +19,8 @@ a {
   touch-action: manipulation;
   -webkit-font-smoothing: antialiased;
 }
+
+
 
 .slick-dots {
   position: absolute;
@@ -140,4 +143,10 @@ a {
 }
 .header_user_avatar_image {
   border-radius: 50%;
+}
+
+.scrollButtons {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

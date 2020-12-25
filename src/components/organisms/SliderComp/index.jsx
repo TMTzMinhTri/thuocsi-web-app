@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import clsx from 'clsx';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import Slider from 'react-slick';
@@ -67,4 +67,4 @@ const SliderComp = ({ feedback }) => {
   );
 };
 
-export default SliderComp;
+export default memo(SliderComp);

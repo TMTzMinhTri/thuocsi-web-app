@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-
 import { Template, NavBar, Header, ProductCartList, CardInfo, LinkComp } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { Button } from 'components/atoms';
 import { useCart } from 'context';
+
 import styles from './style.module.css';
 
-export default function Cart({ mostResearched = [] }) {
+function Cart({ mostResearched = [] }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
   const { cartItems } = useCart();
@@ -54,3 +54,5 @@ export default function Cart({ mostResearched = [] }) {
     </Template>
   );
 }
+
+export default Cart;

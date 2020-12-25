@@ -197,3 +197,13 @@ export const linkQuestionItemRight = [
 // eslint-disable-next-line operator-linebreak
 export const LINK_ALL_QUESTION =
   'https://thuocsi.zendesk.com/hc/vi/categories/360001885792-C%C3%A2u-h%E1%BB%8Fi-th%C6%B0%E1%BB%9Dng-g%E1%BA%B7p-Q-A-';
+
+export const tabsProductData = [
+  { id: 1, label: 'Thông tin chung', value: '1' },
+  { id: 2, label: 'Chỉ định', value: '2' },
+  { id: 3, label: 'Liều lượng - Cách dùng', value: '3' },
+  { id: 4, label: 'Chống chỉ định', value: '4' },
+  { id: 5, label: 'Tương tác thuốc', value: '5' },
+  { id: 6, label: 'Bảo quản', value: '6' },
+  { id: 7, label: 'Quá liều', value: '7' },
+];
