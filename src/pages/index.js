@@ -4,27 +4,26 @@ import { AuthClient } from 'clients';
 import LandingPage from './landingpage/index';
 
 export async function getServerSideProps(context) {
-  const { loggedIn = false, user } = await AuthClient.getUserWithContext(context);
+  const { isAuthenticated = false, user } = await AuthClient.getUserWithContext(context);
 
-  if (loggedIn) {
-    const [mostResearched, feedback, infoBanner] = await Promise.all([
+  if (isAuthenticated) {
+    const [mostResearched, infoBanner] = await Promise.all([
       ProductClient.loadDataMostSearch(context),
-      ProductClient.loadFeedback(context),
-      ProductClient.getInfoBanner(context),
+      // ProductClient.loadFeedback(),
+      ProductClient.getInfoBanner(),
     ]);
 
     return {
       props: {
         user,
-        loggedIn,
+        isAuthenticated,
         mostResearched,
-        feedback,
         infoBanner,
       },
     };
   }
 
-  return { props: { loggedIn } };
+  return { props: { isAuthenticated } };
 }
 
 export default function Index(props) {

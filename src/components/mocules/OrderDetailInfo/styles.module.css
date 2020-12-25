@@ -1,0 +1,20 @@
+.info_label {
+  color: #343a40 !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+}
+
+.info_value {
+  color: #919aa3 !important;
+  font-size: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.info_container {
+  padding-right: 0 !important;
+}
+
+.info_left_paper {
+  /* padding-bottom: 52px !important; */
+  height: 100%;
+}

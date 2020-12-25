@@ -17,6 +17,7 @@ async function request(props) {
     mock api : folder:  /api
     dev / production : /backend
    */
+
   const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
   if (isAuth) {
     if (ctx) {

@@ -1,0 +1,33 @@
+.print_invoice_button {
+  color: #212529 !important;
+  border: 1px solid #f9b514 !important;
+  border-radius: 20px !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  width: 10rem !important;
+  margin: 0.25em !important;
+  background-color: #f9b514 !important;
+  text-transform: none !important;
+}
+
+.edit_order_button {
+  color: #00b46e !important;
+  border: 1px solid #00b46e !important;
+  border-radius: 20px !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  width: 10rem !important;
+  margin: 0.25em !important;
+  text-transform: none !important;
+}
+
+.response_button {
+  color: #17a2b8 !important;
+  border: 1px solid #17a2b8 !important;
+  border-radius: 20px !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  width: 10rem !important;
+  margin: 0.25em !important;
+  text-transform: none !important;
+}
