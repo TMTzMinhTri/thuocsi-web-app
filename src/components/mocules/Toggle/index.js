@@ -9,8 +9,8 @@ import {
   MonetizationOn as MonetizationOnIcon,
 } from '@material-ui/icons';
 import { makeStyles, Button, MenuItem, Typography } from '@material-ui/core';
-
 import { useAuth } from 'context';
+import { useRouter } from 'next/router';
 import { MenuDropDown, MenuDropDownItem } from '../../atoms';
 
 const useStyles = makeStyles({
@@ -46,6 +46,7 @@ export default function Toggle() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
+  const router = useRouter();
 
   const { logout } = useAuth();
 
@@ -86,20 +87,31 @@ export default function Toggle() {
             </Typography>
           </div>
         </MenuItem>
-        <MenuDropDownItem handleClick={handleClose} text="Thông tin tài khoản">
+        <MenuDropDownItem handleClick={() => router.push('/my-account')} text="Thông tin tài khoản">
           <AccountCircleIcon />
         </MenuDropDownItem>
-        <MenuDropDownItem handleClick={handleClose} text="Đơn hàng của tôi">
+        <MenuDropDownItem handleClick={() => router.push('/my-order')} text="Đơn hàng của tôi">
           <AssignmentTurnedInIcon />
         </MenuDropDownItem>
-        <MenuDropDownItem handleClick={handleClose} text="Giới thiệu bạn bè">
+
+        <MenuDropDownItem
+          handleClick={() => router.push('/users/referrals')}
+          text="Giới thiệu bạn bè"
+        >
           <ShareIcon />
         </MenuDropDownItem>
-        <MenuDropDownItem handleClick={handleClose} text="Mã giảm giá của tôi">
+
+        <MenuDropDownItem
+          handleClick={() => router.push('/users/user-promo-codes')}
+          text="Mã giảm giá của tôi"
+        >
           <LocalOfferIcon />
         </MenuDropDownItem>
 
-        <MenuDropDownItem handleClick={handleClose} text="Điểm tích luỹ">
+        <MenuDropDownItem
+          handleClick={() => router.push('/users/loyalty_points')}
+          text="Điểm tích luỹ"
+        >
           <MonetizationOnIcon />
         </MenuDropDownItem>
         <MenuDropDownItem handleClick={logout} text="Đăng xuất">
