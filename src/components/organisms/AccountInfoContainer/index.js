@@ -19,6 +19,11 @@ const AccountInfoFormContainer = ({ user }) => {
     scope: parseScopeName(user.scope),
     drugstoreName: '',
     bussinessName: '',
+    billProvince: '',
+    billDistrict: '',
+    billWard: '',
+    taxId: '',
+    bussinessAddress: '',
   });
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
