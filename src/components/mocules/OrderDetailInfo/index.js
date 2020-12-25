@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OrderDetailInfo = () => {
+const OrderDetailInfo = ({ name, address, email, phone }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -21,25 +21,25 @@ const OrderDetailInfo = () => {
               Tên người nhận
             </Typography>
             <Typography variant="h6" className={styles.info_value}>
-              lê duy đạt
+              {name}
             </Typography>
             <Typography variant="h5" className={styles.info_label}>
               Địa chỉ giao hàng
             </Typography>
             <Typography variant="h6" className={styles.info_value}>
-              abc, Thị trấn Vôi, Huyện Lạng Giang, Bắc Giang
+              {address}
             </Typography>
             <Typography variant="h5" className={styles.info_label}>
               Số điện thoại
             </Typography>
             <Typography variant="h6" className={styles.info_value}>
-              0963649542
+              {phone}
             </Typography>
             <Typography variant="h5" className={styles.info_label}>
               Email
             </Typography>
             <Typography variant="h6" className={styles.info_value}>
-              dat.le@thuocsi.vn
+              {email}
             </Typography>
           </Paper>
         </Grid>

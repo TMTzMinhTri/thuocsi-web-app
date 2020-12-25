@@ -31,3 +31,7 @@
 .product_name:hover {
   color: #00683f !important;
 }
+
+.product_price {
+  font-weight: bold !important;
+}

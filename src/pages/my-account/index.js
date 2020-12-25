@@ -35,11 +35,13 @@ const MyAccount = ({ mostResearched = [], user, wallet }) => {
     <Template title={title}>
       <Header />
       <NavBar mostResearched={mostResearched} />
-      <Container maxWidth="lg">
-        <InfoContainer value={1} title="Cập nhật hồ sơ" wallet={wallet}>
-          <AccountInfoFormContainer user={user} />
-        </InfoContainer>
-      </Container>
+      <div style={{ backgroundColor: '#f4f7fc' }}>
+        <Container maxWidth="lg">
+          <InfoContainer value={1} title="Cập nhật hồ sơ" wallet={wallet}>
+            <AccountInfoFormContainer user={user} />
+          </InfoContainer>
+        </Container>
+      </div>
     </Template>
   );
 };

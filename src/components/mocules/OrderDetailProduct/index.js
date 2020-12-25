@@ -21,20 +21,17 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, price, total) {
-  return { name, price, total };
-}
-
-const rows = [
-  createData('marvelon bayer (h/21v)', 530300, 530300),
-  createData('alpha choay sanofi (h/30v) (date cận) test update', 61000, 61000),
-  createData('Eclair', 262000, 300000),
-  createData('Cupcake', 305000, 370000),
-  createData('Gingerbread', 356000, 1600000),
-];
-
-const OrderDetailProduct = () => {
+const OrderDetailProduct = ({ products, promo }) => {
   const classes = useStyles();
+  const getTotalByProduct = (price, quantity) => price * quantity;
+  const getTotal = () => {
+    let sum = products.reduce(
+      (b, product) => getTotalByProduct(product.price, product.quantity) + b,
+      0,
+    );
+    sum -= promo.total;
+    return sum;
+  };
   return (
     <TableContainer component={Paper} className={classes.table}>
       <Table aria-label="simple table">
@@ -48,38 +45,37 @@ const OrderDetailProduct = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name} className={styles.product_row}>
+          {products.map((product) => (
+            <TableRow key={product.name} className={styles.product_row}>
               <TableCell align="left">
                 <StarIcon />
               </TableCell>
               <TableCell>
-                <img
-                  src="https://images.thuocsi.vn/uSSSjXoCYfnBPW7ffPTe7o6j"
-                  alt={row.name}
-                  width={50}
-                  height={30}
-                />
+                <img src={product.image} alt={product.name} width={50} height={30} />
               </TableCell>
               <TableCell align="left" className={styles.product_name}>
-                {row.name}
+                {product.name}
               </TableCell>
-              <TableCell align="center">{FormarCurrency(row.price)}</TableCell>
-              <TableCell align="center">{FormarCurrency(row.total)}</TableCell>
+              <TableCell align="center" className={styles.product_price}>
+                {`${product.quantity} x ${FormarCurrency(product.price)}`}
+              </TableCell>
+              <TableCell align="center">
+                {FormarCurrency(getTotalByProduct(product.price, product.quantity))}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <Grid container justify="space-between" className={styles.promo}>
-        <Grid item>Mã giảm giá NEWBIE300K1</Grid>
-        <Grid item>-300.000đ</Grid>
+        <Grid item>Mã giảm giá {promo.name}</Grid>
+        <Grid item>-{FormarCurrency(promo.total)}</Grid>
       </Grid>
       <Grid container justify="flex-end" style={{ padding: ' 30px 45px' }} spacing={3}>
         <Grid item className={styles.price_label}>
           Tổng cộng
         </Grid>
         <Grid item className={styles.price}>
-          3.024.100đ
+          {FormarCurrency(getTotal())}
         </Grid>
       </Grid>
     </TableContainer>
