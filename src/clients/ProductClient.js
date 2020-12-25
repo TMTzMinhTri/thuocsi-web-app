@@ -34,7 +34,8 @@ async function loadDataCart(ctx) {
 }
 
 async function loadDataProduct(ctx) {
-  const result = await GET({ url: '/marketplace/product/v1/products', ctx, isAuth: true });
+  const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true });
+  if (result.status === 'ERROR') return result;
   let cart = {};
   let productListWithPrice = {};
   try {
@@ -51,7 +52,7 @@ async function loadDataProduct(ctx) {
     }
     productListWithPrice = GetQuantityProduct(result, cartObject);
   } else {
-    productListWithPrice = result.data;
+    productListWithPrice = result.data || [];
   }
 
   return productListWithPrice;
