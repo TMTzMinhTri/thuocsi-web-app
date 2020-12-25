@@ -7,13 +7,13 @@ async function loadDataMostSearch(ctx) {
   return result.data;
 }
 
-async function loadFeedback(ctx) {
-  const result = await GET({ url: '/feedback', mock: true, ctx });
+async function loadFeedback() {
+  const result = await GET({ url: '/feedback', mock: true });
   return result.data;
 }
 
-async function getInfoBanner(ctx) {
-  const result = await GET({ url: '/banner', mock: true, ctx });
+async function getInfoBanner() {
+  const result = await GET({ url: '/banner', mock: true });
   return result.data;
 }
 
