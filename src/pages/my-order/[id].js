@@ -30,7 +30,7 @@ export async function getServerSideProps(ctx) {
           balance: 0,
           name: '',
         },
-        orders: [],
+        order: {},
       },
     };
   }

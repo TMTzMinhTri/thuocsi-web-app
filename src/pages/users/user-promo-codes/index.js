@@ -34,7 +34,7 @@ export async function getServerSideProps() {
   }
 }
 
-const MyReferral = ({ mostResearched = [], wallet, promos }) => {
+const MyReferral = ({ mostResearched = [], wallet, promos = [] }) => {
   const title = 'Mã giảm giá của tôi – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title}>
