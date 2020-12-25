@@ -1,5 +1,20 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable camelcase */
+// eslint-disable-next-line operator-linebreak
+// eslint-disable-next-line camelcase
 import React from 'react';
-import { NativeSelect, FormControl, Box, Icon, Typography, Fab, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
+import {
+  NativeSelect,
+  FormControl,
+  Box,
+  Icon,
+  Typography,
+  Fab,
+  Grid,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Pagination } from '@material-ui/lab';
 import Link from 'next/link';
@@ -9,20 +24,31 @@ import { SORT_PRODUCT } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './style.module.css';
 
-// eslint-disable-next-line camelcase
-export default function ProductListing({ products = [], brands = [], group = [], current_tab = '', page = '', sort = '', slug = '', catName = '' }) {
+export default function ProductListing({
+  products = [],
+  brands = [],
+  group = [],
+  current_tab = '',
+  page = '',
+  sort = '',
+  slug = '',
+  catName = '',
+}) {
   const count = 100;
   const router = useRouter();
+  const pathName = `/${catName}/${slug}`;
+
   const handleChangePage = (event, value) => {
     if (page === value) return;
+
     router.push({
-      pathname: `/${catName}/${slug}`,
+      pathname: pathName,
       query: { page: value, current_tab, sort },
     });
   };
   const handleChangeSort = (event) => {
     router.push({
-      pathname: `/${catName}/${slug}`,
+      pathname: pathName,
       query: { slug, current_tab, sort: event.target.value || undefined },
     });
   };
@@ -35,9 +61,7 @@ export default function ProductListing({ products = [], brands = [], group = [],
         </div>
         <hr className={styles.hr} />
         <div className={styles.sort}>
-          <div className={styles.headSort}>
-            Sắp xếp
-          </div>
+          <div className={styles.headSort}>Sắp xếp</div>
           <div className={styles.select}>
             <FormControl className={styles.formControl}>
               <NativeSelect
@@ -50,8 +74,11 @@ export default function ProductListing({ products = [], brands = [], group = [],
                 IconComponent={() => <ExpandMoreIcon className={styles.selectIcon} />}
                 onChange={handleChangeSort}
               >
-                {SORT_PRODUCT.map((item) =>
-                  <option key={item.value} value={item.value}>{item.label}</option>)}
+                {SORT_PRODUCT.map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
               </NativeSelect>
             </FormControl>
           </div>
@@ -69,11 +96,12 @@ export default function ProductListing({ products = [], brands = [], group = [],
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
-                {group && group.map((item) => (
-                  <Link key={item.value} href={item.value}>
-                    <div className={styles.accordionLink}>{item.label}</div>
-                  </Link>
-                ))}
+                {group &&
+                  group.map((item) => (
+                    <Link key={item.value} href={item.value}>
+                      <div className={styles.accordionLink}>{item.label}</div>
+                    </Link>
+                  ))}
               </Box>
             </AccordionDetails>
           </Accordion>
@@ -89,15 +117,15 @@ export default function ProductListing({ products = [], brands = [], group = [],
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
-                {brands && brands.map((brand) => (
-                  <Link key={brand.value} href={brand.value}>
-                    <div className={styles.accordionLink}>{brand.label}</div>
-                  </Link>
-                ))}
+                {brands &&
+                  brands.map((brand) => (
+                    <Link key={brand.value} href={brand.value}>
+                      <div className={styles.accordionLink}>{brand.label}</div>
+                    </Link>
+                  ))}
               </Box>
             </AccordionDetails>
           </Accordion>
-
         </div>
       </div>
       <div className={styles.product_main}>
@@ -118,28 +146,20 @@ export default function ProductListing({ products = [], brands = [], group = [],
             >
               Tất cả
             </Fab>
-            <Fab
-              variant="extended"
-              aria-label="add"
-              className={styles.filter_btn}
-            >
+            <Fab variant="extended" aria-label="add" className={styles.filter_btn}>
               <Link
                 href={{
-                  pathname: `/${catName}/${slug}`,
+                  pathname: pathName,
                   query: { current_tab: 'new_arrival', sort },
                 }}
               >
                 SP mới
               </Link>
             </Fab>
-            <Fab
-              variant="extended"
-              aria-label="add"
-              className={styles.filter_btn}
-            >
+            <Fab variant="extended" aria-label="add" className={styles.filter_btn}>
               <Link
                 href={{
-                  pathname: `/${catName}/${slug}`,
+                  pathname: pathName,
                   query: { current_tab: 'decreasing_price', sort },
                 }}
               >
@@ -149,34 +169,34 @@ export default function ProductListing({ products = [], brands = [], group = [],
           </div>
         </div>
         {products.length > 0 && (
-        <main className={styles.product_listing}>
-          <div className={styles.pagging}>
-            <Pagination
-              count={count}
-              size="large"
-              boundaryCount={2}
-              onChange={handleChangePage}
-            />
-          </div>
-          <div className={styles.product_grid_wrapper}>
-            <Grid container spacing={1}>
-              {products.map((item) => (
-                <Grid item xl={2} lg={2} md={4} xs={6}>
-                  <ProductCardVertical
-                    key={`products-${item.sku}`}
-                    product={item}
-                    value={item.quantity || 0}
-                    tag
-                    category
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </div>
-          <div className={styles.pagging}>
-            <Pagination count={10} />
-          </div>
-        </main>
+          <main className={styles.product_listing}>
+            <div className={styles.pagging}>
+              <Pagination
+                count={count}
+                size="large"
+                boundaryCount={2}
+                onChange={handleChangePage}
+              />
+            </div>
+            <div className={styles.product_grid_wrapper}>
+              <Grid container spacing={1}>
+                {products.map((item) => (
+                  <Grid item xl={2} lg={2} md={4} xs={6}>
+                    <ProductCardVertical
+                      key={`products-${item.sku}`}
+                      product={item}
+                      value={item.quantity || 0}
+                      tag
+                      category
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
+            <div className={styles.pagging}>
+              <Pagination count={10} />
+            </div>
+          </main>
         )}
       </div>
     </div>

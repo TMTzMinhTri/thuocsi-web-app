@@ -12,38 +12,47 @@ export function getSessionToken(ctx) {
 }
 
 async function request(props) {
-  const { url, headers = {}, method, body, mock = false, isAuth = true, ctx = null } = props;
-  /*
+  try {
+    const { url, headers = {}, method, body, mock = false, isAuth = true, ctx = null } = props;
+    /*
     mock api : folder:  /api
     dev / production : /backend
    */
 
-  const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
-  if (isAuth) {
-    if (ctx) {
-      const AuthorizationValue = getSessionToken(ctx);
-      if (AuthorizationValue) {
-        headers['user-agent'] = ctx.req.headers['user-agent'];
-        headers.Authorization = `Bearer ${AuthorizationValue}`;
-      }
-    } else {
-      const AuthorizationValue = Cookies.get(ACCESS_TOKEN);
-      if (AuthorizationValue) {
-        headers.Authorization = `Bearer ${AuthorizationValue}`;
+    const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
+    if (isAuth) {
+      if (ctx) {
+        const AuthorizationValue = getSessionToken(ctx);
+        if (AuthorizationValue) {
+          headers['user-agent'] = ctx.req.headers['user-agent'];
+          headers.Authorization = `Bearer ${AuthorizationValue}`;
+        }
+      } else {
+        const AuthorizationValue = Cookies.get(ACCESS_TOKEN);
+        if (AuthorizationValue) {
+          headers.Authorization = `Bearer ${AuthorizationValue}`;
+        }
       }
     }
+    const res = await fetch(link, {
+      method,
+      credentials: 'same-origin',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+      },
+      body: typeof body === 'object' ? JSON.stringify(body) : body,
+    });
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    return {
+      error: err,
+      status: 'ERROR',
+      data: [],
+      message: err.message || ' Hệ thống đã xảy ra lỗi .',
+    };
   }
-  const res = await fetch(link, {
-    method,
-    credentials: 'same-origin',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json',
-    },
-    body: typeof body === 'object' ? JSON.stringify(body) : body,
-  });
-  const result = await res.json();
-  return result;
 }
 
 export async function GET(props) {
