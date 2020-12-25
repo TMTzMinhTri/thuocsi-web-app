@@ -2,6 +2,7 @@ import { Paper, Grid, Button, withStyles } from '@material-ui/core';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import PrintIcon from '@material-ui/icons/Print';
 import { OrderDetailStep, OrderDetailInfo, OrderDetailProduct } from 'components/mocules';
+import { DateTimeUtils } from 'utils';
 import styles from './styles.module.css';
 
 const ResponseButton = withStyles({
@@ -31,21 +32,22 @@ const PrintInvoiceButton = withStyles({
   },
 })(Button);
 
-const OrderDetailContainer = () => (
+const OrderDetailContainer = ({ order }) => (
   <Grid container>
     <Grid item xs={12}>
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container>
           <Grid item xs={12}>
-            <h3 className={styles.title}> Chi tiết đơn hàng #197180 </h3>
+            <h3 className={styles.title}> Chi tiết đơn hàng #{order.orderID} </h3>
           </Grid>
           <Grid item xs={12}>
-            <OrderDetailStep />
+            <OrderDetailStep activeStep={order?.activeStep} />
           </Grid>
           <Grid item xs={12} classes={{ root: styles.order_status_bottom }}>
             <Grid container justify="center" direction="column">
               <div className={styles.order_status_bottom_text}>
-                Dự kiến giao vào <span>Thứ tư (23/12/2020) </span>
+                Dự kiến giao vào &nbsp;
+                <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryAt))}</span>
               </div>
             </Grid>
             <ResponseButton startIcon={<InsertCommentIcon />}> Gửi phản hồi</ResponseButton>
@@ -71,11 +73,11 @@ const OrderDetailContainer = () => (
     </Grid>
 
     <Grid item xs={12}>
-      <OrderDetailInfo />
+      <OrderDetailInfo {...order} />
     </Grid>
 
     <Grid item xs={12}>
-      <OrderDetailProduct />
+      <OrderDetailProduct products={order?.products} promo={order?.promo} />
     </Grid>
   </Grid>
 );

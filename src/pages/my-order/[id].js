@@ -1,20 +1,21 @@
-import { Template, NavBar, Header, ReferralList, InfoContainer } from 'components';
+import { Template, NavBar, Header, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { AuthClient, CustomerClient } from 'clients';
+import { AuthClient, CustomerClient, OrderClient } from 'clients';
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
   try {
-    const [user, wallet, referrals] = await Promise.all([
+    const { id } = ctx.query;
+    const [user, wallet, order] = await Promise.all([
       AuthClient.getUser(),
       CustomerClient.getWallet(),
-      CustomerClient.getReferral(),
+      OrderClient.getOrderById(id),
     ]);
     if (!user) throw new Error('Cannot get user');
     return {
       props: {
         user: user.data[0],
         wallet: wallet.data[0],
-        referrals,
+        order,
       },
     };
   } catch (error) {
@@ -29,25 +30,27 @@ export async function getServerSideProps() {
           balance: 0,
           name: '',
         },
+        orders: [],
       },
     };
   }
 }
 
-const MyReferral = ({ mostResearched = [], wallet, referrals }) => {
-  const title = 'Giới thiệu bạn bè – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+const MyOrder = ({ mostResearched = [], wallet, order }) => {
+  const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+
   return (
     <Template title={title}>
       <Header />
       <NavBar mostResearched={mostResearched} />
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={3} title="Giới thiệu bạn bè" wallet={wallet}>
-            <ReferralList referrals={referrals} />
+          <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>
+            <OrderDetailContainer order={order} />
           </InfoContainer>
         </Container>
       </div>
     </Template>
   );
 };
-export default MyReferral;
+export default MyOrder;

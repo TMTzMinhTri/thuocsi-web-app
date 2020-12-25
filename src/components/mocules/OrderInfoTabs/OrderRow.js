@@ -3,6 +3,7 @@ import PrintIcon from '@material-ui/icons/Print';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import { DateTimeUtils, FormarCurrency } from 'utils';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
+import Link from 'next/link';
 import styles from './styles.module.css';
 
 const useStyles = makeStyles({
@@ -70,7 +71,9 @@ const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total }) => 
       <Grid container spacing={4}>
         <Grid item xs={5}>
           <div>
-            <h4 className={styles.order_id}>#{orderID} &nbsp; &nbsp;</h4>
+            <Link href={`/my-order/${orderID}`} key={`order-row-${orderID}`}>
+              <h4 className={styles.order_id}>#{orderID} &nbsp; &nbsp;</h4>
+            </Link>
             <Button color="default" variant="contained">
               {parseOrderStatus(status)}
             </Button>

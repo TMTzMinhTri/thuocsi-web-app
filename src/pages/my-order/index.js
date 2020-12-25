@@ -67,11 +67,13 @@ const MyOrder = ({ mostResearched = [], wallet, orders: orderR }) => {
     <Template title={title}>
       <Header />
       <NavBar mostResearched={mostResearched} />
-      <Container maxWidth="lg">
-        <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>
-          <OrderInfoFormContainer orders={orders} handleSetOrderStatus={handleSetOrderStatus} />
-        </InfoContainer>
-      </Container>
+      <div style={{ backgroundColor: '#f4f7fc' }}>
+        <Container maxWidth="lg">
+          <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>
+            <OrderInfoFormContainer orders={orders} handleSetOrderStatus={handleSetOrderStatus} />
+          </InfoContainer>
+        </Container>
+      </div>
     </Template>
   );
 };
