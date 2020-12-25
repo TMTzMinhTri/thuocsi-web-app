@@ -1,44 +1,43 @@
 import React from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
 import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
-import { TagType, CardInfo, MultiImageBox } from 'components/mocules';
+import { TagType, CardInfo } from 'components/mocules';
 // import { BestSaleProduct, ProductCardHorizontal } from 'components/organisms';
-import getFormattedDate from 'utils/DateTimeUtils';
-import ProductClient from 'clients/ProductClient';
+// import {DateTimeUtils} from 'utils';
+// import ProductClient from 'clients/ProductClient';
 
-export async function getServerSideProps(ctx) {
-  const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
-  return {
-    props: {
-      products,
-    },
-  };
-}
+// export async function getServerSideProps(ctx) {
+//   const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+//   return {
+//     props: {
+//       products,
+//     },
+//   };
+// }
 
-const date = getFormattedDate(new Date());
+// const date = DateTimeUtils.getFormattedDate(new Date());
 
-const Test = ({ products }) => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      minHeight: '100vh',
-      padding: theme.spacing(4),
-    },
-  }));
-  const classes = useStyles();
+const Test = () =>
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     minHeight: '100vh',
+//     padding: theme.spacing(4),
+//   },
+// }));
+// const classes = useStyles();
 
-  return (
+  (
     <>
       {/* <BestSaleProduct products={products} />
     {products.map((item) => (
       <ProductCardHorizontal key={item.id} product={item} />
     ))} */}
 
-      {products.map((item) => (
+      {/* {products.map((item) => (
 
         <Grid classes={{ root: classes.root }} container alignItems="center" justify="center">
           <MultiImageBox loading={false} imageType="main" images={item.imageUrls} />
         </Grid>
-      ))}
+      ))} */}
 
       {/* <ProductCartList products={products} /> */}
       {/* {products.map((item) => (
@@ -88,9 +87,7 @@ const Test = ({ products }) => {
       <TagType type="NEW" />
       <TagType type="PRICE_DOWN" />
       <TagType type="PRICE_UP" />
-      <TagType date={date} type="CLOSE_TO_EXPIRED_DATE" />
+      {/* <TagType date={date} type="CLOSE_TO_EXPIRED_DATE" /> */}
     </>
   );
-};
-
 export default Test;
