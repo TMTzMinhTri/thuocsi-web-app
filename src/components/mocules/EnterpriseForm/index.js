@@ -12,7 +12,17 @@ const ButtonUploadFile = () => (
   </InputAdornment>
 );
 
-const EnterpriseForm = ({ scope, drugstoreName, bussinessName, handleChangeValue }) => (
+const EnterpriseForm = ({
+  scope,
+  drugstoreName,
+  bussinessName,
+  taxId,
+  bussinessAddress,
+  billWard,
+  billDistrict,
+  billProvince,
+  handleSetValue,
+}) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}> Thông tin doanh nghiệp </h1>
     <Grid container spacing={2}>
@@ -25,7 +35,7 @@ const EnterpriseForm = ({ scope, drugstoreName, bussinessName, handleChangeValue
           id="drugstoreName"
           placeholder="Dược Hoàng Vũ"
           value={drugstoreName}
-          onChange={(e) => handleChangeValue('drugstoreName', e.target.value)}
+          onChange={(e) => handleSetValue('drugstoreName', e.target.value)}
         />
       </InfoFormControl>
 
@@ -34,7 +44,7 @@ const EnterpriseForm = ({ scope, drugstoreName, bussinessName, handleChangeValue
           id="bussinessName"
           placeholder="Trần Thị B"
           value={bussinessName}
-          onChange={(e) => handleChangeValue('bussinessName', e.target.value)}
+          onChange={(e) => handleSetValue('bussinessName', e.target.value)}
         />
       </InfoFormControl>
 
@@ -50,10 +60,24 @@ const EnterpriseForm = ({ scope, drugstoreName, bussinessName, handleChangeValue
     <h1 className={styles.title}> Thông tin xuất hoá đơn </h1>
     <Grid container spacing={2}>
       <InfoFormControl xs={12} label="Mã số thuế" htmlFor="taxId">
-        <InputInfo id="taxId" placeholder="8026906145" />
+        <InputInfo
+          id="taxId"
+          placeholder="8026906145"
+          value={taxId}
+          onChange={(e) => {
+            handleSetValue('taxId', e.target.value);
+          }}
+        />
       </InfoFormControl>
       <InfoFormControl xs={12} label="Địa chỉ nhà thuốc/phòng khám" htmlFor="address">
-        <InputInfo id="address" placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk" />
+        <InputInfo
+          id="address"
+          placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk"
+          value={bussinessAddress}
+          onChange={(e) => {
+            handleSetValue('bussinessAddress', e.target.value);
+          }}
+        />
       </InfoFormControl>
     </Grid>
 
@@ -63,7 +87,10 @@ const EnterpriseForm = ({ scope, drugstoreName, bussinessName, handleChangeValue
           id="billProvince"
           input={<InputInfo />}
           IconComponent={ExpandMoreIcon}
-          value={0}
+          value={billProvince}
+          className={styles.native_select}
+          inputProps={{ id: 'billProvince' }}
+          onChange={(e) => handleSetValue('billProvince', e.target.value)}
         >
           <option aria-label="billProvince" value={0}>
             Chọn Tỉnh/Thành Phố...
@@ -75,7 +102,15 @@ const EnterpriseForm = ({ scope, drugstoreName, bussinessName, handleChangeValue
       </InfoFormControl>
 
       <InfoFormControl xs={4} label="Quận/Huyện" htmlFor="billDistrict" isRequired>
-        <NativeSelect id="billDistrict" input={<InputInfo />} IconComponent={ExpandMoreIcon}>
+        <NativeSelect
+          id="billDistrict"
+          input={<InputInfo />}
+          IconComponent={ExpandMoreIcon}
+          className={styles.native_select}
+          inputProps={{ id: 'billDistrict' }}
+          onChange={(e) => handleSetValue('billDistrict', e.target.value)}
+          value={billDistrict}
+        >
           <option value="" aria-label="billDistrict">
             Chọn Quận/Huyện...
           </option>
@@ -86,7 +121,15 @@ const EnterpriseForm = ({ scope, drugstoreName, bussinessName, handleChangeValue
       </InfoFormControl>
 
       <InfoFormControl xs={4} label="Phường/Xã" htmlFor="billWard" isRequired>
-        <NativeSelect id="billWard" input={<InputInfo />} IconComponent={ExpandMoreIcon}>
+        <NativeSelect
+          id="billWard"
+          input={<InputInfo />}
+          IconComponent={ExpandMoreIcon}
+          onChange={(e) => handleSetValue('billWard', e.target.value)}
+          value={billWard}
+          className={styles.native_select}
+          inputProps={{ id: 'billWard' }}
+        >
           <option value="" aria-label="billWard">
             Chọn Phường/Xã...
           </option>
