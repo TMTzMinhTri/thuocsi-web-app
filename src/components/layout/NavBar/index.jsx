@@ -60,12 +60,13 @@ function renderMostSearched(data, classes) {
   );
 }
 
-export default function NavBar({ mostResearched }) {
+// remove mostResearched
+export default function NavBar({ mostResearched = [] }) {
   const { itemCount } = useCart();
   const classes = useStyle();
   const { isAuthenticated } = useAuth();
 
-  const mostSearchedEle = renderMostSearched(mostResearched, classes);
+  renderMostSearched(mostResearched, classes);
   const nav = useRef();
 
   useEffect(() => {
@@ -158,7 +159,7 @@ export default function NavBar({ mostResearched }) {
             </div>
           ) : null}
         </div>
-        {mostSearchedEle}
+        {/* {mostSearchedEle} */}
       </Container>
     </div>
   );
