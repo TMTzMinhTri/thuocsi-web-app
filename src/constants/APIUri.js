@@ -21,3 +21,11 @@ export const CUSTOMER_API = {
   REFERRAL,
   PROMO,
 };
+
+const CATEGORY_API_PREFIX = '/marketplace/category/v1';
+const BRAND = `${CATEGORY_API_PREFIX}/brand`;
+const GROUP = `${CATEGORY_API_PREFIX}/group`;
+export const CATEGORY_API = {
+  BRAND,
+  GROUP,
+};
