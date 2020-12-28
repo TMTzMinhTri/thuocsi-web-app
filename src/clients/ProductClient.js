@@ -35,7 +35,7 @@ async function loadDataCart(ctx) {
 
 async function loadDataProduct(ctx) {
   const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true });
-  if (isValid(!result)) return result;
+  if (!isValid(result)) return result;
   let cart = {};
   let productListWithPrice = {};
   try {
