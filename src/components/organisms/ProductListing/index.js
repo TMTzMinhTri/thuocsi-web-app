@@ -100,7 +100,7 @@ export default function ProductListing({
                   group.length > 0 &&
                   group.map((item) => (
                     <Link key={item.value} href={item.value}>
-                      <div className={styles.accordionLink}>{item.label}</div>
+                      <div className={`${styles.accordionLink} ${item.value === pathName ? styles.active : ''}`}>{item.label}</div>
                     </Link>
                   ))}
               </Box>
@@ -122,7 +122,7 @@ export default function ProductListing({
                   brand.length > 0 &&
                   brand.map((item) => (
                     <Link key={item.value} href={item.value}>
-                      <div className={styles.accordionLink}>{item.label}</div>
+                      <div className={`${styles.accordionLink} ${item.value === pathName ? styles.active : ''}`}>{item.label}</div>
                     </Link>
                   ))}
               </Box>
