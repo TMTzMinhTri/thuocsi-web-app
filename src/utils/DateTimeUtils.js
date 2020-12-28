@@ -14,6 +14,7 @@ function getFormattedDate(date, format = 'DD/MM/YYYY') {
   const hour = date.getHours();
   const minute = date.getMinutes();
   const second = date.getSeconds();
+
   return format
     .replace('DD', String(day).padStart(2, '0'))
     .replace('MM', String(month).padStart(2, '0'))

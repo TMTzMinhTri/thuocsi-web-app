@@ -48,7 +48,6 @@ const EnterpriseForm = ({
       const res = await AddressClient.getDistrictsByProvince(billProvince);
       setDistricts(res);
       setPos(ADDRESS_POS.DISTRICT);
-      console.log(res);
     }
     if (billProvince !== 0) getDistricts();
   }, [billProvince]);

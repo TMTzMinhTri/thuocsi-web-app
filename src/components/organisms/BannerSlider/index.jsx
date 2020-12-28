@@ -49,11 +49,11 @@ const BannerSlider = ({ infoBanner }) => {
   });
 
   return (
-    <Box m="auto" component="div">
+    <div>
       <Slider ref={ref} {...settingsSliderBanner}>
         {sliderItem}
       </Slider>
-    </Box>
+    </div>
   );
 };
 
