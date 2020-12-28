@@ -32,21 +32,19 @@ const AccountInfoFormContainer = ({ user }) => {
     setValue({ ...value, [key]: val });
   };
   return (
-    <Grid item>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <AccountForm {...value} handleSetValue={handleSetValue} />
-        </Grid>
-        <Grid item xs={12}>
-          <EnterpriseForm {...value} handleSetValue={handleSetValue} />
-        </Grid>
-        <Grid item xs={12}>
-          <DeliveryForm {...value} handleSetValue={handleSetValue} />
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container justify="center">
-            <UpdateButton />
-          </Grid>
+    <Grid item container spacing={3}>
+      <Grid item xs={12}>
+        <AccountForm {...value} handleSetValue={handleSetValue} />
+      </Grid>
+      <Grid item xs={12}>
+        <EnterpriseForm {...value} handleSetValue={handleSetValue} />
+      </Grid>
+      <Grid item xs={12}>
+        <DeliveryForm {...value} handleSetValue={handleSetValue} />
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container justify="center">
+          <UpdateButton />
         </Grid>
       </Grid>
     </Grid>
