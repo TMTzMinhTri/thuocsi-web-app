@@ -1,5 +1,5 @@
 import GetQuantityProduct from 'utils/GetQuantityProduct';
-import { GET } from './Clients';
+import { GET, isValid } from './Clients';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
@@ -34,7 +34,8 @@ async function loadDataCart(ctx) {
 }
 
 async function loadDataProduct(ctx) {
-  const result = await GET({ url: '/marketplace/product/v1/products', ctx, isAuth: true });
+  const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true });
+  if (!isValid(result)) return result;
   let cart = {};
   let productListWithPrice = {};
   try {
@@ -44,14 +45,14 @@ async function loadDataProduct(ctx) {
   }
   const cartObject = {};
   // eslint-disable-next-line no-restricted-syntax
-  if (cart && cart.cartItems && cart.cartItems.length > 0 && result.status === 'OK') {
+  if (cart && cart.cartItems && cart.cartItems.length > 0) {
     // eslint-disable-next-line no-restricted-syntax
     for (const item of cart.cartItems) {
       cartObject[item.sku] = item;
     }
     productListWithPrice = GetQuantityProduct(result, cartObject);
   } else {
-    productListWithPrice = result.data;
+    productListWithPrice = result.data || [];
   }
 
   return productListWithPrice;

@@ -1,14 +1,13 @@
+import { CATEGORY_API } from 'constants/APIUri';
 import { GET } from './Clients';
 
-async function loadBrand(ctx) {
-  const url = '/cat/brand';
-  const result = await GET({ url, mock: true, ctx });
-  return result.data;
+async function loadBrand() {
+  const result = await GET({ url: CATEGORY_API.BRAND, mock: true });
+  return result;
 }
-async function loadGroup(ctx) {
-  const url = '/cat/group';
-  const result = await GET({ url, mock: true, ctx });
-  return result.data;
+async function loadGroup() {
+  const result = await GET({ url: CATEGORY_API.GROUP, mock: true });
+  return result;
 }
 export default {
   loadBrand,

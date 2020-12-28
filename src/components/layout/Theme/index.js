@@ -59,10 +59,14 @@ const Theme = createMuiTheme({
     },
     MuiPaginationItem: {
       page: {
-        color: '#fff',
-        background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
+        color: '#3bb46d',
+        background: '#fff',
         '&$disabled': {
           opacity: 0.18,
+        },
+        '&$selected': {
+          color: '#fff',
+          background: 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)',
         },
       },
     },

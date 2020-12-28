@@ -26,7 +26,7 @@ import styles from './style.module.css';
 
 export default function ProductListing({
   products = [],
-  brands = [],
+  brand = [],
   group = [],
   current_tab = '',
   page = '',
@@ -97,6 +97,7 @@ export default function ProductListing({
             <AccordionDetails className="accordion-detail">
               <Box component="div">
                 {group &&
+                  group.length > 0 &&
                   group.map((item) => (
                     <Link key={item.value} href={item.value}>
                       <div className={styles.accordionLink}>{item.label}</div>
@@ -117,10 +118,11 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
-                {brands &&
-                  brands.map((brand) => (
-                    <Link key={brand.value} href={brand.value}>
-                      <div className={styles.accordionLink}>{brand.label}</div>
+                {brand &&
+                  brand.length > 0 &&
+                  brand.map((item) => (
+                    <Link key={item.value} href={item.value}>
+                      <div className={styles.accordionLink}>{item.label}</div>
                     </Link>
                   ))}
               </Box>
@@ -168,15 +170,10 @@ export default function ProductListing({
             </Fab>
           </div>
         </div>
-        {products.length > 0 && (
+        {products.length > 0 ? (
           <main className={styles.product_listing}>
             <div className={styles.pagging}>
-              <Pagination
-                count={count}
-                size="large"
-                boundaryCount={2}
-                onChange={handleChangePage}
-              />
+              <Pagination count={count} boundaryCount={2} onChange={handleChangePage} />
             </div>
             <div className={styles.product_grid_wrapper}>
               <Grid container spacing={1}>
@@ -194,9 +191,11 @@ export default function ProductListing({
               </Grid>
             </div>
             <div className={styles.pagging}>
-              <Pagination count={10} />
+              <Pagination count={count} boundaryCount={2} onChange={handleChangePage} />
             </div>
           </main>
+        ) : (
+          <p>Không có sản phẩm</p>
         )}
       </div>
     </div>
