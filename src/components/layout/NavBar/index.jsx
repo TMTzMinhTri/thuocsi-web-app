@@ -60,8 +60,7 @@ function renderMostSearched(data, classes) {
   );
 }
 
-// remove mostResearched
-export default function NavBar({ mostResearched = [] }) {
+export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
   const { itemCount } = useCart();
   const classes = useStyle();
   const { isAuthenticated } = useAuth();
@@ -145,18 +144,21 @@ export default function NavBar({ mostResearched = [] }) {
               <LocalOffer className={styles.navIcon} />
             </LinkComp>
           </div>
-          <SearchInput className={styles.searchInput} />
+
           {isAuthenticated ? (
-            <div className={styles.navBarRight}>
-              <LinkComp className={styles.navBarRightLink} href="/cart">
-                <IconButton aria-label="cart">
-                  <Badge badgeContent={itemCount} invisible={false} color="secondary">
-                    <LocalMallOutlined className={styles.rIcon} />
-                  </Badge>
-                </IconButton>
-              </LinkComp>
-              <Toggle />
-            </div>
+            <>
+              <SearchInput className={styles.searchInput} />
+              <div className={styles.navBarRight}>
+                <LinkComp className={styles.navBarRightLink} href="/cart">
+                  <IconButton aria-label="cart">
+                    <Badge badgeContent={itemCount} invisible={false} color="secondary">
+                      <LocalMallOutlined className={styles.rIcon} />
+                    </Badge>
+                  </IconButton>
+                </LinkComp>
+                <Toggle balance={balance} point={point} />
+              </div>
+            </>
           ) : null}
         </div>
         {/* {mostSearchedEle} */}
