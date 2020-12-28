@@ -20,6 +20,7 @@ import { Pagination } from '@material-ui/lab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
+import { SearchResult } from 'components/mocules';
 import { SORT_PRODUCT } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './style.module.css';
@@ -34,7 +35,9 @@ export default function ProductListing({
   slug = '',
   catName = '',
 }) {
-  const count = 100;
+  const count = 101;
+  const pageSize = 20;
+  const pages = Math.ceil(count / pageSize);
   const router = useRouter();
   const pathName = `/${catName}/${slug}`;
 
@@ -100,7 +103,13 @@ export default function ProductListing({
                   group.length > 0 &&
                   group.map((item) => (
                     <Link key={item.value} href={item.value}>
-                      <div className={`${styles.accordionLink} ${item.value === pathName ? styles.active : ''}`}>{item.label}</div>
+                      <div
+                        className={`${styles.accordionLink} ${
+                          item.value === pathName ? styles.active : ''
+                        }`}
+                      >
+                        {item.label}
+                      </div>
                     </Link>
                   ))}
               </Box>
@@ -122,7 +131,13 @@ export default function ProductListing({
                   brand.length > 0 &&
                   brand.map((item) => (
                     <Link key={item.value} href={item.value}>
-                      <div className={`${styles.accordionLink} ${item.value === pathName ? styles.active : ''}`}>{item.label}</div>
+                      <div
+                        className={`${styles.accordionLink} ${
+                          item.value === pathName ? styles.active : ''
+                        }`}
+                      >
+                        {item.label}
+                      </div>
                     </Link>
                   ))}
               </Box>
@@ -135,9 +150,7 @@ export default function ProductListing({
           <Typography className="product_title" variant="h2" component="h1">
             Kháng Viêm, Dị Ứng
           </Typography>
-          <div className={styles.product_counts}>
-            Hiển thị <strong>1 - 20</strong> trên tổng số <strong>507</strong> sản phẩm
-          </div>
+          <SearchResult count={count} pageSize={pageSize} page={page} pages={pages} />
         </div>
         <div>
           <div className={styles.filters}>
@@ -173,7 +186,12 @@ export default function ProductListing({
         {products.length > 0 ? (
           <main className={styles.product_listing}>
             <div className={styles.pagging}>
-              <Pagination count={count} boundaryCount={2} onChange={handleChangePage} />
+              <Pagination
+                count={pages}
+                defaultPage={page}
+                boundaryCount={2}
+                onChange={handleChangePage}
+              />
             </div>
             <div className={styles.product_grid_wrapper}>
               <Grid container spacing={1}>
@@ -191,7 +209,12 @@ export default function ProductListing({
               </Grid>
             </div>
             <div className={styles.pagging}>
-              <Pagination count={count} boundaryCount={2} onChange={handleChangePage} />
+              <Pagination
+                count={pages}
+                defaultPage={page}
+                boundaryCount={2}
+                onChange={handleChangePage}
+              />
             </div>
           </main>
         ) : (
