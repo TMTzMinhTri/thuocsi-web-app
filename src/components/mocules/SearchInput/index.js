@@ -4,8 +4,9 @@ import { Search } from '@material-ui/icons';
 
 import styles from './styles.module.css';
 
-const SearchInput = memo(() => (
+const SearchInput = memo(({ ...restProps }) => (
   <Input
+    {...restProps}
     classes={{
       root: styles.root_input,
       input: styles.input,
