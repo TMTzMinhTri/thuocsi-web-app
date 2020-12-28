@@ -1,7 +1,9 @@
 import { Menu, Fade } from '@material-ui/core';
+import styles from './styles.module.css';
 
 const MenuDropDown = ({ anchorEl, handleClose, open, children }) => (
   <Menu
+    className={styles.root}
     elevation={0}
     getContentAnchorEl={null}
     anchorOrigin={{

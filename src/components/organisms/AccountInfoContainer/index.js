@@ -19,9 +19,9 @@ const AccountInfoFormContainer = ({ user }) => {
     scope: parseScopeName(user.scope),
     drugstoreName: '',
     bussinessName: '',
-    billProvince: '',
-    billDistrict: '',
-    billWard: '',
+    billProvince: 0,
+    billDistrict: 0,
+    billWard: 0,
     taxId: '',
     bussinessAddress: '',
   });
