@@ -65,7 +65,11 @@ const MyOrder = ({ mostResearched = [], wallet, orders: orderR = [] }) => {
   return (
     <Template title={title}>
       <Header />
-      <NavBar mostResearched={mostResearched} />
+      <NavBar
+        mostResearched={mostResearched}
+        point={wallet.loyaltyPoint}
+        balance={wallet.balance}
+      />
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>

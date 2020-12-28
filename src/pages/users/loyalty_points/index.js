@@ -40,7 +40,11 @@ const MyLoyaltyPoint = ({ mostResearched = [], wallet }) => {
   return (
     <Template title={title}>
       <Header />
-      <NavBar mostResearched={mostResearched} />
+      <NavBar
+        mostResearched={mostResearched}
+        point={wallet.loyaltyPoint}
+        balance={wallet.balance}
+      />
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={5} title="Điểm tích luỹ" wallet={wallet}>

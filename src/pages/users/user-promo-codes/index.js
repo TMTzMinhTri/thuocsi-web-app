@@ -39,7 +39,11 @@ const MyReferral = ({ mostResearched = [], wallet, promos = [] }) => {
   return (
     <Template title={title}>
       <Header />
-      <NavBar mostResearched={mostResearched} />
+      <NavBar
+        mostResearched={mostResearched}
+        point={wallet.loyaltyPoint}
+        balance={wallet.balance}
+      />
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={4} title="Mã giảm giá của tôi" wallet={wallet}>
