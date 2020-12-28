@@ -12,9 +12,10 @@ import { Button, MenuItem, Typography } from '@material-ui/core';
 import { useAuth } from 'context';
 import { useRouter } from 'next/router';
 import { MenuDropDown, MenuDropDownItem } from 'components/atoms';
+import { FormarCurrency } from 'utils';
 import styles from './styles.module.css';
 
-export default function Toggle() {
+export default function Toggle({ point, balance }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const router = useRouter();
@@ -51,10 +52,10 @@ export default function Toggle() {
           </div>
           <div className={styles.top_menu}>
             <Typography className={styles.top_text} variant="h5" color="primary">
-              0 đ
+              {FormarCurrency(balance)}
             </Typography>
             <Typography className={styles.top_text} variant="h5" color="secondary">
-              0
+              {point}
             </Typography>
           </div>
         </MenuItem>

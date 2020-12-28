@@ -24,6 +24,9 @@ const AccountInfoFormContainer = ({ user }) => {
     billWard: 0,
     taxId: '',
     bussinessAddress: '',
+    province: 0,
+    district: 0,
+    ward: 0,
   });
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });

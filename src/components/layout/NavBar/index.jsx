@@ -60,7 +60,7 @@ function renderMostSearched(data, classes) {
   );
 }
 
-export default function NavBar({ mostResearched }) {
+export default function NavBar({ mostResearched, point, balance }) {
   const { itemCount } = useCart();
   const classes = useStyle();
   const { isAuthenticated } = useAuth();
@@ -154,7 +154,7 @@ export default function NavBar({ mostResearched }) {
                   </Badge>
                 </IconButton>
               </LinkComp>
-              <Toggle />
+              <Toggle balance={balance} point={point} />
             </div>
           ) : null}
         </div>
