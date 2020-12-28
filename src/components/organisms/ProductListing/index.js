@@ -26,7 +26,7 @@ import styles from './style.module.css';
 
 export default function ProductListing({
   products = [],
-  brands = [],
+  brand = [],
   group = [],
   current_tab = '',
   page = '',
@@ -96,7 +96,7 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
-                {group &&
+                {group && group.length > 0 &&
                   group.map((item) => (
                     <Link key={item.value} href={item.value}>
                       <div className={styles.accordionLink}>{item.label}</div>
@@ -117,10 +117,10 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
-                {brands &&
-                  brands.map((brand) => (
-                    <Link key={brand.value} href={brand.value}>
-                      <div className={styles.accordionLink}>{brand.label}</div>
+                {brand && brand.length > 0 &&
+                  brand.map((item) => (
+                    <Link key={item.value} href={item.value}>
+                      <div className={styles.accordionLink}>{item.label}</div>
                     </Link>
                   ))}
               </Box>
@@ -173,7 +173,6 @@ export default function ProductListing({
             <div className={styles.pagging}>
               <Pagination
                 count={count}
-                size="large"
                 boundaryCount={2}
                 onChange={handleChangePage}
               />
@@ -196,7 +195,6 @@ export default function ProductListing({
             <div className={styles.pagging}>
               <Pagination
                 count={count}
-                size="large"
                 boundaryCount={2}
                 onChange={handleChangePage}
               />
