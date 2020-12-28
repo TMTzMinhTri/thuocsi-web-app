@@ -96,7 +96,8 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
-                {group && group.length > 0 &&
+                {group &&
+                  group.length > 0 &&
                   group.map((item) => (
                     <Link key={item.value} href={item.value}>
                       <div className={styles.accordionLink}>{item.label}</div>
@@ -117,7 +118,8 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
-                {brand && brand.length > 0 &&
+                {brand &&
+                  brand.length > 0 &&
                   brand.map((item) => (
                     <Link key={item.value} href={item.value}>
                       <div className={styles.accordionLink}>{item.label}</div>
@@ -168,14 +170,10 @@ export default function ProductListing({
             </Fab>
           </div>
         </div>
-        {products.length > 0 && (
+        {products.length > 0 ? (
           <main className={styles.product_listing}>
             <div className={styles.pagging}>
-              <Pagination
-                count={count}
-                boundaryCount={2}
-                onChange={handleChangePage}
-              />
+              <Pagination count={count} boundaryCount={2} onChange={handleChangePage} />
             </div>
             <div className={styles.product_grid_wrapper}>
               <Grid container spacing={1}>
@@ -193,13 +191,11 @@ export default function ProductListing({
               </Grid>
             </div>
             <div className={styles.pagging}>
-              <Pagination
-                count={count}
-                boundaryCount={2}
-                onChange={handleChangePage}
-              />
+              <Pagination count={count} boundaryCount={2} onChange={handleChangePage} />
             </div>
           </main>
+        ) : (
+          <p>Không có sản phẩm</p>
         )}
       </div>
     </div>
