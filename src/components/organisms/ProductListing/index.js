@@ -35,7 +35,7 @@ export default function ProductListing({
   slug = '',
   catName = '',
 }) {
-  const count = 101;
+  const count = 111;
   const pageSize = 20;
   const pages = Math.ceil(count / pageSize);
   const router = useRouter();
