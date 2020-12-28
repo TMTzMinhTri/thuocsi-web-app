@@ -15,7 +15,7 @@ export default (req, res) => {
       },
       {
         label: 'Da liễu',
-        value: '/manufacturers/da-lieu',
+        value: '/categories/da-lieu',
       },
       {
         label: 'Dược mỹ phẩm',

@@ -124,8 +124,13 @@
   border: 1px solid transparent;
 }
 .product_main .filters .active{
-  color: #00b46e;
   border: 1px solid #00b46e;
+}
+.product_main .filters a{
+  color: #919aa3;
+}
+.product_main .filters .active span{
+  color: #00b46e;
 }
 .product_main .filters .filter_btn{
   margin-right: 1em;
