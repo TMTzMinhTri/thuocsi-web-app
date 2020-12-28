@@ -9,15 +9,27 @@
     top: 0
 }
 
+.searchInput {
+    display: none!important;
+}
+
 .logoNav {
+    display: none;
     width: 0;
     transition: width .5s;
     line-height: 1;
     cursor: pointer;
 }
 .navBar.sticky .logoNav {
+    display: block;
     width: 60px
 }
+
+.navBar.sticky .searchInput {
+    display: flex!important;
+    width: 20%;
+}
+
 .navIcon{
     font-size: 19px !important;
     width: auto !important;
@@ -30,8 +42,8 @@
 }
 .navBarRight{
     display: flex;
-    flex: 1;
-    justify-content: flex-end;
+    /* flex: 1;
+    justify-content: flex-end; */
 }
 .navBarRightLink{
     margin-right: 10px;
@@ -39,5 +51,6 @@
 }
 .navBarContaint{
     display: flex;
-    align-items: center !important
+    align-items: center !important;
+    justify-content: space-between
 }

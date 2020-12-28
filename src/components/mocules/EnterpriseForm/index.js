@@ -1,53 +1,8 @@
 import React from 'react';
 import { Paper, Grid, Button, InputAdornment } from '@material-ui/core';
 import { InfoInput, InfoFormControl } from 'components/atoms';
-import AddressSelect from '../AddressSelect';
+import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
-
-const provinceOptions = [
-  {
-    value: '',
-    label: 'Chọn Tỉnh/Thành Phố...',
-  },
-  {
-    value: 10,
-    label: 'TP.Hồ Chí Minh',
-  },
-  {
-    value: 20,
-    label: 'Hà Nội',
-  },
-];
-
-const districtOptions = [
-  {
-    value: '',
-    label: 'Chọn Tỉnh/Thành Phố...',
-  },
-  {
-    value: 10,
-    label: 'Quận 1',
-  },
-  {
-    value: 20,
-    label: 'Quận 4',
-  },
-];
-
-const wardOptions = [
-  {
-    value: '',
-    label: 'Chọn Tỉnh/Thành Phố...',
-  },
-  {
-    value: 10,
-    label: 'Phường Long Bình Tân',
-  },
-  {
-    value: 20,
-    label: 'Phường Long Bình',
-  },
-];
 
 const ButtonUploadFile = () => (
   <InputAdornment>
@@ -92,7 +47,7 @@ const EnterpriseForm = ({
           onChange={(e) => handleSetValue('bussinessName', e.target.value)}
         />
       </InfoFormControl>
-
+      <input type="file" hidden id="input-file" />
       <InfoFormControl
         xs={12}
         label="Giấy phép kinh doanh phòng khám/nhà thuốc"
@@ -104,6 +59,9 @@ const EnterpriseForm = ({
           endAdornment={<ButtonUploadFile />}
           component="span"
           htmlFor="icon-button-file"
+          onClick={() => {
+            document.getElementById('input-file').click();
+          }}
         />
       </InfoFormControl>
     </Grid>
@@ -131,30 +89,15 @@ const EnterpriseForm = ({
       </InfoFormControl>
     </Grid>
 
-    <Grid container spacing={3}>
-      <AddressSelect
-        label="Tỉnh/Thành phố"
-        id="billProvince"
-        value={billProvince}
-        onChange={(e) => handleSetValue('billProvince', e.target.value)}
-        options={provinceOptions}
-      />
-      <AddressSelect
-        id="billDistrict"
-        value={billDistrict}
-        onChange={(e) => handleSetValue('billDistrict', e.target.value)}
-        options={districtOptions}
-        label="Quận/Huyện"
-      />
-
-      <AddressSelect
-        id="billWard"
-        value={billWard}
-        onChange={(e) => handleSetValue('billWard', e.target.value)}
-        options={wardOptions}
-        label="Phường/Xã"
-      />
-    </Grid>
+    <GroupAddressSelect
+      idProvince="billProvince"
+      province={billProvince}
+      idDistrict="billDistrict"
+      district={billDistrict}
+      idWard="billWard"
+      ward={billWard}
+      handleSetValue={handleSetValue}
+    />
   </Paper>
 );
 

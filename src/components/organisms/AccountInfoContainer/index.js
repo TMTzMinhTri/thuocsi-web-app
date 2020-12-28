@@ -19,11 +19,14 @@ const AccountInfoFormContainer = ({ user }) => {
     scope: parseScopeName(user.scope),
     drugstoreName: '',
     bussinessName: '',
-    billProvince: '',
-    billDistrict: '',
-    billWard: '',
+    billProvince: 0,
+    billDistrict: 0,
+    billWard: 0,
     taxId: '',
     bussinessAddress: '',
+    province: 0,
+    district: 0,
+    ward: 0,
   });
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });

@@ -2,6 +2,7 @@ import { TableRow, TableCell, Grid } from '@material-ui/core';
 import { DateTimeUtils, FormarCurrency } from 'utils';
 import InfoIcon from '@material-ui/icons/Info';
 import { InfoTable } from 'components/atoms';
+import { useRouter } from 'next/router';
 import styles from './styles.module.css';
 
 const heads = [
@@ -16,6 +17,7 @@ const heads = [
 ];
 
 function PromoTable({ promos }) {
+  const router = useRouter();
   return (
     <InfoTable heads={heads}>
       {promos.map((row) => (
@@ -38,7 +40,13 @@ function PromoTable({ promos }) {
           </TableCell>
           <TableCell align="left">{FormarCurrency(row.minCost)}</TableCell>
           <TableCell align="left">{row.isExpired ? 'Chưa hết hạn' : 'Đã hết hạn'}</TableCell>
-          <TableCell align="left" className={styles.related_order}>
+          <TableCell
+            align="left"
+            className={styles.related_order}
+            onClick={() => {
+              router.push(`/my-order/${row.relatedOrder}`);
+            }}
+          >
             #{row.relatedOrder}
           </TableCell>
         </TableRow>

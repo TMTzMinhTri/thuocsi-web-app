@@ -20,6 +20,8 @@ async function request(props) {
    */
 
     const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
+    // eslint-disable-next-line no-console
+    console.log('request url : ', link);
     if (isAuth) {
       if (ctx) {
         const AuthorizationValue = getSessionToken(ctx);

@@ -55,6 +55,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
             type={isShowPassword ? 'text' : 'password'}
             endAdornment={<IconEndPassword />}
             value={password}
+            onChange={(e) => handleSetValue('password', e.target.value)}
           />
           <FormHelperText>Mật khẩu dài tối thiểu 6 ký tự</FormHelperText>
         </InfoFormControl>
