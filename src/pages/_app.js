@@ -11,6 +11,8 @@ import { Theme } from 'components';
 
 import '../styles/globals.css';
 import '../styles/icomoon.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -38,6 +40,7 @@ export default function MyApp(props) {
               <CssBaseline />
               <CartContextProvider>
                 <Component {...pageProps} />
+                <ToastContainer />
               </CartContextProvider>
             </StyledTheme>
           </MuiThemeProvider>

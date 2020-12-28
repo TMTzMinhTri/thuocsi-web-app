@@ -11,7 +11,7 @@ const CustomSnackBar = React.memo((props) => {
     autoHideDuration = 3000,
     vertical = 'top',
     horizontal = 'right',
-    TransitionComponent = 'GrowTransition',
+    // TransitionComponent = 'GrowTransition',
     variant = 'filled',
     ...rest
   } = props;
@@ -23,7 +23,7 @@ const CustomSnackBar = React.memo((props) => {
       {...rest}
       onClose={onClose}
       anchorOrigin={{ vertical, horizontal }}
-      TransitionComponent={TransitionComponent}
+      // TransitionComponent={TransitionComponent}
     >
       <Alert onClose={onClose} variant={variant} severity={alertType}>
         {children}
