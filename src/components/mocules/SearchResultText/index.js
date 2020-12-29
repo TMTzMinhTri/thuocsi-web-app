@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './style.module.css';
 
-export default function SearchResult({ count = [], pageSize = [], page = [], pages = [] }) {
+export default function SearchResultText({ count = [], pageSize = [], page = [], pages = [] }) {
   const number = () => {
     if (page === 1) {
       return ({
@@ -23,11 +23,17 @@ export default function SearchResult({ count = [], pageSize = [], page = [], pag
 
   return (
     <div className={styles.search_result}>
-      Hiển thị{' '}
-      <strong>
-        {number().firstNum} - {number().lastNum}
-      </strong>{' '}
-      trên tổng số <strong>{count}</strong> sản phẩm
+      {count < pageSize
+        ? (
+          <div>
+            Hiển thị <strong>tất cả {number().lastNum}</strong> sản phẩm
+          </div>
+        )
+        : (
+          <div>
+            Hiển thị <strong>{`${number().firstNum} - ${number().lastNum}`}</strong> trên tổng số <strong>{count}</strong> sản phẩm
+          </div>
+        )}
     </div>
   );
 }

@@ -20,7 +20,7 @@ import { Pagination } from '@material-ui/lab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
-import { SearchResult } from 'components/mocules';
+import { SearchResultText } from 'components/mocules';
 import { SORT_PRODUCT } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './style.module.css';
@@ -35,7 +35,7 @@ export default function ProductListing({
   slug = '',
   catName = '',
 }) {
-  const count = 111;
+  const count = 50;
   const pageSize = 20;
   const pages = Math.ceil(count / pageSize);
   const router = useRouter();
@@ -150,7 +150,7 @@ export default function ProductListing({
           <Typography className="product_title" variant="h2" component="h1">
             Kháng Viêm, Dị Ứng
           </Typography>
-          <SearchResult count={count} pageSize={pageSize} page={page} pages={pages} />
+          <SearchResultText count={count} pageSize={pageSize} page={page} pages={pages} />
         </div>
         <div>
           <div className={styles.filters}>

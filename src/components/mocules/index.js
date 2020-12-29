@@ -25,4 +25,4 @@ export { default as ProductDetailTabs } from './ProductDetailTabs';
 export { default as OrderDetailStep } from './OrderDetailStep';
 export { default as OrderDetailInfo } from './OrderDetailInfo';
 export { default as OrderDetailProduct } from './OrderDetailProduct';
-export { default as SearchResult } from './SearchResult';
+export { default as SearchResultText } from './SearchResultText';
