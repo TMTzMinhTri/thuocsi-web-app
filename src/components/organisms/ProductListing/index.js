@@ -218,7 +218,9 @@ export default function ProductListing({
             </div>
           </main>
         ) : (
-          <p>Không có sản phẩm</p>
+          <Typography variant="body1" className={styles.empty}>
+            Ko có sản phẩm
+          </Typography>
         )}
       </div>
     </div>
