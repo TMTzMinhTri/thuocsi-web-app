@@ -149,3 +149,16 @@
   margin-top: 30px;
   margin-bottom: 30px;
 }
+
+@media (min-width: 1360px) and (max-width: 1700px) {
+    .customGrid{
+      max-width: 20% !important;
+      flex-basis: 20% !important;
+    }
+}
+@media (min-width: 1701px) {
+  .customGrid{
+    max-width: 16.666667% !important;
+    flex-basis: 16.666667% !important;
+  }
+}

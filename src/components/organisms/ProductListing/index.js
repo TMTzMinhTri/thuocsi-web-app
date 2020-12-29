@@ -196,7 +196,7 @@ export default function ProductListing({
             <div className={styles.product_grid_wrapper}>
               <Grid container spacing={1}>
                 {products.map((item) => (
-                  <Grid item xl={2} lg={2} md={4} xs={6}>
+                  <Grid item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
                     <ProductCardVertical
                       key={`products-${item.sku}`}
                       product={item}
