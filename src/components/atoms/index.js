@@ -2,7 +2,6 @@ export { default as Modal } from './Modal';
 export { default as Button } from './Button';
 export { default as TagComp } from './TagComp';
 export { default as LinkComp } from './LinkComp';
-export { default as ButtonLandingPage } from './ButtonLandingPage';
 export { default as PlusButton } from './CircularButton/PlusButton';
 export { default as MinusButton } from './CircularButton/MinusButton';
 export { default as Tag } from './Tag';
