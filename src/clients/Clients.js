@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE } from 'constants/Cookies';
 import { CookiesParser } from 'utils';
-import { API_HOST, MOCK_API_HOST } from '../../config/index';
+import { API_HOST, MOCK_API_HOST, BASIC_AUTHEN } from '../../config/index';
 
 export function getSessionToken(ctx) {
   const tk = CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN);
@@ -13,7 +13,16 @@ export function getSessionToken(ctx) {
 
 async function request(props) {
   try {
-    const { url, headers = {}, method, body, mock = false, isAuth = true, ctx = null } = props;
+    const {
+      url,
+      headers = {},
+      method,
+      body,
+      mock = false,
+      isAuth = true,
+      ctx = null,
+      isBasic = false,
+    } = props;
     /*
     mock api : folder:  /api
     dev / production : /backend
@@ -34,6 +43,10 @@ async function request(props) {
         if (AuthorizationValue) {
           headers.Authorization = `Bearer ${AuthorizationValue}`;
         }
+      }
+
+      if (isBasic && (!headers.Authorization || headers.Authorization.length === 0)) {
+        headers.Authorization = BASIC_AUTHEN;
       }
     }
     const res = await fetch(link, {
