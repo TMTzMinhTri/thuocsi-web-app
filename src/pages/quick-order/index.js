@@ -29,7 +29,14 @@ export default function QuickOrderPage({ mostResearched = [], products = [] }) {
         <Grid container spacing={3}>
           <Grid sm={8} item>
             {/* san pham  */}
-            <QuickOrderList products={products} />
+            {products && products.length > 0
+              ? <QuickOrderList products={products} />
+              : (
+                <Typography variant="body1" gutterBottom>
+                  Ko tìm thấy sản phẩm
+                </Typography>
+              )}
+
           </Grid>
           <Grid sm={4} item>
             {/* gio hang */}

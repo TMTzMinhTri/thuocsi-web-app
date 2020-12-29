@@ -12,7 +12,7 @@ export async function getServerSideProps(ctx) {
   ]);
   const current_tab = ctx.query.current_tab || '';
   const sort = ctx.query.sort || '';
-  const page = Number(ctx.query.page) || '';
+  const page = Number(ctx.query.page) || 1;
   const slug = ctx.query.slug || '';
   return {
     props: {

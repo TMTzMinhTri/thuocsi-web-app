@@ -20,7 +20,7 @@ import { Pagination } from '@material-ui/lab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
-import { SearchResult } from 'components/mocules';
+import { SearchResultText } from 'components/mocules';
 import { SORT_PRODUCT } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './style.module.css';
@@ -35,7 +35,7 @@ export default function ProductListing({
   slug = '',
   catName = '',
 }) {
-  const count = 101;
+  const count = 50;
   const pageSize = 20;
   const pages = Math.ceil(count / pageSize);
   const router = useRouter();
@@ -150,7 +150,7 @@ export default function ProductListing({
           <Typography className="product_title" variant="h2" component="h1">
             Kháng Viêm, Dị Ứng
           </Typography>
-          <SearchResult count={count} pageSize={pageSize} page={page} pages={pages} />
+          <SearchResultText count={count} pageSize={pageSize} page={page} pages={pages} />
         </div>
         <div>
           <div className={styles.filters}>
@@ -196,7 +196,7 @@ export default function ProductListing({
             <div className={styles.product_grid_wrapper}>
               <Grid container spacing={1}>
                 {products.map((item) => (
-                  <Grid item xl={2} lg={2} md={4} xs={6}>
+                  <Grid item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
                     <ProductCardVertical
                       key={`products-${item.sku}`}
                       product={item}
