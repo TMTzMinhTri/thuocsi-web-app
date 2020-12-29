@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from 'context';
 import { AuthClient, isValid } from 'clients';
 import { useRouter } from 'next/router';
+import { NotifyUtils } from 'utils';
 import { AuthModal, SignInForm } from '../../mocules';
 
 const SignInModal = React.memo((props) => {
@@ -18,9 +19,11 @@ const SignInModal = React.memo((props) => {
     AuthClient.login(data)
       .then((result) => {
         if (!isValid(result)) {
+          NotifyUtils.warn('Đăng nhập lỗi');
           setHasAlert('Đã có nhiều lỗi xảy ra');
           return;
         }
+        NotifyUtils.success('Đăng nhập thành công.');
         const userInfo = result.data[0];
         login(userInfo, rememberMe === '');
 
@@ -28,6 +31,7 @@ const SignInModal = React.memo((props) => {
         router.push('/quick-order');
       })
       .catch((error) => {
+        NotifyUtils.error('Đã có lỗi xảy ra');
         setHasAlert(`Đã có lỗi xảy ra ${error}`);
       })
       .finally(() => {

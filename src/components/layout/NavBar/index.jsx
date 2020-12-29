@@ -65,7 +65,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
   const classes = useStyle();
   const { isAuthenticated } = useAuth();
 
-  const mostSearchedEle = renderMostSearched(mostResearched, classes);
+  renderMostSearched(mostResearched, classes);
   const nav = useRef();
 
   useEffect(() => {
@@ -161,7 +161,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
             </>
           ) : null}
         </div>
-        {mostSearchedEle}
+        {/* {mostSearchedEle} */}
       </Container>
     </div>
   );
