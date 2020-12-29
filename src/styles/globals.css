@@ -151,3 +151,30 @@ a {
   top: 0;
   left: 0;
 }
+
+
+.pageError {
+  padding: 100px 150px 0 150px;
+}
+
+.pageError .boldText {
+  font-weight: 500;
+  font-size: 60px;
+  color: red
+}
+
+.pageError .weightLow {
+  font-weight: 400;
+}
+
+.pageError .list {
+  list-style-type: none;
+  padding-inline-start: 0px;
+  margin-top: 10px;
+}
+
+.pageError .lottie {
+  height: 500px;
+  width: 400px;
+
+}
