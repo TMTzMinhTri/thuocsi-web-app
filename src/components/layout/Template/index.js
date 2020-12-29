@@ -15,7 +15,9 @@ export default function Layout({ title, children }) {
           name="description"
           content="Chợ thuốc sỉ online lớn nhất Việt Nam với hơn 7500 loại thuốc, giá minh bạch, giao hàng miễn phí toàn quốc"
         />
-        <link rel="shortcut icon" href="images/logo_icon_thuocsi.svg" />
+        <link rel="shortcut icon" href="images/favicon-16x16.png" size="16x16" />
+        <link rel="shortcut icon" href="images/favicon-32x32.png" size="32x32" />
+        <link rel="shortcut icon" href="images/favicon-96x96.png" size="96x96" />
         <title>{title}</title>
       </Head>
       <div id="main">{children}</div>
