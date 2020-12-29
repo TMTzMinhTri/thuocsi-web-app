@@ -10,8 +10,8 @@ const ADDRESS_POS = {
 };
 
 const GroupAddressSelect = ({
-  province,
-  district,
+  province = 0,
+  district = 0,
   ward,
   idProvince,
   idDistrict,
@@ -38,7 +38,8 @@ const GroupAddressSelect = ({
       setWards([{ value: 0, label: 'Chọn Phường/Xã ...' }]);
       setPos(ADDRESS_POS.DISTRICT);
     }
-    if (province !== 0) getDistricts();
+    if (String(province) !== '0') getDistricts();
+    else setPos(ADDRESS_POS.PROVINCE);
   }, [province]);
 
   useEffect(() => {
@@ -47,8 +48,11 @@ const GroupAddressSelect = ({
       setWards(res);
       setPos(ADDRESS_POS.WARD);
     }
-    if (district !== 0) getWards();
+
+    if (String(district) !== '0') getWards();
+    if (String(district) === '0' && String(province) !== '0') { setPos(ADDRESS_POS.DISTRICT); }
   }, [district]);
+
   return (
     <Grid container spacing={3}>
       <AddressSelect

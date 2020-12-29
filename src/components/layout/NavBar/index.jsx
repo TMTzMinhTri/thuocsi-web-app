@@ -22,6 +22,7 @@ const useStyle = makeStyles({
     display: 'flex',
   },
   link: {
+    position: 'relative',
     alignItems: 'center',
     padding: 12,
     borderBottomWidth: 3,
@@ -141,6 +142,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
               color="white"
               onMouseOver={onMouseOver}
             >
+              <span className={styles.badge}>Mới</span>
               <LocalOffer className={styles.navIcon} />
             </LinkComp>
           </div>
