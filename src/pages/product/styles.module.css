@@ -198,3 +198,7 @@
     border-top-left-radius: calc(0.3rem - 1px);
     border-top-right-radius: calc(0.3rem - 1px);
 }
+
+.signin_btn {
+    text-transform: capitalize!important;
+}

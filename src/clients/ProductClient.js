@@ -17,13 +17,14 @@ async function getInfoBanner() {
   return result.data;
 }
 
-async function loadDataProductDetail({ ctx = {} }) {
+async function loadDataProductDetail(ctx) {
   const { query } = ctx;
   const url = `/marketplace/product/v1/products?q=${query.slug}`;
   const result = await GET({
     url,
     ctx,
     isAuth: true,
+    isBasic: true,
   });
   return result.data;
 }
