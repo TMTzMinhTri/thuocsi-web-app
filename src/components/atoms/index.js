@@ -21,3 +21,4 @@ export { default as InfoTable } from './InfoTable';
 export { default as PrintInvoiceButton } from './OrderButton/PrintInvoiceButton';
 export { default as EditOrderButton } from './OrderButton/EditOrderButton';
 export { default as ResponseButton } from './OrderButton/ResponseButton';
+export { default as ProductHorizontalSkeleton } from './Skeleton/ProductHorizontal';
