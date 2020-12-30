@@ -1,0 +1,20 @@
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.promo_wrapper {
+    background-image: linear-gradient(to right, #00b46e, #17a2b8);
+    padding: 3rem 0 !important;
+}
+
+
+.text_white {
+    color: #fff;
+    padding: 0 1rem !important;
+    margin-bottom: 1rem!important;
+}
+
+.title {
+    font-size: 40px
+}

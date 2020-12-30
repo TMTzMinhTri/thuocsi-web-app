@@ -22,6 +22,7 @@ const ProductCardContent = ({
   // status,
   // price_percent,
   row,
+  slug,
   tag,
   // cart,
   className,
@@ -40,7 +41,7 @@ const ProductCardContent = ({
       }
     >
       <Box className={styles.product_title}>
-        <a href="/">
+        <a href={`/product/${slug}`}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
             {name}
           </Typography>

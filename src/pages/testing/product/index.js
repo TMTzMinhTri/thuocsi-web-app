@@ -1,9 +1,13 @@
+/* eslint-disable camelcase */
+
 import React from 'react';
-import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp } from 'components/atoms';
+import { Box } from '@material-ui/core';
+import { PlusButton, MinusButton, RibbonPriceDown, RibbonPriceUp, PromotionProduct } from 'components';
 import { TagType, CardInfo } from 'components/mocules';
 // import { BestSaleProduct, ProductCardHorizontal } from 'components/organisms';
 // import {DateTimeUtils} from 'utils';
-// import ProductClient from 'clients/ProductClient';
+import ProductClient from 'clients/ProductClient';
+import CatClient from 'clients/CatClient';
 
 // export async function getServerSideProps(ctx) {
 //   const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
@@ -13,10 +17,31 @@ import { TagType, CardInfo } from 'components/mocules';
 //     },
 //   };
 // }
-
+export async function getServerSideProps(ctx) {
+  const [products, brand, group] = await Promise.all([
+    ProductClient.loadDataProduct(ctx),
+    CatClient.loadBrand(ctx),
+    CatClient.loadGroup(ctx),
+  ]);
+  const current_tab = ctx.query.current_tab || '';
+  const sort = ctx.query.sort || '';
+  const page = Number(ctx.query.page) || 1;
+  const slug = ctx.query.slug || '';
+  return {
+    props: {
+      products,
+      current_tab,
+      page,
+      sort,
+      brand,
+      group,
+      slug,
+    },
+  };
+}
 // const date = DateTimeUtils.getFormattedDate(new Date());
 
-const Test = () =>
+const Test = ({ products = [], brand = [], group = [], current_tab = '', page = '', sort = '', slug = '' }) =>
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     minHeight: '100vh',
@@ -24,9 +49,20 @@ const Test = () =>
 //   },
 // }));
 // const classes = useStyles();
-
   (
     <>
+      <Box maxWidth="1140px" m="auto">
+        <PromotionProduct
+          products={products}
+          brand={brand.status === 'OK' ? brand.data : []}
+          group={group.status === 'OK' ? group.data : []}
+          current_tab={current_tab}
+          page={page}
+          sort={sort}
+          catName="products"
+          slug={slug}
+        />
+      </Box>
       {/* <BestSaleProduct products={products} />
     {products.map((item) => (
       <ProductCardHorizontal key={item.id} product={item} />
