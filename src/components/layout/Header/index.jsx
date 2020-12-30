@@ -1,12 +1,13 @@
 import React, { memo, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useModal } from 'hooks';
-
-import { CardTravel, House, NewReleases } from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
+import { CardTravel, House, NewReleases, NotificationsNoneOutlined } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
-import { HeaderUser } from 'components/mocules';
+import { HeaderUser, SearchInput } from 'components/mocules';
 import { useAuth } from 'context';
 import { LinkComp, Button } from '../../atoms';
 import styles from './styles.module.css';
@@ -29,27 +30,29 @@ const InfoHeader = memo(() => {
   return (
     <div>
       <div className={styles.header_info}>
-        <div className={styles.link}>
-          <LinkComp name="Tin Tức" href={PATH_NEWS} color="#6c757d !important">
-            <NewReleases fontSize="small" />
-          </LinkComp>
-        </div>
-        <div className={styles.link}>
-          <LinkComp name="Tuyển dụng | Recruitment" href={PATH_CAREER} color="#6c757d !important">
-            <CardTravel fontSize="small" />
-          </LinkComp>
-        </div>
+        <div className={styles.header_info_wrap}>
+          <div className={styles.link}>
+            <LinkComp name="Tin Tức" href={PATH_NEWS} color="#6c757d !important">
+              <NewReleases fontSize="small" />
+            </LinkComp>
+          </div>
+          <div className={styles.link}>
+            <LinkComp name="Tuyển dụng | Recruitment" href={PATH_CAREER} color="#6c757d !important">
+              <CardTravel fontSize="small" />
+            </LinkComp>
+          </div>
 
-        <div className={styles.link}>
-          <LinkComp name="Tuyển dụng | Recruitment" href={PATH_SUPPLIER} color="#6c757d !important">
-            <House fontSize="small" />
-          </LinkComp>
+          <div className={styles.link}>
+            <LinkComp name="Tuyển dụng | Recruitment" href={PATH_SUPPLIER} color="#6c757d !important">
+              <House fontSize="small" />
+            </LinkComp>
+          </div>
         </div>
       </div>
       <div className={styles.login}>
-        <div className={styles.logo}>
-          <Image src={LOGO_THUOCSI} width="164px" height="45px" />
-        </div>
+        <Link href="/">
+          <Image className={styles.logo} href="/" src={LOGO_THUOCSI} width="164px" height="45px" />
+        </Link>
         {!isAuthenticated ? (
           <>
             <SignInModal
@@ -74,7 +77,16 @@ const InfoHeader = memo(() => {
             </div>
           </>
         ) : (
-          <HeaderUser user={user} />
+          <>
+            <SearchInput className={styles.SearchInput} />
+            <div className={styles.rSection}>
+              <IconButton className={styles.notiIcon}>
+                <NotificationsNoneOutlined />
+                {/* <FontAwesomeIcon icon={faBell} /> */}
+              </IconButton>
+              <HeaderUser user={user} />
+            </div>
+          </>
         )}
       </div>
     </div>
