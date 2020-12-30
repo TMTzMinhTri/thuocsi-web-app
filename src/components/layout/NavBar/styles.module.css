@@ -4,6 +4,9 @@
     background-image: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
     z-index: 500
 }
+.container {
+    max-width: 1290px!important;
+}
 .navBar.sticky{
     position: sticky;
     top: 0
@@ -75,4 +78,18 @@
     color: white;
     border: 1px solid white;
     font-size: 12px;
+}
+
+
+
+.btn_no_auth_section {
+    display: none;
+}
+
+.navBar.sticky .btn_no_auth_section {
+    display: flex;
+}
+
+.noAuthIcon {
+    color: #fff;
 }

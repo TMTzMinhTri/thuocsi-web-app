@@ -3,10 +3,12 @@ import { Typography, Grid, Container } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from 'components';
-import '../styles/error.module.css';
+import styled from 'styled-components';
 
-const Error500 = () => (
-  <Container maxWidth="md" className="pageError">
+// import styles from '../styles/error.module.css';
+
+const Error404 = ({ className }) => (
+  <Container maxWidth="md" className={`${className}`}>
     <Grid container>
       <Grid item container xs={12}>
         <Grid align="center" item xs={12}>
@@ -48,4 +50,29 @@ const Error500 = () => (
   </Container>
 );
 
-export default Error500;
+const StyledError404 = styled(Error404)`
+  padding: 100px 150px 0 150px !important;
+
+  .boldText {
+    font-weight: 500;
+    font-size: 60px;
+    color: red;
+  }
+
+  .weightLow {
+    font-weight: 400;
+  }
+
+  .list {
+    list-style-type: none;
+    padding-inline-start: 0px;
+    margin-top: 10px;
+  }
+
+  .lottie {
+    height: 500px;
+    width: 400px;
+  }
+`;
+
+export default StyledError404;

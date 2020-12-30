@@ -13,7 +13,7 @@ const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, 
         <StatusProduct {...product} />
         <Card className={styles.product_card}>
           <Box>
-            <CardActionArea className={styles.product_image}>
+            <CardActionArea href={`/product/${product.slug}`} className={styles.product_image}>
               <CardMedia
                 component="img"
                 alt="Contemplative Reptile"
