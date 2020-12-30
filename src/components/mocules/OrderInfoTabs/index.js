@@ -1,13 +1,8 @@
 import React from 'react';
-import { withStyles, Grid, Tabs, Tab, Paper, makeStyles } from '@material-ui/core';
+import { withStyles, Grid, Tabs, Tab, Paper } from '@material-ui/core';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import OrderRow from './OrderRow';
-
-const useStyles = makeStyles({
-  indicator: {
-    display: 'none',
-  },
-});
+import styles from './styles.module.css';
 
 const CustomTab = withStyles({
   root: {
@@ -21,21 +16,20 @@ const CustomTab = withStyles({
 
 export default function OrderInfoTabs({ orders, handleSetOrderStatus }) {
   const [value, setValue] = React.useState(0);
-  const classes = useStyles();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Paper square elevation={4}>
+    <Grid container spacing={1}>
+      <Grid item xs={12} className={styles.tabs}>
+        <Paper elevation={0}>
           <Tabs
             value={value}
             textColor="primary"
             onChange={handleChange}
             centered
-            classes={{ indicator: classes.indicator }}
+            classes={{ indicator: styles.indicator }}
           >
             <CustomTab
               label="Tất Cả"
