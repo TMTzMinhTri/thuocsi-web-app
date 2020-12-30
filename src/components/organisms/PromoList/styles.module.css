@@ -1,0 +1,14 @@
+.related_order {
+  color: #00b46e !important;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.related_order:hover {
+  color: #00683f !important;
+}
+
+.icon {
+  color: #17a2b8 !important;
+  font-size: 15px !important;
+}

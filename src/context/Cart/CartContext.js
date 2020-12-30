@@ -1,13 +1,23 @@
-import React, { createContext, useReducer, useContext } from 'react';
-import { CartReducer, sumItems } from './CartReducer';
+import React, { createContext, useReducer, useContext, useEffect } from 'react';
+import ProductClient from 'clients/ProductClient';
+import { CartReducer } from './CartReducer';
 
 export const CartContext = createContext();
 
-const storage = typeof localStorage !== 'undefined' && localStorage.getItem('cartThuocSi') ? JSON.parse(localStorage.getItem('cartThuocSi')) : [];
-const initialState = { cartItems: storage, ...sumItems(storage), checkout: false };
-
 export const CartContextProvider = ({ children }) => {
+  const initialState = { loading: true };
   const [state, dispatch] = useReducer(CartReducer, initialState);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await ProductClient.loadDataCart();
+        dispatch({ type: 'FETCH_SUCCESS', payload: response.product });
+      } catch (error) {
+        dispatch({ type: 'FETCH_ERROR' });
+      }
+    }
+    fetchData();
+  }, []);
 
   const increase = (payload) => {
     dispatch({ type: 'INCREASE', payload });

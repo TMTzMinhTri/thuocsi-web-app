@@ -9,15 +9,27 @@
     top: 0
 }
 
+.searchInput {
+    display: none!important;
+}
+
 .logoNav {
+    display: none;
     width: 0;
     transition: width .5s;
     line-height: 1;
     cursor: pointer;
 }
 .navBar.sticky .logoNav {
+    display: block;
     width: 60px
 }
+
+.navBar.sticky .searchInput {
+    display: flex!important;
+    width: 20%;
+}
+
 .navIcon{
     font-size: 19px !important;
     width: auto !important;
@@ -30,8 +42,8 @@
 }
 .navBarRight{
     display: flex;
-    flex: 1;
-    justify-content: flex-end;
+    /* flex: 1;
+    justify-content: flex-end; */
 }
 .navBarRightLink{
     margin-right: 10px;
@@ -39,5 +51,28 @@
 }
 .navBarContaint{
     display: flex;
-    align-items: center !important
+    align-items: center !important;
+    justify-content: space-between
+}
+
+.badge {
+    position: absolute;
+    right: -1.25em;
+    top: -0.25em;
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+    display: inline-block;
+    padding: 0.25em 0.5rem;
+    font-size: 75%;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background: linear-gradient(to right, #ff4fae, #f9b514);
+    color: white;
+    border: 1px solid white;
+    font-size: 12px;
 }

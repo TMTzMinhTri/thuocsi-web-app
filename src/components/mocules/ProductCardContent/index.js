@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, CardContent, Box } from '@material-ui/core';
 import clsx from 'clsx';
+import { v4 as uuidv4 } from 'uuid';
 import TagType from '../TagType';
 
 import styles from './styles.module.css';
@@ -13,12 +14,16 @@ const ProductCardContent = ({
   // deal_start_day,
   // deal_end_day,
   tags,
-  type,
+  unit,
+  volume,
+  cate,
   category,
   // price,
   // status,
   // price_percent,
   row,
+  slug,
+  tag,
   // cart,
   className,
 }) => (
@@ -36,16 +41,18 @@ const ProductCardContent = ({
       }
     >
       <Box className={styles.product_title}>
-        <a href="/">
+        <a href={`/product/${slug}`}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
             {name}
           </Typography>
         </a>
-        <div className={clsx(styles.product_tags, styles.product_tags_column)}>
-          {tags.map((item) => (
-            <TagType key={item + Math.random() + 1} type={item} />
-          ))}
-        </div>
+        {tag && (
+          <div className={clsx(styles.product_tags, styles.product_tags_column)}>
+            {tags.map((item) => (
+              <TagType key={uuidv4()} type={item.slug} />
+            ))}
+          </div>
+        )}
       </Box>
       <Typography
         className={clsx(styles.product_type, styles.muted)}
@@ -53,10 +60,10 @@ const ProductCardContent = ({
         color="textSecondary"
         component="p"
       >
-        {type}
+        {unit} {volume}
       </Typography>
     </Box>
-    {category && row && (
+    {row === cate && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"
@@ -65,8 +72,8 @@ const ProductCardContent = ({
       >
         Nhóm:{' '}
         {category.map((item) => (
-          <a key={item + Math.random() + 1} href="/">
-            {item}
+          <a key={uuidv4()} href="/">
+            {item.name}
           </a>
         ))}
       </Typography>

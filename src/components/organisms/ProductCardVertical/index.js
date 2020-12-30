@@ -4,8 +4,8 @@ import { ProductCardBuy, ProductCardContent, StatusProduct } from '../../mocules
 
 import styles from './styles.module.css';
 
-const ProductCardVertical = ({ product, type, cart, onIncrement, value }) => {
-  const { image } = product;
+const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, value }) => {
+  const { imageUrls } = product;
 
   return (
     <Box className={styles.button_container}>
@@ -13,16 +13,16 @@ const ProductCardVertical = ({ product, type, cart, onIncrement, value }) => {
         <StatusProduct {...product} />
         <Card className={styles.product_card}>
           <Box>
-            <CardActionArea className={styles.product_image}>
+            <CardActionArea href={`/product/${product.slug}`} className={styles.product_image}>
               <CardMedia
                 component="img"
                 alt="Contemplative Reptile"
                 height="140"
-                image={image}
+                image={imageUrls[0]}
                 title="Contemplative Reptile"
               />
             </CardActionArea>
-            <ProductCardContent row {...product} />
+            <ProductCardContent tag={tag} cate={category} row {...product} />
           </Box>
           <ProductCardBuy
             value={value}

@@ -1,20 +1,53 @@
-import { Template, NavBar, Header, InfoContainer } from 'components';
+import { Template, NavBar, Header, AccountInfoFormContainer, InfoContainer } from 'components';
+import { Container } from '@material-ui/core';
+import { AuthClient, CustomerClient } from 'clients';
 
-import { Container, Box } from '@material-ui/core';
+export async function getServerSideProps() {
+  try {
+    const [user, wallet] = await Promise.all([AuthClient.getUser(), CustomerClient.getWallet()]);
+    if (!user) throw new Error('Cannot get user');
+    return {
+      props: {
+        user: user.data[0],
+        wallet: wallet.data[0],
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        user: {
+          name: '',
+          phone: '',
+          email: '',
+        },
+        wallet: {
+          balance: 0,
+          name: '',
+        },
+      },
+    };
+  }
+}
 
-const MyAccount = ({ mostResearched = [] }) => {
-  const title = 'Cập nhật thông tin – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-
+const MyAccount = ({ mostResearched = [], user, wallet }) => {
+  const title = 'Cập nhật hồ sơ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title}>
       <Header />
-      <NavBar mostResearched={mostResearched} />
-      <Container maxWidth="lg">
-        <Box p={5}>
-          <InfoContainer />
-        </Box>
-      </Container>
+      <NavBar
+        mostResearched={mostResearched}
+        point={wallet.loyaltyPoint}
+        balance={wallet.balance}
+      />
+      <div style={{ backgroundColor: '#f4f7fc' }}>
+        <Container maxWidth="lg">
+          <InfoContainer value={1} title="Cập nhật hồ sơ" wallet={wallet}>
+            <AccountInfoFormContainer user={user} />
+          </InfoContainer>
+        </Container>
+      </div>
     </Template>
   );
 };
+
 export default MyAccount;

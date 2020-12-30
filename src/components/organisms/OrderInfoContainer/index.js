@@ -1,13 +1,19 @@
 import { Grid } from '@material-ui/core';
 import { OrderInfoTabs } from 'components/mocules';
+import { PATH_INFO_BILL } from 'constants/Paths';
 import styles from './styles.module.css';
 
-const OrderInfoContainer = () => (
-  <Grid container>
-    <Grid item xs={12}>
-      <div className={styles.title}> Đơn hàng của tôi</div>
+const OrderInfoContainer = ({ orders, handleSetOrderStatus }) => (
+  <Grid item container spacing={3}>
+    <Grid item xs={12} key="order-info-1">
+      <div className={styles.detail}>
+        Xem thông tin xuất hoá đơn đỏ &nbsp;
+        <a href={PATH_INFO_BILL}>tại đây</a>
+      </div>
     </Grid>
-    <OrderInfoTabs />
+    <Grid item xs={12} key="order-info-2">
+      <OrderInfoTabs orders={orders} handleSetOrderStatus={handleSetOrderStatus} />
+    </Grid>
   </Grid>
 );
 

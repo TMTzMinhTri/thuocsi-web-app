@@ -89,3 +89,33 @@
     line-height: normal!important;
     text-align: center;
 }
+
+.remove_item {
+    line-height: 0;
+    display: block;
+    padding: 10px;
+    margin-top: 20px;
+}
+.remove_item_content{
+    line-height: 1;
+    display: block;
+    width: calc(100% - 80px);
+    float: left;
+    padding: 10px;
+}
+.remove_item_image{
+    width: 80px;
+    float: left;
+}
+.remove_item_cart_name{
+    color: #343a40;
+    text-transform: capitalize;
+    transition: color 0.2s;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+}
+.remove_item_cart_price{
+    color: #00b46e;
+    font-weight: 500;
+}

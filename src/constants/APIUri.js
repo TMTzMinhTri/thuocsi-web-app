@@ -1,5 +1,5 @@
 const ACCOUNT_API_PREFIX = '/core/account/v1';
-const CUSTOMER_API_PREFIX = '/customer/customer/v1';
+const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
 
 const AUTHENTICATION = `${ACCOUNT_API_PREFIX}/authentication`;
 export const ACCOUNT_API = {
@@ -8,8 +8,24 @@ export const ACCOUNT_API = {
 
 const REGISTER = `${CUSTOMER_API_PREFIX}/register`;
 const INFO = `${CUSTOMER_API_PREFIX}/me`;
+const WALLET = `${CUSTOMER_API_PREFIX}/wallets`;
+const ORDER = `${CUSTOMER_API_PREFIX}/orders`;
+const REFERRAL = `${CUSTOMER_API_PREFIX}/referrals`;
+const PROMO = `${CUSTOMER_API_PREFIX}/promos`;
 
 export const CUSTOMER_API = {
   REGISTER,
   INFO,
+  WALLET,
+  ORDER,
+  REFERRAL,
+  PROMO,
+};
+
+const CATEGORY_API_PREFIX = '/marketplace/category/v1';
+const BRAND = `${CATEGORY_API_PREFIX}/brand`;
+const GROUP = `${CATEGORY_API_PREFIX}/group`;
+export const CATEGORY_API = {
+  BRAND,
+  GROUP,
 };

@@ -197,3 +197,72 @@ export const linkQuestionItemRight = [
 // eslint-disable-next-line operator-linebreak
 export const LINK_ALL_QUESTION =
   'https://thuocsi.zendesk.com/hc/vi/categories/360001885792-C%C3%A2u-h%E1%BB%8Fi-th%C6%B0%E1%BB%9Dng-g%E1%BA%B7p-Q-A-';
+
+export const SORT_PRODUCT = [
+  { label: 'Sản phẩm mới',
+    value: 'new_arrival',
+  },
+  { label: 'Bán chạy nhất',
+    value: 'bestsellers',
+  },
+  { label: 'Phù hợp nhất',
+    value: 'best_match',
+  },
+  { label: 'Giá: Cao đến Thấp',
+    value: 'highestprice',
+  },
+  { label: 'Giá: Thấp đến Cao',
+    value: 'lowestprice',
+  },
+  { label: 'Tên: A-Z',
+    value: 'alphabet_az',
+  },
+  { label: 'Tên: Z-A',
+    value: 'alphabet_za',
+  },
+];
+export const tabsProductData = [
+  { id: 1, label: 'Thông tin chung', value: '1' },
+  { id: 2, label: 'Chỉ định', value: '2' },
+  { id: 3, label: 'Liều lượng - Cách dùng', value: '3' },
+  { id: 4, label: 'Chống chỉ định', value: '4' },
+  { id: 5, label: 'Tương tác thuốc', value: '5' },
+  { id: 6, label: 'Bảo quản', value: '6' },
+  { id: 7, label: 'Quá liều', value: '7' },
+];
+
+export const customerFeedbackData = [
+  {
+    id: '1',
+    avatar:
+      'https://assets.thuocsi.vn/assets/testimonial/ms_anh-0f18d4903ee5d30ca79d458b799c4c2afa8e1d742e244885a218f831f68789b4.jpg',
+    customer: 'Cô Lan Anh',
+    title: 'Chủ nhà thuốc Hòa Bình - Buôn Mê Thuột',
+    comment: 'Địa chỉ đáng tin cậy. Đầy đủ hàng, giao hàng nhanh và thuận tiện',
+  },
+  {
+    id: '2',
+    avatar:
+      'https://assets.thuocsi.vn/assets/testimonial/ms_hang-2ddc116695f4f788b5968112a3185c73536f16a23a740f440c042c9d2057c611.jpg',
+    customer: 'Cô Hằng',
+    title: 'Nhà thuốc Vy Vy - Thủ Đức',
+    comment: 'Giao hàng nhanh chóng, nhân viên tư vấn nhiệt tình.',
+  },
+  {
+    id: '3',
+    avatar:
+      'https://assets.thuocsi.vn/assets/testimonial/mr_truong-c6c1718f8fd631366d2ab383f238b9642a3b10ee5d95755a973f82b5c17ad4af.jpg',
+    customer: 'Anh Trường',
+    title: 'Nhà thuốc tây số 2 - Vĩnh Long',
+    comment: 'Hàng hóa đa dạng dễ dàng tra cứu giá và đặt hàng thuốc.',
+  },
+  {
+    id: '4',
+    avatar:
+      'https://assets.thuocsi.vn/assets/testimonial/ms_hanh-faacbd8f6c93413a7cba4dc60359dca0699b13e999f6681fbe2f0495cc530162.jpg',
+    customer: 'Chị Hạnh',
+    title: 'Nhà thuốc Hạnh - Bình Thạnh',
+    comment:
+      'Chị biết và đặt thuocsi được hơn 1 năm, chị có thể dễ dàng xem giá các thuốc và cân chỉnh đơn hàng ngoài ra mỗi ngày đều có sản phẩm mới giúp nhà thuốc đa dạng hơn danh mục hàng.',
+  },
+];

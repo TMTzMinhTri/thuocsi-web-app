@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import clsx from 'clsx';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import Slider from 'react-slick';
@@ -12,14 +12,13 @@ import {
 } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { settingsCustomer } from 'constants/data';
+import { settingsCustomer, customerFeedbackData } from 'constants/data';
 
 import styles from './styles.module.css';
 
-const SliderComp = ({ feedback }) => {
+const SliderComp = () => {
   const ref = useRef({});
-
-  const sliderItem = feedback.map((item) => (
+  const sliderItem = customerFeedbackData.map((item) => (
     <Card key={`slider-${item.id}`} className={styles.root}>
       <CardHeader
         avatar={<Avatar src={item.avatar} aria-label="recipe" className={styles.large} />}
@@ -67,4 +66,4 @@ const SliderComp = ({ feedback }) => {
   );
 };
 
-export default SliderComp;
+export default memo(SliderComp);

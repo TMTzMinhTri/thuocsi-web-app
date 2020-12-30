@@ -6,7 +6,7 @@ import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { useCart, useAuth } from 'context';
 import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
-import { Toggle } from '../../mocules';
+import { Toggle, SearchInput } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
 import styles from './styles.module.css';
@@ -18,7 +18,11 @@ const useStyle = makeStyles({
   textSearch: {
     color: 'white',
   },
+  link_wrap: {
+    display: 'flex',
+  },
   link: {
+    position: 'relative',
     alignItems: 'center',
     padding: 12,
     borderBottomWidth: 3,
@@ -57,12 +61,12 @@ function renderMostSearched(data, classes) {
   );
 }
 
-export default function NavBar({ mostResearched }) {
+export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
   const { itemCount } = useCart();
   const classes = useStyle();
   const { isAuthenticated } = useAuth();
 
-  const mostSearchedEle = renderMostSearched(mostResearched, classes);
+  renderMostSearched(mostResearched, classes);
   const nav = useRef();
 
   useEffect(() => {
@@ -90,39 +94,76 @@ export default function NavBar({ mostResearched }) {
               <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
             </Link>
           </div>
-          <LinkComp className={classes.link} name="Sản phẩm" href="/" color="white" onMouseOver={onMouseOver}>
-            <Icon className={`icon-product ${styles.navIcon}`} />
-          </LinkComp>
+          <div className={classes.link_wrap}>
+            <LinkComp
+              className={classes.link}
+              name="Sản phẩm"
+              href="/products?current_tab=new_arrival"
+              color="white"
+              onMouseOver={onMouseOver}
+            >
+              <Icon className={`icon-product ${styles.navIcon}`} />
+            </LinkComp>
 
-          <LinkComp className={classes.link} name="Hoạt Chất" href="/" color="white" onMouseOver={onMouseOver}>
-            <Icon className={`icon-ingredients ${styles.navIcon}`} />
-          </LinkComp>
+            <LinkComp
+              className={classes.link}
+              name="Hoạt Chất"
+              href="/ingredients"
+              color="white"
+              onMouseOver={onMouseOver}
+            >
+              <Icon className={`icon-ingredients ${styles.navIcon}`} />
+            </LinkComp>
 
-          <LinkComp className={classes.link} name="Đặt Hàng Nhanh" href="/" color="white" onMouseOver={onMouseOver}>
-            <Icon className={`icon-quick-order ${styles.navIcon}`} />
-          </LinkComp>
+            <LinkComp
+              className={classes.link}
+              name="Đặt Hàng Nhanh"
+              href="/quick-order"
+              color="white"
+              onMouseOver={onMouseOver}
+            >
+              <Icon className={`icon-quick-order ${styles.navIcon}`} />
+            </LinkComp>
 
-          <LinkComp className={classes.link} name="Khuyến Mãi" href="/" color="white" onMouseOver={onMouseOver}>
-            <Whatshot className={styles.navIcon} />
-          </LinkComp>
+            <LinkComp
+              className={classes.link}
+              name="Khuyến Mãi"
+              href="/deals"
+              color="white"
+              onMouseOver={onMouseOver}
+            >
+              <Whatshot className={styles.navIcon} />
+            </LinkComp>
 
-          <LinkComp className={classes.link} name="Mã Giảm Giá" href="/" color="white" onMouseOver={onMouseOver}>
-            <LocalOffer className={styles.navIcon} />
-          </LinkComp>
+            <LinkComp
+              className={classes.link}
+              name="Mã Giảm Giá"
+              href="/promo-codes"
+              color="white"
+              onMouseOver={onMouseOver}
+            >
+              <span className={styles.badge}>Mới</span>
+              <LocalOffer className={styles.navIcon} />
+            </LinkComp>
+          </div>
+
           {isAuthenticated ? (
-            <div className={styles.navBarRight}>
-              <LinkComp className={styles.navBarRightLink} href="/cart">
-                <IconButton aria-label="cart">
-                  <Badge badgeContent={itemCount} invisible={false} color="secondary">
-                    <LocalMallOutlined className={styles.rIcon} />
-                  </Badge>
-                </IconButton>
-              </LinkComp>
-              <Toggle />
-            </div>
+            <>
+              <SearchInput className={styles.searchInput} />
+              <div className={styles.navBarRight}>
+                <LinkComp className={styles.navBarRightLink} href="/cart">
+                  <IconButton aria-label="cart">
+                    <Badge badgeContent={itemCount} invisible={false} color="secondary">
+                      <LocalMallOutlined className={styles.rIcon} />
+                    </Badge>
+                  </IconButton>
+                </LinkComp>
+                <Toggle balance={balance} point={point} />
+              </div>
+            </>
           ) : null}
         </div>
-        {mostSearchedEle}
+        {/* {mostSearchedEle} */}
       </Container>
     </div>
   );

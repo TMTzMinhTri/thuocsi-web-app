@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { Paper, FormHelperText, InputAdornment, IconButton, Grid } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { InputInfo, InfoFormControl } from 'components/atoms';
+import { InfoInput, InfoFormControl } from 'components/atoms';
 import styles from './styles.module.css';
 
-const AccountForm = () => {
+const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
     setIsShowPassword(!isShowPassword);
   };
+
   const IconEndPassword = () => (
     <InputAdornment className={styles.padding_none}>
       <IconButton onClick={handleClickShowPassword}>
-        {isShowPassword ? <Visibility /> : <VisibilityOff />}
+        {isShowPassword ? <VisibilityOff /> : <Visibility />}
       </IconButton>
     </InputAdornment>
   );
@@ -22,22 +23,39 @@ const AccountForm = () => {
       <h1 className={styles.title}> Thông tin tài khoản </h1>
       <Grid container>
         <InfoFormControl xs={12} isRequired label="Họ Tên khách hàng" htmlFor="name">
-          <InputInfo id="name" placeholder="Trần Thị B" />
+          <InfoInput
+            id="name"
+            placeholder="Trần Thị B"
+            value={name}
+            onChange={(e) => handleSetValue('name', e.target.value)}
+          />
         </InfoFormControl>
 
         <InfoFormControl xs={12} isRequired label="Số Điện Thoại" htmlFor="phone">
-          <InputInfo id="phone" placeholder="0912233311" />
+          <InfoInput
+            id="phone"
+            placeholder="0912233311"
+            value={phone}
+            onChange={(e) => handleSetValue('phone', e.target.value)}
+          />
         </InfoFormControl>
 
         <InfoFormControl xs={12} isRequired label="Email" htmlFor="email">
-          <InputInfo id="email" placeholder="dat.le@thuocsi.vn" />
+          <InfoInput
+            id="email"
+            placeholder="tranthib@email.com"
+            value={email}
+            onChange={(e) => handleSetValue('email', e.target.value)}
+          />
         </InfoFormControl>
 
-        <InfoFormControl xs={12} isRequired label="Mật khẩu mới" htmlFor="newPassword">
-          <InputInfo
-            id="newPassword"
+        <InfoFormControl xs={12} isRequired label="Mật khẩu mới" htmlFor="password">
+          <InfoInput
+            id="password"
             type={isShowPassword ? 'text' : 'password'}
             endAdornment={<IconEndPassword />}
+            value={password}
+            onChange={(e) => handleSetValue('password', e.target.value)}
           />
           <FormHelperText>Mật khẩu dài tối thiểu 6 ký tự</FormHelperText>
         </InfoFormControl>
