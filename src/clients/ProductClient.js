@@ -34,6 +34,11 @@ async function loadDataCart(ctx) {
   return res.data;
 }
 
+async function loadDataPormotion(ctx) {
+  const res = await GET({ url: '/mock/product', mock: true, ctx });
+  return res.data;
+}
+
 async function loadDataProduct(ctx) {
   const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true });
   if (!isValid(result)) return result;
@@ -65,4 +70,5 @@ export default {
   loadDataProduct,
   loadDataCart,
   loadDataProductDetail,
+  loadDataPormotion,
 };

@@ -16,7 +16,7 @@ const ProductCardBuy = ({
   max_product: maxProduct,
   not_support_delivery: noSupportDelivery,
   price,
-  dealPrice,
+  // dealPrice,
   hasEvent,
   deal_end_day: dealEndDay,
   row,
@@ -87,7 +87,7 @@ const ProductCardBuy = ({
                 row ? styles.price_wrapper : clsx(styles.price_wrapper, styles.price_wrapper_column)
               }
             >
-              <Typography className={styles.deal_price}>{formatCurrency(dealPrice)}</Typography>
+              <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
               <Typography className={styles.old_price}>{formatCurrency(price)}</Typography>
             </Box>
           ) : (
