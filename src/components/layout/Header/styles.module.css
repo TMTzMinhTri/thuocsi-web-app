@@ -1,11 +1,17 @@
 .header_info {
   background-color: #f4f7fc;
-  justify-content: flex-end !important;
-  align-items: center !important;
+  color: #6c757d !important;
+}
+
+.header_info_wrap {
   display: flex;
+  align-items: center !important;
+  justify-content: flex-end !important;
   height: 32px;
   padding-right: 32px;
-  color: #6c757d !important;
+  max-width: 1140px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .link {
@@ -23,6 +29,8 @@
 }
 
 .login {
+  max-width: 1140px;
+  margin: 0 auto;
   padding: 15px !important;
   display: flex;
   justify-content: space-between !important;

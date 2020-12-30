@@ -1,14 +1,19 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useModal } from 'hooks';
 import { makeStyles, Typography, Badge, IconButton, Icon, Container } from '@material-ui/core';
 import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { useCart, useAuth } from 'context';
 import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { SignUpModal, SignInModal, ForgetPasswordModal } from '../../organisms';
 import { Toggle, SearchInput } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
+
 import styles from './styles.module.css';
 
 const { LinkStyled } = LinkStyledClass;
@@ -62,12 +67,25 @@ function renderMostSearched(data, classes) {
 }
 
 export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
+  const [isShowingLogin, toggleLogin] = useModal();
+  const [isShowingSignUp, toggleSignUp] = useModal();
+  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { itemCount } = useCart();
   const classes = useStyle();
   const { isAuthenticated } = useAuth();
 
   renderMostSearched(mostResearched, classes);
   const nav = useRef();
+
+  const handleChangeForget = useCallback(() => {
+    toggleLogin();
+    toggleForgetPassword();
+  }, [toggleLogin, toggleForgetPassword]);
+
+  const handleChangeSignIn = useCallback(() => {
+    toggleSignUp();
+    toggleLogin();
+  }, [toggleSignUp, toggleLogin]);
 
   useEffect(() => {
     if (!nav.current) return undefined;
@@ -87,7 +105,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
 
   return (
     <div ref={nav} className={styles.navBar}>
-      <Container>
+      <Container className={styles.container}>
         <div className={styles.navBarContaint}>
           <div className={styles.logoNav}>
             <Link href="/">
@@ -161,7 +179,32 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
                 <Toggle balance={balance} point={point} />
               </div>
             </>
-          ) : null}
+          ) : (
+            <>
+              <SignInModal
+                visible={isShowingLogin}
+                onClose={toggleLogin}
+                onChangeForget={handleChangeForget}
+              />
+              <ForgetPasswordModal
+                visible={isShowingForgetPassword}
+                onClose={toggleForgetPassword}
+              />
+              <SignUpModal
+                visible={isShowingSignUp}
+                onClose={toggleSignUp}
+                onChangeSignIn={handleChangeSignIn}
+              />
+              <div className={styles.btn_no_auth_section}>
+                <IconButton onClick={toggleLogin} className={classes.link}>
+                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
+                </IconButton>
+                <IconButton onClick={toggleSignUp} className={classes.link}>
+                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
+                </IconButton>
+              </div>
+            </>
+          )}
         </div>
         {/* {mostSearchedEle} */}
       </Container>
