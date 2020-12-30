@@ -93,4 +93,11 @@ export function isValid(resp) {
   return resp && resp.data && resp.status && resp.status === 'OK';
 }
 
-export default { GET, POST, PUT, DELETE, isValid, getSessionToken };
+export default {
+  GET,
+  POST,
+  PUT,
+  DELETE,
+  isValid,
+  getSessionToken,
+};

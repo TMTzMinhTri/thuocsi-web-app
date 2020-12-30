@@ -29,17 +29,16 @@ import {
   NavBar,
   Header,
 } from 'components';
-import { ProductClient, AuthClient } from 'clients';
+import { ProductClient, doWithServerSide } from 'clients';
 
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  return AuthClient.doWithLoggedInUser(ctx, async () => {
-    const [products] = await Promise.all([ProductClient.loadDataProductDetail(ctx)]);
+  return doWithServerSide(ctx, async () => {
+    const products = await ProductClient.loadDataProductDetail(ctx);
     return {
       props: {
         products,
-
       },
     };
   });
@@ -143,7 +142,11 @@ export default function ProductDetail({ products, isAuthenticated }) {
                               <TableBody>
                                 {ingredient.map((row) => (
                                   <TableRow key={row.name}>
-                                    <TableCell className={styles.border_right} component="th" scope="row">
+                                    <TableCell
+                                      className={styles.border_right}
+                                      component="th"
+                                      scope="row"
+                                    >
                                       <a className={styles.text_capitalize} href="/">
                                         {row.name}
                                       </a>
@@ -163,7 +166,9 @@ export default function ProductDetail({ products, isAuthenticated }) {
                       </div>
                     </>
                   ) : (
-                    <CustomButton backgroundColor="#e1a006" className={styles.signin_btn}>Đăng nhập để xem giá</CustomButton>
+                    <CustomButton backgroundColor="#e1a006" className={styles.signin_btn}>
+                      Đăng nhập để xem giá
+                    </CustomButton>
                   )}
                 </Grid>
                 <Grid className={styles.product_content_wrap} item md={5}>
@@ -180,7 +185,7 @@ export default function ProductDetail({ products, isAuthenticated }) {
                       <Button
                         className={styles.subscribe_btn}
                         href="https://sc-stg.thuocsi.vn"
-                      // target="_blank"
+                        // target="_blank"
                         title="Đăng ký bán hàng cùng thuocsi"
                       >
                         Đăng ký

@@ -13,25 +13,6 @@ export async function getUserWithContext(ctx) {
   return { isAuthenticated: true, user: result.data[0] };
 }
 
-export async function doWithLoggedInUser(ctx, callback) {
-  const ss = getSessionToken(ctx);
-  if (!ss) {
-    return { props: { isAuthenticated: false } };
-  }
-  let result = callback(ctx);
-  // wait for page promise
-  if (result && result instanceof Promise) {
-    result = await result;
-  }
-  // set isAuthenticated = true if is is undefined
-  result = result || {};
-  result.props = result.props || {};
-  if (typeof result.props.isAuthenticated === 'undefined') {
-    result.props.isAuthenticated = true;
-  }
-  return result;
-}
-
 export async function login(body) {
   const result = await POST({
     url: ACCOUNT_API.AUTHENTICATION,
@@ -50,4 +31,4 @@ export async function getUser() {
   return result;
 }
 
-export default { login, getUser, signUp, doWithLoggedInUser, getUserWithContext };
+export default { login, getUser, signUp, getUserWithContext };
