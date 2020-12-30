@@ -9,7 +9,7 @@
   justify-content: flex-end !important;
   height: 32px;
   padding-right: 32px;
-  max-width: 1140px;
+  max-width: 1290px;
   margin: 0 auto;
   width: 100%;
 }
@@ -29,7 +29,7 @@
 }
 
 .login {
-  max-width: 1140px;
+  max-width: 1290px;
   margin: 0 auto;
   padding: 15px !important;
   display: flex;
@@ -39,6 +39,7 @@
 
 .logo {
   padding: 15px;
+  cursor: pointer;
 }
 
 .div_buttons {
@@ -47,4 +48,20 @@
 
 .buttons {
   padding: 15px;
+}
+
+.SearchInput {
+  width: 40%!important;
+  border-radius: 20px!important;
+}
+
+.notiIcon {
+  color: #919aa3;
+  margin-right: 10px;
+}
+
+.rSection {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
