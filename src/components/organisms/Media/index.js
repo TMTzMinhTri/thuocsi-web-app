@@ -7,7 +7,7 @@ import styles from './styles.module.css';
 
 const renderMediaItem = (data) =>
   data.map((item) => (
-    <Grid key={`media-${item.id}`} className={styles.hover_link} item xs={6} sm={4} md={3} lg={2}>
+    <Grid key={`media-${item.id}`} className={styles.hover_link} item xs={6} sm={4} md={3}>
       <Image
         className={item.dark && styles.dark}
         src={item.url}
