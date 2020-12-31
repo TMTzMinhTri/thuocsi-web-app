@@ -40,7 +40,7 @@ async function loadDataPormotion(ctx) {
 }
 
 async function loadDataProduct(ctx) {
-  const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true });
+  const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true, isBasic: true });
   if (!isValid(result)) return result;
   let cart = {};
   let productListWithPrice = {};
