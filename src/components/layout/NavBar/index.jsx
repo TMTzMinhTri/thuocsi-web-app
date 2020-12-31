@@ -107,62 +107,64 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
     <div ref={nav} className={styles.navBar}>
       <Container className={styles.container}>
         <div className={styles.navBarContaint}>
-          <div className={styles.logoNav}>
-            <Link href="/">
-              <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
-            </Link>
-          </div>
-          <div className={classes.link_wrap}>
-            <LinkComp
-              className={classes.link}
-              name="Sản phẩm"
-              href="/products?current_tab=new_arrival"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <Icon className={`icon-product ${styles.navIcon}`} />
-            </LinkComp>
+          <div className={styles.leftNavBar}>
+            <div className={styles.logoNav}>
+              <Link href="/">
+                <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
+              </Link>
+            </div>
+            <div className={classes.link_wrap}>
+              <LinkComp
+                className={classes.link}
+                name="Sản phẩm"
+                href="/products?current_tab=new_arrival"
+                color="white"
+                onMouseOver={onMouseOver}
+              >
+                <Icon className={`icon-product ${styles.navIcon}`} />
+              </LinkComp>
 
-            <LinkComp
-              className={classes.link}
-              name="Hoạt Chất"
-              href="/ingredients"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <Icon className={`icon-ingredients ${styles.navIcon}`} />
-            </LinkComp>
+              <LinkComp
+                className={classes.link}
+                name="Hoạt Chất"
+                href="/ingredients"
+                color="white"
+                onMouseOver={onMouseOver}
+              >
+                <Icon className={`icon-ingredients ${styles.navIcon}`} />
+              </LinkComp>
 
-            <LinkComp
-              className={classes.link}
-              name="Đặt Hàng Nhanh"
-              href="/quick-order"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <Icon className={`icon-quick-order ${styles.navIcon}`} />
-            </LinkComp>
+              <LinkComp
+                className={classes.link}
+                name="Đặt Hàng Nhanh"
+                href="/quick-order"
+                color="white"
+                onMouseOver={onMouseOver}
+              >
+                <Icon className={`icon-quick-order ${styles.navIcon}`} />
+              </LinkComp>
 
-            <LinkComp
-              className={classes.link}
-              name="Khuyến Mãi"
-              href="/deals"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <Whatshot className={styles.navIcon} />
-            </LinkComp>
+              <LinkComp
+                className={classes.link}
+                name="Khuyến Mãi"
+                href="/deals"
+                color="white"
+                onMouseOver={onMouseOver}
+              >
+                <Whatshot className={styles.navIcon} />
+              </LinkComp>
 
-            <LinkComp
-              className={classes.link}
-              name="Mã Giảm Giá"
-              href="/promo-codes"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <span className={styles.badge}>Mới</span>
-              <LocalOffer className={styles.navIcon} />
-            </LinkComp>
+              <LinkComp
+                className={classes.link}
+                name="Mã Giảm Giá"
+                href="/promo-codes"
+                color="white"
+                onMouseOver={onMouseOver}
+              >
+                <span className={styles.badge}>Mới</span>
+                <LocalOffer className={styles.navIcon} />
+              </LinkComp>
+            </div>
           </div>
 
           {isAuthenticated ? (
