@@ -71,8 +71,6 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
   const classes = useStyle();
   const { isAuthenticated } = useAuth();
 
-  console.log('pageName', pageName);
-
   renderMostSearched(mostResearched, classes);
   const nav = useRef();
 

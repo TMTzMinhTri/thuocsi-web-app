@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductHorizontalSkeleton } from 'components/atoms';
+import { ProductHorizontalSkeleton } from 'components/mocules';
 import { Grid } from '@material-ui/core';
 import styles from './style.module.css';
 

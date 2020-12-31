@@ -20,7 +20,8 @@ import { Pagination } from '@material-ui/lab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
-import { SearchResultText, GridSkeleton } from 'components/mocules';
+import { SearchResultText } from 'components/mocules';
+import GridSkeleton from '../GridSkeleton';
 
 import { SORT_PRODUCT } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
