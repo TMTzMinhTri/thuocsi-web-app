@@ -5,6 +5,7 @@ import { Template, NavBar, Header, BannerSlider } from 'components';
 export default function LandingPage(props) {
   const { mostResearched = [], infoBanner = [] } = props;
   const title = 'Thuocsi.vn';
+  const pageName = 'home';
 
   const DynamicWhyBuymed = dynamic(() => import('components/organisms/WhyBuymed'));
   const DynamicCommonQuestion = dynamic(() => import('components/mocules/CommonQuestion'));
@@ -15,7 +16,7 @@ export default function LandingPage(props) {
   return (
     <Template title={title}>
       <Header {...props} />
-      <NavBar mostResearched={mostResearched} />
+      <NavBar mostResearched={mostResearched} pageName={pageName} />
       <BannerSlider infoBanner={infoBanner} />
       <DynamicWhyBuymed />
       <DynamicCommonQuestion />
