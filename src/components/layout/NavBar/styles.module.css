@@ -132,3 +132,11 @@
         padding: 6px 4px;
     }
 }
+@media (max-width: 767px){
+    .leftNavBar a{
+        padding: 10px 7px;
+    }
+    .leftNavBar a p{
+        display: none;
+    }
+}
