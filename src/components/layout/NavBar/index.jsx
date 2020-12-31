@@ -9,6 +9,7 @@ import { useCart, useAuth } from 'context';
 import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import clsx from 'clsx';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from '../../organisms';
 import { Toggle, SearchInput } from '../../mocules';
 // comp
@@ -44,10 +45,6 @@ const useStyle = makeStyles({
   },
 });
 
-function onMouseOver(e) {
-  e.target.style.background = 'red';
-}
-
 function renderMostSearched(data, classes) {
   if (!data || data.length === 0) {
     return null;
@@ -66,7 +63,7 @@ function renderMostSearched(data, classes) {
   );
 }
 
-export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
+export default function NavBar({ mostResearched, point = 0, balance = 0, pageName = [] }) {
   const [isShowingLogin, toggleLogin] = useModal();
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
@@ -107,62 +104,52 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
     <div ref={nav} className={styles.navBar}>
       <Container className={styles.container}>
         <div className={styles.navBarContaint}>
-          <div className={styles.logoNav}>
-            <Link href="/">
-              <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
-            </Link>
-          </div>
-          <div className={classes.link_wrap}>
-            <LinkComp
-              className={classes.link}
-              name="Sản phẩm"
-              href="/products?current_tab=new_arrival"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <Icon className={`icon-product ${styles.navIcon}`} />
-            </LinkComp>
+          <div className={styles.leftNavBar}>
+            <div className={styles.logoNav}>
+              <Link href="/">
+                <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
+              </Link>
+            </div>
+            <div className={classes.link_wrap}>
+              <LinkComp
+                className={clsx(
+                  classes.link,
+                  (pageName === 'products' || pageName === 'manufacturers' || pageName === 'categories') && styles.active,
+                )}
+                name="Sản phẩm"
+                href="/products?current_tab=new_arrival"
+                color="white"
+              >
+                <Icon className={`icon-product ${styles.navIcon}`} />
+              </LinkComp>
 
-            <LinkComp
-              className={classes.link}
-              name="Hoạt Chất"
-              href="/ingredients"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <Icon className={`icon-ingredients ${styles.navIcon}`} />
-            </LinkComp>
+              <LinkComp className={clsx(classes.link, pageName === 'ingredients' && styles.active)} name="Hoạt Chất" href="/ingredients" color="white">
+                <Icon className={`icon-ingredients ${styles.navIcon}`} />
+              </LinkComp>
 
-            <LinkComp
-              className={classes.link}
-              name="Đặt Hàng Nhanh"
-              href="/quick-order"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <Icon className={`icon-quick-order ${styles.navIcon}`} />
-            </LinkComp>
+              <LinkComp
+                className={clsx(classes.link, pageName === 'quick-order' && styles.active)}
+                name="Đặt Hàng Nhanh"
+                href="/quick-order"
+                color="white"
+              >
+                <Icon className={`icon-quick-order ${styles.navIcon}`} />
+              </LinkComp>
 
-            <LinkComp
-              className={classes.link}
-              name="Khuyến Mãi"
-              href="/deals"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <Whatshot className={styles.navIcon} />
-            </LinkComp>
+              <LinkComp className={clsx(classes.link, pageName === 'deals' && styles.active)} name="Khuyến Mãi" href="/deals" color="white">
+                <Whatshot className={styles.navIcon} />
+              </LinkComp>
 
-            <LinkComp
-              className={classes.link}
-              name="Mã Giảm Giá"
-              href="/promo-codes"
-              color="white"
-              onMouseOver={onMouseOver}
-            >
-              <span className={styles.badge}>Mới</span>
-              <LocalOffer className={styles.navIcon} />
-            </LinkComp>
+              <LinkComp
+                className={clsx(classes.link, pageName === 'promo-codes' && styles.active)}
+                name="Mã Giảm Giá"
+                href="/promo-codes"
+                color="white"
+              >
+                <span className={styles.badge}>Mới</span>
+                <LocalOffer className={styles.navIcon} />
+              </LinkComp>
+            </div>
           </div>
 
           {isAuthenticated ? (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Button } from '@material-ui/core';
+import { Box, Grid, Button, Container } from '@material-ui/core';
 import { linkQuestionItemRight, linkQuestionItemLeft, LINK_ALL_QUESTION } from 'constants/data';
 import { LinkComp } from '../../atoms';
 import styles from './styles.module.css';
@@ -13,7 +13,8 @@ const renderLinkItem = (data) =>
 
 const CommonQuestion = () => (
   <Box py={5} className={styles.wrapper}>
-    <Box maxWidth="1140px" m="auto">
+    <Container maxWidth="1140px" fixed>
+
       <Box
         className={styles.center}
         component="h2"
@@ -25,7 +26,7 @@ const CommonQuestion = () => (
         Câu hỏi thường gặp
       </Box>
 
-      <Grid container>
+      <Grid container spacing={3}>
         <Grid container style={{ display: 'flex' }} direction="column" item sm={6}>
           {renderLinkItem(linkQuestionItemLeft)}
         </Grid>
@@ -43,7 +44,7 @@ const CommonQuestion = () => (
           Xem tất cả câu hỏi
         </Button>
       </Box>
-    </Box>
+    </Container>
   </Box>
 );
 

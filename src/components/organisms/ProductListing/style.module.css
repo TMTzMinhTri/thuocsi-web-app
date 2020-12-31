@@ -109,7 +109,6 @@
 .product_main [class*="product_title"]{
   color: #00b46e;
   font-weight: 500;
-  font-size: 2.5rem;
   text-transform: capitalize;
   margin-bottom: 1rem !important;
 }
@@ -163,5 +162,21 @@
   .customGrid{
     max-width: 16.666667% !important;
     flex-basis: 16.666667% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .product_main [class*="product_title"]{
+    font-size: 1.8rem;
+  }
+}
+@media (min-width: 1024px) {
+  .product_main [class*="product_title"]{
+    font-size: 2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .product_main [class*="product_title"]{
+    font-size: 2.5rem;
   }
 }
