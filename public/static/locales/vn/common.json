@@ -1,0 +1,11 @@
+{
+  "h1": "a Simple example",
+
+  "api.login.NOT_FOUND": "Không tìm thấy thông tin người dùng",
+  "api": {
+    "login": {
+      "SUCCESS": "Đăng nhập thành công",
+      "NOT_FOUND": "Không tìm thấy thông tin người dùng"
+    }
+  }
+}
