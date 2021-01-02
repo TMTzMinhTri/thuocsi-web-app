@@ -6,8 +6,8 @@ const testingI18n = ({ t }) => {
 
   return (
     <>
-      <h1>{t('loginNotFound')}</h1>
-      <h1>{t('error')}</h1>
+      <h1>{t('login.NOT_FOUND')}</h1>
+      <h1>{t('login.success')}</h1>
     </>
   );
 };
