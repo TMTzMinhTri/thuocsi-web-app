@@ -17,6 +17,6 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Index(props) {
-  return <LandingPage {...props} />;
-}
+const Index = (props) => <LandingPage {...props} />;
+
+export default Index;

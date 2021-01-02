@@ -25,6 +25,7 @@
     "clsx": "latest",
     "js-cookie": "^2.2.1",
     "next": "latest",
+    "next-i18next": "^7.0.1",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
