@@ -21,11 +21,9 @@ const SignInModal = React.memo((props) => {
       .then((result) => {
         if (!isValid(result)) {
           NotifyUtils.warn(t('login.NOT_FOUND'));
-          // NotifyUtils.warn(t('Đăng nhập lỗi'));
-          setHasAlert('Đã có nhiều lỗi xảy ra');
           return;
         }
-        NotifyUtils.success('Đăng nhập thành công.');
+        NotifyUtils.success(t('login.success'));
         const userInfo = result.data[0];
         login(userInfo, rememberMe === '');
 
@@ -59,4 +57,4 @@ const SignInModal = React.memo((props) => {
   );
 });
 
-export default i18n.withTranslation('errors')(SignInModal);
+export default i18n.withTranslation('apiErrors')(SignInModal);
