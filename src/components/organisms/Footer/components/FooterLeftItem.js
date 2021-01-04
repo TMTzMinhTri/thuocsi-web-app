@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,6 +23,11 @@ import styles from '../styles.module.css';
 const FooterLeftItem = () => {
   const router = useRouter();
   const [open, toggleOpen] = useModal();
+  const [dialogUrl, setDialogUrl] = useState('');
+  const handleToggleOpen = (url) => {
+    setDialogUrl(url);
+    toggleOpen();
+  };
   return (
     <Grid item xs={6}>
       <div>
@@ -71,39 +76,39 @@ const FooterLeftItem = () => {
                 Giới thiệu về thuocsi.vn
               </Typography>
             </Link>
-            <div className="foo" onClick={toggleOpen} role="button" aria-hidden="true">
+            <Link href="/how-to-order">
               <Typography className={styles.link}>Hướng dẫn đặt hàng</Typography>
-            </div>
-            <Link href="/3">
-              <Typography className={styles.link}>Chính sách bảo mật</Typography>
             </Link>
-            <Link href="/4">
+            <div className="foo" onClick={() => handleToggleOpen('privacy-policy')} role="button" aria-hidden="true">
+              <Typography className={styles.link}>Chính sách bảo mật</Typography>
+            </div>
+            <Link href="/faq">
               <Typography className={styles.link}>Câu hỏi thường gặp (Q&A)</Typography>
             </Link>
-            <Link href="/5">
+            <div className="foo" onClick={() => handleToggleOpen('general-policy')} role="button" aria-hidden="true">
               <Typography className={styles.link}>Chính sách quy định chung</Typography>
-            </Link>
-            <Link href="/6">
+            </div>
+            <Link href="/career">
               <Typography className={styles.link}>Tuyển dụng | Recruitment</Typography>
             </Link>
           </Grid>
           <Grid sm={6} item>
             <>
-              <Link href="/7">
+              <div className="foo" onClick={() => handleToggleOpen('conditions-of-use')} role="button" aria-hidden="true">
                 <Typography className={styles.link}>Điều khoản sử dụng</Typography>
-              </Link>
-              <Link href="/8">
+              </div>
+              <div className="foo" onClick={() => handleToggleOpen('dispute-resolution')} role="button" aria-hidden="true">
                 <Typography className={styles.link}>Cơ chế giải quyết tranh chấp</Typography>
-              </Link>
-              <Link href="/9">
+              </div>
+              <div className="foo" onClick={() => handleToggleOpen('terms-and-condition')} role="button" aria-hidden="true">
                 <Typography className={styles.link}>Thỏa thuận về dịch vụ TMDT</Typography>
-              </Link>
-              <Link href="/10">
+              </div>
+              <div className="foo" role="button" aria-hidden="true">
                 <Typography className={styles.link}>Quy chế hoạt động</Typography>
-              </Link>
-              <Link href="/11">
+              </div>
+              <a className={styles.alink} href="/register-with-us" target="_blank">
                 <Typography className={styles.link}>Đăng ký bán hàng cùng thuocsi</Typography>
-              </Link>
+              </a>
             </>
           </Grid>
         </Grid>
@@ -136,7 +141,7 @@ const FooterLeftItem = () => {
         <Dialog
           open={open}
           handleClose={toggleOpen}
-          url="privacy-policy"
+          url={dialogUrl}
           maxWidth="md"
         />
         )}

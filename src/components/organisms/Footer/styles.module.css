@@ -31,11 +31,15 @@
     font-weight: 500!important;
     margin-bottom: 1rem!important;
 }
-
+.alink{
+    color: #fff;
+}
+.alink:hover {
+    color: #00b46e
+}
 .link:hover {
     color: #00b46e
 }
-
 .footer_header {
     text-transform: uppercase;
     color: #00b46e;

@@ -11,7 +11,7 @@ const GridLineItem = ({ counts = [] }) => {
     );
   }
   return (
-    <Grid item className={styles.root} xs={12} spacing={2}>
+    <Grid item className={styles.root} xs={12}>
       {rows}
     </Grid>
   );
