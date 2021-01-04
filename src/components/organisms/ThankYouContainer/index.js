@@ -2,7 +2,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import ErrorIcon from '@material-ui/icons/Error';
 import Link from 'next/link';
 import { Typography, Grid, Button } from '@material-ui/core';
-import { EditOrderButton } from 'components/atoms';
+import { EditOrderButton } from 'components/mocules';
 import { DateTimeUtils } from 'utils';
 import { useRouter } from 'next/router';
 import { MY_ORDER_URL } from 'constants/Paths';

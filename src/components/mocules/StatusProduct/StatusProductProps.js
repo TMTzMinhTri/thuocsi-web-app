@@ -1,4 +1,5 @@
-import { RibbonPriceUp, RibbonPriceDown } from '../../atoms';
+import RibbonPriceUp from '../RibbonPriceUp';
+import RibbonPriceDown from '../RibbonPriceDown';
 
 const StatusProductProps = {
   price_up: <RibbonPriceUp />,

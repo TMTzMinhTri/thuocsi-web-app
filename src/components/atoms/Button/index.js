@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
-import Button from './Button';
+import { Button } from '@material-ui/core';
+
+const CustomButton = memo((props) => {
+  const { btnType, children, className, suffix, color, ...rest } = props;
+  return (
+    <Button className={className} {...rest}>
+      {children}
+      {suffix}
+    </Button>
+  );
+});
 
 const buttonTypes = ({ theme, backgroundColor, color }) => ({
   primary: {
@@ -15,15 +25,43 @@ const buttonTypes = ({ theme, backgroundColor, color }) => ({
     color: color || theme.button.color.primary,
     background: backgroundColor || theme.button.background.warning,
   },
+
 });
 
-const CustomButton = styled(Button)`
+const StyledButton = styled(CustomButton)`
   color: ${({ theme, btnType = 'primary', color }) =>
     buttonTypes({ theme, color })[btnType].color} !important;
   background-color: ${({ theme, btnType = 'primary', backgroundColor }) =>
     buttonTypes({ theme, backgroundColor })[btnType].background} !important;
   margin-right: 10px !important;
   border-radius: 50px !important;
+
+  &.my-order__button {
+    border-radius: 20px !important;
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.875rem !important;
+    width: 9rem !important;
+    margin: 0.25em !important;
+    text-transform: none !important;
+    background-color: transparent !important;
+
+    &--secondary {
+      color: #212529 !important;
+      border: 1px solid #f9b514 !important;
+      background-color: #f9b514 !important;
+    }
+
+    &--outlined-blue {
+      color: #17a2b8 !important;
+      border: 1px solid #17a2b8 !important;
+    }
+
+    &--outlined-green {
+      color: #00b46e !important;
+      border: 1px solid #00b46e !important;
+    }
+  }
+  
 `;
 
-export default React.memo(CustomButton);
+export default React.memo(StyledButton);

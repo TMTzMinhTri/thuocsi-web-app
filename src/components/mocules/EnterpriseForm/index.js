@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Grid, Button, InputAdornment, useMediaQuery } from '@material-ui/core';
-import { InfoInput, InfoFormControl } from 'components/atoms';
+import { InfoFormControl } from 'components/atoms';
+import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
 
