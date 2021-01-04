@@ -29,3 +29,9 @@ export const CATEGORY_API = {
   BRAND,
   GROUP,
 };
+
+const CONTENT_API_PREFIX = '/marketplace/content/v1';
+const STATIC_CONTENT = `${CONTENT_API_PREFIX}/static`;
+export const CONTENT_API = {
+  STATIC_CONTENT,
+};

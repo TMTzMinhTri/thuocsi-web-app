@@ -27,3 +27,5 @@ export { default as OrderDetailInfo } from './OrderDetailInfo';
 export { default as OrderDetailProduct } from './OrderDetailProduct';
 export { default as SearchResultText } from './SearchResultText';
 export { default as ProductHorizontalSkeleton } from './Skeleton/ProductHorizontal';
+export { default as LineItemSkeleton } from './Skeleton/LineItem';
+export { default as Dialog } from './Dialog';

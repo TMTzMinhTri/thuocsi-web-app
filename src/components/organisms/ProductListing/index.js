@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { SearchResultText } from 'components/mocules';
-import GridSkeleton from '../GridSkeleton';
+import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
 
 import { SORT_PRODUCT } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
@@ -158,7 +158,7 @@ export default function ProductListing({
       </div>
       <div className={styles.product_main}>
         {isloading ?
-          <GridSkeleton counts={12} /> : (
+          <GridSkeletonProductHorizontal counts={12} /> : (
             <>
               <div>
                 <Typography className="product_title" variant="h4" component="h1">
