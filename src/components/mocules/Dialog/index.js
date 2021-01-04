@@ -44,7 +44,7 @@ export default function CustomizedDialogs({ url, open, maxWidth, handleClose }) 
       setLoading(false);
     }
     fetchData();
-  }, []);
+  }, [url]);
 
   return (
     <div className={styles.custom}>
