@@ -1,10 +1,9 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button } from 'components/atoms';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
-import styles from './styles.module.css';
 
 const ResponseButton = () => (
-  <Button classes={{ root: styles.response_button }} startIcon={<InsertCommentIcon />}>
+  <Button startIcon={<InsertCommentIcon />} className="my-order__button my-order__button--outlined-blue">
     Gửi phản hồi
   </Button>
 );
