@@ -24,5 +24,6 @@ export { default as ProductListing } from './ProductListing';
 export { default as LoadingScreen } from './LoadingScreen';
 export { default as OrderDetailContainer } from './OrderDetailContainer';
 export { default as PromotionProduct } from './PromotionProduct';
-export { default as GridSkeleton } from './GridSkeleton';
+export { default as GridSkeletonProductHorizontal } from './Skeleton/GirdSkeleton';
+export { default as GridLineItem } from './Skeleton/LineItem';
 export { default as ThankYouContainer } from './ThankYouContainer';

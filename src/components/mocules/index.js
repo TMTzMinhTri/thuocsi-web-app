@@ -34,3 +34,5 @@ export { default as NewBadge } from './NewBadge';
 export { default as RibbonPriceUp } from './RibbonPriceUp';
 export { default as RibbonPriceDown } from './RibbonPriceDown';
 export { default as ProductHorizontalSkeleton } from './Skeleton/ProductHorizontal';
+export { default as LineItemSkeleton } from './Skeleton/LineItem';
+export { default as Dialog } from './Dialog';
