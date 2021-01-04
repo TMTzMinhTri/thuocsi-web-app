@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { GridLineItem } from 'components/organisms';
-import { Content } from 'clients';
+import { ContentClient } from 'clients';
 import styles from './styles.module.css';
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -39,7 +39,7 @@ export default function CustomizedDialogs({ url, open, maxWidth, handleClose }) 
 
   useEffect(() => {
     async function fetchData() {
-      const response = await Content.loadContent(url);
+      const response = await ContentClient.loadContent(url);
       setData(response);
       setLoading(false);
     }
