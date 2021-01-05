@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useAuth } from 'context';
 import { AuthClient, isValid } from 'clients';
 import { useRouter } from 'next/router';
+import { NotifyUtils } from 'utils';
+import { i18n } from 'i18n-lib';
 import { AuthModal, SignInForm } from '../../mocules';
 
 const SignInModal = React.memo((props) => {
-  const { className, visible, onClose, onChangeForget } = props;
+  const { className, visible, onClose, onChangeForget, t } = props;
   const [hasAlert, setHasAlert] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -18,9 +20,10 @@ const SignInModal = React.memo((props) => {
     AuthClient.login(data)
       .then((result) => {
         if (!isValid(result)) {
-          setHasAlert('Đã có nhiều lỗi xảy ra');
+          NotifyUtils.warn(t('login.NOT_FOUND'));
           return;
         }
+        NotifyUtils.success(t('login.success'));
         const userInfo = result.data[0];
         login(userInfo, rememberMe === '');
 
@@ -28,6 +31,7 @@ const SignInModal = React.memo((props) => {
         router.push('/quick-order');
       })
       .catch((error) => {
+        NotifyUtils.error('Đã có lỗi xảy ra');
         setHasAlert(`Đã có lỗi xảy ra ${error}`);
       })
       .finally(() => {
@@ -53,4 +57,4 @@ const SignInModal = React.memo((props) => {
   );
 });
 
-export default SignInModal;
+export default i18n.withTranslation('apiErrors')(SignInModal);

@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
-import CustomModal from './Modal';
+import { Modal } from '@material-ui/core';
 
-const Modal = styled(CustomModal)`
+const CustomModal = memo((props) => {
+  const { className, onClose, children, ...rest } = props;
+  return (
+    <Modal
+      className={className}
+      onClose={onClose}
+      {...rest}
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+    >
+      {children}
+    </Modal>
+  );
+});
+const StyledModal = styled(CustomModal)`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-export default React.memo(Modal);
+export default React.memo(StyledModal);

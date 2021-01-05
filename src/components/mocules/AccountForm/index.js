@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Paper, FormHelperText, InputAdornment, IconButton, Grid } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { InputInfo, InfoFormControl } from 'components/atoms';
+import { InfoFormControl } from 'components/atoms';
+import InfoInput from '../InfoInput';
 import styles from './styles.module.css';
 
 const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
@@ -23,7 +24,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
       <h1 className={styles.title}> Thông tin tài khoản </h1>
       <Grid container>
         <InfoFormControl xs={12} isRequired label="Họ Tên khách hàng" htmlFor="name">
-          <InputInfo
+          <InfoInput
             id="name"
             placeholder="Trần Thị B"
             value={name}
@@ -32,7 +33,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
         </InfoFormControl>
 
         <InfoFormControl xs={12} isRequired label="Số Điện Thoại" htmlFor="phone">
-          <InputInfo
+          <InfoInput
             id="phone"
             placeholder="0912233311"
             value={phone}
@@ -41,7 +42,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
         </InfoFormControl>
 
         <InfoFormControl xs={12} isRequired label="Email" htmlFor="email">
-          <InputInfo
+          <InfoInput
             id="email"
             placeholder="tranthib@email.com"
             value={email}
@@ -50,11 +51,12 @@ const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
         </InfoFormControl>
 
         <InfoFormControl xs={12} isRequired label="Mật khẩu mới" htmlFor="password">
-          <InputInfo
+          <InfoInput
             id="password"
             type={isShowPassword ? 'text' : 'password'}
             endAdornment={<IconEndPassword />}
             value={password}
+            onChange={(e) => handleSetValue('password', e.target.value)}
           />
           <FormHelperText>Mật khẩu dài tối thiểu 6 ký tự</FormHelperText>
         </InfoFormControl>

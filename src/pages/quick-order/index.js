@@ -16,10 +16,11 @@ export async function getServerSideProps(ctx) {
 
 export default function QuickOrderPage({ mostResearched = [], products = [] }) {
   const title = 'Đặt hàng nhanh – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+  const pageName = 'quick-order';
   return (
     <Template title={title}>
       <Header />
-      <NavBar mostResearched={mostResearched} />
+      <NavBar mostResearched={mostResearched} pageName={pageName} />
       <Container className={styles.wrapper} maxWidth="lg">
         <Box mb={1.5}>
           <Typography className={styles.cart_title} variant="h5" component="h3">
@@ -29,7 +30,14 @@ export default function QuickOrderPage({ mostResearched = [], products = [] }) {
         <Grid container spacing={3}>
           <Grid sm={8} item>
             {/* san pham  */}
-            <QuickOrderList products={products} />
+            {products && products.length > 0
+              ? <QuickOrderList products={products} />
+              : (
+                <Typography variant="body1" gutterBottom>
+                  Ko có sản phẩm
+                </Typography>
+              )}
+
           </Grid>
           <Grid sm={4} item>
             {/* gio hang */}

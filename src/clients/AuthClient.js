@@ -4,32 +4,13 @@ import { GET, POST, getSessionToken, isValid } from './Clients';
 export async function getUserWithContext(ctx) {
   const ss = getSessionToken(ctx);
   if (!ss) {
-    return { loggedIn: false };
+    return { isAuthenticated: false };
   }
   const result = await GET({ url: CUSTOMER_API.INFO, ctx });
   if (!isValid(result)) {
-    return { loggedIn: false };
+    return { isAuthenticated: false };
   }
-  return { loggedIn: true, user: result.data[0] };
-}
-
-export async function doWithLoggedInUser(ctx, callback) {
-  const ss = getSessionToken(ctx);
-  if (!ss) {
-    return { props: { loggedIn: false } };
-  }
-  let result = callback(ctx);
-  // wait for page promise
-  if (result && result instanceof Promise) {
-    result = await result;
-  }
-  // set loggedIn = true if is is undefined
-  result = result || {};
-  result.props = result.props || {};
-  if (typeof result.props.loggedIn === 'undefined') {
-    result.props.loggedIn = true;
-  }
-  return result;
+  return { isAuthenticated: true, user: result.data[0] };
 }
 
 export async function login(body) {
@@ -46,8 +27,8 @@ export async function signUp(body) {
 }
 
 export async function getUser() {
-  const result = await GET({ url: CUSTOMER_API.INFO, mock: true });
+  const result = await GET({ url: CUSTOMER_API.INFO });
   return result;
 }
 
-export default { login, getUser, signUp, doWithLoggedInUser, getUserWithContext };
+export default { login, getUser, signUp, getUserWithContext };

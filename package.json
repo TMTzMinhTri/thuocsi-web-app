@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 80",
+    "prd": "yarn build  && yarn start",
     "test": "cross-env NODE_ENV=test mocha",
     "lint:check": "eslint --ext=js,jsx src",
     "lint:fix": "eslint --ext=js,jsx --fix src",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf yarn.lock && yarn install && yarn dev",
-    "git-reset": "git reset --hard HEAD"
+    "git-reset": "git reset --hard HEAD",
+    "checkEslintAndBuild": "yarn lint:check && yarn build"
   },
-  "pre-commit": "lint:check",
+  "pre-commit": "checkEslintAndBuild",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
@@ -23,13 +25,16 @@
     "clsx": "latest",
     "js-cookie": "^2.2.1",
     "next": "latest",
+    "next-i18next": "^7.0.1",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-slick": "^0.27.13",
+    "react-toastify": "^6.2.0",
     "react-transition-group": "^4.4.1",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

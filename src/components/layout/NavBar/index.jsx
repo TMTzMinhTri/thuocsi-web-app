@@ -1,14 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useModal } from 'hooks';
 import { makeStyles, Typography, Badge, IconButton, Icon, Container } from '@material-ui/core';
 import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { useCart, useAuth } from 'context';
 import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
-import { Toggle } from '../../mocules';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import clsx from 'clsx';
+import { SignUpModal, SignInModal, ForgetPasswordModal } from '../../organisms';
+import { Toggle, SearchInput } from '../../mocules';
 // comp
 import { LinkComp, TagComp } from '../../atoms';
+
 import styles from './styles.module.css';
 
 const { LinkStyled } = LinkStyledClass;
@@ -18,7 +24,11 @@ const useStyle = makeStyles({
   textSearch: {
     color: 'white',
   },
+  link_wrap: {
+    display: 'flex',
+  },
   link: {
+    position: 'relative',
     alignItems: 'center',
     padding: 12,
     borderBottomWidth: 3,
@@ -34,10 +44,6 @@ const useStyle = makeStyles({
     },
   },
 });
-
-function onMouseOver(e) {
-  e.target.style.background = 'red';
-}
 
 function renderMostSearched(data, classes) {
   if (!data || data.length === 0) {
@@ -57,13 +63,26 @@ function renderMostSearched(data, classes) {
   );
 }
 
-export default function NavBar({ mostResearched }) {
+export default function NavBar({ mostResearched, point = 0, balance = 0, pageName = [] }) {
+  const [isShowingLogin, toggleLogin] = useModal();
+  const [isShowingSignUp, toggleSignUp] = useModal();
+  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { itemCount } = useCart();
   const classes = useStyle();
   const { isAuthenticated } = useAuth();
 
-  const mostSearchedEle = renderMostSearched(mostResearched, classes);
+  renderMostSearched(mostResearched, classes);
   const nav = useRef();
+
+  const handleChangeForget = useCallback(() => {
+    toggleLogin();
+    toggleForgetPassword();
+  }, [toggleLogin, toggleForgetPassword]);
+
+  const handleChangeSignIn = useCallback(() => {
+    toggleSignUp();
+    toggleLogin();
+  }, [toggleSignUp, toggleLogin]);
 
   useEffect(() => {
     if (!nav.current) return undefined;
@@ -83,46 +102,98 @@ export default function NavBar({ mostResearched }) {
 
   return (
     <div ref={nav} className={styles.navBar}>
-      <Container>
+      <Container className={styles.container}>
         <div className={styles.navBarContaint}>
-          <div className={styles.logoNav}>
-            <Link href="/">
-              <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
-            </Link>
-          </div>
-          <LinkComp className={classes.link} name="Sản phẩm" href="/products?current_tab=new_arrival" color="white" onMouseOver={onMouseOver}>
-            <Icon className={`icon-product ${styles.navIcon}`} />
-          </LinkComp>
-
-          <LinkComp className={classes.link} name="Hoạt Chất" href="/ingredients" color="white" onMouseOver={onMouseOver}>
-            <Icon className={`icon-ingredients ${styles.navIcon}`} />
-          </LinkComp>
-
-          <LinkComp className={classes.link} name="Đặt Hàng Nhanh" href="/quick-order" color="white" onMouseOver={onMouseOver}>
-            <Icon className={`icon-quick-order ${styles.navIcon}`} />
-          </LinkComp>
-
-          <LinkComp className={classes.link} name="Khuyến Mãi" href="/deals" color="white" onMouseOver={onMouseOver}>
-            <Whatshot className={styles.navIcon} />
-          </LinkComp>
-
-          <LinkComp className={classes.link} name="Mã Giảm Giá" href="/promo-codes" color="white" onMouseOver={onMouseOver}>
-            <LocalOffer className={styles.navIcon} />
-          </LinkComp>
-          {isAuthenticated ? (
-            <div className={styles.navBarRight}>
-              <LinkComp className={styles.navBarRightLink} href="/cart">
-                <IconButton aria-label="cart">
-                  <Badge badgeContent={itemCount} invisible={false} color="secondary">
-                    <LocalMallOutlined className={styles.rIcon} />
-                  </Badge>
-                </IconButton>
-              </LinkComp>
-              <Toggle />
+          <div className={styles.leftNavBar}>
+            <div className={styles.logoNav}>
+              <Link href="/">
+                <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
+              </Link>
             </div>
-          ) : null}
+            <div className={classes.link_wrap}>
+              <LinkComp
+                className={clsx(
+                  classes.link,
+                  (pageName === 'products' || pageName === 'manufacturers' || pageName === 'categories') && styles.active,
+                )}
+                name="Sản phẩm"
+                href="/products?current_tab=new_arrival"
+                color="white"
+              >
+                <Icon className={`icon-product ${styles.navIcon}`} />
+              </LinkComp>
+
+              <LinkComp className={clsx(classes.link, pageName === 'ingredients' && styles.active)} name="Hoạt Chất" href="/ingredients" color="white">
+                <Icon className={`icon-ingredients ${styles.navIcon}`} />
+              </LinkComp>
+
+              <LinkComp
+                className={clsx(classes.link, pageName === 'quick-order' && styles.active)}
+                name="Đặt Hàng Nhanh"
+                href="/quick-order"
+                color="white"
+              >
+                <Icon className={`icon-quick-order ${styles.navIcon}`} />
+              </LinkComp>
+
+              <LinkComp className={clsx(classes.link, pageName === 'deals' && styles.active)} name="Khuyến Mãi" href="/deals" color="white">
+                <Whatshot className={styles.navIcon} />
+              </LinkComp>
+
+              <LinkComp
+                className={clsx(classes.link, pageName === 'promo-codes' && styles.active)}
+                name="Mã Giảm Giá"
+                href="/promo-codes"
+                color="white"
+              >
+                <span className={styles.badge}>Mới</span>
+                <LocalOffer className={styles.navIcon} />
+              </LinkComp>
+            </div>
+          </div>
+
+          {isAuthenticated ? (
+            <>
+              <SearchInput className={styles.searchInput} />
+              <div className={styles.navBarRight}>
+                <LinkComp className={styles.navBarRightLink} href="/cart">
+                  <IconButton aria-label="cart">
+                    <Badge badgeContent={itemCount} invisible={false} color="secondary">
+                      <LocalMallOutlined className={styles.rIcon} />
+                    </Badge>
+                  </IconButton>
+                </LinkComp>
+                <Toggle balance={balance} point={point} />
+              </div>
+            </>
+          ) : (
+            <>
+              <SignInModal
+                visible={isShowingLogin}
+                onClose={toggleLogin}
+                onChangeForget={handleChangeForget}
+              />
+              <ForgetPasswordModal
+                visible={isShowingForgetPassword}
+                onClose={toggleForgetPassword}
+              />
+              <SignUpModal
+                visible={isShowingSignUp}
+                onClose={toggleSignUp}
+                onChangeSignIn={handleChangeSignIn}
+              />
+              <div className={styles.btn_no_auth_section}>
+                <IconButton onClick={toggleLogin} className={classes.link}>
+                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
+                </IconButton>
+                <IconButton onClick={toggleSignUp} className={classes.link}>
+                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
+                </IconButton>
+              </div>
+            </>
+          )}
         </div>
-        {mostSearchedEle}
+        {/* {mostSearchedEle} */}
       </Container>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import clsx from 'clsx';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import Slider from 'react-slick';
@@ -9,45 +9,47 @@ import {
   CardContent,
   Typography,
   Box,
+  Container,
 } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { settingsCustomer } from 'constants/data';
+import { settingsCustomer, customerFeedbackData } from 'constants/data';
 
 import styles from './styles.module.css';
 
-const SliderComp = ({ feedback }) => {
+const SliderComp = () => {
   const ref = useRef({});
-
-  const sliderItem = feedback.map((item) => (
-    <Card key={`slider-${item.id}`} className={styles.root}>
-      <CardHeader
-        avatar={<Avatar src={item.avatar} aria-label="recipe" className={styles.large} />}
-        title={item.customer}
-        subheader={item.title}
-        className={styles.card_header}
-        classes={{
-          title: styles.header_customer,
-          subheader: styles.header_title,
-        }}
-      />
-      <CardContent className={styles.card_content}>
-        <Typography
-          className={styles.comment_style}
-          variant="body2"
-          color="textSecondary"
-          component="p"
-        >
-          <FormatQuoteIcon className={clsx(styles.rotate, styles.quote)} />
-          {item.comment}
-          <FormatQuoteIcon className={styles.quote} />
-        </Typography>
-      </CardContent>
-    </Card>
+  const sliderItem = customerFeedbackData.map((item) => (
+    <div className={styles.box}>
+      <Card key={`slider-${item.id}`} className={styles.root}>
+        <CardHeader
+          avatar={<Avatar src={item.avatar} aria-label="recipe" className={styles.large} />}
+          title={item.customer}
+          subheader={item.title}
+          className={styles.card_header}
+          classes={{
+            title: styles.header_customer,
+            subheader: styles.header_title,
+          }}
+        />
+        <CardContent className={styles.card_content}>
+          <Typography
+            className={styles.comment_style}
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            <FormatQuoteIcon className={clsx(styles.rotate, styles.quote)} />
+            {item.comment}
+            <FormatQuoteIcon className={styles.quote} />
+          </Typography>
+        </CardContent>
+      </Card>
+    </div>
   ));
   return (
     <Box className={styles.wrapper_media} component="div">
-      <Box maxWidth="1140px" m="auto">
+      <Container maxWidth="1140px" fixed>
         <Box pt={5} pb={10}>
           <Box
             className={styles.center}
@@ -62,9 +64,9 @@ const SliderComp = ({ feedback }) => {
             {sliderItem}
           </Slider>
         </Box>
-      </Box>
+      </Container>
     </Box>
   );
 };
 
-export default SliderComp;
+export default memo(SliderComp);

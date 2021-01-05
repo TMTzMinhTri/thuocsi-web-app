@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   width: 100%;
   padding: 15px 20px;
-  border-radius: 10px!important;
+  border-radius: 10px !important;
 }
 
 .title {
@@ -20,4 +20,26 @@
 .display_full {
   display: flex;
   flex: 1;
+}
+
+.native_select [class*='MuiNativeSelect-select'] {
+  height: 100%;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.native_select [class*='MuiNativeSelect-icon'] {
+  right: 5px !important;
+}
+
+.upload_button {
+  color: #495057 !important;
+  background-color: #e9ecef !important;
+  box-shadow: none !important;
+  text-transform: none !important;
+  border-radius: 0 !important;
+}
+
+.upload_button:hover {
+  box-shadow: none !important;
 }

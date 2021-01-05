@@ -1,0 +1,9 @@
+.tab {
+    min-width: unset!important;
+}
+
+.indicator {
+    background-color: #f9b514!important;
+    height: 5px!important;
+}
+

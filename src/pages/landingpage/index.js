@@ -1,37 +1,28 @@
 import React from 'react';
-
-import {
-  SliderComp,
-  CommonQuestion,
-  Partners,
-  Template,
-  NavBar,
-  Media,
-  Header,
-  BannerSlider,
-  WhyBuymed,
-} from 'components';
-
-import { useAuth } from 'context';
+import dynamic from 'next/dynamic';
+import { Template, NavBar, Header, BannerSlider } from 'components';
 
 export default function LandingPage(props) {
-  const { mostResearched = [], feedback = [], infoBanner = [] } = props;
+  const { mostResearched = [], infoBanner = [] } = props;
   const title = 'Thuocsi.vn';
-  // example use useAuth
-  const { user } = useAuth();
-  if (user) {
-    console.log('USer : ', user);
-  }
+  const pageName = 'home';
+
+  const DynamicWhyBuymed = dynamic(() => import('components/organisms/WhyBuymed'));
+  const DynamicCommonQuestion = dynamic(() => import('components/mocules/CommonQuestion'));
+  const DynamicPartners = dynamic(() => import('components/organisms/Partners'));
+  const DynamicSliderComp = dynamic(() => import('components/organisms/SliderComp'));
+  const DynamicMedia = dynamic(() => import('components/organisms/Media'));
+
   return (
     <Template title={title}>
-      <Header />
-      <NavBar mostResearched={mostResearched} />
+      <Header {...props} />
+      <NavBar mostResearched={mostResearched} pageName={pageName} />
       <BannerSlider infoBanner={infoBanner} />
-      <WhyBuymed />
-      <CommonQuestion />
-      <Partners />
-      <SliderComp feedback={feedback} />
-      <Media />
+      <DynamicWhyBuymed />
+      <DynamicCommonQuestion />
+      <DynamicPartners />
+      <DynamicSliderComp />
+      <DynamicMedia />
     </Template>
   );
 }

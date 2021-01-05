@@ -1,5 +1,5 @@
 import GetQuantityProduct from 'utils/GetQuantityProduct';
-import { GET } from './Clients';
+import { GET, isValid } from './Clients';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
@@ -7,13 +7,25 @@ async function loadDataMostSearch(ctx) {
   return result.data;
 }
 
-async function loadFeedback(ctx) {
-  const result = await GET({ url: '/feedback', mock: true, ctx });
+async function loadFeedback() {
+  const result = await GET({ url: '/feedback', mock: true });
   return result.data;
 }
 
-async function getInfoBanner(ctx) {
-  const result = await GET({ url: '/banner', mock: true, ctx });
+async function getInfoBanner() {
+  const result = await GET({ url: '/banner', mock: true });
+  return result.data;
+}
+
+async function loadDataProductDetail(ctx) {
+  const { query } = ctx;
+  const url = `/marketplace/product/v1/products?q=${query.slug}`;
+  const result = await GET({
+    url,
+    ctx,
+    isAuth: true,
+    isBasic: true,
+  });
   return result.data;
 }
 
@@ -22,17 +34,33 @@ async function loadDataCart(ctx) {
   return res.data;
 }
 
-async function loadDataProduct(ctx) {
-  const result = await GET({ url: '/marketplace/product/v1/products', ctx, isAuth: true });
-  const cart = await loadDataCart();
-  const cartObject = {};
+async function loadDataPormotion(ctx) {
+  const res = await GET({ url: '/mock/product', mock: true, ctx });
+  return res.data;
+}
 
+async function loadDataProduct(ctx) {
+  const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true, isBasic: true });
+  if (!isValid(result)) return result;
+  let cart = {};
+  let productListWithPrice = {};
+  try {
+    cart = await loadDataCart();
+  } catch (error) {
+    cart.status = 'ERROR';
+  }
+  const cartObject = {};
   // eslint-disable-next-line no-restricted-syntax
-  for (const item of cart.product) {
-    cartObject[item.sku] = item;
+  if (cart && cart.cartItems && cart.cartItems.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of cart.cartItems) {
+      cartObject[item.sku] = item;
+    }
+    productListWithPrice = GetQuantityProduct(result, cartObject);
+  } else {
+    productListWithPrice = result.data || [];
   }
 
-  const productListWithPrice = GetQuantityProduct(result, cartObject);
   return productListWithPrice;
 }
 export default {
@@ -41,4 +69,6 @@ export default {
   getInfoBanner,
   loadDataProduct,
   loadDataCart,
+  loadDataProductDetail,
+  loadDataPormotion,
 };

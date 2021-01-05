@@ -1,5 +1,6 @@
 import React from 'react';
-import { NewBadge, EventBadge } from '../../atoms';
+import EventBadge from '../EventBadge';
+import NewBadge from '../NewBadge';
 import StatusProductProps from './StatusProductProps';
 
 const StatusProduct = ({ is_new: isNew, status, is_event: isEvent }) => {

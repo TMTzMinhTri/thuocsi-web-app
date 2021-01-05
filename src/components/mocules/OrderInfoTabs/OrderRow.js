@@ -1,59 +1,11 @@
-import { Grid, Paper, Button, withStyles, makeStyles } from '@material-ui/core';
-import PrintIcon from '@material-ui/icons/Print';
-import InsertCommentIcon from '@material-ui/icons/InsertComment';
+import { Grid, Paper, Button, useMediaQuery } from '@material-ui/core';
 import { DateTimeUtils, FormarCurrency } from 'utils';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
+import Link from 'next/link';
+import PrintInvoiceButton from '../PrintInvoiceButton';
+import EditOrderButton from '../EditOrderButton';
+import ResponseButton from '../ResponseButton';
 import styles from './styles.module.css';
-
-const useStyles = makeStyles({
-  indicator: {
-    display: 'none',
-  },
-  root: {
-    padding: '15px',
-    marginBottom: '15px',
-  },
-});
-
-const PrintInvoiceButton = withStyles({
-  root: {
-    color: ' #212529',
-    border: '1px solid #f9b514',
-    borderRadius: '20px',
-    padding: '0.25rem 0.5rem',
-    fontSize: '0.875rem',
-    width: '10rem',
-    margin: '0.25em',
-    backgroundColor: '#f9b514',
-    textTransform: 'none',
-  },
-})(Button);
-
-const EditOrderButton = withStyles({
-  root: {
-    color: '#00b46e',
-    border: '1px solid #00b46e',
-    borderRadius: '20px',
-    padding: '0.25rem 0.5rem',
-    fontSize: '0.875rem',
-    width: '10rem',
-    margin: '0.25em',
-    textTransform: 'none',
-  },
-})(Button);
-
-const ResponseButton = withStyles({
-  root: {
-    color: '#17a2b8',
-    border: '1px solid #17a2b8',
-    borderRadius: '20px',
-    padding: '0.25rem 0.5rem',
-    fontSize: '0.875rem',
-    width: '10rem',
-    margin: '0.25em',
-    textTransform: 'none',
-  },
-})(Button);
 
 const parseOrderStatus = (status) => {
   if (ENUM_ORDER_STATUS.PENDING === status) return 'Chờ xác nhận';
@@ -62,45 +14,70 @@ const parseOrderStatus = (status) => {
   return '';
 };
 
+const MyOrderDetail = ({ amount, createdAt, deliveryAt }) => (
+  <div>
+    <div>
+      <span className={styles.order_detail_label}>Sản phẩm: </span> {amount}
+    </div>
+    <div>
+      <span className={styles.order_detail_label}>Ngày mua: </span>
+      {DateTimeUtils.getFormattedDate(new Date(createdAt), 'DD/MM/YYYY HH:mm:ss')}
+    </div>
+    <div>
+      <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
+      {DateTimeUtils.getFormattedWithDate(new Date(deliveryAt))}
+    </div>
+  </div>
+);
 const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total }) => {
-  const classes = useStyles();
-
+  const maxWidth = useMediaQuery('(max-width:715px)');
   return (
-    <Paper square className={classes.root} elevation={4}>
+    <Paper square={!maxWidth} className={styles.paper} elevation={0}>
       <Grid container spacing={4}>
-        <Grid item xs={5}>
-          <div>
-            <h4 className={styles.order_id}>#{orderID} &nbsp; &nbsp;</h4>
-            <Button color="default" variant="contained">
+        <Grid item xs={maxWidth ? 12 : 5} container direction="row" justify={maxWidth ? 'space-between' : 'end'}>
+          <Grid item>
+            <Link href={`/my-order/${orderID}`} key={`order-row-${orderID}`}>
+              <h4 className={styles.order_id}>#{orderID} &nbsp;</h4>
+            </Link>
+          </Grid>
+          <Grid item style={{ paddingTop: '5px' }}>
+            <Button color="default" variant="contained" className={styles.status_button}>
               {parseOrderStatus(status)}
             </Button>
-          </div>
-          <div>
-            <span className={styles.order_detail_label}>Sản phẩm: </span> {amount}
-          </div>
-          <div>
-            <span className={styles.order_detail_label}>Ngày mua: </span>
-            {DateTimeUtils.getFormattedDate(new Date(createdAt), 'DD/MM/YYYY HH:mm:ss')}
-          </div>
-          <div>
-            <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
-            {DateTimeUtils.getFormattedWithDate(new Date(deliveryAt), 'd(DD/MM/YYYY)')}
-          </div>
+          </Grid>
+          {maxWidth ? null : (
+            <MyOrderDetail amount={amount} createdAt={createdAt} deliveryAt={deliveryAt} />
+          )}
         </Grid>
 
-        <Grid item xs={3}>
-          <div className={styles.price}> {FormarCurrency(total)}</div>
+        <Grid item xs={maxWidth ? 12 : 3} container direction="row" justify="space-between" className={styles.detail_small_screen}>
+          {maxWidth ? (
+            <Grid className={styles.delivery_date} item>
+              {DateTimeUtils.getFormattedDate(new Date(createdAt), 'DD/MM/YYYY HH:mm:ss')}
+            </Grid>
+          ) : null}
+          <Grid className={maxWidth ? styles.price_small_screen : styles.price} item>
+            {FormarCurrency(total)}
+          </Grid>
         </Grid>
 
-        <Grid item xs={3}>
-          <Grid>
-            <PrintInvoiceButton startIcon={<PrintIcon />}> Xuất hoá đơn </PrintInvoiceButton>
+        <Grid
+          item
+          xs={maxWidth ? 12 : 4}
+          container
+          direction={maxWidth ? 'row' : 'column'}
+          justify="center"
+        >
+          <Grid item>
+            <PrintInvoiceButton />
           </Grid>
-          <Grid>
-            <EditOrderButton> Sửa đơn hàng </EditOrderButton>
-          </Grid>
-          <Grid>
-            <ResponseButton startIcon={<InsertCommentIcon />}> Gửi phản hồi</ResponseButton>
+          {status === ENUM_ORDER_STATUS.PENDING && (
+            <Grid item>
+              <EditOrderButton />
+            </Grid>
+          )}
+          <Grid item>
+            <ResponseButton />
           </Grid>
         </Grid>
       </Grid>

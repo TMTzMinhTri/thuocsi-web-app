@@ -1,4 +1,19 @@
 .center {
     text-align: center;
 }
-
+.item{
+    height: 185px;
+    display: flex !important;
+    align-items: center;
+}
+@media (max-width: 767px) {
+    .center{
+        font-size: 24px !important;
+        margin-bottom: 15px !important;
+        margin-top: 0px !important;
+    }
+    .wrapper {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}

@@ -1,34 +1,40 @@
 .tab_active {
-    color: #00b46e!important;
-    outline: none!important;
+  color: #00b46e !important;
+  outline: none !important;
 }
 .tab_inactive {
-    outline: none!important;
+  outline: none !important;
 }
 
 /* for icon */
 .tab_active svg {
-    color: #00b46e!important;
-} 
+  color: #00b46e !important;
+}
 .tab_inactive:hover {
-    color: #00b46e!important;
-    cursor: pointer;
+  color: #00b46e !important;
+  cursor: pointer;
 }
 
 /* for icon */
 .tab_inactive:hover svg {
-    color: #00b46e!important;
+  color: #00b46e !important;
 }
 
 .tab_box {
-    flex: 0 0 25%;
-    max-width: 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
 }
 
 .account_name {
-    padding-bottom: 30px;
+  padding-bottom: 30px;
 }
 
 .name {
-    font-weight: bold!important;
+  font-weight: bold !important;
+}
+
+@media only screen and (max-width: 950px) {
+  .tab_box {
+    display: none !important;
+  }
 }

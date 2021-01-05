@@ -34,17 +34,23 @@ export async function getServerSideProps() {
   }
 }
 
-const MyReferral = ({ mostResearched = [], wallet, referrals }) => {
+const MyReferral = ({ mostResearched = [], wallet, referrals = [] }) => {
   const title = 'Giới thiệu bạn bè – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title}>
       <Header />
-      <NavBar mostResearched={mostResearched} />
-      <Container maxWidth="lg">
-        <InfoContainer value={3} title="Giới thiệu bạn bè" wallet={wallet}>
-          <ReferralList referrals={referrals} />
-        </InfoContainer>
-      </Container>
+      <NavBar
+        mostResearched={mostResearched}
+        point={wallet.loyaltyPoint}
+        balance={wallet.balance}
+      />
+      <div style={{ backgroundColor: '#f4f7fc' }}>
+        <Container maxWidth="lg">
+          <InfoContainer value={3} title="Giới thiệu bạn bè" wallet={wallet}>
+            <ReferralList referrals={referrals} />
+          </InfoContainer>
+        </Container>
+      </div>
     </Template>
   );
 };

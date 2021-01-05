@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, CardContent, Box } from '@material-ui/core';
 import clsx from 'clsx';
+import { v4 as uuidv4 } from 'uuid';
 import TagType from '../TagType';
 
 import styles from './styles.module.css';
@@ -21,6 +22,7 @@ const ProductCardContent = ({
   // status,
   // price_percent,
   row,
+  slug,
   tag,
   // cart,
   className,
@@ -39,17 +41,17 @@ const ProductCardContent = ({
       }
     >
       <Box className={styles.product_title}>
-        <a href="/">
+        <a href={`/product/${slug}`}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
             {name}
           </Typography>
         </a>
         {tag && (
-        <div className={clsx(styles.product_tags, styles.product_tags_column)}>
-          {tags.map((item) => (
-            <TagType key={item + Math.random() + 1} type={item.slug} />
-          ))}
-        </div>
+          <div className={clsx(styles.product_tags, styles.product_tags_column)}>
+            {tags.map((item) => (
+              <TagType key={uuidv4()} type={item.slug} />
+            ))}
+          </div>
         )}
       </Box>
       <Typography
@@ -61,7 +63,7 @@ const ProductCardContent = ({
         {unit} {volume}
       </Typography>
     </Box>
-    {(row === cate) && (
+    {row === cate && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"
@@ -70,7 +72,7 @@ const ProductCardContent = ({
       >
         Nhóm:{' '}
         {category.map((item) => (
-          <a key={item.code + Math.random() + 1} href="/">
+          <a key={uuidv4()} href="/">
             {item.name}
           </a>
         ))}

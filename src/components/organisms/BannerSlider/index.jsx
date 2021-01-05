@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import Slider from 'react-slick';
 import { Box } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
@@ -11,8 +11,7 @@ import styles from './styles.module.css';
 const checkCondition = ({ link, image, alt }) => {
   const urlImage = `url(${image})`;
   const ItemBox = (
-    <Box position="relative">
-      <Box className={styles.banner_bg_img} />
+    <Box position="relative" className={styles.banner_bg_img}>
       <Box style={{ backgroundImage: urlImage }} className={styles.banner_img} />
     </Box>
   );
@@ -49,12 +48,12 @@ const BannerSlider = ({ infoBanner }) => {
   });
 
   return (
-    <Box m="auto" component="div">
+    <div>
       <Slider ref={ref} {...settingsSliderBanner}>
         {sliderItem}
       </Slider>
-    </Box>
+    </div>
   );
 };
 
-export default BannerSlider;
+export default memo(BannerSlider);

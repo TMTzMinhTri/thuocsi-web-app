@@ -16,11 +16,11 @@ const tabs = [
   { label: 'Giới thiệu bạn bè', icon: <ShareIcon />, id: 3, link: '/users/referrals' },
   {
     label: 'Mã giảm giá của tôi',
-    icon: <MonetizationOnIcon />,
+    icon: <LocalOfferIcon />,
     id: 4,
     link: '/users/user-promo-codes',
   },
-  { label: 'Điểm tích luỹ', icon: <LocalOfferIcon />, id: 5, link: '/users/loyalty_points' },
+  { label: 'Điểm tích luỹ', icon: <MonetizationOnIcon />, id: 5, link: '/users/loyalty_points' },
 ];
 const InfoTabs = ({ value, name, balance }) => (
   <Box className={styles.tab_box}>

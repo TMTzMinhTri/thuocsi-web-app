@@ -16,7 +16,7 @@ export async function getServerSideProps() {
       props: {
         user: user.data[0],
         wallet: wallet.data[0],
-        orders,
+        orders: orders.data,
       },
     };
   } catch (error) {
@@ -46,15 +46,14 @@ export async function getServerSideProps() {
   }
 }
 
-const MyOrder = ({ mostResearched = [], wallet, orders: orderR }) => {
+const MyOrder = ({ mostResearched = [], wallet, orders: orderR = [] }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [orders, setOrders] = useState(orderR);
   const [orderStatus, setOrderStatus] = useState(ENUM_ORDER_STATUS.ALL);
-
   useEffect(() => {
     async function getOrders() {
       const ods = await CustomerClient.getOrder({ status: orderStatus });
-      setOrders(ods);
+      setOrders(ods.data);
     }
     getOrders();
   }, [orderStatus]);
@@ -66,12 +65,22 @@ const MyOrder = ({ mostResearched = [], wallet, orders: orderR }) => {
   return (
     <Template title={title}>
       <Header />
-      <NavBar mostResearched={mostResearched} />
-      <Container maxWidth="lg">
-        <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>
-          <OrderInfoFormContainer orders={orders} handleSetOrderStatus={handleSetOrderStatus} />
-        </InfoContainer>
-      </Container>
+      <NavBar
+        mostResearched={mostResearched}
+        point={wallet.loyaltyPoint}
+        balance={wallet.balance}
+      />
+      <div style={{ backgroundColor: '#f4f7fc' }}>
+        <Container maxWidth="lg">
+          <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>
+            <OrderInfoFormContainer
+              orders={orders}
+              handleSetOrderStatus={handleSetOrderStatus}
+              orderStatus={orderStatus}
+            />
+          </InfoContainer>
+        </Container>
+      </div>
     </Template>
   );
 };
