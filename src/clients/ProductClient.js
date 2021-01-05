@@ -1,4 +1,5 @@
 import GetQuantityProduct from 'utils/GetQuantityProduct';
+import { PRODUCT_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
 
 async function loadDataMostSearch(ctx) {
@@ -63,6 +64,11 @@ async function loadDataProduct(ctx) {
 
   return productListWithPrice;
 }
+
+async function loadDataIngredient(ctx) {
+  const res = await GET({ url: `${PRODUCT_API.INGREDIENT}/list`, ctx });
+  return res.data;
+}
 export default {
   loadDataMostSearch,
   loadFeedback,
@@ -71,4 +77,5 @@ export default {
   loadDataCart,
   loadDataProductDetail,
   loadDataPormotion,
+  loadDataIngredient,
 };
