@@ -8,7 +8,7 @@ import {
   ExitToApp as ExitToAppIcon,
   MonetizationOn as MonetizationOnIcon,
 } from '@material-ui/icons';
-import { Button, MenuItem, Typography } from '@material-ui/core';
+import { Button, MenuItem, Typography, Divider } from '@material-ui/core';
 import { useAuth } from 'context';
 import { useRouter } from 'next/router';
 import { MenuDropDown, MenuDropDownItem } from 'components/atoms';
@@ -59,6 +59,8 @@ export default function Toggle({ point, balance }) {
             </Typography>
           </div>
         </MenuItem>
+        <Divider />
+
         <MenuDropDownItem handleClick={() => router.push('/my-account')} text="Thông tin tài khoản">
           <AccountCircleIcon />
         </MenuDropDownItem>
