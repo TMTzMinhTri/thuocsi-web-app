@@ -4,7 +4,15 @@ import { ProductCardBuy, ProductCardContent, StatusProduct } from '../../mocules
 
 import styles from './styles.module.css';
 
-const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, value }) => {
+const ProductCardVertical = ({
+  product,
+  type,
+  category,
+  tag,
+  cart,
+  onIncrement,
+  value,
+}) => {
   const { imageUrls } = product;
 
   return (
