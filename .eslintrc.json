@@ -37,7 +37,8 @@
           ["pages", "./src/pages"],
           ["styles", "./src/styles"],
           ["utils", "./src/utils"],
-          ["context", "./src/context"]
+          ["context", "./src/context"],
+          ["i18n-lib", "./src/i18n-lib"]
         ]
       }
     }

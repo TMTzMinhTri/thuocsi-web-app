@@ -9,6 +9,7 @@ import {
   CardContent,
   Typography,
   Box,
+  Container,
 } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -19,34 +20,36 @@ import styles from './styles.module.css';
 const SliderComp = () => {
   const ref = useRef({});
   const sliderItem = customerFeedbackData.map((item) => (
-    <Card key={`slider-${item.id}`} className={styles.root}>
-      <CardHeader
-        avatar={<Avatar src={item.avatar} aria-label="recipe" className={styles.large} />}
-        title={item.customer}
-        subheader={item.title}
-        className={styles.card_header}
-        classes={{
-          title: styles.header_customer,
-          subheader: styles.header_title,
-        }}
-      />
-      <CardContent className={styles.card_content}>
-        <Typography
-          className={styles.comment_style}
-          variant="body2"
-          color="textSecondary"
-          component="p"
-        >
-          <FormatQuoteIcon className={clsx(styles.rotate, styles.quote)} />
-          {item.comment}
-          <FormatQuoteIcon className={styles.quote} />
-        </Typography>
-      </CardContent>
-    </Card>
+    <div className={styles.box}>
+      <Card key={`slider-${item.id}`} className={styles.root}>
+        <CardHeader
+          avatar={<Avatar src={item.avatar} aria-label="recipe" className={styles.large} />}
+          title={item.customer}
+          subheader={item.title}
+          className={styles.card_header}
+          classes={{
+            title: styles.header_customer,
+            subheader: styles.header_title,
+          }}
+        />
+        <CardContent className={styles.card_content}>
+          <Typography
+            className={styles.comment_style}
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            <FormatQuoteIcon className={clsx(styles.rotate, styles.quote)} />
+            {item.comment}
+            <FormatQuoteIcon className={styles.quote} />
+          </Typography>
+        </CardContent>
+      </Card>
+    </div>
   ));
   return (
     <Box className={styles.wrapper_media} component="div">
-      <Box maxWidth="1140px" m="auto">
+      <Container maxWidth="1140px" fixed>
         <Box pt={5} pb={10}>
           <Box
             className={styles.center}
@@ -61,7 +64,7 @@ const SliderComp = () => {
             {sliderItem}
           </Slider>
         </Box>
-      </Box>
+      </Container>
     </Box>
   );
 };

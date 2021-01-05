@@ -88,5 +88,6 @@ export const ProtectRoute = ({ children }) => {
   if (isLoading) {
     return <LoadingScreen />;
   }
+
   return children;
 };

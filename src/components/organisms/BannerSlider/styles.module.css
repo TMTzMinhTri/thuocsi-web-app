@@ -5,7 +5,8 @@
   background-position: center center;
   background-size: cover;
   width: 100%;
-  min-height: 530px;
+  height: 0;
+  padding-top: 33.15%;
 }
 
 .banner_img {
@@ -13,7 +14,8 @@
   background-position: center center;
   background-size: contain;
   width: 100%;
-  min-height: 530px;
+  height: 100%;
   position: absolute;
   top: 0;
+  left: 0;
 }

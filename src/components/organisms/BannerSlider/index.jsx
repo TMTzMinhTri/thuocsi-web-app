@@ -11,8 +11,7 @@ import styles from './styles.module.css';
 const checkCondition = ({ link, image, alt }) => {
   const urlImage = `url(${image})`;
   const ItemBox = (
-    <Box position="relative">
-      <Box className={styles.banner_bg_img} />
+    <Box position="relative" className={styles.banner_bg_img}>
       <Box style={{ backgroundImage: urlImage }} className={styles.banner_img} />
     </Box>
   );

@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 // eslint-disable-next-line operator-linebreak
 // eslint-disable-next-line camelcase
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   NativeSelect,
   FormControl,
@@ -21,6 +21,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { SearchResultText } from 'components/mocules';
+import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
+
 import { SORT_PRODUCT } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './style.module.css';
@@ -35,25 +37,60 @@ export default function ProductListing({
   slug = '',
   catName = '',
 }) {
+  const [isloading, setIsLoading] = useState(true);
+  const [numPage, setNumPage] = useState(page);
   const count = 50;
   const pageSize = 20;
   const pages = Math.ceil(count / pageSize);
   const router = useRouter();
   const pathName = `/${catName}/${slug}`;
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, [isloading]);
+
+  const getQueryObject = () => {
+    const query = {};
+    if (current_tab) {
+      query.current_tab = current_tab;
+    }
+    if (sort) {
+      query.sort = sort;
+    }
+    return query;
+  };
+
+  const getTabQuery = (currentTab) => {
+    const query = getQueryObject();
+    if (!currentTab) {
+      delete query.current_tab;
+    }
+    if (!sort) {
+      delete query.sort;
+    }
+    return query;
+  };
+
   const handleChangePage = (event, value) => {
     if (page === value) return;
-
+    setIsLoading(true);
+    const query = getQueryObject();
+    query.page = value;
     router.push({
       pathname: pathName,
-      query: { page: value, current_tab, sort },
+      query,
     });
+    setNumPage(value);
   };
   const handleChangeSort = (event) => {
+    setIsLoading(true);
+    const query = getQueryObject();
+    query.sort = event.target.value || undefined;
     router.push({
       pathname: pathName,
-      query: { slug, current_tab, sort: event.target.value || undefined },
+      query,
     });
+    setNumPage(1);
   };
   return (
     <div className={styles.wrapper}>
@@ -146,80 +183,98 @@ export default function ProductListing({
         </div>
       </div>
       <div className={styles.product_main}>
-        <div>
-          <Typography className="product_title" variant="h2" component="h1">
-            Kháng Viêm, Dị Ứng
-          </Typography>
-          <SearchResultText count={count} pageSize={pageSize} page={page} pages={pages} />
-        </div>
-        <div>
-          <div className={styles.filters}>
-            <Fab
-              variant="extended"
-              aria-label="add"
-              className={clsx(styles.active, styles.filter_btn)}
-            >
-              Tất cả
-            </Fab>
-            <Fab variant="extended" aria-label="add" className={styles.filter_btn}>
-              <Link
-                href={{
-                  pathname: pathName,
-                  query: { current_tab: 'new_arrival', sort },
-                }}
-              >
-                SP mới
-              </Link>
-            </Fab>
-            <Fab variant="extended" aria-label="add" className={styles.filter_btn}>
-              <Link
-                href={{
-                  pathname: pathName,
-                  query: { current_tab: 'decreasing_price', sort },
-                }}
-              >
-                Giảm giá
-              </Link>
-            </Fab>
-          </div>
-        </div>
-        {products.length > 0 ? (
-          <main className={styles.product_listing}>
-            <div className={styles.pagging}>
-              <Pagination
-                count={pages}
-                defaultPage={page}
-                boundaryCount={2}
-                onChange={handleChangePage}
-              />
-            </div>
-            <div className={styles.product_grid_wrapper}>
-              <Grid container spacing={1}>
-                {products.map((item) => (
-                  <Grid item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
-                    <ProductCardVertical
-                      key={`products-${item.sku}`}
-                      product={item}
-                      value={item.quantity || 0}
-                      tag
-                      category
+        {isloading ?
+          <GridSkeletonProductHorizontal counts={12} /> : (
+            <>
+              <div>
+                <Typography className="product_title" variant="h4" component="h1">
+                  Kháng Viêm, Dị Ứng
+                </Typography>
+                <SearchResultText count={count} pageSize={pageSize} page={page} pages={pages} />
+              </div>
+              <div>
+                <div className={styles.filters}>
+                  <Fab
+                    variant="extended"
+                    aria-label="all"
+                    className={clsx(!current_tab && styles.active, styles.filter_btn)}
+                  >
+                    <Link
+                      href={{
+                        pathname: pathName,
+                        query: getTabQuery(),
+                      }}
+                    >
+                      Tất cả
+                    </Link>
+                  </Fab>
+                  <Fab
+                    variant="extended"
+                    aria-label="new_arrival"
+                    className={clsx(current_tab === 'new_arrival' && styles.active, styles.filter_btn)}
+                  >
+                    <Link
+                      href={{
+                        pathname: pathName,
+                        query: { ...getTabQuery(), current_tab: 'new_arrival' },
+                      }}
+                    >
+                      SP mới
+                    </Link>
+                  </Fab>
+                  <Fab variant="extended" aria-label="decreasing_price" className={clsx(current_tab === 'decreasing_price' && styles.active, styles.filter_btn)}>
+                    <Link
+                      href={{
+                        pathname: pathName,
+                        query: { ...getTabQuery(), current_tab: 'decreasing_price' },
+                      }}
+                    >
+                      Giảm giá
+                    </Link>
+                  </Fab>
+                </div>
+              </div>
+              {products.length > 0 ? (
+                <main className={styles.product_listing}>
+                  <div className={styles.pagging}>
+                    <Pagination
+                      count={pages}
+                      defaultPage={numPage}
+                      boundaryCount={2}
+                      onChange={handleChangePage}
                     />
-                  </Grid>
-                ))}
-              </Grid>
-            </div>
-            <div className={styles.pagging}>
-              <Pagination
-                count={pages}
-                defaultPage={page}
-                boundaryCount={2}
-                onChange={handleChangePage}
-              />
-            </div>
-          </main>
-        ) : (
-          <p>Không có sản phẩm</p>
-        )}
+                  </div>
+                  <div className={styles.product_grid_wrapper}>
+                    <Grid container spacing={1}>
+                      {products.map((item) => (
+                        <Grid item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
+                          <ProductCardVertical
+                            key={`products-${item.sku}`}
+                            product={item}
+                            value={item.quantity || 0}
+                            tag
+                            category
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </div>
+                  <div className={styles.pagging}>
+                    <Pagination
+                      count={pages}
+                      defaultPage={numPage}
+                      boundaryCount={2}
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                </main>
+              ) : (
+                <Typography variant="body1" className={styles.empty}>
+                  Ko có sản phẩm
+                </Typography>
+              )}
+            </>
+          )}
       </div>
     </div>
   );

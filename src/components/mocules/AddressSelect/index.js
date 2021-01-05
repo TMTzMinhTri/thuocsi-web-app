@@ -1,6 +1,7 @@
 import { NativeSelect, useMediaQuery } from '@material-ui/core';
-import { InfoFormControl, InfoInput } from 'components/atoms';
+import { InfoFormControl } from 'components/atoms';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import InfoInput from '../InfoInput';
 import styles from './styles.module.css';
 
 const AddressSelect = ({ label, id, options, onChange, value, disabled }) => {

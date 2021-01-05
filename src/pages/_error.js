@@ -3,6 +3,7 @@ import { Typography, Grid, Container } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from 'components';
+import '../styles/error.module.css';
 
 const Error500 = () => (
   <Container maxWidth="md" className="pageError">
@@ -12,10 +13,14 @@ const Error500 = () => (
           <Image height="100px" width="100px" src="/images/logo_thuocsi_2.png" />
         </Grid>
         <Grid item xs={12}>
-          <Typography align="center" variant="h4">Có chuyện gì đó đã xảy ra...</Typography>
+          <Typography align="center" variant="h4">
+            Có chuyện gì đó đã xảy ra...
+          </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography align="center" variant="subtitle2">Mã lỗi: 404</Typography>
+          <Typography align="center" variant="subtitle2">
+            Mã lỗi: 404
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography align="center" variant="subtitle2" className="weightLow">
@@ -33,15 +38,12 @@ const Error500 = () => (
           <ul className="list">
             <li>
               <Link href="/">
-
                 <Button color="#fff">Quay lại trang chủ</Button>
-
               </Link>
             </li>
           </ul>
         </Grid>
       </Grid>
-
     </Grid>
   </Container>
 );

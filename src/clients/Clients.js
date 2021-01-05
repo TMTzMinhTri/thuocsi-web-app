@@ -29,8 +29,7 @@ async function request(props) {
    */
 
     const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
-    // eslint-disable-next-line no-console
-    console.log('request url : ', link);
+    let isUseBasic = false;
     if (isAuth) {
       if (ctx) {
         const AuthorizationValue = getSessionToken(ctx);
@@ -47,6 +46,7 @@ async function request(props) {
 
       if (isBasic && (!headers.Authorization || headers.Authorization.length === 0)) {
         headers.Authorization = BASIC_AUTHEN;
+        isUseBasic = true;
       }
     }
     const res = await fetch(link, {
@@ -59,6 +59,9 @@ async function request(props) {
       body: typeof body === 'object' ? JSON.stringify(body) : body,
     });
     const result = await res.json();
+    if (isUseBasic) {
+      result.isBasic = true;
+    }
     return result;
   } catch (err) {
     return {
@@ -90,4 +93,11 @@ export function isValid(resp) {
   return resp && resp.data && resp.status && resp.status === 'OK';
 }
 
-export default { GET, POST, PUT, DELETE, isValid, getSessionToken };
+export default {
+  GET,
+  POST,
+  PUT,
+  DELETE,
+  isValid,
+  getSessionToken,
+};
