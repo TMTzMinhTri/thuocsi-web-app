@@ -47,14 +47,16 @@ const ProductCardBuy = ({
     removeProduct(product);
   };
   const handleDecrease = () => {
-    if (cart && product.quantity < 2) return;
+    if (value < 2) return;
+    const q = value - 1;
+    setValue(q);
     decrease(product);
-    setValue(product.quantity);
   };
 
   const handleIncrease = () => {
+    const q = value + 1;
+    setValue(q);
     increase(product);
-    setValue(product.quantity);
   };
 
   const handleOnIncreaseBy = (val) => {
