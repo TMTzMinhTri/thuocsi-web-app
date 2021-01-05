@@ -42,7 +42,7 @@ export default function Products({
   return (
     <Template title={title}>
       <Header />
-      <NavBar mostResearched={mostResearched} />
+      <NavBar mostResearched={mostResearched} pageName={cat} />
       <ProductListing
         products={products}
         brand={brand.status === 'OK' ? brand.data : []}

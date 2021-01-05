@@ -13,6 +13,11 @@ export const ENUM_ORDER_STATUS = {
 
 export const ENUM_TYPE = {};
 
+export const RIBBON_STATUS = {
+  UP: 'up',
+  DOWN: 'down',
+};
+
 export default {
   ENUM_SCOPE,
   ENUM_TYPE,

@@ -1,8 +1,10 @@
 import { Grid, Paper, Button, useMediaQuery } from '@material-ui/core';
 import { DateTimeUtils, FormarCurrency } from 'utils';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
-import { PrintInvoiceButton, EditOrderButton, ResponseButton } from 'components/atoms';
 import Link from 'next/link';
+import PrintInvoiceButton from '../PrintInvoiceButton';
+import EditOrderButton from '../EditOrderButton';
+import ResponseButton from '../ResponseButton';
 import styles from './styles.module.css';
 
 const parseOrderStatus = (status) => {

@@ -6,9 +6,10 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
-import { InfoInput, InfoFormControl } from 'components/atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import InfoFormControl from '../../atoms/InfoFormControl';
+import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
 

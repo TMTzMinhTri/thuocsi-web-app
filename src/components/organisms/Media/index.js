@@ -7,7 +7,7 @@ import styles from './styles.module.css';
 
 const renderMediaItem = (data) =>
   data.map((item) => (
-    <Grid key={`media-${item.id}`} className={styles.hover_link} item xs={3}>
+    <Grid key={`media-${item.id}`} className={styles.hover_link} item xs={6} sm={4} md={3}>
       <Image
         className={item.dark && styles.dark}
         src={item.url}
@@ -20,19 +20,17 @@ const renderMediaItem = (data) =>
 const Media = () => (
   <div className={styles.media_wrapper}>
     <Box fontWeight="fontWeightMedium">
-      <Typography variant="h4" align="center">
+      <Typography variant="h4" align="center" className={styles.center}>
         Truyền thông nói gì về thuocsi.vn
       </Typography>
     </Box>
 
-    <Grid direction="column" container>
-      <Grid className={styles.container} container item xs={12} alignItems="center">
+    <Box>
+      <Grid container className={styles.container} item alignItems="center">
         {renderMediaItem(imageMediaTop)}
-      </Grid>
-      <Grid className={styles.container} container item xs={12} alignItems="center">
         {renderMediaItem(imageMediaBottom)}
       </Grid>
-    </Grid>
+    </Box>
   </div>
 );
 

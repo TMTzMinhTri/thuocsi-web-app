@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Paper, FormHelperText, InputAdornment, IconButton, Grid } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { InfoInput, InfoFormControl } from 'components/atoms';
+import { InfoFormControl } from 'components/atoms';
+import InfoInput from '../InfoInput';
 import styles from './styles.module.css';
 
 const AccountForm = ({ name, email, phone, password, handleSetValue }) => {

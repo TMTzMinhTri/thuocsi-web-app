@@ -65,3 +65,24 @@
   align-items: center;
   justify-content: flex-start;
 }
+@media (max-width: 767px){
+  .header_info_wrap{
+    padding: 10px;
+  }
+  .header_info_wrap>div{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .div_buttons{
+    padding: 0;
+  }
+  .div_buttons button{
+    padding: 4px 11px;
+
+    
+  }
+  .div_buttons button span{
+    font-size: 12px;
+  }
+}
