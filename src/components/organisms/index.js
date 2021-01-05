@@ -27,3 +27,4 @@ export { default as PromotionProduct } from './PromotionProduct';
 export { default as GridSkeletonProductHorizontal } from './Skeleton/GirdSkeleton';
 export { default as GridLineItem } from './Skeleton/LineItem';
 export { default as ThankYouContainer } from './ThankYouContainer';
+export { default as IngredientContainer } from './IngredientContainer';

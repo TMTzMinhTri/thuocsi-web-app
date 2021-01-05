@@ -37,3 +37,6 @@ export { default as RibbonPriceDown } from './RibbonPriceDown';
 export { default as ProductHorizontalSkeleton } from './Skeleton/ProductHorizontal';
 export { default as LineItemSkeleton } from './Skeleton/LineItem';
 export { default as Dialog } from './Dialog';
+export { default as AlphabetFilter } from './AlphabetFilter';
+export { default as IngredientList } from './IngredientList';
+export { default as IngredientSearch } from './IngredientSearch';

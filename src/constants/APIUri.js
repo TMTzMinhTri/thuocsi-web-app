@@ -35,3 +35,10 @@ const STATIC_CONTENT = `${CONTENT_API_PREFIX}/static`;
 export const CONTENT_API = {
   STATIC_CONTENT,
 };
+
+const PRODUCT_API_PREFIX = '/marketplace/product/v1';
+const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredient`;
+
+export const PRODUCT_API = {
+  INGREDIENT,
+};
