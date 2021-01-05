@@ -3,15 +3,38 @@ import { AccountCircle, Visibility, VisibilityOff } from '@material-ui/icons';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
 import { Button, Input, CheckBox } from 'components/atoms';
-import { FormDataUtils } from 'utils';
+import { FormDataUtils, NotifyUtils } from 'utils';
 
 const SignInForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
   const { className, onClickForget, onClickLogin } = props;
+  const [errorUserName, setErrorUserName] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
 
   const handleLogin = (e) => {
+    setErrorUserName(false);
+    setErrorPassword(false);
+
     const data = FormDataUtils.convert(e);
     e.preventDefault();
+    if (!data) {
+      NotifyUtils.error('Bạn chưa điền thông tin đang nhập');
+      setErrorUserName(true);
+      setErrorPassword(true);
+      return;
+    }
+
+    if (!data.username) {
+      setErrorUserName(true);
+      NotifyUtils.error('Bạn chưa điền tên đăng nhập.');
+      return;
+    }
+
+    if (!data.password) {
+      setErrorPassword(true);
+      NotifyUtils.error('Bạn chưa điền mật khẩu.');
+      return;
+    }
     onClickLogin(data);
   };
 
@@ -56,6 +79,7 @@ const SignInForm = React.memo((props) => {
             startAdornment={IconAccount}
             placeholder="Nhập số điện thoại hoặc email"
             variant="outlined"
+            error={errorUserName}
           />
         </FormControl>
         <FormControl className="form-control">
@@ -67,6 +91,7 @@ const SignInForm = React.memo((props) => {
             endAdornment={IconEndPassword}
             placeholder="Nhập Mật khẩu"
             variant="outlined"
+            error={errorPassword}
           />
         </FormControl>
         <div className="rememberPassword">
