@@ -88,7 +88,7 @@ export default (req, res) => {
         unit: 'Hộp',
         volume: '50 cái',
         weight: 300,
-        quantity: 37,
+        quantity: 1,
       },
       {
         sku: 'SP02',
@@ -107,7 +107,7 @@ export default (req, res) => {
         price_percent: 19.2323423,
         not_support_delivery: false,
         is_new: true,
-        quantity: 51,
+        quantity: 1,
       }],
     },
   });
