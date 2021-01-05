@@ -20,7 +20,8 @@ const SignInModal = React.memo((props) => {
     AuthClient.login(data)
       .then((result) => {
         if (!isValid(result)) {
-          NotifyUtils.warn(t('login.NOT_FOUND'));
+          const errorCode = `login.${result.errorCode}`;
+          NotifyUtils.error(t(errorCode));
           return;
         }
         NotifyUtils.success(t('login.success'));
