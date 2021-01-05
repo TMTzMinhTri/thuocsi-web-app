@@ -26,3 +26,7 @@ export { default as OrderDetailStep } from './OrderDetailStep';
 export { default as OrderDetailInfo } from './OrderDetailInfo';
 export { default as OrderDetailProduct } from './OrderDetailProduct';
 export { default as SearchResultText } from './SearchResultText';
+export { default as DeliveryInfoForm } from './DeliveryInfoForm';
+export { default as DeliveryMethod } from './DeliveryMethod';
+export { default as PaymentMethod } from './PaymentMethod';
+export { default as CheckoutSticky } from './CheckoutSticky';
