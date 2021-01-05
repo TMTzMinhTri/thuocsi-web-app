@@ -49,20 +49,46 @@ export default function ProductListing({
     setIsLoading(false);
   }, [isloading]);
 
+  const getQueryObject = () => {
+    const query = {};
+    if (current_tab) {
+      query.current_tab = current_tab;
+    }
+    if (sort) {
+      query.sort = sort;
+    }
+    return query;
+  };
+
+  const getTabQuery = (currentTab) => {
+    const query = getQueryObject();
+    if (!currentTab) {
+      delete query.current_tab;
+    }
+    if (!sort) {
+      delete query.sort;
+    }
+    return query;
+  };
+
   const handleChangePage = (event, value) => {
     if (page === value) return;
     setIsLoading(true);
+    const query = getQueryObject();
+    query.page = value;
     router.push({
       pathname: pathName,
-      query: { page: value, current_tab, sort },
+      query,
     });
     setNumPage(value);
   };
   const handleChangeSort = (event) => {
     setIsLoading(true);
+    const query = getQueryObject();
+    query.sort = event.target.value || undefined;
     router.push({
       pathname: pathName,
-      query: { slug, current_tab, sort: event.target.value || undefined },
+      query,
     });
     setNumPage(1);
   };
@@ -170,26 +196,37 @@ export default function ProductListing({
                 <div className={styles.filters}>
                   <Fab
                     variant="extended"
-                    aria-label="add"
-                    className={clsx(styles.active, styles.filter_btn)}
+                    aria-label="all"
+                    className={clsx(!current_tab && styles.active, styles.filter_btn)}
                   >
-                    Tất cả
-                  </Fab>
-                  <Fab variant="extended" aria-label="add" className={styles.filter_btn}>
                     <Link
                       href={{
                         pathname: pathName,
-                        query: { current_tab: 'new_arrival', sort },
+                        query: getTabQuery(),
+                      }}
+                    >
+                      Tất cả
+                    </Link>
+                  </Fab>
+                  <Fab
+                    variant="extended"
+                    aria-label="new_arrival"
+                    className={clsx(current_tab === 'new_arrival' && styles.active, styles.filter_btn)}
+                  >
+                    <Link
+                      href={{
+                        pathname: pathName,
+                        query: { ...getTabQuery(), current_tab: 'new_arrival' },
                       }}
                     >
                       SP mới
                     </Link>
                   </Fab>
-                  <Fab variant="extended" aria-label="add" className={styles.filter_btn}>
+                  <Fab variant="extended" aria-label="decreasing_price" className={clsx(current_tab === 'decreasing_price' && styles.active, styles.filter_btn)}>
                     <Link
                       href={{
                         pathname: pathName,
-                        query: { current_tab: 'decreasing_price', sort },
+                        query: { ...getTabQuery(), current_tab: 'decreasing_price' },
                       }}
                     >
                       Giảm giá
