@@ -49,7 +49,7 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-const PaymentPage = ({ user = [] }) => {
+const PaymentPage = ({ user = {} }) => {
   const title = 'Thuocsi.vn';
   const [value, setValue] = useState({
     name: user.name,

@@ -6,7 +6,6 @@ export async function getServerSideProps() {
   try {
     const [user, wallet] = await Promise.all([AuthClient.getUser(), CustomerClient.getWallet()]);
     if (!user) throw new Error('Cannot get user');
-    console.log(user);
     return {
       props: {
         user: user.data[0],
