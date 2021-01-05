@@ -10,14 +10,14 @@
 .top_text {
   margin: 0 !important;
   font-size: 15px !important;
-  font-weight: 600 !important;
+  font-weight: 400 !important;
 }
 
 .menu_item {
   display: flex !important;
   flex-direction: column !important;
   align-items: stretch !important;
-  border-bottom: 1px solid black !important;
+  /* border-bottom: 0.1px solid #212529 !important; */
 }
 
 .menu_item:hover {
