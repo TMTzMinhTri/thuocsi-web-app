@@ -41,7 +41,12 @@ async function loadDataPormotion(ctx) {
 }
 
 async function loadDataProduct(ctx) {
-  const result = await GET({ url: '/marketplace/product/v1/products/list', ctx, isAuth: true, isBasic: true });
+  const result = await GET({
+    url: '/marketplace/product/v1/products/list',
+    ctx,
+    isAuth: true,
+    isBasic: true,
+  });
   if (!isValid(result)) return result;
   let cart = {};
   let productListWithPrice = {};
@@ -66,7 +71,8 @@ async function loadDataProduct(ctx) {
 }
 
 async function loadDataIngredient(ctx) {
-  const res = await GET({ url: `${PRODUCT_API.INGREDIENT}/list`, ctx });
+  const urlIngredient = `${PRODUCT_API.INGREDIENT}/list`;
+  const res = await GET({ url: urlIngredient, ctx });
   return res.data;
 }
 export default {
