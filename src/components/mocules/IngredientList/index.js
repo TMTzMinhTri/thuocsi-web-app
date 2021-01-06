@@ -16,7 +16,8 @@ const IngredientList = ({ ingredients = [], word = '#' }) => {
   return (
     <div>
       <div className={styles.total}>
-        <i>Hiển thị {values.length} kết quả tìm kiếm cho</i> <strong> {word === '#' ? 'Tất cả' : `Tiền tố ${word}`} </strong>
+        <i>Hiển thị {values.length} kết quả tìm kiếm cho</i>{' '}
+        <strong> {word === '#' ? 'Tất cả' : `Tiền tố ${word}`} </strong>
       </div>
       <Grid container className={styles.container}>
         {values.map((val) => (

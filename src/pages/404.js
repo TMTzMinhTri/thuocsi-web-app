@@ -5,10 +5,8 @@ import Image from 'next/image';
 import { Button } from 'components';
 import styled from 'styled-components';
 
-// import styles from '../styles/error.module.css';
-
 const Error404 = ({ className }) => (
-  <Container maxWidth="md" className={`${className}`}>
+  <Container className={`${className}`}>
     <Grid container>
       <Grid item container xs={12}>
         <Grid align="center" item xs={12}>
@@ -51,7 +49,11 @@ const Error404 = ({ className }) => (
 );
 
 const StyledError404 = styled(Error404)`
+  body {
+    background-color: #f4f7fc !important;
+  }
   padding: 100px 150px 0 150px !important;
+  background-color: #f4f7fc !important;
 
   .boldText {
     font-weight: 500;

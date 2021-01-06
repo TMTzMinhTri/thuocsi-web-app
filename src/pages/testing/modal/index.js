@@ -14,6 +14,11 @@ export default function ModalTest() {
     toggleForgetPassword();
   }, [toggle, toggleForgetPassword]);
 
+  const handleChangeSignUp = useCallback(() => {
+    toggle();
+    toggleSignUp();
+  }, [toggle, toggleSignUp]);
+
   const handleChangeSignIn = useCallback(() => {
     toggleSignUp();
     toggle();
@@ -31,6 +36,7 @@ export default function ModalTest() {
         visible={isShowModal}
         onClose={toggle}
         onChangeForget={handleChangeForget}
+        onChangeSignUp={handleChangeSignUp}
       >
         <div>
           <title>title</title>
@@ -45,7 +51,7 @@ export default function ModalTest() {
       <ForgetPasswordModal visible={isShowModalForgetPassword} onClose={toggleForgetPassword} />
       <div>
         <Button variant="contained" color="secondary" onClick={toggleSignUp}>
-          show modal signUp
+          show modal SignUp
         </Button>
         <SignUpModal
           visible={isShowModalSignUp}
