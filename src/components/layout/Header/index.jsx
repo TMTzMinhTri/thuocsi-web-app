@@ -23,6 +23,11 @@ const InfoHeader = memo(() => {
     toggleForgetPassword();
   }, [toggleLogin, toggleForgetPassword]);
 
+  const handleChangeSignUp = useCallback(() => {
+    toggleLogin();
+    toggleSignUp();
+  }, [toggleLogin, toggleSignUp]);
+
   const handleChangeSignIn = useCallback(() => {
     toggleSignUp();
     toggleLogin();
@@ -43,7 +48,11 @@ const InfoHeader = memo(() => {
           </div>
 
           <div className={styles.link}>
-            <LinkComp name="Tuyển dụng | Recruitment" href={PATH_SUPPLIER} color="#6c757d !important">
+            <LinkComp
+              name="Tuyển dụng | Recruitment"
+              href={PATH_SUPPLIER}
+              color="#6c757d !important"
+            >
               <House fontSize="small" />
             </LinkComp>
           </div>
@@ -59,6 +68,7 @@ const InfoHeader = memo(() => {
               visible={isShowingLogin}
               onClose={toggleLogin}
               onChangeForget={handleChangeForget}
+              onChangeSignUp={handleChangeSignUp}
             />
             <ForgetPasswordModal visible={isShowingForgetPassword} onClose={toggleForgetPassword} />
             <SignUpModal

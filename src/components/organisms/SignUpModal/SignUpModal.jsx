@@ -25,7 +25,7 @@ const SignUpModal = React.memo((props) => {
           return;
         }
         // notification
-        NotifyUtils.success('Đăng ký thành công');
+        NotifyUtils.success('Bạn đã đăng ký tài khoản thuocsi thành công');
         // register success -> login and redirect
         AuthClient.login({
           username: data.phone,
