@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Grid } from '@material-ui/core';
 import styles from './styles.module.css';
 
@@ -22,7 +23,9 @@ const IngredientList = ({ ingredients = [], word = '#' }) => {
       <Grid container className={styles.container}>
         {values.map((val) => (
           <Grid item xs={3}>
-            <div className={styles.ingredient}> {val?.name} </div>
+            <Link href={`ingredients/${val.slug}`}>
+              <div className={styles.ingredient}> {val?.name} </div>
+            </Link>
           </Grid>
         ))}
       </Grid>

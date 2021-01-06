@@ -28,3 +28,4 @@ export { default as GridSkeletonProductHorizontal } from './Skeleton/GirdSkeleto
 export { default as GridLineItem } from './Skeleton/LineItem';
 export { default as ThankYouContainer } from './ThankYouContainer';
 export { default as IngredientContainer } from './IngredientContainer';
+export { default as IngredientDetailContainer } from './IngredientDetailContainer';

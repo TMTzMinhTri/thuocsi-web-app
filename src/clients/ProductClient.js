@@ -71,10 +71,20 @@ async function loadDataProduct(ctx) {
 }
 
 async function loadDataIngredient(ctx) {
-  const urlIngredient = `${PRODUCT_API.INGREDIENT}/list`;
-  const res = await GET({ url: urlIngredient, ctx });
+  const res = await GET({ url: `${PRODUCT_API.INGREDIENT}/list`, ctx, isBasic: true });
   return res.data;
 }
+
+async function getIngredientBySlug(ctx, slug) {
+  const res = await GET({ url: `${PRODUCT_API.INGREDIENT}/info?q=${slug}`, ctx, isBasic: true });
+  return res.data;
+}
+
+async function getProductsBySlug(ctx, slug) {
+  const res = await GET({ url: `/ingredients/${slug}/products`, ctx, mock: true });
+  return res.data;
+}
+
 export default {
   loadDataMostSearch,
   loadFeedback,
@@ -84,4 +94,6 @@ export default {
   loadDataProductDetail,
   loadDataPormotion,
   loadDataIngredient,
+  getIngredientBySlug,
+  getProductsBySlug,
 };

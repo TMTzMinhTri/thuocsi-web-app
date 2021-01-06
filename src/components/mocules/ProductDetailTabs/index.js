@@ -14,15 +14,23 @@ export default function ProductDetailTabs({ data, product, handleChange, value }
             TabIndicatorProps={{ className: styles.indicator }}
             onChange={handleChange}
             aria-label="product details tabs"
+            variant="scrollable"
           >
             {data.map((item) => (
               <Tab classes={{ root: styles.tab }} label={item.label} value={item.value} />
             ))}
           </TabList>
         </div>
-        <TabPanel value="1">{description}</TabPanel>
-        <TabPanel value="2">Item Two</TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
+        {
+          data.map((item) => {
+            if (item.value === '1') {
+              return (<TabPanel value={item.value}>{description}</TabPanel>);
+            }
+
+            return (<TabPanel value={item.value}>Đang cập nhật ...</TabPanel>);
+          })
+        }
+
       </TabContext>
     </div>
   );
