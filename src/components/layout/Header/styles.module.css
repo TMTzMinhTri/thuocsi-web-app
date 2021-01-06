@@ -79,10 +79,21 @@
   }
   .div_buttons button{
     padding: 4px 11px;
-
-    
+  }
+  .div_buttons button:last-child{
+    margin-right: 0 !important;
   }
   .div_buttons button span{
     font-size: 12px;
+  }
+}
+@media (max-width: 640px){
+  .notiIcon{
+    margin-right: 15px !important;
+  }
+}
+@media (max-width: 480px){
+  .login>div:first-child{
+    flex: 0 0 110px;
   }
 }

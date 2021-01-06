@@ -1,0 +1,14 @@
+.bottom_bar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0px -3px 20px rgba(0,0,0,0.08);
+    padding: 12px 10px;
+}
+.bottom_bar [class*='StyledButton']{
+    margin-right: 0 !important;
+}
+.div_buttons{
+    text-align: center;
+}

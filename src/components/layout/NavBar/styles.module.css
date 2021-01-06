@@ -140,3 +140,8 @@
         display: none;
     }
 }
+@media (max-width: 640px){
+    .navBar.sticky .searchInput {
+        display: none !important;
+    }
+}

@@ -1,0 +1,90 @@
+.sidebar__user{
+    background-color: white;
+    color: #919aa3;
+    box-shadow: 0px 3px 20px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    display: flex;
+    font-size: smaller;
+    position: relative;
+    margin: 4em 1em 1em;
+}
+.sidebar__user_wallet{
+    width: 50%;
+    padding: 1em;
+    border-right: 1px solid #c3ccdc;
+}
+.sidebar__user-wallet_amount{
+    color: #00b46e;
+    font-size: large;
+    font-weight: 500;
+}
+.unit {
+    padding-left: 0.25em;
+}
+.sidebar__user_avatar{
+    position: absolute;
+    top: calc(-1 * 80px / 2);
+    left: calc(50% - 80px / 2);
+    background: linear-gradient(102.04deg, #46b759 0%, #5bba4c 100%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sidebar__user_avatar img{
+    border-radius: 50%;
+    border: 3px solid white;
+    max-width: 64px;
+    height: auto;
+    vertical-align: middle;
+}
+.sidebar__user_bonus_point{
+    width: 50%;
+    text-align: right;
+    padding: 1em;
+}
+.sidebar__user_wallet_amount{
+    color: #00b46e;
+    font-size: large;
+    font-weight: 500;
+}
+.sidebar__user_bonus_point_amount {
+    color: #f9b514;
+    font-size: large;
+    font-weight: 500;
+}
+.sidebar__user_name{
+    text-transform: capitalize !important;
+    text-align: center;
+    color: #fff;
+}
+.hr{
+    background-color: white;
+    opacity: 0.6;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(195,204,220,0.4);
+}
+.items{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    flex-direction: column !important;
+}
+.sidebar__item_link{
+    color: white;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+.sidebar__item_link.active{
+    background-color: #f4f7fc;
+    color: #00b46e;
+    text-decoration: none;
+}
