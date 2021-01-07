@@ -34,7 +34,7 @@ export default function QuickOrderPage({ mostResearched = [], products = [] }) {
               ? <QuickOrderList products={products} />
               : (
                 <Typography variant="body1" gutterBottom>
-                  Ko có sản phẩm
+                  Không có sản phẩm
                 </Typography>
               )}
 

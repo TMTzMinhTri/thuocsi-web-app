@@ -270,7 +270,7 @@ export default function ProductListing({
                 </main>
               ) : (
                 <Typography variant="body1" className={styles.empty}>
-                  Ko có sản phẩm
+                  Không có sản phẩm
                 </Typography>
               )}
             </>
