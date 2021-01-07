@@ -1,39 +1,21 @@
 import { Template, NavBar, Header, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { AuthClient, CustomerClient, OrderClient } from 'clients';
+import { CustomerClient, OrderClient, doWithServerSide } from 'clients';
 
 export async function getServerSideProps(ctx) {
-  try {
-    const { id } = ctx.query;
-    const [user, wallet, order] = await Promise.all([
-      AuthClient.getUser(),
+  const { id } = ctx.query;
+  return doWithServerSide(ctx, async () => {
+    const [wallet, order] = await Promise.all([
       CustomerClient.getWallet(),
       OrderClient.getOrderById(id),
     ]);
-    if (!user) throw new Error('Cannot get user');
     return {
       props: {
-        user: user.data[0],
         wallet: wallet.data[0],
         order,
       },
     };
-  } catch (error) {
-    return {
-      props: {
-        user: {
-          name: '',
-          phone: '',
-          email: '',
-        },
-        wallet: {
-          balance: 0,
-          name: '',
-        },
-        order: {},
-      },
-    };
-  }
+  });
 }
 
 const MyOrder = ({ mostResearched = [], wallet, order }) => {
