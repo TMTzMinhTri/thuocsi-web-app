@@ -151,9 +151,9 @@ const SideBar = ({ pageName = '/' }) => {
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'my-orders' && styles.active)}
+            className={clsx(styles.sidebar__item_link, pageName === 'my-order' && styles.active)}
             name="Đơn hàng của tôi"
-            href="/my-orders"
+            href="/my-order"
             color="white"
           >
             <AssignmentTurnedIn className={styles.navIcon} />

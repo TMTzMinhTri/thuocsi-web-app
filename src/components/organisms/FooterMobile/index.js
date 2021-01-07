@@ -5,6 +5,7 @@ import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organi
 import { Whatshot, AssignmentTurnedInOutlined, NotificationsNoneOutlined } from '@material-ui/icons';
 import Fab from '@material-ui/core/Fab';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { useAuth } from 'context';
 import { Button } from '../../atoms';
@@ -15,6 +16,7 @@ const FooterComp = () => {
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { isAuthenticated } = useAuth();
+  const router = useRouter();
   const handleChangeForget = useCallback(() => {
     toggleLogin();
     toggleForgetPassword();
@@ -54,7 +56,7 @@ const FooterComp = () => {
           ) : (
             <AppBar position="fixed" className={styles.appBar}>
               <Toolbar>
-                <div className={clsx(styles.icon, styles.active)}>
+                <div className={clsx(styles.icon, router.pathname === '/products' && styles.active)}>
                   <Link href="/products">
                     <IconButton edge="start" color="inherit">
                       <Icon className="icon-product" />
@@ -62,7 +64,7 @@ const FooterComp = () => {
                     </IconButton>
                   </Link>
                 </div>
-                <div className={clsx(styles.icon, styles.promo)}>
+                <div className={clsx(styles.icon, styles.promo, router.pathname === '/deals' && styles.active)}>
                   <Link href="/deals">
                     <IconButton edge="start" color="inherit">
                       <Whatshot />
@@ -70,7 +72,7 @@ const FooterComp = () => {
                     </IconButton>
                   </Link>
                 </div>
-                <div className={styles.icon_special}>
+                <div className={clsx(styles.icon_special, router.pathname === '/notifications' && styles.active)}>
 
                   <Link href="/quick-order">
                     <>
@@ -82,15 +84,15 @@ const FooterComp = () => {
                   </Link>
                 </div>
                 <div className={styles.grow} />
-                <div className={styles.icon}>
-                  <Link href="/my-orders">
+                <div className={clsx(styles.icon, router.pathname === '/my-order' && styles.active)}>
+                  <Link href="/my-order">
                     <IconButton color="inherit">
                       <AssignmentTurnedInOutlined />
                       <span className={styles.text}>Đơn hàng</span>
                     </IconButton>
                   </Link>
                 </div>
-                <div className={styles.icon}>
+                <div className={clsx(styles.icon, router.pathname === '/notifications' && styles.active)}>
                   <Link href="/notifications">
                     <IconButton edge="end" color="inherit">
                       <Badge badgeContent=" " variant="dot" color="secondary">
