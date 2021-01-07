@@ -1,16 +1,13 @@
-.root_input {
-  height: 1.5rem;
-  margin: 0.5rem;
-  /* margin-left: 0.25em;
-  margin-right: 0.25em; */
-  font-weight: 500;
-  font-size: 12px;
+.root_input [class*="MuiInputBase-input"] {
+  font-weight: 500!important;
+  font-size: 14px!important;
   background-color: white;
   min-width: 0;
   border-radius: 2rem !important;
   border: 1px solid #ced4da !important;
-  width: 100%;
-  padding: 20px;
+  width: 100%!important;
+  padding: 20px!important;
+  padding-left: 47px!important;
 }
 
 .input {
@@ -19,9 +16,6 @@
   font-size: 12px;
 }
 
-.root_input_column {
-  width: 30% !important;
-}
 
 .focus {
   border: 1px solid #35ffb0 !important;
@@ -30,3 +24,30 @@
   outline: 0 !important;
   border-color: transparent !important;
 }
+
+
+.search_wrap {
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  z-index: 610;
+}
+
+
+
+.search_wrap [class*="MuiInput-underline"]::after {
+  border: none!important;
+}
+
+.search_wrap [class*="MuiInput-underline"]::before {
+  border: none!important;
+}
+
+.search_wrap [class*="MuiInputAdornment-positionStart"] {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto
+}
+

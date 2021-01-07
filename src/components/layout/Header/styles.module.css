@@ -51,8 +51,8 @@
 }
 
 .SearchInput {
-  width: 40%!important;
   border-radius: 20px!important;
+  width: 100%;
 }
 
 .notiIcon {
