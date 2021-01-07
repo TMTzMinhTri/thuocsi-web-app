@@ -23,18 +23,14 @@
     flex-grow: 1
 }
 .fabButton{
-    /* position: absolute !important;
-    z-index: 1;
-    top: -30px;
-    left: 0;
-    right: 0;
-    margin : 0 auto !important; */
     background: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
     color: #fff !important;
 }
 .icon{
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 1;
 }
 .icon [class*='MuiIconButton-label'] {
     display: flex;
@@ -51,7 +47,7 @@
 }
 .icon_special{
     position: absolute !important;
-    z-index: -1;
+    z-index: 0;
     top: -30px;
     left: 0;
     right: 0;
