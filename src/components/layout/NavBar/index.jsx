@@ -2,14 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useModal } from 'hooks';
-import {
-  makeStyles,
-  Typography,
-  Badge,
-  IconButton,
-  Icon,
-  Container,
-} from '@material-ui/core';
+import { makeStyles, Typography, Badge, IconButton, Icon, Container, Tooltip } from '@material-ui/core';
 import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { useCart, useAuth } from 'context';
@@ -208,12 +201,21 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                 onChangeSignIn={handleChangeSignIn}
               />
               <div className={styles.btn_no_auth_section}>
-                <IconButton onClick={toggleLogin} className={classes.link}>
-                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
-                </IconButton>
-                <IconButton onClick={toggleSignUp} className={classes.link}>
-                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
-                </IconButton>
+                <Tooltip title="Đăng nhập" arrow>
+
+                  <IconButton onClick={toggleLogin} className={classes.link}>
+                    <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
+                  </IconButton>
+
+                </Tooltip>
+
+                <Tooltip title="Tạo tài khoản" arrow>
+
+                  <IconButton onClick={toggleSignUp} className={classes.link}>
+                    <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
+                  </IconButton>
+
+                </Tooltip>
               </div>
             </>
           )}
