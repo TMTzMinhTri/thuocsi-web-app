@@ -88,9 +88,9 @@ const FooterLeftItem = () => {
             <div className="foo" onClick={() => handleToggleOpen('general-policy')} role="button" aria-hidden="true">
               <Typography className={styles.link}>Chính sách quy định chung</Typography>
             </div>
-            <Link href="/career">
+            <a className={styles.alink} href="/career" target="_blank">
               <Typography className={styles.link}>Tuyển dụng | Recruitment</Typography>
-            </Link>
+            </a>
           </Grid>
           <Grid sm={6} item>
             <>
