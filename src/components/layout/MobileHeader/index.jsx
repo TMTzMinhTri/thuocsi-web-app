@@ -75,7 +75,9 @@ const MobileHeader = memo(() => {
               <span className={styles.text}>Trang chủ</span>
             </div>
             <div className={styles.rSection}>
-              <IconButton className={styles.icon} aria-label="search"><Search /></IconButton>
+              <Link href="/quick-order">
+                <IconButton className={styles.icon} aria-label="search"><Search /></IconButton>
+              </Link>
               <LinkComp className={styles.navBarRightLink} href="/cart">
                 <IconButton aria-label="cart">
                   <Badge badgeContent={itemCount} invisible={false} color="secondary">

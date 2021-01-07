@@ -12,3 +12,60 @@
 .div_buttons{
     text-align: center;
 }
+.appBar{
+    top: auto !important;
+    bottom: 0;
+    background-color: #fff !important;
+    color: #919aa3 !important;
+    box-shadow: 0px -3px 20px rgba(0,0,0,0.08);
+}
+.grow{
+    flex-grow: 1
+}
+.fabButton{
+    position: absolute !important;
+    z-index: 1;
+    top: -30px;
+    left: 0;
+    right: 0;
+    margin : 0 auto !important;
+    background: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
+    color: #fff !important;
+}
+.icon{
+    display: flex;
+    flex-direction: column;
+}
+.icon [class*='MuiIconButton-label'] {
+    display: flex;
+    flex-direction: column;
+}
+.icon [class*='material-icons'] { 
+    font-size: 1.2rem;
+    height: 24px;
+}
+.icon [class*='MuiIconButton-label'] .text{
+    font-size: 12px;
+    margin-top: 7px;
+    font-weight: 500;
+}
+.icon_special [class*='material-icons'] {
+    width: 2em;
+}
+.icon_special .text {
+    font-size: 12px;
+    margin-top: 31px;
+    font-weight: 500; 
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+}
+.icon [class*='MuiIconButton-root']{
+    padding: 10px;
+}
+.promo{
+    color: #dc3545 !important;
+}
+.active [class*='MuiIconButton-root']{
+    color: #00b46e;
+}
