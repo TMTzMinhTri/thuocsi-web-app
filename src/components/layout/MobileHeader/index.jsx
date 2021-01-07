@@ -15,7 +15,7 @@ import { LinkComp, Button } from '../../atoms';
 
 import styles from './styles.module.css';
 
-const MobileHeader = memo(() => {
+const MobileHeader = memo(({ title = '' }) => {
   const [isShowingLogin, toggleLogin] = useModal();
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
@@ -72,7 +72,7 @@ const MobileHeader = memo(() => {
           <>
             <div className={styles.lSection}>
               <IconButton onClick={toggleDrawer(true)} aria-label="menu"><Menu /></IconButton>
-              <span className={styles.text}>Trang chủ</span>
+              <span className={styles.text}>{title && title}</span>
             </div>
             <div className={styles.rSection}>
               <Link href="/quick-order">

@@ -23,12 +23,12 @@
     flex-grow: 1
 }
 .fabButton{
-    position: absolute !important;
+    /* position: absolute !important;
     z-index: 1;
     top: -30px;
     left: 0;
     right: 0;
-    margin : 0 auto !important;
+    margin : 0 auto !important; */
     background: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
     color: #fff !important;
 }
@@ -49,12 +49,22 @@
     margin-top: 7px;
     font-weight: 500;
 }
+.icon_special{
+    position: absolute !important;
+    z-index: 1;
+    top: -30px;
+    left: 0;
+    right: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
 .icon_special [class*='material-icons'] {
     width: 2em;
 }
 .icon_special .text {
     font-size: 12px;
-    margin-top: 31px;
+    margin-top: 14px;
     font-weight: 500; 
     display: inline-block;
     width: 70px;

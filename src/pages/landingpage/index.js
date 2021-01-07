@@ -15,7 +15,7 @@ export default function LandingPage(props) {
 
   return (
     <Template title={title} isMobile={isMobile}>
-      {isMobile ? <MobileHeader {...props} /> : <Header {...props} />}
+      {isMobile ? <MobileHeader title="Trang chủ" {...props} /> : <Header {...props} />}
       {!isMobile && <NavBar mostResearched={mostResearched} pageName={pageName} />}
       <BannerSlider infoBanner={infoBanner} />
       <DynamicWhyBuymed />
