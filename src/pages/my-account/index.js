@@ -1,32 +1,16 @@
 import { Template, NavBar, Header, AccountInfoFormContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { AuthClient, CustomerClient } from 'clients';
+import { CustomerClient, doWithServerSide } from 'clients';
 
-export async function getServerSideProps() {
-  try {
-    const [user, wallet] = await Promise.all([AuthClient.getUser(), CustomerClient.getWallet()]);
-    if (!user) throw new Error('Cannot get user');
+export async function getServerSideProps(ctx) {
+  return doWithServerSide(ctx, async () => {
+    const [wallet] = await Promise.all([CustomerClient.getWallet()]);
     return {
       props: {
-        user: user.data[0],
         wallet: wallet.data[0],
       },
     };
-  } catch (error) {
-    return {
-      props: {
-        user: {
-          name: '',
-          phone: '',
-          email: '',
-        },
-        wallet: {
-          balance: 0,
-          name: '',
-        },
-      },
-    };
-  }
+  });
 }
 
 const MyAccount = ({ mostResearched = [], user, wallet }) => {
