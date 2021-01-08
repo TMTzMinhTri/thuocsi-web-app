@@ -24,6 +24,7 @@ const IngredientDetailContainer = ({ ingredient, products }) => {
   };
   return (
     <Grid container>
+      <Grid item xs={12}> <h1 style={{ textAlign: 'center' }}> {ingredient.name} </h1> </Grid>
       <Grid item style={{ padding: '0 10vw' }}>
         <ProductDetailTabs
           product={ingredient}
@@ -37,7 +38,7 @@ const IngredientDetailContainer = ({ ingredient, products }) => {
       </Grid>
       <Grid item xs={12}>
         <div className={styles.title}>
-          <h1>Danh sách các thuốc có Acarbose</h1>
+          <h1>Danh sách các thuốc có {ingredient.name}</h1>
         </div>
       </Grid>
       <Grid container spacing={1}>
