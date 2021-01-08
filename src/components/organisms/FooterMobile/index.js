@@ -1,7 +1,5 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Container, Icon, IconButton, AppBar, Toolbar, Badge } from '@material-ui/core';
-import { useModal } from 'hooks';
-import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { Whatshot, AssignmentTurnedInOutlined, NotificationsNoneOutlined } from '@material-ui/icons';
 import Fab from '@material-ui/core/Fab';
 import Link from 'next/link';
@@ -12,47 +10,24 @@ import { Button } from '../../atoms';
 import styles from './styles.module.css';
 
 const FooterComp = () => {
-  const [isShowingLogin, toggleLogin] = useModal();
-  const [isShowingSignUp, toggleSignUp] = useModal();
-  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-  const handleChangeForget = useCallback(() => {
-    toggleLogin();
-    toggleForgetPassword();
-  }, [toggleLogin, toggleForgetPassword]);
 
-  const handleChangeSignIn = useCallback(() => {
-    toggleSignUp();
-    toggleLogin();
-  }, [toggleSignUp, toggleLogin]);
+  const toggleLoginMobile = () => {
+    const link = document.getElementById('loginMobile');
+    link.click();
+  };
+
   return (
     <footer className={styles.bottom_bar}>
       <div className={styles.global_style}>
         <Container maxWidth="lg">
           {!isAuthenticated ? (
-            <>
-              <SignInModal
-                visible={isShowingLogin}
-                onClose={toggleLogin}
-                onChangeForget={handleChangeForget}
-              />
-              <ForgetPasswordModal
-                visible={isShowingForgetPassword}
-                onClose={toggleForgetPassword}
-              />
-              <SignUpModal
-                visible={isShowingSignUp}
-                onClose={toggleSignUp}
-                onChangeSignIn={handleChangeSignIn}
-              />
-
-              <div className={styles.div_buttons}>
-                <Button variant="contained" btnType="warning" onClick={toggleLogin}>
-                  Đăng nhập
-                </Button>
-              </div>
-            </>
+            <div className={styles.div_buttons}>
+              <Button variant="contained" btnType="warning" onClick={toggleLoginMobile}>
+                Đăng nhập
+              </Button>
+            </div>
           ) : (
             <AppBar position="fixed" className={styles.appBar}>
               <Toolbar>

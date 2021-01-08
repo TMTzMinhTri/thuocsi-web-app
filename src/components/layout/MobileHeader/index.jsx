@@ -62,7 +62,7 @@ const MobileHeader = memo(({ title = '' }) => {
             />
 
             <div className={styles.div_buttons}>
-              <Button variant="contained" btnType="warning" onClick={toggleLogin}>
+              <Button id="loginMobile" variant="contained" btnType="warning" onClick={toggleLogin}>
                 Đăng nhập
               </Button>
             </div>
