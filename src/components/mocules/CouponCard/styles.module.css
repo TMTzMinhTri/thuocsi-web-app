@@ -1,0 +1,51 @@
+.coupon_card {
+  padding: 1em !important;
+  font-size: small !important;
+  background-color: white !important;
+  border-radius: 20px !important;
+  box-shadow: 15px 15px 20px -20px #343a40 !important;
+  text-align: left !important;
+}
+
+.coupon_yellow {
+  border-top: 2px solid #f9b514 !important;
+}
+
+.coupon_green {
+  border-top: 2px solid #00b46e !important;
+}
+
+.code {
+  color: #f9b514;
+  border: 1px dashed #343a40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: large;
+  margin-bottom: 0.5rem !important;
+  min-height: 2em;
+  border-radius: 5px;
+  /* padding: 0 30px; */
+}
+
+.coupon_description {
+  /* height: 46px; */
+  text-align: center;
+  min-height: 100px;
+}
+
+.benefit {
+  border-radius: 5px;
+  border: 1px dashed #e9ecef;
+  padding: 0.5em;
+  color: #dc3545;
+  height: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100px;
+}

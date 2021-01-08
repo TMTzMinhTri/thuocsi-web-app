@@ -46,3 +46,4 @@ export { default as AlphabetFilter } from './AlphabetFilter';
 export { default as IngredientList } from './IngredientList';
 export { default as IngredientSearch } from './IngredientSearch';
 export { default as SearchOrder } from './SearchOrder';
+export { default as CouponCard } from './CouponCard';
