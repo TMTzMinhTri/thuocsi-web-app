@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Container, Icon, IconButton, AppBar, Toolbar, Badge } from '@material-ui/core';
 import { Whatshot, AssignmentTurnedInOutlined, NotificationsNoneOutlined } from '@material-ui/icons';
+import { SignUpModal } from 'components/organisms';
 import Fab from '@material-ui/core/Fab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useModal } from 'hooks';
 import clsx from 'clsx';
 import { useAuth } from 'context';
 import { Button } from '../../atoms';
@@ -11,12 +13,17 @@ import styles from './styles.module.css';
 
 const FooterComp = () => {
   const { isAuthenticated } = useAuth();
+  const [isShowingSignUp, toggleSignUp] = useModal();
   const router = useRouter();
 
   const toggleLoginMobile = () => {
     const link = document.getElementById('loginMobile');
     link.click();
   };
+
+  const handleChangeSignIn = useCallback(() => {
+    toggleSignUp();
+  }, [toggleSignUp]);
 
   return (
     <footer className={styles.bottom_bar}>
@@ -27,6 +34,14 @@ const FooterComp = () => {
               <Button variant="contained" btnType="warning" onClick={toggleLoginMobile}>
                 Đăng nhập
               </Button>
+              <Button className={styles.custombtn} variant="contained" btnType="primary" onClick={toggleSignUp}>
+                Đăng ký
+              </Button>
+              <SignUpModal
+                visible={isShowingSignUp}
+                onClose={toggleSignUp}
+                onChangeSignIn={handleChangeSignIn}
+              />
             </div>
           ) : (
             <AppBar position="fixed" className={styles.appBar}>

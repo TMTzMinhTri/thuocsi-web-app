@@ -6,7 +6,8 @@
     box-shadow: 0px -3px 20px rgba(0,0,0,0.08);
     padding: 12px 10px;
 }
-.bottom_bar [class*='StyledButton']{
+.bottom_bar .custombtn{
+    color: #fff !important; 
     margin-right: 0 !important;
 }
 .div_buttons{

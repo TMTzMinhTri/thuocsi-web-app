@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Template, NavBar, Header, MobileHeader, BannerSlider } from 'components';
+import { Template, NavBar, Header, HeaderMobile, BannerSlider } from 'components';
 
 export default function LandingPage(props) {
   const { mostResearched = [], infoBanner = [], isMobile } = props;
@@ -15,7 +15,7 @@ export default function LandingPage(props) {
 
   return (
     <Template title={title} isMobile={isMobile}>
-      {isMobile ? <MobileHeader title="Trang chủ" {...props} /> : <Header {...props} />}
+      {isMobile ? <HeaderMobile title="Trang chủ" {...props} /> : <Header {...props} />}
       {!isMobile && <NavBar mostResearched={mostResearched} pageName={pageName} />}
       <BannerSlider infoBanner={infoBanner} />
       <DynamicWhyBuymed />

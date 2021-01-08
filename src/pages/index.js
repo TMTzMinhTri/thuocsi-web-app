@@ -8,16 +8,11 @@ export async function getServerSideProps(context) {
     ProductClient.loadDataMostSearch(context),
     ProductClient.getInfoBanner(),
   ]);
-  const UA = context.req.headers['user-agent'];
-  const isMobile = Boolean(UA.match(
-    /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i,
-  ));
 
   return {
     props: {
       mostResearched,
       infoBanner,
-      isMobile: !!isMobile,
     },
   };
 }

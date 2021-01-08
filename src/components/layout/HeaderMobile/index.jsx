@@ -13,7 +13,7 @@ import { LinkComp, Button } from '../../atoms';
 
 import styles from './styles.module.css';
 
-const MobileHeader = memo(({ title = '' }) => {
+const HeaderMobile = memo(({ title = '' }) => {
   const [isShowingLogin, toggleLogin] = useModal();
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
@@ -97,4 +97,4 @@ const MobileHeader = memo(({ title = '' }) => {
   );
 });
 
-export default MobileHeader;
+export default HeaderMobile;
