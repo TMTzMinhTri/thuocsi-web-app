@@ -61,6 +61,15 @@ const StyledButton = styled(CustomButton)`
       border: 1px solid #00b46e !important;
     }
   }
+
+  &.promo__button {
+    color: #fff !important;
+    background-color: #00b46e !important;
+    border-color: #00b46e !important;
+    text-transform: none !important;
+    width: 100%;
+    // padding: 5px 55px !important;
+  }
   
 `;
 

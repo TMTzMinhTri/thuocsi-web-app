@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useModal } from 'hooks';
-import { makeStyles, Typography, Badge, IconButton, Icon, Container } from '@material-ui/core';
+import { makeStyles, Typography, Badge, IconButton, Icon, Container, Tooltip } from '@material-ui/core';
 import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { useCart, useAuth } from 'context';
@@ -10,8 +10,10 @@ import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';
+
 import { SignUpModal, SignInModal, ForgetPasswordModal } from '../../organisms';
 import { Toggle, SearchInput } from '../../mocules';
+
 // comp
 import { LinkComp, TagComp } from '../../atoms';
 
@@ -114,7 +116,10 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <LinkComp
                 className={clsx(
                   classes.link,
-                  (pageName === 'products' || pageName === 'manufacturers' || pageName === 'categories') && styles.active,
+                  (pageName === 'products'
+                    || pageName === 'manufacturers'
+                    || pageName === 'categories')
+                    && styles.active,
                 )}
                 name="Sản phẩm"
                 href="/products?current_tab=new_arrival"
@@ -123,7 +128,12 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                 <Icon className={`icon-product ${styles.navIcon}`} />
               </LinkComp>
 
-              <LinkComp className={clsx(classes.link, pageName === 'ingredients' && styles.active)} name="Hoạt Chất" href="/ingredients" color="white">
+              <LinkComp
+                className={clsx(classes.link, pageName === 'ingredients' && styles.active)}
+                name="Hoạt Chất"
+                href="/ingredients"
+                color="white"
+              >
                 <Icon className={`icon-ingredients ${styles.navIcon}`} />
               </LinkComp>
 
@@ -136,7 +146,12 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                 <Icon className={`icon-quick-order ${styles.navIcon}`} />
               </LinkComp>
 
-              <LinkComp className={clsx(classes.link, pageName === 'deals' && styles.active)} name="Khuyến Mãi" href="/deals" color="white">
+              <LinkComp
+                className={clsx(classes.link, pageName === 'deals' && styles.active)}
+                name="Khuyến Mãi"
+                href="/deals"
+                color="white"
+              >
                 <Whatshot className={styles.navIcon} />
               </LinkComp>
 
@@ -154,7 +169,10 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
 
           {isAuthenticated ? (
             <>
-              <SearchInput className={styles.searchInput} />
+              <SearchInput
+                classCustom={styles.customWidth}
+                className={styles.searchInput}
+              />
               <div className={styles.navBarRight}>
                 <LinkComp className={styles.navBarRightLink} href="/cart">
                   <IconButton aria-label="cart">
@@ -183,12 +201,21 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                 onChangeSignIn={handleChangeSignIn}
               />
               <div className={styles.btn_no_auth_section}>
-                <IconButton onClick={toggleLogin} className={classes.link}>
-                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
-                </IconButton>
-                <IconButton onClick={toggleSignUp} className={classes.link}>
-                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
-                </IconButton>
+                <Tooltip title="Đăng nhập" arrow>
+
+                  <IconButton onClick={toggleLogin} className={classes.link}>
+                    <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
+                  </IconButton>
+
+                </Tooltip>
+
+                <Tooltip title="Tạo tài khoản" arrow>
+
+                  <IconButton onClick={toggleSignUp} className={classes.link}>
+                    <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
+                  </IconButton>
+
+                </Tooltip>
               </div>
             </>
           )}

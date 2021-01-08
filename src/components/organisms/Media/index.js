@@ -8,12 +8,14 @@ import styles from './styles.module.css';
 const renderMediaItem = (data) =>
   data.map((item) => (
     <Grid key={`media-${item.id}`} className={styles.hover_link} item xs={6} sm={4} md={3}>
-      <Image
-        className={item.dark && styles.dark}
-        src={item.url}
-        width={item.width}
-        height={item.height}
-      />
+      <a href={item.href} target="_blank" rel="noreferrer">
+        <Image
+          className={item.dark && styles.dark}
+          src={item.url}
+          width={item.width}
+          height={item.height}
+        />
+      </a>
     </Grid>
   ));
 
