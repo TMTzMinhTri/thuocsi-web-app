@@ -1,56 +1,28 @@
 import React, { memo } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { Icon } from '@material-ui/core';
 import {
-  Card,
-  CardHeader,
-  Avatar,
-  CardContent,
-  Typography,
-  Icon,
-} from '@material-ui/core';
-import { LocalOffer, Whatshot, AccountCircle, AssignmentTurnedIn, Share, MonetizationOn, Facebook, FormatQuote } from '@material-ui/icons';
+  LocalOffer,
+  Whatshot,
+  AccountCircle,
+  AssignmentTurnedIn,
+  Share,
+  MonetizationOn,
+  Facebook,
+} from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { customerFeedbackData } from 'constants/data';
-import {
-  LINK_REGISTER,
-  LOGO_FOOTER_REGISTER,
-} from 'constants/Images';
+import { LINK_REGISTER, LOGO_FOOTER_REGISTER } from 'constants/Images';
+import { useRouter } from 'next/router';
+import { useAuth } from 'context';
 import { LinkComp } from '../../atoms';
 
 import styles from './styles.module.css';
 
-const SideBar = ({ pageName = '/' }) => {
-  // eslint-disable-next-line no-unused-vars
-  const sliderItem = customerFeedbackData.map((item) => (
-    <div className={styles.box}>
-      <Card key={`slider-${item.id}`} className={styles.root}>
-        <CardHeader
-          avatar={<Avatar src={item.avatar} aria-label="recipe" className={styles.large} />}
-          title={item.customer}
-          subheader={item.title}
-          className={styles.card_header}
-          classes={{
-            title: styles.header_customer,
-            subheader: styles.header_title,
-          }}
-        />
-        <CardContent className={styles.card_content}>
-          <Typography
-            className={styles.comment_style}
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            <FormatQuote className={clsx(styles.rotate, styles.quote)} />
-            {item.comment}
-            <FormatQuote className={styles.quote} />
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
-  ));
+const SideBar = () => {
+  const router = useRouter();
+  const { user, logout } = useAuth();
   return (
     <nav className={styles.sidebar_content}>
       <div className={styles.sidebar__user}>
@@ -71,20 +43,19 @@ const SideBar = ({ pageName = '/' }) => {
 
         <div className={styles.sidebar__user_bonus_point}>
           Điểm thưởng
-          <div className={styles.sidebar__user_bonus_point_amount}>0</div>
+          <div className={styles.sidebar__user_bonus_point_amount}>
+            {user.point ? user.point : 0}
+          </div>
         </div>
       </div>
       <div className={styles.sidebar__user_name}>
-        <b>An</b>
+        <b>{user?.name || ''}</b>
       </div>
       <hr className={styles.hr} />
       <ul className={styles.items}>
         <li>
           <LinkComp
-            className={clsx(
-              styles.sidebar__item_link,
-              (pageName === '/') && styles.active,
-            )}
+            className={clsx(styles.sidebar__item_link, router.pathname === '/' && styles.active)}
             name="Trang chủ"
             href="/"
             color="white"
@@ -96,7 +67,10 @@ const SideBar = ({ pageName = '/' }) => {
           <LinkComp
             className={clsx(
               styles.sidebar__item_link,
-              (pageName === 'products' || pageName === 'manufacturers' || pageName === 'categories') && styles.active,
+              (router.pathname === '/products'
+                || router.pathname === '/manufacturers'
+                || router.pathname === '/categories')
+                && styles.active,
             )}
             name="Sản phẩm"
             href="/products?current_tab=new_arrival"
@@ -106,13 +80,24 @@ const SideBar = ({ pageName = '/' }) => {
           </LinkComp>
         </li>
         <li>
-          <LinkComp className={clsx(styles.sidebar__item_link, pageName === 'ingredients' && styles.active)} name="Hoạt Chất" href="/ingredients" color="white">
+          <LinkComp
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/ingredients' && styles.active,
+            )}
+            name="Hoạt Chất"
+            href="/ingredients"
+            color="white"
+          >
             <Icon className={`icon-ingredients ${styles.navIcon}`} />
           </LinkComp>
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'quick-order' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/quick-order' && styles.active,
+            )}
             name="Đặt Hàng Nhanh"
             href="/quick-order"
             color="white"
@@ -121,13 +106,24 @@ const SideBar = ({ pageName = '/' }) => {
           </LinkComp>
         </li>
         <li>
-          <LinkComp className={clsx(styles.sidebar__item_link, pageName === 'deals' && styles.active)} name="Khuyến Mãi" href="/deals" color="white">
+          <LinkComp
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/deals' && styles.active,
+            )}
+            name="Khuyến Mãi"
+            href="/deals"
+            color="white"
+          >
             <Whatshot className={styles.navIcon} />
           </LinkComp>
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'promo-codes' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/promo-codes' && styles.active,
+            )}
             name="Mã Giảm Giá"
             href="/promo-codes"
             color="white"
@@ -141,7 +137,10 @@ const SideBar = ({ pageName = '/' }) => {
       <ul className={styles.items}>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'account-info' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/account-info' && styles.active,
+            )}
             name="Thông tin tài khoản"
             href="/my-account"
             color="white"
@@ -151,7 +150,10 @@ const SideBar = ({ pageName = '/' }) => {
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'my-order' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/my-order' && styles.active,
+            )}
             name="Đơn hàng của tôi"
             href="/my-order"
             color="white"
@@ -161,7 +163,10 @@ const SideBar = ({ pageName = '/' }) => {
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'referrals' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/referrals' && styles.active,
+            )}
             name="Giới thiệu bạn bè"
             href="/users/referrals"
             color="white"
@@ -171,7 +176,10 @@ const SideBar = ({ pageName = '/' }) => {
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'user-promo-codes' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/user-promo-codes' && styles.active,
+            )}
             name="Mã giảm giá của tôi"
             href="/users/user-promo-codes"
             color="white"
@@ -181,7 +189,10 @@ const SideBar = ({ pageName = '/' }) => {
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'loyalty_points' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/loyalty_points' && styles.active,
+            )}
             name="Điểm tích lũy"
             href="/users/loyalty_points"
             color="white"
@@ -190,14 +201,10 @@ const SideBar = ({ pageName = '/' }) => {
           </LinkComp>
         </li>
         <li>
-          <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'sign_out' && styles.active)}
-            name="Đăng xuất"
-            href="/accounts/sign_out"
-            color="white"
-          >
+          <div onClick={logout} role="presentation" className={styles.sidebar__item_link}>
             <FontAwesomeIcon className={styles.navIcon} icon={faSignOutAlt} />
-          </LinkComp>
+            <p className="MuiTypography-root MuiTypography-body2">Đăng xuất</p>
+          </div>
         </li>
       </ul>
       <hr className={styles.hr} />
@@ -205,7 +212,10 @@ const SideBar = ({ pageName = '/' }) => {
       <ul className={styles.items}>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'customer-support' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/customer-support' && styles.active,
+            )}
             name="Hỗ trợ khách hàng"
             href="/customer-support"
             color="white"
@@ -215,7 +225,7 @@ const SideBar = ({ pageName = '/' }) => {
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'faq' && styles.active)}
+            className={clsx(styles.sidebar__item_link, router.pathname === '/faq' && styles.active)}
             name="Câu hỏi thường gặp"
             href="/faq"
             color="white"
@@ -225,7 +235,10 @@ const SideBar = ({ pageName = '/' }) => {
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'customer-support' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/customer-support' && styles.active,
+            )}
             name="hotro@thuocsi.vn"
             href="mailto:hotro@thuocsi.vn"
             color="white"
@@ -235,7 +248,10 @@ const SideBar = ({ pageName = '/' }) => {
         </li>
         <li>
           <LinkComp
-            className={clsx(styles.sidebar__item_link, pageName === 'contact_us' && styles.active)}
+            className={clsx(
+              styles.sidebar__item_link,
+              router.pathname === '/contact_us' && styles.active,
+            )}
             name="02 873 008 840"
             href="tel:02873008840"
             color="white"

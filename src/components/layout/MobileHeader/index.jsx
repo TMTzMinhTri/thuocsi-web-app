@@ -1,15 +1,13 @@
 import React, { memo, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Drawer from '@material-ui/core/Drawer';
 import { useModal } from 'hooks';
-import { IconButton, Badge } from '@material-ui/core';
+import { Drawer, IconButton, Badge, Fab } from '@material-ui/core';
 import { Search, Menu, Close, LocalMallOutlined } from '@material-ui/icons';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
 import { useCart, useAuth } from 'context';
 import clsx from 'clsx';
-import Fab from '@material-ui/core/Fab';
 
 import { LinkComp, Button } from '../../atoms';
 
