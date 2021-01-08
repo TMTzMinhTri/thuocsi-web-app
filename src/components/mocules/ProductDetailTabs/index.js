@@ -24,7 +24,7 @@ export default function ProductDetailTabs({ data, product, handleChange, value }
         {
           data.map((item) => {
             if (item.value === '1') {
-              return (<TabPanel value={item.value}>{description}</TabPanel>);
+              return (<TabPanel value={item.value}>{description !== '' ? description : 'Đang cập nhật ...'}</TabPanel>);
             }
 
             return (<TabPanel value={item.value}>Đang cập nhật ...</TabPanel>);
