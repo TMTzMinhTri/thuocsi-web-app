@@ -45,3 +45,4 @@ export { default as InfoInput } from './InfoInput';
 export { default as AlphabetFilter } from './AlphabetFilter';
 export { default as IngredientList } from './IngredientList';
 export { default as IngredientSearch } from './IngredientSearch';
+export { default as SearchOrder } from './SearchOrder';
