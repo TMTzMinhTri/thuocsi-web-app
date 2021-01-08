@@ -18,6 +18,12 @@ export const RIBBON_STATUS = {
   DOWN: 'down',
 };
 
+export const PROMO_TYPE = {
+  DISCOUNT: 'discount',
+  COMBO: 'combo',
+  GIFT: 'gift',
+};
+
 export default {
   ENUM_SCOPE,
   ENUM_TYPE,
