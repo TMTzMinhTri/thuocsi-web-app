@@ -1,14 +1,12 @@
 import React, { useCallback } from 'react';
-import { Container, Icon, IconButton, AppBar, Toolbar, Badge } from '@material-ui/core';
-import { Whatshot, AssignmentTurnedInOutlined, NotificationsNoneOutlined } from '@material-ui/icons';
+import { Container, AppBar } from '@material-ui/core';
 import { SignUpModal } from 'components/organisms';
-import Fab from '@material-ui/core/Fab';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useModal } from 'hooks';
-import clsx from 'clsx';
 import { useAuth } from 'context';
 import { Button } from '../../atoms';
+import FooterWithToolBar from './components/FooterWithToolBar';
+import FooterWithCart from './components/FooterWithCart';
 import styles from './styles.module.css';
 
 const FooterComp = () => {
@@ -34,7 +32,12 @@ const FooterComp = () => {
               <Button variant="contained" btnType="warning" onClick={toggleLoginMobile}>
                 Đăng nhập
               </Button>
-              <Button className={styles.custombtn} variant="contained" btnType="primary" onClick={toggleSignUp}>
+              <Button
+                className={styles.custombtn}
+                variant="contained"
+                btnType="primary"
+                onClick={toggleSignUp}
+              >
                 Đăng ký
               </Button>
               <SignUpModal
@@ -45,54 +48,9 @@ const FooterComp = () => {
             </div>
           ) : (
             <AppBar position="fixed" className={styles.appBar}>
-              <Toolbar>
-                <div className={clsx(styles.icon, router.pathname === '/products' && styles.active)}>
-                  <Link href="/products">
-                    <IconButton edge="start" color="inherit">
-                      <Icon className="icon-product" />
-                      <span className={styles.text}>Sản phẩm</span>
-                    </IconButton>
-                  </Link>
-                </div>
-                <div className={clsx(styles.icon, styles.promo, router.pathname === '/deals' && styles.active)}>
-                  <Link href="/deals">
-                    <IconButton edge="start" color="inherit">
-                      <Whatshot />
-                      <span className={styles.text}>Khuyến mãi</span>
-                    </IconButton>
-                  </Link>
-                </div>
-                <div className={clsx(styles.icon_special, router.pathname === '/notifications' && styles.active)}>
-
-                  <Link href="/quick-order">
-                    <>
-                      <Fab aria-label="icon-quick-order" className={styles.fabButton}>
-                        <Icon className="icon-quick-order" />
-                      </Fab>
-                      <span className={styles.text}>Đặt nhanh</span>
-                    </>
-                  </Link>
-                </div>
-                <div className={styles.grow} />
-                <div className={clsx(styles.icon, router.pathname === '/my-order' && styles.active)}>
-                  <Link href="/my-order">
-                    <IconButton color="inherit">
-                      <AssignmentTurnedInOutlined />
-                      <span className={styles.text}>Đơn hàng</span>
-                    </IconButton>
-                  </Link>
-                </div>
-                <div className={clsx(styles.icon, router.pathname === '/notifications' && styles.active)}>
-                  <Link href="/notifications">
-                    <IconButton edge="end" color="inherit">
-                      <Badge badgeContent=" " variant="dot" color="secondary">
-                        <NotificationsNoneOutlined />
-                      </Badge>
-                      <span className={styles.text}>Thông báo</span>
-                    </IconButton>
-                  </Link>
-                </div>
-              </Toolbar>
+              {router.pathname === '/quick-order'
+                ? <FooterWithCart />
+                : <FooterWithToolBar />}
             </AppBar>
           )}
         </Container>

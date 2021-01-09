@@ -2,14 +2,15 @@ import React, { memo, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useModal } from 'hooks';
-import { Drawer, IconButton, Badge, Fab } from '@material-ui/core';
-import { Search, Menu, Close, LocalMallOutlined } from '@material-ui/icons';
+import { Drawer, IconButton, Fab, Button } from '@material-ui/core';
+import { Menu, Close } from '@material-ui/icons';
+import { useRouter } from 'next/router';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
-import { useCart, useAuth } from 'context';
+import { useAuth } from 'context';
 import clsx from 'clsx';
-
-import { LinkComp, Button } from '../../atoms';
+import HeaderWithSearchTool from './components/HeaderWithSearchTool';
+import HeaderWithCart from './components/HeaderWithCart';
 
 import styles from './styles.module.css';
 
@@ -19,7 +20,7 @@ const HeaderMobile = memo(({ title = '' }) => {
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { isAuthenticated } = useAuth();
   const [openDrawer, setOpenDrawer] = useState(false);
-  const { itemCount } = useCart();
+  const router = useRouter();
 
   const handleChangeForget = useCallback(() => {
     toggleLogin();
@@ -40,12 +41,23 @@ const HeaderMobile = memo(({ title = '' }) => {
   };
   return (
     <div className={styles.login_wrapper}>
-      <div className={clsx(styles.login, isAuthenticated && styles.logged)}>
-
+      <div
+        className={clsx(
+          styles.login,
+          isAuthenticated && styles.logged,
+          router.pathname === '/quick-order' ? styles.search_tool_wrapper : '',
+        )}
+      >
         {!isAuthenticated ? (
           <>
             <Link href="/">
-              <Image className={styles.logo} href="/" src={LOGO_THUOCSI} width="164px" height="45px" />
+              <Image
+                className={styles.logo}
+                href="/"
+                src={LOGO_THUOCSI}
+                width="164px"
+                height="45px"
+              />
             </Link>
             <SignInModal
               visible={isShowingLogin}
@@ -64,29 +76,31 @@ const HeaderMobile = memo(({ title = '' }) => {
                 Đăng nhập
               </Button>
             </div>
-
           </>
         ) : (
           <>
             <div className={styles.lSection}>
-              <IconButton onClick={toggleDrawer(true)} aria-label="menu"><Menu /></IconButton>
-              <span className={styles.text}>{title && title}</span>
+              <IconButton onClick={toggleDrawer(true)} aria-label="menu">
+                <Menu />
+              </IconButton>
+              {router.pathname !== '/quick-order' && (
+                <span className={styles.text}>{title && title}</span>
+              )}
             </div>
             <div className={styles.rSection}>
-              <Link href="/quick-order">
-                <IconButton className={styles.icon} aria-label="search"><Search /></IconButton>
-              </Link>
-              <LinkComp className={styles.navBarRightLink} href="/cart">
-                <IconButton aria-label="cart">
-                  <Badge badgeContent={itemCount} invisible={false} color="secondary">
-                    <LocalMallOutlined className={styles.rIcon} />
-                  </Badge>
-                </IconButton>
-              </LinkComp>
+              {router.pathname === '/quick-order' ? <HeaderWithSearchTool /> : <HeaderWithCart />}
             </div>
+
             <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer(false)}>
               <div className={styles.drawer}>
-                <Fab size="small" color="secondary" aria-label="close" onClick={toggleDrawer(false)}><Close /></Fab>
+                <Fab
+                  size="small"
+                  color="secondary"
+                  aria-label="close"
+                  onClick={toggleDrawer(false)}
+                >
+                  <Close />
+                </Fab>
                 <SideBar />
               </div>
             </Drawer>
