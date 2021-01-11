@@ -1,8 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
-import { Footer } from 'components/organisms';
+import { Footer, FooterMobile } from 'components/organisms';
 
-export default function Layout({ title, children }) {
+export default function Layout({ title, children, isMobile }) {
   return (
     <div>
       <Head>
@@ -21,7 +21,7 @@ export default function Layout({ title, children }) {
         <title>{title}</title>
       </Head>
       <div id="main">{children}</div>
-      <Footer />
+      {isMobile ? <FooterMobile /> : <Footer />}
     </div>
   );
 }

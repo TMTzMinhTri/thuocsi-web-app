@@ -1,4 +1,4 @@
-import { Template, NavBar, Header, PromoList, InfoContainer } from 'components';
+import { Template, NavBar, Header, PromoList, InfoContainer, HeaderMobile } from 'components';
 import { Container } from '@material-ui/core';
 import { CustomerClient, doWithServerSide } from 'clients';
 
@@ -17,16 +17,19 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-const MyReferral = ({ mostResearched = [], wallet, promos = [] }) => {
+const MyReferral = ({ mostResearched = [], wallet, promos = [], isMobile }) => {
   const title = 'Mã giảm giá của tôi – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
-    <Template title={title}>
-      <Header />
+    <Template title={title} isMobile={isMobile}>
+      {isMobile ? <HeaderMobile title="Mã giảm giá" /> : <Header />}
+      {!isMobile
+      && (
       <NavBar
         mostResearched={mostResearched}
         point={wallet.loyaltyPoint}
         balance={wallet.balance}
       />
+      )}
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={4} title="Mã giảm giá của tôi" wallet={wallet}>

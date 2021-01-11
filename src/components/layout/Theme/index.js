@@ -23,6 +23,12 @@ const Theme = createMuiTheme({
         },
       },
     },
+    MuiDrawer: {
+      paper: {
+        width: '80%',
+        overflowY: 'auto',
+      },
+    },
     MuiFormLabel: {
       root: {
         '&$focused': {
