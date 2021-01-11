@@ -2,7 +2,15 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useModal } from 'hooks';
-import { makeStyles, Typography, Badge, IconButton, Icon, Container, Tooltip } from '@material-ui/core';
+import {
+  makeStyles,
+  Typography,
+  Badge,
+  IconButton,
+  Icon,
+  Container,
+  Tooltip,
+} from '@material-ui/core';
 import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { useCart, useAuth } from 'context';
@@ -10,6 +18,7 @@ import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 import { SignUpModal, SignInModal, ForgetPasswordModal } from '../../organisms';
 import { Toggle, SearchInput } from '../../mocules';
@@ -66,7 +75,9 @@ function renderMostSearched(data, classes) {
 }
 
 export default function NavBar({ mostResearched, point = 0, balance = 0, pageName = [] }) {
-  const [isShowingLogin, toggleLogin] = useModal();
+  const router = useRouter();
+  const isShowLogin = router?.query?.login === 'true';
+  const [isShowingLogin, toggleLogin] = useModal(isShowLogin);
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { itemCount } = useCart();
@@ -102,6 +113,10 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
     };
   }, []);
 
+  const isPageProduct = pageName === 'products';
+  const isPageManufacturers = pageName === 'manufacturers';
+  const isPageCategiries = pageName === 'categories';
+
   return (
     <div ref={nav} className={styles.navBar}>
       <Container className={styles.container}>
@@ -116,10 +131,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <LinkComp
                 className={clsx(
                   classes.link,
-                  (pageName === 'products'
-                    || pageName === 'manufacturers'
-                    || pageName === 'categories')
-                    && styles.active,
+                  (isPageProduct || isPageManufacturers || isPageCategiries) && styles.active,
                 )}
                 name="Sản phẩm"
                 href="/products?current_tab=new_arrival"
@@ -169,10 +181,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
 
           {isAuthenticated ? (
             <>
-              <SearchInput
-                classCustom={styles.customWidth}
-                className={styles.searchInput}
-              />
+              <SearchInput classCustom={styles.customWidth} className={styles.searchInput} />
               <div className={styles.navBarRight}>
                 <LinkComp className={styles.navBarRightLink} href="/cart">
                   <IconButton aria-label="cart">
@@ -202,19 +211,15 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               />
               <div className={styles.btn_no_auth_section}>
                 <Tooltip title="Đăng nhập" arrow>
-
                   <IconButton onClick={toggleLogin} className={classes.link}>
                     <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
                   </IconButton>
-
                 </Tooltip>
 
                 <Tooltip title="Tạo tài khoản" arrow>
-
                   <IconButton onClick={toggleSignUp} className={classes.link}>
                     <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
                   </IconButton>
-
                 </Tooltip>
               </div>
             </>

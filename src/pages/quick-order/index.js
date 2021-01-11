@@ -2,16 +2,22 @@ import React from 'react';
 
 import { Template, NavBar, Header, QuickOrderList, CardInfo } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
-import ProductClient from 'clients/ProductClient';
+import { ProductClient, doWithServerSide } from 'clients';
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
-  return {
-    props: {
-      products,
+  return doWithServerSide(
+    ctx,
+    async () => {
+      const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+      return {
+        props: {
+          products,
+        },
+      };
     },
-  };
+    { url: '/?login=true', message: ' testing ' },
+  );
 }
 
 export default function QuickOrderPage({ mostResearched = [], products = [] }) {
@@ -30,14 +36,13 @@ export default function QuickOrderPage({ mostResearched = [], products = [] }) {
         <Grid container spacing={3}>
           <Grid sm={8} item>
             {/* san pham  */}
-            {products && products.length > 0
-              ? <QuickOrderList products={products} />
-              : (
-                <Typography variant="body1" gutterBottom>
-                  Ko có sản phẩm
-                </Typography>
-              )}
-
+            {products && products.length > 0 ? (
+              <QuickOrderList products={products} />
+            ) : (
+              <Typography variant="body1" gutterBottom>
+                Ko có sản phẩm
+              </Typography>
+            )}
           </Grid>
           <Grid sm={4} item>
             {/* gio hang */}

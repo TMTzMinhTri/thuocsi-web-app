@@ -38,7 +38,9 @@ export const CONTENT_API = {
 
 const PRODUCT_API_PREFIX = '/marketplace/product/v1';
 const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredient`;
+const INGREDIENT_LIST = `${INGREDIENT}/list`;
 
 export const PRODUCT_API = {
   INGREDIENT,
+  INGREDIENT_LIST,
 };

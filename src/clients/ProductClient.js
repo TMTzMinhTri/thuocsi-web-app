@@ -71,17 +71,19 @@ async function loadDataProduct(ctx) {
 }
 
 async function loadDataIngredient(ctx) {
-  const res = await GET({ url: `${PRODUCT_API.INGREDIENT}/list`, ctx, isBasic: true });
+  const res = await GET({ url: PRODUCT_API.INGREDIENT_LIST, ctx, isBasic: true });
   return res.data;
 }
 
 async function getIngredientBySlug(ctx, slug) {
-  const res = await GET({ url: `${PRODUCT_API.INGREDIENT}/info?q=${slug}`, ctx, isBasic: true });
+  const url = `${PRODUCT_API.INGREDIENT}/info?q=${slug}`;
+  const res = await GET({ url, ctx, isBasic: true });
   return res.data;
 }
 
 async function getProductsBySlug(ctx, slug) {
-  const res = await GET({ url: `/ingredients/${slug}/products`, ctx, mock: true });
+  const url = `/ingredients/${slug}/products`;
+  const res = await GET({ url, ctx, mock: true });
   return res.data;
 }
 
