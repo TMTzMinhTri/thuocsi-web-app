@@ -39,7 +39,7 @@ export default function ProductListing({
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
-  const count = 50;
+  const count = products.length;
   const pageSize = 20;
   const pages = Math.ceil(count / pageSize);
   const router = useRouter();
