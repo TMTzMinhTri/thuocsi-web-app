@@ -1,9 +1,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Template, NavBar, Header, BannerSlider } from 'components';
+import { Template, NavBar, Header, HeaderMobile, BannerSlider } from 'components';
 
 export default function LandingPage(props) {
-  const { mostResearched = [], infoBanner = [] } = props;
+  const { mostResearched = [], infoBanner = [], isMobile } = props;
   const title = 'Thuocsi.vn';
   const pageName = 'home';
 
@@ -14,9 +14,9 @@ export default function LandingPage(props) {
   const DynamicMedia = dynamic(() => import('components/organisms/Media'));
 
   return (
-    <Template title={title}>
-      <Header {...props} />
-      <NavBar mostResearched={mostResearched} pageName={pageName} />
+    <Template title={title} isMobile={isMobile}>
+      {isMobile ? <HeaderMobile title="Trang chủ" {...props} /> : <Header {...props} />}
+      {!isMobile && <NavBar mostResearched={mostResearched} pageName={pageName} />}
       <BannerSlider infoBanner={infoBanner} />
       <DynamicWhyBuymed />
       <DynamicCommonQuestion />

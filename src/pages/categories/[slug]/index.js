@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Template, NavBar, Header, ProductListing } from 'components';
+import { Template, NavBar, Header, ProductListing, HeaderMobile } from 'components';
 import ProductClient from 'clients/ProductClient';
 import CatClient from 'clients/CatClient';
 
@@ -27,13 +27,13 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-export default function Products({ mostResearched = [], products = [], brand = [], group = [], current_tab = '', page = '', sort = '', slug = '' }) {
+export default function Products({ mostResearched = [], products = [], brand = [], group = [], current_tab = '', page = '', sort = '', slug = '', isMobile }) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'categories';
   return (
-    <Template title={title}>
-      <Header />
-      <NavBar mostResearched={mostResearched} pageName={cat} />
+    <Template title={title} isMobile={isMobile}>
+      {isMobile ? <HeaderMobile title="Sản phẩm" /> : <Header />}
+      {!isMobile && <NavBar mostResearched={mostResearched} pageName={cat} />}
       <ProductListing
         products={products}
         brand={brand.status === 'OK' ? brand.data : []}

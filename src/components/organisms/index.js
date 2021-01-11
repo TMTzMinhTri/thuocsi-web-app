@@ -1,4 +1,7 @@
 export { default as Footer } from './Footer';
+// eslint-disable-next-line import/no-cycle
+export { default as FooterMobile } from './FooterMobile';
+export { default as SideBar } from './SideBar';
 export { default as Partners } from './Partners';
 export { default as SliderComp } from './SliderComp';
 export { default as BannerSlider } from './BannerSlider';
