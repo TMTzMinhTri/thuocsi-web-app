@@ -6,7 +6,7 @@ export default function SearchResultText({ count = [], pageSize = [], page = [],
     if (page === 1) {
       return ({
         firstNum: 1,
-        lastNum: page * pageSize,
+        lastNum: count,
       });
     }
     if (page === pages) {
