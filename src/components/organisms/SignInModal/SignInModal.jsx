@@ -7,7 +7,7 @@ import { i18n } from 'i18n-lib';
 import { AuthModal, SignInForm } from '../../mocules';
 
 const SignInModal = React.memo((props) => {
-  const { className, visible, onClose, onChangeForget, t } = props;
+  const { className, visible, onClose, onChangeForget, onChangeSignUp, t } = props;
   const [hasAlert, setHasAlert] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -51,6 +51,7 @@ const SignInModal = React.memo((props) => {
         width="350"
         hasAlert={hasAlert}
         onClickForget={onChangeForget}
+        onClickSignUp={onChangeSignUp}
         isLoading={isLoading}
         onClickLogin={handleLogin}
       />

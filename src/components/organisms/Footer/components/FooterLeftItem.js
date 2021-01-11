@@ -88,9 +88,9 @@ const FooterLeftItem = () => {
             <div className="foo" onClick={() => handleToggleOpen('general-policy')} role="button" aria-hidden="true">
               <Typography className={styles.link}>Chính sách quy định chung</Typography>
             </div>
-            <Link href="/career">
+            <a className={styles.alink} href="/career" target="_blank">
               <Typography className={styles.link}>Tuyển dụng | Recruitment</Typography>
-            </Link>
+            </a>
           </Grid>
           <Grid sm={6} item>
             <>
@@ -129,7 +129,7 @@ const FooterLeftItem = () => {
             <Image src={LOGO_GHN} width="46" height="32" className={styles.footer_delivery} />
           </div>
           <div className={styles.brand_wrap}>
-            <Image src={LOGO_LOZA} width="79" height="32" className={styles.footer_delivery} />
+            <Image src={LOGO_LOZA} width="46" height="32" className={styles.footer_delivery} />
           </div>
           <div className={styles.brand_wrap}>
             <Image src={LOGO_NINJA} width="79" height="32" className={styles.footer_delivery} />

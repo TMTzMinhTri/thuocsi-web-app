@@ -13,17 +13,17 @@ export const imagePartnerSlider = [
 ];
 
 export const imageMediaTop = [
-  { id: 1, url: '/images/media/logo_seedstar.png', width: '168px', height: '76px' },
-  { id: 2, url: '/images/media/logo_tccs.png', width: '162px', height: '99px' },
-  { id: 3, url: '/images/media/logo_pitchpalace.png', width: '182px', height: '190px' },
-  { id: 4, url: '/images/media/logo_nttdata.png', width: '166px', height: '203x' },
+  { id: 1, url: '/images/media/logo_seedstar.png', href: 'https://www.seedstarsworld.com/event/seedstars-hochiminh-2018', width: '168px', height: '76px' },
+  { id: 2, url: '/images/media/logo_tccs.png', href: 'https://taichinhcuocsong.vn/doc-bao-giup-ban/startup-viet-trinh-lang-tai-thuy-si-6432.html', width: '162px', height: '99px' },
+  { id: 3, url: '/images/media/logo_pitchpalace.png', href: 'https://pitchatpalace.com/pitchpalace-vietnam-1-0-the-results', width: '182px', height: '190px' },
+  { id: 4, url: '/images/media/logo_nttdata.png', href: 'http://oi.nttdata.com/en/contest/9th/venue/c05', width: '166px', height: '203x' },
 ];
 
 export const imageMediaBottom = [
-  { id: 1, url: '/images/media/logo_echelon.png', width: '165px', height: '103px', dark: true },
-  { id: 2, url: '/images/media/logo_investglobal.png', width: '166px', height: '166px' },
-  { id: 3, url: '/images/media/logo_forbes.png', width: '166px', height: '94px' },
-  { id: 4, url: '/images/media/logo_e27.png', width: '166px', height: '166px' },
+  { id: 1, url: '/images/media/logo_echelon.png', href: 'https://e27.co/our-ho-chi-minh-city-top100-winners-prove-that-the-vietnamese-dragon-is-awake-20190313', width: '165px', height: '103px', dark: true },
+  { id: 2, url: '/images/media/logo_investglobal.png', href: 'https://investglobal.vn/tin-tuc/startup-phan-phoi-duoc-pham-truc-tuyen-buymed-duoc-dau-tu-500-000-usd-tu-2-quy-dau-tu-183.html', width: '166px', height: '166px' },
+  { id: 3, url: '/images/media/logo_forbes.png', href: 'https://forbesvietnam.com.vn/tin-cap-nhat/buymed-startup-muon-giam-tinh-trang-thuoc-gia-nhan-von-500000-usd-7709.html', width: '166px', height: '94px' },
+  { id: 4, url: '/images/media/logo_e27.png', href: 'https://e27.co/vietnamese-online-pharma-marketplace-thuocsi-vn-secures-us500k-from-cocoon-capital-vietcapital-ventures-20190926', width: '166px', height: '166px' },
 ];
 
 export const settingsCustomer = {

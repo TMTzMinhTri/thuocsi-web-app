@@ -1,38 +1,19 @@
 import { Template, NavBar, Header, InfoContainer, HeaderMobile } from 'components';
 import { Container, Grid } from '@material-ui/core';
-import { AuthClient, CustomerClient } from 'clients';
+import { CustomerClient, doWithServerSide } from 'clients';
 import styles from './styles.module.css';
 
-export async function getServerSideProps() {
-  try {
-    const [user, wallet, referrals] = await Promise.all([
-      AuthClient.getUser(),
+export async function getServerSideProps(ctx) {
+  return doWithServerSide(ctx, async () => {
+    const [wallet] = await Promise.all([
       CustomerClient.getWallet(),
-      CustomerClient.getReferral(),
     ]);
-    if (!user) throw new Error('Cannot get user');
     return {
       props: {
-        user: user.data[0],
         wallet: wallet.data[0],
-        referrals,
       },
     };
-  } catch (error) {
-    return {
-      props: {
-        user: {
-          name: '',
-          phone: '',
-          email: '',
-        },
-        wallet: {
-          balance: 0,
-          name: '',
-        },
-      },
-    };
-  }
+  });
 }
 
 const MyLoyaltyPoint = ({ mostResearched = [], wallet, isMobile }) => {

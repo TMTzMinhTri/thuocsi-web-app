@@ -7,32 +7,38 @@ import { FormDataUtils, NotifyUtils } from 'utils';
 
 const SignInForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickForget, onClickLogin } = props;
+  const { className, onClickForget, onClickLogin, onClickSignUp } = props;
   const [errorUserName, setErrorUserName] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
-  const handleLogin = (e) => {
+  const validateLogin = (data) => {
     setErrorUserName(false);
     setErrorPassword(false);
-
-    const data = FormDataUtils.convert(e);
-    e.preventDefault();
     if (!data) {
       NotifyUtils.error('Bạn chưa điền thông tin đang nhập');
       setErrorUserName(true);
       setErrorPassword(true);
-      return;
+      return false;
     }
 
     if (!data.username) {
       setErrorUserName(true);
       NotifyUtils.error('Bạn chưa điền tên đăng nhập.');
-      return;
+      return false;
     }
 
     if (!data.password) {
       setErrorPassword(true);
       NotifyUtils.error('Bạn chưa điền mật khẩu.');
+      return false;
+    }
+    return true;
+  };
+
+  const handleLogin = (e) => {
+    const data = FormDataUtils.convert(e);
+    e.preventDefault();
+    if (!validateLogin(data)) {
       return;
     }
     onClickLogin(data);
@@ -44,6 +50,14 @@ const SignInForm = React.memo((props) => {
       onClickForget();
     },
     [onClickForget],
+  );
+
+  const handleClickSignUp = useCallback(
+    (e) => {
+      e.preventDefault();
+      onClickSignUp();
+    },
+    [onClickSignUp],
   );
 
   const handleClickShowPassword = () => {
@@ -107,8 +121,8 @@ const SignInForm = React.memo((props) => {
         </Button>
         <div className="register">
           <span className="text-capitalize">
-            Để nhận Ưu đãi hấp dẫn,
-            <a href="#top" style={{ color: '#f9b514', padding: '2px' }}>
+            Để nhận Ưu đãi hấp dẫn,{' '}
+            <a href="#top" style={{ color: '#f9b514', padding: '2px' }} onClick={handleClickSignUp}>
               đăng ký thành viên
             </a>
           </span>
