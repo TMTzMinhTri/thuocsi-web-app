@@ -7,7 +7,8 @@ import { Menu, Close } from '@material-ui/icons';
 import { useRouter } from 'next/router';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
-import { useAuth } from 'context';
+import { useAuth, useCart } from 'context';
+
 import clsx from 'clsx';
 import HeaderWithSearchTool from './components/HeaderWithSearchTool';
 import HeaderWithCart from './components/HeaderWithCart';
@@ -21,6 +22,7 @@ const HeaderMobile = memo(({ title = '' }) => {
   const { isAuthenticated } = useAuth();
   const [openDrawer, setOpenDrawer] = useState(false);
   const router = useRouter();
+  const { itemCount } = useCart();
 
   const handleChangeForget = useCallback(() => {
     toggleLogin();
@@ -46,6 +48,7 @@ const HeaderMobile = memo(({ title = '' }) => {
           styles.login,
           isAuthenticated && styles.logged,
           router.pathname === '/quick-order' ? styles.search_tool_wrapper : '',
+          router.pathname === '/cart' ? styles.cart_wrapper : '',
         )}
       >
         {!isAuthenticated ? (
@@ -84,7 +87,7 @@ const HeaderMobile = memo(({ title = '' }) => {
                 <Menu />
               </IconButton>
               {router.pathname !== '/quick-order' && (
-                <span className={styles.text}>{title && title}</span>
+                <span className={styles.text}>{title && title} {itemCount && `(${itemCount})`}</span>
               )}
             </div>
             <div className={styles.rSection}>

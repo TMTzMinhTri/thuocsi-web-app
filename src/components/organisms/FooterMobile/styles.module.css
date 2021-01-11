@@ -119,3 +119,15 @@
     font-size: 20px;
     font-weight: 500;
 }
+.btn_checkout{
+    align-self: end;
+    color: #212529!important;
+    background-color: #f9b514!important;
+    border-color: #f9b514!important;
+    border-radius: 50px!important;
+    text-transform: capitalize!important;
+    padding: 6px 15px!important;
+}
+.btn_checkout span{
+    color: #212529!important;
+}

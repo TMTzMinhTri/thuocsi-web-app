@@ -152,9 +152,17 @@
 .search_tool_wrapper .lSection button{
   color: #919aa3;
 }
-.search_tool_wrapper .rSection button{
+.search_tool_wrapper .rSection button,
+.cart_wrapper .text{
   color: #00b46e !important
 }
 .search_tool_wrapper .lSection{
   margin-right: 10px;
+}
+.cart_wrapper{
+  background: #fff !important;
+  min-height: 60px;
+}
+.cart_wrapper [class*='MuiButtonBase-root']{
+  color: #0000008a !important;
 }

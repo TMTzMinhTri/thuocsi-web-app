@@ -48,7 +48,7 @@ const FooterComp = () => {
             </div>
           ) : (
             <AppBar position="fixed" className={styles.appBar}>
-              {router.pathname === '/quick-order'
+              {router.pathname === '/quick-order' || router.pathname === '/cart'
                 ? <FooterWithCart />
                 : <FooterWithToolBar />}
             </AppBar>

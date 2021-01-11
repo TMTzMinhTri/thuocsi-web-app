@@ -117,3 +117,17 @@
     color: #00b46e;
     text-decoration: none;
 }
+@media (max-width: 767px) {
+    .fb{
+        display: none;
+    }
+    .divider{
+        border-right: 0;
+    }
+    .contact{
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { IconButton, Badge } from '@material-ui/core';
 import { Search, LocalMallOutlined } from '@material-ui/icons';
 import { useCart } from 'context';
+import { useRouter } from 'next/router';
 
 import { LinkComp } from '../../../atoms';
 
@@ -10,12 +11,15 @@ import styles from '../styles.module.css';
 
 const HeaderWithCart = memo(() => {
   const { itemCount } = useCart();
+  const router = useRouter();
   return (
     <div className={styles.headerWithCart}>
       <div className={styles.rSection}>
         <Link href="/quick-order">
           <IconButton className={styles.icon} aria-label="search"><Search /></IconButton>
         </Link>
+        {router.pathname !== '/cart'
+        && (
         <LinkComp className={styles.navBarRightLink} href="/cart">
           <IconButton aria-label="cart">
             <Badge badgeContent={itemCount} invisible={false} color="secondary">
@@ -23,6 +27,7 @@ const HeaderWithCart = memo(() => {
             </Badge>
           </IconButton>
         </LinkComp>
+        )}
       </div>
     </div>
   );

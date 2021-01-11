@@ -27,7 +27,9 @@ const FooterRightItem = () => (
             hotro@thuocsi.vn
           </Typography>
         </Link>
-        <Facebook style={{ color: '#3b5998', fontSize: 30 }} />
+        <div className={styles.fb}>
+          <Facebook style={{ color: '#3b5998', fontSize: 30 }} />
+        </div>
       </div>
       <div className={styles.phone_wrap}>
         <div>
