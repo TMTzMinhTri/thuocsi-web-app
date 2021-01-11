@@ -11,14 +11,18 @@ const Theme = createMuiTheme({
           borderColor: 'rgba(0, 0, 0, 0.23)',
         },
         '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
-          borderColor: '#20c997',
+          borderColor: '#fff',
+          boxShadow: '0 0 0 0.2rem rgba(0,180,110,0.25)',
+          outline: 0,
           // Reset on touch devices, it doesn't add specificity
           '@media (hover: none)': {
             borderColor: 'rgba(0, 0, 0, 0.23)',
           },
         },
         '&$focused $notchedOutline': {
-          borderColor: '#20c997',
+          borderColor: '#fff',
+          outline: 0,
+          boxShadow: '0 0 0 0.2rem rgba(0,180,110,0.25)',
           borderWidth: 3,
         },
       },
@@ -32,7 +36,7 @@ const Theme = createMuiTheme({
     MuiFormLabel: {
       root: {
         '&$focused': {
-          color: '#4A90E2',
+          borderColor: '#fff',
         },
       },
     },
@@ -40,7 +44,7 @@ const Theme = createMuiTheme({
       root: {
         backgroundColor: '#fff',
         textTransform: 'unset',
-        borderColor: '#00b46e',
+        boxShadow: '0 0 0 0.2rem rgba(0,180,110,0.25)',
 
         '&$extended': {
           paddingLeft: 20,

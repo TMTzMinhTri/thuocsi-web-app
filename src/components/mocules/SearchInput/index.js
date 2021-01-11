@@ -40,7 +40,6 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
           classes={{
             root: styles.root_input,
           }}
-          id="keyword"
           async
           onChange={handleSearchbox}
           disable
@@ -57,9 +56,12 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
           onBlur={handleBlur}
         />
       </form>
-      {keyword && <><SearchDropdown keyword={keyword} data={searchProduct} /></>}
+      {keyword && (
+        <>
+          <SearchDropdown keyword={keyword} data={searchProduct} />
+        </>
+      )}
     </div>
-
   );
 });
 
