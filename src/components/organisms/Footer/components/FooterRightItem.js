@@ -18,12 +18,12 @@ import styles from '../styles.module.css';
 const FooterRightItem = () => (
   <Grid xs={5} item>
     <div>
-      <p className={styles.footer_header}>LIÊN HÊ</p>
+      <p className={styles.footer_header}>LIÊN HỆ</p>
       <div className={styles.email_wrap}>
         <div className={styles.icon_circle}>
           <EmailOutlined style={{ width: '20x', height: '20px' }} />
         </div>
-        <Link href="/">
+        <Link href="mailto:hotro@thuocsi.vn">
           <Typography className={clsx(styles.contact, styles.divider, styles.link)}>
             hotro@thuocsi.vn
           </Typography>
