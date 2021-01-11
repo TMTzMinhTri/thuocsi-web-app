@@ -30,8 +30,81 @@ function getFormattedWithDate(date, format = 'd (DD/MM/YYYY)') {
   return getFormattedDate(date, format).replace('d', getDayOfWeek(dayOfWeek));
 }
 
+//  Time ago func
+const SECOND = 1;
+const MINUTE = 60;
+const HOUR = 3600;
+const DAY = 86400;
+const MONTH = 2629746;
+const YEAR = 31556952;
+const DECADE = 315569520;
+
+const getTimeAgo = (date) => {
+  const now = new Date();
+  const diff = Math.round((now - +new Date(date)) / 1000);
+  let unit = '';
+  let num = 0;
+
+  switch (true) {
+    case diff <= 0:
+      return 'Mới đây';
+
+    case diff < MINUTE:
+      num = Math.round(diff / SECOND);
+      unit = 'giây';
+
+      break;
+
+    case diff < HOUR:
+      num = Math.round(diff / MINUTE);
+      unit = 'phút';
+
+      break;
+
+    case diff < DAY:
+      num = Math.round(diff / HOUR);
+      unit = 'giờ';
+
+      break;
+
+    case diff < MONTH:
+      num = Math.round(diff / DAY);
+      unit = 'ngày';
+
+      break;
+
+    case diff < YEAR:
+      num = Math.round(diff / MONTH);
+      unit = 'tháng';
+
+      break;
+
+    case diff < DECADE:
+      num = Math.round(diff / YEAR);
+      unit = 'năm';
+
+      break;
+
+    default:
+      num = Math.round(diff / YEAR);
+      unit = 'năm';
+  }
+
+  let str = '';
+  if (num) {
+    str += `${num} `;
+  }
+
+  str += `${unit}`;
+
+  str += ' trước';
+
+  return str;
+};
+
 export default {
   getFormattedDate,
   getDayOfWeek,
   getFormattedWithDate,
+  getTimeAgo,
 };
