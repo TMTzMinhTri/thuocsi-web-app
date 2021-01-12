@@ -44,7 +44,7 @@ async function loadDataProductDetail(ctx) {
 }
 
 async function loadDataCart(ctx) {
-  const res = await GET({ url: '/cart', mock: true, ctx });
+  const res = await GET({ url: '/marketplace/order/v1/cart', isAuth: true, ctx });
   if (!isValid(res)) {
     return [];
   }
@@ -75,9 +75,10 @@ async function loadDataProduct(ctx) {
     cart.status = 'ERROR';
   }
   const cartObject = {};
-  if (cart && cart.cartItems && cart.cartItems.length > 0) {
+  // eslint-disable-next-line no-restricted-syntax
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
     // eslint-disable-next-line no-restricted-syntax
-    for (const item of cart.cartItems) {
+    for (const item of cart[0].cartItems) {
       cartObject[item.sku] = item;
     }
     productListWithPrice = GetQuantityProduct(result, cartObject);
