@@ -10,6 +10,7 @@ import {
   DeliveryMethod,
   PaymentMethod,
   CheckoutSticky,
+  HeaderMobile,
 } from 'components';
 import { ProductClient, doWithServerSide, CatClient } from 'clients';
 import styles from './styles.module.css';
@@ -49,7 +50,7 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-const PaymentPage = ({ user = {} }) => {
+const CheckoutPage = ({ user = {}, isMobile }) => {
   const title = 'Thuocsi.vn';
   const [value, setValue] = useState({
     name: user.name,
@@ -71,9 +72,9 @@ const PaymentPage = ({ user = {} }) => {
     setValue({ ...value, [key]: val });
   };
   return (
-    <Template title={title}>
-      <Header />
-      <NavBar />
+    <Template title={title} isMobile={isMobile}>
+      {isMobile ? <HeaderMobile title="Mã giảm giá" /> : <Header />}
+      {!isMobile && <NavBar />}
       <div className={styles.payment_wrapper}>
         <Grid spacing={4} container>
           <Grid item xs={12} md={8}>
@@ -103,4 +104,4 @@ const PaymentPage = ({ user = {} }) => {
     </Template>
   );
 };
-export default PaymentPage;
+export default CheckoutPage;

@@ -39,7 +39,7 @@ export default function ProductListing({
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
-  const count = 50;
+  const count = products.length;
   const pageSize = 20;
   const pages = Math.ceil(count / pageSize);
   const router = useRouter();
@@ -270,7 +270,7 @@ export default function ProductListing({
                 </main>
               ) : (
                 <Typography variant="body1" className={styles.empty}>
-                  Ko có sản phẩm
+                  Không có sản phẩm
                 </Typography>
               )}
             </>

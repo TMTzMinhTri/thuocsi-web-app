@@ -109,6 +109,27 @@
 }
 
 .download_area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.active{
+    color: #00b46e;
+    text-decoration: none;
+}
+@media (max-width: 767px) {
+    .fb{
+        display: none;
+    }
+    .divider{
+        border-right: 0;
+    }
+    .contact{
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

@@ -20,12 +20,12 @@ const useStyles = makeStyles({
 });
 
 function LinkComp(props) {
-  const { className, name, children, href, onMouseOver, variant = 'body2' } = props;
+  const { className, name, children, href, onMouseOver, variant = 'body2', ...rest } = props;
   const classes = useStyles(props);
 
   return (
     <Link href={href} className={classes.linkRoot} onMouseOver={onMouseOver}>
-      <a className={clsx(classes.root, className)} href={href}>
+      <a {...rest} className={clsx(classes.root, className)} href={href}>
         {children}
         <Typography variant={variant}>{name}</Typography>
       </a>

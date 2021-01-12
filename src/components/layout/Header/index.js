@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useModal } from 'hooks';
 import { IconButton, Menu, Fade, MenuItem } from '@material-ui/core';
 import { CardTravel, House, NewReleases, NotificationsNoneOutlined } from '@material-ui/icons';
@@ -79,9 +78,9 @@ const InfoHeader = memo(() => {
         </div>
       </div>
       <div className={styles.login}>
-        <Link href="/">
+        <LinkComp href="/">
           <Image className={styles.logo} href="/" src={LOGO_THUOCSI} width="164px" height="45px" />
-        </Link>
+        </LinkComp>
         {!isAuthenticated ? (
           <>
             <SignInModal

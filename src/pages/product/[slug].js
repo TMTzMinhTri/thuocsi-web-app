@@ -47,7 +47,7 @@ export async function getServerSideProps(ctx) {
 export default function ProductDetail({ products, isAuthenticated }) {
   const title = products[0].name;
   const [anchorEl, setAnchorEl] = useState(null);
-  const { name, price, unit, volume, ingredient, madeBy, category, tags } = products[0];
+  const { name, price, unit, volume, ingredient = [], madeBy, category, tags } = products[0];
   const [value, setValue] = React.useState('1');
 
   const handleChange = (event, newValue) => {
@@ -140,7 +140,7 @@ export default function ProductDetail({ products, isAuthenticated }) {
                                 </TableRow>
                               </TableHead>
                               <TableBody>
-                                {ingredient.map((row) => (
+                                {ingredient && ingredient.map((row) => (
                                   <TableRow key={row.name}>
                                     <TableCell
                                       className={styles.border_right}
@@ -236,7 +236,7 @@ export default function ProductDetail({ products, isAuthenticated }) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {ingredient.map((row) => (
+                      {ingredient && ingredient.map((row) => (
                         <TableRow key={row.name}>
                           <TableCell className={styles.border_right} component="th" scope="row">
                             <a className={styles.text_capitalize} href="/">

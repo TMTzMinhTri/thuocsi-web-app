@@ -1,18 +1,26 @@
-import { GET } from './Clients';
+import { CORE_API } from 'constants/APIUri';
+import { GET, isValid } from './Clients';
 
 const getProvinces = async (ctx) => {
-  const url = '/core/master-data/v1/province/list';
-  const res = await GET({ url, isAuth: true, ctx });
+  const url = CORE_API.PROVINCE_LIST;
+  const res = await GET({ url, ctx });
+  // Example @dat.le
+  if (!isValid(res)) {
+    // if not valid => return empty []
+    return [];
+  }
   const provinces = res.data.map((province) => ({
     label: province.name,
     value: province.code,
   }));
+  // return provinces  = []
   return provinces;
 };
 
-const getDistrictsByProvince = async (id) => {
-  const url = `/core/master-data/v1/district?provinceCode=${id}`;
-  const res = await GET({ url, isAuth: true });
+// TODO @dat.le : check res
+const getDistrictsByProvince = async (provinceCode) => {
+  const url = `${CORE_API.DISTRICT}?provinceCode=${provinceCode}`;
+  const res = await GET({ url });
   const districts = res.data.map((district) => ({
     label: district.name,
     value: district.provinceCode,
@@ -20,9 +28,10 @@ const getDistrictsByProvince = async (id) => {
   return districts;
 };
 
-const getWardsByDistrict = async (id) => {
-  const url = `/core/master-data/v1/administrative/list?provinceCode=${id}`;
-  const res = await GET({ url, isAuth: true });
+// TODO @dat.le : check res
+const getWardsByDistrict = async (provinceCode) => {
+  const url = `${CORE_API.ADMINISTRATIVE}?provinceCode=${provinceCode}`;
+  const res = await GET({ url });
   const wards = res.data.map((ward) => ({
     label: ward.name,
     value: ward.code,

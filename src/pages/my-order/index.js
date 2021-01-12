@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Template, NavBar, Header, OrderInfoFormContainer, InfoContainer } from 'components';
+import { Template, NavBar, Header, OrderInfoFormContainer, InfoContainer, HeaderMobile } from 'components';
 import { Container } from '@material-ui/core';
 import { CustomerClient, doWithServerSide } from 'clients';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
@@ -19,7 +19,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-const MyOrder = ({ mostResearched = [], wallet, orders: orderR = [] }) => {
+const MyOrder = ({ mostResearched = [], wallet, orders: orderR = [], isMobile }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [orders, setOrders] = useState(orderR);
   const [orderStatus, setOrderStatus] = useState(ENUM_ORDER_STATUS.ALL);
@@ -36,13 +36,16 @@ const MyOrder = ({ mostResearched = [], wallet, orders: orderR = [] }) => {
   };
 
   return (
-    <Template title={title}>
-      <Header />
+    <Template title={title} isMobile={isMobile}>
+      {isMobile ? <HeaderMobile title="Hoạt chất" /> : <Header />}
+      {!isMobile
+      && (
       <NavBar
         mostResearched={mostResearched}
         point={wallet.loyaltyPoint}
         balance={wallet.balance}
       />
+      )}
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>

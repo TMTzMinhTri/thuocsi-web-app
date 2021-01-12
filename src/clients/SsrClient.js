@@ -1,8 +1,27 @@
+// import { NotifyUtils } from 'utils';
 import { getUserWithContext } from './AuthClient';
 
-export const doWithServerSide = async (ctx, callback) => {
+/*
+  TODO thuannc
+  redirect = { url , notify}
+*/
+export const doWithServerSide = async (ctx, callback, redirect = null) => {
   try {
     const { user, isAuthenticated } = await getUserWithContext(ctx);
+    if (!isAuthenticated && redirect) {
+      // TODO thuannc
+      // notify ?
+      // if (redirect.message && redirect.messa) {
+      //   await NotifyUtils.error(redirect.message);
+      // }
+      const redirectUrl = redirect.url || '/';
+      return {
+        redirect: {
+          destination: redirectUrl,
+          permanent: true,
+        },
+      };
+    }
 
     let result = callback(ctx);
     // wait for page promise

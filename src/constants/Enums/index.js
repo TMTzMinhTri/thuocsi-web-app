@@ -24,7 +24,18 @@ export const PROMO_TYPE = {
   GIFT: 'gift',
 };
 
+export const HTTP_STATUS = {
+  Ok: 'OK',
+  Error: 'ERROR',
+  Invalid: 'INVALID',
+  NotFound: 'NOT_FOUND',
+  Forbidden: 'FORBIDDEN',
+  Existed: 'EXISTED',
+  Unauthorized: 'UNAUTHORIZED',
+};
+
 export default {
   ENUM_SCOPE,
   ENUM_TYPE,
+  HTTP_STATUS,
 };
