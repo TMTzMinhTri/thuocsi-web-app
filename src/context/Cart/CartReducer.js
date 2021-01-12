@@ -15,12 +15,14 @@ export const sumItems = (cartItems) => {
 
 export const CartReducer = (state, action) => {
   const { cartItems } = state;
+
+  const data = action.payload && action.payload.cartItems ? action.payload.cartItems : [];
   switch (action.type) {
     case 'FETCH_SUCCESS':
       return {
         ...state,
-        ...sumItems([...action.payload]),
-        cartItems: [...action.payload],
+        ...sumItems([...data]),
+        cartItems: [...data],
         loading: false,
       };
     case 'FETCH_ERROR':

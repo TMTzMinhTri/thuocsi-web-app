@@ -30,7 +30,7 @@ async function loadDataProductDetail(ctx) {
 }
 
 async function loadDataCart(ctx) {
-  const res = await GET({ url: '/cart', mock: true, ctx });
+  const res = await GET({ url: '/marketplace/order/v1/cart', ctx });
   return res.data;
 }
 
