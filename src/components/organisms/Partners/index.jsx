@@ -11,14 +11,14 @@ import styles from './styles.module.css';
 const Partners = () => {
   const ref = useRef({});
   const partnerItem = imagePartnerSlider.map((item) => (
-    <div className={styles.item}>
-      <Image src={item.url} key={`partner-${item.id}`} width={item.width} height={item.height} />
+    <div key={`partner-${item.id}`} className={styles.item}>
+      <Image src={item.url} width={item.width} height={item.height} />
     </div>
   ));
 
   return (
     <Box py={5} className={styles.wrapper}>
-      <Container maxWidth="1140px" fixed>
+      <Container fixed>
         <Box
           className={styles.center}
           component="h2"

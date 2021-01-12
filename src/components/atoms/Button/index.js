@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 
 const CustomButton = memo((props) => {
-  const { btnType, children, className, suffix, color, ...rest } = props;
+  const { btnType, children, className, suffix, color, backgroundColor, ...rest } = props;
   return (
     <Button className={className} {...rest}>
       {children}

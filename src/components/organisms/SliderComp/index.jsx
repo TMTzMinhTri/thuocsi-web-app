@@ -20,8 +20,8 @@ import styles from './styles.module.css';
 const SliderComp = () => {
   const ref = useRef({});
   const sliderItem = customerFeedbackData.map((item) => (
-    <div className={styles.box}>
-      <Card key={`slider-${item.id}`} className={styles.root}>
+    <div key={`slider-${item.id}`} className={styles.box}>
+      <Card className={styles.root}>
         <CardHeader
           avatar={<Avatar src={item.avatar} aria-label="recipe" className={styles.large} />}
           title={item.customer}
@@ -49,7 +49,7 @@ const SliderComp = () => {
   ));
   return (
     <Box className={styles.wrapper_media} component="div">
-      <Container maxWidth="1140px" fixed>
+      <Container fixed>
         <Box pt={5} pb={10}>
           <Box
             className={styles.center}

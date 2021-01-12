@@ -13,7 +13,7 @@ const renderLinkItem = (data) =>
 
 const CommonQuestion = () => (
   <Box py={5} className={styles.wrapper}>
-    <Container maxWidth="1140px" fixed>
+    <Container fixed>
 
       <Box
         className={styles.center}

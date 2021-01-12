@@ -7,7 +7,7 @@ import styles from './style.module.css';
 
 const WhyBuymed = () => (
   <Box className={styles.why_buymed_wrapper}>
-    <Container maxWidth="1140px" fixed>
+    <Container fixed>
       <Grid container>
         <Grid className={styles.reason_item} item md={3} xs={12}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12} xs={4}>
