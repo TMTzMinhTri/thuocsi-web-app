@@ -1,27 +1,30 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import Image from 'next/image';
 import { useModal } from 'hooks';
-import { IconButton, Menu, Fade, MenuItem } from '@material-ui/core';
+import clsx from 'clsx';
+import { DateTimeUtils } from 'utils';
+import { IconButton, Menu, Fade, Badge } from '@material-ui/core';
 import { CardTravel, House, NewReleases, NotificationsNoneOutlined } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { HeaderUser, SearchInput } from 'components/mocules';
-import { useAuth } from 'context';
+import { useAuth, useNotify } from 'context';
 import { LinkComp, Button } from '../../atoms';
 import styles from './styles.module.css';
 
 const InfoHeader = memo(() => {
-  const [notifications, setNotifications] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [isShowingLogin, toggleLogin] = useModal();
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { user, isAuthenticated } = useAuth();
+  const { getNotifcations, notification } = useNotify();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    getNotifcations();
   };
 
   const handleClose = () => {
@@ -42,14 +45,6 @@ const InfoHeader = memo(() => {
     toggleSignUp();
     toggleLogin();
   }, [toggleSignUp, toggleLogin]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // const res = await SearchClient.searchKeywords();
-      // setNotifications(res);
-    };
-    fetchData();
-  }, []);
 
   return (
     <div>
@@ -126,14 +121,15 @@ const InfoHeader = memo(() => {
                   vertical: 'top',
                   horizontal: 'center',
                 }}
+                classes={{ paper: styles.notify_wrap }}
               >
-                {notify.map((item) => (
+                {notification.map((item) => (
                   <LinkComp
                     key={item.id}
                     className={
-                  read
-                    ? clsx(styles.notificationsItem, styles.read)
-                    : clsx(styles.notificationsItem, styles.unRead)
+                      item.read
+                        ? clsx(styles.notificationsItem, styles.read)
+                        : clsx(styles.notificationsItem, styles.unRead)
                 }
                     href={item.slug}
                   >
@@ -151,8 +147,11 @@ const InfoHeader = memo(() => {
 
               </Menu>
               <IconButton className={styles.notiIcon} onClick={handleClick}>
-                <NotificationsNoneOutlined />
-                {/* <FontAwesomeIcon icon={faBell} /> */}
+                <Badge badgeContent={notification.length} invisible={false} color="secondary">
+
+                  <NotificationsNoneOutlined />
+                </Badge>
+
               </IconButton>
               <HeaderUser user={user} />
             </div>
