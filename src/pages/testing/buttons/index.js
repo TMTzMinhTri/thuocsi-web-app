@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import { RIBBON_STATUS } from 'constants/Enums';
 
-import { Button, PrintInvoiceButton, ResponseButton, EditOrderButton, EventBadge, NewBadge, RibbonPriceDown, Ribbon, RibbonPriceUp } from 'components';
+import { Button, PrintInvoiceButton, ResponseButton, EditOrderButton, EventBadge, NewBadge, RibbonPriceDown, Ribbon, RibbonPriceUp, RemoveProductModal } from 'components';
 
 const TestingButton = () => (
   <>
@@ -26,6 +26,7 @@ const TestingButton = () => (
     <Box> <RibbonPriceDown /> </Box>
     <Box> <RibbonPriceUp /> </Box>
     <Box> <Ribbon status={RIBBON_STATUS.UP} /> </Box>
+    <RemoveProductModal />
 
   </>
 );

@@ -1,5 +1,5 @@
 .native_select [class*='MuiNativeSelect-select'] {
-  height: 100%;
+  height: 35px !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
