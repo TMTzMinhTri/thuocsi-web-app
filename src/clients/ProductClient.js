@@ -44,7 +44,7 @@ async function loadDataProductDetail(ctx) {
 }
 
 async function loadDataCart(ctx) {
-  const res = await GET({ url: '/marketplace/order/v1/cart', isAuth: true, ctx, isBasic: true });
+  const res = await GET({ url: '/marketplace/order/v1/cart', isAuth: true, ctx });
   if (!isValid(res)) {
     return [];
   }
@@ -76,7 +76,7 @@ async function loadDataProduct(ctx) {
   }
   const cartObject = {};
   // eslint-disable-next-line no-restricted-syntax
-  if (cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
     // eslint-disable-next-line no-restricted-syntax
     for (const item of cart[0].cartItems) {
       cartObject[item.sku] = item;
