@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useContext, useEffect } from 'react';
 import ProductClient from 'clients/ProductClient';
+import { NotifyUtils } from 'utils';
 import { CartReducer } from './CartReducer';
 
 export const CartContext = createContext();
@@ -19,8 +20,14 @@ export const CartContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  const increase = (payload) => {
-    dispatch({ type: 'INCREASE', payload });
+  const increase = async (payload) => {
+    const res = await ProductClient.addCartItem(payload);
+    if (res.length > 0) {
+      dispatch({ type: 'INCREASE', payload: payload.product });
+      NotifyUtils.success('Thêm sản phẩm thành công');
+    } else {
+      NotifyUtils.error(res.message);
+    }
   };
 
   const increaseBy = (payload) => {

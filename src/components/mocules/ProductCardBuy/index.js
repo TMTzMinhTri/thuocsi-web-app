@@ -56,7 +56,7 @@ const ProductCardBuy = ({
   const handleIncrease = () => {
     const q = value + 1;
     setValue(q);
-    increase(product);
+    increase({ product, q });
   };
 
   const handleOnIncreaseBy = (val) => {

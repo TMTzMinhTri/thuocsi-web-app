@@ -1,6 +1,6 @@
 import GetQuantityProduct from 'utils/GetQuantityProduct';
 import { PRODUCT_API } from 'constants/APIUri';
-import { GET, isValid } from './Clients';
+import { GET, isValid, POST } from './Clients';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
@@ -44,9 +44,21 @@ async function loadDataProductDetail(ctx) {
 }
 
 async function loadDataCart(ctx) {
-  const res = await GET({ url: '/marketplace/order/v1/cart', isAuth: true, ctx });
+  const res = await GET({ url: '/marketplace/order/v1/cart', isAuth: true, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
+  }
+  return res.data;
+}
+
+async function addCartItem(data) {
+  const body = {
+    sku: data.product.skuId,
+    quantity: data.q,
+  };
+  const res = await POST({ url: '/marketplace/order/v1/cart/add', body });
+  if (!isValid(res)) {
+    return res;
   }
   return res.data;
 }
@@ -126,4 +138,5 @@ export default {
   loadDataIngredient,
   getIngredientBySlug,
   getProductsBySlug,
+  addCartItem,
 };
