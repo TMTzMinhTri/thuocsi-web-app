@@ -6,6 +6,12 @@ import { useCart } from 'context';
 
 import styles from './style.module.css';
 
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}
+
 function Cart({ mostResearched = [], isMobile }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
