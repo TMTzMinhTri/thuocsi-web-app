@@ -63,7 +63,6 @@ const GroupAddressSelect = ({
       setWards([{ value: 0, label: 'Chọn Phường/Xã ...' }, ...res]);
       setPos(ADDRESS_POS.WARD);
     }
-
     if (String(district) !== '0') getWards();
     else {
       setWards([{ value: 0, label: 'Chọn Phường/Xã ...' }]);

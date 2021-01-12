@@ -3,7 +3,7 @@ import { OrderDetailStep, OrderDetailInfo, OrderDetailProduct, ResponseButton, P
 import { DateTimeUtils } from 'utils';
 import styles from './styles.module.css';
 
-const OrderDetailContainer = ({ order }) => (
+const OrderDetailContainer = ({ order, products }) => (
   <Grid container>
     <Grid item xs={12}>
       <Paper classes={{ root: styles.container }} elevation={3}>
@@ -31,7 +31,7 @@ const OrderDetailContainer = ({ order }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container direction="row">
           <Grid item xs={3}>
-            <PrintInvoiceButton />
+            <PrintInvoiceButton disabled orderID={order.orderID} />
           </Grid>
 
           <Grid item container direction="column" justify="center" xs={5}>
@@ -48,7 +48,7 @@ const OrderDetailContainer = ({ order }) => (
     </Grid>
 
     <Grid item xs={12}>
-      <OrderDetailProduct products={order?.products} promo={order?.promo} />
+      <OrderDetailProduct products={products} promo={order?.promo} />
     </Grid>
   </Grid>
 );

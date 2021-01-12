@@ -23,7 +23,7 @@ const OrderDetailProduct = ({ products, promo }) => {
     return sum;
   };
   return (
-    <TableContainer component={Paper} className={styles.table}>
+    <TableContainer component={Paper} className={styles.table} elevation={4}>
       <Table>
         <TableHead>
           <TableRow>
