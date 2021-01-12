@@ -6,14 +6,14 @@ import styles from './styles.module.css';
 
 const renderLinkItem = (data) =>
   data.map((item) => (
-    <LinkComp key={`question-${item.id}`} className={styles.link} href={item.href}>
+    <LinkComp target="_blank" key={`question-${item.id}`} className={styles.link} href={item.href}>
       {item.title}
     </LinkComp>
   ));
 
 const CommonQuestion = () => (
   <Box py={5} className={styles.wrapper}>
-    <Container maxWidth="1140px" fixed>
+    <Container fixed>
 
       <Box
         className={styles.center}
@@ -40,6 +40,7 @@ const CommonQuestion = () => (
           classes={{ label: styles.label, outlined: styles.outlined, root: styles.root }}
           href={LINK_ALL_QUESTION}
           variant="outlined"
+          target="_blank"
         >
           Xem tất cả câu hỏi
         </Button>

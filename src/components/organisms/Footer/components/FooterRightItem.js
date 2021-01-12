@@ -2,9 +2,10 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Facebook, EmailOutlined, Call } from '@material-ui/icons';
+import { EmailOutlined, Call } from '@material-ui/icons';
 import clsx from 'clsx';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import {
   LINK_APPLESTORE,
   LINK_GOOGLEPLAY,
@@ -17,17 +18,19 @@ import styles from '../styles.module.css';
 const FooterRightItem = () => (
   <Grid xs={5} item>
     <div>
-      <p className={styles.footer_header}>LIÊN HÊ</p>
+      <p className={styles.footer_header}>LIÊN HỆ</p>
       <div className={styles.email_wrap}>
         <div className={styles.icon_circle}>
           <EmailOutlined style={{ width: '20x', height: '20px' }} />
         </div>
-        <Link href="/">
+        <Link href="mailto:hotro@thuocsi.vn">
           <Typography className={clsx(styles.contact, styles.divider, styles.link)}>
             hotro@thuocsi.vn
           </Typography>
         </Link>
-        <Facebook style={{ color: '#3b5998', fontSize: 30 }} />
+        <a href="https://www.facebook.com/thuocsivn/" className={styles.icon_fb}>
+          <FontAwesomeIcon icon={faFacebookF} />
+        </a>
       </div>
       <div className={styles.phone_wrap}>
         <div>

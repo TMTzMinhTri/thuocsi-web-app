@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NoSsr } from '@material-ui/core';
 
-function CountdownTimer({ dealEndDay, ...otherProps }) {
+function CountdownTimer({ prefix, dealEndDay, ...otherProps }) {
   const calculateTimeLeft = () => {
     const difference = +new Date(dealEndDay) - +new Date();
     let timeLeft = {};

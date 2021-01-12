@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 
 const CustomButton = memo((props) => {
-  const { btnType, children, className, suffix, color, ...rest } = props;
+  const { btnType, children, className, suffix, color, backgroundColor, ...rest } = props;
   return (
     <Button className={className} {...rest}>
       {children}
@@ -60,6 +60,15 @@ const StyledButton = styled(CustomButton)`
       color: #00b46e !important;
       border: 1px solid #00b46e !important;
     }
+  }
+
+  &.promo__button {
+    color: #fff !important;
+    background-color: #00b46e !important;
+    border-color: #00b46e !important;
+    text-transform: none !important;
+    width: 100%;
+    // padding: 5px 55px !important;
   }
   
 `;

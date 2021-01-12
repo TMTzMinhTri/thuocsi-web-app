@@ -20,6 +20,7 @@
     text-transform: capitalize;
     transition: color 0.2s;
     font-weight: 500!important;
+    cursor: pointer;
     word-wrap: break-word;
     overflow: hidden;
     display: -webkit-box;

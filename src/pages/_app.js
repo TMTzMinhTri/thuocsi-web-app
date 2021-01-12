@@ -21,6 +21,8 @@ import '../styles/globals.css';
 import '../styles/icomoon.css';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { MOBILE } from 'constants/Device';
+
 const NAMESPACE_REQUIRED_DEFAULT = 'common';
 
 const MyApp = (props) => {
@@ -72,9 +74,18 @@ MyApp.propTypes = {
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   const { defaultProps } = appContext.Component;
+  let isMobile = '';
+  try {
+    const UA = appContext.ctx.req.headers['user-agent'];
+    isMobile = Boolean(UA.match(`/${MOBILE}/i`));
+  } catch (error) {
+    isMobile = `can not detect device - ${error}`;
+  }
+
   return {
     ...appProps,
     pageProps: {
+      isMobile: !!isMobile,
       namespacesRequired: [
         ...(appProps.pageProps.namespacesRequired || [NAMESPACE_REQUIRED_DEFAULT]),
         ...(defaultProps?.i18nNamespaces || []),

@@ -48,7 +48,7 @@ export default function CustomizedDialogs({ url, open, maxWidth, handleClose }) 
 
   return (
     <div className={styles.custom}>
-      <Dialog fullScreen={fullScreen} fullWidth maxWidth={maxWidth} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      <Dialog scroll="body" fullScreen={fullScreen} fullWidth maxWidth={maxWidth} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           {loading
             ? <GridLineItem counts={1} />

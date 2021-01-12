@@ -1,0 +1,23 @@
+.title {
+  text-align: center;
+}
+
+.promo_special {
+  background-image: linear-gradient(to right, #00b46e, #17a2b8);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.promo_for_you {
+  padding: 20px;
+}
+
+.root {
+  font-size: 16px;
+  padding-top: 45px;
+}
+
+.container {
+  padding: 45px 100px;
+}

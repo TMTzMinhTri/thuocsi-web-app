@@ -3,7 +3,9 @@
   "error": "error nè má errros xxx",
   "login": {
     "success": "Đăng nhập thành công .",
-    "NOT_FOUND": "Không tìm thấy thông tin người dùng"
+    "NOT_FOUND": "Không tìm thấy thông tin người dùng",
+    "WRONG_PASSWORD": "Bạn đã nhập sai thông tin người dùng.",
+    "Not found any matched account.": "Không tìm thấy thông tin người dùng"
   },
   "loginNotFound": "Không tìm thấy thông tin người dùng"
 }

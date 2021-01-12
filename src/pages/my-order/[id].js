@@ -1,42 +1,26 @@
 import { Template, NavBar, Header, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { AuthClient, CustomerClient, OrderClient } from 'clients';
+import { CustomerClient, OrderClient, doWithServerSide } from 'clients';
 
 export async function getServerSideProps(ctx) {
-  try {
-    const { id } = ctx.query;
-    const [user, wallet, order] = await Promise.all([
-      AuthClient.getUser(),
+  const { id } = ctx.query;
+  return doWithServerSide(ctx, async () => {
+    const [wallet, order, products] = await Promise.all([
       CustomerClient.getWallet(),
       OrderClient.getOrderById(id),
+      OrderClient.getProductByOrderId(id),
     ]);
-    if (!user) throw new Error('Cannot get user');
     return {
       props: {
-        user: user.data[0],
         wallet: wallet.data[0],
         order,
+        products,
       },
     };
-  } catch (error) {
-    return {
-      props: {
-        user: {
-          name: '',
-          phone: '',
-          email: '',
-        },
-        wallet: {
-          balance: 0,
-          name: '',
-        },
-        order: {},
-      },
-    };
-  }
+  });
 }
 
-const MyOrder = ({ mostResearched = [], wallet, order }) => {
+const MyOrder = ({ mostResearched = [], wallet, order, products = [] }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
 
   return (
@@ -50,7 +34,7 @@ const MyOrder = ({ mostResearched = [], wallet, order }) => {
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>
-            <OrderDetailContainer order={order} />
+            <OrderDetailContainer order={order} products={products} />
           </InfoContainer>
         </Container>
       </div>

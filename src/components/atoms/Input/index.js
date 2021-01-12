@@ -48,7 +48,7 @@ const Input = styled(InputCustom)`
 
     & .Mui-disabled {
       box-shadow: none !important;
-    border: none !important;
+      border: none !important;
     }
   }
 `;

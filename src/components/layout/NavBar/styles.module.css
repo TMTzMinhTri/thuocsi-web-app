@@ -30,12 +30,11 @@
     width: 50px
 }
 
+
 .navBar.sticky .searchInput {
     display: flex!important;
-    width: 20%;
     margin: 0;
-    padding: 5px 15px;
-    height: 38px;
+    padding: 5px 15px!important;
 }
 
 .navBar.sticky .searchInput>div{
@@ -115,6 +114,10 @@
     color: #fff;
 }
 
+.customWidth {
+    max-width: 280px;
+}
+
 @media (min-width: 768px) and (max-width: 860px) {
     .leftNavBar a{
         padding: 12px 5px;
@@ -138,5 +141,10 @@
     }
     .leftNavBar a p{
         display: none;
+    }
+}
+@media (max-width: 640px){
+    .navBar.sticky .searchInput {
+        display: none !important;
     }
 }

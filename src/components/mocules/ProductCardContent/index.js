@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, CardContent, Box } from '@material-ui/core';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 import TagType from '../TagType';
 
@@ -41,11 +42,11 @@ const ProductCardContent = ({
       }
     >
       <Box className={styles.product_title}>
-        <a href={`/product/${slug}`}>
+        <Link href={`/product/${slug}`}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
             {name}
           </Typography>
-        </a>
+        </Link>
         {tag && (
           <div className={clsx(styles.product_tags, styles.product_tags_column)}>
             {tags.map((item) => (
