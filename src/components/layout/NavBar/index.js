@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useModal } from 'hooks';
 import {
   makeStyles,
@@ -119,13 +118,13 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
 
   return (
     <div ref={nav} className={styles.navBar}>
-      <Container className={styles.container}>
+      <Container maxWidth="lg" className={styles.container}>
         <div className={styles.navBarContaint}>
           <div className={styles.leftNavBar}>
             <div className={styles.logoNav}>
-              <Link href="/">
+              <LinkComp href="/">
                 <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
-              </Link>
+              </LinkComp>
             </div>
             <div className={classes.link_wrap}>
               <LinkComp

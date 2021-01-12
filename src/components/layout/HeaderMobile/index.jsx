@@ -1,12 +1,12 @@
 import React, { memo, useCallback, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useModal } from 'hooks';
 import { Drawer, IconButton, Fab, Button } from '@material-ui/core';
 import { Menu, Close } from '@material-ui/icons';
 import { useRouter } from 'next/router';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
+import { LinkComp } from 'components/atoms';
 import { useAuth, useCart } from 'context';
 
 import clsx from 'clsx';
@@ -53,7 +53,7 @@ const HeaderMobile = memo(({ title = '' }) => {
       >
         {!isAuthenticated ? (
           <>
-            <Link href="/">
+            <LinkComp href="/">
               <Image
                 className={styles.logo}
                 href="/"
@@ -61,7 +61,7 @@ const HeaderMobile = memo(({ title = '' }) => {
                 width="164px"
                 height="45px"
               />
-            </Link>
+            </LinkComp>
             <SignInModal
               visible={isShowingLogin}
               onClose={toggleLogin}

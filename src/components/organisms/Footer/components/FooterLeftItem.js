@@ -18,6 +18,7 @@ import {
   LOGO_FOOTER_SVG,
 } from 'constants/Images';
 import { Dialog } from 'components/mocules';
+import { LinkComp } from 'components/atoms';
 import styles from '../styles.module.css';
 
 const FooterLeftItem = () => {
@@ -31,9 +32,9 @@ const FooterLeftItem = () => {
   return (
     <Grid item xs={6}>
       <div>
-        <Link href="/">
+        <LinkComp href="/">
           <Image src={LOGO_FOOTER_SVG} width="164" height="40" />
-        </Link>
+        </LinkComp>
       </div>
       <div>
         <Typography className={styles.mb1}>
@@ -71,7 +72,7 @@ const FooterLeftItem = () => {
           <Grid sm={6} item>
             <Link href="/about-us">
               <Typography
-                className={[router.pathname === '/about-us' ? styles.active : '', styles.link]}
+                className={router.pathname === '/about-us' ? clsx(styles.active, styles.link) : styles.link}
               >
                 Giới thiệu về thuocsi.vn
               </Typography>
