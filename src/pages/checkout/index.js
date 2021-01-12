@@ -50,7 +50,7 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-const PaymentPage = ({ user = {}, isMobile }) => {
+const CheckoutPage = ({ user = {}, isMobile }) => {
   const title = 'Thuocsi.vn';
   const [value, setValue] = useState({
     name: user.name,
@@ -104,4 +104,4 @@ const PaymentPage = ({ user = {}, isMobile }) => {
     </Template>
   );
 };
-export default PaymentPage;
+export default CheckoutPage;
