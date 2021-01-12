@@ -2,7 +2,8 @@ import React, { useCallback } from 'react';
 import { Grid } from '@material-ui/core';
 import { useModal } from 'hooks';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../atoms/Button';
 import styles from './styles.module.css';
 
@@ -33,8 +34,14 @@ const HomeCTASection = () => {
           <h4 className={styles.title}>Đăng nhập để tìm hiểu sản phẩm</h4>
         </Grid>
         <Grid className={styles.btnWrapper} display="flex" justifyContent="center" container item>
-          <Button onClick={toggleLogin} backgroundColor="#f9b514" className={styles.customBtn}>đăng nhập</Button>
-          <Button onClick={toggleSignUp} backgroundColor="#00b46e" color="#fff" className={styles.customBtn}>đăng kí</Button>
+          <Button onClick={toggleLogin} backgroundColor="#f9b514" className={styles.customBtn}>
+            <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
+            đăng nhập
+          </Button>
+          <Button onClick={toggleSignUp} backgroundColor="#00b46e" color="#fff" className={styles.customBtn}>
+            <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
+            đăng kí
+          </Button>
           <SignInModal
             visible={isShowingLogin}
             onClose={toggleLogin}
