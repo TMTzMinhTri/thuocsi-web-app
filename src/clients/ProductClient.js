@@ -18,6 +18,7 @@ async function getInfoBanner() {
   return result.data;
 }
 
+// TODO  @truong
 async function loadDataProductDetail(ctx) {
   const { query } = ctx;
   const url = `/marketplace/product/v1/products?q=${query.slug}`;
@@ -56,7 +57,6 @@ async function loadDataProduct(ctx) {
     cart.status = 'ERROR';
   }
   const cartObject = {};
-  // eslint-disable-next-line no-restricted-syntax
   if (cart && cart.cartItems && cart.cartItems.length > 0) {
     // eslint-disable-next-line no-restricted-syntax
     for (const item of cart.cartItems) {
@@ -69,7 +69,7 @@ async function loadDataProduct(ctx) {
 
   return productListWithPrice;
 }
-
+// TODO  @dat.le
 async function loadDataIngredient(ctx) {
   const res = await GET({ url: PRODUCT_API.INGREDIENT_LIST, ctx, isBasic: true });
   return res.data;

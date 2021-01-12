@@ -44,3 +44,14 @@ export const PRODUCT_API = {
   INGREDIENT,
   INGREDIENT_LIST,
 };
+
+const CORE_MASTER_DATA_PREFIX = '/core/master-data/v1';
+const PROVINCE_LIST = `${CORE_MASTER_DATA_PREFIX}/province/list`;
+const DISTRICT = `${CORE_MASTER_DATA_PREFIX}/district`;
+// administrative/list
+const ADMINISTRATIVE = `${CORE_MASTER_DATA_PREFIX}/administrative/list`;
+export const CORE_API = {
+  PROVINCE_LIST,
+  DISTRICT,
+  ADMINISTRATIVE,
+};

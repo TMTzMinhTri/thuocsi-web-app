@@ -4,6 +4,7 @@ import { GET } from './Clients';
 async function getOrderById(id = '') {
   const url = `${CUSTOMER_API.ORDER}/${id}`;
   const result = await GET({ url, mock: true });
+  // TODO  @dat.le
   return result.data;
 }
 

@@ -2,12 +2,14 @@
 import { getUserWithContext } from './AuthClient';
 
 /*
-redirect = { url , notify}
+  TODO thuannc
+  redirect = { url , notify}
 */
 export const doWithServerSide = async (ctx, callback, redirect = null) => {
   try {
     const { user, isAuthenticated } = await getUserWithContext(ctx);
     if (!isAuthenticated && redirect) {
+      // TODO thuannc
       // notify ?
       // if (redirect.message && redirect.messa) {
       //   await NotifyUtils.error(redirect.message);
