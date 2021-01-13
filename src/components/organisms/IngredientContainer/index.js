@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { AlphabetFilter, IngredientList, IngredientSearch } from 'components/mocules';
 
-// const ALL = 'Tất cả';
 const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
 
@@ -46,7 +45,6 @@ const IngredientContainer = ({ ingredients }) => {
     } else {
       const searchs = searchString(ingredients, filter.text);
       setIngres(searchs);
-      console.log(2);
     }
   }, [filter]);
 
