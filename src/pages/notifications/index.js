@@ -1,9 +1,10 @@
 import React from 'react';
-import { Template, NavBar, Header, LinkComp } from 'components';
+import { Template, LinkComp } from 'components';
 import { Container, Grid, Button } from '@material-ui/core';
 import clsx from 'clsx';
 import { NotifyClient } from 'clients';
 import { DateTimeUtils } from 'utils';
+import { withLogin } from 'context';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -15,15 +16,13 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-export default function LandingPage(props) {
-  const { mostResearched = [], read = true, notify = [] } = props;
-  const title = 'Thuocsi.vn';
-  const pageName = 'home';
+const Notifications = (props) => {
+  const { read = true, notify = [] } = props;
+  const title = 'Trang thông báo';
+  const pageName = 'notification';
 
   return (
-    <Template title={title}>
-      <Header {...props} />
-      <NavBar mostResearched={mostResearched} pageName={pageName} />
+    <Template title={title} pageName={pageName}>
       <div className={styles.notifyWrap}>
         <Container className={styles.wrapper} maxWidth="lg">
           <Grid className={styles.notifyTitle} container>
@@ -57,4 +56,6 @@ export default function LandingPage(props) {
       </div>
     </Template>
   );
-}
+};
+
+export default withLogin(Notifications);

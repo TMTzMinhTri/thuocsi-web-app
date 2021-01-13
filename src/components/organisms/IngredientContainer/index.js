@@ -1,18 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { AlphabetFilter, IngredientList, IngredientSearch } from 'components/mocules';
 
+const TEXT_DEFAULT = '';
+const WORD_DEFAULT = '#';
+
+const searchString = (arr, str) => {
+  const result = arr.filter((el) => el.name.indexOf(str) > -1);
+  return result;
+};
+
 const IngredientContainer = ({ ingredients }) => {
-  const [word, setWord] = useState('#');
+  const [filter, setFilter] = useState({
+    word: WORD_DEFAULT,
+    text: TEXT_DEFAULT,
+    isByWord: true,
+  });
+  const [ingres, setIngres] = useState(ingredients);
+
   const handleChangeWord = (e) => {
-    setWord(e.target.innerText);
+    const val = e.target.innerText;
+    setFilter({ ...filter, word: val, text: TEXT_DEFAULT, isByWord: true });
   };
+
+  const handleChangeText = (e) => {
+    const val = e.target.value;
+
+    setFilter({ ...filter, text: val, word: WORD_DEFAULT, isByWord: false });
+  };
+
+  const handleRemoveText = () => {
+    setFilter({ ...filter, text: TEXT_DEFAULT, word: WORD_DEFAULT, isByWord: true });
+  };
+
+  useEffect(() => {
+    if (filter.isByWord) {
+      if (filter.word === WORD_DEFAULT) setIngres(ingredients);
+      else {
+        const ws = ingredients.filter(
+          (ingredient) => ingredient?.name.charAt(0).toUpperCase() === filter.word,
+        );
+        setIngres(ws);
+      }
+    } else {
+      const searchs = searchString(ingredients, filter.text);
+      setIngres(searchs);
+    }
+  }, [filter]);
+
   return (
     <Grid>
-      <IngredientSearch />
-      <AlphabetFilter handleChangeWord={handleChangeWord} word={word} />
+      <IngredientSearch
+        value={filter.text}
+        handleChangeValue={handleChangeText}
+        handleClose={handleRemoveText}
+      />
+      <AlphabetFilter handleChangeWord={handleChangeWord} word={filter.word} />
 
-      <IngredientList ingredients={ingredients} word={word} />
+      <IngredientList ingredients={ingres} text={filter.text} />
     </Grid>
   );
 };

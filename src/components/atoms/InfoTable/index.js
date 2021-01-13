@@ -7,10 +7,11 @@ import {
   TableBody,
   TableCell,
 } from '@material-ui/core';
+import styled from 'styled-components';
 import styles from './styles.module.css';
 
-const InfoTable = ({ heads, children }) => (
-  <TableContainer component={Paper}>
+const InfoTable = ({ heads, children, className }) => (
+  <TableContainer component={Paper} className={className}>
     <Table className={styles.table}>
       <TableHead>
         <TableRow>
@@ -26,4 +27,10 @@ const InfoTable = ({ heads, children }) => (
   </TableContainer>
 );
 
-export default InfoTable;
+const StyledInfoTable = styled(InfoTable)`
+    &.MuiPaper-rounded {
+      border-radius: 10px !important;
+    }
+`;
+
+export default StyledInfoTable;

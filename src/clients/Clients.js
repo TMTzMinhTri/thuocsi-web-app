@@ -11,6 +11,14 @@ export function getSessionToken(ctx) {
   return CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN_LONGLIVE);
 }
 
+export function getSessionTokenClient() {
+  const tk = Cookies.get(ACCESS_TOKEN);
+  if (tk && tk.length > 0) {
+    return tk;
+  }
+  return Cookies.get(ACCESS_TOKEN_LONGLIVE);
+}
+
 async function request(props) {
   try {
     const {
@@ -38,7 +46,7 @@ async function request(props) {
           headers.Authorization = `Bearer ${AuthorizationValue}`;
         }
       } else {
-        const AuthorizationValue = Cookies.get(ACCESS_TOKEN);
+        const AuthorizationValue = getSessionTokenClient();
         if (AuthorizationValue) {
           headers.Authorization = `Bearer ${AuthorizationValue}`;
         }
@@ -90,7 +98,7 @@ export async function DELETE(props) {
 }
 
 export function isValid(resp) {
-  return resp && resp.data && resp.status && resp.status === 'OK';
+  return resp && resp.status && resp.status === 'OK';
 }
 
 export default {

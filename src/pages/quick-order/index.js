@@ -1,32 +1,27 @@
 import React from 'react';
 
-import { Template, NavBar, Header, QuickOrderList, HeaderMobile, CardInfo } from 'components';
+import { Template, QuickOrderList, CardInfo } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { ProductClient, doWithServerSide } from 'clients';
+import { withLogin } from 'context';
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
-  return doWithServerSide(
-    ctx,
-    async () => {
-      const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
-      return {
-        props: {
-          products,
-        },
-      };
-    },
-    { url: '/?login=true', message: ' testing ' },
-  );
+  return doWithServerSide(ctx, async () => {
+    const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+    return {
+      props: {
+        products,
+      },
+    };
+  });
 }
 
-export default function QuickOrderPage({ mostResearched = [], products = [], isMobile }) {
+const QuickOrderPage = ({ products = [], isMobile }) => {
   const title = 'Đặt hàng nhanh – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const pageName = 'quick-order';
   return (
-    <Template title={title} isMobile={isMobile}>
-      {isMobile ? <HeaderMobile title="Đặt hàng nhanh" /> : <Header />}
-      {!isMobile && <NavBar mostResearched={mostResearched} pageName={pageName} />}
+    <Template title={title} isMobile={isMobile} pageName={pageName}>
       <Container className={styles.wrapper} maxWidth="lg">
         {!isMobile && (
           <Box mb={1.5}>
@@ -56,4 +51,6 @@ export default function QuickOrderPage({ mostResearched = [], products = [], isM
       </Container>
     </Template>
   );
-}
+};
+
+export default withLogin(QuickOrderPage);

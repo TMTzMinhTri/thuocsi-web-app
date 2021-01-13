@@ -1,4 +1,4 @@
-import { Template, NavBar, Header, CustomerSupportContainer } from 'components';
+import { Template, CustomerSupportContainer } from 'components';
 import { Container } from '@material-ui/core';
 import { CustomerClient, doWithServerSide } from 'clients';
 
@@ -13,16 +13,10 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-const CustomerSupport = ({ mostResearched = [], wallet }) => {
+const CustomerSupport = () => {
   const title = 'Hỗ trợ khách hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title}>
-      <Header />
-      <NavBar
-        mostResearched={mostResearched}
-        point={wallet.loyaltyPoint}
-        balance={wallet.balance}
-      />
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <CustomerSupportContainer />

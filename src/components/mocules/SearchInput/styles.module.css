@@ -23,6 +23,7 @@
   color: #495057 !important;
   outline: 0 !important;
   border-color: transparent !important;
+  border-radius: 2rem !important;
 }
 
 
@@ -50,4 +51,9 @@
   transform: translateY(-50%);
   height: auto
 }
+
+.root_input [class*="Mui-focused"] [class*="MuiInputBase-input"] {
+  border: none!important;
+}
+
 

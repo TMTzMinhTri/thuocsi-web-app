@@ -4,15 +4,13 @@ import React, { useState } from 'react';
 import { Grid, TextareaAutosize, Paper } from '@material-ui/core';
 import {
   Template,
-  NavBar,
-  Header,
   DeliveryInfoForm,
   DeliveryMethod,
   PaymentMethod,
   CheckoutSticky,
-  HeaderMobile,
 } from 'components';
 import { ProductClient, doWithServerSide, CatClient } from 'clients';
+import { withLogin } from 'context';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -53,28 +51,19 @@ export async function getServerSideProps(ctx) {
 const CheckoutPage = ({ user = {}, isMobile }) => {
   const title = 'Thuocsi.vn';
   const [value, setValue] = useState({
-    name: user.name,
-    phone: user.phone,
-    email: user.email,
-    password: '',
-    drugstoreName: '',
-    bussinessName: '',
-    billProvince: 0,
-    billDistrict: 0,
-    billWard: 0,
-    taxId: '',
-    bussinessAddress: '',
-    province: 0,
-    district: 0,
-    ward: 0,
+    name: user.name || '',
+    phone: user.phone || '',
+    email: user.email || '',
+    address: user.address || '',
+    billDistrict: user.districtCode || 0,
+    billProvince: user.provinceCode || 0,
+    billWard: user.wardCode || 0,
   });
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
   };
   return (
     <Template title={title} isMobile={isMobile}>
-      {isMobile ? <HeaderMobile title="Mã giảm giá" /> : <Header />}
-      {!isMobile && <NavBar />}
       <div className={styles.payment_wrapper}>
         <Grid spacing={4} container>
           <Grid item xs={12} md={8}>
@@ -104,4 +93,4 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
     </Template>
   );
 };
-export default CheckoutPage;
+export default withLogin(CheckoutPage);

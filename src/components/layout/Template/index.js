@@ -1,8 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
 import { Footer, FooterMobile } from 'components/organisms';
+import NavBar from '../NavBar';
+import Header from '../Header';
+import HeaderMobile from '../HeaderMobile';
 
-export default function Layout({ title, children, isMobile }) {
+export default function Layout({ title, children, isMobile, pageName }) {
   return (
     <div>
       <Head>
@@ -20,8 +23,12 @@ export default function Layout({ title, children, isMobile }) {
         <link rel="shortcut icon" href="images/favicon-96x96.png" size="96x96" />
         <title>{title}</title>
       </Head>
-      <div id="main">{children}</div>
-      {isMobile ? <FooterMobile /> : <Footer />}
+      <div id="main">
+        {isMobile ? <HeaderMobile title="Trang chủ" /> : <Header />}
+        {!isMobile && <NavBar pageName={pageName} />}
+        {children}
+        {isMobile ? <FooterMobile /> : <Footer />}
+      </div>
     </div>
   );
 }
