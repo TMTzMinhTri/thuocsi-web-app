@@ -91,7 +91,7 @@ async function loadDataProduct(ctx) {
 // TODO  @dat.le
 async function loadDataIngredient(ctx) {
   const res = await GET({ url: PRODUCT_API.INGREDIENT_LIST, ctx, isBasic: true });
-  if (isValid(res)) {
+  if (!isValid(res)) {
     return [];
   }
   return res.data;
@@ -100,7 +100,7 @@ async function loadDataIngredient(ctx) {
 async function getIngredientBySlug(ctx, slug) {
   const url = `${PRODUCT_API.INGREDIENT}/info?q=${slug}`;
   const res = await GET({ url, ctx, isBasic: true });
-  if (isValid(res)) {
+  if (!isValid(res)) {
     return [];
   }
   return res.data;
@@ -109,7 +109,7 @@ async function getIngredientBySlug(ctx, slug) {
 async function getProductsBySlug(ctx, slug) {
   const url = `/ingredients/${slug}/products`;
   const res = await GET({ url, ctx, mock: true });
-  if (isValid(res)) {
+  if (!isValid(res)) {
     return [];
   }
   return res.data;

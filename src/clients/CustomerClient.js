@@ -9,7 +9,7 @@ async function getOrder({ status }) {
 
 async function getReferral() {
   const result = await GET({ url: CUSTOMER_API.REFERRAL, mock: true });
-  if (isValid(result)) {
+  if (!isValid(result)) {
     return [];
   }
   return result.data;
