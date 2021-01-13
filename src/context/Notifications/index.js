@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext, useEffect } from 'react';
-import { NotifyClient } from 'clients';
+import { NotifyClient, isValid } from 'clients';
 import NotiReducer from './NotiReducer';
 
 export const NotiContext = createContext();
@@ -11,7 +11,9 @@ export const NotiContextProvider = ({ children }) => {
     async function fetchData() {
       try {
         const response = await NotifyClient.getNotify();
-        dispatch({ type: 'FETCH_SUCCESS', payload: response });
+        if (isValid) {
+          dispatch({ type: 'FETCH_SUCCESS', payload: response });
+        }
       } catch (error) {
         dispatch({ type: 'FETCH_ERROR' });
       }
