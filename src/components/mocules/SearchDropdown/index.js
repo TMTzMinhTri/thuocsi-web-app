@@ -4,7 +4,6 @@ import styles from './styles.module.css';
 
 const SearchDropdown = (props) => {
   const { data, keyword } = props;
-  console.log(data);
   return (
     <div className={styles.searchDropdown}>
       {data && data.length > 0 ? (

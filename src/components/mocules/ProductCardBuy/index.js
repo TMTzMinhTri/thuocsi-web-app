@@ -6,8 +6,7 @@ import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import useModal from 'hooks/useModal';
 import { useCart, useAuth } from 'context';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { debounce } from 'lodash';
+import debounce from 'utils/debounce';
 import { MinusButton, PlusButton, InputProduct } from '../../atoms';
 import DealSection from '../DealSection';
 import RemoveProductModal from '../../organisms/RemoveProductModal';

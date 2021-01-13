@@ -4,8 +4,7 @@ import { Search } from '@material-ui/icons';
 import clsx from 'clsx';
 import { WEB_STYLES } from 'styles';
 import { SearchClient } from 'clients';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { debounce } from 'lodash';
+import debounce from 'utils/debounce';
 
 import SearchDropdown from '../SearchDropdown';
 import styles from './styles.module.css';
