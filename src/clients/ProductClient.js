@@ -108,7 +108,7 @@ async function getIngredientBySlug(ctx, slug) {
 async function getProductsBySlug(ctx, slug) {
   const url = `/ingredients/${slug}/products`;
   const res = await GET({ url, ctx, mock: true });
-  if (isValid(res)) {
+  if (!isValid(res)) {
     return [];
   }
   return res.data;
