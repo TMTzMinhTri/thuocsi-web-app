@@ -54,20 +54,13 @@ export async function getServerSideProps(ctx) {
 const CheckoutPage = ({ user = {}, isMobile }) => {
   const title = 'Thuocsi.vn';
   const [value, setValue] = useState({
-    name: user.name,
-    phone: user.phone,
-    email: user.email,
-    password: '',
-    drugstoreName: '',
-    bussinessName: '',
-    billProvince: 0,
-    billDistrict: 0,
-    billWard: 0,
-    taxId: '',
-    bussinessAddress: '',
-    province: 0,
-    district: 0,
-    ward: 0,
+    name: user.name || '',
+    phone: user.phone || '',
+    email: user.email || '',
+    address: user.address || '',
+    billDistrict: user.districtCode || 0,
+    billProvince: user.provinceCode || 0,
+    billWard: user.wardCode || 0,
   });
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
