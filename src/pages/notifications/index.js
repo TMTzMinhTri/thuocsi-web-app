@@ -1,5 +1,5 @@
 import React from 'react';
-import { Template, NavBar, Header, LinkComp } from 'components';
+import { Template, LinkComp } from 'components';
 import { Container, Grid, Button } from '@material-ui/core';
 import clsx from 'clsx';
 import { NotifyClient } from 'clients';
@@ -17,14 +17,12 @@ export async function getServerSideProps(ctx) {
 }
 
 const Notifications = (props) => {
-  const { mostResearched = [], read = true, notify = [] } = props;
+  const { read = true, notify = [] } = props;
   const title = 'Trang thông báo';
   const pageName = 'notification';
 
   return (
-    <Template title={title}>
-      <Header {...props} />
-      <NavBar mostResearched={mostResearched} pageName={pageName} />
+    <Template title={title} pageName={pageName}>
       <div className={styles.notifyWrap}>
         <Container className={styles.wrapper} maxWidth="lg">
           <Grid className={styles.notifyTitle} container>

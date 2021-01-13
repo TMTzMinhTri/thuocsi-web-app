@@ -1,8 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
 import { Footer, FooterMobile } from 'components/organisms';
+import NavBar from '../NavBar';
+import Header from '../Header';
+import HeaderMobile from '../HeaderMobile';
 
-export default function Layout({ title, children, isMobile }) {
+export default function Layout({ title, children, isMobile, pageName }) {
   return (
     <div>
       <Head>
@@ -21,6 +24,8 @@ export default function Layout({ title, children, isMobile }) {
         <title>{title}</title>
       </Head>
       <div id="main">
+        {isMobile ? <HeaderMobile title="Trang chủ" /> : <Header />}
+        {!isMobile && <NavBar pageName={pageName} />}
         {children}
         {isMobile ? <FooterMobile /> : <Footer />}
       </div>

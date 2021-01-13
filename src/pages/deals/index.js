@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Template,
-  NavBar,
-  Header,
-  PromotionProduct,
-  HeaderMobile } from 'components';
+import { Template, PromotionProduct } from 'components';
 
 import ProductClient from 'clients/ProductClient';
 
@@ -25,8 +20,6 @@ const DealsPage = ({ products = [], isMobile }) => {
 
   return (
     <Template title={title} isMobile={isMobile}>
-      {isMobile ? <HeaderMobile title="Khuyến mãi" /> : <Header />}
-      {!isMobile && <NavBar />}
       <div className={styles.promo_wrapper}>
         <div className={styles.container}>
           <div className={styles.text_white}>

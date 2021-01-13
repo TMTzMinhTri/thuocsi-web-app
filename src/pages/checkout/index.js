@@ -4,13 +4,10 @@ import React, { useState } from 'react';
 import { Grid, TextareaAutosize, Paper } from '@material-ui/core';
 import {
   Template,
-  NavBar,
-  Header,
   DeliveryInfoForm,
   DeliveryMethod,
   PaymentMethod,
   CheckoutSticky,
-  HeaderMobile,
 } from 'components';
 import { ProductClient, doWithServerSide, CatClient } from 'clients';
 import { withLogin } from 'context';
@@ -67,8 +64,6 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
   };
   return (
     <Template title={title} isMobile={isMobile}>
-      {isMobile ? <HeaderMobile title="Mã giảm giá" /> : <Header />}
-      {!isMobile && <NavBar />}
       <div className={styles.payment_wrapper}>
         <Grid spacing={4} container>
           <Grid item xs={12} md={8}>

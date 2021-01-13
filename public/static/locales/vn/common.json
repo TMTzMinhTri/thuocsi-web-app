@@ -1,5 +1,13 @@
 {
   "h1": "a Simple example",
+  "page": {
+    "homepage": "Trang chủ",
+    "notification": "Trang thông báo",
+    "cart": "Trang giỏ hàng",
+    "products": "Trang danh sách sản phẩm",
+    "promotion": "Trang mã giảm giá",
+    "deals": "Trang khuyến mãi"
+  },
 
   "api.login.NOT_FOUND": "Không tìm thấy thông tin người dùng",
   "api": {
