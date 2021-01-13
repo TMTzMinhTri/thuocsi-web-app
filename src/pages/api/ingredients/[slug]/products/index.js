@@ -1,7 +1,9 @@
+import { HTTP_STATUS } from 'constants/Enums';
+
 export default (req, res) => {
   res.statusCode = 200;
   res.json({
-    status: 'ok',
+    status: HTTP_STATUS.Ok,
     data: [
       {
         brand: 'Hàng nội địa',
