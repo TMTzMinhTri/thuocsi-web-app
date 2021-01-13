@@ -22,6 +22,7 @@ export async function getServerSideProps(ctx) {
 const Ingredients = ({ mostResearched = [], wallet, ingredients = [], isMobile }) => {
   const title = 'Cập nhật hồ sơ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const pageName = 'ingredients';
+  const ingres = ingredients.map((i) => i.name);
   return (
     <Template title={title} isMobile={isMobile}>
       {isMobile ? <HeaderMobile title="Hoạt chất" /> : <Header />}
@@ -36,7 +37,7 @@ const Ingredients = ({ mostResearched = [], wallet, ingredients = [], isMobile }
       )}
       <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
         <Container maxWidth="lg">
-          <IngredientContainer ingredients={ingredients} />
+          <IngredientContainer ingredients={ingres} />
         </Container>
       </div>
     </Template>
