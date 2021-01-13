@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useContext, useEffect } from 'react';
 import CartClient from 'clients/CartClient';
 import { NotifyUtils } from 'utils';
+import { isValid } from '../../clients/Clients';
 import { CartReducer } from './CartReducer';
 
 export const CartContext = createContext();
@@ -22,19 +23,16 @@ export const CartContextProvider = ({ children }) => {
 
   const updateCartItem = async (payload) => {
     const res = await CartClient.updateCartItem(payload);
-    if (res.length > 0) {
+    if (isValid(res)) {
       dispatch({ type: 'INCREASE_BY', payload });
       NotifyUtils.success('Đã cập nhật giỏ hàng');
-      return true;
     }
-
-    if (res.status === 'ERROR' && res.errorCode === 'CART_MAXQUANTITY') {
+    if (res.errorCode === 'CART_MAXQUANTITY') {
       NotifyUtils.error(res.message);
       const revertPayload = payload;
       revertPayload.q = 10;
       CartClient.updateCartItem(revertPayload);
       dispatch({ type: 'INCREASE_BY', payload: revertPayload });
-      return res;
     }
     return res;
   };

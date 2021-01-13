@@ -90,7 +90,7 @@ export async function DELETE(props) {
 }
 
 export function isValid(resp) {
-  return resp && resp.data && resp.status && resp.status === 'OK';
+  return resp && resp.status && resp.status === 'OK';
 }
 
 export default {

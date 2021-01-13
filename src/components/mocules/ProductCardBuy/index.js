@@ -51,7 +51,7 @@ const ProductCardBuy = ({
 
   const updateCart = async (q) => {
     const response = await updateCartItem({ product, q });
-    if (response) {
+    if (response.status === 'OK') {
       setValue(q);
     }
     if (response.errorCode === 'CART_MAXQUANTITY') {

@@ -13,11 +13,7 @@ async function updateCartItem(data) {
     sku: data.product.skuId,
     quantity: data.q,
   };
-  const res = await POST({ url: '/marketplace/order/v1/cart/add', body });
-  if (!isValid(res)) {
-    return res;
-  }
-  return res.data;
+  return POST({ url: '/marketplace/order/v1/cart/add', body });
 }
 
 async function removeCartItem(data) {
