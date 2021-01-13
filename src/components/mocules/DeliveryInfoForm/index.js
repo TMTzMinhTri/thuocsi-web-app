@@ -19,7 +19,7 @@ const DeliveryInfoForm = ({
   name,
   email,
   phone,
-  bussinessAddress,
+  address,
   billWard,
   billDistrict,
   billProvince,
@@ -79,7 +79,7 @@ const DeliveryInfoForm = ({
           <InfoInput
             id="address"
             placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk"
-            value={bussinessAddress}
+            value={address}
             onChange={(e) => {
               handleSetValue('bussinessAddress', e.target.value);
             }}
