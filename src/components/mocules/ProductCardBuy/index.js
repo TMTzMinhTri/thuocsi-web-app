@@ -37,7 +37,7 @@ const ProductCardBuy = ({
   const { isAuthenticated } = useAuth();
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
-  const { increase, removeProduct } = useCart();
+  const { updateCartItem, removeProduct } = useCart();
   const handleChangeForget = useCallback(() => {
     toggleLogin();
     toggleForgetPassword();
@@ -50,7 +50,7 @@ const ProductCardBuy = ({
   };
 
   const updateCart = async (q) => {
-    const response = await increase({ product, q });
+    const response = await updateCartItem({ product, q });
     if (response) {
       setValue(q);
     }
