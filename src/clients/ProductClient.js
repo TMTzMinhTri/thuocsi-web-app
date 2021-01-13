@@ -1,6 +1,7 @@
 import GetQuantityProduct from 'utils/GetQuantityProduct';
 import { PRODUCT_API } from 'constants/APIUri';
-import { GET, isValid, POST } from './Clients';
+import { GET, isValid } from './Clients';
+import CartClient from './CartClient';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
@@ -43,26 +44,6 @@ async function loadDataProductDetail(ctx) {
   return result.data;
 }
 
-async function loadDataCart(ctx) {
-  const res = await GET({ url: '/marketplace/order/v1/cart', isAuth: true, ctx, isBasic: true });
-  if (!isValid(res)) {
-    return [];
-  }
-  return res.data;
-}
-
-async function addCartItem(data) {
-  const body = {
-    sku: data.product.skuId,
-    quantity: data.q,
-  };
-  const res = await POST({ url: '/marketplace/order/v1/cart/add', body });
-  if (!isValid(res)) {
-    return res;
-  }
-  return res.data;
-}
-
 async function loadDataPormotion(ctx) {
   const res = await GET({ url: '/mock/product', mock: true, ctx });
   if (!isValid(res)) {
@@ -82,7 +63,7 @@ async function loadDataProduct(ctx) {
   let cart = {};
   let productListWithPrice = {};
   try {
-    cart = await loadDataCart();
+    cart = await CartClient.loadDataCart();
   } catch (error) {
     cart.status = 'ERROR';
   }
@@ -132,11 +113,9 @@ export default {
   loadFeedback,
   getInfoBanner,
   loadDataProduct,
-  loadDataCart,
   loadDataProductDetail,
   loadDataPormotion,
   loadDataIngredient,
   getIngredientBySlug,
   getProductsBySlug,
-  addCartItem,
 };
