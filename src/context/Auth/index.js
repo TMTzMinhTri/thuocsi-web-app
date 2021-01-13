@@ -4,6 +4,7 @@ import { AuthClient, isValid } from 'clients';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cookies';
 import LoadingScreen from 'components/organisms/LoadingScreen';
+import { NotifyUtils } from 'utils';
 
 const AuthContext = createContext({});
 
@@ -83,11 +84,25 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => useContext(AuthContext);
 
-export const ProtectRoute = ({ children }) => {
+export const LoadingRoute = ({ children }) => {
   const { isLoading } = useAuth();
   if (isLoading) {
     return <LoadingScreen />;
   }
 
   return children;
+};
+
+export const withLogin = (Component, redirect = {}) => ({ ...props }) => {
+  const router = useRouter();
+  const { url, message } = redirect;
+  const { isAuthenticated } = props;
+  if (!isAuthenticated) {
+    NotifyUtils.error(
+      message && message.length > 0 ? message : 'Bạn cần đăng nhập để vào được trang này ',
+    );
+    router.push(url && url.length > 0 ? url : '/?login=true');
+    return <LoadingScreen />;
+  }
+  return <Component {...props} />;
 };

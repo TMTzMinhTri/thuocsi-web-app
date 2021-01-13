@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Template, NavBar, Header, OrderInfoFormContainer, InfoContainer, HeaderMobile } from 'components';
+import {
+  Template,
+  NavBar,
+  Header,
+  OrderInfoFormContainer,
+  InfoContainer,
+  HeaderMobile,
+} from 'components';
 import { Container } from '@material-ui/core';
 import { CustomerClient, doWithServerSide } from 'clients';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
+import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
@@ -38,13 +46,12 @@ const MyOrder = ({ mostResearched = [], wallet, orders: orderR = [], isMobile })
   return (
     <Template title={title} isMobile={isMobile}>
       {isMobile ? <HeaderMobile title="Hoạt chất" /> : <Header />}
-      {!isMobile
-      && (
-      <NavBar
-        mostResearched={mostResearched}
-        point={wallet.loyaltyPoint}
-        balance={wallet.balance}
-      />
+      {!isMobile && (
+        <NavBar
+          mostResearched={mostResearched}
+          point={wallet.loyaltyPoint}
+          balance={wallet.balance}
+        />
       )}
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
@@ -60,4 +67,4 @@ const MyOrder = ({ mostResearched = [], wallet, orders: orderR = [], isMobile })
     </Template>
   );
 };
-export default MyOrder;
+export default withLogin(MyOrder);

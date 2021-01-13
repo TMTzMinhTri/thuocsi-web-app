@@ -1,6 +1,7 @@
 import { Template, NavBar, Header, ReferralList, InfoContainer, HeaderMobile } from 'components';
 import { Container } from '@material-ui/core';
 import { CustomerClient, doWithServerSide } from 'clients';
+import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
@@ -22,13 +23,12 @@ const MyReferral = ({ mostResearched = [], wallet, referrals = [], isMobile }) =
   return (
     <Template title={title} isMobile={isMobile}>
       {isMobile ? <HeaderMobile title="Giới thiệu bạn bè" /> : <Header />}
-      {!isMobile
-      && (
-      <NavBar
-        mostResearched={mostResearched}
-        point={wallet.loyaltyPoint}
-        balance={wallet.balance}
-      />
+      {!isMobile && (
+        <NavBar
+          mostResearched={mostResearched}
+          point={wallet.loyaltyPoint}
+          balance={wallet.balance}
+        />
       )}
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
@@ -40,4 +40,4 @@ const MyReferral = ({ mostResearched = [], wallet, referrals = [], isMobile }) =
     </Template>
   );
 };
-export default MyReferral;
+export default withLogin(MyReferral);

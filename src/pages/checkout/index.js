@@ -13,6 +13,7 @@ import {
   HeaderMobile,
 } from 'components';
 import { ProductClient, doWithServerSide, CatClient } from 'clients';
+import { withLogin } from 'context';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -104,4 +105,4 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
     </Template>
   );
 };
-export default CheckoutPage;
+export default withLogin(CheckoutPage);

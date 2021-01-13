@@ -1,13 +1,12 @@
 import { Template, NavBar, Header, InfoContainer, HeaderMobile } from 'components';
 import { Container, Grid } from '@material-ui/core';
 import { CustomerClient, doWithServerSide } from 'clients';
+import { withLogin } from 'context';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [wallet] = await Promise.all([
-      CustomerClient.getWallet(),
-    ]);
+    const [wallet] = await Promise.all([CustomerClient.getWallet()]);
     return {
       props: {
         wallet: wallet.data[0],
@@ -21,13 +20,12 @@ const MyLoyaltyPoint = ({ mostResearched = [], wallet, isMobile }) => {
   return (
     <Template title={title} isMobile={isMobile}>
       {isMobile ? <HeaderMobile title="Điểm tích luỹ" /> : <Header />}
-      {!isMobile
-      && (
-      <NavBar
-        mostResearched={mostResearched}
-        point={wallet.loyaltyPoint}
-        balance={wallet.balance}
-      />
+      {!isMobile && (
+        <NavBar
+          mostResearched={mostResearched}
+          point={wallet.loyaltyPoint}
+          balance={wallet.balance}
+        />
       )}
 
       <div style={{ backgroundColor: '#f4f7fc' }}>
@@ -42,4 +40,4 @@ const MyLoyaltyPoint = ({ mostResearched = [], wallet, isMobile }) => {
     </Template>
   );
 };
-export default MyLoyaltyPoint;
+export default withLogin(MyLoyaltyPoint);

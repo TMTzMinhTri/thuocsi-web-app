@@ -1,6 +1,7 @@
 import { Template, NavBar, Header, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
 import { CustomerClient, OrderClient, doWithServerSide } from 'clients';
+import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
@@ -41,4 +42,4 @@ const MyOrder = ({ mostResearched = [], wallet, order, products = [] }) => {
     </Template>
   );
 };
-export default MyOrder;
+export default withLogin(MyOrder);

@@ -4,6 +4,7 @@ import { Container, Grid, Button } from '@material-ui/core';
 import clsx from 'clsx';
 import { NotifyClient } from 'clients';
 import { DateTimeUtils } from 'utils';
+import { withLogin } from 'context';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -15,10 +16,10 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-export default function LandingPage(props) {
+const Notifications = (props) => {
   const { mostResearched = [], read = true, notify = [] } = props;
-  const title = 'Thuocsi.vn';
-  const pageName = 'home';
+  const title = 'Trang thông báo';
+  const pageName = 'notification';
 
   return (
     <Template title={title}>
@@ -57,4 +58,6 @@ export default function LandingPage(props) {
       </div>
     </Template>
   );
-}
+};
+
+export default withLogin(Notifications);

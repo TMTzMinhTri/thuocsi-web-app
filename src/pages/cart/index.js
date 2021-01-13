@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { Template, NavBar, Header, ProductCartList, CardInfo, LinkComp, HeaderMobile } from 'components';
+import {
+  Template,
+  NavBar,
+  Header,
+  ProductCartList,
+  CardInfo,
+  LinkComp,
+  HeaderMobile,
+} from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { Button } from 'components/atoms';
-import { useCart } from 'context';
+import { useCart, withLogin } from 'context';
 
 import styles from './style.module.css';
 
@@ -34,12 +42,11 @@ function Cart({ mostResearched = [], isMobile }) {
                 {/* san pham  */}
                 <ProductCartList setCartList={setCartList} products={cartItems} />
               </Grid>
-              {!isMobile
-              && (
-              <Grid sm={4} item>
-                {/* gio hang */}
-                <CardInfo className={styles.card_info} cart promo />
-              </Grid>
+              {!isMobile && (
+                <Grid sm={4} item>
+                  {/* gio hang */}
+                  <CardInfo className={styles.card_info} cart promo />
+                </Grid>
               )}
             </Grid>
           </>
@@ -65,4 +72,4 @@ function Cart({ mostResearched = [], isMobile }) {
   );
 }
 
-export default Cart;
+export default withLogin(Cart);

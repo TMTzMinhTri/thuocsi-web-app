@@ -2,6 +2,7 @@
 import React from 'react';
 import { Template, NavBar, Header, PromoCodesContainer } from 'components';
 import { CustomerClient, PromoClient, doWithServerSide } from 'clients';
+import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
@@ -35,4 +36,4 @@ const PromoCodes = ({ mostResearched = [], wallet, promos = [] }) => {
   );
 };
 
-export default PromoCodes;
+export default withLogin(PromoCodes);

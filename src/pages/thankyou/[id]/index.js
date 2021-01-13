@@ -1,6 +1,7 @@
 import { Template, NavBar, Header, ThankYouContainer, HeaderMobile } from 'components';
 import { Container } from '@material-ui/core';
 import { CustomerClient, OrderClient, doWithServerSide } from 'clients';
+import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   try {
@@ -32,13 +33,12 @@ const MyOrder = ({ mostResearched = [], wallet, order, isMobile }) => {
   return (
     <Template title={title} isMobile={isMobile}>
       {isMobile ? <HeaderMobile title="Mã giảm giá" /> : <Header />}
-      {!isMobile
-      && (
-      <NavBar
-        mostResearched={mostResearched}
-        point={wallet.loyaltyPoint}
-        balance={wallet.balance}
-      />
+      {!isMobile && (
+        <NavBar
+          mostResearched={mostResearched}
+          point={wallet.loyaltyPoint}
+          balance={wallet.balance}
+        />
       )}
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
@@ -48,4 +48,4 @@ const MyOrder = ({ mostResearched = [], wallet, order, isMobile }) => {
     </Template>
   );
 };
-export default MyOrder;
+export default withLogin(MyOrder);
