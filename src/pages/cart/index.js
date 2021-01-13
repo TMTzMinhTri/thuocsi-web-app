@@ -11,13 +11,11 @@ import {
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { Button } from 'components/atoms';
 import { useCart, withLogin } from 'context';
-
+import { doWithServerSide } from 'clients';
 import styles from './style.module.css';
 
-export async function getServerSideProps() {
-  return {
-    props: {},
-  };
+export async function getServerSideProps(ctx) {
+  return doWithServerSide(ctx, () => ({ props: {} }));
 }
 
 function Cart({ mostResearched = [], isMobile }) {
