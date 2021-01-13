@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { AlphabetFilter, IngredientList, IngredientSearch } from 'components/mocules';
 
-// const ALL = 'Tất cả';
-const SHARP = '#';
+const TEXT_DEFAULT = '';
+const WORD_DEFAULT = '#';
 
 const searchString = (arr, str) => {
   const result = arr.filter((el) => el.name.indexOf(str) > -1);
@@ -11,51 +11,53 @@ const searchString = (arr, str) => {
 };
 
 const IngredientContainer = ({ ingredients }) => {
-  const [word, setWord] = useState(SHARP);
-  const [text, setText] = useState('');
-  const [flag, setFlag] = useState(0);
+  const [filter, setFilter] = useState({
+    word: WORD_DEFAULT,
+    text: TEXT_DEFAULT,
+    isByWord: true,
+  });
   const [ingres, setIngres] = useState(ingredients);
 
   const handleChangeWord = (e) => {
-    setWord(e.target.innerText);
+    const val = e.target.innerText;
+    setFilter({ ...filter, word: val, text: TEXT_DEFAULT, isByWord: true });
   };
 
   const handleChangeText = (e) => {
-    setText(e.target.value);
+    const val = e.target.value;
+
+    setFilter({ ...filter, text: val, word: WORD_DEFAULT, isByWord: false });
+  };
+
+  const handleRemoveText = () => {
+    setFilter({ ...filter, text: TEXT_DEFAULT, word: WORD_DEFAULT, isByWord: true });
   };
 
   useEffect(() => {
-    setFlag(1);
-  }, [word]);
-
-  useEffect(() => {
-    setFlag(2);
-  }, [text]);
-
-  useEffect(() => {
-    if (flag === 1) {
-      if (word === SHARP) setIngres(ingredients);
+    if (filter.isByWord) {
+      if (filter.word === WORD_DEFAULT) setIngres(ingredients);
       else {
         const ws = ingredients.filter(
-          (ingredient) => ingredient?.name.charAt(0).toUpperCase() === word,
+          (ingredient) => ingredient?.name.charAt(0).toUpperCase() === filter.word,
         );
-        // setText(ALL);
-        setText('');
         setIngres(ws);
       }
-    }
-    if (flag === 2) {
-      const searchs = searchString(ingredients, text);
-      setWord(SHARP);
+    } else {
+      const searchs = searchString(ingredients, filter.text);
       setIngres(searchs);
     }
-  }, [flag]);
+  }, [filter]);
+
   return (
     <Grid>
-      <IngredientSearch value={text} handleChangeValue={handleChangeText} />
-      <AlphabetFilter handleChangeWord={handleChangeWord} word={word} />
+      <IngredientSearch
+        value={filter.text}
+        handleChangeValue={handleChangeText}
+        handleClose={handleRemoveText}
+      />
+      <AlphabetFilter handleChangeWord={handleChangeWord} word={filter.word} />
 
-      <IngredientList ingredients={ingres} text={text} />
+      <IngredientList ingredients={ingres} text={filter.text} />
     </Grid>
   );
 };
