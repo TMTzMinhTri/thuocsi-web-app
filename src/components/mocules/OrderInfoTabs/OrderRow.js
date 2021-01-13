@@ -69,7 +69,7 @@ const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total }) => 
           justify="center"
         >
           <Grid item>
-            <PrintInvoiceButton />
+            <PrintInvoiceButton orderID={orderID} />
           </Grid>
           {status === ENUM_ORDER_STATUS.PENDING && (
             <Grid item>

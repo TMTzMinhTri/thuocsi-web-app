@@ -11,7 +11,7 @@ export const CartContextProvider = ({ children }) => {
     async function fetchData() {
       try {
         const response = await ProductClient.loadDataCart();
-        dispatch({ type: 'FETCH_SUCCESS', payload: response.product });
+        dispatch({ type: 'FETCH_SUCCESS', payload: response[0] || [] });
       } catch (error) {
         dispatch({ type: 'FETCH_ERROR' });
       }
