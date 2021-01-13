@@ -5,4 +5,3 @@ export { default as CookiesParser } from './CookieParser';
 export { default as GetQuantityProduct } from './GetQuantityProduct';
 export { default as NotifyUtils } from './NotifyUtils';
 export { default as ResponseUtils } from './ResponseUtils';
-export { default as SearchUtils } from './SearchUtils';

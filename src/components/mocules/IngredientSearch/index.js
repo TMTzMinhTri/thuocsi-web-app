@@ -35,13 +35,13 @@ const StyledFab = styled(Fab)`
       color: #00b46e;
     }
 `;
-const IngredientSearch = ({ value, handleChangeValue, handleClick }) => (
+const IngredientSearch = ({ value, handleChangeValue }) => (
   <Grid container spacing={0} alignItems="baseline" justify="center">
     <Grid item>
       <StyledIngredientInput placeholder="Nhập tên hoạt chất cần tìm" value={value} onChange={handleChangeValue} />
     </Grid>
     <Grid item>
-      <StyledFab size="medium" onClick={handleClick}>
+      <StyledFab size="medium">
         <SearchIcon />
       </StyledFab>
     </Grid>
