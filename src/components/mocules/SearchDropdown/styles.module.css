@@ -15,8 +15,7 @@
     padding: 16px!important;
     border-bottom: 1px solid rgba(195,204,220,0.4);
     display: block!important;
-    color: #343a40!important ;
-    text-transform: capitalize;
+    color: #343a40 ;
     transition: color 0.2s, background-color 0.2s;
     font-size: 16px!important;
     word-break: break-word;
@@ -27,6 +26,10 @@
     color: #00b46e;
     text-decoration: none;
     transition: color 0.2s, background-color 0.2s;
+}
+
+.searchResults:hover a {
+    color: #00b46e!important;
 }
 
 .textPrimary {

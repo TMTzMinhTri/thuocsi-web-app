@@ -4,33 +4,36 @@ import styles from './styles.module.css';
 
 const SearchDropdown = (props) => {
   const { data, keyword } = props;
+  console.log(data);
   return (
     <div className={styles.searchDropdown}>
-      {data[0]?.products.length > 0 ? (
+      {data && data.length > 0 ? (
         <>
           <LinkComp className={styles.searchResults} href="/">
             <em>{keyword}</em>&nbsp;&nbsp;Trong&nbsp;
             <b className={styles.textPrimary}>Tất Cả Sản Phẩm</b>
           </LinkComp>
-          {data[0]?.products.map((item) => (
-            <LinkComp className={styles.searchResults} key={item.id} item={item} href="/">
+          {data?.map((item) => (
+            <LinkComp className={styles.searchResults} key={item.id} item={item} href={item.slug}>
               {item.name}
             </LinkComp>
           ))}
         </>
       ) : (
-        <div className={styles.searchDropdown}>Không có sản phẩm với từ khóa "{`${keyword}`}"</div>
+        <span className={styles.searchResults}>
+          Không có sản phẩm với từ khóa "{`${keyword}`}"
+        </span>
       )}
 
-      {data[0]?.manufacturers.length > 0 ? (
+      {data && data.length > 0 ? (
         <>
           <LinkComp className={styles.searchResults} href="/">
             <em>{keyword}</em>&nbsp;&nbsp;Trong&nbsp;
             <b className={styles.textPrimary}>Tất Cả Nhà Sản Xuất </b>
           </LinkComp>
-          {data[0]?.manufacturers.map((item) => (
+          {data?.map((item) => (
             <LinkComp className={styles.searchResults} key={item.id} item={item} href="/">
-              {item.name}
+              {item.madeBy}
             </LinkComp>
           ))}
         </>

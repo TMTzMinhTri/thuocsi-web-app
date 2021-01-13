@@ -1,7 +1,7 @@
 import { GET } from './Clients';
 
-async function searchKeywords(ctx) {
-  const res = await GET({ url: '/mock/search', mock: true, ctx });
+async function searchKeywords(keyword) {
+  const res = await GET({ url: `/marketplace/product/v1/products/list?q=${keyword}`, isAuth: true });
   return res.data;
 }
 
