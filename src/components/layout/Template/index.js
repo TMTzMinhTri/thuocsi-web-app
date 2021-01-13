@@ -20,8 +20,10 @@ export default function Layout({ title, children, isMobile }) {
         <link rel="shortcut icon" href="images/favicon-96x96.png" size="96x96" />
         <title>{title}</title>
       </Head>
-      <div id="main">{children}</div>
-      {isMobile ? <FooterMobile /> : <Footer />}
+      <div id="main">
+        {children}
+        {isMobile ? <FooterMobile /> : <Footer />}
+      </div>
     </div>
   );
 }
