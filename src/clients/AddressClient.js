@@ -22,13 +22,13 @@ const getDistrictsByProvince = async (provinceCode) => {
   }
   const districts = res.data.map((district) => ({
     label: district.name,
-    value: district.provinceCode,
+    value: district.code,
   }));
   return districts;
 };
 
-const getWardsByDistrict = async (provinceCode) => {
-  const url = `${CORE_API.ADMINISTRATIVE}?provinceCode=${provinceCode}`;
+const getWardsByDistrict = async (districtCode) => {
+  const url = `${CORE_API.ADMINISTRATIVE}?districtCode=${districtCode}`;
   const res = await GET({ url });
   if (!isValid(res)) {
     return [];
