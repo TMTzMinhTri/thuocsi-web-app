@@ -12,6 +12,7 @@ import DealSection from '../DealSection';
 import RemoveProductModal from '../../organisms/RemoveProductModal';
 import SignInModal from '../../organisms/SignInModal';
 import ForgetPasswordModal from '../../organisms/ForgetPasswordModal';
+import ErrorQuantityCartModal from '../../organisms/ErrorQuantityCartModal';
 import styles from './styles.module.css';
 
 const ProductCardBuy = ({
@@ -34,7 +35,8 @@ const ProductCardBuy = ({
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { isAuthenticated } = useAuth();
   const [isShowModalRemove, toggleRemove] = useModal();
-  const { increase, decrease, removeProduct, increaseBy } = useCart();
+  const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
+  const { updateCartItem, removeProduct } = useCart();
   const handleChangeForget = useCallback(() => {
     toggleLogin();
     toggleForgetPassword();
@@ -45,41 +47,46 @@ const ProductCardBuy = ({
   const handleRemove = () => {
     removeProduct(product);
   };
+
+  const updateCart = async (q) => {
+    const response = await updateCartItem({ product, q });
+    if (response.status === 'OK') {
+      setValue(q);
+    }
+    if (response.errorCode === 'CART_MAXQUANTITY') {
+      toggleErrorQuantity();
+      setValue(10);
+    }
+  };
+
+  const handlerUpdateCart = useCallback(
+    debounce((val) => updateCart(val), 1500),
+    [],
+  );
+
   const handleDecrease = () => {
     if (value < 2) return;
     const q = value - 1;
     setValue(q);
-    decrease(product);
+    handlerUpdateCart(q);
   };
 
   const handleIncrease = () => {
     const q = value + 1;
     setValue(q);
-    increase(product);
+    handlerUpdateCart(q);
   };
-
-  const handleOnIncreaseBy = (val) => {
-    if (val === '0') {
-      removeProduct(product);
-      return;
-    }
-    increaseBy({ product, q: parseInt(val, 10) });
-    setValue(product.quantity || 0);
-  };
-
-  const handler = useCallback(
-    debounce((val) => handleOnIncreaseBy(val), 2000),
-    [],
-  );
 
   const handleInputChange = (e) => {
-    const curValue = e.target.value || 0;
+    const curValue = e.currentTarget.value;
+    setValue(curValue);
+    if (!curValue) {
+      removeProduct(product);
+    }
     if (/^\d+$/.test(curValue) && curValue < 1000) {
-      setValue(curValue);
-      handler(curValue);
+      handlerUpdateCart(parseInt(curValue, 10));
     }
   };
-
   return (
     <>
       {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
@@ -185,6 +192,11 @@ const ProductCardBuy = ({
         visible={isShowModalRemove}
         onClose={toggleRemove}
         onRemove={handleRemove}
+      />
+      <ErrorQuantityCartModal
+        product={product}
+        visible={isShowModalErrorQuantity}
+        onClose={toggleErrorQuantity}
       />
     </>
   );
