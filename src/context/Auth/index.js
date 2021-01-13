@@ -57,7 +57,12 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    Cookies.set(ACCESS_TOKEN, null);
+    Cookies.set(ACCESS_TOKEN_LONGLIVE, null);
+    Cookies.set(REMEMBER_ME, null);
+
     setCookies({}, undefined);
+
     push('/');
   };
 
