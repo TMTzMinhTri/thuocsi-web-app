@@ -1,6 +1,5 @@
 import React from 'react';
 import ProductClient from 'clients/ProductClient';
-// import { AuthClient } from 'clients';
 import LandingPage from './landingpage/index';
 
 export async function getServerSideProps(context) {
