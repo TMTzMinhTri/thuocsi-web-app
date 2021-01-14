@@ -16,6 +16,10 @@
   min-height: 890px;
 }
 
+.confirm_modal_wrap svg {
+  cursor: pointer;
+}
+
 .counpon_list {
   max-height: 70vh !important;
   overflow-y: scroll !important;
@@ -28,4 +32,8 @@
   width: 100% !important;
   /* margin-left: 0 !important;
   margin-right: 0 !important; */
+}
+
+.del_promo {
+  cursor: pointer;
 }

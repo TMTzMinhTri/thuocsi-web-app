@@ -31,7 +31,7 @@ const StyledInput = styled(Input)`
 `;
 
 const PromoListModal = memo((props) => {
-  const { onClose, visible, className, restProps, promos, handleChangePromo } = props;
+  const { onClose, visible, className, restProps, promos, handleChangePromo, promo } = props;
   const [text, setText] = useState(TEXT_DEFAULT);
   const [promoSearchs, setPromoSearchs] = useState([]);
 
@@ -59,7 +59,7 @@ const PromoListModal = memo((props) => {
             <StyledInput
               endAdornment={
                 text === '' ? null : (
-                  <CloseIcon onClick={handleRemoveText} style={{ cursor: 'pointer!important' }} />
+                  <CloseIcon onClick={handleRemoveText} />
                 )
               }
               placeholder="Nhập mã cần tìm"
@@ -74,9 +74,9 @@ const PromoListModal = memo((props) => {
         </Grid>
         <div className={styles.counpon_list}>
           <Grid container spacing={1}>
-            {promoSearchs.map((promo) => (
-              <Grid item key={promo.code}>
-                <CartCouponCard {...promo} handleChangePromo={handleChangePromo} />
+            {promoSearchs.map((pro) => (
+              <Grid item key={pro.code}>
+                <CartCouponCard {...pro} handleChangePromo={handleChangePromo} promo={promo} />
               </Grid>
             ))}
           </Grid>

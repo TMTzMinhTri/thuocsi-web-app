@@ -42,7 +42,7 @@ const CartCounponCard = ({
   value = '',
   type = PROMO_TYPE.COMBO,
   remain = '',
-  isUsed = false,
+  promo = '',
   handleChangePromo,
 }) => (
   <Card
@@ -90,7 +90,7 @@ const CartCounponCard = ({
         </Grid>
 
         <Grid item>
-          {isUsed ? (
+          {code === promo ? (
             <StyledUsedButton> Đang dùng </StyledUsedButton>
           ) : (
             <StyledUseButton onClick={() => handleChangePromo(code)}>Dùng ngay</StyledUseButton>

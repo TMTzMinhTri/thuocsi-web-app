@@ -85,6 +85,7 @@ const CardInfo = ({ cart, promo: pr, className }) => {
         onClose={handleSetPromoVisible}
         promos={promos}
         handleChangePromo={handleChangePromo}
+        promo={promo}
       />
     </Grid>
   );
