@@ -13,6 +13,8 @@ export const NotiContextProvider = ({ children }) => {
         const response = await NotifyClient.getNotify();
         if (isValid) {
           dispatch({ type: 'FETCH_SUCCESS', payload: response });
+        } else {
+          dispatch({ type: 'FETCH_ERROR' });
         }
       } catch (error) {
         dispatch({ type: 'FETCH_ERROR' });
