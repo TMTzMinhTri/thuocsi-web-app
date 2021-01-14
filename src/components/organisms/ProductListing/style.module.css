@@ -5,6 +5,7 @@
 }
 .sidebar{
   flex: 0 0 240px;
+  max-width: 240px;
   padding-right: 30px;
 }
 .result{
@@ -100,6 +101,7 @@
   margin-bottom: 5px;
   font-size: 16px;
   font-weight: 400;
+  word-break: break-all;
 }
 .group .accordionLink:hover,
 .group .accordionLink.active{

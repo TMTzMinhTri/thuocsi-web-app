@@ -23,7 +23,7 @@ import clsx from 'clsx';
 import { SearchResultText } from 'components/mocules';
 import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
 
-import { SORT_PRODUCT } from '../../../constants/data';
+import { SORT_PRODUCT, TAB_LIST } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './style.module.css';
 
@@ -33,9 +33,10 @@ export default function ProductListing({
   group = [],
   current_tab = '',
   page = '',
-  sort = '',
+  sortBy = '',
   slug = '',
   catName = '',
+  name = '',
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
@@ -54,8 +55,8 @@ export default function ProductListing({
     if (current_tab) {
       query.current_tab = current_tab;
     }
-    if (sort) {
-      query.sort = sort;
+    if (sortBy) {
+      query.sortBy = sortBy;
     }
     return query;
   };
@@ -65,8 +66,8 @@ export default function ProductListing({
     if (!currentTab) {
       delete query.current_tab;
     }
-    if (!sort) {
-      delete query.sort;
+    if (!sortBy) {
+      delete query.sortBy;
     }
     return query;
   };
@@ -85,7 +86,7 @@ export default function ProductListing({
   const handleChangeSort = (event) => {
     setIsLoading(true);
     const query = getQueryObject();
-    query.sort = event.target.value || undefined;
+    query.sortBy = event.target.value || undefined;
     router.push({
       pathname: pathName,
       query,
@@ -107,8 +108,8 @@ export default function ProductListing({
               <NativeSelect
                 className={styles.selectInput}
                 inputProps={{
-                  name: 'sort',
-                  id: 'sort-product',
+                  name: 'sortBy',
+                  id: 'sortBy-product',
                   placeholder: 'sắp xếp',
                 }}
                 IconComponent={() => <ExpandMoreIcon className={styles.selectIcon} />}
@@ -139,13 +140,13 @@ export default function ProductListing({
                 {group &&
                   group.length > 0 &&
                   group.map((item) => (
-                    <Link key={item.value} href={item.value}>
+                    <Link key={item.categoryID} href={`/categories/${item.slug}`}>
                       <div
                         className={`${styles.accordionLink} ${
-                          item.value === pathName ? styles.active : ''
+                          item.slug === slug ? styles.active : ''
                         }`}
                       >
-                        {item.label}
+                        {item.name}
                       </div>
                     </Link>
                   ))}
@@ -167,13 +168,13 @@ export default function ProductListing({
                 {brand &&
                   brand.length > 0 &&
                   brand.map((item) => (
-                    <Link key={item.value} href={item.value}>
+                    <Link key={item.manufacturerID} href={`/manufacturers/${item.slug}`}>
                       <div
                         className={`${styles.accordionLink} ${
-                          item.value === pathName ? styles.active : ''
+                          item.slug === slug ? styles.active : ''
                         }`}
                       >
-                        {item.label}
+                        {item.name}
                       </div>
                     </Link>
                   ))}
@@ -183,98 +184,77 @@ export default function ProductListing({
         </div>
       </div>
       <div className={styles.product_main}>
-        {isloading ?
-          <GridSkeletonProductHorizontal counts={12} /> : (
-            <>
-              <div>
-                <Typography className="product_title" variant="h4" component="h1">
-                  Kháng Viêm, Dị Ứng
-                </Typography>
-                <SearchResultText count={count} pageSize={pageSize} page={page} pages={pages} />
-              </div>
-              <div>
-                <div className={styles.filters}>
+        {isloading ? (
+          <GridSkeletonProductHorizontal counts={12} />
+        ) : (
+          <div>
+            <div>
+              <Typography className="product_title" variant="h4" component="h1">
+                {name && name}
+              </Typography>
+              <SearchResultText count={count} pageSize={pageSize} page={page} pages={pages} />
+            </div>
+            <div>
+              <div className={styles.filters}>
+                {TAB_LIST.map((item) => (
                   <Fab
                     variant="extended"
                     aria-label="all"
-                    className={clsx(!current_tab && styles.active, styles.filter_btn)}
+                    className={clsx(current_tab === item.value && styles.active, styles.filter_btn)}
                   >
                     <Link
                       href={{
                         pathname: pathName,
-                        query: getTabQuery(),
+                        query: { ...getTabQuery(), current_tab: item.value },
                       }}
                     >
-                      Tất cả
+                      {item.shortName}
                     </Link>
                   </Fab>
-                  <Fab
-                    variant="extended"
-                    aria-label="new_arrival"
-                    className={clsx(current_tab === 'new_arrival' && styles.active, styles.filter_btn)}
-                  >
-                    <Link
-                      href={{
-                        pathname: pathName,
-                        query: { ...getTabQuery(), current_tab: 'new_arrival' },
-                      }}
-                    >
-                      SP mới
-                    </Link>
-                  </Fab>
-                  <Fab variant="extended" aria-label="decreasing_price" className={clsx(current_tab === 'decreasing_price' && styles.active, styles.filter_btn)}>
-                    <Link
-                      href={{
-                        pathname: pathName,
-                        query: { ...getTabQuery(), current_tab: 'decreasing_price' },
-                      }}
-                    >
-                      Giảm giá
-                    </Link>
-                  </Fab>
-                </div>
+                ))}
               </div>
-              {products.length > 0 ? (
-                <main className={styles.product_listing}>
-                  <div className={styles.pagging}>
-                    <Pagination
-                      count={pages}
-                      defaultPage={numPage}
-                      boundaryCount={2}
-                      onChange={handleChangePage}
-                    />
-                  </div>
-                  <div className={styles.product_grid_wrapper}>
-                    <Grid container spacing={1}>
-                      {products.map((item) => (
-                        <Grid item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
-                          <ProductCardVertical
-                            key={`products-${item.sku}`}
-                            product={item}
-                            value={item.quantity || 0}
-                            tag
-                            category
-                          />
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </div>
-                  <div className={styles.pagging}>
-                    <Pagination
-                      count={pages}
-                      defaultPage={numPage}
-                      boundaryCount={2}
-                      onChange={handleChangePage}
-                    />
-                  </div>
-                </main>
-              ) : (
-                <Typography variant="body1" className={styles.empty}>
-                  Không có sản phẩm
-                </Typography>
-              )}
-            </>
-          )}
+            </div>
+            {products.length > 0 ? (
+              <main className={styles.product_listing}>
+                <div className={styles.pagging}>
+                  <Pagination
+                    count={pages}
+                    defaultPage={numPage}
+                    boundaryCount={2}
+                    onChange={handleChangePage}
+                  />
+                </div>
+                <div className={styles.product_grid_wrapper}>
+                  <Grid container spacing={1}>
+                    {products.map((item) => (
+                      <Grid item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
+                        <ProductCardVertical
+                          key={`products-${item.sku}`}
+                          product={item}
+                          value={item.quantity || 0}
+                          tag
+                          category
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </div>
+                <div className={styles.pagging}>
+                  <Pagination
+                    count={pages}
+                    defaultPage={numPage}
+                    boundaryCount={2}
+                    onChange={handleChangePage}
+                  />
+                </div>
+              </main>
+            ) : (
+              <Typography variant="body1" className={styles.empty}>
+                Không có sản phẩm
+              </Typography>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

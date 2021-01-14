@@ -53,8 +53,12 @@ async function loadDataPormotion(ctx) {
 }
 
 async function loadDataProduct(ctx) {
+  const curentTab = ctx.query.current_tab ? ctx.query.current_tab : '';
+  const sortBy = ctx.query.sortBy ? ctx.query.sortBy : '';
+  const q = ctx.query.q ? ctx.query.q : '';
+  const url = `/marketplace/product/v1/products/list?current_tab=${curentTab}&sortBy=${sortBy}&q=${q}`;
   const result = await GET({
-    url: '/marketplace/product/v1/products/list',
+    url,
     ctx,
     isAuth: true,
     isBasic: true,
@@ -63,7 +67,7 @@ async function loadDataProduct(ctx) {
   let cart = {};
   let productListWithPrice = {};
   try {
-    cart = await CartClient.loadDataCart();
+    cart = await CartClient.loadDataCart(ctx);
   } catch (error) {
     cart.status = 'ERROR';
   }
