@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { useRouter } from 'next/router';
+import { MISSING_IMAGE } from 'constants/Images';
 import { ProductCardBuy, ProductCardContent, StatusProduct } from '../../mocules';
-
 import styles from './styles.module.css';
 
 const ProductCardVertical = ({
@@ -27,7 +27,7 @@ const ProductCardVertical = ({
                 component="img"
                 alt="Contemplative Reptile"
                 height="140"
-                image={imageUrls[0]}
+                image={(imageUrls && imageUrls[0]) || MISSING_IMAGE}
                 title="Contemplative Reptile"
               />
             </CardActionArea>
