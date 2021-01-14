@@ -1,12 +1,13 @@
+import { PROMOTION_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
 
-async function getPromos() {
-  const url = '/promo-codes';
-  const result = await GET({ url, mock: true });
-  if (!isValid(result)) {
+async function getPromos(ctx) {
+  const url = PROMOTION_API.PROMOTION_ALL;
+  const res = await GET({ url, ctx });
+  if (!isValid(res)) {
     return [];
   }
-  return result.data;
+  return res.data;
 }
 
 async function getOtherPromos() {
