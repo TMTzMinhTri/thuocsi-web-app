@@ -7,7 +7,7 @@ import App from 'next/app';
 import { ThemeProvider as StyledTheme } from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { AuthProvider, CartContextProvider, LoadingRoute } from 'context';
+import { AuthProvider, CartContextProvider, LoadingRoute, NotiContextProvider } from 'context';
 import { Theme } from 'components';
 
 // Toast
@@ -53,7 +53,9 @@ const MyApp = (props) => {
             <LoadingRoute>
               {/* Cart context provider */}
               <CartContextProvider>
-                <Component {...pageProps} />
+                <NotiContextProvider>
+                  <Component {...pageProps} />
+                </NotiContextProvider>
                 <ToastContainer />
               </CartContextProvider>
             </LoadingRoute>
