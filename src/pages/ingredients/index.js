@@ -1,18 +1,14 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { Template, IngredientContainer } from 'components';
-import { ProductClient, CustomerClient, doWithServerSide } from 'clients';
+import { ProductClient, doWithServerSide } from 'clients';
 import { Container } from '@material-ui/core';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [wallet, ingredients] = await Promise.all([
-      CustomerClient.getWallet(),
-      ProductClient.loadDataIngredient(ctx),
-    ]);
+    const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
     return {
       props: {
-        wallet: wallet.data[0],
         ingredients,
       },
     };

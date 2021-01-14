@@ -20,11 +20,7 @@ async function removeCartItem(data) {
   const body = {
     skuId: data.skuId,
   };
-  const res = await PUT({ url: '/marketplace/order/v1/cart/remove', body });
-  if (!isValid(res)) {
-    return res;
-  }
-  return res.data;
+  return PUT({ url: '/marketplace/order/v1/cart/remove', body });
 }
 export default {
   loadDataCart,

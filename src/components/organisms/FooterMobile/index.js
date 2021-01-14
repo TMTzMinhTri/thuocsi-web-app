@@ -4,7 +4,7 @@ import { SignUpModal } from 'components/organisms';
 import { useRouter } from 'next/router';
 import { useModal } from 'hooks';
 import { useAuth } from 'context';
-import { Button } from '../../atoms';
+import { ButtonHeader } from 'components/atoms';
 import FooterWithToolBar from './components/FooterWithToolBar';
 import FooterWithCart from './components/FooterWithCart';
 import styles from './styles.module.css';
@@ -29,17 +29,17 @@ const FooterComp = () => {
         <Container maxWidth="lg">
           {!isAuthenticated ? (
             <div className={styles.div_buttons}>
-              <Button variant="contained" btnType="warning" onClick={toggleLoginMobile}>
+              <ButtonHeader variant="contained" btnType="warning" onClick={toggleLoginMobile}>
                 Đăng nhập
-              </Button>
-              <Button
+              </ButtonHeader>
+              <ButtonHeader
                 className={styles.custombtn}
                 variant="contained"
                 btnType="primary"
                 onClick={toggleSignUp}
               >
                 Đăng ký
-              </Button>
+              </ButtonHeader>
               <SignUpModal
                 visible={isShowingSignUp}
                 onClose={toggleSignUp}
@@ -48,9 +48,11 @@ const FooterComp = () => {
             </div>
           ) : (
             <AppBar position="fixed" className={styles.appBar}>
-              {router.pathname === '/quick-order' || router.pathname === '/cart'
-                ? <FooterWithCart />
-                : <FooterWithToolBar />}
+              {router.pathname === '/quick-order' || router.pathname === '/cart' ? (
+                <FooterWithCart />
+              ) : (
+                <FooterWithToolBar />
+              )}
             </AppBar>
           )}
         </Container>

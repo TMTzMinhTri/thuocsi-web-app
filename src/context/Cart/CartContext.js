@@ -30,7 +30,7 @@ export const CartContextProvider = ({ children }) => {
     if (res.errorCode === 'CART_MAXQUANTITY') {
       NotifyUtils.error(res.message);
       const revertPayload = payload;
-      revertPayload.q = 10;
+      revertPayload.q = payload.product.maxQuantity;
       CartClient.updateCartItem(revertPayload);
       dispatch({ type: 'INCREASE_BY', payload: revertPayload });
     }
@@ -66,9 +66,9 @@ export const CartContextProvider = ({ children }) => {
     dispatch({ type: 'ADD_ITEM', payload });
   };
 
-  const removeProduct = async (payload) => {
+  const removeCartItem = async (payload) => {
     const res = await CartClient.removeCartItem(payload);
-    if (res.length > 0) {
+    if (isValid(res)) {
       dispatch({ type: 'REMOVE_ITEM', payload });
       NotifyUtils.success('Xoá sản phẩm thành công');
       return true;
@@ -94,7 +94,7 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const contextValues = {
-    removeProduct,
+    removeCartItem,
     addProduct,
     updateCartItem,
     increase,

@@ -10,10 +10,11 @@ import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { HeaderUser, SearchInput } from 'components/mocules';
 import { useAuth, useNotify } from 'context';
-import { LinkComp, Button } from '../../atoms';
+import { i18n } from 'i18n-lib';
+import { LinkComp, ButtonHeader } from '../../atoms';
 import styles from './styles.module.css';
 
-const InfoHeader = memo(() => {
+const InfoHeader = memo(({ t }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [isShowingLogin, toggleLogin] = useModal();
@@ -92,12 +93,17 @@ const InfoHeader = memo(() => {
             />
 
             <div className={styles.div_buttons}>
-              <Button variant="contained" btnType="warning" onClick={toggleLogin}>
-                Đăng nhập
-              </Button>
-              <Button variant="contained" btnType="primary" color="white" onClick={toggleSignUp}>
-                Tạo Tài Khoản
-              </Button>
+              <ButtonHeader variant="contained" btnType="warning" onClick={toggleLogin}>
+                {t('login')}
+              </ButtonHeader>
+              <ButtonHeader
+                variant="contained"
+                btnType="primary"
+                color="white"
+                onClick={toggleSignUp}
+              >
+                {t('register')}
+              </ButtonHeader>
             </div>
           </>
         ) : (
@@ -162,4 +168,4 @@ const InfoHeader = memo(() => {
   );
 });
 
-export default InfoHeader;
+export default i18n.withTranslation()(InfoHeader);
