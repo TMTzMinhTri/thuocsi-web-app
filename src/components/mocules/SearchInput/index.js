@@ -2,6 +2,7 @@ import React, { memo, useState, useCallback } from 'react';
 import { InputAdornment, TextField } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import { WEB_STYLES } from 'styles';
 import { SearchClient } from 'clients';
 import debounce from 'utils/debounce';
@@ -10,6 +11,7 @@ import SearchDropdown from '../SearchDropdown';
 import styles from './styles.module.css';
 
 const SearchInput = memo(({ classCustom, ...restProps }) => {
+  const router = useRouter();
   const [searchProduct, setSearchProduct] = useState([]);
   const [keyword, setKeyword] = useState('');
 
@@ -27,16 +29,25 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
     handler(fetchData);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      router.push(`/products?q=${keyword}`);
+      event.preventDefault();
+    }
+  };
+
   const handleFocus = (e) => {
     setKeyword(e.target.value);
   };
 
   const handleBlur = () => {
-    setKeyword('');
+    setTimeout(() => {
+      setKeyword('');
+    }, 100);
   };
 
   return (
-    <div className={clsx(styles.search_wrap, classCustom)}>
+    <div className={clsx(styles.search_wrap, classCustom)} onBlur={handleBlur}>
       <form>
         <TextField
           {...restProps}
@@ -45,6 +56,7 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
           }}
           async
           onChange={handleSearchbox}
+          onKeyDown={handleKeyDown}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -56,7 +68,7 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
             classes: { focused: styles.focus },
           }}
           onFocus={handleFocus}
-          onBlur={handleBlur}
+
         />
       </form>
       {keyword && (
