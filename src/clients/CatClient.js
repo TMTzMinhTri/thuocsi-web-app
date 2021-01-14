@@ -1,13 +1,19 @@
 import { CATEGORY_API } from 'constants/APIUri';
-import { GET } from './Clients';
+import { GET, isValid } from './Clients';
 
 async function loadBrand() {
-  const result = await GET({ url: CATEGORY_API.BRAND, mock: true });
-  return result;
+  const res = await GET({ url: CATEGORY_API.BRAND, isBasic: true });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
 }
 async function loadGroup() {
-  const result = await GET({ url: CATEGORY_API.GROUP, mock: true });
-  return result;
+  const res = await GET({ url: CATEGORY_API.GROUP, isBasic: true });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
 }
 export default {
   loadBrand,

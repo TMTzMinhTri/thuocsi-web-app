@@ -22,9 +22,9 @@ export const CUSTOMER_API = {
   PROMO,
 };
 
-const CATEGORY_API_PREFIX = '/marketplace/category/v1';
-const BRAND = `${CATEGORY_API_PREFIX}/brand`;
-const GROUP = `${CATEGORY_API_PREFIX}/group`;
+const CATEGORY_API_PREFIX = '/marketplace/product/v1';
+const BRAND = `${CATEGORY_API_PREFIX}/manufacturers/list`;
+const GROUP = `${CATEGORY_API_PREFIX}/category/list`;
 export const CATEGORY_API = {
   BRAND,
   GROUP,

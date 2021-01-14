@@ -1,7 +1,7 @@
 import { GET, POST, PUT, isValid } from './Clients';
 
 async function loadDataCart(ctx) {
-  const res = await GET({ url: '/marketplace/order/v1/cart', isAuth: true, ctx });
+  const res = await GET({ url: '/marketplace/order/v1/cart', isAuth: true, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }
