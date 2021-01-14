@@ -1,0 +1,31 @@
+.confirm_modal_wrap {
+  position: relative;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  width: 35.5em;
+  /* padding: 2em; */
+  max-width: 100%;
+  padding: 1.5em;
+  border: none;
+  border-radius: 1.25em;
+  background: #f4f7fc;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: 0;
+  min-height: 890px;
+}
+
+.counpon_list {
+  max-height: 70vh !important;
+  overflow-y: scroll !important;
+  overflow-x: none !important;
+  margin-top: 20px;
+  width: 510px;
+}
+
+.counpon_list [class*='MuiGrid-spacing-xs-1'] {
+  width: 100% !important;
+  /* margin-left: 0 !important;
+  margin-right: 0 !important; */
+}
