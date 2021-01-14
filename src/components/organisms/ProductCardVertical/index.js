@@ -14,7 +14,7 @@ const ProductCardVertical = ({
   onIncrement,
   value,
 }) => {
-  const { imageUrls } = product;
+  const { name, imageUrls } = product;
   const router = useRouter();
   return (
     <Box className={styles.button_container}>
@@ -25,10 +25,10 @@ const ProductCardVertical = ({
             <CardActionArea onClick={() => router.push(`/product/${product.slug}`)} className={styles.product_image}>
               <CardMedia
                 component="img"
-                alt="Contemplative Reptile"
+                alt={name && name}
                 height="140"
                 image={(imageUrls && imageUrls[0]) || MISSING_IMAGE}
-                title="Contemplative Reptile"
+                title={name && name}
               />
             </CardActionArea>
             <ProductCardContent tag={tag} cate={category} row {...product} />
