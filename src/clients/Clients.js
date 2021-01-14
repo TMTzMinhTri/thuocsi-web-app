@@ -57,6 +57,7 @@ async function request(props) {
         isUseBasic = true;
       }
     }
+    // console.log(' fetch data ', link, method, headers, body);
     const res = await fetch(link, {
       method,
       credentials: 'same-origin',
@@ -70,6 +71,7 @@ async function request(props) {
     if (isUseBasic) {
       result.isBasic = true;
     }
+    // console.log('result : ', result);
     return result;
   } catch (err) {
     return {

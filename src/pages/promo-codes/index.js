@@ -6,7 +6,7 @@ import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [promos] = await Promise.all([PromoClient.getPromos()]);
+    const [promos] = await Promise.all([PromoClient.getPromos(ctx)]);
     return {
       props: {
         promos,
