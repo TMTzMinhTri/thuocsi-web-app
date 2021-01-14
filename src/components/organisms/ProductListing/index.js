@@ -140,10 +140,10 @@ export default function ProductListing({
                 {group &&
                   group.length > 0 &&
                   group.map((item) => (
-                    <Link key={item.categoryID} href={`categories/${item.slug}`}>
+                    <Link key={item.categoryID} href={`/categories/${item.slug}`}>
                       <div
                         className={`${styles.accordionLink} ${
-                          item.slug === pathName ? styles.active : ''
+                          item.slug === slug ? styles.active : ''
                         }`}
                       >
                         {item.name}
@@ -168,10 +168,10 @@ export default function ProductListing({
                 {brand &&
                   brand.length > 0 &&
                   brand.map((item) => (
-                    <Link key={item.manufacturerID} href={`manufacturers/${item.slug}`}>
+                    <Link key={item.manufacturerID} href={`/manufacturers/${item.slug}`}>
                       <div
                         className={`${styles.accordionLink} ${
-                          item.slug === pathName ? styles.active : ''
+                          item.slug === slug ? styles.active : ''
                         }`}
                       >
                         {item.name}

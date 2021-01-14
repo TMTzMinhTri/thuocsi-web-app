@@ -12,7 +12,7 @@ export async function getServerSideProps(ctx) {
   ]);
 
   const current_tab = ctx.query.current_tab || '';
-  const sort = ctx.query.sort || '';
+  const sortBy = ctx.query.sortBy || '';
   const page = Number(ctx.query.page) || 1;
   const slug = ctx.query.slug || '';
   return {
@@ -20,7 +20,7 @@ export async function getServerSideProps(ctx) {
       products,
       current_tab,
       page,
-      sort,
+      sortBy,
       brand,
       group,
       slug,
@@ -33,7 +33,7 @@ export default function Products({
   group = [],
   current_tab = '',
   page = '',
-  sort = '',
+  sortBy = '',
   slug = '',
   isMobile,
 }) {
@@ -43,13 +43,14 @@ export default function Products({
     <Template title={title} isMobile={isMobile} pageName={cat}>
       <ProductListing
         products={products}
-        brand={brand.status === 'OK' ? brand.data : []}
-        group={group.status === 'OK' ? group.data : []}
+        brand={brand}
+        group={group}
         current_tab={current_tab}
         page={page}
-        sort={sort}
+        sortBy={sortBy}
         catName={cat}
         slug={slug}
+        name="Tất cả sản phẩm"
       />
     </Template>
   );
