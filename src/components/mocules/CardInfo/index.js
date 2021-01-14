@@ -71,7 +71,7 @@ const CardInfo = ({ cart, promo: pr, className }) => {
       )}
       <Grid className={styles.wrapper} xs={12} container item>
         {cart ? (
-          <LinkComp href="/payment" className={styles.btn}>
+          <LinkComp href="/checkout" className={styles.btn}>
             Tiếp tục thanh toán
           </LinkComp>
         ) : (

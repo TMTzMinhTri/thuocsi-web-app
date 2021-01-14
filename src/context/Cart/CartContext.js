@@ -1,5 +1,7 @@
 import React, { createContext, useReducer, useContext, useEffect } from 'react';
-import ProductClient from 'clients/ProductClient';
+import CartClient from 'clients/CartClient';
+import { NotifyUtils } from 'utils';
+import { isValid } from '../../clients/Clients';
 import { CartReducer } from './CartReducer';
 
 export const CartContext = createContext();
@@ -10,8 +12,8 @@ export const CartContextProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await ProductClient.loadDataCart();
-        dispatch({ type: 'FETCH_SUCCESS', payload: response.product });
+        const response = await CartClient.loadDataCart();
+        dispatch({ type: 'FETCH_SUCCESS', payload: response[0] || [] });
       } catch (error) {
         dispatch({ type: 'FETCH_ERROR' });
       }
@@ -19,24 +21,60 @@ export const CartContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  const increase = (payload) => {
-    dispatch({ type: 'INCREASE', payload });
+  const updateCartItem = async (payload) => {
+    const res = await CartClient.updateCartItem(payload);
+    if (isValid(res)) {
+      dispatch({ type: 'INCREASE_BY', payload });
+      NotifyUtils.success('Đã cập nhật giỏ hàng');
+    }
+    if (res.errorCode === 'CART_MAXQUANTITY') {
+      NotifyUtils.error(res.message);
+      const revertPayload = payload;
+      revertPayload.q = payload.product.maxQuantity;
+      CartClient.updateCartItem(revertPayload);
+      dispatch({ type: 'INCREASE_BY', payload: revertPayload });
+    }
+    return res;
+  };
+
+  const increase = async (payload) => {
+    const res = await CartClient.updateCartItem(payload);
+    if (res.length > 0) {
+      dispatch({ type: 'INCREASE', payload: payload.product });
+      NotifyUtils.success('Thêm sản phẩm thành công');
+    } else {
+      NotifyUtils.error(res.message);
+    }
   };
 
   const increaseBy = (payload) => {
     dispatch({ type: 'INCREASE_BY', payload });
   };
 
-  const decrease = (payload) => {
-    dispatch({ type: 'DECREASE', payload });
+  const decrease = async (payload) => {
+    const res = await CartClient.updateCartItem(payload);
+    if (res.length > 0) {
+      dispatch({ type: 'DECREASE', payload: payload.product });
+      NotifyUtils.success('Đã cập nhật giỏ hàng');
+      return true;
+    }
+    NotifyUtils.error(res.message);
+    return false;
   };
 
   const addProduct = (payload) => {
     dispatch({ type: 'ADD_ITEM', payload });
   };
 
-  const removeProduct = (payload) => {
-    dispatch({ type: 'REMOVE_ITEM', payload });
+  const removeCartItem = async (payload) => {
+    const res = await CartClient.removeCartItem(payload);
+    if (isValid(res)) {
+      dispatch({ type: 'REMOVE_ITEM', payload });
+      NotifyUtils.success('Xoá sản phẩm thành công');
+      return true;
+    }
+    NotifyUtils.error(res.message);
+    return false;
   };
 
   const clearCart = () => {
@@ -56,8 +94,9 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const contextValues = {
-    removeProduct,
+    removeCartItem,
     addProduct,
+    updateCartItem,
     increase,
     decrease,
     clearCart,

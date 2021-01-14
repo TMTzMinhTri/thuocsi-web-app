@@ -1,6 +1,7 @@
 import GetQuantityProduct from 'utils/GetQuantityProduct';
 import { PRODUCT_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
+import CartClient from './CartClient';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
@@ -43,14 +44,6 @@ async function loadDataProductDetail(ctx) {
   return result.data;
 }
 
-async function loadDataCart(ctx) {
-  const res = await GET({ url: '/cart', mock: true, ctx });
-  if (!isValid(res)) {
-    return [];
-  }
-  return res.data;
-}
-
 async function loadDataPormotion(ctx) {
   const res = await GET({ url: '/mock/product', mock: true, ctx });
   if (!isValid(res)) {
@@ -70,14 +63,15 @@ async function loadDataProduct(ctx) {
   let cart = {};
   let productListWithPrice = {};
   try {
-    cart = await loadDataCart();
+    cart = await CartClient.loadDataCart();
   } catch (error) {
     cart.status = 'ERROR';
   }
   const cartObject = {};
-  if (cart && cart.cartItems && cart.cartItems.length > 0) {
+  // eslint-disable-next-line no-restricted-syntax
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
     // eslint-disable-next-line no-restricted-syntax
-    for (const item of cart.cartItems) {
+    for (const item of cart[0].cartItems) {
       cartObject[item.sku] = item;
     }
     productListWithPrice = GetQuantityProduct(result, cartObject);
@@ -119,7 +113,6 @@ export default {
   loadFeedback,
   getInfoBanner,
   loadDataProduct,
-  loadDataCart,
   loadDataProductDetail,
   loadDataPormotion,
   loadDataIngredient,

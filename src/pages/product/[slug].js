@@ -26,8 +26,6 @@ import {
   ProductDetailTabs,
   Button as CustomButton,
   Template,
-  NavBar,
-  Header,
 } from 'components';
 import { ProductClient, doWithServerSide } from 'clients';
 
@@ -65,10 +63,19 @@ export default function ProductDetail({ products, isAuthenticated }) {
   const open = Boolean(anchorEl);
   const id = open ? 'detail-product-popover' : undefined;
 
+  const ingredientEle = ingredient.map((row) => (
+    <TableRow key={row.name}>
+      <TableCell className={styles.border_right} component="th" scope="row">
+        <a className={styles.text_capitalize} href="/">
+          {row.name}
+        </a>
+      </TableCell>
+      <TableCell align="left">{row.unit}</TableCell>
+    </TableRow>
+  ));
+
   return (
     <Template title={title}>
-      <Header />
-      <NavBar />
       <div className={styles.detail_wrapper}>
         <div className={styles.container}>
           <Grid container className={styles.detail_card}>
@@ -139,22 +146,7 @@ export default function ProductDetail({ products, isAuthenticated }) {
                                   <TableCell align="left">Hàm lượng</TableCell>
                                 </TableRow>
                               </TableHead>
-                              <TableBody>
-                                {ingredient && ingredient.map((row) => (
-                                  <TableRow key={row.name}>
-                                    <TableCell
-                                      className={styles.border_right}
-                                      component="th"
-                                      scope="row"
-                                    >
-                                      <a className={styles.text_capitalize} href="/">
-                                        {row.name}
-                                      </a>
-                                    </TableCell>
-                                    <TableCell align="left">{row.unit}</TableCell>
-                                  </TableRow>
-                                ))}
-                              </TableBody>
+                              <TableBody>{ingredientEle}</TableBody>
                             </Table>
                           </TableContainer>
                         </Popover>
@@ -235,18 +227,7 @@ export default function ProductDetail({ products, isAuthenticated }) {
                         <TableCell align="left">Hàm lượng</TableCell>
                       </TableRow>
                     </TableHead>
-                    <TableBody>
-                      {ingredient && ingredient.map((row) => (
-                        <TableRow key={row.name}>
-                          <TableCell className={styles.border_right} component="th" scope="row">
-                            <a className={styles.text_capitalize} href="/">
-                              {row.name}
-                            </a>
-                          </TableCell>
-                          <TableCell align="left">{row.unit}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
+                    <TableBody>{ingredientEle}</TableBody>
                   </Table>
                 </TableContainer>
               </div>

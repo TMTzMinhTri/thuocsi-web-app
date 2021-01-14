@@ -98,7 +98,11 @@ export async function DELETE(props) {
 }
 
 export function isValid(resp) {
-  return resp && resp.data && resp.status && resp.status === 'OK';
+  return resp && resp.status && resp.status === 'OK';
+}
+
+export function isValidWithData(resp) {
+  return resp && resp.status && resp.status === 'OK' && resp.data && resp.data[0];
 }
 
 export default {
@@ -107,5 +111,6 @@ export default {
   PUT,
   DELETE,
   isValid,
+  isValidWithData,
   getSessionToken,
 };

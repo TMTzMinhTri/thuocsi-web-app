@@ -1,21 +1,36 @@
 import React, { memo, useCallback } from 'react';
 import Image from 'next/image';
 import { useModal } from 'hooks';
-import { IconButton } from '@material-ui/core';
+import clsx from 'clsx';
+import { DateTimeUtils } from 'utils';
+import { IconButton, Menu, Fade, Badge } from '@material-ui/core';
 import { CardTravel, House, NewReleases, NotificationsNoneOutlined } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { HeaderUser, SearchInput } from 'components/mocules';
-import { useAuth } from 'context';
-import { LinkComp, Button } from '../../atoms';
+import { useAuth, useNotify } from 'context';
+import { i18n } from 'i18n-lib';
+import { LinkComp, ButtonHeader } from '../../atoms';
 import styles from './styles.module.css';
 
-const InfoHeader = memo(() => {
+const InfoHeader = memo(({ t }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   const [isShowingLogin, toggleLogin] = useModal();
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { user, isAuthenticated } = useAuth();
+  const { getNotifcations, notification } = useNotify();
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    getNotifcations();
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleChangeForget = useCallback(() => {
     toggleLogin();
@@ -31,6 +46,7 @@ const InfoHeader = memo(() => {
     toggleSignUp();
     toggleLogin();
   }, [toggleSignUp, toggleLogin]);
+
   return (
     <div>
       <div className={styles.header_info}>
@@ -77,21 +93,71 @@ const InfoHeader = memo(() => {
             />
 
             <div className={styles.div_buttons}>
-              <Button variant="contained" btnType="warning" onClick={toggleLogin}>
-                Đăng nhập
-              </Button>
-              <Button variant="contained" btnType="primary" color="white" onClick={toggleSignUp}>
-                Tạo Tài Khoản
-              </Button>
+              <ButtonHeader variant="contained" btnType="warning" onClick={toggleLogin}>
+                {t('login')}
+              </ButtonHeader>
+              <ButtonHeader
+                variant="contained"
+                btnType="primary"
+                color="white"
+                onClick={toggleSignUp}
+              >
+                {t('register')}
+              </ButtonHeader>
             </div>
           </>
         ) : (
           <>
             <SearchInput className={styles.SearchInput} />
             <div className={styles.rSection}>
-              <IconButton className={styles.notiIcon}>
-                <NotificationsNoneOutlined />
-                {/* <FontAwesomeIcon icon={faBell} /> */}
+              <Menu
+                id="fade-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Fade}
+                elevation={0}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
+                classes={{ paper: styles.notify_wrap }}
+              >
+                {notification.map((item) => (
+                  <LinkComp
+                    key={item.id}
+                    className={
+                      item.read
+                        ? clsx(styles.notificationsItem, styles.read)
+                        : clsx(styles.notificationsItem, styles.unRead)
+                }
+                    href={item.slug}
+                  >
+                    <div className={styles.notifyIcon}>
+                      <i className={`icomoon icon-loyalty + ${styles.icon}`} />
+                    </div>
+                    <div className={styles.notifyContent}>
+                      <div className={styles.notifyContentTitle}>{item.title}</div>
+                      <small className={styles.createdAt}>
+                        {DateTimeUtils.getTimeAgo(item.create_at)}
+                      </small>
+                    </div>
+                  </LinkComp>
+                ))}
+
+              </Menu>
+              <IconButton className={styles.notiIcon} onClick={handleClick}>
+                <Badge badgeContent={notification.length} invisible={false} color="secondary">
+
+                  <NotificationsNoneOutlined />
+                </Badge>
+
               </IconButton>
               <HeaderUser user={user} />
             </div>
@@ -102,4 +168,4 @@ const InfoHeader = memo(() => {
   );
 });
 
-export default InfoHeader;
+export default i18n.withTranslation()(InfoHeader);

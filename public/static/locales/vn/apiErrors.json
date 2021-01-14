@@ -1,6 +1,7 @@
 {
   "success": "Thành công",
-  "error": "error nè má errros xxx",
+  "error": "Đã xảy ra lỗi",
+  "500": "Đã xảy ra lỗi",
   "login": {
     "success": "Đăng nhập thành công .",
     "NOT_FOUND": "Không tìm thấy thông tin người dùng",
