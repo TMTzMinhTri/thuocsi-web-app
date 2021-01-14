@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, IconButton } from '@material-ui/core';
 import { LocalOffer } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
@@ -11,6 +11,12 @@ import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
 
 const PROMO_CODE_DEFAULT = '';
+
+const DeleteIconButton = (props) => (
+  <IconButton style={{ padding: 0 }}>
+    <DeleteIcon {...props} />
+  </IconButton>
+);
 
 const CardInfo = ({ cart, promo: pr, className }) => {
   const { itemCount, total } = useCart();
@@ -66,7 +72,7 @@ const CardInfo = ({ cart, promo: pr, className }) => {
           <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
             {promo || 'Dùng mã khuyến mãi'}
           </Typography>
-          {promo ? <DeleteIcon onClick={handleRemovePromo} /> : <></>}
+          {promo ? <DeleteIconButton onClick={handleRemovePromo} /> : <div />}
         </Grid>
       )}
       <Grid className={styles.wrapper} xs={12} container item>
