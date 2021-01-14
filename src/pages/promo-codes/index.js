@@ -1,18 +1,14 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { Template, PromoCodesContainer } from 'components';
-import { CustomerClient, PromoClient, doWithServerSide } from 'clients';
+import { PromoClient, doWithServerSide } from 'clients';
 import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [wallet, promos] = await Promise.all([
-      CustomerClient.getWallet(),
-      PromoClient.getPromos(),
-    ]);
+    const [promos] = await Promise.all([PromoClient.getPromos()]);
     return {
       props: {
-        wallet: wallet.data[0],
         promos,
       },
     };

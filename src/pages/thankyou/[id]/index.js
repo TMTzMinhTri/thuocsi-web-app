@@ -1,19 +1,15 @@
 import { Template, ThankYouContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { CustomerClient, OrderClient, doWithServerSide } from 'clients';
+import { OrderClient, doWithServerSide } from 'clients';
 import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   try {
     const { id } = ctx.query;
     return doWithServerSide(ctx, async () => {
-      const [wallet, order] = await Promise.all([
-        CustomerClient.getWallet(),
-        OrderClient.getOrderById(id),
-      ]);
+      const [order] = await Promise.all([OrderClient.getOrderById(id)]);
       return {
         props: {
-          wallet: wallet?.data[0],
           order,
         },
       };
