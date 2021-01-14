@@ -36,7 +36,7 @@ const ProductCardBuy = ({
   const { isAuthenticated } = useAuth();
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
-  const { updateCartItem, removeProduct } = useCart();
+  const { updateCartItem, removeCartItem } = useCart();
   const handleChangeForget = useCallback(() => {
     toggleLogin();
     toggleForgetPassword();
@@ -45,7 +45,7 @@ const ProductCardBuy = ({
     toggleRemove();
   };
   const handleRemove = () => {
-    removeProduct(product);
+    removeCartItem(product);
   };
 
   const updateCart = async (q) => {
@@ -59,8 +59,17 @@ const ProductCardBuy = ({
     }
   };
 
-  const handlerUpdateCart = useCallback(
-    debounce((val) => updateCart(val), 1500),
+  const handleCart = (val, updateType) => {
+    if (updateType === 'remove') {
+      removeCartItem(val);
+    }
+    if (updateType === 'update') {
+      updateCart(val);
+    }
+  };
+
+  const handler = useCallback(
+    debounce((val, updateType) => handleCart(val, updateType), 1500),
     [],
   );
 
@@ -68,23 +77,23 @@ const ProductCardBuy = ({
     if (value < 2) return;
     const q = value - 1;
     setValue(q);
-    handlerUpdateCart(q);
+    handler(q, 'update');
   };
 
   const handleIncrease = () => {
     const q = value + 1;
     setValue(q);
-    handlerUpdateCart(q);
+    handler(q, 'update');
   };
 
   const handleInputChange = (e) => {
     const curValue = e.currentTarget.value;
     setValue(curValue);
     if (!curValue) {
-      removeProduct(product);
+      handler(product, 'remove');
     }
     if (/^\d+$/.test(curValue) && curValue < 1000) {
-      handlerUpdateCart(parseInt(curValue, 10));
+      handler(parseInt(curValue, 10), 'update');
     }
   };
   return (
