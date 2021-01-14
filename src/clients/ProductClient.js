@@ -67,7 +67,7 @@ async function loadDataProduct(ctx) {
   let cart = {};
   let productListWithPrice = {};
   try {
-    cart = await CartClient.loadDataCart();
+    cart = await CartClient.loadDataCart(ctx);
   } catch (error) {
     cart.status = 'ERROR';
   }
