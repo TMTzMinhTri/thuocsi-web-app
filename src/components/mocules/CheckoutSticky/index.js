@@ -17,9 +17,9 @@ const CheckoutSticky = ({ selectedValue = '' }) => {
 
   React.useEffect(() => {
     if (selectedValue === 'transfer') {
-      const transferFee = (total * 5) / 100;
-      setTransferValue(transferFee);
-      const totalRes = total - transferFee;
+      const transferFee = (total * 0.5) / 100;
+      setTransferValue(Math.round(transferFee));
+      const totalRes = Math.round(total - transferFee);
       setTotalValue(totalRes);
     } else {
       setTransferValue(0);

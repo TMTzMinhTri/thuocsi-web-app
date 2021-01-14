@@ -95,8 +95,6 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
           <Grid item xs={12} md={4}>
             <CheckoutSticky
               selectedValue={selectedValue}
-              // transferValue={transferValue}
-              // totalValue={totalValue || 0}
             />
           </Grid>
         </Grid>
