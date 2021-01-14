@@ -7,11 +7,12 @@ import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { HeaderUser, SearchInput } from 'components/mocules';
+import { LinkComp, ButtonHeader } from 'components/atoms';
 import { useAuth } from 'context';
-import { LinkComp, Button } from '../../atoms';
+import { i18n } from 'i18n-lib';
 import styles from './styles.module.css';
 
-const InfoHeader = memo(() => {
+const InfoHeader = memo(({ t }) => {
   const [isShowingLogin, toggleLogin] = useModal();
   const [isShowingSignUp, toggleSignUp] = useModal();
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
@@ -31,6 +32,7 @@ const InfoHeader = memo(() => {
     toggleSignUp();
     toggleLogin();
   }, [toggleSignUp, toggleLogin]);
+
   return (
     <div>
       <div className={styles.header_info}>
@@ -77,12 +79,17 @@ const InfoHeader = memo(() => {
             />
 
             <div className={styles.div_buttons}>
-              <Button variant="contained" btnType="warning" onClick={toggleLogin}>
-                Đăng nhập
-              </Button>
-              <Button variant="contained" btnType="primary" color="white" onClick={toggleSignUp}>
-                Tạo Tài Khoản
-              </Button>
+              <ButtonHeader variant="contained" btnType="warning" onClick={toggleLogin}>
+                {t('login')}
+              </ButtonHeader>
+              <ButtonHeader
+                variant="contained"
+                btnType="primary"
+                color="white"
+                onClick={toggleSignUp}
+              >
+                {t('register')}
+              </ButtonHeader>
             </div>
           </>
         ) : (
@@ -91,7 +98,6 @@ const InfoHeader = memo(() => {
             <div className={styles.rSection}>
               <IconButton className={styles.notiIcon}>
                 <NotificationsNoneOutlined />
-                {/* <FontAwesomeIcon icon={faBell} /> */}
               </IconButton>
               <HeaderUser user={user} />
             </div>
@@ -102,4 +108,4 @@ const InfoHeader = memo(() => {
   );
 });
 
-export default InfoHeader;
+export default i18n.withTranslation()(InfoHeader);

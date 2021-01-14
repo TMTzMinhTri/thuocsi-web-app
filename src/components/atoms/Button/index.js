@@ -25,7 +25,6 @@ const buttonTypes = ({ theme, backgroundColor, color }) => ({
     color: color || theme.button.color.primary,
     background: backgroundColor || theme.button.background.warning,
   },
-
 });
 
 const StyledButton = styled(CustomButton)`
@@ -33,8 +32,6 @@ const StyledButton = styled(CustomButton)`
     buttonTypes({ theme, color })[btnType].color} !important;
   background-color: ${({ theme, btnType = 'primary', backgroundColor }) =>
     buttonTypes({ theme, backgroundColor })[btnType].background} !important;
-  margin-right: 10px !important;
-  border-radius: 50px !important;
 
   &.my-order__button {
     border-radius: 20px !important;
@@ -70,7 +67,11 @@ const StyledButton = styled(CustomButton)`
     width: 100%;
     // padding: 5px 55px !important;
   }
-  
 `;
 
 export default React.memo(StyledButton);
+
+export const ButtonHeader = styled(StyledButton)`
+  margin-right: 10px !important;
+  border-radius: 50px !important;
+`;

@@ -1,15 +1,15 @@
 import React, { memo, useCallback, useState } from 'react';
+import clsx from 'clsx';
 import Image from 'next/image';
-import { useModal } from 'hooks';
-import { Drawer, IconButton, Fab, Button } from '@material-ui/core';
+import { Drawer, IconButton, Fab } from '@material-ui/core';
 import { Menu, Close } from '@material-ui/icons';
+import { useModal } from 'hooks';
+import { useAuth, useCart } from 'context';
 import { useRouter } from 'next/router';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
-import { LinkComp } from 'components/atoms';
-import { useAuth, useCart } from 'context';
+import { LinkComp, ButtonHeader } from 'components/atoms';
 
-import clsx from 'clsx';
 import HeaderWithSearchTool from './components/HeaderWithSearchTool';
 import HeaderWithCart from './components/HeaderWithCart';
 
@@ -75,9 +75,14 @@ const HeaderMobile = memo(({ title = '' }) => {
             />
 
             <div className={styles.div_buttons}>
-              <Button id="loginMobile" variant="contained" btnType="warning" onClick={toggleLogin}>
+              <ButtonHeader
+                id="loginMobile"
+                variant="contained"
+                btnType="warning"
+                onClick={toggleLogin}
+              >
                 Đăng nhập
-              </Button>
+              </ButtonHeader>
             </div>
           </>
         ) : (
@@ -87,7 +92,9 @@ const HeaderMobile = memo(({ title = '' }) => {
                 <Menu />
               </IconButton>
               {router.pathname !== '/quick-order' && (
-                <span className={styles.text}>{title && title} {itemCount && `(${itemCount})`}</span>
+                <span className={styles.text}>
+                  {title && title} {itemCount && `(${itemCount})`}
+                </span>
               )}
             </div>
             <div className={styles.rSection}>
