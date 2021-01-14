@@ -101,11 +101,16 @@ export function isValid(resp) {
   return resp && resp.status && resp.status === 'OK';
 }
 
+export function isValidWithData(resp) {
+  return resp && resp.status && resp.status === 'OK' && resp.data && resp.data[0];
+}
+
 export default {
   GET,
   POST,
   PUT,
   DELETE,
   isValid,
+  isValidWithData,
   getSessionToken,
 };
