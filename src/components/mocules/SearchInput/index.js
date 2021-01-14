@@ -45,7 +45,6 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
           }}
           async
           onChange={handleSearchbox}
-          disable
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

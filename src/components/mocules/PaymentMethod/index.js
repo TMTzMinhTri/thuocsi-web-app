@@ -11,12 +11,12 @@ import clsx from 'clsx';
 
 import styles from './styles.module.css';
 
-const PaymentMethod = () => {
-  const [selectedValue, setSelectedValue] = React.useState('normal');
-
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+const PaymentMethod = ({ handleChange, selectedValue }) => {
+  // const [selectedValue, setSelectedValue] = React.useState('normal');
+  console.log('ádsadsa');
+  // const handleChange = (event) => {
+  //   setSelectedValue(event.target.value);
+  // };
   return (
     <Paper className={styles.root} elevation={4}>
       <h1 className={styles.title}>Hình thức thanh toán</h1>
@@ -26,7 +26,7 @@ const PaymentMethod = () => {
           aria-label="gender"
           name="gender1"
           value={selectedValue}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e.target.value)}
         >
           <FormControlLabel
             value="cash"

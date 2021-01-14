@@ -50,6 +50,7 @@ export async function getServerSideProps(ctx) {
 
 const CheckoutPage = ({ user = {}, isMobile }) => {
   const title = 'Thuocsi.vn';
+  const [selectedValue, setSelectedValue] = React.useState('cash');
   const [value, setValue] = useState({
     name: user.name || '',
     phone: user.phone || '',
@@ -59,9 +60,15 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
     billProvince: user.provinceCode || 0,
     billWard: user.wardCode || 0,
   });
+
+  const handleChange = (event) => {
+    setSelectedValue(event);
+  };
+
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
   };
+
   return (
     <Template title={title} isMobile={isMobile}>
       <div className={styles.payment_wrapper}>
@@ -69,7 +76,7 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
           <Grid item xs={12} md={8}>
             <DeliveryInfoForm {...value} handleSetValue={handleSetValue} />
             <DeliveryMethod />
-            <PaymentMethod />
+            <PaymentMethod selectedValue={selectedValue} handleChange={handleChange} />
 
             <Paper className={styles.root} elevation={4}>
               <h4>Ghi chú khác</h4>
@@ -86,7 +93,11 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={4}>
-            <CheckoutSticky />
+            <CheckoutSticky
+              selectedValue={selectedValue}
+              // transferValue={transferValue}
+              // totalValue={totalValue || 0}
+            />
           </Grid>
         </Grid>
       </div>

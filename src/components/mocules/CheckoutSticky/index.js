@@ -3,19 +3,35 @@ import { Paper, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
+import { useCart } from 'context';
 import clsx from 'clsx';
+import FormarCurrency from 'utils/FormarCurrency';
 
 import styles from './styles.module.css';
 
-const CheckoutSticky = () => {
+const CheckoutSticky = ({ selectedValue = '' }) => {
+  const { itemCount = 0, total = 0 } = useCart();
+  const [transferValue, setTransferValue] = React.useState(0);
+  const [totalValue, setTotalValue] = React.useState(total);
   const router = useRouter();
+
+  React.useEffect(() => {
+    if (selectedValue === 'transfer') {
+      const transferFee = (total * 5) / 100;
+      setTransferValue(transferFee);
+      const totalRes = total - transferFee;
+      setTotalValue(totalRes);
+    } else {
+      setTransferValue(0);
+      setTotalValue(total);
+    }
+  }, [selectedValue, total]);
 
   return (
     <div className={styles.checkout_sticky}>
       <div className={styles.checkout_title}>
         <h1>
-          Đơn Hàng{' '}
-          <small>(3261 sản phẩm)</small>
+          Đơn Hàng <small>({itemCount} sản phẩm)</small>
         </h1>
         <Button onClick={() => router.push('/cart')} className={styles.btn}>
           Sửa
@@ -24,7 +40,7 @@ const CheckoutSticky = () => {
       <Paper className={styles.root} elevation={4}>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Tạm tính</div>
-          <div className={styles.checkout_content}>0 đ</div>
+          <div className={styles.checkout_content}>{FormarCurrency(total)}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
@@ -32,7 +48,9 @@ const CheckoutSticky = () => {
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước.</div>
-          <div className={styles.checkout_content}>0 đ</div>
+          <div className={styles.checkout_content}>
+            {selectedValue === 'transfer' ? `-${FormarCurrency(transferValue)}` : FormarCurrency(transferValue)}
+          </div>
         </div>
         <div className={clsx(styles.d_flex, styles.checkout_promo_code)}>
           <div>
@@ -43,7 +61,7 @@ const CheckoutSticky = () => {
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Thành tiền</div>
-          <div className={styles.total}>0 đ</div>
+          <div className={styles.total}>{FormarCurrency(totalValue)}</div>
         </div>
       </Paper>
 
