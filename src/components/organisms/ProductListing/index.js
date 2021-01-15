@@ -191,7 +191,7 @@ export default function ProductListing({
               <Typography className="product_title" variant="h4" component="h1">
                 {name && name}
               </Typography>
-              <SearchResultText total={total} pageSize={PAGE_SIZE} page={page} pages={pages} />
+              <SearchResultText total={total} page={page} pages={pages} />
             </div>
             <div>
               <div className={styles.filters}>
