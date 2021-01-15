@@ -1,7 +1,8 @@
-import GetQuantityProduct from 'utils/GetQuantityProduct';
+import GetQuantityProductFromCart from 'utils/GetQuantityProductFromCart';
 import { PRODUCT_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
 import CartClient from './CartClient';
+import { PAGE_SIZE } from '../constants/data';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
@@ -56,16 +57,16 @@ async function loadDataProduct(ctx) {
   const curentTab = ctx.query.current_tab ? ctx.query.current_tab : '';
   const sortBy = ctx.query.sortBy ? ctx.query.sortBy : '';
   const q = ctx.query.q ? ctx.query.q : '';
-  const url = `/marketplace/product/v1/products/list?current_tab=${curentTab}&sortBy=${sortBy}&q=${q}`;
+  const page = ctx.query.page - 1 || 0;
+  const url = `/marketplace/product/v1/products/list?&current_tab=${curentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}&q=${q}`;
   const result = await GET({
     url,
     ctx,
-    isAuth: true,
-    isBasic: true,
   });
+  console.log('result', result);
   if (!isValid(result)) return result;
   let cart = {};
-  let productListWithPrice = {};
+  let productListWithQuantityInCart = {};
   try {
     cart = await CartClient.loadDataCart(ctx);
   } catch (error) {
@@ -78,12 +79,12 @@ async function loadDataProduct(ctx) {
     for (const item of cart[0].cartItems) {
       cartObject[item.sku] = item;
     }
-    productListWithPrice = GetQuantityProduct(result, cartObject);
+    productListWithQuantityInCart = GetQuantityProductFromCart(result, cartObject);
   } else {
-    productListWithPrice = result.data || [];
+    productListWithQuantityInCart = result || [];
   }
 
-  return productListWithPrice;
+  return productListWithQuantityInCart;
 }
 // TODO  @dat.le
 async function loadDataIngredient(ctx) {

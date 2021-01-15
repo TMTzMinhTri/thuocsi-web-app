@@ -1,5 +1,6 @@
 import { CATEGORY_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
+import { PAGE_SIZE } from '../constants/data';
 
 async function loadBrand(ctx) {
   const res = await GET({ url: CATEGORY_API.BRAND, ctx });
@@ -17,7 +18,7 @@ async function loadGroup(ctx) {
 }
 async function loadCategoryInfoBySlug(ctx) {
   const { query } = ctx;
-  const res = await GET({ url: `${CATEGORY_API.CATEGORY_INFO}?q=${query.slug}`, ctx });
+  const res = await GET({ url: `${CATEGORY_API.CATEGORY_INFO}?q=${query.slug || ''}`, ctx });
   if (!isValid(res)) {
     return [];
   }
@@ -25,15 +26,19 @@ async function loadCategoryInfoBySlug(ctx) {
 }
 async function loadProductWithCategory(ctx) {
   const { query } = ctx;
-  const res = await GET({ url: `${CATEGORY_API.PRODUCT_LIST}?category=${query.slug}&current_tab=${query.current_tab}&sortBy=${query.sortBy}`, ctx });
+  const page = query.page - 1 || 0;
+  const slug = query.slug || '';
+  const currentTab = query.current_tab || '';
+  const sortBy = query.sortBy || '';
+  const res = await GET({ url: `${CATEGORY_API.PRODUCT_LIST}?category=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`, ctx });
   if (!isValid(res)) {
     return [];
   }
-  return res.data;
+  return res;
 }
 async function loadManufacturerInfoBySlug(ctx) {
   const { query } = ctx;
-  const res = await GET({ url: `${CATEGORY_API.MANUFACTURER_INFO}?q=${query.slug}`, ctx });
+  const res = await GET({ url: `${CATEGORY_API.MANUFACTURER_INFO}?q=${query.slug || ''}`, ctx });
   if (!isValid(res)) {
     return [];
   }
@@ -41,7 +46,11 @@ async function loadManufacturerInfoBySlug(ctx) {
 }
 async function loadProductWithManufacturer(ctx) {
   const { query } = ctx;
-  const res = await GET({ url: `${CATEGORY_API.PRODUCT_LIST}?manufacturers=${query.slug}&current_tab=${query.current_tab}&sortBy=${query.sortBy}`, ctx });
+  const page = query.page - 1 || 0;
+  const slug = query.slug || '';
+  const currentTab = query.current_tab || '';
+  const sortBy = query.sortBy || '';
+  const res = await GET({ url: `${CATEGORY_API.PRODUCT_LIST}?manufacturers=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`, ctx });
   if (!isValid(res)) {
     return [];
   }

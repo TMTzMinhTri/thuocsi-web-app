@@ -27,7 +27,7 @@ const BRAND = `${CATEGORY_API_PREFIX}/manufacturers/list`;
 const GROUP = `${CATEGORY_API_PREFIX}/category/list`;
 const CATEGORY_INFO = `${CATEGORY_API_PREFIX}/categories/info`;
 const MANUFACTURER_INFO = `${CATEGORY_API_PREFIX}/manufacturers/info`;
-const PRODUCT_LIST = `${CATEGORY_API_PREFIX}/product/list`;
+const PRODUCT_LIST = `${CATEGORY_API_PREFIX}/products/list`;
 export const CATEGORY_API = {
   BRAND,
   GROUP,

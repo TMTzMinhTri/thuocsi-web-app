@@ -334,3 +334,5 @@ export const customerFeedbackData = [
       'Chị biết và đặt thuocsi được hơn 1 năm, chị có thể dễ dàng xem giá các thuốc và cân chỉnh đơn hàng ngoài ra mỗi ngày đều có sản phẩm mới giúp nhà thuốc đa dạng hơn danh mục hàng.',
   },
 ];
+
+export const PAGE_SIZE = 20;
