@@ -63,7 +63,6 @@ async function loadDataProduct(ctx) {
     url,
     ctx,
   });
-  console.log('result', result);
   if (!isValid(result)) return result;
   let cart = {};
   let productListWithQuantityInCart = {};
