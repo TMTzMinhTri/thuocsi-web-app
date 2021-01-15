@@ -6,7 +6,7 @@ import CatClient from 'clients/CatClient';
 export async function getServerSideProps(ctx) {
   const [products, catInfo, brand, group] = await Promise.all([
     CatClient.loadProductWithManufacturer(ctx),
-    CatClient.loadCategoryInfoBySlug(ctx),
+    CatClient.loadManufacturerInfoBySlug(ctx),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
   ]);
