@@ -65,7 +65,7 @@ const SignUpForm = React.memo((props) => {
     </InputAdornment>
   );
   const IconInviter = (
-    <InputAdornment>
+    <InputAdornment position="start">
       <PeopleIcon />
     </InputAdornment>
   );

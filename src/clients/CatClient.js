@@ -17,7 +17,8 @@ async function loadGroup(ctx) {
 }
 async function loadCategoryInfoBySlug(ctx) {
   const { query } = ctx;
-  const res = await GET({ url: `${CATEGORY_API.CATEGORY_INFO}?q=${query.slug}`, ctx });
+  const url = `${CATEGORY_API.CATEGORY_INFO}?q=${query.slug}`;
+  const res = await GET({ url, ctx });
   if (!isValid(res)) {
     return [];
   }
@@ -25,7 +26,11 @@ async function loadCategoryInfoBySlug(ctx) {
 }
 async function loadProductWithCategory(ctx) {
   const { query } = ctx;
-  const res = await GET({ url: `${CATEGORY_API.PRODUCT_LIST}?category=${query.slug}&current_tab=${query.current_tab}&sortBy=${query.sortBy}`, ctx });
+  const url = `${CATEGORY_API.PRODUCT_LIST}?category=${query.slug}&current_tab=${query.current_tab}&sortBy=${query.sortBy}`;
+  const res = await GET({
+    url,
+    ctx,
+  });
   if (!isValid(res)) {
     return [];
   }
@@ -33,7 +38,8 @@ async function loadProductWithCategory(ctx) {
 }
 async function loadManufacturerInfoBySlug(ctx) {
   const { query } = ctx;
-  const res = await GET({ url: `${CATEGORY_API.MANUFACTURER_INFO}?q=${query.slug}`, ctx });
+  const url = `${CATEGORY_API.MANUFACTURER_INFO}?q=${query.slug}`;
+  const res = await GET({ url, ctx });
   if (!isValid(res)) {
     return [];
   }
@@ -41,7 +47,11 @@ async function loadManufacturerInfoBySlug(ctx) {
 }
 async function loadProductWithManufacturer(ctx) {
   const { query } = ctx;
-  const res = await GET({ url: `${CATEGORY_API.PRODUCT_LIST}?manufacturers=${query.slug}&current_tab=${query.current_tab}&sortBy=${query.sortBy}`, ctx });
+  const url = `${CATEGORY_API.PRODUCT_LIST}?manufacturers=${query.slug}&current_tab=${query.current_tab}&sortBy=${query.sortBy}`;
+  const res = await GET({
+    url,
+    ctx,
+  });
   if (!isValid(res)) {
     return [];
   }
