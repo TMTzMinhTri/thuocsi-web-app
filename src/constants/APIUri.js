@@ -25,9 +25,13 @@ export const CUSTOMER_API = {
 const CATEGORY_API_PREFIX = '/marketplace/product/v1';
 const BRAND = `${CATEGORY_API_PREFIX}/manufacturers/list`;
 const GROUP = `${CATEGORY_API_PREFIX}/category/list`;
+const CATEGORY_INFO = `${CATEGORY_API_PREFIX}/categories/info`;
+const PRODUCT_LIST = `${CATEGORY_API_PREFIX}/product/list`;
 export const CATEGORY_API = {
   BRAND,
   GROUP,
+  PRODUCT_LIST,
+  CATEGORY_INFO,
 };
 
 const CONTENT_API_PREFIX = '/marketplace/content/v1';
