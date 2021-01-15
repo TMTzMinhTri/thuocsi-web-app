@@ -23,7 +23,7 @@ import clsx from 'clsx';
 import { SearchResultText } from 'components/mocules';
 import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
 
-import { SORT_PRODUCT, TAB_LIST } from '../../../constants/data';
+import { SORT_PRODUCT, TAB_LIST, PAGE_SIZE } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './style.module.css';
 
@@ -37,12 +37,11 @@ export default function ProductListing({
   slug = '',
   catName = '',
   name = '',
+  total,
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
-  const count = products.length;
-  const pageSize = 20;
-  const pages = Math.ceil(count / pageSize);
+  const pages = Math.ceil(total / PAGE_SIZE);
   const router = useRouter();
   const pathName = `/${catName}/${slug}`;
 
@@ -192,7 +191,7 @@ export default function ProductListing({
               <Typography className="product_title" variant="h4" component="h1">
                 {name && name}
               </Typography>
-              <SearchResultText count={count} pageSize={pageSize} page={page} pages={pages} />
+              <SearchResultText total={total} page={page} pages={pages} />
             </div>
             <div>
               <div className={styles.filters}>
