@@ -54,7 +54,7 @@ async function loadProductWithManufacturer(ctx) {
   if (!isValid(res)) {
     return [];
   }
-  return res.data;
+  return res;
 }
 export default {
   loadBrand,
