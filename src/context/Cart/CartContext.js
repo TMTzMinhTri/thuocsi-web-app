@@ -21,6 +21,15 @@ export const CartContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  const updateCart = async () => {
+    try {
+      const response = await CartClient.loadDataCart();
+      dispatch({ type: 'FETCH_SUCCESS', payload: response[0] || [] });
+    } catch (error) {
+      dispatch({ type: 'FETCH_ERROR' });
+    }
+  };
+
   const updateCartItem = async (payload) => {
     const res = await CartClient.updateCartItem(payload);
     if (isValid(res)) {
@@ -104,6 +113,7 @@ export const CartContextProvider = ({ children }) => {
     increaseBy,
     addImportant,
     removeImportant,
+    updateCart,
     ...state,
   };
 

@@ -1,10 +1,12 @@
 import React, { memo, useState, useEffect } from 'react';
-import { Modal, Input, Button } from 'components/atoms';
+import { Modal } from 'components/atoms';
 import { Grid, Divider } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import styled from 'styled-components';
+import { PromoClient } from 'clients';
 import CartCouponCard from '../CartCouponCard';
 import styles from './style.module.css';
+import Button from './Button';
+import Input from './Input';
 
 const TEXT_DEFAULT = '';
 
@@ -13,27 +15,11 @@ const searchString = (arr, str) => {
   return result;
 };
 
-const FindButton = ({ className }) => <Button className={className}> Tìm </Button>;
-
-const StyledButton = styled(FindButton)`
-  color: #fff !important;
-  background-color: #17a2b8 !important;
-  border: 1px solid #17a2b8 !important;
-  border-radius: 0 !important;
-  margin-right: 0 !important;
-  margin-top: 16px !important;
-`;
-
-const StyledInput = styled(Input)`
-  padding: 0 0 0 10px !important;
-  height: calc(1.75em + 0.5rem + 2px);
-  border-radius: 0 !important;
-`;
-
 const PromoListModal = memo((props) => {
-  const { onClose, visible, className, restProps, promos, handleChangePromo, promo } = props;
+  const { onClose, visible, className, restProps, redeemCode, handleChangePromo } = props;
   const [text, setText] = useState(TEXT_DEFAULT);
   const [promoSearchs, setPromoSearchs] = useState([]);
+  const [promos, setPromos] = useState([]);
 
   const handleChangeText = (e) => {
     setText(e.target.value);
@@ -42,8 +28,13 @@ const PromoListModal = memo((props) => {
     setText(TEXT_DEFAULT);
   };
   useEffect(() => {
-    setPromoSearchs(promos);
-  }, [promos]);
+    async function fetchData() {
+      const data = await PromoClient.getPromos();
+      setPromos(data);
+      setPromoSearchs(data);
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const prms = searchString(promos, text);
@@ -56,12 +47,8 @@ const PromoListModal = memo((props) => {
         <Divider />
         <Grid container>
           <Grid item xs={10}>
-            <StyledInput
-              endAdornment={
-                text === '' ? null : (
-                  <CloseIcon onClick={handleRemoveText} />
-                )
-              }
+            <Input
+              endAdornment={text === '' ? null : <CloseIcon onClick={handleRemoveText} />}
               placeholder="Nhập mã cần tìm"
               value={text}
               onChange={handleChangeText}
@@ -69,14 +56,18 @@ const PromoListModal = memo((props) => {
           </Grid>
 
           <Grid item xs={2}>
-            <StyledButton />
+            <Button />
           </Grid>
         </Grid>
         <div className={styles.counpon_list}>
           <Grid container spacing={1}>
             {promoSearchs.map((pro) => (
               <Grid item key={pro.code}>
-                <CartCouponCard {...pro} handleChangePromo={handleChangePromo} promo={promo} />
+                <CartCouponCard
+                  {...pro}
+                  redeemCode={redeemCode}
+                  handleChangePromo={handleChangePromo}
+                />
               </Grid>
             ))}
           </Grid>

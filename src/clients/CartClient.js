@@ -22,8 +22,17 @@ async function removeCartItem(data) {
   };
   return PUT({ url: '/marketplace/order/v1/cart/remove', body });
 }
+
+async function updateRedeemCode(code) {
+  const body = {
+    redeemCode: code,
+  };
+  const data = await PUT({ url: '/marketplace/order/v1/cart', body });
+  console.log(data);
+}
 export default {
   loadDataCart,
   updateCartItem,
   removeCartItem,
+  updateRedeemCode,
 };

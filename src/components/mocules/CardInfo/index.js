@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid, Typography, IconButton } from '@material-ui/core';
 import { LocalOffer } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
 import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
-import { PromoClient } from 'clients';
+import { CartClient } from 'clients';
 import { LinkComp } from '../../atoms';
 import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
@@ -18,35 +18,23 @@ const DeleteIconButton = (props) => (
   </IconButton>
 );
 
-const CardInfo = ({ cart, promo: pr, className }) => {
-  const { itemCount, total } = useCart();
+const CardInfo = ({ cart, promo, className }) => {
+  const { itemCount, total, updateCart, redeemCode } = useCart();
   const [promoVisible, setPromoVisible] = useState(false);
-  const [promos, setPromos] = useState([]);
-  const [promo, setPromo] = useState(PROMO_CODE_DEFAULT);
   const handleSetPromoVisible = () => {
     setPromoVisible(!promoVisible);
   };
 
-  const handleChangePromo = (value) => {
-    setPromo(value);
+  const handleRemoveRedeemCode = async () => {
+    await CartClient.updateRedeemCode(PROMO_CODE_DEFAULT);
+    updateCart();
+  };
+
+  const handleChangePromo = async (code) => {
     setPromoVisible(false);
+    await CartClient.updateRedeemCode(code);
+    updateCart();
   };
-
-  const handleRemovePromo = () => {
-    setPromo(PROMO_CODE_DEFAULT);
-  };
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = await PromoClient.getPromos();
-      setPromos(data);
-      const isHavePromo = data.filter((dt) => dt.isUsed);
-      if (isHavePromo) {
-        setPromo(isHavePromo[0].code);
-      }
-    }
-    fetchData();
-  }, []);
 
   return (
     <Grid className={clsx(styles.container, className)} container>
@@ -66,13 +54,13 @@ const CardInfo = ({ cart, promo: pr, className }) => {
           </Typography>
         </Grid>
       </Grid>
-      {pr && (
+      {promo && (
         <Grid className={clsx(styles.wrapper, styles.promo_border)} xs={12} container item>
           <LocalOffer className={styles.icon_promo} />
           <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
-            {promo || 'Dùng mã khuyến mãi'}
+            {redeemCode || 'Dùng mã khuyến mãi'}
           </Typography>
-          {promo ? <DeleteIconButton onClick={handleRemovePromo} /> : <div />}
+          {redeemCode ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
         </Grid>
       )}
       <Grid className={styles.wrapper} xs={12} container item>
@@ -89,9 +77,7 @@ const CardInfo = ({ cart, promo: pr, className }) => {
       <PromoListModal
         visible={promoVisible}
         onClose={handleSetPromoVisible}
-        promos={promos}
         handleChangePromo={handleChangePromo}
-        promo={promo}
       />
     </Grid>
   );

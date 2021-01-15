@@ -1,48 +1,20 @@
 import { Card, Grid } from '@material-ui/core';
-import { Button } from 'components/atoms';
 import Image from 'next/image';
 import { PROMO_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE } from 'constants/Images';
 import clsx from 'clsx';
-import styled from 'styled-components';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
-
-const StyledUseButton = styled(Button)`
-  margin-top: 20px !important;
-  margin-left: 22px !important;
-  text-transform: none !important;
-  color: #00b46e !important;
-  border: 1px solid #00b46e !important;
-  background: transparent !important;
-  padding: 4px 10px !important;
-  transition: 0.5s;
-  &:hover {
-    color: #fff !important;
-    background-color: #00b46e !important;
-    border-color: #00b46e !important;
-  }
-`;
-
-const StyledUsedButton = styled(Button)`
-  margin-top: 20px !important;
-  margin-left: 22px !important;
-  text-transform: none !important;
-  color: #fff !important;
-  background-color: #00b46e !important;
-  border: 1px solid #00b46e !important;
-  padding: 4px 10px !important;
-  transition: 0.5s;
-  opacity: 0.65;
-`;
+import UsedButton from './UsedButton';
+import UseButton from './UseButton';
 
 const CartCounponCard = ({
-  code = '',
+  promotionId = 0,
   description = '',
   value = '',
   type = PROMO_TYPE.COMBO,
   remain = '',
-  promo = '',
+  redeemCode = '',
   handleChangePromo,
 }) => (
   <Card
@@ -86,14 +58,14 @@ const CartCounponCard = ({
 
       <Grid item xs={4} container direction="column" AlignItems="center">
         <Grid item className={styles.code}>
-          {code}
+          {promotionId}
         </Grid>
 
         <Grid item>
-          {code === promo ? (
-            <StyledUsedButton> Đang dùng </StyledUsedButton>
+          {String(promotionId) === String(redeemCode) ? (
+            <UsedButton> Đang dùng </UsedButton>
           ) : (
-            <StyledUseButton onClick={() => handleChangePromo(code)}>Dùng ngay</StyledUseButton>
+            <UseButton onClick={() => handleChangePromo(String(promotionId))}>Dùng ngay</UseButton>
           )}
         </Grid>
       </Grid>
