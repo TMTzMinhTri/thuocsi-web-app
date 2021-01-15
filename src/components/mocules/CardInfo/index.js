@@ -29,12 +29,11 @@ const CardInfo = ({ cart, promo, className }) => {
   const handleRemoveRedeemCode = async () => {
     try {
       const res = await CartClient.updateRedeemCode(PROMO_CODE_DEFAULT);
-      if (isValid(res)) throw Error('Xoá mã giảm giá không thành công');
+      if (!isValid(res)) throw new Error(res.messsage);
       updateCart();
       NotifyUtils.success('Xoá mã giảm giá thành công');
     } catch (error) {
-      if (error?.message) NotifyUtils.error(error.message);
-      else NotifyUtils.error('Xoá mã giảm giá không thành công');
+      NotifyUtils.error(error?.message || 'Xoá mã giảm giá không thành công');
     }
   };
 
@@ -42,12 +41,11 @@ const CardInfo = ({ cart, promo, className }) => {
     setPromoVisible(false);
     try {
       const res = await CartClient.updateRedeemCode(code);
-      if (!isValid(res)) throw Error('Xoá mã giảm giá không thành công');
+      if (!isValid(res)) throw new Error(res.messsage);
       updateCart();
       NotifyUtils.success('Thêm mã giảm giá thành công');
     } catch (error) {
-      if (error?.message) NotifyUtils.error(error.message);
-      else NotifyUtils.error('Xoá mã giảm giá không thành công');
+      NotifyUtils.error(error?.message || 'Xoá mã giảm giá không thành công');
     }
   };
 
