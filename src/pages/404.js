@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const Error404 = ({ className }) => (
   <Container className={`${className}`}>
-    <Grid container>
+    <Grid container style={{ width: '100%' }}>
       <Grid item container xs={12}>
         <Grid align="center" item xs={12}>
           <Image height="100px" width="100px" src="/images/logo_thuocsi_2.png" />
@@ -54,6 +54,7 @@ const StyledError404 = styled(Error404)`
   }
   padding: 100px 150px 0 150px !important;
   background-color: #f4f7fc !important;
+  max-width: 100%;
 
   .boldText {
     font-weight: 500;
