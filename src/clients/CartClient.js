@@ -27,8 +27,7 @@ async function updateRedeemCode(code) {
   const body = {
     redeemCode: code,
   };
-  const data = await PUT({ url: '/marketplace/order/v1/cart', body });
-  console.log(data);
+  return PUT({ url: '/marketplace/order/v1/cart', body });
 }
 export default {
   loadDataCart,

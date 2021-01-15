@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
 import { CartClient } from 'clients';
+import { NotifyUtils } from 'utils';
 import { LinkComp } from '../../atoms';
 import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
@@ -26,14 +27,24 @@ const CardInfo = ({ cart, promo, className }) => {
   };
 
   const handleRemoveRedeemCode = async () => {
-    await CartClient.updateRedeemCode(PROMO_CODE_DEFAULT);
-    updateCart();
+    try {
+      await CartClient.updateRedeemCode(PROMO_CODE_DEFAULT);
+      updateCart();
+      NotifyUtils.success('Xoá mã giảm giá thành công');
+    } catch (error) {
+      NotifyUtils.error('Xoá mã giảm giá không thành công');
+    }
   };
 
   const handleChangePromo = async (code) => {
     setPromoVisible(false);
-    await CartClient.updateRedeemCode(code);
-    updateCart();
+    try {
+      await CartClient.updateRedeemCode(code);
+      updateCart();
+      NotifyUtils.success('Thêm mã giảm giá thành công');
+    } catch (error) {
+      NotifyUtils.error('Thêm mã giảm giá không thành công');
+    }
   };
 
   return (
