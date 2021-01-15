@@ -15,9 +15,11 @@ export async function getServerSideProps(ctx) {
   const sortBy = ctx.query.sortBy || '';
   const page = Number(ctx.query.page) || 1;
   const slug = ctx.query.slug || '';
+  const { data = [], total = 0 } = products;
   return {
     props: {
-      products,
+      products: data,
+      total,
       current_tab,
       page,
       sortBy,
@@ -29,7 +31,8 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Products({
-  products = [],
+  products,
+  total,
   brand = [],
   group = [],
   current_tab = '',
@@ -52,6 +55,7 @@ export default function Products({
     <Template title={title} isMobile={isMobile} pageName={cat}>
       <ProductListing
         products={products}
+        total={total}
         brand={brand}
         group={group}
         current_tab={current_tab}

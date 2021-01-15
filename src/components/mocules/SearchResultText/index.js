@@ -1,29 +1,30 @@
 import React from 'react';
 import styles from './style.module.css';
+import { PAGE_SIZE } from '../../../constants/data';
 
-export default function SearchResultText({ count = [], pageSize = [], page = [], pages = [] }) {
+export default function SearchResultText({ total = [], page = [], pages = [] }) {
   const number = () => {
-    if (page === 1) {
+    if (pages === 1) {
       return ({
         firstNum: 1,
-        lastNum: count,
+        lastNum: total,
       });
     }
-    if (page === pages) {
+    if (pages === page) {
       return ({
-        firstNum: (page - 1) * pageSize + 1,
-        lastNum: count,
+        firstNum: (page - 1) * PAGE_SIZE + 1,
+        lastNum: total,
       });
     }
     return ({
-      firstNum: (page - 1) * pageSize + 1,
-      lastNum: (page - 1) * pageSize + pageSize,
+      firstNum: (page - 1) * PAGE_SIZE + 1,
+      lastNum: (page - 1) * PAGE_SIZE + PAGE_SIZE,
     });
   };
 
   return (
     <div className={styles.search_result}>
-      {count < pageSize
+      {total < PAGE_SIZE
         ? (
           <div>
             Hiển thị <strong>tất cả {number().lastNum}</strong> sản phẩm
@@ -31,7 +32,7 @@ export default function SearchResultText({ count = [], pageSize = [], page = [],
         )
         : (
           <div>
-            Hiển thị <strong>{`${number().firstNum} - ${number().lastNum}`}</strong> trên tổng số <strong>{count}</strong> sản phẩm
+            Hiển thị <strong>{`${number().firstNum} - ${number().lastNum}`}</strong> trên tổng số <strong>{total}</strong> sản phẩm
           </div>
         )}
     </div>
