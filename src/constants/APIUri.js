@@ -61,3 +61,12 @@ export const CORE_API = {
   DISTRICT,
   ADMINISTRATIVE,
 };
+
+// promotion
+// /marketplace/promotion/v1/promotion
+const PROMOTION_API_PREFIX = '/marketplace/promotion/v1';
+const PROMOTION_ALL = `${PROMOTION_API_PREFIX}/promotion`;
+
+export const PROMOTION_API = {
+  PROMOTION_ALL,
+};

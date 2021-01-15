@@ -4,6 +4,11 @@ import { red } from '@material-ui/core/colors';
 // Create a theme instance.
 const Theme = createMuiTheme({
   overrides: {
+    MuiInputAdornment: {
+      positionStart: {
+        margin: 8,
+      },
+    },
     MuiOutlinedInput: {
       root: {
         position: 'relative',

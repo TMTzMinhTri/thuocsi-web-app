@@ -4,10 +4,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
 import { Button, Input, CheckBox } from 'components/atoms';
 import { FormDataUtils, NotifyUtils } from 'utils';
+import { i18n } from 'i18n-lib';
 
-const SignInForm = React.memo((props) => {
+const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClickSignUp }) => {
+  const { t } = i18n.useTranslation();
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickForget, onClickLogin, onClickSignUp } = props;
   const [errorUserName, setErrorUserName] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
@@ -35,6 +36,7 @@ const SignInForm = React.memo((props) => {
     return true;
   };
 
+  // handle login with data
   const handleLogin = (e) => {
     const data = FormDataUtils.convert(e);
     e.preventDefault();
@@ -44,6 +46,7 @@ const SignInForm = React.memo((props) => {
     onClickLogin(data);
   };
 
+  // handle forget password
   const handleClickForget = useCallback(
     (e) => {
       e.preventDefault();
@@ -78,7 +81,7 @@ const SignInForm = React.memo((props) => {
   const IconEndPassword = (
     <InputAdornment>
       <IconButton onClick={handleClickShowPassword}>
-        {showPassword ? <Visibility /> : <VisibilityOff />}
+        {showPassword ? <VisibilityOff /> : <Visibility />}
       </IconButton>
     </InputAdornment>
   );
@@ -103,7 +106,7 @@ const SignInForm = React.memo((props) => {
             type={showPassword ? 'text' : 'password'}
             startAdornment={IconPassword}
             endAdornment={IconEndPassword}
-            placeholder="Nhập Mật khẩu"
+            placeholder="Nhập mật khẩu"
             variant="outlined"
             error={errorPassword}
           />
@@ -113,17 +116,17 @@ const SignInForm = React.memo((props) => {
         </div>
         <div className="forgetPassword">
           <a href="/" className="forgetPassword" onClick={handleClickForget}>
-            Quên mật khẩu
+            {t('forget_password')}
           </a>
         </div>
         <Button className="btnLogin" color="white" type="submit">
-          Đăng nhập
+          {t('login')}
         </Button>
         <div className="register">
           <span className="text-capitalize">
             Để nhận Ưu đãi hấp dẫn,{' '}
             <a href="#top" style={{ color: '#f9b514', padding: '2px' }} onClick={handleClickSignUp}>
-              đăng ký thành viên
+              <strong>Đăng ký thành viên</strong>
             </a>
           </span>
         </div>

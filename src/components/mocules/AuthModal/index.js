@@ -5,7 +5,6 @@ import AuthModalCustom from './AuthModal';
 const AuthModal = styled(AuthModalCustom)`
   .auth-modal {
     &-content {
-      font-size: 13px;
       position: relative;
       width: ${({ width = 500 }) => width}px;
       background: ${({ theme }) => theme.modal.background};

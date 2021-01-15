@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, TextareaAutosize, Button } from '@material-ui/core';
 import { Star, Info } from '@material-ui/icons';
+import { NotifyUtils } from 'utils';
+import { CartClient, isValid } from 'clients';
+import { useCart } from 'context';
 import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
 const ProductCartList = (props) => {
   const { products } = props;
+  const { note: noteC, updateCart } = useCart();
+  const [note, setNote] = useState(noteC);
 
+  const handleChangeNote = (e) => {
+    setNote(e.target.value);
+  };
+  const handleUpdateNote = async () => {
+    try {
+      const res = await CartClient.updateNote(note);
+      if (!isValid(res)) throw new Error(res.messsage);
+      updateCart();
+      NotifyUtils.success('Cập nhật ghi chú thành công');
+    } catch (error) {
+      NotifyUtils.error(error?.message || 'Cập nhật ghi chú thất bại');
+    }
+  };
   return (
     <>
       <Box className={styles.instruction_text}>
@@ -18,11 +36,7 @@ const ProductCartList = (props) => {
       </Box>
       <Box mb={2}>
         {products.map((item) => (
-          <ProductCart
-            key={`product-cart-${item.sku}`}
-            product={item}
-            name={`cart-${item.sku}`}
-          />
+          <ProductCart key={`product-cart-${item.sku}`} product={item} name={`cart-${item.sku}`} />
         ))}
       </Box>
       <Box className={styles.instruction_text}>
@@ -48,9 +62,11 @@ const ProductCartList = (props) => {
           aria-label="Ghi chú của khách hàng"
           placeholder="Ghi chú của khách hàng"
           rowsMax={4}
+          value={note}
+          onChange={handleChangeNote}
         />
         <Box mt={2} display="flex" justifyContent="flex-end">
-          <Button className={styles.btn}>Cập nhật ghi chú</Button>
+          <Button className={styles.btn} onClick={handleUpdateNote}>Cập nhật ghi chú</Button>
         </Box>
       </Box>
     </>

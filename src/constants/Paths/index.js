@@ -9,6 +9,7 @@ export const DISPUTE_RESOLUTION_URL = '/dispute-resolution';
 export const TERMS_URL = '/terms-and-condition';
 export const REGULATIONS_URL = '/regulations';
 export const QUICK_ORDER = '/quick-order';
+export const PRODUCT = '/products';
 
 // SUB DOMAIN
 export const PATH_NEWS = 'https://news.thuocsi.vn';

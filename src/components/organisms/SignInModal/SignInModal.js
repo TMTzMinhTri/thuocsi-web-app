@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from 'context';
-import { AuthClient, isValid } from 'clients';
+import { AuthClient, isValidWithData } from 'clients';
 import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
 import { i18n } from 'i18n-lib';
-import { AuthModal, SignInForm } from '../../mocules';
+import { AuthModal, SignInForm } from 'components/mocules';
+import { QUICK_ORDER } from 'constants/Paths';
 
-const SignInModal = React.memo((props) => {
-  const { className, visible, onClose, onChangeForget, onChangeSignUp, t } = props;
+const SignInModal = ({ className, visible, onClose, onChangeForget, onChangeSignUp, t }) => {
   const [hasAlert, setHasAlert] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -19,20 +19,21 @@ const SignInModal = React.memo((props) => {
 
     AuthClient.login(data)
       .then((result) => {
-        if (!isValid(result)) {
+        if (!isValidWithData(result)) {
           const errorCode = `login.${result.errorCode}`;
           NotifyUtils.error(t(errorCode));
           return;
         }
+
         NotifyUtils.success(t('login.success'));
-        const userInfo = result.data[0];
+        const userInfo = result?.data[0];
         login(userInfo, rememberMe === '');
 
         // redirect to quick-order - when login success
-        router.push('/quick-order');
+        router.push(QUICK_ORDER);
       })
       .catch((error) => {
-        NotifyUtils.error('Đã có lỗi xảy ra');
+        NotifyUtils.error(t('error'));
         setHasAlert(`Đã có lỗi xảy ra ${error}`);
       })
       .finally(() => {
@@ -57,6 +58,6 @@ const SignInModal = React.memo((props) => {
       />
     </AuthModal>
   );
-});
+};
 
-export default i18n.withTranslation('apiErrors')(SignInModal);
+export default i18n.withTranslation('apiErrors')(React.memo(SignInModal));

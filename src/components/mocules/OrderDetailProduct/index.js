@@ -9,7 +9,9 @@ import {
   Grid,
 } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
+import { LinkComp } from 'components/atoms';
 import { FormarCurrency } from 'utils';
+import { PRODUCT } from 'constants/Paths';
 import styles from './styles.module.css';
 
 const OrderDetailProduct = ({ products, promo }) => {
@@ -44,7 +46,13 @@ const OrderDetailProduct = ({ products, promo }) => {
                 <img src={product.image} alt={product.name} width={50} height={30} />
               </TableCell>
               <TableCell align="left" className={styles.product_name}>
-                {product.name}
+                <LinkComp
+                  variant="h5"
+                  href={`${PRODUCT}/${product.slug || product.name}`}
+                  className={styles.product_name}
+                >
+                  {product.name}
+                </LinkComp>
               </TableCell>
               <TableCell align="center" className={styles.product_price}>
                 {`${product.quantity} x ${FormarCurrency(product.price)}`}
