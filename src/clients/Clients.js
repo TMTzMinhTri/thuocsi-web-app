@@ -37,7 +37,6 @@ async function request(props) {
    */
 
     const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
-    console.log(link);
     let isUseBasic = false;
     if (isAuth) {
       if (ctx) {
