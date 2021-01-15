@@ -31,9 +31,27 @@ async function loadProductWithCategory(ctx) {
   }
   return res.data;
 }
+async function loadManufacturerInfoBySlug(ctx) {
+  const { query } = ctx;
+  const res = await GET({ url: `${CATEGORY_API.MANUFACTURER_INFO}?q=${query.slug}`, ctx });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+}
+async function loadProductWithManufacturer(ctx) {
+  const { query } = ctx;
+  const res = await GET({ url: `${CATEGORY_API.PRODUCT_LIST}?manufacturers=${query.slug}&current_tab=${query.current_tab}&sortBy=${query.sortBy}`, ctx });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+}
 export default {
   loadBrand,
   loadGroup,
   loadProductWithCategory,
   loadCategoryInfoBySlug,
+  loadManufacturerInfoBySlug,
+  loadProductWithManufacturer,
 };
