@@ -56,7 +56,7 @@ const MyApp = (props) => {
                 <NotiContextProvider>
                   <Component {...pageProps} />
                 </NotiContextProvider>
-                <ToastContainer />
+                <ToastContainer limit={6} />
               </CartContextProvider>
             </LoadingRoute>
           </AuthProvider>

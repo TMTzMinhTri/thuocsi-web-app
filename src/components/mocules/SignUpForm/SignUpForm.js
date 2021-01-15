@@ -120,7 +120,7 @@ const SignUpForm = React.memo((props) => {
             type={showPassword ? 'text' : 'password'}
             startAdornment={IconPassword}
             endAdornment={IconEndPassword}
-            placeholder="Nhập Mật khẩu (bắt buộc)"
+            placeholder="Nhập mật khẩu (bắt buộc)"
             variant="outlined"
           />
         </FormControl>

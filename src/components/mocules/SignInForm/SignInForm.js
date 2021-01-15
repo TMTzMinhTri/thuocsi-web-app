@@ -81,7 +81,7 @@ const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClick
   const IconEndPassword = (
     <InputAdornment>
       <IconButton onClick={handleClickShowPassword}>
-        {showPassword ? <Visibility /> : <VisibilityOff />}
+        {showPassword ? <VisibilityOff /> : <Visibility />}
       </IconButton>
     </InputAdornment>
   );
@@ -106,7 +106,7 @@ const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClick
             type={showPassword ? 'text' : 'password'}
             startAdornment={IconPassword}
             endAdornment={IconEndPassword}
-            placeholder="Nhập Mật khẩu"
+            placeholder="Nhập mật khẩu"
             variant="outlined"
             error={errorPassword}
           />
@@ -126,7 +126,7 @@ const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClick
           <span className="text-capitalize">
             Để nhận Ưu đãi hấp dẫn,{' '}
             <a href="#top" style={{ color: '#f9b514', padding: '2px' }} onClick={handleClickSignUp}>
-              {t('register')}
+              <strong>Đăng ký thành viên</strong>
             </a>
           </span>
         </div>
