@@ -6,13 +6,13 @@ import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import useModal from 'hooks/useModal';
 import { useCart, useAuth } from 'context';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { debounce } from 'lodash';
+import debounce from 'utils/debounce';
 import { MinusButton, PlusButton, InputProduct } from '../../atoms';
 import DealSection from '../DealSection';
 import RemoveProductModal from '../../organisms/RemoveProductModal';
 import SignInModal from '../../organisms/SignInModal';
 import ForgetPasswordModal from '../../organisms/ForgetPasswordModal';
+import ErrorQuantityCartModal from '../../organisms/ErrorQuantityCartModal';
 import styles from './styles.module.css';
 
 const ProductCardBuy = ({
@@ -35,7 +35,8 @@ const ProductCardBuy = ({
   const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { isAuthenticated } = useAuth();
   const [isShowModalRemove, toggleRemove] = useModal();
-  const { increase, decrease, removeProduct, increaseBy } = useCart();
+  const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
+  const { updateCartItem, removeCartItem } = useCart();
   const handleChangeForget = useCallback(() => {
     toggleLogin();
     toggleForgetPassword();
@@ -44,43 +45,58 @@ const ProductCardBuy = ({
     toggleRemove();
   };
   const handleRemove = () => {
-    removeProduct(product);
+    removeCartItem(product);
   };
+
+  const updateCart = async (q) => {
+    const response = await updateCartItem({ product, q });
+    if (response.status === 'OK') {
+      setValue(q);
+    }
+    if (response.errorCode === 'CART_MAXQUANTITY') {
+      toggleErrorQuantity();
+      setValue(10);
+    }
+  };
+
+  const handleCart = (val, updateType) => {
+    if (updateType === 'remove') {
+      removeCartItem(val);
+      setValue(0);
+    }
+    if (updateType === 'update') {
+      updateCart(val);
+    }
+  };
+
+  const handler = useCallback(
+    debounce((val, updateType) => handleCart(val, updateType), 1500),
+    [],
+  );
+
   const handleDecrease = () => {
     if (value < 2) return;
     const q = value - 1;
     setValue(q);
-    decrease(product);
+    handler(q, 'update');
   };
 
   const handleIncrease = () => {
     const q = value + 1;
     setValue(q);
-    increase(product);
+    handler(q, 'update');
   };
-
-  const handleOnIncreaseBy = (val) => {
-    if (val === '0') {
-      removeProduct(product);
-      return;
-    }
-    increaseBy({ product, q: parseInt(val, 10) });
-    setValue(product.quantity || 0);
-  };
-
-  const handler = useCallback(
-    debounce((val) => handleOnIncreaseBy(val), 2000),
-    [],
-  );
 
   const handleInputChange = (e) => {
-    const curValue = e.target.value || 0;
-    if (/^\d+$/.test(curValue) && curValue < 1000) {
-      setValue(curValue);
-      handler(curValue);
+    const curValue = e.currentTarget.value;
+    setValue(curValue);
+    if (!curValue) {
+      handler(product, 'remove');
+    }
+    if (/^\d+$/.test(curValue) && curValue < 1000 && curValue > 0) {
+      handler(parseInt(curValue, 10), 'update');
     }
   };
-
   return (
     <>
       {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
@@ -186,6 +202,11 @@ const ProductCardBuy = ({
         visible={isShowModalRemove}
         onClose={toggleRemove}
         onRemove={handleRemove}
+      />
+      <ErrorQuantityCartModal
+        product={product}
+        visible={isShowModalErrorQuantity}
+        onClose={toggleErrorQuantity}
       />
     </>
   );

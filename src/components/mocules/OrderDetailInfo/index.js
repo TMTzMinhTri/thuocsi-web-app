@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OrderDetailInfo = ({ name, address, email, phone }) => {
+const OrderDetailInfo = ({ name, address, email, phone, order = {} }) => {
   const classes = useStyles();
   return (
     <div>
@@ -58,20 +58,20 @@ const OrderDetailInfo = ({ name, address, email, phone }) => {
                 Hình thức thanh toán
               </Typography>
               <Typography variant="h6" className={styles.info_value}>
-                Thanh toán tiền mặt khi nhận hàng
+                {order.payment || '(Chưa có)'}
               </Typography>
             </Paper>
           </Grid>
           <Grid item className={styles.info_container}>
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
-                Đơn vị vận chuyển:
+                Đơn vị vận chuyển: {order.delivery || '(Chưa có)'}
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
-                Ngày giao:
+                Ngày giao: {order.delivery_time || '(Chưa có)'}
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
-                Mã vận đơn:
+                Mã vận đơn:{order.code || '(Chưa có)'}
               </Typography>
             </Paper>
           </Grid>
@@ -81,7 +81,7 @@ const OrderDetailInfo = ({ name, address, email, phone }) => {
                 Hình thức thanh toán
               </Typography>
               <Typography variant="h6" className={styles.info_value}>
-                Thanh toán tiền mặt khi nhận hàng
+                {order.payment || '(Chưa có)'}
               </Typography>
             </Paper>
           </Grid>

@@ -2,7 +2,10 @@ import { Card, Grid, Typography } from '@material-ui/core';
 import { Button } from 'components/atoms';
 import Image from 'next/image';
 import { PROMO_TYPE } from 'constants/Enums';
+import { GIFT_IMAGE } from 'constants/Images';
+import { QUICK_ORDER } from 'constants/Paths';
 import clsx from 'clsx';
+import Link from 'next/link';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
@@ -26,14 +29,14 @@ const CounponCard = ({
             <Image
               width={60}
               height={60}
-              src="https://assets.thuocsi.vn/assets/defaults/qua_tang-d6b9623d40a9924ac56d42815f5ed983f93ef06a88ec91c36261bb3bbb222553.jpg"
+              src={GIFT_IMAGE}
             />
           )}
           {type === PROMO_TYPE.GIFT && (
             <Image
               width={60}
               height={60}
-              src="https://assets.thuocsi.vn/assets/defaults/qua_tang-d6b9623d40a9924ac56d42815f5ed983f93ef06a88ec91c36261bb3bbb222553.jpg"
+              src={GIFT_IMAGE}
             />
           )}
           {type === PROMO_TYPE.DISCOUNT && (
@@ -52,7 +55,6 @@ const CounponCard = ({
         <Grid item xs={12}>
           <div className={styles.coupon_description}>
             <Typography variant="h6" style={{ fontSize: 'large' }}>
-              {' '}
               {type === PROMO_TYPE.DISCOUNT && `GIẢM ${value}`}
               {type === PROMO_TYPE.GIFT && value}
             </Typography>
@@ -64,7 +66,7 @@ const CounponCard = ({
         </Grid>
 
         <Grid item xs={12}>
-          <Button className="promo__button"> Đặt hàng ngay</Button>
+          <Link href={QUICK_ORDER}><Button className="promo__button"> Đặt hàng ngay</Button></Link>
         </Grid>
       </Grid>
     </Grid>

@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  Template,
-  NavBar,
-  Header,
-  PromotionProduct } from 'components';
+import { Template, PromotionProduct } from 'components';
 
 import ProductClient from 'clients/ProductClient';
 
@@ -19,13 +15,11 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-const DealsPage = ({ products = [] }) => {
+const DealsPage = ({ products = [], isMobile }) => {
   const title = 'Khuyến mãi – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
 
   return (
-    <Template title={title}>
-      <Header />
-      <NavBar />
+    <Template title={title} isMobile={isMobile}>
       <div className={styles.promo_wrapper}>
         <div className={styles.container}>
           <div className={styles.text_white}>

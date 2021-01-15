@@ -1,21 +1,14 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import {
-  Template,
-  NavBar,
-  Header,
-} from 'components';
+import { Template } from 'components';
 
 import styles from './styles.module.css';
 
-export default function AboutUs(props) {
-  const { mostResearched = [] } = props;
+export default function AboutUs() {
   const title = 'Thuocsi.vn';
 
   return (
     <Template title={title}>
-      <Header {...props} />
-      <NavBar mostResearched={mostResearched} />
       <div className={styles.wrapper}>
         <Grid alignItems="center" spacing={4} container>
           <Grid style={{ margin: '50px 0' }} md={6} xs={12} item>

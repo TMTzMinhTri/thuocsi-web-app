@@ -7,5 +7,7 @@ export { default as AddressClient } from './AddressClient';
 export { default as ContentClient } from './ContentClient';
 export { default as PromoClient } from './PromoClient';
 export { default as SearchClient } from './SearchClient';
+export { default as NotifyClient } from './NotifyClient';
+export { default as CartClient } from './CartClient';
 export * from './Clients';
-export * from './ClientUtils';
+export * from './SsrClient';

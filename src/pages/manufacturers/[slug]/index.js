@@ -1,25 +1,28 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Template, NavBar, Header, ProductListing } from 'components';
-import ProductClient from 'clients/ProductClient';
+import { Template, ProductListing } from 'components';
 import CatClient from 'clients/CatClient';
 
 export async function getServerSideProps(ctx) {
-  const [products, brand, group] = await Promise.all([
-    ProductClient.loadDataProduct(ctx),
+  const [products, catInfo, brand, group] = await Promise.all([
+    CatClient.loadProductWithManufacturer(ctx),
+    CatClient.loadManufacturerInfoBySlug(ctx),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
   ]);
   const current_tab = ctx.query.current_tab || '';
-  const sort = ctx.query.sort || '';
+  const sortBy = ctx.query.sortBy || '';
   const page = Number(ctx.query.page) || 1;
   const slug = ctx.query.slug || '';
+  const { data = [], total = 0 } = products;
   return {
     props: {
-      products,
+      products: data,
+      total,
+      catInfo,
       current_tab,
       page,
-      sort,
+      sortBy,
       brand,
       group,
       slug,
@@ -27,22 +30,33 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-export default function Products({ mostResearched = [], products = [], brand = [], group = [], current_tab = '', page = '', sort = '', slug = '' }) {
+export default function Products({
+  products,
+  catInfo = '',
+  total,
+  brand = [],
+  group = [],
+  current_tab = '',
+  page = '',
+  sortBy = '',
+  slug = '',
+  isMobile,
+}) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'manufacturers';
   return (
-    <Template title={title}>
-      <Header />
-      <NavBar mostResearched={mostResearched} pageName={cat} />
+    <Template title={title} isMobile={isMobile} pageName={cat}>
       <ProductListing
         products={products}
-        brand={brand.status === 'OK' ? brand.data : []}
-        group={group.status === 'OK' ? group.data : []}
+        total={total}
+        brand={brand}
+        group={group}
         current_tab={current_tab}
         page={page}
-        sort={sort}
+        sortBy={sortBy}
         catName={cat}
         slug={slug}
+        name={catInfo && catInfo[0] && catInfo[0].name}
       />
     </Template>
   );

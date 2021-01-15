@@ -19,12 +19,33 @@ export const RIBBON_STATUS = {
 };
 
 export const PROMO_TYPE = {
-  DISCOUNT: 'discount',
-  COMBO: 'combo',
-  GIFT: 'gift',
+  DISCOUNT: 'DISCOUNT',
+  COMBO: 'COMBO',
+  GIFT: 'GIFT',
+  VOUCHERCODE: 'VOUCHERCODE',
+  FREESHIP: 'FREESHIP',
+};
+
+export const PROMOTION_STATUS = {
+  WAITING: 'WAITING',
+  ACTIVE: 'ACTIVE',
+  FULL: 'FULL',
+  EXPIRED: 'EXPIRED',
+  DELETED: 'DELETED',
+};
+
+export const HTTP_STATUS = {
+  Ok: 'OK',
+  Error: 'ERROR',
+  Invalid: 'INVALID',
+  NotFound: 'NOT_FOUND',
+  Forbidden: 'FORBIDDEN',
+  Existed: 'EXISTED',
+  Unauthorized: 'UNAUTHORIZED',
 };
 
 export default {
   ENUM_SCOPE,
   ENUM_TYPE,
+  HTTP_STATUS,
 };

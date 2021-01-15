@@ -15,12 +15,16 @@ export const sumItems = (cartItems) => {
 
 export const CartReducer = (state, action) => {
   const { cartItems } = state;
+
+  const data = action.payload && action.payload.cartItems ? action.payload.cartItems : [];
   switch (action.type) {
     case 'FETCH_SUCCESS':
       return {
         ...state,
-        ...sumItems([...action.payload]),
-        cartItems: [...action.payload],
+        ...sumItems([...data]),
+        cartItems: [...data],
+        redeemCode: action.payload.redeemCode,
+        note: action.payload.note,
         loading: false,
       };
     case 'FETCH_ERROR':
@@ -69,7 +73,7 @@ export const CartReducer = (state, action) => {
       };
     case 'INCREASE_BY':
       // eslint-disable-next-line no-param-reassign
-      if (!cartItems.find((item) => item.sku === action.payload.sku)) {
+      if (!cartItems.find((item) => item.skuId === action.payload.product.skuId)) {
         cartItems.push({
           ...action.payload.product,
           quantity: action.payload.q,
@@ -77,7 +81,7 @@ export const CartReducer = (state, action) => {
       } else {
         // eslint-disable-next-line no-param-reassign
         cartItems[
-          cartItems.findIndex((item) => item.sku === action.payload.sku)
+          cartItems.findIndex((item) => item.skuId === action.payload.product.skuId)
         ].quantity = action.payload.q;
       }
       return {

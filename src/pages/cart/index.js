@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { Template, NavBar, Header, ProductCartList, CardInfo, LinkComp } from 'components';
+import { Template, ProductCartList, CardInfo, LinkComp } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { Button } from 'components/atoms';
-import { useCart } from 'context';
-
+import { useCart, withLogin } from 'context';
+import { doWithServerSide } from 'clients';
 import styles from './style.module.css';
 
-function Cart({ mostResearched = [] }) {
+export async function getServerSideProps(ctx) {
+  return doWithServerSide(ctx, () => ({ props: {} }));
+}
+
+function Cart({ isMobile }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
   const { cartItems } = useCart();
+  const pageName = 'cart';
   return (
-    <Template title={title}>
-      <Header />
-      <NavBar mostResearched={mostResearched} />
+    <Template title={title} isMobile={isMobile} pageName={pageName}>
       <Container className={styles.wrapper} maxWidth="lg">
         {cartItems && cartItems.length > 0 ? (
           <>
@@ -27,10 +30,12 @@ function Cart({ mostResearched = [] }) {
                 {/* san pham  */}
                 <ProductCartList setCartList={setCartList} products={cartItems} />
               </Grid>
-              <Grid sm={4} item>
-                {/* gio hang */}
-                <CardInfo className={styles.card_info} cart promo />
-              </Grid>
+              {!isMobile && (
+                <Grid sm={4} item>
+                  {/* gio hang */}
+                  <CardInfo className={styles.card_info} cart promo />
+                </Grid>
+              )}
             </Grid>
           </>
         ) : (
@@ -55,4 +60,4 @@ function Cart({ mostResearched = [] }) {
   );
 }
 
-export default Cart;
+export default withLogin(Cart);

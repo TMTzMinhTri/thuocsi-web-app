@@ -7,7 +7,7 @@ import App from 'next/app';
 import { ThemeProvider as StyledTheme } from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { AuthProvider, CartContextProvider, ProtectRoute } from 'context';
+import { AuthProvider, CartContextProvider, LoadingRoute, NotiContextProvider } from 'context';
 import { Theme } from 'components';
 
 // Toast
@@ -20,6 +20,8 @@ import { i18n } from 'i18n-lib';
 import '../styles/globals.css';
 import '../styles/icomoon.css';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { MOBILE } from 'constants/Device';
 
 const NAMESPACE_REQUIRED_DEFAULT = 'common';
 
@@ -48,13 +50,15 @@ const MyApp = (props) => {
           {/* Authen */}
           <AuthProvider>
             {/* Protect route */}
-            <ProtectRoute>
+            <LoadingRoute>
               {/* Cart context provider */}
               <CartContextProvider>
-                <Component {...pageProps} />
-                <ToastContainer />
+                <NotiContextProvider>
+                  <Component {...pageProps} />
+                </NotiContextProvider>
+                <ToastContainer limit={6} />
               </CartContextProvider>
-            </ProtectRoute>
+            </LoadingRoute>
           </AuthProvider>
         </StyledTheme>
       </MuiThemeProvider>
@@ -72,9 +76,18 @@ MyApp.propTypes = {
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   const { defaultProps } = appContext.Component;
+  let isMobile = '';
+  try {
+    const UA = appContext.ctx.req.headers['user-agent'];
+    isMobile = Boolean(UA.match(`/${MOBILE}/i`));
+  } catch (error) {
+    isMobile = `can not detect device - ${error}`;
+  }
+
   return {
     ...appProps,
     pageProps: {
+      isMobile: !!isMobile,
       namespacesRequired: [
         ...(appProps.pageProps.namespacesRequired || [NAMESPACE_REQUIRED_DEFAULT]),
         ...(defaultProps?.i18nNamespaces || []),

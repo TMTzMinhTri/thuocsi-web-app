@@ -21,6 +21,7 @@ export async function login(body) {
   return result;
 }
 
+// {username password }
 export async function signUp(body) {
   const result = await POST({ url: CUSTOMER_API.REGISTER, body });
   return result;

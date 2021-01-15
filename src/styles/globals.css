@@ -148,3 +148,16 @@ a {
   top: 0;
   left: 0;
 }
+
+@media (max-width: 640px){
+  .header_user{
+    background-color: transparent;
+  }
+  .header_user_name{
+    display: none;
+  }
+  .header_user_avatar{
+    width: 40px;
+    top: -13px;
+  }
+}

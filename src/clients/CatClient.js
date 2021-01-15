@@ -1,15 +1,76 @@
 import { CATEGORY_API } from 'constants/APIUri';
-import { GET } from './Clients';
+import { GET, isValid } from './Clients';
+import { PAGE_SIZE } from '../constants/data';
 
-async function loadBrand() {
-  const result = await GET({ url: CATEGORY_API.BRAND, mock: true });
-  return result;
+async function loadBrand(ctx) {
+  const res = await GET({ url: CATEGORY_API.BRAND, ctx });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
 }
-async function loadGroup() {
-  const result = await GET({ url: CATEGORY_API.GROUP, mock: true });
-  return result;
+async function loadGroup(ctx) {
+  const res = await GET({ url: CATEGORY_API.GROUP, ctx });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+}
+async function loadCategoryInfoBySlug(ctx) {
+  const { query } = ctx;
+  const url = `${CATEGORY_API.CATEGORY_INFO}?q=${query.slug || ''}`;
+  const res = await GET({ url, ctx });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+}
+async function loadProductWithCategory(ctx) {
+  const { query } = ctx;
+  const page = query.page - 1 || 0;
+  const slug = query.slug || '';
+  const currentTab = query.current_tab || '';
+  const sortBy = query.sortBy || '';
+  const url = `${CATEGORY_API.PRODUCT_LIST}?category=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`;
+  const res = await GET({
+    url,
+    ctx,
+  });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res;
+}
+async function loadManufacturerInfoBySlug(ctx) {
+  const { query } = ctx;
+  const url = `${CATEGORY_API.MANUFACTURER_INFO}?q=${query.slug || ''}`;
+  const res = await GET({ url, ctx });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+}
+async function loadProductWithManufacturer(ctx) {
+  const { query } = ctx;
+  const page = query.page - 1 || 0;
+  const slug = query.slug || '';
+  const currentTab = query.current_tab || '';
+  const sortBy = query.sortBy || '';
+  const url = `${CATEGORY_API.PRODUCT_LIST}?manufacturers=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`;
+  const res = await GET({
+    url,
+    ctx,
+  });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res;
 }
 export default {
   loadBrand,
   loadGroup,
+  loadProductWithCategory,
+  loadCategoryInfoBySlug,
+  loadManufacturerInfoBySlug,
+  loadProductWithManufacturer,
 };
