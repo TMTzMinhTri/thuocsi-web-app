@@ -78,6 +78,7 @@ const CardInfo = ({ cart, promo, className }) => {
         visible={promoVisible}
         onClose={handleSetPromoVisible}
         handleChangePromo={handleChangePromo}
+        redeemCode={redeemCode}
       />
     </Grid>
   );
