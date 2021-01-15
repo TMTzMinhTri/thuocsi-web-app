@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
 import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
-import { CartClient } from 'clients';
+import { CartClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
 import { LinkComp } from '../../atoms';
 import PromoListModal from '../PromoListModal';
@@ -28,7 +28,8 @@ const CardInfo = ({ cart, promo, className }) => {
 
   const handleRemoveRedeemCode = async () => {
     try {
-      await CartClient.updateRedeemCode(PROMO_CODE_DEFAULT);
+      const res = await CartClient.updateRedeemCode(PROMO_CODE_DEFAULT);
+      if (!isValid(res)) throw Error('Xoá mã giảm giá không thành công');
       updateCart();
       NotifyUtils.success('Xoá mã giảm giá thành công');
     } catch (error) {
@@ -39,7 +40,8 @@ const CardInfo = ({ cart, promo, className }) => {
   const handleChangePromo = async (code) => {
     setPromoVisible(false);
     try {
-      await CartClient.updateRedeemCode(code);
+      const res = await CartClient.updateRedeemCode(code);
+      if (!isValid(res)) throw Error('Xoá mã giảm giá không thành công');
       updateCart();
       NotifyUtils.success('Thêm mã giảm giá thành công');
     } catch (error) {
