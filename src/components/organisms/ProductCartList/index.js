@@ -18,11 +18,7 @@ const ProductCartList = (props) => {
       </Box>
       <Box mb={2}>
         {products.map((item) => (
-          <ProductCart
-            key={`product-cart-${item.sku}`}
-            product={item}
-            name={`cart-${item.sku}`}
-          />
+          <ProductCart key={`product-cart-${item.sku}`} product={item} name={`cart-${item.sku}`} />
         ))}
       </Box>
       <Box className={styles.instruction_text}>

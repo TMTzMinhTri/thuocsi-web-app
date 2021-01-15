@@ -23,6 +23,7 @@ export const CartReducer = (state, action) => {
         ...state,
         ...sumItems([...data]),
         cartItems: [...data],
+        redeemCode: action.payload.redeemCode,
         loading: false,
       };
     case 'FETCH_ERROR':
