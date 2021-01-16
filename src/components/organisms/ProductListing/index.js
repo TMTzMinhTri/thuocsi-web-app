@@ -210,7 +210,18 @@ export default function ProductListing({
                         styles.filter_btn,
                       )}
                     >
+
+                      {item.leftIcon && (
+                        <span className={styles.iconLeft}>
+                          {item.leftIcon}
+                        </span>
+                      )}
                       {item.shortName}
+                      {item.rightIcon && (
+                        <span className={styles.iconRight}>
+                          {item.rightIcon}
+                        </span>
+                      )}
                     </Fab>
                   </Link>
                 ))}

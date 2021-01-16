@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBolt, faGift } from '@fortawesome/free-solid-svg-icons';
+
 export const imagePartnerSlider = [
   { id: 1, url: '/images/partner/logo_anthien.jpg', width: '185px', height: '185px' },
   { id: 2, url: '/images/partner/logo_domesco.jpg', width: '185px', height: '185px' },
@@ -221,9 +224,9 @@ export const SORT_PRODUCT = [
   // { label: 'Bán chạy nhất',
   //   value: 'bestsellers',
   // },
-  // { label: 'Phù hợp nhất',
-  //   value: 'best_match',
-  // },
+  { label: 'Phù hợp nhất',
+    value: 'best_match',
+  },
   { label: 'Giá: Cao đến Thấp',
     value: 'price-desc',
   },
@@ -246,10 +249,13 @@ export const TAB_LIST = [
   { label: 'Flash Sale',
     shortName: 'Flash Sale',
     value: 'flash_sale',
+    leftIcon: <FontAwesomeIcon icon={faBolt} />,
+    rightIcon: <FontAwesomeIcon icon={faBolt} />,
   },
   { label: 'Quà khủng, chiết khấu cao',
     shortName: 'Quà khủng, chiết khấu cao',
     value: 'big_gift',
+    leftIcon: <FontAwesomeIcon icon={faGift} />,
   },
   { label: 'Sản phẩm mới',
     shortName: 'SP Mới',
