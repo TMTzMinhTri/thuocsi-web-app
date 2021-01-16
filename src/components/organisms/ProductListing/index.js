@@ -196,20 +196,23 @@ export default function ProductListing({
             <div>
               <div className={styles.filters}>
                 {TAB_LIST.map((item) => (
-                  <Fab
-                    variant="extended"
-                    aria-label="all"
-                    className={clsx(current_tab === item.value && styles.active, styles.filter_btn)}
+                  <Link
+                    href={{
+                      pathname: pathName,
+                      query: { ...getTabQuery(), current_tab: item.value },
+                    }}
                   >
-                    <Link
-                      href={{
-                        pathname: pathName,
-                        query: { ...getTabQuery(), current_tab: item.value },
-                      }}
+                    <Fab
+                      variant="extended"
+                      aria-label="all"
+                      className={clsx(
+                        current_tab === item.value && styles.active,
+                        styles.filter_btn,
+                      )}
                     >
                       {item.shortName}
-                    </Link>
-                  </Fab>
+                    </Fab>
+                  </Link>
                 ))}
               </div>
             </div>
