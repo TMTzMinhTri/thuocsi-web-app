@@ -137,6 +137,16 @@
   margin-right: 1em;
   margin-top: 0.5em;
 }
+.product_main .filters .iconLeft,
+.product_main .filters .iconRight{
+  color: #f9b514 !important
+}
+.product_main .filters .iconLeft{
+  margin-right: 4px;
+}
+.product_main .filters .iconRight{
+  margin-left: 4px;
+}
 .product_main .empty{
   margin-top: 30px;
 }

@@ -16,14 +16,15 @@ import styles from './styles.module.css';
 export async function getServerSideProps(ctx) {
   try {
     return doWithServerSide(ctx, async () => {
+      const isTotal = false;
       const [products, brand, group] = await Promise.all([
-        ProductClient.loadDataProduct(ctx),
+        ProductClient.loadDataProduct(ctx, isTotal),
         CatClient.loadBrand(ctx),
         CatClient.loadGroup(ctx),
       ]);
       return {
         props: {
-          products,
+          products: products.data,
           brand,
           group,
         },
