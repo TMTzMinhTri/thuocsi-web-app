@@ -1,10 +1,13 @@
 import { Grid } from '@material-ui/core';
-import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { AddressClient } from 'clients';
 import AddressSelect from '../AddressSelect';
 
 import styles from './styles.module.css';
+
+const DEFAULT_PROVINCE_ARRAY = [{ label: 'Chọn Tinh/Thành phố ...', value: '0' }];
+const DEFAULT_DISTRICT_ARRAY = [{ label: 'Chọn Quận/Huyện ...', value: '0' }];
+const DEFAULT_WARD_ARRAY = [{ label: 'Chọn Phường/Xã ...', value: '0' }];
 
 const ADDRESS_POS = {
   PROVINCE: 0,
@@ -13,61 +16,64 @@ const ADDRESS_POS = {
 };
 
 const GroupAddressSelect = ({
-  province = 0,
-  district = 0,
-  ward,
+  province = '0',
+  district = '0',
+  ward = '0',
   idProvince,
   idDistrict,
   idWard,
   handleSetValue,
 }) => {
-  const [provinces, setProvinces] = useState([]);
-  const [districts, setDistricts] = useState([{ value: 0, label: 'Chọn Quận/Huyện ...' }]);
-  const [wards, setWards] = useState([{ value: 0, label: 'Chọn Phường/Xã ...' }]);
+  const [provinces, setProvinces] = useState(DEFAULT_PROVINCE_ARRAY);
+  const [districts, setDistricts] = useState(DEFAULT_DISTRICT_ARRAY);
+  const [wards, setWards] = useState(DEFAULT_WARD_ARRAY);
   const [pos, setPos] = useState(ADDRESS_POS.PROVINCE);
-  const router = useRouter();
 
   useEffect(() => {
     async function getProvinces() {
-      try {
-        const res = await AddressClient.getProvinces();
-        const prov = [{ value: 0, label: 'Chọn Tinh/Thành phố ...' }, ...res];
-        setProvinces(prov);
-        setDistricts([{ value: 0, label: 'Chọn Quận/Huyện ...' }]);
-        setWards([{ value: 0, label: 'Chọn Phường/Xã ...' }]);
-      } catch {
-        router.push('/');
-      }
+      const res = await AddressClient.getProvinces();
+      setProvinces([...DEFAULT_PROVINCE_ARRAY, ...res]);
+      if (district !== '0') setPos(ADDRESS_POS.WARD);
+      if (province !== '0') setPos(ADDRESS_POS.DISTRICT);
     }
+
     getProvinces();
   }, []);
 
   useEffect(() => {
     async function getDistricts() {
       const res = await AddressClient.getDistrictsByProvince(province);
-      setDistricts([{ value: 0, label: 'Chọn Quận/Huyện ...' }, ...res]);
-      setWards([{ value: 0, label: 'Chọn Phường/Xã ...' }]);
       setPos(ADDRESS_POS.DISTRICT);
+      setWards(DEFAULT_WARD_ARRAY);
+      setDistricts([...DEFAULT_DISTRICT_ARRAY, ...res]);
     }
-    if (String(province) !== '0') getDistricts();
-    else {
+    if (province === DEFAULT_PROVINCE_ARRAY[0].value) {
+      handleSetValue(idDistrict, DEFAULT_DISTRICT_ARRAY[0].value);
       setPos(ADDRESS_POS.PROVINCE);
-      setDistricts([{ value: 0, label: 'Chọn Quận/Huyện ...' }]);
-      setWards([{ value: 0, label: 'Chọn Phường/Xã ...' }]);
+      setDistricts(DEFAULT_DISTRICT_ARRAY);
+    } else {
+      getDistricts();
     }
   }, [province]);
 
   useEffect(() => {
     async function getWards() {
       const res = await AddressClient.getWardsByDistrict(district);
-      setWards([{ value: 0, label: 'Chọn Phường/Xã ...' }, ...res]);
       setPos(ADDRESS_POS.WARD);
+      setWards([...DEFAULT_WARD_ARRAY, ...res]);
     }
-    if (String(district) !== '0') getWards();
-    else {
-      setWards([{ value: 0, label: 'Chọn Phường/Xã ...' }]);
+    if (
+      district === DEFAULT_DISTRICT_ARRAY[0].value
+
+    ) {
+      if (province !== DEFAULT_PROVINCE_ARRAY[0].value) {
+        setPos(ADDRESS_POS.DISTRICT);
+      }
+      handleSetValue(idWard, DEFAULT_WARD_ARRAY[0].value);
+      setWards(DEFAULT_WARD_ARRAY);
+    } else {
+      getWards();
     }
-    if (String(district) === '0' && String(province) !== '0') { setPos(ADDRESS_POS.DISTRICT); }
   }, [district]);
 
   return (

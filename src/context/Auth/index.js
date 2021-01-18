@@ -101,7 +101,7 @@ export const LoadingRoute = ({ children }) => {
 export const withLogin = (Component, redirect = {}) => ({ ...props }) => {
   const router = useRouter();
   const { url, message } = redirect;
-  const { isAuthenticated } = props;
+  const { isAuthenticated, cart } = props;
   if (!isAuthenticated) {
     NotifyUtils.error(
       message && message.length > 0 ? message : 'Bạn cần đăng nhập để vào được trang này ',
@@ -109,5 +109,12 @@ export const withLogin = (Component, redirect = {}) => ({ ...props }) => {
     router.push(url && url.length > 0 ? url : '/?login=true');
     return <LoadingScreen />;
   }
+
+  if (router.pathname === '/checkout' && cart.length === 0) {
+    localStorage.setItem('total', cart.length);
+    router.push('/');
+    return <LoadingScreen />;
+  }
+
   return <Component {...props} />;
 };

@@ -9,24 +9,17 @@ import {
   PaymentMethod,
   CheckoutSticky,
 } from 'components';
-import { ProductClient, doWithServerSide, CatClient } from 'clients';
+import { doWithServerSide, CartClient } from 'clients';
 import { withLogin } from 'context';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   try {
     return doWithServerSide(ctx, async () => {
-      const isTotal = false;
-      const [products, brand, group] = await Promise.all([
-        ProductClient.loadDataProduct(ctx, isTotal),
-        CatClient.loadBrand(ctx),
-        CatClient.loadGroup(ctx),
-      ]);
+      const [cart] = await Promise.all([CartClient.loadDataCart(ctx)]);
       return {
         props: {
-          products: products.data,
-          brand,
-          group,
+          cart,
         },
       };
     });
@@ -40,10 +33,6 @@ export async function getServerSideProps(ctx) {
           phone: '',
           email: '',
         },
-        wallet: {
-          balance: 0,
-          name: '',
-        },
       },
     };
   }
@@ -51,19 +40,30 @@ export async function getServerSideProps(ctx) {
 
 const CheckoutPage = ({ user = {}, isMobile }) => {
   const title = 'Thuocsi.vn';
-  const [selectedValue, setSelectedValue] = React.useState('cash');
+  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('cod');
+  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('normal');
   const [value, setValue] = useState({
     name: user.name || '',
     phone: user.phone || '',
     email: user.email || '',
     address: user.address || '',
-    billDistrict: user.districtCode || 0,
-    billProvince: user.provinceCode || 0,
-    billWard: user.wardCode || 0,
+    billDistrict: user.districtCode || '0',
+    billProvince: user.provinceCode || '0',
+    billWard: user.wardCode || '0',
   });
 
-  const handleChange = (event) => {
-    setSelectedValue(event);
+  const dataCustomer = {
+    ...value,
+    paymentMethod: selectedPaymentValue,
+    shippingType: selectedDeliveryValue,
+  };
+
+  const handlePaymentChange = (event) => {
+    setSelectedPaymentValue(event);
+  };
+
+  const handleDeliveryChange = (event) => {
+    setSelectedDeliveryValue(event);
   };
 
   const handleSetValue = (key, val) => {
@@ -76,8 +76,14 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
         <Grid spacing={4} container>
           <Grid item xs={12} md={8}>
             <DeliveryInfoForm {...value} handleSetValue={handleSetValue} />
-            <DeliveryMethod />
-            <PaymentMethod selectedValue={selectedValue} handleChange={handleChange} />
+            <DeliveryMethod
+              selectedValue={selectedDeliveryValue}
+              handleChange={handleDeliveryChange}
+            />
+            <PaymentMethod
+              selectedValue={selectedPaymentValue}
+              handleChange={handlePaymentChange}
+            />
 
             <Paper className={styles.root} elevation={4}>
               <h4>Ghi chú khác</h4>
@@ -94,9 +100,7 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={4}>
-            <CheckoutSticky
-              selectedValue={selectedValue}
-            />
+            <CheckoutSticky data={dataCustomer} selectedValue={selectedPaymentValue} />
           </Grid>
         </Grid>
       </div>

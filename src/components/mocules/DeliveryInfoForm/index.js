@@ -81,7 +81,7 @@ const DeliveryInfoForm = ({
             placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk"
             value={address}
             onChange={(e) => {
-              handleSetValue('bussinessAddress', e.target.value);
+              handleSetValue('address', e.target.value);
             }}
           />
         </InfoFormControl>
