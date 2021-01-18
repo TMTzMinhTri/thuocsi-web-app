@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Template, ProductCartList, CardInfo, LinkComp } from 'components';
+import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { Button } from 'components/atoms';
 import { useCart, withLogin } from 'context';
@@ -13,8 +13,9 @@ export async function getServerSideProps(ctx) {
 function Cart({ isMobile }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
-  const { cartItems } = useCart();
+  const { cartItems, loading } = useCart();
   const pageName = 'cart';
+  if (loading) return (<LoadingScreen />);
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>
       <Container className={styles.wrapper} maxWidth="lg">
