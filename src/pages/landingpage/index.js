@@ -1,16 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { Template, BannerSlider } from 'components';
-import { NotifyUtils } from 'utils';
 
 export default function LandingPage(props) {
-  useEffect(() => {
-    if (localStorage.getItem('total')) {
-      NotifyUtils.info('Vui lòng đặt hàng trước khi thanh toán');
-      localStorage.removeItem('total');
-    }
-  }, []);
-
   const { infoBanner = [], isMobile } = props;
   const title = 'Thuocsi.vn';
   const pageName = 'home';

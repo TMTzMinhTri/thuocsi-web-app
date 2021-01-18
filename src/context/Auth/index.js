@@ -101,18 +101,12 @@ export const LoadingRoute = ({ children }) => {
 export const withLogin = (Component, redirect = {}) => ({ ...props }) => {
   const router = useRouter();
   const { url, message } = redirect;
-  const { isAuthenticated, cart } = props;
+  const { isAuthenticated } = props;
   if (!isAuthenticated) {
     NotifyUtils.error(
       message && message.length > 0 ? message : 'Bạn cần đăng nhập để vào được trang này ',
     );
     router.push(url && url.length > 0 ? url : '/?login=true');
-    return <LoadingScreen />;
-  }
-
-  if (router.pathname === '/checkout' && cart.length === 0) {
-    localStorage.setItem('total', cart.length);
-    router.push('/');
     return <LoadingScreen />;
   }
 

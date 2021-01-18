@@ -11,6 +11,10 @@ import {
 } from 'components';
 import { doWithServerSide, CartClient } from 'clients';
 import { withLogin } from 'context';
+import { useRouter } from 'next/router';
+import LoadingScreen from 'components/organisms/LoadingScreen';
+import { NotifyUtils } from 'utils';
+
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -38,7 +42,9 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-const CheckoutPage = ({ user = {}, isMobile }) => {
+const CheckoutPage = ({ user = {}, isMobile, cart }) => {
+  const router = useRouter();
+
   const title = 'Thuocsi.vn';
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('cod');
   const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('normal');
@@ -69,6 +75,13 @@ const CheckoutPage = ({ user = {}, isMobile }) => {
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
   };
+
+  if (!cart || cart?.length === 0) {
+    NotifyUtils.info('Vui lòng đặt hàng trước khi thanh toán');
+
+    router.push('/');
+    return <LoadingScreen />;
+  }
 
   return (
     <Template title={title} isMobile={isMobile}>
