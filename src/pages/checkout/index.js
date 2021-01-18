@@ -58,6 +58,13 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     billWard: user.wardCode || '0',
   });
 
+  if (!cart || cart?.length === 0) {
+    NotifyUtils.info('Vui lòng đặt hàng trước khi thanh toán');
+
+    router.push('/');
+    return <LoadingScreen />;
+  }
+
   const dataCustomer = {
     ...value,
     paymentMethod: selectedPaymentValue,
@@ -75,13 +82,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
   };
-
-  if (!cart || cart?.length === 0) {
-    NotifyUtils.info('Vui lòng đặt hàng trước khi thanh toán');
-
-    router.push('/');
-    return <LoadingScreen />;
-  }
 
   return (
     <Template title={title} isMobile={isMobile}>
