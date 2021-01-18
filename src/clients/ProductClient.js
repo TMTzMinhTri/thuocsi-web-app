@@ -63,6 +63,7 @@ async function loadDataProduct(ctx, isTotal) {
   const result = await GET({
     url,
     ctx,
+    isBasic: true,
   });
   if (!isValid(result)) return result;
   let cart = {};
