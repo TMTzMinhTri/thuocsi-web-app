@@ -136,6 +136,14 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
+                <Link key="all-products" href="/products">
+                  <div className={`${styles.accordionLink} ${
+                    slug === '' ? styles.active : ''
+                  }`}
+                  >
+                    Tất cả sản phẩm
+                  </div>
+                </Link>
                 {group &&
                   group.length > 0 &&
                   group.map((item) => (
@@ -164,6 +172,11 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
+                <Link key="all-products" href="/products">
+                  <div className={styles.accordionLink}>
+                    Tất cả sản phẩm
+                  </div>
+                </Link>
                 {brand &&
                   brand.length > 0 &&
                   brand.map((item) => (
