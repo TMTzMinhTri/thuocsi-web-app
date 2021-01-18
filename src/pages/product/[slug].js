@@ -40,7 +40,7 @@ export async function getServerSideProps(ctx) {
     const product = await ProductClient.loadDataProductDetail(ctx);
     return {
       props: {
-        product: product[0] || [],
+        product: product.data && product.data[0] ? product.data[0] : [],
       },
     };
   });
@@ -124,16 +124,17 @@ export default function ProductDetail({ product, isAuthenticated }) {
   const open = Boolean(anchorEl);
   const id = open ? 'detail-product-popover' : undefined;
 
-  const ingredientEle = ingredient && ingredient.map((row) => (
-    <TableRow key={row.name}>
-      <TableCell className={styles.border_right} component="th" scope="row">
-        <a className={styles.text_capitalize} href="/">
-          {row.name}
-        </a>
-      </TableCell>
-      <TableCell align="left">{row.unit}</TableCell>
-    </TableRow>
-  ));
+  const ingredientEle = ingredient
+    && ingredient.map((row) => (
+      <TableRow key={row.name}>
+        <TableCell className={styles.border_right} component="th" scope="row">
+          <a className={styles.text_capitalize} href="/">
+            {row.name}
+          </a>
+        </TableCell>
+        <TableCell align="left">{row.unit}</TableCell>
+      </TableRow>
+    ));
 
   return (
     <Template title={title}>
@@ -151,9 +152,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
                 <Grid xs={12} item>
                   <h1 className={styles.product_name}>{name}</h1>
                   <div className={styles.product_tags}>
-                    {tags.map((item) => (
-                      <TagType key={uuidv4()} type={item.slug} />
-                    ))}
+                    {tags && tags.map((item) => <TagType key={uuidv4()} type={item.slug} />)}
                   </div>
                 </Grid>
                 <Grid className={styles.product_content_wrap} md={7} item>
@@ -179,7 +178,9 @@ export default function ProductDetail({ product, isAuthenticated }) {
                     <>
                       <div className={styles.price_info}>
                         <div className={styles.product_price_group}>
-                          <span className={styles.product_price}>{FormarCurrency(price)}</span>
+                          <span className={styles.product_price}>
+                            {price && FormarCurrency(price)}
+                          </span>
                         </div>
                         <IconButton onClick={handleClick} aria-label="close">
                           <FontAwesomeIcon icon={faSearchDollar} />

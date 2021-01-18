@@ -42,7 +42,26 @@ async function loadDataProductDetail(ctx) {
   if (!isValid(result)) {
     return [];
   }
-  return result.data;
+  let cart = {};
+  let productListWithQuantityInCart = {};
+  try {
+    cart = await CartClient.loadDataCart(ctx);
+  } catch (error) {
+    cart.status = 'ERROR';
+  }
+  const cartObject = {};
+  // eslint-disable-next-line no-restricted-syntax
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of cart[0].cartItems) {
+      cartObject[item.sku] = item;
+    }
+    productListWithQuantityInCart = GetQuantityProductFromCart(result, cartObject);
+  } else {
+    productListWithQuantityInCart = result || [];
+  }
+
+  return productListWithQuantityInCart;
 }
 
 async function loadDataPormotion(ctx) {
