@@ -5,7 +5,7 @@ import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { useCart } from 'context';
 import clsx from 'clsx';
-import { NotifyUtils } from 'utils';
+import { NotifyUtils, ValidateUtils } from 'utils';
 import { CheckoutClient, isValid } from 'clients';
 
 import FormarCurrency from 'utils/FormarCurrency';
@@ -26,6 +26,11 @@ const CheckoutSticky = ({ selectedValue = '', data }) => {
 
     if (!res.phone) {
       NotifyUtils.error('Bạn chưa điền số điện thoại.');
+      return false;
+    }
+
+    if (!ValidateUtils.validatePhone(res.phone)) {
+      NotifyUtils.error('Bạn chưa điền đúng định dạng số điện thoại.');
       return false;
     }
 

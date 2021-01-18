@@ -31,10 +31,16 @@ export const formValidateEmail = (e) => {
   return false;
 };
 
+const validatePhone = (phone) => {
+  const re = /^\+?([0-9]{2})\)?[-. ]?([0-9]{2,3})[-. ]?([0-9]{0,3})[-. ]?([0-9]{0,4})$/igm;
+  return re.test(String(phone));
+};
+
 export default {
   validateEmail,
   isEmpty,
   isNumber,
   checkLength,
   formValidateEmail,
+  validatePhone,
 };
