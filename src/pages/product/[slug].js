@@ -40,7 +40,7 @@ export async function getServerSideProps(ctx) {
     const product = await ProductClient.loadDataProductDetail(ctx);
     return {
       props: {
-        product: product[0],
+        product: product[0] || [],
       },
     };
   });
