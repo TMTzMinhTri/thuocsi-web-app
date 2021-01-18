@@ -31,10 +31,22 @@ export const formValidateEmail = (e) => {
   return false;
 };
 
+const validatePhone = (phone) => {
+  const re = /^\+?([0-9]{2})\)?[-. ]?([0-9]{2,3})[-. ]?([0-9]{0,3})[-. ]?([0-9]{0,4})$/igm;
+
+  // [-. ] :  Dấu . ngăn cách (optional)
+  // +?([0-9]{2})\) : mã quốc gia
+  // ([0-9]{2,3} : mã vùng
+  // ([0-9]{0,3})[-. ]?([0-9]{0,4}) : dãy số điện thoại
+  //
+  return re.test(String(phone));
+};
+
 export default {
   validateEmail,
   isEmpty,
   isNumber,
   checkLength,
   formValidateEmail,
+  validatePhone,
 };

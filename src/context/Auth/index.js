@@ -109,5 +109,6 @@ export const withLogin = (Component, redirect = {}) => ({ ...props }) => {
     router.push(url && url.length > 0 ? url : '/?login=true');
     return <LoadingScreen />;
   }
+
   return <Component {...props} />;
 };

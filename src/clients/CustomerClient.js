@@ -1,5 +1,5 @@
 import { CUSTOMER_API } from 'constants/APIUri';
-import { GET, isValid } from './Clients';
+import { GET, PUT, isValid } from './Clients';
 
 async function getOrder({ status }) {
   const url = CUSTOMER_API.ORDER + (status && status.length > 0 ? `?status=${status}` : '');
@@ -31,9 +31,15 @@ export async function getPromo() {
   return result.data;
 }
 
+export async function updateInfoUser(body) {
+  const result = await PUT({ url: '/marketplace/customer/v1/me', body });
+  return result;
+}
+
 export default {
   getOrder,
   getReferral,
   getWallet,
   getPromo,
+  updateInfoUser,
 };

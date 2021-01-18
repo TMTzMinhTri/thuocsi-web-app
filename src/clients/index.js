@@ -9,5 +9,6 @@ export { default as PromoClient } from './PromoClient';
 export { default as SearchClient } from './SearchClient';
 export { default as NotifyClient } from './NotifyClient';
 export { default as CartClient } from './CartClient';
+export { default as CheckoutClient } from './CheckoutClient';
 export * from './Clients';
 export * from './SsrClient';
