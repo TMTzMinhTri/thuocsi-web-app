@@ -74,7 +74,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
     }
     if (response.errorCode === 'CART_MAXQUANTITY') {
       toggleErrorQuantity();
-      setQuantity(10);
+      setQuantity(product.maxQuantity);
     }
   };
 
