@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { LINK_REGISTER, LOGO_FOOTER_REGISTER } from 'constants/Images';
 import { useRouter } from 'next/router';
-import { useAuth } from 'context';
+import { useAuth, useCart } from 'context';
 import { LinkComp } from '../../atoms';
 
 import styles from './styles.module.css';
@@ -23,6 +23,11 @@ import styles from './styles.module.css';
 const SideBar = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
+  const { clearCart } = useCart();
+  const handleLogout = () => {
+    logout();
+    clearCart();
+  };
   return (
     <nav className={styles.sidebar_content}>
       <div className={styles.sidebar__user}>
@@ -201,7 +206,7 @@ const SideBar = () => {
           </LinkComp>
         </li>
         <li>
-          <div onClick={logout} role="presentation" className={styles.sidebar__item_link}>
+          <div onClick={handleLogout} role="presentation" className={styles.sidebar__item_link}>
             <FontAwesomeIcon className={styles.navIcon} icon={faSignOutAlt} />
             <p className="MuiTypography-root MuiTypography-body2">Đăng xuất</p>
           </div>
