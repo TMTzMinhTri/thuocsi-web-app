@@ -116,8 +116,8 @@ export default function ProductDetail({ product, isAuthenticated }) {
     if (!curValue) {
       handler(product, 'remove');
     }
-    if (/^\d+$/.test(curValue) && curValue < 1000 && curValue > 0) {
-      handler(parseInt(curValue, 10), 'update');
+    if (/^\d+$/.test(curValue) && curValue > 0) {
+      handler(+curValue, 'update');
     }
   };
 
