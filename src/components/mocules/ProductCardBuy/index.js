@@ -94,7 +94,7 @@ const ProductCardBuy = ({
       handler(product, 'remove');
     }
     if (/^\d+$/.test(curValue) && curValue > 0) {
-      handler(parseInt(curValue, 10), 'update');
+      handler(+curValue, 'update');
     }
   };
   return (
