@@ -1,6 +1,6 @@
 import { TableRow, TableCell, Button } from '@material-ui/core';
 import { InfoTable } from 'components/atoms';
-import { DateTimeUtils } from 'utils';
+import { DateTimeUtils, NotifyUtils } from 'utils';
 import styles from './styles.module.css';
 
 const heads = [
@@ -12,11 +12,16 @@ const heads = [
   'Gửi lại SMS',
 ];
 
-const SendSMSButton = () => (
-  <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
-    <Button classes={{ root: styles.button_send_sms }}>Gửi SMS</Button>
-  </div>
-);
+const SendSMSButton = () => {
+  const handleSendSMS = () => {
+    NotifyUtils.success('Gửi SMS thành công');
+  };
+  return (
+    <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+      <Button classes={{ root: styles.button_send_sms }} onClick={handleSendSMS}>Gửi SMS</Button>
+    </div>
+  );
+};
 
 function ReferralTable({ referrals }) {
   return (

@@ -21,28 +21,32 @@ import { FormDataUtils, ValidateUtils, NotifyUtils } from 'utils';
 
 import { ENUM_SCOPE } from 'constants/Enums';
 
-const { ValidateError, ValidateSuccess } = ValidateUtils;
+const { validateData, Error } = ValidateUtils;
 
-const validateSignUp = ({ isCheckAgree }) => {
-  if (!isCheckAgree || isCheckAgree === 'true') {
-    return ValidateError('Bạn chưa đồng ý chính sách thuốc sĩ');
+const validateSignUp = ({ isCheckAgree, name, email, password, phone }) => {
+  try {
+    validateData.name(name);
+    validateData.phoneNumber(phone);
+    validateData.email(email);
+    validateData.password(password);
+    if (isCheckAgree !== '') throw new Error('Bạn chưa đồng ý chính sách thuốc sỉ.');
+    return true;
+  } catch (error) {
+    NotifyUtils.error(error?.message || 'Đã có lỗi xảy ra');
   }
-  return ValidateSuccess('');
+  return false;
 };
 
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickSignIn, isCheckAgree, onClickSignUp, hasAlert } = props;
+  const { className, onClickSignIn, onClickSignUp, hasAlert } = props;
 
   const handleSubmitSignUp = useCallback(
     (e) => {
       const data = FormDataUtils.convert(e);
       e.preventDefault();
       // validate
-      const rs = validateSignUp(data);
-      if (!rs || !rs.validate) {
-        NotifyUtils.error(rs.message);
-      } else {
+      if (validateSignUp(data)) {
         onClickSignUp(data);
       }
     },
@@ -155,14 +159,10 @@ const SignUpForm = React.memo((props) => {
           />
         </FormControl>
         <div className="agree-term">
-          <CheckBox
-            checked={isCheckAgree}
-            name="isCheckAgree"
-            label="Tôi đã đọc và đồng ý với điều khoản sử dụng *"
-          />
+          <CheckBox name="isCheckAgree" label="Tôi đã đọc và đồng ý với điều khoản sử dụng *" />
         </div>
         <div className="agree-term">
-          <RadioGroup defaultValue={ENUM_SCOPE.PHARMACY} aria-label="scope" name="scope-radios" row>
+          <RadioGroup defaultValue={ENUM_SCOPE.PHARMACY} aria-label="scope" name="scope" row>
             <FormControlLabel value={ENUM_SCOPE.PHARMACY} control={<Radio />} label="Nhà thuốc" />
             <FormControlLabel value={ENUM_SCOPE.CLINIC} control={<Radio />} label="Phòng khám" />
             <FormControlLabel value={ENUM_SCOPE.DRUGSTORE} control={<Radio />} label="Quầy thuốc" />

@@ -78,7 +78,7 @@ async function loadDataProduct(ctx, isTotal) {
   const sortBy = ctx.query.sortBy ? ctx.query.sortBy : '';
   const q = ctx.query.q ? ctx.query.q : '';
   const page = ctx.query.page - 1 || 0;
-  const url = `/marketplace/product/v1/products/list?&current_tab=${curentTab}&sortBy=${sortBy}&offset=${page}&getTotal=${getTotal}&limit=${PAGE_SIZE}&q=${q}`;
+  const url = `/marketplace/product/v1/products/list?&current_tab=${curentTab}&sortBy=${sortBy}&offset=${page}&getTotal=${getTotal}&limit=${PAGE_SIZE}&q=${encodeURIComponent(q)}`;
   const result = await GET({
     url,
     ctx,
