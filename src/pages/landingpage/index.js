@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { Template, BannerSlider } from 'components';
 
 export default function LandingPage(props) {
-  const { infoBanner = [], isMobile } = props;
+  const { infoBanner = [], isMobile, isAuthenticated } = props;
   const title = 'Thuocsi.vn';
   const pageName = 'home';
   const DynamicWhyBuymed = dynamic(() => import('components/organisms/WhyBuymed'));
@@ -17,7 +17,7 @@ export default function LandingPage(props) {
     <Template title={title} isMobile={isMobile} pageName={pageName}>
       <BannerSlider infoBanner={infoBanner} />
       <DynamicWhyBuymed />
-      <DynamicHomeCTASection />
+      {!isAuthenticated ? <DynamicHomeCTASection /> : <></>}
       <DynamicCommonQuestion />
       <DynamicPartners />
       <DynamicSliderComp />
