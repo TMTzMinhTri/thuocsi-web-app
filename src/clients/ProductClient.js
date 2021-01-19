@@ -42,7 +42,26 @@ async function loadDataProductDetail(ctx) {
   if (!isValid(result)) {
     return [];
   }
-  return result.data;
+  let cart = {};
+  let productListWithQuantityInCart = {};
+  try {
+    cart = await CartClient.loadDataCart(ctx);
+  } catch (error) {
+    cart.status = 'ERROR';
+  }
+  const cartObject = {};
+  // eslint-disable-next-line no-restricted-syntax
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of cart[0].cartItems) {
+      cartObject[item.sku] = item;
+    }
+    productListWithQuantityInCart = GetQuantityProductFromCart(result, cartObject);
+  } else {
+    productListWithQuantityInCart = result || [];
+  }
+
+  return productListWithQuantityInCart;
 }
 
 async function loadDataPormotion(ctx) {
@@ -53,15 +72,17 @@ async function loadDataPormotion(ctx) {
   return res.data;
 }
 
-async function loadDataProduct(ctx) {
+async function loadDataProduct(ctx, isTotal) {
+  const getTotal = typeof isTotal !== 'undefined' ? isTotal : true;
   const curentTab = ctx.query.current_tab ? ctx.query.current_tab : '';
   const sortBy = ctx.query.sortBy ? ctx.query.sortBy : '';
   const q = ctx.query.q ? ctx.query.q : '';
   const page = ctx.query.page - 1 || 0;
-  const url = `/marketplace/product/v1/products/list?&current_tab=${curentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}&q=${q}`;
+  const url = `/marketplace/product/v1/products/list?&current_tab=${curentTab}&sortBy=${sortBy}&offset=${page}&getTotal=${getTotal}&limit=${PAGE_SIZE}&q=${q}`;
   const result = await GET({
     url,
     ctx,
+    isBasic: true,
   });
   if (!isValid(result)) return result;
   let cart = {};

@@ -136,6 +136,14 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
+                <Link key="all-products" href="/products">
+                  <div className={`${styles.accordionLink} ${
+                    slug === '' ? styles.active : ''
+                  }`}
+                  >
+                    Tất cả sản phẩm
+                  </div>
+                </Link>
                 {group &&
                   group.length > 0 &&
                   group.map((item) => (
@@ -164,6 +172,11 @@ export default function ProductListing({
             </AccordionSummary>
             <AccordionDetails className="accordion-detail">
               <Box component="div">
+                <Link key="all-products" href="/products">
+                  <div className={styles.accordionLink}>
+                    Tất cả sản phẩm
+                  </div>
+                </Link>
                 {brand &&
                   brand.length > 0 &&
                   brand.map((item) => (
@@ -196,20 +209,34 @@ export default function ProductListing({
             <div>
               <div className={styles.filters}>
                 {TAB_LIST.map((item) => (
-                  <Fab
-                    variant="extended"
-                    aria-label="all"
-                    className={clsx(current_tab === item.value && styles.active, styles.filter_btn)}
+                  <Link
+                    href={{
+                      pathname: pathName,
+                      query: { ...getTabQuery(), current_tab: item.value },
+                    }}
                   >
-                    <Link
-                      href={{
-                        pathname: pathName,
-                        query: { ...getTabQuery(), current_tab: item.value },
-                      }}
+                    <Fab
+                      variant="extended"
+                      aria-label="all"
+                      className={clsx(
+                        current_tab === item.value && styles.active,
+                        styles.filter_btn,
+                      )}
                     >
+
+                      {item.leftIcon && (
+                        <span className={styles.iconLeft}>
+                          {item.leftIcon}
+                        </span>
+                      )}
                       {item.shortName}
-                    </Link>
-                  </Fab>
+                      {item.rightIcon && (
+                        <span className={styles.iconRight}>
+                          {item.rightIcon}
+                        </span>
+                      )}
+                    </Fab>
+                  </Link>
                 ))}
               </div>
             </div>

@@ -1,6 +1,10 @@
 import { Button } from '@material-ui/core';
 import styles from './styles.module.css';
 
-const UpdateButton = () => <Button className={styles.button_update}> Cập nhật </Button>;
+const UpdateButton = ({ handleUpdateProfile }) => (
+  <Button className={styles.button_update} onClick={handleUpdateProfile}>
+    Cập nhật
+  </Button>
+);
 
 export default UpdateButton;

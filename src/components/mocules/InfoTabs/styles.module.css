@@ -31,6 +31,7 @@
 
 .name {
   font-weight: bold !important;
+  text-transform: capitalize;
 }
 
 @media only screen and (max-width: 950px) {

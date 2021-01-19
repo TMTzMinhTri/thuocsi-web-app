@@ -29,5 +29,6 @@ export const LICENSE_PDF =
   'https://buymed-storage.s3-ap-southeast-1.amazonaws.com/trading_license/1.+Trading+License+-+Buymed+(GC+20+June+2019)+(VN).pdf';
 export const LEGAL_IMAGE =
   'https://assets.thuocsi.vn/assets/bct-150ac1809a7ae41e0a4b21f1e1e21a26a2f93ee0c79e5c99cc197dd2fdc988c8.png';
+export const FEEDBACK = 'https://cs.stg.thuocsi.vn/feedback';
 
 export const WEB = {};

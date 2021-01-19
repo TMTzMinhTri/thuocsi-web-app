@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { AccountForm, EnterpriseForm, DeliveryForm } from 'components/mocules';
+import { CustomerClient, isValid } from 'clients';
+import { NotifyUtils } from 'utils';
 import UpdateButton from './UpdateButton';
 
 const parseScopeName = (scope) => {
@@ -11,26 +13,52 @@ const parseScopeName = (scope) => {
 };
 
 const AccountInfoFormContainer = ({ user }) => {
+  const {
+    name,
+    phone,
+    email,
+    provinceCode,
+    wardCode,
+    districtCode,
+    address,
+    scope,
+    mst,
+    legalRepresentative,
+    customerID,
+  } = user;
   const [value, setValue] = useState({
-    name: user.name,
-    phone: user.phone,
-    email: user.email,
+    name,
+    phone,
+    email,
     password: '',
-    scope: parseScopeName(user.scope),
-    drugstoreName: '',
+    scope: parseScopeName(scope),
+    legalRepresentative,
     bussinessName: '',
-    billProvince: 0,
-    billDistrict: 0,
-    billWard: 0,
-    taxId: '',
-    bussinessAddress: '',
-    province: 0,
-    district: 0,
-    ward: 0,
+    provinceCode,
+    districtCode,
+    wardCode,
+    mst,
+    address,
+    province: provinceCode,
+    district: districtCode,
+    ward: wardCode,
+    // hard code because
+    customerID,
   });
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
   };
+
+  const handleUpdateProfile = async () => {
+    try {
+      const res = await CustomerClient.updateProfile(value);
+      if (!isValid(res)) throw Error(res.message);
+      NotifyUtils.success('Cập nhật thông tin thành công');
+    } catch (error) {
+      NotifyUtils.error(error.message || 'Cập nhật thông tin thất bại');
+    }
+  };
+
   return (
     <Grid item container spacing={3}>
       <Grid item xs={12}>
@@ -44,7 +72,7 @@ const AccountInfoFormContainer = ({ user }) => {
       </Grid>
       <Grid item xs={12}>
         <Grid container justify="center">
-          <UpdateButton />
+          <UpdateButton handleUpdateProfile={handleUpdateProfile} />
         </Grid>
       </Grid>
     </Grid>

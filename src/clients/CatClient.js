@@ -3,14 +3,14 @@ import { GET, isValid } from './Clients';
 import { PAGE_SIZE } from '../constants/data';
 
 async function loadBrand(ctx) {
-  const res = await GET({ url: CATEGORY_API.BRAND, ctx });
+  const res = await GET({ url: CATEGORY_API.BRAND, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }
   return res.data;
 }
 async function loadGroup(ctx) {
-  const res = await GET({ url: CATEGORY_API.GROUP, ctx });
+  const res = await GET({ url: CATEGORY_API.GROUP, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }
@@ -19,7 +19,7 @@ async function loadGroup(ctx) {
 async function loadCategoryInfoBySlug(ctx) {
   const { query } = ctx;
   const url = `${CATEGORY_API.CATEGORY_INFO}?q=${query.slug || ''}`;
-  const res = await GET({ url, ctx });
+  const res = await GET({ url, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }
@@ -35,6 +35,7 @@ async function loadProductWithCategory(ctx) {
   const res = await GET({
     url,
     ctx,
+    isBasic: true,
   });
   if (!isValid(res)) {
     return [];
@@ -44,7 +45,7 @@ async function loadProductWithCategory(ctx) {
 async function loadManufacturerInfoBySlug(ctx) {
   const { query } = ctx;
   const url = `${CATEGORY_API.MANUFACTURER_INFO}?q=${query.slug || ''}`;
-  const res = await GET({ url, ctx });
+  const res = await GET({ url, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }
@@ -60,6 +61,7 @@ async function loadProductWithManufacturer(ctx) {
   const res = await GET({
     url,
     ctx,
+    isBasic: true,
   });
   if (!isValid(res)) {
     return [];

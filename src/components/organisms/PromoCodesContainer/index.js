@@ -9,8 +9,7 @@ const PromoCodesContainer = ({ promos }) => {
     <div className={styles.root}>
       <Container maxWidth="lg" className={styles.container}>
         <Typography variant="h4" style={{ fontWeight: '500' }}>
-          {' '}
-          Mã giảm giá{' '}
+          Mã giảm giá
         </Typography>
         <p> Hướng dẫn sử dụng:</p>
         <ol>
@@ -33,17 +32,25 @@ const PromoCodesContainer = ({ promos }) => {
 
         <div className={styles.title}>
           <Typography variant="h4" style={{ fontWeight: '500' }}>
-            {' '}
-            Dành riêng cho bạn{' '}
+            Dành riêng cho bạn
           </Typography>
-          <p>
+          <p className={styles.description}>
             Tham gia chương trình&nbsp;
             <Link href="/users/referrals">Giới thiệu bạn bè</Link>
             ,&nbsp;
             <Link href="/users/loyalty_points">Đổi điểm tích luỹ</Link>
             &nbsp;để nhận được code riêng
           </p>
-          <p className={styles.promo_for_you}>Chưa có mã</p>
+
+          { promos ? (
+            <Grid container spacing={4}>
+              {promos.map((promo) => (
+                <Grid item xs={maxWidth3Card ? 6 : 4}>
+                  <CouponCard {...promo} />
+                </Grid>
+              ))}
+            </Grid>
+          ) : <p className={styles.promo_for_you}>Chưa có mã</p>}
         </div>
       </Container>
       <div className={styles.promo_special}>
@@ -52,13 +59,15 @@ const PromoCodesContainer = ({ promos }) => {
       </div>
       <Container maxWidth="lg" className={styles.container}>
         <h1 className={styles.title}> Các mã khác </h1>
-        <Grid container spacing={4}>
-          {promos.map((promo) => (
-            <Grid item xs={maxWidth3Card ? 6 : 4}>
-              <CouponCard {...promo} />
-            </Grid>
-          ))}
-        </Grid>
+        { promos ? (
+          <Grid container spacing={4}>
+            {promos.map((promo) => (
+              <Grid item xs={maxWidth3Card ? 6 : 4}>
+                <CouponCard {...promo} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : <p className={styles.promo_for_you}>Chưa có mã</p>}
       </Container>
     </div>
   );

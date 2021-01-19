@@ -8,10 +8,11 @@ import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+    const isTotal = false;
+    const [products] = await Promise.all([ProductClient.loadDataProduct(ctx, isTotal)]);
     return {
       props: {
-        products,
+        products: products.data,
       },
     };
   });

@@ -10,11 +10,11 @@ import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
 const CounponCard = ({
-  code = '',
-  value = '20.000 đ',
-  minValue = '30.000 đ',
-  type = PROMO_TYPE.COMBO,
-  remain = new Date(Date.now()),
+  promotionCode: code = '',
+  promotionName = '',
+  minValue = '',
+  promotionType: type = PROMO_TYPE.COMBO,
+  endTime = new Date(Date.now()),
 }) => (
   <Card
     className={clsx(
@@ -40,23 +40,24 @@ const CounponCard = ({
             />
           )}
           {type === PROMO_TYPE.DISCOUNT && (
-            <div style={{ fontWeight: 'bold', textAlign: 'center' }}>{value} </div>
+            <div style={{ fontWeight: 'bold', textAlign: 'center' }}>{promotionName} </div>
           )}
           <br />
           {type === PROMO_TYPE.COMBO && 'COMBO'}
           {type === PROMO_TYPE.GIFT && 'Quà Tặng'}
-          {type === PROMO_TYPE.DISCOUNT && 'Giảm giá'}
+          {type === PROMO_TYPE.VOUCHERCODE && 'Giảm giá'}
         </div>
         <div style={{ display: 'flex' }}>
-          <CountdownTimer prefix="Còn" dealEndDay={remain} />
+          <CountdownTimer prefix="Còn" dealEndDay={endTime} />
         </div>
       </Grid>
       <Grid item container xs={8}>
         <Grid item xs={12}>
           <div className={styles.coupon_description}>
             <Typography variant="h6" style={{ fontSize: 'large' }}>
-              {type === PROMO_TYPE.DISCOUNT && `GIẢM ${value}`}
-              {type === PROMO_TYPE.GIFT && value}
+              {/* {type === PROMO_TYPE.DISCOUNT && `GIẢM ${value}`}
+              {type === PROMO_TYPE.GIFT && value} */}
+              {promotionName}
             </Typography>
             <div> {type === PROMO_TYPE.DISCOUNT && `cho đơn hàng tối thiểu ${minValue} đ`}</div>
           </div>

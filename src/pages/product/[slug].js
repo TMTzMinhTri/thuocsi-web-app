@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Grid,
   Paper,
@@ -27,26 +27,33 @@ import {
   Button as CustomButton,
   Template,
 } from 'components';
+import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide } from 'clients';
+import { useCart } from 'context';
+import debounce from 'utils/debounce';
+import ErrorQuantityCartModal from '../../components/organisms/ErrorQuantityCartModal';
 
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const products = await ProductClient.loadDataProductDetail(ctx);
+    const product = await ProductClient.loadDataProductDetail(ctx);
     return {
       props: {
-        products,
+        product: product.data && product.data[0] ? product.data[0] : [],
       },
     };
   });
 }
 
-export default function ProductDetail({ products, isAuthenticated }) {
-  const title = products[0].name;
+export default function ProductDetail({ product, isAuthenticated }) {
+  const title = product.name;
   const [anchorEl, setAnchorEl] = useState(null);
-  const { name, price, unit, volume, ingredient = [], madeBy, category, tags } = products[0];
+  const { name, price, unit, volume, ingredient = [], madeBy, category, tags } = product;
   const [value, setValue] = React.useState('1');
+  const [quantity, setQuantity] = useState(product.quantity || 0);
+  const { updateCartItem, removeCartItem } = useCart();
+  const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,19 +67,74 @@ export default function ProductDetail({ products, isAuthenticated }) {
     setAnchorEl(null);
   };
 
+  const updateCart = async (q) => {
+    const response = await updateCartItem({ product, q });
+    if (response.status === 'OK') {
+      setQuantity(q);
+    }
+    if (response.errorCode === 'CART_MAXQUANTITY') {
+      toggleErrorQuantity();
+      setQuantity(product.maxQuantity);
+    }
+  };
+
+  const handleCart = (val, updateType) => {
+    if (updateType === 'remove') {
+      removeCartItem(val);
+      setQuantity(0);
+    }
+    if (updateType === 'update') {
+      updateCart(val);
+    }
+  };
+
+  const handler = useCallback(
+    debounce((val, updateType) => handleCart(val, updateType), 1500),
+    [],
+  );
+
+  const handleDecrease = () => {
+    const q = quantity - 1;
+    if (q < 0) return;
+    setQuantity(q);
+    if (q === 0) {
+      handler(product, 'remove');
+    } else {
+      handler(q, 'update');
+    }
+  };
+
+  const handleIncrease = () => {
+    const q = quantity + 1;
+    setQuantity(q);
+    handler(q, 'update');
+  };
+
+  const handleInputChange = (e) => {
+    const curValue = e.currentTarget.value;
+    setQuantity(curValue);
+    if (!curValue) {
+      handler(product, 'remove');
+    }
+    if (/^\d+$/.test(curValue) && curValue < 1000 && curValue > 0) {
+      handler(parseInt(curValue, 10), 'update');
+    }
+  };
+
   const open = Boolean(anchorEl);
   const id = open ? 'detail-product-popover' : undefined;
 
-  const ingredientEle = ingredient.map((row) => (
-    <TableRow key={row.name}>
-      <TableCell className={styles.border_right} component="th" scope="row">
-        <a className={styles.text_capitalize} href="/">
-          {row.name}
-        </a>
-      </TableCell>
-      <TableCell align="left">{row.unit}</TableCell>
-    </TableRow>
-  ));
+  const ingredientEle = ingredient
+    && ingredient.map((row) => (
+      <TableRow key={row.name}>
+        <TableCell className={styles.border_right} component="th" scope="row">
+          <a className={styles.text_capitalize} href="/">
+            {row.name}
+          </a>
+        </TableCell>
+        <TableCell align="left">{row.unit}</TableCell>
+      </TableRow>
+    ));
 
   return (
     <Template title={title}>
@@ -80,7 +142,7 @@ export default function ProductDetail({ products, isAuthenticated }) {
         <div className={styles.container}>
           <Grid container className={styles.detail_card}>
             <Grid className={styles.image_gallery} sm={12} md={4} item>
-              <MultiImageBox images={products[0].imageUrls} />
+              <MultiImageBox images={product.imageUrls} />
               <small className={styles.text_muted}>
                 * Hình sản phẩm có thể thay đổi theo thời gian
               </small>
@@ -90,9 +152,7 @@ export default function ProductDetail({ products, isAuthenticated }) {
                 <Grid xs={12} item>
                   <h1 className={styles.product_name}>{name}</h1>
                   <div className={styles.product_tags}>
-                    {tags.map((item) => (
-                      <TagType key={uuidv4()} type={item.slug} />
-                    ))}
+                    {tags && tags.map((item) => <TagType key={uuidv4()} type={item.slug} />)}
                   </div>
                 </Grid>
                 <Grid className={styles.product_content_wrap} md={7} item>
@@ -118,7 +178,9 @@ export default function ProductDetail({ products, isAuthenticated }) {
                     <>
                       <div className={styles.price_info}>
                         <div className={styles.product_price_group}>
-                          <span className={styles.product_price}>{FormarCurrency(price)}</span>
+                          <span className={styles.product_price}>
+                            {price && FormarCurrency(price)}
+                          </span>
                         </div>
                         <IconButton onClick={handleClick} aria-label="close">
                           <FontAwesomeIcon icon={faSearchDollar} />
@@ -152,9 +214,15 @@ export default function ProductDetail({ products, isAuthenticated }) {
                         </Popover>
                       </div>
                       <div className={styles.product_action}>
-                        <MinusButton className={styles.minus} />
-                        <InputProduct className={styles.input_product} />
-                        <PlusButton className={styles.plus} />
+                        <MinusButton className={styles.minus} onClick={handleDecrease} />
+                        <InputProduct
+                          product={product}
+                          id={product.sku}
+                          className={styles.input_product}
+                          onChange={handleInputChange}
+                          value={quantity}
+                        />
+                        <PlusButton className={styles.plus} onClick={() => handleIncrease()} />
                       </div>
                     </>
                   ) : (
@@ -236,13 +304,18 @@ export default function ProductDetail({ products, isAuthenticated }) {
               <ProductDetailTabs
                 handleChange={handleChange}
                 data={tabsProductData}
-                product={products[0]}
+                product={product}
                 value={value}
               />
             </Grid>
           </Grid>
         </div>
       </div>
+      <ErrorQuantityCartModal
+        product={product}
+        visible={isShowModalErrorQuantity}
+        onClose={toggleErrorQuantity}
+      />
     </Template>
   );
 }
