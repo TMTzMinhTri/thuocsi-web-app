@@ -18,7 +18,6 @@ import {
 import { Button, Input, CheckBox, Radio } from 'components/atoms';
 
 import { FormDataUtils, ValidateUtils, NotifyUtils } from 'utils';
-
 import { ENUM_SCOPE } from 'constants/Enums';
 
 const { validateData, Error } = ValidateUtils;
@@ -29,7 +28,7 @@ const validateSignUp = ({ isCheckAgree, name, email, password, phone }) => {
     validateData.phoneNumber(phone);
     validateData.email(email);
     validateData.password(password);
-    if (isCheckAgree !== '') throw new Error('Bạn chưa đồng ý chính sách thuốc sỉ.');
+    if (isCheckAgree !== '') throw new Error('Vui lòng chọn Đồng ý với Điều khoản sử dụng.');
     return true;
   } catch (error) {
     NotifyUtils.error(error?.message || 'Đã có lỗi xảy ra');
@@ -85,7 +84,7 @@ const SignUpForm = React.memo((props) => {
   const IconEndPassword = (
     <InputAdornment>
       <IconButton onClick={handleClickShowPassword}>
-        {showPassword ? <Visibility /> : <VisibilityOff />}
+        {!showPassword ? <Visibility /> : <VisibilityOff />}
       </IconButton>
     </InputAdornment>
   );
@@ -106,6 +105,15 @@ const SignUpForm = React.memo((props) => {
     }
     return null;
   };
+
+  const labelAgree = (
+    <div>
+      Tôi đã đọc và đồng ý với{' '}
+      <a href="/terms-and-condition" target="_blank" rel="noreferrer" style={{ color: 'green' }}>
+        Điều khoản sử dụng *
+      </a>
+    </div>
+  );
 
   return (
     <div className={className}>
@@ -159,7 +167,7 @@ const SignUpForm = React.memo((props) => {
           />
         </FormControl>
         <div className="agree-term">
-          <CheckBox name="isCheckAgree" label="Tôi đã đọc và đồng ý với điều khoản sử dụng *" />
+          <CheckBox name="isCheckAgree" label={labelAgree} />
         </div>
         <div className="agree-term">
           <RadioGroup defaultValue={ENUM_SCOPE.PHARMACY} aria-label="scope" name="scope" row>
@@ -172,7 +180,7 @@ const SignUpForm = React.memo((props) => {
           <span className="text-capitalize">
             Nếu bạn đã có tài khoản, vui lòng
             <a href="#top" style={{ color: '#f9b514', padding: '2px' }} onClick={handleClickSignIn}>
-              Đăng nhập
+              <b> Đăng nhập</b>
             </a>
           </span>
         </div>

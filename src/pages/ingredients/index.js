@@ -16,7 +16,7 @@ export async function getServerSideProps(ctx) {
 }
 
 const Ingredients = ({ ingredients = [], isMobile }) => {
-  const title = 'Cập nhật hồ sơ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+  const title = 'Tất cả hoạt chất – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const pageName = 'ingredients';
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>

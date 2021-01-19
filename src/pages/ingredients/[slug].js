@@ -21,7 +21,7 @@ export async function getServerSideProps(ctx) {
 }
 
 const Ingredient = ({ ingredient = {}, products = [] }) => {
-  const title = 'Cập nhật hồ sơ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+  const title = `${ingredient?.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   return (
     <Template title={title}>
       <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
