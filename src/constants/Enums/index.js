@@ -10,7 +10,7 @@ export const ENUM_ORDER_STATUS = {
   COMPLETED: 'completed',
   CANCEL: 'cancel',
   DELIVERY: 'delivery',
-  DONE: 'done',
+  CONFIRM: 'confirm',
 };
 
 export const ENUM_TYPE = {};

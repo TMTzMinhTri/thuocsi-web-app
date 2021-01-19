@@ -8,12 +8,27 @@ import {
   PeopleOutlined as PeopleIcon,
 } from '@material-ui/icons';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
-import { Button, Input, CheckBox } from 'components/atoms';
+import {
+  FormControl,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  RadioGroup,
+} from '@material-ui/core';
+import { Button, Input, CheckBox, Radio } from 'components/atoms';
 
-import { FormDataUtils } from 'utils';
+import { FormDataUtils, ValidateUtils, NotifyUtils } from 'utils';
 
 import { ENUM_SCOPE } from 'constants/Enums';
+
+const { ValidateError, ValidateSuccess } = ValidateUtils;
+
+const validateSignUp = ({ isCheckAgree }) => {
+  if (!isCheckAgree || isCheckAgree === 'true') {
+    return ValidateError('Bạn chưa đồng ý chính sách thuốc sĩ');
+  }
+  return ValidateSuccess('');
+};
 
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +38,13 @@ const SignUpForm = React.memo((props) => {
     (e) => {
       const data = FormDataUtils.convert(e);
       e.preventDefault();
-      onClickSignUp(data);
+      // validate
+      const rs = validateSignUp(data);
+      if (!rs || !rs.validate) {
+        NotifyUtils.error(rs.message);
+      } else {
+        onClickSignUp(data);
+      }
     },
     [onClickSignUp],
   );
@@ -136,15 +157,16 @@ const SignUpForm = React.memo((props) => {
         <div className="agree-term">
           <CheckBox
             checked={isCheckAgree}
-            name="agreeTerm"
+            name="isCheckAgree"
             label="Tôi đã đọc và đồng ý với điều khoản sử dụng *"
           />
         </div>
         <div className="agree-term">
-          <CheckBox name="scope" value={ENUM_SCOPE.PHARMACY} label="Nhà thuốc" />
-          <CheckBox name="scope" value={ENUM_SCOPE.CLINIC} label="phòng khám" />
-          {/* DRUGSTORE */}
-          <CheckBox name="scope" value={ENUM_SCOPE.DRUGSTORE} label="Quầy thuốc" />
+          <RadioGroup defaultValue={ENUM_SCOPE.PHARMACY} aria-label="scope" name="scope-radios" row>
+            <FormControlLabel value={ENUM_SCOPE.PHARMACY} control={<Radio />} label="Nhà thuốc" />
+            <FormControlLabel value={ENUM_SCOPE.CLINIC} control={<Radio />} label="Phòng khám" />
+            <FormControlLabel value={ENUM_SCOPE.DRUGSTORE} control={<Radio />} label="Quầy thuốc" />
+          </RadioGroup>
         </div>
         <div className="link-login">
           <span className="text-capitalize">

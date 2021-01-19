@@ -1,5 +1,11 @@
 import { Paper, Grid } from '@material-ui/core';
-import { OrderDetailStep, OrderDetailInfo, OrderDetailProduct, ResponseButton, PrintInvoiceButton } from 'components/mocules';
+import {
+  OrderDetailStep,
+  OrderDetailInfo,
+  OrderDetailProduct,
+  ResponseButton,
+  PrintInvoiceButton,
+} from 'components/mocules';
 import { DateTimeUtils } from 'utils';
 import styles from './styles.module.css';
 
@@ -31,7 +37,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container direction="row">
           <Grid item xs={3}>
-            <PrintInvoiceButton disabled orderID={order.orderID} />
+            <PrintInvoiceButton orderID={order.orderID} user={user} />
           </Grid>
 
           <Grid item container direction="column" justify="center" xs={5}>
@@ -44,7 +50,13 @@ const OrderDetailContainer = ({ order, products, user }) => (
     </Grid>
 
     <Grid item xs={12}>
-      <OrderDetailInfo {...order} />
+      <OrderDetailInfo
+        {...order}
+        name={user?.name}
+        phone={user?.phone}
+        address={user?.address}
+        email={user?.email}
+      />
     </Grid>
 
     <Grid item xs={12}>

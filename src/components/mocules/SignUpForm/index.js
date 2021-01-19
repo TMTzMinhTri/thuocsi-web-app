@@ -8,7 +8,7 @@ const SignUpForm = styled(SignUpFormCustom)`
   justify-content: center;
   align-items: center;
   .form-control {
-    width: ${({ width = 400 }) => width}px;
+    width: 100%;
   }
   .agree-term {
     align-self: flex-start;
