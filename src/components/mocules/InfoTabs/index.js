@@ -22,7 +22,7 @@ const tabs = [
   },
   { label: 'Điểm tích luỹ', icon: <MonetizationOnIcon />, id: 5, link: '/users/loyalty_points' },
 ];
-const InfoTabs = ({ value, name, balance }) => (
+const InfoTabs = ({ value, name, balance = 0 }) => (
   <Box className={styles.tab_box}>
     <Box className={styles.account_name}>
       Tài khoản của

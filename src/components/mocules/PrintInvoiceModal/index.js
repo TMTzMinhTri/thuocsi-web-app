@@ -51,7 +51,7 @@ const PrintInvoiceModal = memo((props) => {
           <Divider />
           <Grid container>
             <InfoFormControl xs={12} label="Tên nhà thuốc/phòng khám" htmlFor="address" isRequired>
-              <InfoInput id="bussinessName" />
+              <InfoInput id="legalRepresentative" />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Mã số thuế" htmlFor="address" isRequired>

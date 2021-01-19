@@ -3,7 +3,7 @@ import { Modal } from 'components/atoms';
 import { Grid, Divider } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { PromoClient } from 'clients';
-import { PROMOTION_STATUS, PROMO_TYPE } from 'constants/Enums';
+import { PROMOTION_STATUS } from 'constants/Enums';
 import CartCouponCard from '../CartCouponCard';
 import styles from './style.module.css';
 import Button from './Button';
@@ -12,7 +12,7 @@ import Input from './Input';
 const TEXT_DEFAULT = '';
 
 const searchString = (arr, str) => {
-  const result = arr.filter((el) => el.promotionCode.indexOf(str) > -1);
+  const result = arr.filter((el) => el.promotionCode?.indexOf(str) > -1);
   return result;
 };
 
@@ -31,7 +31,7 @@ const PromoListModal = memo((props) => {
   useEffect(() => {
     async function fetchData() {
       const data = await PromoClient.getPromosByStatus(null, PROMOTION_STATUS.ACTIVE);
-      const prs = data.filter((dt) => dt.promotionType === PROMO_TYPE.VOUCHERCODE);
+      const prs = searchString(data, '');
       setPromos(prs);
       setPromoSearchs(prs);
     }

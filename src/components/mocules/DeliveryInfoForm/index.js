@@ -20,9 +20,9 @@ const DeliveryInfoForm = ({
   email,
   phone,
   address,
-  billWard,
-  billDistrict,
-  billProvince,
+  wardCode,
+  districtCode,
+  provinceCode,
   handleSetValue,
 }) => {
   const [savedInfo, setSavedInfo] = React.useState({
@@ -87,12 +87,12 @@ const DeliveryInfoForm = ({
         </InfoFormControl>
 
         <GroupAddressSelect
-          idProvince="billProvince"
-          province={billProvince}
-          idDistrict="billDistrict"
-          district={billDistrict}
-          idWard="billWard"
-          ward={billWard}
+          idProvince="provinceCode"
+          province={provinceCode}
+          idDistrict="districtCode"
+          district={districtCode}
+          idWard="wardCode"
+          ward={wardCode}
           handleSetValue={handleSetValue}
         />
         <FormControlLabel

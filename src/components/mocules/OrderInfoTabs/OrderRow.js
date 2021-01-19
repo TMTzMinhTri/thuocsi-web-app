@@ -29,7 +29,7 @@ const MyOrderDetail = ({ amount, createdAt, deliveryAt }) => (
     </div>
   </div>
 );
-const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total }) => {
+const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total, name, phone }) => {
   const maxWidth = useMediaQuery('(max-width:715px)');
   return (
     <Paper square={!maxWidth} className={styles.paper} elevation={0}>
@@ -77,7 +77,7 @@ const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total }) => 
             </Grid>
           )}
           <Grid item>
-            <ResponseButton />
+            <ResponseButton orderID={orderID} name={name} phone={phone} />
           </Grid>
         </Grid>
       </Grid>
