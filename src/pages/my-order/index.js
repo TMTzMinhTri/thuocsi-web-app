@@ -7,20 +7,18 @@ import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [wallet, orders] = await Promise.all([
-      CustomerClient.getWallet(),
+    const [orders] = await Promise.all([
       CustomerClient.getOrder({ status: ENUM_ORDER_STATUS.ALL }),
     ]);
     return {
       props: {
-        wallet: wallet?.data[0],
         orders: orders.data,
       },
     };
   });
 }
 
-const MyOrder = ({ wallet, orders: orderR = [], isMobile }) => {
+const MyOrder = ({ user, orders: orderR = [], isMobile }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [orders, setOrders] = useState(orderR);
   const [orderStatus, setOrderStatus] = useState(ENUM_ORDER_STATUS.ALL);
@@ -40,11 +38,12 @@ const MyOrder = ({ wallet, orders: orderR = [], isMobile }) => {
     <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={2} title="Đơn hàng của bạn" wallet={wallet}>
+          <InfoContainer value={2} title="Đơn hàng của bạn" name={user?.name}>
             <OrderInfoFormContainer
               orders={orders}
               handleSetOrderStatus={handleSetOrderStatus}
               orderStatus={orderStatus}
+              user={user}
             />
           </InfoContainer>
         </Container>

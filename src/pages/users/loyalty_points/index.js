@@ -1,29 +1,24 @@
 import { Template, InfoContainer } from 'components';
 import { Container, Grid } from '@material-ui/core';
-import { CustomerClient, doWithServerSide } from 'clients';
+import { doWithServerSide } from 'clients';
 import { withLogin } from 'context';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  return doWithServerSide(ctx, async () => {
-    const [wallet] = await Promise.all([CustomerClient.getWallet()]);
-    return {
-      props: {
-        wallet: wallet.data[0],
-      },
-    };
-  });
+  return doWithServerSide(ctx, async () => ({
+
+  }));
 }
 
-const MyLoyaltyPoint = ({ wallet, isMobile }) => {
+const MyLoyaltyPoint = ({ user, isMobile }) => {
   const title = 'Điểm tích luỹ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={5} title="Điểm tích luỹ" wallet={wallet}>
+          <InfoContainer value={5} title="Điểm tích luỹ" name={user?.name}>
             <Grid item xs={12} className={styles.loyalty_point_row}>
-              Bạn đang có <span className={styles.point}>{wallet.loyaltyPoint}</span> điểm tích lũy.
+              Bạn đang có <span className={styles.point}>{user?.point}</span> điểm tích lũy.
             </Grid>
           </InfoContainer>
         </Container>

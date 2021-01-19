@@ -15,13 +15,13 @@ const ButtonUploadFile = () => (
 
 const EnterpriseForm = ({
   scope,
-  drugstoreName,
+  legalRepresentative,
   bussinessName,
-  taxId,
-  bussinessAddress,
-  billWard,
-  billDistrict,
-  billProvince,
+  mst,
+  address,
+  wardCode,
+  districtCode,
+  provinceCode,
   handleSetValue,
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
@@ -33,12 +33,12 @@ const EnterpriseForm = ({
           <InfoInput id="scope" value={scope} disabled />
         </InfoFormControl>
 
-        <InfoFormControl xs={maxWidthScope ? 12 : 9} label="Tên nhà thuốc/phòng khám" htmlFor="drugstoreName">
+        <InfoFormControl xs={maxWidthScope ? 12 : 9} label="Tên nhà thuốc/phòng khám" htmlFor="legalRepresentative">
           <InfoInput
-            id="drugstoreName"
+            id="legalRepresentative"
             placeholder="Dược Hoàng Vũ"
-            value={drugstoreName}
-            onChange={(e) => handleSetValue('drugstoreName', e.target.value)}
+            value={legalRepresentative}
+            onChange={(e) => handleSetValue('legalRepresentative', e.target.value)}
           />
         </InfoFormControl>
 
@@ -48,6 +48,7 @@ const EnterpriseForm = ({
             placeholder="Trần Thị B"
             value={bussinessName}
             onChange={(e) => handleSetValue('bussinessName', e.target.value)}
+
           />
         </InfoFormControl>
         <input type="file" hidden id="input-file" />
@@ -56,9 +57,11 @@ const EnterpriseForm = ({
           label="Giấy phép kinh doanh phòng khám/nhà thuốc"
           htmlFor="license"
           variant="contained"
+
         >
           <InfoInput
             id="license"
+            placeholder="Chọn file"
             endAdornment={<ButtonUploadFile />}
             component="span"
             htmlFor="icon-button-file"
@@ -70,13 +73,13 @@ const EnterpriseForm = ({
       </Grid>
       <h1 className={styles.title}> Thông tin xuất hoá đơn </h1>
       <Grid container spacing={2}>
-        <InfoFormControl xs={12} label="Mã số thuế" htmlFor="taxId">
+        <InfoFormControl xs={12} label="Mã số thuế" htmlFor="mst">
           <InfoInput
-            id="taxId"
+            id="mst"
             placeholder="8026906145"
-            value={taxId}
+            value={mst}
             onChange={(e) => {
-              handleSetValue('taxId', e.target.value);
+              handleSetValue('mst', e.target.value);
             }}
           />
         </InfoFormControl>
@@ -84,21 +87,21 @@ const EnterpriseForm = ({
           <InfoInput
             id="address"
             placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk"
-            value={bussinessAddress}
+            value={address}
             onChange={(e) => {
-              handleSetValue('bussinessAddress', e.target.value);
+              handleSetValue('address', e.target.value);
             }}
           />
         </InfoFormControl>
       </Grid>
 
       <GroupAddressSelect
-        idProvince="billProvince"
-        province={billProvince}
-        idDistrict="billDistrict"
-        district={billDistrict}
-        idWard="billWard"
-        ward={billWard}
+        idProvince="provinceCode"
+        province={provinceCode}
+        idDistrict="districtCode"
+        district={districtCode}
+        idWard="wardCode"
+        ward={wardCode}
         handleSetValue={handleSetValue}
       />
     </Paper>

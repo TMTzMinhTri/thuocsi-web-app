@@ -14,7 +14,7 @@ const CustomTab = withStyles({
   },
 })(Tab);
 
-export default function OrderInfoTabs({ orders, handleSetOrderStatus }) {
+export default function OrderInfoTabs({ orders, handleSetOrderStatus, user }) {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,7 +60,7 @@ export default function OrderInfoTabs({ orders, handleSetOrderStatus }) {
       </Grid>
       <Grid item xs={12}>
         {orders.map((order) => (
-          <OrderRow {...order} key={order.orderID} />
+          <OrderRow {...order} key={order.orderID} name={user?.name} phone={user?.phone} />
         ))}
       </Grid>
     </Grid>

@@ -3,7 +3,7 @@ import { OrderDetailStep, OrderDetailInfo, OrderDetailProduct, ResponseButton, P
 import { DateTimeUtils } from 'utils';
 import styles from './styles.module.css';
 
-const OrderDetailContainer = ({ order, products }) => (
+const OrderDetailContainer = ({ order, products, user }) => (
   <Grid container>
     <Grid item xs={12}>
       <Paper classes={{ root: styles.container }} elevation={3}>
@@ -21,7 +21,7 @@ const OrderDetailContainer = ({ order, products }) => (
                 <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryAt))}</span>
               </div>
             </Grid>
-            <ResponseButton />
+            <ResponseButton orderID={order.orderID} name={user?.name} phone={user?.phone} />
           </Grid>
         </Grid>
       </Paper>

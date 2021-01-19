@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.description {
+  margin-bottom: 30px;
+}
+
 .promo_special {
   background-image: linear-gradient(to right, #00b46e, #17a2b8);
   color: white;

@@ -5,26 +5,24 @@ import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [wallet, referrals] = await Promise.all([
-      CustomerClient.getWallet(),
+    const [referrals] = await Promise.all([
       CustomerClient.getReferral(),
     ]);
     return {
       props: {
-        wallet: wallet.data[0],
         referrals,
       },
     };
   });
 }
 
-const MyReferral = ({ wallet, referrals = [], isMobile }) => {
+const MyReferral = ({ user, referrals = [], isMobile }) => {
   const title = 'Giới thiệu bạn bè – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={3} title="Giới thiệu bạn bè" wallet={wallet}>
+          <InfoContainer value={3} title="Giới thiệu bạn bè" name={user?.name}>
             <ReferralList referrals={referrals} />
           </InfoContainer>
         </Container>

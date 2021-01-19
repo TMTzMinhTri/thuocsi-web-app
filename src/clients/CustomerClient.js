@@ -31,8 +31,9 @@ export async function getPromo() {
   return result.data;
 }
 
-export async function updateInfoUser(body) {
-  const result = await PUT({ url: '/marketplace/customer/v1/me', body });
+export async function updateProfile(data) {
+  const url = CUSTOMER_API.INFO;
+  const result = await PUT({ url, body: data });
   return result;
 }
 
@@ -41,5 +42,5 @@ export default {
   getReferral,
   getWallet,
   getPromo,
-  updateInfoUser,
+  updateProfile,
 };
