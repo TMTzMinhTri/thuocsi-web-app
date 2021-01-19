@@ -3,7 +3,9 @@ import { hashCode } from './StringUtils';
 
 const show = (text, type) => {
   const toastId = hashCode(text);
-  if (!toast.isActive(toastId)) {
+  if (toast.isActive(toastId)) {
+    toast.update(toastId, { autoClose: 5000 });
+  } else {
     toast(text, {
       toastId,
       type,
