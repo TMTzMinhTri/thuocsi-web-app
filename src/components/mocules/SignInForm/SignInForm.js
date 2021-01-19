@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import { AccountCircle, Visibility, VisibilityOff } from '@material-ui/icons';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {
+  AccountCircle,
+  Visibility,
+  VisibilityOff,
+  LockOutlined as LockOutlinedIcon,
+} from '@material-ui/icons';
 import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
 import { Button, Input, CheckBox } from 'components/atoms';
 import { FormDataUtils, NotifyUtils } from 'utils';
