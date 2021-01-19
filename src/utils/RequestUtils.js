@@ -1,4 +1,7 @@
-export const convertObjectToParameter = (params) => new URLSearchParams(params).toString();
+export const convertObjectToParameter = (params) => {
+  if (params == null) return '';
+  return new URLSearchParams(params).toString();
+};
 
 export default {
   convertObjectToParameter,
