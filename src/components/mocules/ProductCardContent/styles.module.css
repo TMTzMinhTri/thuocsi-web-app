@@ -5,6 +5,7 @@
 
 .product_content_column {
     margin-bottom: 0!important;
+    min-width: 442px;
 }
 
 .product_image {
