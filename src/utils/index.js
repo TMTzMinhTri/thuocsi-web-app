@@ -7,3 +7,4 @@ export { default as NotifyUtils } from './NotifyUtils';
 export { default as ResponseUtils } from './ResponseUtils';
 export { default as ValidateUtils } from './ValidateUtils';
 export { default as RequestUtils } from './RequestUtils';
+export { default as StringUtils } from './StringUtils';

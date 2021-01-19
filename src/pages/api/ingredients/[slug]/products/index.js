@@ -58,7 +58,7 @@ export default (req, res) => {
           name: 'Medx',
           slug: 'medx-1',
         },
-        sku: 'SP050',
+        sku: 'SP050-2',
         slug: 'khau-trang-y-te',
         storage: '[Bảo quản] nơi thoáng mát',
         tags: [
@@ -87,7 +87,6 @@ export default (req, res) => {
         volume: '50 cái',
         weight: 300,
       },
-
       {
         brand: 'Hàng nội địa',
         category: [
@@ -141,7 +140,7 @@ export default (req, res) => {
           name: 'Medx',
           slug: 'medx-1',
         },
-        sku: 'SP050',
+        sku: 'SP050-1',
         slug: 'khau-trang-y-te',
         storage: '[Bảo quản] nơi thoáng mát',
         tags: [
