@@ -29,7 +29,7 @@ const validateSignUp = ({ isCheckAgree, name, email, password, phone }) => {
     validateData.phoneNumber(phone);
     validateData.email(email);
     validateData.password(password);
-    if (isCheckAgree !== '') throw new Error('Bạn chưa đồng ý chính sách thuốc sỉ.');
+    if (isCheckAgree !== '') throw new Error('Vui lòng chọn Đồng ý với Điều khoản sử dụng.');
     return true;
   } catch (error) {
     NotifyUtils.error(error?.message || 'Đã có lỗi xảy ra');
