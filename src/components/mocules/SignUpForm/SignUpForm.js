@@ -22,7 +22,7 @@ import { ENUM_SCOPE } from 'constants/Enums';
 
 const { validateData, Error } = ValidateUtils;
 
-const validateSignUp = ({ isCheckAgree, name, email, password, phone }) => {
+const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCallback) => {
   try {
     validateData.name(name);
     validateData.phoneNumber(phone);
@@ -32,20 +32,30 @@ const validateSignUp = ({ isCheckAgree, name, email, password, phone }) => {
     return true;
   } catch (error) {
     NotifyUtils.error(error?.message || 'Đã có lỗi xảy ra');
+    failCallback(error);
+    return false;
   }
-  return false;
 };
 
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickSignIn, onClickSignUp, hasAlert } = props;
+  const { className, onClickSignIn, onClickSignUp } = props;
+  const [errors, setErrors] = useState({});
 
   const handleSubmitSignUp = useCallback(
     (e) => {
       const data = FormDataUtils.convert(e);
       e.preventDefault();
       // validate
-      if (validateSignUp(data)) {
+      if (
+        validateSignUp(data, (error) => {
+          if (error) {
+            const newError = {};
+            newError[error.type] = true;
+            setErrors({ ...newError });
+          }
+        })
+      ) {
         onClickSignUp(data);
       }
     },
@@ -99,13 +109,6 @@ const SignUpForm = React.memo((props) => {
     </InputAdornment>
   );
 
-  const errorElement = () => {
-    if (hasAlert) {
-      return <div>{hasAlert}</div>;
-    }
-    return null;
-  };
-
   const labelAgree = (
     <div>
       Tôi đã đọc và đồng ý với{' '}
@@ -118,7 +121,6 @@ const SignUpForm = React.memo((props) => {
   return (
     <div className={className}>
       <form className={className} onSubmit={handleSubmitSignUp}>
-        {errorElement}
         <FormControl className="form-control">
           <Input
             id="username"
@@ -126,6 +128,7 @@ const SignUpForm = React.memo((props) => {
             startAdornment={IconAccount}
             placeholder="Nhập tên (bắt buộc)"
             variant="outlined"
+            error={errors.name || false}
           />
         </FormControl>
         <FormControl className="form-control">
@@ -135,6 +138,7 @@ const SignUpForm = React.memo((props) => {
             startAdornment={IconPhone}
             placeholder="Nhập số điện thoại (bắt buộc)"
             variant="outlined"
+            error={errors.phone || false}
           />
         </FormControl>
         <FormControl className="form-control">
@@ -144,6 +148,7 @@ const SignUpForm = React.memo((props) => {
             startAdornment={IconEmail}
             placeholder="Nhập email"
             variant="outlined"
+            error={errors.email || false}
           />
         </FormControl>
         <FormControl className="form-control">
@@ -155,6 +160,7 @@ const SignUpForm = React.memo((props) => {
             endAdornment={IconEndPassword}
             placeholder="Nhập mật khẩu (bắt buộc)"
             variant="outlined"
+            error={errors.password || false}
           />
         </FormControl>
         <FormControl className="form-control">

@@ -27,6 +27,7 @@ const SignUpForm = styled(SignUpFormCustom)`
     width: 100%;
     padding: 1.5rem;
     margin: 1rem;
+    border-radius: 50px;
   }
   .link-login {
     padding: 1rem;

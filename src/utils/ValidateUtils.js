@@ -48,22 +48,22 @@ function Error(message, type) {
 const Success = (message, type) => ({ message, validate: true, type });
 
 const funcValidateEmail = (email) => {
-  if (isEmpty(email)) throw new Error('Bạn chưa diền thông tin email', 'email');
+  if (isEmpty(email)) throw new Error('Bạn chưa điền thông tin email', 'email');
   if (!validateEmail(email)) throw new Error('Email chưa đúng định dạng', 'email');
 };
 
 const funcValidateName = (name) => {
-  if (isEmpty(name)) throw new Error('Bạn chưa diền tên', 'name');
+  if (isEmpty(name)) throw new Error('Bạn chưa nhập họ tên', 'name');
 };
 
 const funcValidatePassword = (pass) => {
-  if (isEmpty(pass)) throw new Error('Bạn chưa diền mật khẩu', 'password');
+  if (isEmpty(pass)) throw new Error('Bạn chưa điền mật khẩu', 'password');
 };
 
-const funcValidatePhoneNumber = (phoneNumber) => {
-  if (isEmpty(phoneNumber)) throw new Error('Bạn chưa điền số điện thoại', 'phoneNumber');
-  if (!validatePhone(phoneNumber)) {
-    throw new Error('Số điện thoại không đúng định dạng', 'phoneNumber');
+const funcValidatePhoneNumber = (phone) => {
+  if (isEmpty(phone)) throw new Error('Bạn chưa điền số điện thoại', 'phone');
+  if (!validatePhone(phone)) {
+    throw new Error('Số điện thoại không đúng định dạng', 'phone');
   }
 };
 

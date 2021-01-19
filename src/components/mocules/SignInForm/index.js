@@ -27,6 +27,7 @@ const SignInForm = styled(SignInFormCustom)`
     width: 100%;
     padding: 1.5rem;
     margin: 1rem;
+    border-radius: 50px;
   }
   .register {
     padding: 1rem;
