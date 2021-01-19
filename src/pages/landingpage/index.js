@@ -4,7 +4,7 @@ import Template from 'components/layout/Template';
 
 export default function LandingPage(props) {
   const { infoBanner = [], isMobile, isAuthenticated } = props;
-  const title = 'Thuocsi.vn';
+  const title = 'Tra cứu và đặt thuốc giá sỉ nhanh tại thuocsi.vn';
   const pageName = 'home';
   const DynamicWhyBuymed = dynamic(() => import('components/organisms/WhyBuymed'));
   const DynamicCommonQuestion = dynamic(() => import('components/mocules/CommonQuestion'));

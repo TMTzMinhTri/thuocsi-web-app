@@ -16,17 +16,71 @@ export const imagePartnerSlider = [
 ];
 
 export const imageMediaTop = [
-  { id: 1, url: '/images/media/logo_seedstar.png', href: 'https://www.seedstarsworld.com/event/seedstars-hochiminh-2018', width: '168px', height: '76px' },
-  { id: 2, url: '/images/media/logo_tccs.png', href: 'https://taichinhcuocsong.vn/doc-bao-giup-ban/startup-viet-trinh-lang-tai-thuy-si-6432.html', width: '162px', height: '99px' },
-  { id: 3, url: '/images/media/logo_pitchpalace.png', href: 'https://pitchatpalace.com/pitchpalace-vietnam-1-0-the-results', width: '182px', height: '190px' },
-  { id: 4, url: '/images/media/logo_nttdata.png', href: 'http://oi.nttdata.com/en/contest/9th/venue/c05', width: '166px', height: '203x' },
+  {
+    id: 1,
+    url: '/images/media/logo_seedstar.png',
+    href: 'https://www.seedstarsworld.com/event/seedstars-hochiminh-2018',
+    width: '168px',
+    height: '76px',
+  },
+  {
+    id: 2,
+    url: '/images/media/logo_tccs.png',
+    href:
+      'https://taichinhcuocsong.vn/doc-bao-giup-ban/startup-viet-trinh-lang-tai-thuy-si-6432.html',
+    width: '162px',
+    height: '99px',
+  },
+  {
+    id: 3,
+    url: '/images/media/logo_pitchpalace.png',
+    href: 'https://pitchatpalace.com/pitchpalace-vietnam-1-0-the-results',
+    width: '182px',
+    height: '190px',
+  },
+  {
+    id: 4,
+    url: '/images/media/logo_nttdata.png',
+    href: 'http://oi.nttdata.com/en/contest/9th/venue/c05',
+    width: '166px',
+    height: '203x',
+  },
 ];
 
 export const imageMediaBottom = [
-  { id: 1, url: '/images/media/logo_echelon.png', href: 'https://e27.co/our-ho-chi-minh-city-top100-winners-prove-that-the-vietnamese-dragon-is-awake-20190313', width: '165px', height: '103px', dark: true },
-  { id: 2, url: '/images/media/logo_investglobal.png', href: 'https://investglobal.vn/tin-tuc/startup-phan-phoi-duoc-pham-truc-tuyen-buymed-duoc-dau-tu-500-000-usd-tu-2-quy-dau-tu-183.html', width: '166px', height: '166px' },
-  { id: 3, url: '/images/media/logo_forbes.png', href: 'https://forbesvietnam.com.vn/tin-cap-nhat/buymed-startup-muon-giam-tinh-trang-thuoc-gia-nhan-von-500000-usd-7709.html', width: '166px', height: '94px' },
-  { id: 4, url: '/images/media/logo_e27.png', href: 'https://e27.co/vietnamese-online-pharma-marketplace-thuocsi-vn-secures-us500k-from-cocoon-capital-vietcapital-ventures-20190926', width: '166px', height: '166px' },
+  {
+    id: 1,
+    url: '/images/media/logo_echelon.png',
+    href:
+      'https://e27.co/our-ho-chi-minh-city-top100-winners-prove-that-the-vietnamese-dragon-is-awake-20190313',
+    width: '165px',
+    height: '103px',
+    dark: true,
+  },
+  {
+    id: 2,
+    url: '/images/media/logo_investglobal.png',
+    href:
+      'https://investglobal.vn/tin-tuc/startup-phan-phoi-duoc-pham-truc-tuyen-buymed-duoc-dau-tu-500-000-usd-tu-2-quy-dau-tu-183.html',
+    width: '166px',
+    height: '166px',
+  },
+  {
+    id: 3,
+    url: '/images/media/logo_forbes.png',
+    href:
+      'https://forbesvietnam.com.vn/tin-cap-nhat/buymed-startup-muon-giam-tinh-trang-thuoc-gia-nhan-von-500000-usd-7709.html',
+    width: '166px',
+    height: '94px',
+  },
+  {
+    id: 4,
+    url: '/images/media/logo_e27.png',
+    href:
+      'https://e27.co/vietnamese-online-pharma-marketplace-thuocsi-vn-secures-us500k-from-cocoon-capital-vietcapital-ventures-20190926',
+    width: '166px',
+    height: '166px',
+  },
 ];
 
 export const settingsCustomer = {
@@ -218,81 +272,43 @@ export const LINK_ALL_QUESTION =
   'https://thuocsi.zendesk.com/hc/vi/categories/360001885792-C%C3%A2u-h%E1%BB%8Fi-th%C6%B0%E1%BB%9Dng-g%E1%BA%B7p-Q-A-';
 
 export const SORT_PRODUCT = [
-  { label: 'Sản phẩm mới',
-    value: 'new_arrival',
-  },
-  { label: 'Bán chạy nhất',
-    value: 'bestsellers',
-  },
-  { label: 'Phù hợp nhất',
-    value: 'best_match',
-  },
-  { label: 'Giá: Cao đến Thấp',
-    value: 'price-desc',
-  },
-  { label: 'Giá: Thấp đến Cao',
-    value: 'price-asc',
-  },
-  { label: 'Tên: A-Z',
-    value: 'name-asc',
-  },
-  { label: 'Tên: Z-A',
-    value: 'name-desc',
-  },
+  { label: 'Sản phẩm mới', value: 'new_arrival' },
+  { label: 'Bán chạy nhất', value: 'bestsellers' },
+  { label: 'Phù hợp nhất', value: 'best_match' },
+  { label: 'Giá: Cao đến Thấp', value: 'price-desc' },
+  { label: 'Giá: Thấp đến Cao', value: 'price-asc' },
+  { label: 'Tên: A-Z', value: 'name-asc' },
+  { label: 'Tên: Z-A', value: 'name-desc' },
 ];
 
 export const TAB_LIST = [
-  { label: 'Tất cả',
-    shortName: 'Tất cả',
-    value: '',
-  },
-  { label: 'Flash Sale',
+  { label: 'Tất cả', shortName: 'Tất cả', value: '' },
+  {
+    label: 'Flash Sale',
     shortName: 'Flash Sale',
     value: 'flash_sale',
     leftIcon: <FontAwesomeIcon icon={faBolt} />,
     rightIcon: <FontAwesomeIcon icon={faBolt} />,
   },
-  { label: 'Quà khủng, chiết khấu cao',
+  {
+    label: 'Quà khủng, chiết khấu cao',
     shortName: 'Quà khủng, chiết khấu cao',
     value: 'big_gift',
     leftIcon: <FontAwesomeIcon icon={faGift} />,
   },
-  { label: 'Sản phẩm mới',
-    shortName: 'SP Mới',
-    value: 'new_arrival',
-  },
-  { label: 'Giảm giá',
-    shortName: 'Giảm giá',
-    value: 'decreasing_price',
-  },
-  { label: 'Hóa đơn nhanh',
-    shortName: 'Hóa đơn nhanh',
-    value: 'invoice_exportable',
-  },
-  { label: 'Tăng giá',
-    shortName: 'Tăng giá',
-    value: 'increasing_price',
-  },
-  { label: 'Cận date',
-    shortName: 'Cận date',
-    value: 'close_date',
-  },
-  { label: 'Ưu đãi chỉ tại thuocsi',
+  { label: 'Sản phẩm mới', shortName: 'SP Mới', value: 'new_arrival' },
+  { label: 'Giảm giá', shortName: 'Giảm giá', value: 'decreasing_price' },
+  { label: 'Hóa đơn nhanh', shortName: 'Hóa đơn nhanh', value: 'invoice_exportable' },
+  { label: 'Tăng giá', shortName: 'Tăng giá', value: 'increasing_price' },
+  { label: 'Cận date', shortName: 'Cận date', value: 'close_date' },
+  {
+    label: 'Ưu đãi chỉ tại thuocsi',
     shortName: 'Ưu đãi chỉ tại thuocsi',
     value: 'thuocsi_preference',
   },
-  { label: 'Tích điểm hoàn tiền',
-    shortName: 'Tích điểm hoàn tiền',
-    value: 'point_to_cash',
-  },
-  { label: 'Giao nhanh',
-    shortName: 'Giao nhanh',
-    value: 'fast_moving',
-  },
-  { label: 'Dropship',
-    shortName: 'Dropship',
-    value: 'dropship',
-  },
+  { label: 'Tích điểm hoàn tiền', shortName: 'Tích điểm hoàn tiền', value: 'point_to_cash' },
+  { label: 'Giao nhanh', shortName: 'Giao nhanh', value: 'fast_moving' },
+  { label: 'Dropship', shortName: 'Dropship', value: 'dropship' },
 ];
 
 export const tabsProductData = [

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable camelcase */
 
 import React, { useState } from 'react';
@@ -10,7 +11,7 @@ import {
   CheckoutSticky,
 } from 'components';
 import { doWithServerSide, CartClient } from 'clients';
-import { withLogin } from 'context';
+import { useCart, withLogin } from 'context';
 import { useRouter } from 'next/router';
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
@@ -44,8 +45,11 @@ export async function getServerSideProps(ctx) {
 
 const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const router = useRouter();
-
-  const title = 'Thuocsi.vn';
+  if (!cart || cart?.length === 0) {
+    NotifyUtils.info('Vui lòng đặt hàng trước khi thanh toán');
+    router.push('/');
+    return <LoadingScreen />;
+  }
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('cod');
   const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('normal');
   const [value, setValue] = useState({
@@ -58,12 +62,8 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     billWard: user.wardCode || '0',
   });
 
-  if (!cart || cart?.length === 0) {
-    NotifyUtils.info('Vui lòng đặt hàng trước khi thanh toán');
-
-    router.push('/');
-    return <LoadingScreen />;
-  }
+  const { itemCount = 0 } = useCart();
+  const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
 
   const dataCustomer = {
     ...value,
