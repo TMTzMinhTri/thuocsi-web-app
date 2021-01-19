@@ -16,7 +16,7 @@ import ErrorQuantityCartModal from '../../organisms/ErrorQuantityCartModal';
 import styles from './styles.module.css';
 
 const ProductCardBuy = ({
-  max_product: maxProduct,
+  maxQuantity,
   not_support_delivery: noSupportDelivery,
   price,
   // dealPrice,
@@ -55,7 +55,7 @@ const ProductCardBuy = ({
     }
     if (response.errorCode === 'CART_MAXQUANTITY') {
       toggleErrorQuantity();
-      setValue(product.maxQuantity);
+      setValue(maxQuantity);
     }
   };
 
@@ -140,13 +140,13 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
                 </Box>
               )}
-              {maxProduct > 0 && (
+              {maxQuantity && maxQuantity > 0 && (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
                   }
                 >
-                  Đặt tối đa {price} sản phẩm
+                  Đặt tối đa {maxQuantity} sản phẩm
                 </Typography>
               )}
               <CardActions
