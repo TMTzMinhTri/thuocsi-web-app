@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextareaAutosize, Button } from '@material-ui/core';
-import { LinkComp } from 'components/atoms';
+import Link from 'next/link';
 import { Star, Info } from '@material-ui/icons';
 import { NotifyUtils } from 'utils';
 import { CartClient, isValid } from 'clients';
@@ -45,9 +45,9 @@ const ProductCartList = (props) => {
         <Info className={styles.info_icon} />
         <Typography>
           Để thêm sản phẩm vào giỏ hàng, vui lòng quay về trang
-          <LinkComp className={styles.quick_order} href={QUICK_ORDER}>
+          <Link className={styles.quick_order} href={QUICK_ORDER}>
             Đặt hàng nhanh
-          </LinkComp>
+          </Link>
         </Typography>
       </Box>
       <Box className={styles.notes}>

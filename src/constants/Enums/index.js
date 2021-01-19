@@ -9,6 +9,8 @@ export const ENUM_ORDER_STATUS = {
   ALL: 'all',
   COMPLETED: 'completed',
   CANCEL: 'cancel',
+  DELIVERY: 'delivery',
+  DONE: 'done',
 };
 
 export const ENUM_TYPE = {};
