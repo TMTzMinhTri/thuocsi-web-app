@@ -23,7 +23,8 @@ const MyOrderDetail = ({ amount, createdAt, deliveryAt }) => (
     </div>
   </div>
 );
-const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total, name, phone }) => {
+const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total, user }) => {
+  const { name, phone } = user;
   const maxWidth = useMediaQuery('(max-width:715px)');
   return (
     <Paper square={!maxWidth} className={styles.paper} elevation={0}>
@@ -61,7 +62,7 @@ const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total, name,
           justify="center"
         >
           <Grid item>
-            <PrintInvoiceButton orderID={orderID} />
+            <PrintInvoiceButton orderID={orderID} user={user} />
           </Grid>
           {status === ENUM_ORDER_STATUS.PENDING && (
             <Grid item>

@@ -7,6 +7,7 @@ import { FormarCurrency, NotifyUtils } from 'utils';
 import GroupAddressSelect from '../GroupAddressSelect';
 import InfoInput from '../InfoInput';
 import styles from './style.module.css';
+import validateForm from './validateForm';
 
 const heads = ['Sản phẩm hóa đơn nhanh', 'Giá', 'Số lượng', 'Tổng cộng'];
 
@@ -19,11 +20,18 @@ const StyledCompleteButton = styled(Button)`
 `;
 
 const PrintInvoiceModal = memo((props) => {
-  const { onClose, visible, className, restProps, orderID } = props;
+  const { onClose, visible, className, restProps, orderID, user } = props;
+  const { address: add, businessName, email, mst } = user;
+  const [val, setVal] = useState({
+    mst: mst || '',
+    email: email || '',
+    businessName: businessName || '',
+    address: add || '',
+  });
   const [address, setAddress] = useState({
-    province: 0,
-    district: 0,
-    ward: 0,
+    province: user?.provinceCode,
+    district: user?.districtCode,
+    ward: user?.wardCode,
   });
 
   const [products, setProducts] = useState([]);
@@ -32,8 +40,18 @@ const PrintInvoiceModal = memo((props) => {
     setAddress({ ...address, [key]: value });
   };
 
+  const handleChangeVal = (key, value) => {
+    setVal({ ...val, [key]: value });
+  };
+
   const handleCompleted = () => {
-    NotifyUtils.success('Xuất hoá đơn thành công.');
+    try {
+      validateForm(val);
+      NotifyUtils.success('Xuất hoá đơn thành công.');
+      onClose();
+    } catch (error) {
+      NotifyUtils.error(error.message || 'Xuất hoá đơn thất bại');
+    }
   };
   useEffect(() => {
     async function fetchData() {
@@ -51,19 +69,19 @@ const PrintInvoiceModal = memo((props) => {
           <Divider />
           <Grid container>
             <InfoFormControl xs={12} label="Tên nhà thuốc/phòng khám" htmlFor="address" isRequired>
-              <InfoInput id="legalRepresentative" />
+              <InfoInput id="businessName" value={val.businessName} onChange={(e) => handleChangeVal('businessName', e.target.value)} />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Mã số thuế" htmlFor="address" isRequired>
-              <InfoInput id="address" />
+              <InfoInput id="mst" value={val.mst} onChange={(e) => handleChangeVal('mst', e.target.value)} />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Email" htmlFor="address" isRequired>
-              <InfoInput id="address" />
+              <InfoInput id="email" value={val.email} onChange={(e) => handleChangeVal('email', e.target.value)} />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Địa chỉ nhận hoá đơn" htmlFor="address" isRequired>
-              <InfoInput id="address" />
+              <InfoInput id="address" value={val.address} onChange={(e) => handleChangeVal('address', e.target.value)} />
             </InfoFormControl>
           </Grid>
           <GroupAddressSelect
