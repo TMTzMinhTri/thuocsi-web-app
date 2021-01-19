@@ -9,7 +9,7 @@ import {
   MonetizationOn as MonetizationOnIcon,
 } from '@material-ui/icons';
 import { Button, MenuItem, Typography, Divider } from '@material-ui/core';
-import { useAuth } from 'context';
+import { useAuth, useCart } from 'context';
 import { useRouter } from 'next/router';
 import { MenuDropDown, MenuDropDownItem } from 'components/atoms';
 import { FormarCurrency } from 'utils';
@@ -19,11 +19,16 @@ export default function Toggle({ point, balance }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const router = useRouter();
-
+  const { clearCart } = useCart();
   const { logout } = useAuth();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    logout();
+    clearCart();
   };
 
   const handleClose = () => {
@@ -88,7 +93,7 @@ export default function Toggle({ point, balance }) {
         >
           <MonetizationOnIcon />
         </MenuDropDownItem>
-        <MenuDropDownItem handleClick={logout} text="Đăng xuất">
+        <MenuDropDownItem handleClick={handleLogout} text="Đăng xuất">
           <ExitToAppIcon />
         </MenuDropDownItem>
       </MenuDropDown>
