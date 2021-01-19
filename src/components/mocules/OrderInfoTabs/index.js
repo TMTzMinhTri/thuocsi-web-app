@@ -60,7 +60,7 @@ export default function OrderInfoTabs({ orders, handleSetOrderStatus, user }) {
       </Grid>
       <Grid item xs={12}>
         {orders.map((order) => (
-          <OrderRow {...order} key={order.orderID} name={user?.name} phone={user?.phone} />
+          <OrderRow {...order} key={order.orderID} user={user} />
         ))}
       </Grid>
     </Grid>
