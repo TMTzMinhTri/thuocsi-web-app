@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from 'context';
+import { useAuth, useCart } from 'context';
 import { AuthClient, isValidWithData } from 'clients';
 import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
@@ -11,6 +11,7 @@ const SignInModal = ({ className, visible, onClose, onChangeForget, onChangeSign
   const [hasAlert, setHasAlert] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const { updateCart } = useCart();
   const router = useRouter();
 
   const handleLogin = (data) => {
@@ -28,7 +29,7 @@ const SignInModal = ({ className, visible, onClose, onChangeForget, onChangeSign
         NotifyUtils.success(t('login.success'));
         const userInfo = result?.data[0];
         login(userInfo, rememberMe === '');
-
+        updateCart();
         // redirect to quick-order - when login success
         router.push(QUICK_ORDER);
       })
