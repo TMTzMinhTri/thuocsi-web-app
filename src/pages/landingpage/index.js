@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Template, BannerSlider } from 'components';
+import Template from 'components/layout/Template';
 
 export default function LandingPage(props) {
   const { infoBanner = [], isMobile, isAuthenticated } = props;
@@ -12,10 +12,11 @@ export default function LandingPage(props) {
   const DynamicSliderComp = dynamic(() => import('components/organisms/SliderComp'));
   const DynamicMedia = dynamic(() => import('components/organisms/Media'));
   const DynamicHomeCTASection = dynamic(() => import('components/mocules/HomeCTASection'));
+  const DynamicBannerSlider = dynamic(() => import('components/organisms/BannerSlider'));
 
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>
-      <BannerSlider infoBanner={infoBanner} />
+      <DynamicBannerSlider infoBanner={infoBanner} />
       <DynamicWhyBuymed />
       {!isAuthenticated ? <DynamicHomeCTASection /> : <></>}
       <DynamicCommonQuestion />

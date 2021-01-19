@@ -3,7 +3,7 @@
 export default (req, res) => {
   res.statusCode = 200;
   res.json({
-    status: 'ok',
+    status: 'OK',
     data: [
       {
         id: '1',

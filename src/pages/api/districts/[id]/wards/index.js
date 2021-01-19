@@ -8,7 +8,7 @@ export default (req, res) => {
   data = data.concat(d);
 
   res.json({
-    staus: 'ok',
+    staus: 'OK',
     data,
   });
 };
