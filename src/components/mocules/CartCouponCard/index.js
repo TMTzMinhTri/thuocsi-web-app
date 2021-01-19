@@ -13,7 +13,7 @@ const CartCounponCard = ({
   description = '',
   value = '',
   type = PROMO_TYPE.COMBO,
-  remain = '',
+  endTime = '',
   redeemCode = '',
   handleChangePromo,
 }) => (
@@ -46,7 +46,7 @@ const CartCounponCard = ({
 
         <Grid item>
           <div style={{ display: 'flex' }}>
-            <CountdownTimer prefix="Còn" dealEndDay={remain} />
+            <CountdownTimer prefix="Còn" dealEndDay={endTime} />
           </div>
         </Grid>
         {/* {type === PROMO_TYPE.DISCOUNT && ( */}
