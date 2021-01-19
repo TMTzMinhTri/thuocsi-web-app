@@ -17,3 +17,4 @@ export { default as InfoTable } from './InfoTable';
 export { default as Badge } from './Badge';
 export { default as Ribbon } from './Ribbon';
 export { default as Fab } from './Fab';
+export { default as Radio } from './Radio';

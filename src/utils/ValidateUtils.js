@@ -17,8 +17,7 @@ const checkLength = (val, length) => {
 
 const isNumber = (val) => {
   try {
-    Number(val);
-    return true;
+    return Number.isNaN(val);
   } catch (error) {
     return false;
   }
@@ -32,7 +31,7 @@ export const formValidateEmail = (e) => {
 };
 
 const validatePhone = (phone) => {
-  const re = /^\+?([0-9]{2})\)?[-. ]?([0-9]{2,3})[-. ]?([0-9]{0,3})[-. ]?([0-9]{0,4})$/igm;
+  const re = /^\+?([0-9]{2})\)?[-. ]?([0-9]{2,3})[-. ]?([0-9]{0,3})[-. ]?([0-9]{0,4})$/gim;
 
   // [-. ] :  Dấu . ngăn cách (optional)
   // +?([0-9]{2})\) : mã quốc gia
@@ -42,6 +41,9 @@ const validatePhone = (phone) => {
   return re.test(String(phone));
 };
 
+const ValidateError = (message) => ({ message, validate: false });
+const ValidateSuccess = (message) => ({ message, validate: true });
+
 export default {
   validateEmail,
   isEmpty,
@@ -49,4 +51,6 @@ export default {
   checkLength,
   formValidateEmail,
   validatePhone,
+  ValidateError,
+  ValidateSuccess,
 };
