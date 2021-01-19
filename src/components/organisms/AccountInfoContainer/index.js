@@ -4,6 +4,7 @@ import { AccountForm, EnterpriseForm, DeliveryForm } from 'components/mocules';
 import { CustomerClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
 import UpdateButton from './UpdateButton';
+import validateForm from './validateForm';
 
 const parseScopeName = (scope) => {
   if (scope === 'PHARMACY') {
@@ -42,7 +43,6 @@ const AccountInfoFormContainer = ({ user }) => {
     province: provinceCode,
     district: districtCode,
     ward: wardCode,
-    // hard code because
     customerID,
   });
   const handleSetValue = (key, val) => {
@@ -51,6 +51,7 @@ const AccountInfoFormContainer = ({ user }) => {
 
   const handleUpdateProfile = async () => {
     try {
+      validateForm({ ...value });
       const res = await CustomerClient.updateProfile(value);
       if (!isValid(res)) throw Error(res.message);
       NotifyUtils.success('Cập nhật thông tin thành công');

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE } from 'constants/Cookies';
-import { CookiesParser } from 'utils';
+import { CookiesParser, RequestUtils } from 'utils';
 import { API_HOST, MOCK_API_HOST, BASIC_AUTHEN } from '../../config/index';
 
 export function getSessionToken(ctx) {
@@ -24,6 +24,7 @@ async function request(props) {
     const {
       url,
       headers = {},
+      params,
       method,
       body,
       mock = false,
@@ -36,7 +37,13 @@ async function request(props) {
     dev / production : /backend
    */
 
-    const link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
+    let link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
+
+    if (params) {
+      const parameter = RequestUtils.convertObjectToParameter(params);
+      link += (link.indexOf('?') >= 0 ? '' : '?') + parameter;
+    }
+
     let isUseBasic = false;
     if (isAuth) {
       if (ctx) {

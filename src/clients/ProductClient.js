@@ -116,8 +116,11 @@ async function loadDataIngredient(ctx) {
 }
 
 async function getIngredientBySlug(ctx, slug) {
-  const url = `${PRODUCT_API.INGREDIENT}/info?q=${slug}`;
-  const res = await GET({ url, ctx, isBasic: true });
+  const url = `${PRODUCT_API.INGREDIENT}/info`;
+  const params = {
+    q: slug,
+  };
+  const res = await GET({ url, params, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }

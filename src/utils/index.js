@@ -6,3 +6,4 @@ export { default as GetQuantityProductFromCart } from './GetQuantityProductFromC
 export { default as NotifyUtils } from './NotifyUtils';
 export { default as ResponseUtils } from './ResponseUtils';
 export { default as ValidateUtils } from './ValidateUtils';
+export { default as RequestUtils } from './RequestUtils';

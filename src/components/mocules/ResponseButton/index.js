@@ -4,11 +4,9 @@ import { FEEDBACK } from 'constants/Paths';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 
 const ResponseButton = ({ orderID = '', name = '', phone = '' }) => {
-  const query = { order_id: orderID, name, phone };
-  const strigify = encodeURI(JSON.stringify(query));
-  const url = `${FEEDBACK}?${strigify}`;
+  const url = `${FEEDBACK}?order_id=${encodeURI(orderID)}&name=${encodeURI(name)}&phone=${encodeURI(phone)}`;
   return (
-    <a href={url}>
+    <a href={url} target="_blank" rel="noreferrer">
       <Button startIcon={<InsertCommentIcon />} className="my-order__button my-order__button--outlined-blue">
         Gửi phản hồi
       </Button>
