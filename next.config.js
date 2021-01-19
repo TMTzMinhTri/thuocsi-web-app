@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
 
 module.exports = {
   images: {
-    domains: ['assets.thuocsi.vn'],
+    domains: ['storage.googleapis.com'],
   },
   async redirects() {
     return [
