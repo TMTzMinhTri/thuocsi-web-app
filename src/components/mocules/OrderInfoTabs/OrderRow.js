@@ -1,4 +1,4 @@
-import { Grid, Paper, Button, useMediaQuery } from '@material-ui/core';
+import { Grid, Paper, useMediaQuery } from '@material-ui/core';
 import { DateTimeUtils, FormarCurrency } from 'utils';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import Link from 'next/link';
@@ -6,13 +6,7 @@ import PrintInvoiceButton from '../PrintInvoiceButton';
 import EditOrderButton from '../EditOrderButton';
 import ResponseButton from '../ResponseButton';
 import styles from './styles.module.css';
-
-const parseOrderStatus = (status) => {
-  if (ENUM_ORDER_STATUS.PENDING === status) return 'Chờ xác nhận';
-  if (ENUM_ORDER_STATUS.COMPLETED === status) return 'Đã xác nhận';
-  if (ENUM_ORDER_STATUS.CANCEL === status) return 'Đã huỷ';
-  return '';
-};
+import OrderStatusButton from './OrderStatusButton';
 
 const MyOrderDetail = ({ amount, createdAt, deliveryAt }) => (
   <div>
@@ -41,9 +35,7 @@ const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total, name,
             </Link>
           </Grid>
           <Grid item style={{ paddingTop: '5px' }}>
-            <Button color="default" variant="contained" className={styles.status_button}>
-              {parseOrderStatus(status)}
-            </Button>
+            <OrderStatusButton status={status} />
           </Grid>
           {maxWidth ? null : (
             <MyOrderDetail amount={amount} createdAt={createdAt} deliveryAt={deliveryAt} />
