@@ -11,7 +11,7 @@ const IngredientList = ({ ingredients = [], text = '' }) => (
     </div>
     <Grid container className={styles.container} spacing={2}>
       {ingredients.map((val) => (
-        <Grid item xs={3}>
+        <Grid item xs={3} key={val.slug}>
           <Link href={`ingredients/${val.slug}`}>
             <div className={styles.ingredient}> {val?.name} </div>
           </Link>

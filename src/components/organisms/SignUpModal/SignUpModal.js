@@ -4,7 +4,8 @@ import { NotifyUtils } from 'utils';
 import { useAuth } from 'context';
 import { i18n } from 'i18n-lib';
 import { useRouter } from 'next/router';
-import { AuthModal, SignUpForm } from '../../mocules';
+import { AuthModal, SignUpForm } from 'components/mocules';
+import { QUICK_ORDER } from 'constants/Paths';
 
 const SignUpModal = React.memo((props) => {
   const { className, visible, onClose, onChangeSignIn, t } = props;
@@ -42,7 +43,7 @@ const SignUpModal = React.memo((props) => {
             login(userInfo, false);
 
             // redirect to quick-order - when login success
-            router.push('/quick-order');
+            router.push(QUICK_ORDER);
           })
           .catch((error) => {
             NotifyUtils.error('Đã có lỗi xảy ra khi đăng nhập ');
@@ -53,6 +54,7 @@ const SignUpModal = React.memo((props) => {
           });
       })
       .catch((error) => {
+        NotifyUtils.error(`Đã có lỗi xảy ra khi đăng ký ${error.message}`);
         setHasAlert(`Đã có lỗi xảy ra khi đăng ký ${error.message}`);
       })
       .finally(() => {

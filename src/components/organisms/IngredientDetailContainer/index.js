@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Divider } from '@material-ui/core';
+import { v4 as uuidv4 } from 'uuid';
 import { ProductDetailTabs } from 'components/mocules';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './styles.module.css';
@@ -24,7 +25,9 @@ const IngredientDetailContainer = ({ ingredient, products }) => {
   };
   return (
     <Grid container>
-      <Grid item xs={12}> <h1 style={{ textAlign: 'center' }}> {ingredient.name} </h1> </Grid>
+      <Grid item xs={12}>
+        <h1 style={{ textAlign: 'center' }}> {ingredient.name} </h1>{' '}
+      </Grid>
       <Grid item style={{ padding: '0 10vw' }}>
         <ProductDetailTabs
           product={ingredient}
@@ -43,7 +46,7 @@ const IngredientDetailContainer = ({ ingredient, products }) => {
       </Grid>
       <Grid container spacing={1}>
         {products.map((item) => (
-          <Grid item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
+          <Grid key={uuidv4()} item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
             <ProductCardVertical
               key={`products-${item.sku}`}
               product={item}
