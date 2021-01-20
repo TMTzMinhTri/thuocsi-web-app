@@ -27,11 +27,9 @@ const BRAND = `${CATEGORY_API_PREFIX}/manufacturers/list`;
 const GROUP = `${CATEGORY_API_PREFIX}/category/list`;
 const CATEGORY_INFO = `${CATEGORY_API_PREFIX}/categories/info`;
 const MANUFACTURER_INFO = `${CATEGORY_API_PREFIX}/manufacturers/info`;
-const PRODUCT_LIST = `${CATEGORY_API_PREFIX}/products/list`;
 export const CATEGORY_API = {
   BRAND,
   GROUP,
-  PRODUCT_LIST,
   CATEGORY_INFO,
   MANUFACTURER_INFO,
 };
@@ -45,10 +43,12 @@ export const CONTENT_API = {
 const PRODUCT_API_PREFIX = '/marketplace/product/v1';
 const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredient`;
 const INGREDIENT_LIST = `${INGREDIENT}/list`;
+const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
 
 export const PRODUCT_API = {
   INGREDIENT,
   INGREDIENT_LIST,
+  PRODUCT_LIST,
 };
 
 const CORE_MASTER_DATA_PREFIX = '/core/master-data/v1';

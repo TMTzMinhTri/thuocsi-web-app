@@ -1,4 +1,4 @@
-import { CATEGORY_API } from 'constants/APIUri';
+import { CATEGORY_API, PRODUCT_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
 import { PAGE_SIZE } from '../constants/data';
 
@@ -31,7 +31,7 @@ async function loadProductWithCategory(ctx) {
   const slug = query.slug || '';
   const currentTab = query.current_tab || '';
   const sortBy = query.sortBy || '';
-  const url = `${CATEGORY_API.PRODUCT_LIST}?category=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`;
+  const url = `${PRODUCT_API.PRODUCT_LIST}?category=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`;
   const res = await GET({
     url,
     ctx,
@@ -57,7 +57,7 @@ async function loadProductWithManufacturer(ctx) {
   const slug = query.slug || '';
   const currentTab = query.current_tab || '';
   const sortBy = query.sortBy || '';
-  const url = `${CATEGORY_API.PRODUCT_LIST}?manufacturers=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`;
+  const url = `${PRODUCT_API.PRODUCT_LIST}?manufacturers=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`;
   const res = await GET({
     url,
     ctx,
