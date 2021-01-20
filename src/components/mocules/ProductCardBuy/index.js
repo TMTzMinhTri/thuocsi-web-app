@@ -88,9 +88,8 @@ const ProductCardBuy = ({
   };
 
   const handleInputChange = (e) => {
-    let curValue = e.currentTarget.value;
     if (/^\d+$/.test(e.currentTarget.value) || !e.currentTarget.value) {
-      curValue = e.currentTarget.value;
+      const curValue = e.currentTarget.value;
       setValue(curValue);
       if (!curValue || curValue === 0) {
         handler(product, 'remove');
