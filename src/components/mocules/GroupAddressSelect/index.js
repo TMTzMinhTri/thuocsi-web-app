@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AddressClient } from 'clients';
 import AddressSelect from '../AddressSelect';
 
@@ -28,6 +28,8 @@ const GroupAddressSelect = ({
   const [districts, setDistricts] = useState(DEFAULT_DISTRICT_ARRAY);
   const [wards, setWards] = useState(DEFAULT_WARD_ARRAY);
   const [pos, setPos] = useState(ADDRESS_POS.PROVINCE);
+  const isProvinceChange = useRef(true);
+  const isDistrictChange = useRef(true);
 
   async function getProvinces() {
     const res = await AddressClient.getProvinces();
@@ -58,8 +60,13 @@ const GroupAddressSelect = ({
   }, []);
 
   useEffect(() => {
-    handleSetValue(idDistrict, DEFAULT_DISTRICT_ARRAY[0].value);
-    handleSetValue(idWard, DEFAULT_WARD_ARRAY[0].value);
+    if (isProvinceChange.current) {
+      isProvinceChange.current = false;
+    } else {
+      handleSetValue(idDistrict, DEFAULT_DISTRICT_ARRAY[0].value);
+      handleSetValue(idWard, DEFAULT_WARD_ARRAY[0].value);
+    }
+
     if (province === DEFAULT_PROVINCE_ARRAY[0].value) {
       setPos(ADDRESS_POS.PROVINCE);
       setDistricts(DEFAULT_DISTRICT_ARRAY);
@@ -71,7 +78,12 @@ const GroupAddressSelect = ({
   }, [province]);
 
   useEffect(() => {
-    handleSetValue(idWard, DEFAULT_WARD_ARRAY[0].value);
+    if (isDistrictChange.current) {
+      isDistrictChange.current = false;
+    } else {
+      handleSetValue(idWard, DEFAULT_WARD_ARRAY[0].value);
+    }
+
     if (district === DEFAULT_PROVINCE_ARRAY[0].value) {
       setPos(ADDRESS_POS.DISTRICT);
       setWards(DEFAULT_WARD_ARRAY);

@@ -12,44 +12,44 @@ import FormarCurrency from 'utils/FormarCurrency';
 
 import styles from './styles.module.css';
 
-const CheckoutSticky = ({ selectedValue = '', data }) => {
-  const { itemCount = 0, total = 0 } = useCart();
+const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer }) => {
+  const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, totalDiscount = 0 } = cart[0];
+  const { itemCount = 0 } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
-  const [totalValue, setTotalValue] = React.useState(total);
   const router = useRouter();
 
   const validateSubmit = (res) => {
-    if (!res.name) {
+    if (!res.customerName) {
       NotifyUtils.error('Bạn chưa điền tên.');
       return false;
     }
 
-    if (!res.phone) {
+    if (!res.customerPhone) {
       NotifyUtils.error('Bạn chưa điền số điện thoại.');
       return false;
     }
 
-    if (!ValidateUtils.validatePhone(res.phone)) {
+    if (!ValidateUtils.validatePhone(res.customerPhone)) {
       NotifyUtils.error('Bạn chưa điền đúng định dạng số điện thoại.');
       return false;
     }
 
-    if (!res.address) {
+    if (!res.customerShippingAddress) {
       NotifyUtils.error('Bạn chưa điền địa chỉ.');
       return false;
     }
 
-    if (res.billProvince === '0') {
+    if (res.customerProvinceCode === '0') {
       NotifyUtils.error('Bạn chưa chọn tỉnh/thành phố.');
       return false;
     }
 
-    if (res.billDistrict === '0') {
+    if (res.customerDistrictCode === '0') {
       NotifyUtils.error('Bạn chưa chọn Quận.');
       return false;
     }
 
-    if (res.billWard === '0') {
+    if (res.customerWardCode === '0') {
       NotifyUtils.error('Bạn chưa chọn phường/xã.');
       return false;
     }
@@ -57,23 +57,18 @@ const CheckoutSticky = ({ selectedValue = '', data }) => {
   };
 
   React.useEffect(() => {
-    if (selectedValue === 'bank') {
-      const transferFee = (total * 0.5) / 100;
+    if (selectedValue === 'CK') {
+      const transferFee = (totalPrice * 0.5) / 100;
       setTransferValue(Math.round(transferFee));
-      const totalRes = Math.round(total - transferFee);
-      setTotalValue(totalRes);
     } else {
       setTransferValue(0);
-      setTotalValue(total);
     }
-  }, [selectedValue, total]);
+  }, [selectedValue, totalPrice]);
 
   const handleSubmit = async () => {
     const formValue = {
       ...data,
-      totalPrice: totalValue,
-      redeemCode: '',
-      note: '',
+      ...dataCustomer,
     };
     if (!validateSubmit(formValue)) {
       return;
@@ -81,8 +76,8 @@ const CheckoutSticky = ({ selectedValue = '', data }) => {
 
     const response = await CheckoutClient.Checkout(formValue);
     if (isValid(response)) {
-      const { orderID } = response.data[0];
-      router.push(`/thankyou/${orderID}`);
+      const { orderNo } = response.data[0];
+      router.push(`/thankyou/${orderNo}`);
     } else {
       NotifyUtils.error(`Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`);
     }
@@ -101,28 +96,31 @@ const CheckoutSticky = ({ selectedValue = '', data }) => {
       <Paper className={styles.root} elevation={4}>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Tạm tính</div>
-          <div className={styles.checkout_content}>{FormarCurrency(total)}</div>
+          <div className={styles.checkout_content}>{FormarCurrency(subTotalPrice)}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
-          <div className={styles.checkout_content}>0 đ</div>
+          <div className={styles.checkout_content}>{FormarCurrency(shippingFee)}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước.</div>
           <div className={styles.checkout_content}>
-            {selectedValue === 'transfer' ? `-${FormarCurrency(transferValue)}` : FormarCurrency(transferValue)}
+            {selectedValue === 'CK' ? `-${FormarCurrency(transferValue)}` : FormarCurrency(0)}
           </div>
         </div>
+        {redeemCode
+        && (
         <div className={clsx(styles.d_flex, styles.checkout_promo_code)}>
           <div>
             <FontAwesomeIcon className={styles.icon} icon={faTags} />
-            <span>NEWBIE300K1</span>
+            <span>{redeemCode}</span>
           </div>
-          <div className={styles.bank_info_content}>-300.000đ</div>
+          <div className={styles.bank_info_content}>{`-${FormarCurrency(totalDiscount)}`}</div>
         </div>
+        )}
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Thành tiền</div>
-          <div className={styles.total}>{FormarCurrency(totalValue)}</div>
+          <div className={styles.total}>{FormarCurrency(totalPrice)}</div>
         </div>
       </Paper>
 
