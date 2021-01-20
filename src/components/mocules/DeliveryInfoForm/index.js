@@ -16,13 +16,13 @@ import styles from './styles.module.css';
 const GreenCheckbox = (props) => <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />;
 
 const DeliveryInfoForm = ({
-  name,
-  email,
-  phone,
-  address,
-  wardCode,
-  districtCode,
-  provinceCode,
+  customerName,
+  customerEmail,
+  customerPhone,
+  customerShippingAddress,
+  customerWardCode,
+  customerDistrictCode,
+  customerProvinceCode,
   handleSetValue,
 }) => {
   const [savedInfo, setSavedInfo] = React.useState({
@@ -42,12 +42,12 @@ const DeliveryInfoForm = ({
         </small>
       </h1>
       <Grid container>
-        <InfoFormControl xs={12} isRequired label={<span className={styles.fw500}>Họ Tên khách hàng</span>} htmlFor="name">
+        <InfoFormControl xs={12} isRequired label={<span className={styles.fw500}>Họ Tên khách hàng</span>} htmlFor="customerName">
           <InfoInput
-            id="name"
+            id="customerName"
             placeholder="Trần Thị B"
-            value={name}
-            onChange={(e) => handleSetValue('name', e.target.value)}
+            value={customerName}
+            onChange={(e) => handleSetValue('customerName', e.target.value)}
           />
         </InfoFormControl>
         <Grid container spacing={2}>
@@ -55,44 +55,44 @@ const DeliveryInfoForm = ({
             xs={maxWidthScope ? 12 : 3}
             isRequired
             label={<span className={styles.fw500}>Số Điện Thoại</span>}
-            htmlFor="phone"
+            htmlFor="customerPhone"
           >
             <InfoInput
-              id="phone"
+              id="customerPhone"
               placeholder="0912233311"
-              value={phone}
-              onChange={(e) => handleSetValue('phone', e.target.value)}
+              value={customerPhone}
+              onChange={(e) => handleSetValue('customerPhone', e.target.value)}
             />
           </InfoFormControl>
 
-          <InfoFormControl xs={maxWidthScope ? 12 : 9} label={<span className={styles.fw500}>Email</span>} htmlFor="email">
+          <InfoFormControl xs={maxWidthScope ? 12 : 9} label={<span className={styles.fw500}>Email</span>} htmlFor="customerEmail">
             <InfoInput
-              id="email"
+              id="customerEmail"
               placeholder="tranthib@email.com"
-              value={email}
-              onChange={(e) => handleSetValue('email', e.target.value)}
+              value={customerEmail}
+              onChange={(e) => handleSetValue('customerEmail', e.target.value)}
             />
           </InfoFormControl>
         </Grid>
 
-        <InfoFormControl xs={12} label={<span className={styles.fw500}>Địa chỉ nhà thuốc/phòng khám</span>} isRequired htmlFor="address">
+        <InfoFormControl xs={12} label={<span className={styles.fw500}>Địa chỉ nhà thuốc/phòng khám</span>} isRequired htmlFor="customerShippingAddress">
           <InfoInput
-            id="address"
+            id="customerShippingAddress"
             placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk"
-            value={address}
+            value={customerShippingAddress}
             onChange={(e) => {
-              handleSetValue('address', e.target.value);
+              handleSetValue('customerShippingAddress', e.target.value);
             }}
           />
         </InfoFormControl>
 
         <GroupAddressSelect
-          idProvince="provinceCode"
-          province={provinceCode}
-          idDistrict="districtCode"
-          district={districtCode}
-          idWard="wardCode"
-          ward={wardCode}
+          idProvince="customerProvinceCode"
+          province={customerProvinceCode}
+          idDistrict="customerDistrictCode"
+          district={customerDistrictCode}
+          idWard="customerWardCode"
+          ward={customerWardCode}
           handleSetValue={handleSetValue}
         />
         <FormControlLabel

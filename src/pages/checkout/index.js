@@ -46,17 +46,24 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const router = useRouter();
 
   const title = 'Thuocsi.vn';
-  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('cod');
-  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('normal');
+  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
+  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('NORMAL');
+  const [note, setNote] = React.useState('');
   const [value, setValue] = useState({
-    name: user.name || '',
-    phone: user.phone || '',
-    email: user.email || '',
-    address: user.address || '',
-    billDistrict: user.districtCode || '0',
-    billProvince: user.provinceCode || '0',
-    billWard: user.wardCode || '0',
+    customerName: user.name || '',
+    customerPhone: user.phone || '',
+    customerEmail: user.email || '',
+    customerShippingAddress: user.address || '',
+    customerDistrictCode: user.districtCode || '0',
+    customerProvinceCode: user.provinceCode || '0',
+    customerWardCode: user.wardCode || '0',
   });
+
+  const dataCustomer = {
+    paymentMethod: selectedPaymentValue,
+    shippingType: selectedDeliveryValue,
+    note,
+  };
 
   if (!cart || cart?.length === 0) {
     NotifyUtils.info('Vui lòng đặt hàng trước khi thanh toán');
@@ -64,12 +71,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     router.push('/');
     return <LoadingScreen />;
   }
-
-  const dataCustomer = {
-    ...value,
-    paymentMethod: selectedPaymentValue,
-    shippingType: selectedDeliveryValue,
-  };
 
   const handlePaymentChange = (event) => {
     setSelectedPaymentValue(event);
@@ -81,6 +82,10 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
 
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
+  };
+
+  const handleSetNote = (e) => {
+    setNote(e.target.value);
   };
 
   return (
@@ -105,6 +110,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 Chúng tôi sẽ liên hệ mua thuốc và báo giá sớm nhất có thể
               </p>
               <TextareaAutosize
+                onChange={handleSetNote}
                 className={styles.text_area}
                 aria-label="Ghi chú của khách hàng"
                 placeholder="Ghi chú của khách hàng"
@@ -113,7 +119,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={4}>
-            <CheckoutSticky data={dataCustomer} selectedValue={selectedPaymentValue} />
+            <CheckoutSticky
+              cart={cart}
+              data={value}
+              dataCustomer={dataCustomer}
+              selectedValue={selectedPaymentValue}
+            />
           </Grid>
         </Grid>
       </div>

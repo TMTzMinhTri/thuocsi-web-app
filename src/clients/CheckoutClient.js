@@ -1,7 +1,7 @@
-import { POST } from './Clients';
+import { PUT } from './Clients';
 
 async function Checkout(body) {
-  const result = await POST({ url: '/checkout', body, mock: true });
+  const result = await PUT({ url: '/marketplace/order/v1/cart/checkout', body });
   return result;
 }
 

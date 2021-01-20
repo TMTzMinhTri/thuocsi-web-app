@@ -27,12 +27,12 @@ const DeliveryMethod = ({ handleChange, selectedValue }) => (
         onChange={handleChange}
       >
         <FormControlLabel
-          value="normal"
+          value="NORMAL"
           control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
           label={<b className={styles.fw500}>Giao hàng tiêu chuẩn</b>}
         />
         <FormControlLabel
-          value="fast"
+          value="QUICK"
           disabled
           control={<Radio classes={{ root: styles.checkbox }} />}
           label={(

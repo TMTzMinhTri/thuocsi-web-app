@@ -23,12 +23,12 @@ const PaymentMethod = ({ handleChange, selectedValue }) => (
         onChange={(e) => handleChange(e.target.value)}
       >
         <FormControlLabel
-          value="cod"
+          value="COD"
           control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
           label={<b className={styles.fw500}>Thanh toán tiền mặt khi nhận hàng</b>}
         />
         <FormControlLabel
-          value="bank"
+          value="CK"
           control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
           label={(
             <b className={styles.fw500}>
