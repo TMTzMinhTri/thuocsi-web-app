@@ -32,18 +32,33 @@ const StyledButton = styled(Button)`
   }
 
   &.btn--complete {
-    background-color: #00C9A7 !important;
+    background-color: #00c9a7 !important;
   }
 
   &.btn--cancel {
-    background-color: #C34A36 !important;
-  } 
+    background-color: #c34a36 !important;
+  }
 `;
 
-const OrderStatusButton = ({ className, status }) => (
-  <StyledButton variant="contained" className={`${className} ${getOrderStatusColor(status)}`}>
-    {parseOrderStatus(status)}
-  </StyledButton>
-);
+const OrderStatusButton = ({ className, status, handleSetOrderStatus }) => {
+  const handleClick = () => {
+    if (
+      status === ENUM_ORDER_STATUS.PENDING
+      || status === ENUM_ORDER_STATUS.COMPLETED
+      || status === ENUM_ORDER_STATUS.CANCEL
+    ) {
+      handleSetOrderStatus(status);
+    }
+  };
+  return (
+    <StyledButton
+      variant="contained"
+      className={`${className} ${getOrderStatusColor(status)}`}
+      onClick={handleClick}
+    >
+      {parseOrderStatus(status)}
+    </StyledButton>
+  );
+};
 
 export default OrderStatusButton;

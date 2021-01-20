@@ -23,27 +23,49 @@ const MyOrderDetail = ({ amount, createdAt, deliveryAt }) => (
     </div>
   </div>
 );
-const OrderRow = ({ orderID, amount, createdAt, deliveryAt, status, total, user }) => {
+const OrderRow = ({
+  orderID,
+  amount,
+  createdAt,
+  deliveryAt,
+  status,
+  total,
+  user,
+  handleSetOrderStatus,
+}) => {
   const { name, phone } = user;
   const maxWidth = useMediaQuery('(max-width:715px)');
   return (
     <Paper square={!maxWidth} className={styles.paper} elevation={0}>
       <Grid container spacing={4}>
-        <Grid item xs={maxWidth ? 12 : 5} container direction="row" justify={maxWidth ? 'space-between' : 'end'}>
+        <Grid
+          item
+          xs={maxWidth ? 12 : 5}
+          container
+          direction="row"
+          justify={maxWidth ? 'space-between' : 'end'}
+        >
           <Grid item>
             <Link href={`/my-order/${orderID}`} key={`order-row-${orderID}`}>
               <h4 className={styles.order_id}>#{orderID} &nbsp;</h4>
             </Link>
           </Grid>
           <Grid item style={{ paddingTop: '5px' }}>
-            <OrderStatusButton status={status} />
+            <OrderStatusButton status={status} handleSetOrderStatus={handleSetOrderStatus} />
           </Grid>
           {maxWidth ? null : (
             <MyOrderDetail amount={amount} createdAt={createdAt} deliveryAt={deliveryAt} />
           )}
         </Grid>
 
-        <Grid item xs={maxWidth ? 12 : 3} container direction="row" justify="space-between" className={styles.detail_small_screen}>
+        <Grid
+          item
+          xs={maxWidth ? 12 : 3}
+          container
+          direction="row"
+          justify="space-between"
+          className={styles.detail_small_screen}
+        >
           {maxWidth ? (
             <Grid className={styles.delivery_date} item>
               {DateTimeUtils.getFormattedDate(new Date(createdAt), 'DD/MM/YYYY HH:mm:ss')}
