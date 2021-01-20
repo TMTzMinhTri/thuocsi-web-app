@@ -11,6 +11,7 @@ export const hashCode = (text) => {
   }
   return hash;
 };
+export const encodeUrl = (url) => encodeURIComponent(url);
 
 const changeAlias = (alias) => {
   let str = alias;
@@ -32,4 +33,4 @@ const changeAlias = (alias) => {
   return str;
 };
 
-export default { hashCode, changeAlias };
+export default { hashCode, changeAlias, encodeUrl };

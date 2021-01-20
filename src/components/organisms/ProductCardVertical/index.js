@@ -2,18 +2,11 @@ import React from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { MISSING_IMAGE } from 'constants/Images';
-import { ProductCardBuy, ProductCardContent, StatusProduct } from '../../mocules';
+import { getPathProductBySlug } from 'constants/Paths';
+import { ProductCardBuy, ProductCardContent, StatusProduct } from 'components/mocules';
 import styles from './styles.module.css';
 
-const ProductCardVertical = ({
-  product,
-  type,
-  category,
-  tag,
-  cart,
-  onIncrement,
-  value,
-}) => {
+const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, value }) => {
   const { name, imageUrls } = product;
   const router = useRouter();
   return (
@@ -22,7 +15,10 @@ const ProductCardVertical = ({
         <StatusProduct {...product} />
         <Card className={styles.product_card}>
           <Box>
-            <CardActionArea onClick={() => router.push(`/product/${product.slug}`)} className={styles.product_image}>
+            <CardActionArea
+              onClick={() => router.push(getPathProductBySlug(product.slug))}
+              className={styles.product_image}
+            >
               <CardMedia
                 component="img"
                 alt={name && name}

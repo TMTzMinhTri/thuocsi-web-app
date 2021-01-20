@@ -1,3 +1,4 @@
+import { encodeUrl } from 'utils/StringUtils';
 /* eslint-disable operator-linebreak */
 // WEB
 export const MY_ORDER_URL = '/my-order';
@@ -10,6 +11,8 @@ export const TERMS_URL = '/terms-and-condition';
 export const REGULATIONS_URL = '/regulations';
 export const QUICK_ORDER = '/quick-order';
 export const PRODUCT = '/products';
+
+export const getPathProductBySlug = (slug) => `${PRODUCT}/${encodeUrl(slug)}`;
 
 // SUB DOMAIN
 export const PATH_NEWS = 'https://news.thuocsi.vn';

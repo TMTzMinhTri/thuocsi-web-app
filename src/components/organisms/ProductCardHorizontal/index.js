@@ -2,7 +2,8 @@ import React, { useRef } from 'react';
 import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { MISSING_IMAGE } from 'constants/Images';
 import { useRouter } from 'next/router';
-import { ProductCardBuy, ProductCardContent } from '../../mocules';
+import { getPathProductBySlug } from 'constants/Paths';
+import { ProductCardBuy, ProductCardContent } from 'components/mocules';
 
 import styles from './styles.module.css';
 
@@ -19,7 +20,7 @@ const ProductCardHorizontal = ({ product }) => {
       <Box className={styles.root_card}>
         <Card className={styles.product_card}>
           <Box className={styles.product_image}>
-            <CardActionArea onClick={() => router.push(`/product/${product.slug}`)}>
+            <CardActionArea onClick={() => router.push(getPathProductBySlug(product.slug))}>
               <CardMedia
                 component="img"
                 alt="Contemplative Reptile"
