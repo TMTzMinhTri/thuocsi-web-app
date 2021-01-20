@@ -16,9 +16,9 @@ const ADDRESS_POS = {
 };
 
 const GroupAddressSelect = ({
-  province = '0',
-  district = '0',
-  ward = '0',
+  province,
+  district,
+  ward,
   idProvince,
   idDistrict,
   idWard,
