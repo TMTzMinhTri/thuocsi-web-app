@@ -115,7 +115,7 @@
 }
 
 .customWidth {
-    max-width: 280px;
+    max-width: 280px!important;
 }
 
 @media (min-width: 768px) and (max-width: 860px) {
