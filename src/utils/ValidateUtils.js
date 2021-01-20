@@ -3,7 +3,8 @@ const validateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 };
 
-const isEmpty = (val) => !val || val.length === 0 || (typeof val === 'object' && Object.keys(val).length === 0);
+const isEmpty = (val) =>
+  !val || val.length === 0 || (typeof val === 'object' && Object.keys(val).length === 0);
 
 const checkLength = (val, length) => {
   if (isEmpty(val)) {
@@ -40,9 +41,38 @@ const validatePhone = (phone) => {
   //
   return re.test(String(phone));
 };
+function Error(message, type) {
+  this.message = message;
+  this.type = type;
+}
+const Success = (message, type) => ({ message, validate: true, type });
 
-const ValidateError = (message) => ({ message, validate: false });
-const ValidateSuccess = (message) => ({ message, validate: true });
+const funcValidateEmail = (email) => {
+  if (isEmpty(email)) throw new Error('Bạn chưa điền thông tin email', 'email');
+  if (!validateEmail(email)) throw new Error('Email chưa đúng định dạng', 'email');
+};
+
+const funcValidateName = (name) => {
+  if (isEmpty(name)) throw new Error('Bạn chưa nhập họ tên', 'name');
+};
+
+const funcValidatePassword = (pass) => {
+  if (isEmpty(pass)) throw new Error('Bạn chưa điền mật khẩu', 'password');
+};
+
+const funcValidatePhoneNumber = (phone) => {
+  if (isEmpty(phone)) throw new Error('Bạn chưa điền số điện thoại', 'phone');
+  if (!validatePhone(phone)) {
+    throw new Error('Số điện thoại không đúng định dạng', 'phone');
+  }
+};
+
+const validateData = {
+  email: funcValidateEmail,
+  name: funcValidateName,
+  password: funcValidatePassword,
+  phoneNumber: funcValidatePhoneNumber,
+};
 
 export default {
   validateEmail,
@@ -51,6 +81,7 @@ export default {
   checkLength,
   formValidateEmail,
   validatePhone,
-  ValidateError,
-  ValidateSuccess,
+  Error,
+  Success,
+  validateData,
 };

@@ -12,7 +12,8 @@
     "lint:fix": "eslint --ext=js,jsx --fix src",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf yarn.lock && yarn install && yarn dev",
     "git-reset": "git reset --hard HEAD",
-    "checkEslintAndBuild": "yarn lint:check && yarn build"
+    "checkEslintAndBuild": "yarn lint:check && yarn build",
+    "clear-branch": "git branch | grep -v 'dev' | xargs git branch -D"
   },
   "pre-commit": "checkEslintAndBuild",
   "dependencies": {

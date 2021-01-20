@@ -8,7 +8,7 @@ import { ThemeProvider as StyledTheme } from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { AuthProvider, CartContextProvider, LoadingRoute, NotiContextProvider } from 'context';
-import { Theme } from 'components';
+import Theme from 'components/layout/Theme';
 
 // Toast
 import { ToastContainer } from 'react-toastify';

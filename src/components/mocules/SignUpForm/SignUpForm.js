@@ -18,31 +18,44 @@ import {
 import { Button, Input, CheckBox, Radio } from 'components/atoms';
 
 import { FormDataUtils, ValidateUtils, NotifyUtils } from 'utils';
-
 import { ENUM_SCOPE } from 'constants/Enums';
 
-const { ValidateError, ValidateSuccess } = ValidateUtils;
+const { validateData, Error } = ValidateUtils;
 
-const validateSignUp = ({ isCheckAgree }) => {
-  if (!isCheckAgree || isCheckAgree === 'true') {
-    return ValidateError('Bạn chưa đồng ý chính sách thuốc sĩ');
+const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCallback) => {
+  try {
+    validateData.name(name);
+    validateData.phoneNumber(phone);
+    validateData.email(email);
+    validateData.password(password);
+    if (isCheckAgree !== '') throw new Error('Vui lòng chọn Đồng ý với Điều khoản sử dụng.');
+    return true;
+  } catch (error) {
+    NotifyUtils.error(error?.message || 'Đã có lỗi xảy ra');
+    failCallback(error);
+    return false;
   }
-  return ValidateSuccess('');
 };
 
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickSignIn, isCheckAgree, onClickSignUp, hasAlert } = props;
+  const { className, onClickSignIn, onClickSignUp } = props;
+  const [errors, setErrors] = useState({});
 
   const handleSubmitSignUp = useCallback(
     (e) => {
       const data = FormDataUtils.convert(e);
       e.preventDefault();
       // validate
-      const rs = validateSignUp(data);
-      if (!rs || !rs.validate) {
-        NotifyUtils.error(rs.message);
-      } else {
+      if (
+        validateSignUp(data, (error) => {
+          if (error) {
+            const newError = {};
+            newError[error.type] = true;
+            setErrors({ ...newError });
+          }
+        })
+      ) {
         onClickSignUp(data);
       }
     },
@@ -81,7 +94,7 @@ const SignUpForm = React.memo((props) => {
   const IconEndPassword = (
     <InputAdornment>
       <IconButton onClick={handleClickShowPassword}>
-        {showPassword ? <Visibility /> : <VisibilityOff />}
+        {!showPassword ? <Visibility /> : <VisibilityOff />}
       </IconButton>
     </InputAdornment>
   );
@@ -96,17 +109,18 @@ const SignUpForm = React.memo((props) => {
     </InputAdornment>
   );
 
-  const errorElement = () => {
-    if (hasAlert) {
-      return <div>{hasAlert}</div>;
-    }
-    return null;
-  };
+  const labelAgree = (
+    <div>
+      Tôi đã đọc và đồng ý với{' '}
+      <a href="/terms-and-condition" target="_blank" rel="noreferrer" style={{ color: 'green' }}>
+        Điều khoản sử dụng *
+      </a>
+    </div>
+  );
 
   return (
     <div className={className}>
       <form className={className} onSubmit={handleSubmitSignUp}>
-        {errorElement}
         <FormControl className="form-control">
           <Input
             id="username"
@@ -114,6 +128,7 @@ const SignUpForm = React.memo((props) => {
             startAdornment={IconAccount}
             placeholder="Nhập tên (bắt buộc)"
             variant="outlined"
+            error={errors.name || false}
           />
         </FormControl>
         <FormControl className="form-control">
@@ -123,6 +138,7 @@ const SignUpForm = React.memo((props) => {
             startAdornment={IconPhone}
             placeholder="Nhập số điện thoại (bắt buộc)"
             variant="outlined"
+            error={errors.phone || false}
           />
         </FormControl>
         <FormControl className="form-control">
@@ -132,6 +148,7 @@ const SignUpForm = React.memo((props) => {
             startAdornment={IconEmail}
             placeholder="Nhập email"
             variant="outlined"
+            error={errors.email || false}
           />
         </FormControl>
         <FormControl className="form-control">
@@ -143,6 +160,7 @@ const SignUpForm = React.memo((props) => {
             endAdornment={IconEndPassword}
             placeholder="Nhập mật khẩu (bắt buộc)"
             variant="outlined"
+            error={errors.password || false}
           />
         </FormControl>
         <FormControl className="form-control">
@@ -155,14 +173,10 @@ const SignUpForm = React.memo((props) => {
           />
         </FormControl>
         <div className="agree-term">
-          <CheckBox
-            checked={isCheckAgree}
-            name="isCheckAgree"
-            label="Tôi đã đọc và đồng ý với điều khoản sử dụng *"
-          />
+          <CheckBox name="isCheckAgree" label={labelAgree} />
         </div>
         <div className="agree-term">
-          <RadioGroup defaultValue={ENUM_SCOPE.PHARMACY} aria-label="scope" name="scope-radios" row>
+          <RadioGroup defaultValue={ENUM_SCOPE.PHARMACY} aria-label="scope" name="scope" row>
             <FormControlLabel value={ENUM_SCOPE.PHARMACY} control={<Radio />} label="Nhà thuốc" />
             <FormControlLabel value={ENUM_SCOPE.CLINIC} control={<Radio />} label="Phòng khám" />
             <FormControlLabel value={ENUM_SCOPE.DRUGSTORE} control={<Radio />} label="Quầy thuốc" />
@@ -172,7 +186,7 @@ const SignUpForm = React.memo((props) => {
           <span className="text-capitalize">
             Nếu bạn đã có tài khoản, vui lòng
             <a href="#top" style={{ color: '#f9b514', padding: '2px' }} onClick={handleClickSignIn}>
-              Đăng nhập
+              <b> Đăng nhập</b>
             </a>
           </span>
         </div>

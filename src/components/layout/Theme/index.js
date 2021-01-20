@@ -4,6 +4,14 @@ import { red } from '@material-ui/core/colors';
 // Create a theme instance.
 const Theme = createMuiTheme({
   overrides: {
+    MuiRadio: {
+      colorSecondary: {
+        color: '#66bb6a',
+        '&$checked': {
+          color: '#66bb6a',
+        },
+      },
+    },
     MuiInputAdornment: {
       positionStart: {
         margin: 8,
@@ -115,7 +123,7 @@ const Theme = createMuiTheme({
       main: '#556cd6',
     },
     secondary: {
-      main: '#66bb6a',
+      main: '#ff4fae',
     },
     thirdly: {
       main: '#f9b514',

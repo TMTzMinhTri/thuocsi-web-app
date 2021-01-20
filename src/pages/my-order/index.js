@@ -38,7 +38,7 @@ const MyOrder = ({ user, orders: orderR = [], isMobile }) => {
     <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={2} title="Đơn hàng của bạn" name={user?.name}>
+          <InfoContainer value={2} title="Đơn hàng của tôi" name={user?.name}>
             <OrderInfoFormContainer
               orders={orders}
               handleSetOrderStatus={handleSetOrderStatus}

@@ -15,8 +15,12 @@ const getProvinces = async (ctx) => {
 };
 
 const getDistrictsByProvince = async (provinceCode) => {
-  const url = `${CORE_API.DISTRICT}?provinceCode=${provinceCode}`;
-  const res = await GET({ url });
+  const res = await GET({
+    url: CORE_API.DISTRICT,
+    params: {
+      provinceCode,
+    },
+  });
   if (!isValid(res)) {
     return [];
   }
@@ -28,8 +32,7 @@ const getDistrictsByProvince = async (provinceCode) => {
 };
 
 const getWardsByDistrict = async (districtCode) => {
-  const url = `${CORE_API.ADMINISTRATIVE}?districtCode=${districtCode}`;
-  const res = await GET({ url });
+  const res = await GET({ url: CORE_API.ADMINISTRATIVE, params: { districtCode } });
   if (!isValid(res)) {
     return [];
   }

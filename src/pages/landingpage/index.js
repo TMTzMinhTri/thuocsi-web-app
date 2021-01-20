@@ -1,10 +1,10 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Template, BannerSlider } from 'components';
+import Template from 'components/layout/Template';
 
 export default function LandingPage(props) {
-  const { infoBanner = [], isMobile } = props;
-  const title = 'Thuocsi.vn';
+  const { infoBanner = [], isMobile, isAuthenticated } = props;
+  const title = 'Tra cứu và đặt thuốc giá sỉ nhanh tại thuocsi.vn';
   const pageName = 'home';
   const DynamicWhyBuymed = dynamic(() => import('components/organisms/WhyBuymed'));
   const DynamicCommonQuestion = dynamic(() => import('components/mocules/CommonQuestion'));
@@ -12,12 +12,13 @@ export default function LandingPage(props) {
   const DynamicSliderComp = dynamic(() => import('components/organisms/SliderComp'));
   const DynamicMedia = dynamic(() => import('components/organisms/Media'));
   const DynamicHomeCTASection = dynamic(() => import('components/mocules/HomeCTASection'));
+  const DynamicBannerSlider = dynamic(() => import('components/organisms/BannerSlider'));
 
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>
-      <BannerSlider infoBanner={infoBanner} />
+      <DynamicBannerSlider infoBanner={infoBanner} />
       <DynamicWhyBuymed />
-      <DynamicHomeCTASection />
+      {!isAuthenticated ? <DynamicHomeCTASection /> : <></>}
       <DynamicCommonQuestion />
       <DynamicPartners />
       <DynamicSliderComp />
