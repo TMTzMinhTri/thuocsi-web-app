@@ -35,8 +35,8 @@ const PromoListModal = memo((props) => {
       setPromos(prs);
       setPromoSearchs(prs);
     }
-    fetchData();
-  }, []);
+    if (visible)fetchData();
+  }, [visible]);
 
   useEffect(() => {
     const prms = searchString(promos, text);
