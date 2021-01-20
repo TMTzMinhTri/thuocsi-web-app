@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AddressClient } from 'clients';
 import AddressSelect from '../AddressSelect';
 
@@ -16,9 +16,9 @@ const ADDRESS_POS = {
 };
 
 const GroupAddressSelect = ({
-  province,
-  district,
-  ward,
+  province = DEFAULT_PROVINCE_ARRAY[0].value,
+  district = DEFAULT_DISTRICT_ARRAY[0].value,
+  ward = DEFAULT_WARD_ARRAY[0].value,
   idProvince,
   idDistrict,
   idWard,
@@ -28,54 +28,81 @@ const GroupAddressSelect = ({
   const [districts, setDistricts] = useState(DEFAULT_DISTRICT_ARRAY);
   const [wards, setWards] = useState(DEFAULT_WARD_ARRAY);
   const [pos, setPos] = useState(ADDRESS_POS.PROVINCE);
+  const isProvinceChange = useRef(true);
+  const isDistrictChange = useRef(true);
+
+  async function getProvinces() {
+    const res = await AddressClient.getProvinces();
+    setProvinces([...DEFAULT_PROVINCE_ARRAY, ...res]);
+  }
+
+  async function getDistricts() {
+    const res = await AddressClient.getDistrictsByProvince(province);
+    setDistricts([...DEFAULT_DISTRICT_ARRAY, ...res]);
+  }
+
+  async function getWards() {
+    const res = await AddressClient.getWardsByDistrict(district);
+    setWards([...DEFAULT_WARD_ARRAY, ...res]);
+  }
 
   useEffect(() => {
-    async function getProvinces() {
-      const res = await AddressClient.getProvinces();
-      setProvinces([...DEFAULT_PROVINCE_ARRAY, ...res]);
-      if (district !== '0') setPos(ADDRESS_POS.WARD);
-      if (province !== '0') setPos(ADDRESS_POS.DISTRICT);
+    getProvinces();
+    if (province !== DEFAULT_PROVINCE_ARRAY[0].value) {
+      getDistricts();
+      setPos(ADDRESS_POS.DISTRICT);
     }
 
-    getProvinces();
+    if (district !== DEFAULT_DISTRICT_ARRAY[0].value) {
+      getWards();
+      setPos(ADDRESS_POS.WARD);
+    }
   }, []);
 
   useEffect(() => {
-    async function getDistricts() {
-      const res = await AddressClient.getDistrictsByProvince(province);
-      setPos(ADDRESS_POS.DISTRICT);
-      setWards(DEFAULT_WARD_ARRAY);
-      setDistricts([...DEFAULT_DISTRICT_ARRAY, ...res]);
-    }
-    if (province === DEFAULT_PROVINCE_ARRAY[0].value) {
+    if (isProvinceChange.current) {
+      isProvinceChange.current = false;
+    } else {
       handleSetValue(idDistrict, DEFAULT_DISTRICT_ARRAY[0].value);
+      handleSetValue(idWard, DEFAULT_WARD_ARRAY[0].value);
+    }
+
+    if (province === DEFAULT_PROVINCE_ARRAY[0].value) {
       setPos(ADDRESS_POS.PROVINCE);
       setDistricts(DEFAULT_DISTRICT_ARRAY);
+      setWards(DEFAULT_WARD_ARRAY);
     } else {
-      getDistricts();
+      setPos(ADDRESS_POS.DISTRICT);
+      setWards(DEFAULT_WARD_ARRAY);
     }
   }, [province]);
 
   useEffect(() => {
-    async function getWards() {
-      const res = await AddressClient.getWardsByDistrict(district);
-      setPos(ADDRESS_POS.WARD);
-      setWards([...DEFAULT_WARD_ARRAY, ...res]);
-    }
-    if (
-      district === DEFAULT_DISTRICT_ARRAY[0].value
-
-    ) {
-      if (province !== DEFAULT_PROVINCE_ARRAY[0].value) {
-        setPos(ADDRESS_POS.DISTRICT);
-      }
+    if (isDistrictChange.current) {
+      isDistrictChange.current = false;
+    } else {
       handleSetValue(idWard, DEFAULT_WARD_ARRAY[0].value);
+    }
+
+    if (district === DEFAULT_PROVINCE_ARRAY[0].value) {
+      setPos(ADDRESS_POS.DISTRICT);
       setWards(DEFAULT_WARD_ARRAY);
     } else {
-      getWards();
+      setPos(ADDRESS_POS.WARD);
     }
   }, [district]);
 
+  useEffect(() => {
+    if (pos === ADDRESS_POS.PROVINCE) {
+      getProvinces();
+    }
+    if (pos === ADDRESS_POS.DISTRICT) {
+      getDistricts();
+    }
+    if (pos === ADDRESS_POS.WARD) {
+      getWards();
+    }
+  }, [pos]);
   return (
     <Grid container spacing={3}>
       <AddressSelect
