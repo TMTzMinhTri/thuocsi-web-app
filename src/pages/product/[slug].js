@@ -111,13 +111,15 @@ export default function ProductDetail({ product, isAuthenticated }) {
   };
 
   const handleInputChange = (e) => {
-    const curValue = e.currentTarget.value;
-    setQuantity(curValue);
-    if (!curValue) {
-      handler(product, 'remove');
-    }
-    if (/^\d+$/.test(curValue) && curValue > 0) {
-      handler(+curValue, 'update');
+    let curValue = e.currentTarget.value;
+    if (/^\d+$/.test(e.currentTarget.value) || !e.currentTarget.value) {
+      curValue = e.currentTarget.value;
+      setValue(curValue);
+      if (!curValue || curValue === 0) {
+        handler(product, 'remove');
+      } else {
+        handler(+curValue, 'update');
+      }
     }
   };
 
