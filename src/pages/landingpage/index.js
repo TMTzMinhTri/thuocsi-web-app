@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Template from 'components/layout/Template';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function LandingPage(props) {
   const { infoBanner = [], isMobile, isAuthenticated, products = [] } = props;
@@ -29,7 +30,7 @@ export default function LandingPage(props) {
         <div className="SliderProductWrap">
           {products?.map((item) => (
             <DynamicProductSliderSection
-              key={item?.collectionId}
+              key={uuidv4()}
               slug={item?.slug}
               name={item?.name}
               viewMore={item?.viewMore}
