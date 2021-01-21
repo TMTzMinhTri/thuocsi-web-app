@@ -8,18 +8,20 @@ import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const isTotal = false;
-    const [products] = await Promise.all([ProductClient.loadDataProduct(ctx, isTotal)]);
-
+    const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+    const page = Number(ctx.query.page) || 1;
+    const { data = [], total = 0 } = products;
     return {
       props: {
-        products: products.data,
+        products: data,
+        total,
+        page,
       },
     };
   });
 }
 
-const QuickOrderPage = ({ products = [], isMobile }) => {
+const QuickOrderPage = ({ products = [], isMobile, page = '', total = 0 }) => {
   const title = 'Đặt hàng nhanh – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const pageName = 'quick-order';
   return (
@@ -36,7 +38,7 @@ const QuickOrderPage = ({ products = [], isMobile }) => {
           <Grid sm={8} item>
             {/* san pham  */}
             {products && products.length > 0 ? (
-              <QuickOrderList products={products} isMobile={isMobile} />
+              <QuickOrderList products={products} isMobile={isMobile} page={page} total={total} />
             ) : (
               <Typography variant="body1" gutterBottom>
                 Không có sản phẩm
