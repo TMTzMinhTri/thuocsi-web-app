@@ -46,12 +46,13 @@ export async function getServerSideProps(ctx) {
 const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const router = useRouter();
   const { itemCount = 0 } = useCart();
+  const { note: noteValue } = cart[0];
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
 
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
   const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('NORMAL');
-  const [note, setNote] = React.useState('');
+  const [note, setNote] = React.useState(noteValue);
   const [value, setValue] = useState({
     customerName: user.name || '',
     customerPhone: user.phone || '',
@@ -60,6 +61,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     customerDistrictCode: user.districtCode || '0',
     customerProvinceCode: user.provinceCode || '0',
     customerWardCode: user.wardCode || '0',
+  });
+
+  const [error, setError] = useState({
+    name: false,
+    phone: false,
+    address: false,
   });
 
   const dataCustomer = {
@@ -87,6 +94,10 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     setValue({ ...value, [key]: val });
   };
 
+  const handleSetError = (key, val) => {
+    setError({ ...value, [key]: val });
+  };
+
   const handleSetNote = (e) => {
     setNote(e.target.value);
   };
@@ -96,7 +107,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
       <div className={styles.payment_wrapper}>
         <Grid spacing={4} container>
           <Grid item xs={12} md={8}>
-            <DeliveryInfoForm {...value} handleSetValue={handleSetValue} />
+            <DeliveryInfoForm {...error} {...value} handleSetValue={handleSetValue} />
             <DeliveryMethod
               selectedValue={selectedDeliveryValue}
               handleChange={handleDeliveryChange}
@@ -113,6 +124,8 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 Chúng tôi sẽ liên hệ mua thuốc và báo giá sớm nhất có thể
               </p>
               <TextareaAutosize
+                name="note"
+                value={note}
                 onChange={handleSetNote}
                 className={styles.text_area}
                 aria-label="Ghi chú của khách hàng"
@@ -123,6 +136,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
           </Grid>
           <Grid item xs={12} md={4}>
             <CheckoutSticky
+              onSetError={handleSetError}
               cart={cart}
               data={value}
               dataCustomer={dataCustomer}
