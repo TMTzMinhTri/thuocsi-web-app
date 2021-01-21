@@ -1,7 +1,6 @@
 import React from 'react';
 import { ProductClient, doWithServerSide, isValid } from 'clients';
 import dynamic from 'next/dynamic';
-// import { NOT_FOUND_URL } from 'constants/Paths';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
@@ -13,9 +12,10 @@ export async function getServerSideProps(ctx) {
     ]);
     if (!isValid(products)) {
       return {
-        redirect: {
-          // destination: NOT_FOUND_URL,
-          permanent: false,
+        props: {
+          mostResearched,
+          infoBanner,
+          products: [],
         },
       };
     }

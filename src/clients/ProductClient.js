@@ -92,7 +92,7 @@ async function loadDataProduct(ctx, isTotal) {
     page: ctx.query.page || 0,
     q: ctx.query.q ? ctx.query.q : '',
     limit: PAGE_SIZE,
-    getTotal: isTotal,
+    getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
   };
 
   const result = await GET({

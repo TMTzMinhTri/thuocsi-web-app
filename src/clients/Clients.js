@@ -64,7 +64,7 @@ async function request(props) {
         isUseBasic = true;
       }
     }
-    console.log(' fetch data ', link, method, headers, body);
+    // console.log(' fetch data ', link, method, headers, body);
     const res = await fetch(link, {
       method,
       credentials: 'same-origin',
@@ -78,7 +78,7 @@ async function request(props) {
     if (isUseBasic) {
       result.isBasic = true;
     }
-    console.log('result : ', result);
+    // console.log('result : ', result);
     return result;
   } catch (err) {
     return {
@@ -107,9 +107,14 @@ export async function DELETE(props) {
 }
 
 export function isValid(resp) {
+  return resp && resp.status && resp.status === 'OK' && resp.data && resp.data[0];
+}
+
+export function isValidWithoutData(resp) {
   return resp && resp.status && resp.status === 'OK';
 }
 
+// @deprecate in next release
 export function isValidWithData(resp) {
   return resp && resp.status && resp.status === 'OK' && resp.data && resp.data[0];
 }
@@ -122,4 +127,5 @@ export default {
   isValid,
   isValidWithData,
   getSessionToken,
+  isValidWithoutData,
 };

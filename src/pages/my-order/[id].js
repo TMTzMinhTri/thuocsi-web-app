@@ -1,7 +1,8 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { OrderClient, doWithServerSide } from 'clients';
+import { OrderClient, doWithServerSide, isValid } from 'clients';
 import { withLogin } from 'context';
+import { NOT_FOUND_URL } from 'constants/Paths';
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
@@ -10,10 +11,18 @@ export async function getServerSideProps(ctx) {
       OrderClient.getOrderById(id),
       OrderClient.getProductByOrderId(id),
     ]);
+    if (!isValid(order) || !isValid(products)) {
+      return {
+        redirect: {
+          destination: NOT_FOUND_URL,
+          permanent: false,
+        },
+      };
+    }
     return {
       props: {
-        order,
-        products,
+        order: order.data,
+        products: products.data,
       },
     };
   });
@@ -21,7 +30,6 @@ export async function getServerSideProps(ctx) {
 
 const MyOrder = ({ user, order, products = [] }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-
   return (
     <Template title={title}>
       <div style={{ backgroundColor: '#f4f7fc' }}>

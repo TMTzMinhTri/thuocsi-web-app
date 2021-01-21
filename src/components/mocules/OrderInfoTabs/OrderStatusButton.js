@@ -32,16 +32,20 @@ const StyledButton = styled(Button)`
   }
 
   &.btn--complete {
-    background-color: #00C9A7 !important;
+    background-color: #00c9a7 !important;
   }
 
   &.btn--cancel {
-    background-color: #C34A36 !important;
-  } 
+    background-color: #c34a36 !important;
+  }
 `;
 
-const OrderStatusButton = ({ className, status }) => (
-  <StyledButton variant="contained" className={`${className} ${getOrderStatusColor(status)}`}>
+const OrderStatusButton = ({ className, status, handleSetOrderStatus }) => (
+  <StyledButton
+    variant="contained"
+    className={`${className} ${getOrderStatusColor(status)}`}
+    onClick={() => handleSetOrderStatus(status)}
+  >
     {parseOrderStatus(status)}
   </StyledButton>
 );

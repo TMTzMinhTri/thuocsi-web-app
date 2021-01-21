@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { AlphabetFilter, IngredientList, IngredientSearch } from 'components/mocules';
+import { StringUtils } from 'utils';
 
 const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
 
 const searchString = (arr, str) => {
-  const result = arr.filter((el) => el.name.indexOf(str) > -1);
+  const strA = StringUtils.changeAlias(str).toUpperCase();
+  const result = arr.filter(
+    (el) => StringUtils.changeAlias(el.name).toUpperCase().indexOf(strA, 0) > -1,
+  );
   return result;
 };
 
@@ -38,7 +42,8 @@ const IngredientContainer = ({ ingredients }) => {
       if (filter.word === WORD_DEFAULT) setIngres(ingredients);
       else {
         const ws = ingredients.filter(
-          (ingredient) => ingredient?.name.charAt(0).toUpperCase() === filter.word,
+          (ingredient) =>
+            StringUtils.changeAlias(ingredient?.name.charAt(0).toUpperCase()) === filter.word,
         );
         setIngres(ws);
       }

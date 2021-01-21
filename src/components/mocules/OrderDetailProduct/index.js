@@ -11,7 +11,7 @@ import {
 import StarIcon from '@material-ui/icons/Star';
 import { LinkComp } from 'components/atoms';
 import { FormarCurrency } from 'utils';
-import { PRODUCT } from 'constants/Paths';
+import { getPathProductBySlug } from 'constants/Paths';
 import styles from './styles.module.css';
 
 const OrderDetailProduct = ({ products, promo }) => {
@@ -48,7 +48,7 @@ const OrderDetailProduct = ({ products, promo }) => {
               <TableCell align="left" className={styles.product_name}>
                 <LinkComp
                   variant="h5"
-                  href={`${PRODUCT}/${product.slug || product.name}`}
+                  href={getPathProductBySlug(product.slug)}
                   className={styles.product_name}
                 >
                   {product.name}

@@ -64,6 +64,17 @@ export const CORE_API = {
   ADMINISTRATIVE,
 };
 
+const CART_API_PREFIX = '/marketplace/order/v1';
+const CART_INFO = `${CART_API_PREFIX}/cart`;
+const CART_ADD = `${CART_API_PREFIX}/cart/add`;
+const CART_REMOVE = `${CART_API_PREFIX}/cart/remove`;
+
+export const CART_API = {
+  CART_INFO,
+  CART_ADD,
+  CART_REMOVE,
+};
+
 // promotion
 // /marketplace/promotion/v1/promotion
 const PROMOTION_API_PREFIX = '/marketplace/promotion/v1';

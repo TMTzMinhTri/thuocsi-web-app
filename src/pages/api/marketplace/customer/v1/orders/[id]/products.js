@@ -9,6 +9,7 @@ export default (req, res) => {
       status: 'NOTFOUND',
       message: 'Order not found.',
     });
+    return;
   }
   res.statusCode = 200;
   res.json({

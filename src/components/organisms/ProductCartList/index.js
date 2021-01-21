@@ -45,8 +45,8 @@ const ProductCartList = (props) => {
         <Info className={styles.info_icon} />
         <Typography>
           Để thêm sản phẩm vào giỏ hàng, vui lòng quay về trang
-          <Link className={styles.quick_order} href={QUICK_ORDER}>
-            Đặt hàng nhanh
+          <Link href={QUICK_ORDER}>
+            <span className={styles.quick_order}>Đặt hàng nhanh </span>
           </Link>
         </Typography>
       </Box>

@@ -41,5 +41,5 @@ module.exports = {
   publicRuntimeConfig: {
     localeSubpaths,
   },
-  pageExtensions: ['js', 'jsx'],
+  pageExtensions: ['js'],
 };

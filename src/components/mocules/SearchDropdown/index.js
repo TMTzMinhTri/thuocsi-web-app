@@ -1,5 +1,6 @@
 import React from 'react';
-import LinkComp from '../../atoms/LinkComp';
+import { getPathProductBySlug } from 'constants/Paths';
+import LinkComp from 'components/atoms/LinkComp';
 import styles from './styles.module.css';
 
 const SearchDropdown = (props) => {
@@ -18,14 +19,16 @@ const SearchDropdown = (props) => {
               className={styles.searchResults}
               key={item.skuId}
               item={item}
-              href={item.slug}
+              href={getPathProductBySlug(item.slug)}
             >
               {item.name}
             </LinkComp>
           ))}
         </>
       ) : (
-        <span className={styles.searchResults}>Không có sản phẩm với từ khóa "{`${keyword}`}" trong tất cả sản phẩm</span>
+        <span className={styles.searchResults}>
+          Không có sản phẩm với từ khóa "{`${keyword}`}" trong tất cả sản phẩm
+        </span>
       )}
 
       {data[0] && data[0].manufacturers ? (
@@ -41,7 +44,9 @@ const SearchDropdown = (props) => {
           ))}
         </>
       ) : (
-        <div className={styles.searchResults}>Không có sản phẩm với từ khóa "{`${keyword}`}" trong tất cả nhà sản xuất</div>
+        <div className={styles.searchResults}>
+          Không có sản phẩm với từ khóa "{`${keyword}`}" trong tất cả nhà sản xuất
+        </div>
       )}
     </div>
   );
