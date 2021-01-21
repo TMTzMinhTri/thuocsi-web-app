@@ -23,7 +23,7 @@ import clsx from 'clsx';
 import { SearchResultText } from 'components/mocules';
 import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
 
-import { SORT_PRODUCT, TAB_LIST, PAGE_SIZE } from '../../../constants/data';
+import { SORT_PRODUCT, PAGE_SIZE } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
 import styles from './style.module.css';
 
@@ -31,6 +31,7 @@ export default function ProductListing({
   products = [],
   brand = [],
   group = [],
+  tags,
   current_tab = '',
   page = '',
   sortBy = '',
@@ -208,18 +209,35 @@ export default function ProductListing({
             </div>
             <div>
               <div className={styles.filters}>
-                {TAB_LIST.map((item) => (
+                <Link
+                  href={{
+                    pathname: pathName,
+                    query: { ...getTabQuery() },
+                  }}
+                >
+                  <Fab
+                    variant="extended"
+                    aria-label="all"
+                    className={clsx(
+                      current_tab === '' && styles.active,
+                      styles.filter_btn,
+                    )}
+                  >
+                    Tất cả sản phẩm
+                  </Fab>
+                </Link>
+                {tags.map((item) => (
                   <Link
                     href={{
                       pathname: pathName,
-                      query: { ...getTabQuery(), current_tab: item.value },
+                      query: { ...getTabQuery(), current_tab: item.slug },
                     }}
                   >
                     <Fab
                       variant="extended"
                       aria-label="all"
                       className={clsx(
-                        current_tab === item.value && styles.active,
+                        current_tab === item.slug && styles.active,
                         styles.filter_btn,
                       )}
                     >
@@ -229,7 +247,7 @@ export default function ProductListing({
                           {item.leftIcon}
                         </span>
                       )}
-                      {item.shortName}
+                      {item.name}
                       {item.rightIcon && (
                         <span className={styles.iconRight}>
                           {item.rightIcon}

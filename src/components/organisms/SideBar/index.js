@@ -78,7 +78,7 @@ const SideBar = () => {
                 && styles.active,
             )}
             name="Sản phẩm"
-            href="/products?current_tab=new_arrival"
+            href="/products"
             color="white"
           >
             <Icon className={`icon-product ${styles.navIcon}`} />

@@ -133,7 +133,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                   (isPageProduct || isPageManufacturers || isPageCategiries) && styles.active,
                 )}
                 name="Sản phẩm"
-                href="/products?current_tab=new_arrival"
+                href="/products"
                 color="white"
               >
                 <Icon className={`icon-product ${styles.navIcon}`} />
