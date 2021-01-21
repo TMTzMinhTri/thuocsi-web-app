@@ -4,11 +4,12 @@ import { Template, ProductListing } from 'components';
 import CatClient from 'clients/CatClient';
 
 export async function getServerSideProps(ctx) {
-  const [products, catInfo, brand, group] = await Promise.all([
+  const [products, catInfo, brand, group, tags] = await Promise.all([
     CatClient.loadProductWithCategory(ctx),
     CatClient.loadCategoryInfoBySlug(ctx),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
+    CatClient.loadTags(ctx),
   ]);
   const current_tab = ctx.query.current_tab || '';
   const sortBy = ctx.query.sortBy || '';
@@ -24,6 +25,7 @@ export async function getServerSideProps(ctx) {
       brand,
       group,
       slug,
+      tags,
     },
   };
 }
@@ -33,6 +35,7 @@ export default function Products({
   catInfo = '',
   brand = [],
   group = [],
+  tags = [],
   current_tab = '',
   page = '',
   sortBy = '',
@@ -52,6 +55,7 @@ export default function Products({
         sortBy={sortBy}
         catName={cat}
         slug={slug}
+        tags={tags}
         name={catInfo && catInfo[0] && catInfo[0].name}
       />
     </Template>
