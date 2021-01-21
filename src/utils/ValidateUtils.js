@@ -16,9 +16,11 @@ const checkLength = (val, length) => {
   return true;
 };
 
-const isNumber = (val) => {
+const isNumber = (str) => {
   try {
-    return Number.isNaN(val);
+    if (typeof str === 'number') return true;
+    if (typeof str !== 'string') return false;
+    return !Number.isNaN(str) && !Number.isNaN(parseFloat(str));
   } catch (error) {
     return false;
   }

@@ -14,20 +14,14 @@ const CustomTab = withStyles({
   },
 })(Tab);
 
-export default function OrderInfoTabs({ orders, handleSetOrderStatus, user }) {
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
+export default function OrderInfoTabs({ orders, handleSetOrderStatus, user, orderStatus }) {
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} className={styles.tabs}>
         <Paper elevation={0}>
           <Tabs
-            value={value}
+            value={orderStatus}
             textColor="primary"
-            onChange={handleChange}
             centered
             classes={{ indicator: styles.indicator }}
           >
@@ -36,31 +30,54 @@ export default function OrderInfoTabs({ orders, handleSetOrderStatus, user }) {
               disableFocusRipple
               disableRipple
               onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.ALL)}
+              value={ENUM_ORDER_STATUS.ALL}
             />
             <CustomTab
               label="Chờ Xác Nhận"
               disableFocusRipple
               disableRipple
               onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.PENDING)}
+              value={ENUM_ORDER_STATUS.PENDING}
+            />
+            <CustomTab
+              label="Đã Xác Nhận"
+              disableFocusRipple
+              disableRipple
+              onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.CONFIRM)}
+              value={ENUM_ORDER_STATUS.CONFIRM}
+            />
+            <CustomTab
+              label="Đang Giao"
+              disableFocusRipple
+              disableRipple
+              onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.DELIVERY)}
+              value={ENUM_ORDER_STATUS.DELIVERY}
             />
             <CustomTab
               label="Hoàn Tất"
               disableFocusRipple
               disableRipple
               onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.COMPLETED)}
+              value={ENUM_ORDER_STATUS.COMPLETED}
             />
             <CustomTab
               label="Huỷ"
               disableFocusRipple
               disableRipple
               onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.CANCEL)}
+              value={ENUM_ORDER_STATUS.CANCEL}
             />
           </Tabs>
         </Paper>
       </Grid>
       <Grid item xs={12}>
         {orders.map((order) => (
-          <OrderRow {...order} key={order.orderID} user={user} />
+          <OrderRow
+            {...order}
+            key={order.orderID}
+            user={user}
+            handleSetOrderStatus={handleSetOrderStatus}
+          />
         ))}
       </Grid>
     </Grid>

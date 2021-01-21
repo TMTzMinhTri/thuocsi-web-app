@@ -5,6 +5,7 @@ export default (req, res) => {
     data: [
       {
         code: 'NEWBIE300K1',
+        description: 'Mã giảm giá do đổi điểm tích lũy, trị giá 1.000 VND !',
         createdAt: new Date(),
         expiredAt: new Date(),
         maxUse: 10,
@@ -15,6 +16,7 @@ export default (req, res) => {
       },
       {
         code: 'NEWPHARMACY1',
+        description: 'Mã giảm giá do đổi điểm tích lũy, trị giá 40.000 VND !',
         createdAt: new Date(),
         expiredAt: new Date(),
         maxUse: -1,
@@ -25,6 +27,7 @@ export default (req, res) => {
       },
       {
         code: 'DUYDAT123',
+        description: 'Mã giảm giá do đổi điểm tích lũy, trị giá 40.000 VND !',
         createdAt: new Date(),
         expiredAt: new Date(),
         maxUse: -1,

@@ -1,18 +1,29 @@
 import React from 'react';
-import { ProductClient, doWithServerSide } from 'clients';
+import { ProductClient, doWithServerSide, isValid } from 'clients';
 import dynamic from 'next/dynamic';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [mostResearched, infoBanner] = await Promise.all([
+    const isTotal = false;
+    const [mostResearched, infoBanner, products] = await Promise.all([
       ProductClient.loadDataMostSearch(ctx),
       ProductClient.getInfoBanner(),
+      ProductClient.loadDataProductCollection(ctx, isTotal),
     ]);
-
+    if (!isValid(products)) {
+      return {
+        props: {
+          mostResearched,
+          infoBanner,
+          products: [],
+        },
+      };
+    }
     return {
       props: {
         mostResearched,
         infoBanner,
+        products: products.data,
       },
     };
   });

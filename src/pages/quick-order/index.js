@@ -10,6 +10,7 @@ export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const isTotal = false;
     const [products] = await Promise.all([ProductClient.loadDataProduct(ctx, isTotal)]);
+
     return {
       props: {
         products: products.data,

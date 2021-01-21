@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Grid } from '@material-ui/core';
+import { TableRow, TableCell, Grid, Tooltip } from '@material-ui/core';
 import { DateTimeUtils, FormarCurrency } from 'utils';
 import InfoIcon from '@material-ui/icons/Info';
 import { InfoTable } from 'components/atoms';
@@ -23,12 +23,16 @@ function PromoTable({ promos }) {
       {promos.map((row) => (
         <TableRow key={row.code} hover>
           <TableCell align="left">
-            <Grid container direction="column">
-              <Grid item> {row.code}</Grid>
-              <Grid item>
-                <InfoIcon classes={{ root: styles.icon }} />
+            <Tooltip title={row.description} aria-label="add" placement="top">
+
+              <Grid container direction="column">
+                <Grid item> {row.code}</Grid>
+                <Grid item>
+                  <InfoIcon classes={{ root: styles.icon }} />
+                </Grid>
               </Grid>
-            </Grid>
+            </Tooltip>
+
           </TableCell>
           <TableCell align="left">
             {DateTimeUtils.getFormattedDate(new Date(row.createdAt), 'DD/MM/YYYY HH:mm')}

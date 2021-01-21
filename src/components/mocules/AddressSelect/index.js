@@ -2,6 +2,7 @@ import { NativeSelect, useMediaQuery } from '@material-ui/core';
 import { InfoFormControl } from 'components/atoms';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 import InfoInput from '../InfoInput';
 
 const AddressSelect = ({ label, id, options, onChange, value, disabled, className }) => {
@@ -19,7 +20,7 @@ const AddressSelect = ({ label, id, options, onChange, value, disabled, classNam
         disabled={disabled}
       >
         {options.map((option) => (
-          <option value={option.value} key={`${option.id}-${Math.random()}`}>{option.label}</option>
+          <option value={option.value} key={uuidv4()}>{option.label}</option>
         ))}
       </NativeSelect>
     </InfoFormControl>

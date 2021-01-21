@@ -27,11 +27,9 @@ const BRAND = `${CATEGORY_API_PREFIX}/manufacturers/list`;
 const GROUP = `${CATEGORY_API_PREFIX}/category/list`;
 const CATEGORY_INFO = `${CATEGORY_API_PREFIX}/categories/info`;
 const MANUFACTURER_INFO = `${CATEGORY_API_PREFIX}/manufacturers/info`;
-const PRODUCT_LIST = `${CATEGORY_API_PREFIX}/products/list`;
 export const CATEGORY_API = {
   BRAND,
   GROUP,
-  PRODUCT_LIST,
   CATEGORY_INFO,
   MANUFACTURER_INFO,
 };
@@ -45,21 +43,36 @@ export const CONTENT_API = {
 const PRODUCT_API_PREFIX = '/marketplace/product/v1';
 const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredient`;
 const INGREDIENT_LIST = `${INGREDIENT}/list`;
+const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
+const PRODUCT_LIST_COLLECTION = `${PRODUCT_API_PREFIX}/collection/page`;
 
 export const PRODUCT_API = {
   INGREDIENT,
   INGREDIENT_LIST,
+  PRODUCT_LIST,
+  PRODUCT_LIST_COLLECTION,
 };
 
 const CORE_MASTER_DATA_PREFIX = '/core/master-data/v1';
 const PROVINCE_LIST = `${CORE_MASTER_DATA_PREFIX}/provinces/list`;
-const DISTRICT = `${CORE_MASTER_DATA_PREFIX}/district`;
+const DISTRICT = `${CORE_MASTER_DATA_PREFIX}/districts`;
 // administrative/list
-const ADMINISTRATIVE = `${CORE_MASTER_DATA_PREFIX}/administrative/list`;
+const ADMINISTRATIVE = `${CORE_MASTER_DATA_PREFIX}/administratives/list`;
 export const CORE_API = {
   PROVINCE_LIST,
   DISTRICT,
   ADMINISTRATIVE,
+};
+
+const CART_API_PREFIX = '/marketplace/order/v1';
+const CART_INFO = `${CART_API_PREFIX}/cart`;
+const CART_ADD = `${CART_API_PREFIX}/cart/add`;
+const CART_REMOVE = `${CART_API_PREFIX}/cart/remove`;
+
+export const CART_API = {
+  CART_INFO,
+  CART_ADD,
+  CART_REMOVE,
 };
 
 // promotion

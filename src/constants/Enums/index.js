@@ -46,6 +46,10 @@ export const HTTP_STATUS = {
   Unauthorized: 'UNAUTHORIZED',
 };
 
+export const PRODUCT_TYPE = {
+  CAN_INVOICE: 'can invoice',
+};
+
 export default {
   ENUM_SCOPE,
   ENUM_TYPE,

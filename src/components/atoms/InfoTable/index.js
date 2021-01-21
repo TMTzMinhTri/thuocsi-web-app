@@ -10,9 +10,9 @@ import {
 import styled from 'styled-components';
 import styles from './styles.module.css';
 
-const InfoTable = ({ heads, children, className }) => (
+const InfoTable = ({ heads, children, className, stickyHeader }) => (
   <TableContainer component={Paper} className={className}>
-    <Table className={styles.table}>
+    <Table className={styles.table} stickyHeader={stickyHeader}>
       <TableHead>
         <TableRow>
           {heads.map((head) => (

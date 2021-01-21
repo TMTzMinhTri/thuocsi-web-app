@@ -72,18 +72,32 @@ async function loadDataPormotion(ctx) {
   return res.data;
 }
 
+async function loadDataProductCollection(ctx) {
+  const url = `${PRODUCT_API.PRODUCT_LIST_COLLECTION}?q=MAIN_PAGE`;
+
+  const result = await GET({ url, ctx, isBasic: true });
+
+  return result;
+}
+
 async function loadDataProduct(ctx, isTotal) {
-  const getTotal = typeof isTotal !== 'undefined' ? isTotal : true;
-  const curentTab = ctx.query.current_tab ? ctx.query.current_tab : '';
-  const sortBy = ctx.query.sortBy ? ctx.query.sortBy : '';
-  const q = ctx.query.q ? ctx.query.q : '';
-  const page = ctx.query.page - 1 || 0;
-  const url = `/marketplace/product/v1/products/list?&current_tab=${curentTab}&sortBy=${sortBy}&offset=${page}&getTotal=${getTotal}&limit=${PAGE_SIZE}&q=${encodeURIComponent(q)}`;
+  const url = PRODUCT_API.PRODUCT_LIST;
+  const params = {
+    current_tab: ctx.query.current_tab ? ctx.query.current_tab : '',
+    sortBy: ctx.query.sortBy ? ctx.query.sortBy : '',
+    page: ctx.query.page || 0,
+    q: ctx.query.q ? ctx.query.q : '',
+    limit: PAGE_SIZE,
+    getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
+  };
+
   const result = await GET({
     url,
     ctx,
+    params,
     isBasic: true,
   });
+
   if (!isValid(result)) return result;
   let cart = {};
   let productListWithQuantityInCart = {};
@@ -146,4 +160,5 @@ export default {
   loadDataIngredient,
   getIngredientBySlug,
   getProductsBySlug,
+  loadDataProductCollection,
 };
