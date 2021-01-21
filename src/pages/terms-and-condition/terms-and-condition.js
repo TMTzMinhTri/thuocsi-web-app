@@ -380,7 +380,7 @@ const TermAndCondition = () => {
                 <li>
                   Tại thời điểm ký kết Điều Khoản Dịch Vụ, Công ty TNHH Dược phẩm MedX đã có được
                   tất cả các giấy phép, sự chấp thuận, phê duyệt và/hoặc quyền sử dụng hợp pháp để
-                  phân phối các Sản Phẩm đó trên Sàn Giao Dịch của Thuocsi.vn.
+                  phân phối các Sản Phẩđó trên Sàn Giao Dịch của Thuocsi.vn.
                 </li>
                 <li>
                   Công ty TNHH Dược phẩm MedX cam kết giữ Thuocsi.vn khỏi mọi tranh chấp, khiếu

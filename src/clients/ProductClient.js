@@ -75,11 +75,7 @@ async function loadDataPormotion(ctx) {
 async function loadDataProductCollection(ctx) {
   const url = `${PRODUCT_API.PRODUCT_LIST_COLLECTION}?q=MAIN_PAGE`;
 
-  const result = await GET({
-    url,
-    ctx,
-    isBasic: true,
-  });
+  const result = await GET({ url, ctx, isBasic: true });
 
   return result;
 }

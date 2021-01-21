@@ -5,7 +5,7 @@ import { settingsProduct } from 'constants/data';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import { LinkComp } from '../../atoms';
+import { LinkComp } from 'components/atoms';
 
 import styles from './styles.module.css';
 
@@ -27,7 +27,11 @@ const SliderProduct = ({ children, name, slug, viewMore }) => {
           <Slider ref={ref} {...settingsProduct}>
             {children}
           </Slider>
-          {viewMore && <LinkComp href={`${slug}`} className={styles.seeAll}>Xem tất cả</LinkComp>}
+          {viewMore && (
+            <LinkComp href={`${slug}`} className={styles.seeAll}>
+              Xem tất cả
+            </LinkComp>
+          )}
         </div>
       </Box>
     </div>

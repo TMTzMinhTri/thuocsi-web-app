@@ -13,7 +13,8 @@ export default function LandingPage(props) {
   const DynamicMedia = dynamic(() => import('components/organisms/Media'));
   const DynamicHomeCTASection = dynamic(() => import('components/mocules/HomeCTASection'));
   const DynamicBannerSlider = dynamic(() => import('components/organisms/BannerSlider'));
-  const DynamicProductSliderSection = dynamic(() => import('components/organisms/ProductSliderSection'));
+  const DynamicProductSliderSection = dynamic(() =>
+    import('components/organisms/ProductSliderSection'));
 
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>
@@ -28,6 +29,7 @@ export default function LandingPage(props) {
         <div className="SliderProductWrap">
           {products?.map((item) => (
             <DynamicProductSliderSection
+              key={item?.collectionId}
               slug={item?.slug}
               name={item?.name}
               viewMore={item?.viewMore}

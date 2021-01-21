@@ -6,25 +6,22 @@ import { NOT_FOUND_URL } from 'constants/Paths';
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
-  return doWithServerSide(
-    ctx,
-    async () => {
-      const [order] = await Promise.all([OrderClient.getOrderById(id)]);
-      if (!isValid(order)) {
-        return {
-          redirect: {
-            destination: NOT_FOUND_URL,
-            permanent: false,
-          },
-        };
-      }
+  return doWithServerSide(ctx, async () => {
+    const [order] = await Promise.all([OrderClient.getOrderById(id)]);
+    if (!isValid(order)) {
       return {
-        props: {
-          order: order.data,
+        redirect: {
+          destination: NOT_FOUND_URL,
+          permanent: false,
         },
       };
-    },
-  );
+    }
+    return {
+      props: {
+        order: order.data,
+      },
+    };
+  });
 }
 
 const ThankYou = ({ order = {}, isMobile }) => {
