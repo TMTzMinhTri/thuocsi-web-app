@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth, useCart } from 'context';
-import { AuthClient, isValidWithData } from 'clients';
+import { AuthClient, isValid } from 'clients';
 import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
 import { i18n } from 'i18n-lib';
@@ -20,7 +20,7 @@ const SignInModal = ({ className, visible, onClose, onChangeForget, onChangeSign
 
     AuthClient.login(data)
       .then((result) => {
-        if (!isValidWithData(result)) {
+        if (!isValid(result)) {
           const errorCode = `login.${result.errorCode}`;
           NotifyUtils.error(t(errorCode));
           return;

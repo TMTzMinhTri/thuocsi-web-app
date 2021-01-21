@@ -1,39 +1,42 @@
 import { Template, ThankYouContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { OrderClient, doWithServerSide } from 'clients';
+import { OrderClient, doWithServerSide, isValid } from 'clients';
 import { withLogin } from 'context';
+import { NOT_FOUND_URL } from 'constants/Paths';
 
 export async function getServerSideProps(ctx) {
-  try {
-    const { id } = ctx.query;
-    return doWithServerSide(ctx, async () => {
+  const { id } = ctx.query;
+  return doWithServerSide(
+    ctx,
+    async () => {
       const [order] = await Promise.all([OrderClient.getOrderById(id)]);
+      if (!isValid(order)) {
+        return {
+          redirect: {
+            destination: NOT_FOUND_URL,
+            permanent: false,
+          },
+        };
+      }
       return {
         props: {
-          order,
+          order: order.data,
         },
       };
-    });
-  } catch (error) {
-    return {
-      props: {
-        error,
-      },
-    };
-  }
+    },
+  );
 }
 
-const MyOrder = ({ order, isMobile }) => {
+const ThankYou = ({ order = {}, isMobile }) => {
   const title = 'Cảm ơn bạn đã đặt hàng tại thuocsi.vn!';
-
   return (
     <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <ThankYouContainer orderID={order.orderID} deliveryAt={order.deliveryAt} />
+          <ThankYouContainer orderID={order?.orderID} deliveryAt={order?.deliveryAt} />
         </Container>
       </div>
     </Template>
   );
 };
-export default withLogin(MyOrder);
+export default withLogin(ThankYou);

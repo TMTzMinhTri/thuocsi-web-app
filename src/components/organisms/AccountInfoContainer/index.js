@@ -56,7 +56,7 @@ const AccountInfoFormContainer = ({ user }) => {
       if (!isValid(res)) throw Error(res.message);
       NotifyUtils.success('Cập nhật thông tin thành công');
     } catch (error) {
-      NotifyUtils.error(error.message || 'Cập nhật thông tin thất bại');
+      NotifyUtils.error(error?.message || 'Cập nhật thông tin thất bại');
     }
   };
 
