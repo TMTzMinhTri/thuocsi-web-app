@@ -6,14 +6,13 @@ import { useCart } from 'context';
 import SliderProduct from '../../mocules/SliderProduct';
 import ProductCardVertical from '../ProductCardVertical';
 
-const BestSaleProduct = ({ products }) => {
+const ProductSliderSection = ({ products, name, slug, viewMore }) => {
   const { increase } = useCart();
-
   const handleIncrement = (product) => {
     increase(product);
   };
   return (
-    <SliderProduct>
+    <SliderProduct name={name} slug={slug} viewMore={viewMore}>
       {products.map((item) => (
         <ProductCardVertical
           onIncrement={handleIncrement}
@@ -28,4 +27,4 @@ const BestSaleProduct = ({ products }) => {
   );
 };
 
-export default BestSaleProduct;
+export default ProductSliderSection;

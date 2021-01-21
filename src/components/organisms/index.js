@@ -19,7 +19,7 @@ export { default as ConfirmModal } from './ConfirmModal';
 export { default as ErrorModal } from './ErrorModal';
 export { default as ErrorQuantityCartModal } from './ErrorQuantityCartModal';
 export { default as RemoveProductModal } from './RemoveProductModal';
-export { default as BestSaleProduct } from './BestSaleProduct';
+export { default as ProductSliderSection } from './ProductSliderSection';
 export { default as AccountInfoFormContainer } from './AccountInfoContainer';
 export { default as OrderInfoFormContainer } from './OrderInfoContainer';
 export { default as ReferralList } from './ReferralList';

@@ -72,6 +72,18 @@ async function loadDataPormotion(ctx) {
   return res.data;
 }
 
+async function loadDataProductCollection(ctx) {
+  const url = `${PRODUCT_API.PRODUCT_LIST_COLLECTION}?q=MAIN_PAGE`;
+
+  const result = await GET({
+    url,
+    ctx,
+    isBasic: true,
+  });
+
+  return result;
+}
+
 async function loadDataProduct(ctx, isTotal) {
   const url = PRODUCT_API.PRODUCT_LIST;
   const params = {
@@ -152,4 +164,5 @@ export default {
   loadDataIngredient,
   getIngredientBySlug,
   getProductsBySlug,
+  loadDataProductCollection,
 };
