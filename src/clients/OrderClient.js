@@ -1,22 +1,17 @@
 import { CUSTOMER_API } from 'constants/APIUri';
-import { GET, isValid } from './Clients';
+import { GET } from './Clients';
 
 async function getOrderById(id = '') {
   const url = `${CUSTOMER_API.ORDER}/${id}`;
   const result = await GET({ url, mock: true });
-  if (!isValid(result)) {
-    return [];
-  }
-  return result.data;
+
+  return result;
 }
 
-async function getProductByOrderId(id = '') {
-  const url = `${CUSTOMER_API.ORDER}/${id}/products`;
+async function getProductByOrderId(id = '', type) {
+  const url = `${CUSTOMER_API.ORDER}/${id}/products?type=${type}`;
   const result = await GET({ url, mock: true });
-  if (!isValid(result)) {
-    return [];
-  }
-  return result.data;
+  return result;
 }
 
 export default {

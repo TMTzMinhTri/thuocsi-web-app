@@ -1,15 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Template, OrderInfoFormContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { CustomerClient, doWithServerSide } from 'clients';
+import { CustomerClient, doWithServerSide, isValid } from 'clients';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
+import { NOT_FOUND_URL } from 'constants/Paths';
 import { withLogin } from 'context';
+import { NotifyUtils } from 'utils';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const [orders] = await Promise.all([
       CustomerClient.getOrder({ status: ENUM_ORDER_STATUS.ALL }),
     ]);
+    if (!isValid(orders)) {
+      return {
+        redirect: {
+          destination: NOT_FOUND_URL,
+          permanent: false,
+        },
+      };
+    }
     return {
       props: {
         orders: orders.data,
@@ -24,8 +34,13 @@ const MyOrder = ({ user, orders: orderR = [], isMobile }) => {
   const [orderStatus, setOrderStatus] = useState(ENUM_ORDER_STATUS.ALL);
   useEffect(() => {
     async function getOrders() {
-      const ods = await CustomerClient.getOrder({ status: orderStatus });
-      setOrders(ods.data);
+      try {
+        const ods = await CustomerClient.getOrder({ status: orderStatus });
+        if (!isValid(ods)) throw Error('Lấy danh sách đơn hàng thất bại');
+        setOrders(ods.data);
+      } catch (error) {
+        NotifyUtils.error(error?.message || 'Lấy dữ liệu thất bại');
+      }
     }
     getOrders();
   }, [orderStatus]);

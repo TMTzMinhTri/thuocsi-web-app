@@ -13,7 +13,7 @@ const ReferralList = ({ referrals }) => {
       if (!ValidateUtils.validatePhone(phone)) throw Error('số điện thoại sai định dạng');
       NotifyUtils.success('Gửi SMS giới thiệu thành công');
     } catch (error) {
-      NotifyUtils.error(error.message || 'Gửi SMS không thành công');
+      NotifyUtils.error(error?.message || 'Gửi SMS không thành công');
     }
   };
   return (

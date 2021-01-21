@@ -1,3 +1,4 @@
+import { HTTP_STATUS } from 'constants/Enums';
 import { orders } from '../index';
 
 export default (req, res) => {
@@ -6,13 +7,14 @@ export default (req, res) => {
   if (!order) {
     res.statusCode = 404;
     res.json({
-      status: 'NOTFOUND',
+      status: HTTP_STATUS.NotFound,
       message: 'Order not found.',
     });
+    return;
   }
   res.statusCode = 200;
   res.json({
-    status: 'OK',
+    status: HTTP_STATUS.Ok,
     data: order,
     message: 'Get customer successfully.',
   });
