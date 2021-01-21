@@ -5,15 +5,11 @@ import { MISSING_IMAGE } from 'constants/Images';
 import useModal from 'hooks/useModal';
 import { useCart } from 'context';
 import { ProductCardBuy, ProductCardContent } from '../../mocules';
-import ConfirmModal from '../ConfirmModal';
-import ErrorModal from '../ErrorModal';
+import CustomModal from '../CustomModal';
 import styles from './styles.module.css';
 
 const ProductCart = React.memo((props) => {
-  const {
-    product,
-    name,
-  } = props;
+  const { product, name } = props;
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
@@ -65,21 +61,26 @@ const ProductCart = React.memo((props) => {
             </CardActionArea>
           </Box>
           <ProductCardContent className={styles.product_content} row {...product} />
-          <ProductCardBuy
-            {...product}
-            product={product}
-            cart
-            name={name}
-          />
+          <ProductCardBuy {...product} product={product} cart name={name} />
         </Card>
       </Box>
-      <ConfirmModal
+      <CustomModal
         onClickOk={handleConfirmImportantModal}
-        unset={unset}
         visible={isShowModal}
         onClose={toggle}
+        title="Xin xác nhận"
+        content={`Bạn có chắc bạn muốn ${
+          unset && 'bỏ'
+        } đánh dấu sản phẩm này là quan trọng trong đơn hàng hiện tại?`}
       />
-      <ErrorModal visible={isShowModalWarning} onClose={toggleWarning} />
+
+      <CustomModal
+        onClose={toggleWarning}
+        visible={isShowModalWarning}
+        title="Xin xác nhận"
+        content="Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm"
+        btnOnClose="OK"
+      />
     </Box>
   );
 });
