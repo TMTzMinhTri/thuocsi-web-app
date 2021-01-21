@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Paper,
-  Grid,
-  useMediaQuery,
-  FormControlLabel,
-  Checkbox,
-} from '@material-ui/core';
+import { Paper, Grid, useMediaQuery, FormControlLabel, Checkbox } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoFormControl from '../../atoms/InfoFormControl';
@@ -13,7 +7,9 @@ import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
 
-const GreenCheckbox = (props) => <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />;
+const GreenCheckbox = (props) => (
+  <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
+);
 
 const DeliveryInfoForm = ({
   customerName,
@@ -24,6 +20,9 @@ const DeliveryInfoForm = ({
   customerDistrictCode,
   customerProvinceCode,
   handleSetValue,
+  name,
+  phone,
+  address,
 }) => {
   const [savedInfo, setSavedInfo] = React.useState({
     checked: true,
@@ -37,13 +36,19 @@ const DeliveryInfoForm = ({
       <h1 className={styles.title}>
         Thông tin giao hàng
         <small className={styles.text_muted}>
-          <FontAwesomeIcon icon={faInfoCircle} />Lưu ý: những ô có dấu{' '}
-          <span className={styles.required}>*</span> là thông tin bắt buộc
+          <FontAwesomeIcon icon={faInfoCircle} />
+          Lưu ý: những ô có dấu <span className={styles.required}>*</span> là thông tin bắt buộc
         </small>
       </h1>
       <Grid container>
-        <InfoFormControl xs={12} isRequired label={<span className={styles.fw500}>Họ Tên khách hàng</span>} htmlFor="customerName">
+        <InfoFormControl
+          xs={12}
+          isRequired
+          label={<span className={styles.fw500}>Họ Tên khách hàng</span>}
+          htmlFor="customerName"
+        >
           <InfoInput
+            error={name}
             id="customerName"
             placeholder="Trần Thị B"
             value={customerName}
@@ -58,6 +63,7 @@ const DeliveryInfoForm = ({
             htmlFor="customerPhone"
           >
             <InfoInput
+              error={phone}
               id="customerPhone"
               placeholder="0912233311"
               value={customerPhone}
@@ -65,7 +71,11 @@ const DeliveryInfoForm = ({
             />
           </InfoFormControl>
 
-          <InfoFormControl xs={maxWidthScope ? 12 : 9} label={<span className={styles.fw500}>Email</span>} htmlFor="customerEmail">
+          <InfoFormControl
+            xs={maxWidthScope ? 12 : 9}
+            label={<span className={styles.fw500}>Email</span>}
+            htmlFor="customerEmail"
+          >
             <InfoInput
               id="customerEmail"
               placeholder="tranthib@email.com"
@@ -75,8 +85,14 @@ const DeliveryInfoForm = ({
           </InfoFormControl>
         </Grid>
 
-        <InfoFormControl xs={12} label={<span className={styles.fw500}>Địa chỉ nhà thuốc/phòng khám</span>} isRequired htmlFor="customerShippingAddress">
+        <InfoFormControl
+          xs={12}
+          label={<span className={styles.fw500}>Địa chỉ nhà thuốc/phòng khám</span>}
+          isRequired
+          htmlFor="customerShippingAddress"
+        >
           <InfoInput
+            error={address}
             id="customerShippingAddress"
             placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk"
             value={customerShippingAddress}
@@ -96,7 +112,9 @@ const DeliveryInfoForm = ({
           handleSetValue={handleSetValue}
         />
         <FormControlLabel
-          control={<GreenCheckbox checked={savedInfo.checked} onChange={handleChange} name="checked" />}
+          control={
+            <GreenCheckbox checked={savedInfo.checked} onChange={handleChange} name="checked" />
+          }
           label={<span className={styles.fw500}>Lưu lại thông tin</span>}
         />
       </Grid>
