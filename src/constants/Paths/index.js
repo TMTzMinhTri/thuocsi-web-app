@@ -11,6 +11,7 @@ export const TERMS_URL = '/terms-and-condition';
 export const REGULATIONS_URL = '/regulations';
 export const QUICK_ORDER = '/quick-order';
 export const PRODUCT = '/products';
+export const NOT_FOUND_URL = '/404';
 
 export const getPathProductBySlug = (slug) => `${PRODUCT}/${encodeUrl(slug)}`;
 

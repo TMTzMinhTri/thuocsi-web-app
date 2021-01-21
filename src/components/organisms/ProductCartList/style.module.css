@@ -26,6 +26,7 @@
   text-decoration: none !important;
   background-color: transparent !important;
   margin-left: 10px !important;
+  cursor: pointer;
 }
 
 .quick_order:hover {

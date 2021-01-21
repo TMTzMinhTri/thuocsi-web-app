@@ -40,6 +40,20 @@ export default function OrderInfoTabs({ orders, handleSetOrderStatus, user, orde
               value={ENUM_ORDER_STATUS.PENDING}
             />
             <CustomTab
+              label="Đã Xác Nhận"
+              disableFocusRipple
+              disableRipple
+              onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.CONFIRM)}
+              value={ENUM_ORDER_STATUS.CONFIRM}
+            />
+            <CustomTab
+              label="Đang Giao"
+              disableFocusRipple
+              disableRipple
+              onClick={() => handleSetOrderStatus(ENUM_ORDER_STATUS.DELIVERY)}
+              value={ENUM_ORDER_STATUS.DELIVERY}
+            />
+            <CustomTab
               label="Hoàn Tất"
               disableFocusRipple
               disableRipple

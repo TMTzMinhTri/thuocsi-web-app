@@ -40,25 +40,14 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const OrderStatusButton = ({ className, status, handleSetOrderStatus }) => {
-  const handleClick = () => {
-    if (
-      status === ENUM_ORDER_STATUS.PENDING
-      || status === ENUM_ORDER_STATUS.COMPLETED
-      || status === ENUM_ORDER_STATUS.CANCEL
-    ) {
-      handleSetOrderStatus(status);
-    }
-  };
-  return (
-    <StyledButton
-      variant="contained"
-      className={`${className} ${getOrderStatusColor(status)}`}
-      onClick={handleClick}
-    >
-      {parseOrderStatus(status)}
-    </StyledButton>
-  );
-};
+const OrderStatusButton = ({ className, status, handleSetOrderStatus }) => (
+  <StyledButton
+    variant="contained"
+    className={`${className} ${getOrderStatusColor(status)}`}
+    onClick={() => handleSetOrderStatus(status)}
+  >
+    {parseOrderStatus(status)}
+  </StyledButton>
+);
 
 export default OrderStatusButton;

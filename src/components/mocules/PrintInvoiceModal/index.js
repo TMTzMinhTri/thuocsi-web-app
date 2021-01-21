@@ -1,9 +1,10 @@
 import React, { memo, useState, useEffect } from 'react';
 import { Modal, InfoFormControl, InfoTable, Button } from 'components/atoms';
 import { Grid, Box, TableRow, TableCell, Divider } from '@material-ui/core';
-import { OrderClient } from 'clients';
+import { OrderClient, isValid } from 'clients';
 import styled from 'styled-components';
 import { FormarCurrency, NotifyUtils } from 'utils';
+import { PRODUCT_TYPE } from 'constants/Enums';
 import GroupAddressSelect from '../GroupAddressSelect';
 import InfoInput from '../InfoInput';
 import styles from './style.module.css';
@@ -50,13 +51,19 @@ const PrintInvoiceModal = memo((props) => {
       NotifyUtils.success('Xuất hoá đơn thành công.');
       onClose();
     } catch (error) {
-      NotifyUtils.error(error.message || 'Xuất hoá đơn thất bại');
+      NotifyUtils.error(error?.message || 'Xuất hoá đơn thất bại');
     }
   };
   useEffect(() => {
     async function fetchData() {
-      const data = await OrderClient.getProductByOrderId(orderID);
-      setProducts(data.slice(0, 3));
+      try {
+        const res = await OrderClient.getProductByOrderId(orderID, PRODUCT_TYPE.CAN_INVOICE);
+
+        if (!isValid(res)) throw Error('Lấy danh sách không thành công');
+        setProducts(res.data);
+      } catch (error) {
+        NotifyUtils.error(error?.message || 'Lấy dữ liệu bị lỗi');
+      }
     }
     fetchData();
   }, []);
@@ -93,7 +100,7 @@ const PrintInvoiceModal = memo((props) => {
             idDistrict="district"
             idWard="ward"
           />
-          <InfoTable heads={heads}>
+          <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
             { products.map((product) => (
               <TableRow key={product.name} hover>
                 <TableCell align="left" className={styles.product_name}>

@@ -54,8 +54,8 @@ const SignUpModal = React.memo((props) => {
           });
       })
       .catch((error) => {
-        NotifyUtils.error(`Đã có lỗi xảy ra khi đăng ký ${error.message}`);
-        setHasAlert(`Đã có lỗi xảy ra khi đăng ký ${error.message}`);
+        NotifyUtils.error(`Đã có lỗi xảy ra khi đăng ký ${error?.message}`);
+        setHasAlert(`Đã có lỗi xảy ra khi đăng ký ${error?.message}`);
       })
       .finally(() => {
         setIsLoading(false);

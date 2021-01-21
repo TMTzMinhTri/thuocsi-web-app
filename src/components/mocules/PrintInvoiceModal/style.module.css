@@ -41,3 +41,12 @@
 .product_name:hover {
   color: #00683f !important;
 }
+
+.ovfy {
+  max-height: 820px;
+  overflow-y: scroll;
+}
+
+.ovfy[class*='MuiTableContainer-root'] {
+  max-height: 230px;
+}
