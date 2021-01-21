@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { MISSING_IMAGE } from 'constants/Images';
 import { getPathProductBySlug } from 'constants/Paths';
@@ -10,25 +10,25 @@ const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, 
   const { name, imageUrls } = product;
   const router = useRouter();
   return (
-    <Box className={styles.button_container}>
-      <Box className={styles.root_card}>
-        <StatusProduct {...product} />
-        <Card className={styles.product_card}>
-          <Box>
-            <CardActionArea
-              onClick={() => router.push(getPathProductBySlug(product.slug))}
-              className={styles.product_image}
-            >
-              <CardMedia
-                component="img"
-                alt={name && name}
-                height="140"
-                image={(imageUrls && imageUrls[0]) || MISSING_IMAGE}
-                title={name && name}
-              />
-            </CardActionArea>
-            <ProductCardContent tag={tag} cate={category} row {...product} />
-          </Box>
+    <div className={styles.root_card}>
+      <StatusProduct {...product} />
+      <Card className={styles.product_card}>
+        <div>
+          <CardActionArea
+            onClick={() => router.push(getPathProductBySlug(product.slug))}
+            className={styles.product_image}
+          >
+            <CardMedia
+              component="img"
+              alt={name && name}
+              height="140"
+              image={(imageUrls && imageUrls[0]) || MISSING_IMAGE}
+              title={name && name}
+            />
+          </CardActionArea>
+          <ProductCardContent tag={tag} cate={category} row {...product} />
+        </div>
+        <div>
           <ProductCardBuy
             value={value}
             product={product}
@@ -38,9 +38,9 @@ const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, 
             row
             {...product}
           />
-        </Card>
-      </Box>
-    </Box>
+        </div>
+      </Card>
+    </div>
   );
 };
 
