@@ -45,7 +45,11 @@ export const AuthProvider = ({ children }) => {
   const loadUserFromCookies = useCallback(async () => {
     const res = await getUserInfo();
     if (res) {
-      setUser(res.data[0]);
+      const userInfo = res.data[0];
+      setUser({
+        isActive: userInfo && userInfo.status === 'ACTIVE',
+        ...userInfo,
+      });
     }
     setIsLoading(false);
   }, [setUser, setIsLoading, getUserInfo]);

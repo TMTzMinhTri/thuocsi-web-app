@@ -110,7 +110,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
           <div className={styles.checkout_content}>{FormarCurrency(shippingFee)}</div>
         </div>
         <div className={styles.d_flex}>
-          <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước.</div>
+          <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước</div>
           <div className={styles.checkout_content}>
             {selectedValue === 'CK' ? `-${FormarCurrency(transferValue)}` : FormarCurrency(0)}
           </div>

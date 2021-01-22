@@ -10,7 +10,12 @@ export async function getUserWithContext(ctx) {
   if (!isValid(result)) {
     return { isAuthenticated: false };
   }
-  return { isAuthenticated: true, user: result.data[0] };
+  const userInfo = result.data[0];
+
+  return {
+    isAuthenticated: true,
+    user: { isActive: userInfo && userInfo.status === 'ACTIVE', ...userInfo },
+  };
 }
 
 export async function login(body) {

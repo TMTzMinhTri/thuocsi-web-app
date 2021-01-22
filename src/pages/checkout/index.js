@@ -15,6 +15,7 @@ import { doWithServerSide, CartClient } from 'clients';
 import { useCart, withLogin } from 'context';
 import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
+import { CART_URL } from 'constants/Paths';
 
 import styles from './styles.module.css';
 
@@ -44,8 +45,16 @@ export async function getServerSideProps(ctx) {
 }
 
 const CheckoutPage = ({ user = {}, isMobile, cart }) => {
+  console.log('checkout page ', user);
   const router = useRouter();
   const { itemCount = 0 } = useCart();
+  // validate user isActive
+  if (!user.isActive) {
+    NotifyUtils.info('Tài khoản chưa được kích hoạt');
+    router.push(CART_URL);
+    return <LoadingScreen />;
+  }
+
   const { note: noteValue } = cart[0];
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
