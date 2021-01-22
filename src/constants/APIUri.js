@@ -81,3 +81,10 @@ const PROMOTION_ALL = `${PROMOTION_API_PREFIX}/promotion`;
 export const PROMOTION_API = {
   PROMOTION_ALL,
 };
+
+const ORDER_API_PREFIX = '/marketplace/order/v1';
+export const ORDER_ITEM_LIST = `${ORDER_API_PREFIX}/me/order-item`;
+
+export const ORDER_API = {
+  ORDER_ITEM_LIST,
+};

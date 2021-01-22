@@ -15,7 +15,7 @@ export default (req, res) => {
   res.statusCode = 200;
   res.json({
     status: HTTP_STATUS.Ok,
-    data: order,
+    data: [order],
     message: 'Get customer successfully.',
   });
 };

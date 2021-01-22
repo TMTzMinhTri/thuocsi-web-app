@@ -7,9 +7,8 @@ const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
 
 const searchString = (arr, str) => {
-  const strA = StringUtils.changeAlias(str).toUpperCase();
   const result = arr.filter(
-    (el) => StringUtils.changeAlias(el.name).toUpperCase().indexOf(strA, 0) > -1,
+    (el) => el.name.toUpperCase().indexOf(str.toUpperCase(), 0) > -1,
   );
   return result;
 };
