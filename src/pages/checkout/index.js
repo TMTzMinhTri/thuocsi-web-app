@@ -9,11 +9,11 @@ import {
   DeliveryMethod,
   PaymentMethod,
   CheckoutSticky,
+  LoadingScreen,
 } from 'components';
 import { doWithServerSide, CartClient } from 'clients';
 import { useCart, withLogin } from 'context';
 import { useRouter } from 'next/router';
-import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
 
 import styles from './styles.module.css';
@@ -77,7 +77,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
 
   if (!cart || cart?.length === 0) {
     NotifyUtils.info('Vui lòng đặt hàng trước khi thanh toán');
-
     router.push('/');
     return <LoadingScreen />;
   }
