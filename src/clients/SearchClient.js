@@ -11,8 +11,14 @@ async function searchKeywords(keyword) {
 }
 
 async function searchProducts(keyword, page) {
-  const url = `/marketplace/product/v1/products/list?q=${keyword}&page=${page}&limit=${PAGE_SIZE}&getTotal=true`;
-  const res = await GET({ url });
+  const url = '/marketplace/product/v1/products/list';
+  const params = {
+    page,
+    q: keyword,
+    limit: PAGE_SIZE,
+    getTotal: true,
+  };
+  const res = await GET({ url, params });
   if (!isValid(res)) {
     return [];
   }
