@@ -136,6 +136,10 @@
 .product_main .filters .filter_btn{
   margin-right: 1em;
   margin-top: 0.5em;
+  word-break: break-all;
+  line-height: 1;
+  overflow: hidden;
+  
 }
 .product_main .filters .iconLeft,
 .product_main .filters .iconRight{
