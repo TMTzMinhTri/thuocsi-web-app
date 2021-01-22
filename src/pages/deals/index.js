@@ -26,7 +26,7 @@ const DealsPage = ({ products = [], isMobile }) => {
             <h1 className={styles.title}>Khuyến mãi</h1>
             <p>
               Cập nhật hàng ngày tất cả những deal giá ưu đãi trên thuocsi. Hãy bookmark trang này
-              (nhấn Ctrl+D) và quay lại thường xuyên để không bỏ lỡ bạn nhé!
+              (nhấn Ctrl+D hoặc Command+D) và quay lại thường xuyên để không bỏ lỡ bạn nhé!
             </p>
           </div>
           <PromotionProduct products={products} catName="products" />
