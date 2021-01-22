@@ -2,8 +2,11 @@ import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
 import { GET, POST, isValid } from './Clients';
 
 async function getOrderById(id = '', ctx) {
-  const url = `${ORDER_API.ORDER_API_PREFIX}/order?order_no=${id}`;
-  const result = await GET({ url, ctx });
+  const url = `${ORDER_API.ORDER_API_PREFIX}/order`;
+  const params = {
+    orderNo: id,
+  };
+  const result = await GET({ url, ctx, params });
 
   return result;
 }
