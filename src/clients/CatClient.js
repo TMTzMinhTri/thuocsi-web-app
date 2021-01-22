@@ -68,6 +68,17 @@ async function loadProductWithManufacturer(ctx) {
   }
   return res;
 }
+async function loadTags(ctx) {
+  const url = PRODUCT_API.TAGS;
+  const res = await GET({
+    url,
+    ctx,
+  });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+}
 export default {
   loadBrand,
   loadGroup,
@@ -75,4 +86,5 @@ export default {
   loadCategoryInfoBySlug,
   loadManufacturerInfoBySlug,
   loadProductWithManufacturer,
+  loadTags,
 };
