@@ -6,10 +6,11 @@ import CatClient from 'clients/CatClient';
 import { TAB_LIST } from '../../constants/data';
 
 export async function getServerSideProps(ctx) {
-  const [products, brand, group] = await Promise.all([
+  const [products, brand, group, tags] = await Promise.all([
     ProductClient.loadDataProduct(ctx),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
+    CatClient.loadTags(ctx),
   ]);
   const current_tab = ctx.query.current_tab || '';
   const sortBy = ctx.query.sortBy || '';
@@ -26,6 +27,7 @@ export async function getServerSideProps(ctx) {
       brand,
       group,
       slug,
+      tags,
     },
   };
 }
@@ -35,6 +37,7 @@ export default function Products({
   total,
   brand = [],
   group = [],
+  tags = [],
   current_tab = '',
   page = '',
   sortBy = '',
@@ -63,6 +66,7 @@ export default function Products({
         sortBy={sortBy}
         catName={cat}
         slug={slug}
+        tags={tags}
         name={namePage(current_tab)}
       />
     </Template>

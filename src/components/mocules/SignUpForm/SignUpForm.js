@@ -20,13 +20,17 @@ import { Button, Input, CheckBox, Radio } from 'components/atoms';
 import { FormDataUtils, ValidateUtils, NotifyUtils } from 'utils';
 import { ENUM_SCOPE } from 'constants/Enums';
 
-const { validateData, Error } = ValidateUtils;
+const { validateData, Error, isEmpty } = ValidateUtils;
 
 const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCallback) => {
   try {
     validateData.name(name);
     validateData.phoneNumber(phone);
-    validateData.email(email);
+
+    if (!isEmpty(email)) {
+      validateData.email(email);
+    }
+
     validateData.password(password);
     if (isCheckAgree !== '') throw new Error('Vui lòng chọn Đồng ý với Điều khoản sử dụng.');
     return true;

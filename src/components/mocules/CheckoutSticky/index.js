@@ -12,7 +12,7 @@ import FormarCurrency from 'utils/FormarCurrency';
 
 import styles from './styles.module.css';
 
-const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer }) => {
+const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError }) => {
   const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, totalDiscount = 0 } = cart[0];
   const { itemCount = 0 } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
@@ -21,21 +21,27 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer }) => {
   const validateSubmit = (res) => {
     if (!res.customerName) {
       NotifyUtils.error('Bạn chưa điền tên.');
+      onSetError('name', true);
       return false;
     }
 
     if (!res.customerPhone) {
       NotifyUtils.error('Bạn chưa điền số điện thoại.');
+      onSetError('phone', true);
+
       return false;
     }
 
     if (!ValidateUtils.validatePhone(res.customerPhone)) {
       NotifyUtils.error('Bạn chưa điền đúng định dạng số điện thoại.');
+      onSetError('phone', true);
+
       return false;
     }
 
     if (!res.customerShippingAddress) {
       NotifyUtils.error('Bạn chưa điền địa chỉ.');
+      onSetError('address', true);
       return false;
     }
 
@@ -79,7 +85,9 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer }) => {
       const { orderNo } = response.data[0];
       router.push(`/thankyou/${orderNo}`);
     } else {
-      NotifyUtils.error(`Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`);
+      NotifyUtils.error(
+        `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
+      );
     }
   };
 
@@ -108,15 +116,14 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer }) => {
             {selectedValue === 'CK' ? `-${FormarCurrency(transferValue)}` : FormarCurrency(0)}
           </div>
         </div>
-        {redeemCode
-        && (
-        <div className={clsx(styles.d_flex, styles.checkout_promo_code)}>
-          <div>
-            <FontAwesomeIcon className={styles.icon} icon={faTags} />
-            <span>{redeemCode}</span>
+        {redeemCode && (
+          <div className={clsx(styles.d_flex, styles.checkout_promo_code)}>
+            <div>
+              <FontAwesomeIcon className={styles.icon} icon={faTags} />
+              <span>{redeemCode}</span>
+            </div>
+            <div className={styles.bank_info_content}>{`-${FormarCurrency(totalDiscount)}`}</div>
           </div>
-          <div className={styles.bank_info_content}>{`-${FormarCurrency(totalDiscount)}`}</div>
-        </div>
         )}
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Thành tiền</div>
@@ -129,7 +136,9 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer }) => {
           Vui lòng kiểm tra kỹ thông tin giao hàng, hình thức thanh toán và nhấn nút "Thanh Toán" để
           hoàn tất đặt hàng.
         </p>
-        <Button onClick={handleSubmit} className={styles.checkout_btn}>Thanh toán</Button>
+        <Button onClick={handleSubmit} className={styles.checkout_btn}>
+          Thanh toán
+        </Button>
       </div>
     </div>
   );
