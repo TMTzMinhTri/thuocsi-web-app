@@ -43,13 +43,17 @@ export const CONTENT_API = {
 const PRODUCT_API_PREFIX = '/marketplace/product/v1';
 const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredient`;
 const INGREDIENT_LIST = `${INGREDIENT}/list`;
+const MANUFACTURER = `${PRODUCT_API_PREFIX}/manufacturers`;
+const MANUFACTURER_LIST = `${MANUFACTURER}/list`;
 const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
 const PRODUCT_LIST_COLLECTION = `${PRODUCT_API_PREFIX}/collection/page`;
 const TAGS = `${PRODUCT_API_PREFIX}/tags/list`;
 
 export const PRODUCT_API = {
   INGREDIENT,
+  MANUFACTURER,
   INGREDIENT_LIST,
+  MANUFACTURER_LIST,
   PRODUCT_LIST,
   PRODUCT_LIST_COLLECTION,
   TAGS,

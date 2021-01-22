@@ -150,6 +150,15 @@ async function getProductsBySlug(ctx, slug) {
   return res.data;
 }
 
+// TODO  @dat.le
+async function loadDataManufacturer(ctx) {
+  const res = await GET({ url: PRODUCT_API.MANUFACTURER_LIST, ctx, isBasic: true });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+}
+
 export default {
   loadDataMostSearch,
   loadFeedback,
@@ -161,4 +170,5 @@ export default {
   getIngredientBySlug,
   getProductsBySlug,
   loadDataProductCollection,
+  loadDataManufacturer,
 };
