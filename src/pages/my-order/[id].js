@@ -11,8 +11,6 @@ export async function getServerSideProps(ctx) {
       OrderClient.getOrderById(id),
       OrderClient.getProductByOrderId(id),
     ]);
-    console.log(order);
-    console.log(products);
     if (!isValid(order) || !isValid(products)) {
       return {
         redirect: {
