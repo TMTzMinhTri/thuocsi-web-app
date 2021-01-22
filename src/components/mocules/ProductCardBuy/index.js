@@ -1,18 +1,18 @@
 import React, { useState, useCallback } from 'react';
 import { CardActions, Typography, Box, IconButton } from '@material-ui/core';
-import { Button as CustomButton } from 'components';
 import { Delete } from '@material-ui/icons';
 import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import useModal from 'hooks/useModal';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
-import { MinusButton, PlusButton, InputProduct } from '../../atoms';
+import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
+import RemoveProductModal from 'components/organisms/RemoveProductModal';
+import SignInModal from 'components/organisms/SignInModal';
+import ForgetPasswordModal from 'components//organisms/ForgetPasswordModal';
+import ErrorQuantityCartModal from 'components//organisms/ErrorQuantityCartModal';
+
 import DealSection from '../DealSection';
-import RemoveProductModal from '../../organisms/RemoveProductModal';
-import SignInModal from '../../organisms/SignInModal';
-import ForgetPasswordModal from '../../organisms/ForgetPasswordModal';
-import ErrorQuantityCartModal from '../../organisms/ErrorQuantityCartModal';
 import styles from './styles.module.css';
 
 const ProductCardBuy = ({

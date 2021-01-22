@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 import { Modal } from '@material-ui/core';
 
-const CustomModal = memo((props) => {
+const ModalItem = memo((props) => {
   const { className, onClose, children, ...rest } = props;
   return (
     <Modal
@@ -16,7 +16,7 @@ const CustomModal = memo((props) => {
     </Modal>
   );
 });
-const StyledModal = styled(CustomModal)`
+const StyledModal = styled(ModalItem)`
   display: flex;
   align-items: center;
   justify-content: center;

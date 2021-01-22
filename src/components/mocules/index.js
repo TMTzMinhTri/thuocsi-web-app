@@ -51,3 +51,4 @@ export { default as HomeCTASection } from './HomeCTASection';
 export { default as CartCouponCard } from './CartCouponCard';
 export { default as PromoListModal } from './PromoListModal';
 export { default as ManufacturerList } from './ManufacturerList';
+export { default as CustomModal } from './CustomModal';
