@@ -79,7 +79,7 @@ MyApp.getInitialProps = async (appContext) => {
   let isMobile = '';
   try {
     const UA = appContext.ctx.req.headers['user-agent'];
-    isMobile = Boolean(UA.match(`/${MOBILE}/i`));
+    isMobile = Boolean(UA.match(MOBILE));
   } catch (error) {
     isMobile = `can not detect device - ${error}`;
   }
