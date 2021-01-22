@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect } from 'react';
 import { Modal, InfoFormControl, InfoTable, Button } from 'components/atoms';
 import { Grid, Box, TableRow, TableCell, Divider } from '@material-ui/core';
-import { OrderClient, isValid } from 'clients';
+import { OrderClient, isValid, isValidWithoutData } from 'clients';
 import styled from 'styled-components';
 import { FormarCurrency, NotifyUtils } from 'utils';
 import GroupAddressSelect from '../GroupAddressSelect';
@@ -57,8 +57,9 @@ const PrintInvoiceModal = memo((props) => {
     async function fetchData() {
       try {
         const res = await OrderClient.getProductByOrderId(orderID);
-        const prd = await OrderClient.getInfoOrderItem(res.data);
         if (!isValid(res)) throw Error('Lấy danh sách không thành công');
+        const prd = await OrderClient.getInfoOrderItem(res.data);
+        if (!isValidWithoutData(prd)) throw Error('Lấy danh sách không thành công');
         setProducts(prd);
       } catch (error) {
         NotifyUtils.error(error?.message || 'Lấy dữ liệu bị lỗi');

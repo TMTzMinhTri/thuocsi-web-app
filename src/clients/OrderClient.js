@@ -9,8 +9,12 @@ async function getOrderById(id = '', ctx) {
 }
 
 async function getProductByOrderId(id = '', ctx) {
-  const url = `${ORDER_API.ORDER_ITEM_LIST}?orderNo=${id}`;
-  const result = await GET({ url, ctx });
+  const url = `${ORDER_API.ORDER_ITEM_LIST}`;
+
+  const params = {
+    orderNo: id,
+  };
+  const result = await GET({ url, params, ctx });
   return result;
 }
 
