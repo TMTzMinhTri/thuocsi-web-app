@@ -21,10 +21,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { SearchResultText } from 'components/mocules';
+import { SORT_PRODUCT, PAGE_SIZE } from 'constants/data';
 import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
-
-import { SORT_PRODUCT, PAGE_SIZE } from '../../../constants/data';
 import ProductCardVertical from '../ProductCardVertical';
+
 import styles from './style.module.css';
 
 export default function ProductListing({
@@ -138,10 +138,7 @@ export default function ProductListing({
             <AccordionDetails className="accordion-detail">
               <Box component="div">
                 <Link key="all-products" href="/products">
-                  <div className={`${styles.accordionLink} ${
-                    slug === '' ? styles.active : ''
-                  }`}
-                  >
+                  <div className={`${styles.accordionLink} ${slug === '' ? styles.active : ''}`}>
                     Tất cả sản phẩm
                   </div>
                 </Link>
@@ -174,9 +171,7 @@ export default function ProductListing({
             <AccordionDetails className="accordion-detail">
               <Box component="div">
                 <Link key="all-products" href="/products">
-                  <div className={styles.accordionLink}>
-                    Tất cả sản phẩm
-                  </div>
+                  <div className={styles.accordionLink}>Tất cả sản phẩm</div>
                 </Link>
                 {brand &&
                   brand.length > 0 &&
@@ -218,10 +213,7 @@ export default function ProductListing({
                   <Fab
                     variant="extended"
                     aria-label="all"
-                    className={clsx(
-                      current_tab === '' && styles.active,
-                      styles.filter_btn,
-                    )}
+                    className={clsx(current_tab === '' && styles.active, styles.filter_btn)}
                   >
                     Tất cả sản phẩm
                   </Fab>
@@ -241,18 +233,9 @@ export default function ProductListing({
                         styles.filter_btn,
                       )}
                     >
-
-                      {item.leftIcon && (
-                        <span className={styles.iconLeft}>
-                          {item.leftIcon}
-                        </span>
-                      )}
+                      {item.leftIcon && <span className={styles.iconLeft}>{item.leftIcon}</span>}
                       {item.name}
-                      {item.rightIcon && (
-                        <span className={styles.iconRight}>
-                          {item.rightIcon}
-                        </span>
-                      )}
+                      {item.rightIcon && <span className={styles.iconRight}>{item.rightIcon}</span>}
                     </Fab>
                   </Link>
                 ))}
