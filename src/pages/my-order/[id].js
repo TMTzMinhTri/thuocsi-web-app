@@ -11,6 +11,8 @@ export async function getServerSideProps(ctx) {
       OrderClient.getOrderById(id),
       OrderClient.getProductByOrderId(id),
     ]);
+    console.log(order);
+    console.log(products);
     if (!isValid(order) || !isValid(products)) {
       return {
         redirect: {
@@ -21,7 +23,7 @@ export async function getServerSideProps(ctx) {
     }
     return {
       props: {
-        order: order.data,
+        order: order.data[0],
         products: products.data,
       },
     };
