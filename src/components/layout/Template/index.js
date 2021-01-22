@@ -5,7 +5,7 @@ import NavBar from '../NavBar';
 import Header from '../Header';
 import HeaderMobile from '../HeaderMobile';
 
-export default function Layout({ title, children, isMobile, pageName }) {
+export default function Template({ title, children, isMobile, pageName }) {
   return (
     <div>
       <Head>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid, Button, Container } from '@material-ui/core';
 import { linkQuestionItemRight, linkQuestionItemLeft, LINK_ALL_QUESTION } from 'constants/data';
-import { LinkComp } from '../../atoms';
+import { LinkComp } from 'components/atoms';
 import styles from './styles.module.css';
 
 const renderLinkItem = (data) =>
@@ -14,7 +14,6 @@ const renderLinkItem = (data) =>
 const CommonQuestion = () => (
   <Box py={5} className={styles.wrapper}>
     <Container fixed>
-
       <Box
         className={styles.center}
         component="h2"
@@ -49,4 +48,4 @@ const CommonQuestion = () => (
   </Box>
 );
 
-export default CommonQuestion;
+export default React.memo(CommonQuestion);

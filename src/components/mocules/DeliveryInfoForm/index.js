@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper, Grid, useMediaQuery, FormControlLabel, Checkbox } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import InfoFormControl from '../../atoms/InfoFormControl';
+import InfoFormControl from 'components/atoms/InfoFormControl';
 import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';

@@ -9,7 +9,7 @@ const useStyle = makeStyles({
   },
 });
 
-export default function Copyright() {
+const Copyright = () => {
   const classes = useStyle();
 
   return (
@@ -19,4 +19,6 @@ export default function Copyright() {
       </Typography>
     </div>
   );
-}
+};
+
+export default React.memo(Copyright);
