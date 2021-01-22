@@ -12,7 +12,7 @@ import styles from './style.module.css';
 
 const QuickOrderList = ({ products, isMobile, page, total }) => {
   const [searchProduct, setSearchProduct] = useState(products);
-  const [totalVal, setTotal] = useState(total);
+  const [totalVal, setTotalVal] = useState(total);
   const router = useRouter();
   const [keyword, setKeyword] = useState('');
   const [numPage, setNumPage] = useState(page || 1);
@@ -41,7 +41,7 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
       const res = await SearchClient.searchProducts(e.target.value, numPage);
       if (res.length !== 0) {
         setNumPage(1);
-        setTotal(res.total);
+        setTotalVal(res.total);
         setSearchProduct(res.data);
       } else {
         setNumPage(1);
