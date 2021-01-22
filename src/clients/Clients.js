@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE } from 'constants/Cookies';
+import { HTTP_STATUS } from 'constants/Enums';
 import { CookiesParser, RequestUtils } from 'utils';
 import { API_HOST, MOCK_API_HOST, BASIC_AUTHEN } from '../../config/index';
 
@@ -83,7 +84,7 @@ async function request(props) {
   } catch (err) {
     return {
       error: err,
-      status: 'ERROR',
+      status: HTTP_STATUS.Error,
       data: [],
       message: err.message || ' Hệ thống đã xảy ra lỗi .',
     };
@@ -107,16 +108,16 @@ export async function DELETE(props) {
 }
 
 export function isValid(resp) {
-  return resp && resp.status && resp.status === 'OK' && resp.data && resp.data[0];
+  return resp && resp.status && resp.status === HTTP_STATUS.Ok && resp.data && resp.data[0];
 }
 
 export function isValidWithoutData(resp) {
-  return resp && resp.status && resp.status === 'OK';
+  return resp && resp.status && resp.status === HTTP_STATUS.Ok;
 }
 
 // @deprecate in next release
 export function isValidWithData(resp) {
-  return resp && resp.status && resp.status === 'OK' && resp.data && resp.data[0];
+  return resp && resp.status && resp.status === HTTP_STATUS.Ok && resp.data && resp.data[0];
 }
 
 export default {
