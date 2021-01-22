@@ -26,7 +26,6 @@ async function getInfoOrderItem(data = [], ctx) {
   const arraySku = [];
   data.forEach((item) => {
     arraySku.push(item?.productSKU);
-    obj[item?.productSKU] = item;
   });
   const body = {
     codes: arraySku,
@@ -36,7 +35,7 @@ async function getInfoOrderItem(data = [], ctx) {
     return [];
   }
   res.data.forEach((resp) => {
-    obj[resp?.sku] = { ...obj[resp?.sku], ...resp };
+    obj[resp?.sku] = resp;
   });
   const result = data.map((el) => ({ ...obj[el?.productSKU], ...el }));
 
