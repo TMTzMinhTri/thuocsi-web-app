@@ -95,4 +95,5 @@ export const ORDER_ITEM_LIST = `${ORDER_API_PREFIX}/me/order-item`;
 
 export const ORDER_API = {
   ORDER_ITEM_LIST,
+  ORDER_API_PREFIX,
 };

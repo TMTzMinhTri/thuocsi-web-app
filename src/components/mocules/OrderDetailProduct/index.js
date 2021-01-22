@@ -14,14 +14,13 @@ import { FormarCurrency } from 'utils';
 import { getPathProductBySlug } from 'constants/Paths';
 import styles from './styles.module.css';
 
-const OrderDetailProduct = ({ products, promo }) => {
-  const getTotalByProduct = (price, quantity) => price * quantity;
+const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
   const getTotal = () => {
     let sum = products.reduce(
-      (b, product) => getTotalByProduct(product.price, product.quantity) + b,
+      (b, product) => product.totalPrice + b,
       0,
     );
-    sum -= promo.total;
+    sum -= totalDiscount;
     return sum;
   };
   return (
@@ -43,7 +42,7 @@ const OrderDetailProduct = ({ products, promo }) => {
                 <StarIcon />
               </TableCell>
               <TableCell>
-                <img src={product.image} alt={product.name} width={50} height={30} />
+                <img src={product.imageUrls ? product.imageUrls[0] : ''} alt={product.name} width={50} height={30} />
               </TableCell>
               <TableCell align="left" className={styles.product_name}>
                 <LinkComp
@@ -58,15 +57,15 @@ const OrderDetailProduct = ({ products, promo }) => {
                 {`${product.quantity} x ${FormarCurrency(product.price)}`}
               </TableCell>
               <TableCell align="center">
-                {FormarCurrency(getTotalByProduct(product.price, product.quantity))}
+                {FormarCurrency(product.totalPrice)}
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <Grid container justify="space-between" className={styles.promo}>
-        <Grid item>Mã giảm giá {promo.name}</Grid>
-        <Grid item>-{FormarCurrency(promo.total)}</Grid>
+        <Grid item>Mã giảm giá {promoName}</Grid>
+        <Grid item>-{FormarCurrency(totalDiscount)}</Grid>
       </Grid>
       <Grid container justify="flex-end" style={{ padding: ' 30px 45px' }} spacing={3}>
         <Grid item className={styles.price_label}>

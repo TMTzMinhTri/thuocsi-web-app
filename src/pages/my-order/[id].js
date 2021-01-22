@@ -8,8 +8,8 @@ export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
     const [order, products] = await Promise.all([
-      OrderClient.getOrderById(id),
-      OrderClient.getProductByOrderId(id),
+      OrderClient.getOrderById(id, ctx),
+      OrderClient.getProductByOrderId(id, ctx),
     ]);
     if (!isValid(order) || !isValid(products)) {
       return {
@@ -19,10 +19,11 @@ export async function getServerSideProps(ctx) {
         },
       };
     }
+    const productDetails = await OrderClient.getInfoOrderItem(products.data, ctx);
     return {
       props: {
         order: order.data[0],
-        products: products.data,
+        products: productDetails,
       },
     };
   });

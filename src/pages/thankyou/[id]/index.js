@@ -7,7 +7,7 @@ import { NOT_FOUND_URL } from 'constants/Paths';
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
-    const [order] = await Promise.all([OrderClient.getOrderById(id)]);
+    const [order] = await Promise.all([OrderClient.getOrderById(id, ctx)]);
     if (!isValid(order)) {
       return {
         redirect: {
@@ -30,7 +30,7 @@ const ThankYou = ({ order = {}, isMobile }) => {
     <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <ThankYouContainer orderID={order?.orderID} deliveryAt={order?.deliveryAt} />
+          <ThankYouContainer orderID={order?.orderNo} deliveryAt={order?.deliveryDate} />
         </Container>
       </div>
     </Template>

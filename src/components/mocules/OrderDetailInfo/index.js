@@ -1,4 +1,5 @@
 import { Paper, Grid, makeStyles, Typography } from '@material-ui/core';
+import { PAYMENT_METHOD } from 'constants/Enums';
 import styles from './styles.module.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +11,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OrderDetailInfo = ({ name, address, email, phone, order = {} }) => {
+const MappingPaymentMethod = {
+  [PAYMENT_METHOD.COD]: 'COD',
+  [PAYMENT_METHOD.ChuyenKhoan]: 'Chuyển Khoản',
+};
+
+const OrderDetailInfo = ({ name, address, email, phone, ...order }) => {
   const classes = useStyles();
   return (
     <div>
@@ -55,33 +61,33 @@ const OrderDetailInfo = ({ name, address, email, phone, order = {} }) => {
           <Grid item className={styles.info_container}>
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
-                Hình thức thanh toán
+                Hình thức thanh toán:
               </Typography>
               <Typography variant="h6" className={styles.info_value}>
-                {order.payment || '(Chưa có)'}
+                {MappingPaymentMethod[order.paymentMethod] || '(Chưa có)'}
               </Typography>
             </Paper>
           </Grid>
           <Grid item className={styles.info_container}>
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
-                Đơn vị vận chuyển: {order.delivery || '(Chưa có)'}
+                Đơn vị vận chuyển:&nbsp; <span>{order.deliveryPlatform || '(Chưa có)'} </span>
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
-                Ngày giao: {order.delivery_time || '(Chưa có)'}
+                Ngày giao:&nbsp; <span>{order.deliveryDate || '(Chưa có)'} </span>
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
-                Mã vận đơn:{order.code || '(Chưa có)'}
+                Mã vận đơn:&nbsp; <span>{order.deliveryTrackingNumber || '(Chưa có)'} </span>
               </Typography>
             </Paper>
           </Grid>
           <Grid item className={styles.info_container}>
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
-                Hình thức thanh toán
+                Ghi chú:
               </Typography>
               <Typography variant="h6" className={styles.info_value}>
-                {order.payment || '(Chưa có)'}
+                {order.note || '(Chưa có)'}
               </Typography>
             </Paper>
           </Grid>

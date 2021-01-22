@@ -4,7 +4,6 @@ import { Grid, Box, TableRow, TableCell, Divider } from '@material-ui/core';
 import { OrderClient, isValid } from 'clients';
 import styled from 'styled-components';
 import { FormarCurrency, NotifyUtils } from 'utils';
-import { PRODUCT_TYPE } from 'constants/Enums';
 import GroupAddressSelect from '../GroupAddressSelect';
 import InfoInput from '../InfoInput';
 import styles from './style.module.css';
@@ -57,10 +56,10 @@ const PrintInvoiceModal = memo((props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await OrderClient.getProductByOrderId(orderID, PRODUCT_TYPE.CAN_INVOICE);
-
+        const res = await OrderClient.getProductByOrderId(orderID);
+        const prd = await OrderClient.getInfoOrderItem(res.data);
         if (!isValid(res)) throw Error('Lấy danh sách không thành công');
-        setProducts(res.data);
+        setProducts(prd);
       } catch (error) {
         NotifyUtils.error(error?.message || 'Lấy dữ liệu bị lỗi');
       }
