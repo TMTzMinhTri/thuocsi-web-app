@@ -58,8 +58,18 @@ const funcValidateName = (name) => {
   if (isEmpty(name)) throw new Error('Bạn chưa nhập họ tên', 'name');
 };
 
+// eslint-disable-next-line operator-linebreak
+const passwordError =
+  'Mật khẩu phải lớn hơn 8 ký tự có chứa ít nhất 1 chữ thường, 1 chữ hoa, và 1 số';
+
+const regexOneLowerOneUpperOneDigit = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/;
+
 const funcValidatePassword = (pass) => {
   if (isEmpty(pass)) throw new Error('Bạn chưa điền mật khẩu', 'password');
+
+  if (pass.length <= 8 || !regexOneLowerOneUpperOneDigit.test(pass)) {
+    throw new Error(passwordError, 'password');
+  }
 };
 
 const funcValidatePhoneNumber = (phone) => {
