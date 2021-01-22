@@ -10,12 +10,12 @@ export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, () => ({ props: {} }));
 }
 
-function Cart({ isMobile }) {
+function Cart({ isMobile, user }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
   const { cartItems, loading } = useCart();
   const pageName = 'cart';
-  if (loading) return (<LoadingScreen />);
+  if (loading) return <LoadingScreen />;
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>
       <Container className={styles.wrapper} maxWidth="lg">
@@ -34,7 +34,7 @@ function Cart({ isMobile }) {
               {!isMobile && (
                 <Grid sm={4} item>
                   {/* gio hang */}
-                  <CardInfo className={styles.card_info} cart promo />
+                  <CardInfo user={user} className={styles.card_info} cart promo />
                 </Grid>
               )}
             </Grid>

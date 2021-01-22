@@ -45,7 +45,6 @@ export async function getServerSideProps(ctx) {
 }
 
 const CheckoutPage = ({ user = {}, isMobile, cart }) => {
-  console.log('checkout page ', user);
   const router = useRouter();
   const { itemCount = 0 } = useCart();
   // validate user isActive
