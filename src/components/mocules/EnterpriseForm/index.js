@@ -65,6 +65,8 @@ const EnterpriseForm = ({
             endAdornment={<ButtonUploadFile />}
             component="span"
             htmlFor="icon-button-file"
+            style={{ paddingRight: 0, color: 'black' }}
+            disabled
             onClick={() => {
               document.getElementById('input-file').click();
             }}
@@ -86,7 +88,7 @@ const EnterpriseForm = ({
         <InfoFormControl xs={12} label="Địa chỉ nhà thuốc/phòng khám" htmlFor="address">
           <InfoInput
             id="address"
-            placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk"
+            placeholder="Địa chỉ"
             value={address}
             onChange={(e) => {
               handleSetValue('address', e.target.value);

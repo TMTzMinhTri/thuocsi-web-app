@@ -18,7 +18,7 @@ export async function getServerSideProps(ctx) {
     }
     return {
       props: {
-        order: order.data,
+        order: order.data[0],
       },
     };
   });
