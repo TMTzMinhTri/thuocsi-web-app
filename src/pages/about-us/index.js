@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { Template } from 'components';
-
+import Template from 'components/layout/Template';
 import styles from './styles.module.css';
 
 export default function AboutUs() {

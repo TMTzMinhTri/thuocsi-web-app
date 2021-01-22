@@ -9,9 +9,10 @@ import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { HeaderUser, SearchInput } from 'components/mocules';
+import { LinkComp, ButtonHeader } from 'components/atoms';
 import { useAuth, useNotify } from 'context';
 import { i18n } from 'i18n-lib';
-import { LinkComp, ButtonHeader } from '../../atoms';
+
 import styles from './styles.module.css';
 
 const InfoHeader = memo(({ t }) => {
@@ -136,7 +137,7 @@ const InfoHeader = memo(({ t }) => {
                       item.read
                         ? clsx(styles.notificationsItem, styles.read)
                         : clsx(styles.notificationsItem, styles.unRead)
-                }
+                    }
                     href={item.slug}
                   >
                     <div className={styles.notifyIcon}>
@@ -150,14 +151,11 @@ const InfoHeader = memo(({ t }) => {
                     </div>
                   </LinkComp>
                 ))}
-
               </Menu>
               <IconButton className={styles.notiIcon} onClick={handleClick}>
                 <Badge badgeContent={notification.length} invisible={false} color="secondary">
-
                   <NotificationsNoneOutlined />
                 </Badge>
-
               </IconButton>
               <HeaderUser user={user} />
             </div>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { Button } from 'components/atoms';
+import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen } from 'components';
 import { useCart, withLogin } from 'context';
 import { doWithServerSide } from 'clients';
+import { QUICK_ORDER } from 'constants/Paths';
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -43,7 +44,7 @@ function Cart({ isMobile, user }) {
           <Container>
             <Typography className={styles.card_title_empty}>Giỏ hàng của bạn trống</Typography>
             <Box justifyContent="center" display="flex">
-              <LinkComp href="/quick-order">
+              <LinkComp href={QUICK_ORDER}>
                 <Button
                   className={styles.card_button_empty}
                   variant="contained"
