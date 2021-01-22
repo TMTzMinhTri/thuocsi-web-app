@@ -2,9 +2,9 @@ import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
 import { GET, POST, isValid } from './Clients';
 
 async function getOrderById(id = '', ctx) {
-  const url = `${ORDER_API.ORDER_API_PREFIX}/order`;
+  const url = `${ORDER_API.ORDER_INFO}`;
   const params = {
-    orderNo: id,
+    order_no: id,
   };
   const result = await GET({ url, ctx, params });
 
@@ -22,9 +22,11 @@ async function getProductByOrderId(id = '', ctx) {
 }
 
 async function getInfoOrderItem(data, ctx) {
+  const obj = {};
   const arraySku = [];
   data.forEach((item) => {
     arraySku.push(item.productSKU);
+    obj[item.productSKU] = item;
   });
   const body = {
     codes: arraySku,
@@ -33,7 +35,10 @@ async function getInfoOrderItem(data, ctx) {
   if (!isValid(res)) {
     return [];
   }
-  const result = data.map((el, index) => ({ ...el, ...res.data[index] }));
+  res.data.forEach((resp) => {
+    obj[resp.sku] = { ...obj[resp.sku], ...resp };
+  });
+  const result = data.map((el) => ({ ...obj[el.productSKU], ...el }));
 
   return result;
 }

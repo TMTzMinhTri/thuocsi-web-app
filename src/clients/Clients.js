@@ -79,7 +79,6 @@ async function request(props) {
     if (isUseBasic) {
       result.isBasic = true;
     }
-    // console.log('result : ', result);
     return result;
   } catch (err) {
     return {
