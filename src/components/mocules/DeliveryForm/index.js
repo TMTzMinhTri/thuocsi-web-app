@@ -10,7 +10,7 @@ const DeliveryForm = ({ province, district, ward, handleSetValue }) => (
     <h1 className={styles.title}> Thông tin giao hàng </h1>
     <Grid container spacing={2}>
       <InfoFormControl xs={12} label="Địa chỉ giao hàng" htmlFor="address">
-        <InfoInput id="address" placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk" />
+        <InfoInput id="address" placeholder="Địa chỉ giao hàng" />
       </InfoFormControl>
     </Grid>
     <GroupAddressSelect

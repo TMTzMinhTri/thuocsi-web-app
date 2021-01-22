@@ -45,3 +45,7 @@
 .padding_none > .MuiOutlinedInput-adornedEnd {
   padding-right: 0 !important;
 }
+
+.form_control [class*='MuiFormLabel-root'] {
+  line-height: 0 !important;
+}
