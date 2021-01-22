@@ -25,13 +25,22 @@ const buttonTypes = ({ theme, backgroundColor, color }) => ({
     color: color || theme.button.color.primary,
     background: backgroundColor || theme.button.background.warning,
   },
+  disabled: {
+    background: backgroundColor || theme.button.background.disabled,
+    color: '#212529',
+  },
+  payment: {
+    color: '#212529',
+    background: '#f9b514',
+    borderColor: '#f9b514',
+  },
 });
 
 const StyledButton = styled(CustomButton)`
-  color: ${({ theme, btnType = 'primary', color }) =>
-    buttonTypes({ theme, color })[btnType].color} !important;
-  background-color: ${({ theme, btnType = 'primary', backgroundColor }) =>
-    buttonTypes({ theme, backgroundColor })[btnType].background} !important;
+  color: ${({ theme, btnType = 'primary', color, disabled }) =>
+    buttonTypes({ theme, color })[disabled ? 'disabled' : btnType].color} !important;
+  background-color: ${({ theme, btnType = 'primary', backgroundColor, disabled }) =>
+    buttonTypes({ theme, backgroundColor })[disabled ? 'disabled' : btnType].background} !important;
 
   &.my-order__button {
     border-radius: 20px !important;
@@ -66,6 +75,18 @@ const StyledButton = styled(CustomButton)`
     text-transform: none !important;
     width: 100%;
     // padding: 5px 55px !important;
+  }
+
+  &.payment_button {
+    width: 100%;
+    border-color: #f9b514 !important;
+    border-radius: 50px !important;
+    text-transform: capitalize !important;
+    font-size: 16px !important;
+    justify-content: center;
+    text-transform: unset !important;
+    font-weight: 500;
+    margin-top: 5px;
   }
 `;
 
