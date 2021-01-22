@@ -1,8 +1,8 @@
 import GetQuantityProductFromCart from 'utils/GetQuantityProductFromCart';
 import { PRODUCT_API } from 'constants/APIUri';
+import { PAGE_SIZE } from 'constants/data';
 import { GET, isValid } from './Clients';
 import CartClient from './CartClient';
-import { PAGE_SIZE } from '../constants/data';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
@@ -150,6 +150,15 @@ async function getProductsBySlug(ctx, slug) {
   return res.data;
 }
 
+// TODO  @dat.le
+async function loadDataManufacturer(ctx) {
+  const res = await GET({ url: PRODUCT_API.MANUFACTURER_LIST, ctx, isBasic: true });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+}
+
 export default {
   loadDataMostSearch,
   loadFeedback,
@@ -161,4 +170,5 @@ export default {
   getIngredientBySlug,
   getProductsBySlug,
   loadDataProductCollection,
+  loadDataManufacturer,
 };

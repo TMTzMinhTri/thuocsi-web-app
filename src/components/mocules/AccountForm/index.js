@@ -26,7 +26,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
         <InfoFormControl xs={12} isRequired label="Họ Tên khách hàng" htmlFor="name">
           <InfoInput
             id="name"
-            placeholder="Trần Thị B"
+            placeholder="Họ và tên"
             value={name}
             onChange={(e) => handleSetValue('name', e.target.value)}
           />
@@ -35,7 +35,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
         <InfoFormControl xs={12} isRequired label="Số Điện Thoại" htmlFor="phone">
           <InfoInput
             id="phone"
-            placeholder="0912233311"
+            placeholder="Số điện thoại"
             value={phone}
             onChange={(e) => handleSetValue('phone', e.target.value)}
           />
@@ -44,7 +44,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue }) => {
         <InfoFormControl xs={12} isRequired label="Email" htmlFor="email">
           <InfoInput
             id="email"
-            placeholder="tranthib@email.com"
+            placeholder="Email"
             value={email}
             onChange={(e) => handleSetValue('email', e.target.value)}
           />
