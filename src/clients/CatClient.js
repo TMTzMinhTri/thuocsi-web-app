@@ -73,6 +73,7 @@ async function loadTags(ctx) {
   const res = await GET({
     url,
     ctx,
+    isBasic: true,
   });
   if (!isValid(res)) {
     return [];
