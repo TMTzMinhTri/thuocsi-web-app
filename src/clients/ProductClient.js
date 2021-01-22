@@ -1,8 +1,8 @@
 import GetQuantityProductFromCart from 'utils/GetQuantityProductFromCart';
 import { PRODUCT_API } from 'constants/APIUri';
+import { PAGE_SIZE } from 'constants/data';
 import { GET, isValid } from './Clients';
 import CartClient from './CartClient';
-import { PAGE_SIZE } from '../constants/data';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
