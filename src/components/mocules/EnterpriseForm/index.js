@@ -36,7 +36,7 @@ const EnterpriseForm = ({
         <InfoFormControl xs={maxWidthScope ? 12 : 9} label="Tên nhà thuốc/phòng khám" htmlFor="legalRepresentative">
           <InfoInput
             id="legalRepresentative"
-            placeholder="Dược Hoàng Vũ"
+            placeholder="Tên nhà thuốc/phòng khám"
             value={legalRepresentative}
             onChange={(e) => handleSetValue('legalRepresentative', e.target.value)}
           />
@@ -45,7 +45,7 @@ const EnterpriseForm = ({
         <InfoFormControl xs={12} label="Tên người đại diện pháp luật" htmlFor="bussinessName">
           <InfoInput
             id="bussinessName"
-            placeholder="Trần Thị B"
+            placeholder="Tên người đại diện pháp luật"
             value={bussinessName}
             onChange={(e) => handleSetValue('bussinessName', e.target.value)}
 
@@ -78,7 +78,7 @@ const EnterpriseForm = ({
         <InfoFormControl xs={12} label="Mã số thuế" htmlFor="mst">
           <InfoInput
             id="mst"
-            placeholder="8026906145"
+            placeholder="Mã số thuế"
             value={mst}
             onChange={(e) => {
               handleSetValue('mst', e.target.value);

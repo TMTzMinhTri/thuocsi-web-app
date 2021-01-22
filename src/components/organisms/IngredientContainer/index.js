@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
-import { AlphabetFilter, IngredientList, IngredientSearch } from 'components/mocules';
+import { AlphabetFilter, IngredientList, FloatSearch } from 'components/mocules';
 import { StringUtils } from 'utils';
 
 const TEXT_DEFAULT = '';
@@ -54,10 +54,11 @@ const IngredientContainer = ({ ingredients }) => {
 
   return (
     <Grid>
-      <IngredientSearch
+      <FloatSearch
         value={filter.text}
         handleChangeValue={handleChangeText}
         handleClose={handleRemoveText}
+        placeholder="Nhập tên hoạt chất cần tìm"
       />
       <AlphabetFilter handleChangeWord={handleChangeWord} word={filter.word} />
 
