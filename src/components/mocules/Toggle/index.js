@@ -12,9 +12,10 @@ import { Button, MenuItem, Typography, Divider } from '@material-ui/core';
 import { useAuth, useCart } from 'context';
 import { useRouter } from 'next/router';
 import { MenuDropDown, MenuDropDownItem } from 'components/atoms';
-import { FormarCurrency } from 'utils';
-import CustomModal from 'components/organisms/CustomModal';
 import { useModal } from 'hooks';
+import { FormarCurrency } from 'utils';
+
+import CustomModal from '../CustomModal';
 import styles from './styles.module.css';
 
 export default function Toggle({ point, balance }) {
