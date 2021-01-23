@@ -26,7 +26,6 @@ const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCall
   try {
     validateData.name(name);
     validateData.phoneNumber(phone);
-
     if (!isEmpty(email)) {
       validateData.email(email);
     }

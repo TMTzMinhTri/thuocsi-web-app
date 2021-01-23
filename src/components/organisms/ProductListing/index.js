@@ -143,7 +143,6 @@ export default function ProductListing({
                   </div>
                 </Link>
                 {group &&
-                  group.length > 0 &&
                   group.map((item) => (
                     <Link key={item.categoryID} href={`/categories/${item.slug}`}>
                       <div
@@ -218,30 +217,33 @@ export default function ProductListing({
                     Tất cả sản phẩm
                   </Fab>
                 </Link>
-                {tags.map((item) => (
-                  <Link
-                    href={{
-                      pathname: pathName,
-                      query: { ...getTabQuery(), current_tab: item.slug },
-                    }}
-                  >
-                    <Fab
-                      variant="extended"
-                      aria-label="all"
-                      className={clsx(
-                        current_tab === item.slug && styles.active,
-                        styles.filter_btn,
-                      )}
+                {tags &&
+                  tags.map((item) => (
+                    <Link
+                      href={{
+                        pathname: pathName,
+                        query: { ...getTabQuery(), current_tab: item.slug },
+                      }}
                     >
-                      {item.leftIcon && <span className={styles.iconLeft}>{item.leftIcon}</span>}
-                      {item.name}
-                      {item.rightIcon && <span className={styles.iconRight}>{item.rightIcon}</span>}
-                    </Fab>
-                  </Link>
-                ))}
+                      <Fab
+                        variant="extended"
+                        aria-label="all"
+                        className={clsx(
+                          current_tab === item.slug && styles.active,
+                          styles.filter_btn,
+                        )}
+                      >
+                        {item.leftIcon && <span className={styles.iconLeft}>{item.leftIcon}</span>}
+                        {item.name}
+                        {item.rightIcon && (
+                          <span className={styles.iconRight}>{item.rightIcon}</span>
+                        )}
+                      </Fab>
+                    </Link>
+                  ))}
               </div>
             </div>
-            {products.length > 0 ? (
+            {products && products.length > 0 ? (
               <main className={styles.product_listing}>
                 <div className={styles.pagging}>
                   <Pagination
