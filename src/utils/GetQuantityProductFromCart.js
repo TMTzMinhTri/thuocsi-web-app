@@ -1,4 +1,4 @@
-const GetQuantityProductFromCart = (products, cart) => {
+const GetQuantity = (products, cart) => {
   const newList = [];
   const pObject = products;
   products.data.forEach((product) => {
@@ -13,4 +13,28 @@ const GetQuantityProductFromCart = (products, cart) => {
 
   return pObject;
 };
-export default GetQuantityProductFromCart;
+
+const GetQuantity2 = (products, cart) => {
+  const blockRaw = products?.data;
+  const newList = [];
+
+  for (let i = 0; i < blockRaw.length; i += 1) {
+    const block = blockRaw[i];
+    newList.push(
+      block?.data.map((item) => ({
+        ...item,
+        quantity: cart[item.sku]?.quantity || 0,
+        vewMore: block?.vewMore || true,
+        slug: block?.slug || '',
+        nameTitle: block?.name || '',
+      })),
+    );
+  }
+
+  return newList;
+};
+
+export default {
+  GetQuantity,
+  GetQuantity2,
+};
