@@ -38,7 +38,6 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
         </TableHead>
         <TableBody>
           {products.map((product) => {
-            console.log(product);
             const { price, totalPrice, quantity } = product;
             const { imageUrls, name, slug } = product?.productInfo;
 
