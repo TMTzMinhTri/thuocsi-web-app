@@ -89,7 +89,6 @@ const CardInfo = ({ cart, promo, className, user }) => {
           container
           item
           direction="row"
-          justifyContent="center"
         >
           <LocalOffer className={styles.icon_promo} />
           <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>

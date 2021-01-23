@@ -4,9 +4,10 @@ import { SearchClient } from 'clients';
 import { debounceFunc500 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
 import { useRouter } from 'next/router';
+import { PAGE_SIZE } from 'constants/data';
+import { SearchOrder } from 'components/mocules';
+import { QUICK_ORDER } from 'constants/Paths';
 import ProductCardHorizontal from '../ProductCardHorizontal';
-import { PAGE_SIZE } from '../../../constants/data';
-import { SearchOrder } from '../../mocules';
 
 import styles from './style.module.css';
 
@@ -26,7 +27,7 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
     if (page === value) return;
     router.push(
       {
-        pathname: '/quick-order',
+        pathname: QUICK_ORDER,
         query: { page: value },
       },
       { shallow: true },
@@ -63,9 +64,10 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
       )}
       {searchProduct ? (
         <>
-          {searchProduct.map((item) => (
-            <ProductCardHorizontal key={item.id} product={item} />
-          ))}
+          {searchProduct.map(
+            (item) =>
+              item && <ProductCardHorizontal key={`search-product-${item.skuId}`} product={item} />,
+          )}
           <div className={styles.pagging}>
             <Pagination
               count={pages}

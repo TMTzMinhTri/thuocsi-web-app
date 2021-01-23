@@ -3,7 +3,7 @@ import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { MISSING_IMAGE } from 'constants/Images';
 import { useRouter } from 'next/router';
 import { getPathProductBySlug } from 'constants/Paths';
-import { ProductCardContent } from 'components/mocules';
+import ProductCardContent from 'components/mocules/ProductCardContent';
 import ProductCardBuy from '../ProductCardBuy';
 
 import styles from './styles.module.css';
@@ -11,7 +11,7 @@ import styles from './styles.module.css';
 const ProductCardHorizontal = ({ product }) => {
   const router = useRouter();
   const searchInput = useRef(null);
-  const { image } = product;
+  const { imageUrls } = product;
 
   const handleFocus = () => {
     searchInput.current.focus();
@@ -27,7 +27,7 @@ const ProductCardHorizontal = ({ product }) => {
                 alt="Contemplative Reptile"
                 height="50"
                 width="50"
-                image={image || MISSING_IMAGE}
+                image={(imageUrls && imageUrls[0]) || MISSING_IMAGE}
                 title="Contemplative Reptile"
               />
             </CardActionArea>
