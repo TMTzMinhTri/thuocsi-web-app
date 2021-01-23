@@ -8,8 +8,6 @@ import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
 import RemoveProductModal from 'components/organisms/RemoveProductModal';
-import SignInModal from 'components/organisms/SignInModal';
-import ForgetPasswordModal from 'components//organisms/ForgetPasswordModal';
 import ErrorQuantityCartModal from 'components//organisms/ErrorQuantityCartModal';
 
 import DealSection from '../DealSection';
@@ -31,16 +29,12 @@ const ProductCardBuy = ({
   product,
 }) => {
   const [value, setValue] = useState(product.quantity || 0);
-  const [isShowingLogin, toggleLogin] = useModal();
-  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, toggleLogin } = useAuth();
+
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { updateCartItem, removeCartItem } = useCart();
-  const handleChangeForget = useCallback(() => {
-    toggleLogin();
-    toggleForgetPassword();
-  }, [toggleLogin, toggleForgetPassword]);
+
   const removeProductOutCart = () => {
     toggleRemove();
   };
@@ -185,15 +179,6 @@ const ProductCardBuy = ({
               >
                 Đăng nhập để xem giá
               </CustomButton>
-              <SignInModal
-                visible={isShowingLogin}
-                onClose={toggleLogin}
-                onChangeForget={handleChangeForget}
-              />
-              <ForgetPasswordModal
-                visible={isShowingForgetPassword}
-                onClose={toggleForgetPassword}
-              />
             </div>
           )}
         </>

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import App from 'next/app';
+import { useRouter } from 'next/router';
 
 // Theme
 import { ThemeProvider as StyledTheme } from 'styled-components';
@@ -27,6 +28,8 @@ const NAMESPACE_REQUIRED_DEFAULT = 'common';
 
 const MyApp = (props) => {
   const { Component, pageProps } = props;
+  const router = useRouter();
+  const isShowingLogin = router?.query?.login === 'true';
 
   // config https://material-ui.com/guides/server-rendering/
   React.useEffect(() => {
@@ -48,7 +51,7 @@ const MyApp = (props) => {
         <StyledTheme theme={Theme}>
           <CssBaseline />
           {/* Authen */}
-          <AuthProvider>
+          <AuthProvider isShowingLogin={isShowingLogin}>
             {/* Protect route */}
             <LoadingRoute>
               {/* Cart context provider */}

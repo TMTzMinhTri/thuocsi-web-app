@@ -5,14 +5,33 @@ import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cookies';
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
+import { useModal } from 'hooks';
 
 const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children, isShowingLogin }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { pathname, push } = router;
+  const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
+  const [isShowSignUp, toggleSignUp] = useModal();
+  const [isShowForgetPassword, toggleForgetPassword] = useModal();
+
+  const handleChangeForget = useCallback(() => {
+    toggleLogin();
+    toggleForgetPassword();
+  }, [toggleLogin, toggleForgetPassword]);
+
+  const handleChangeSignIn = useCallback(() => {
+    toggleSignUp();
+    toggleLogin();
+  }, [toggleSignUp, toggleLogin]);
+
+  const handleChangeSignUp = useCallback(() => {
+    toggleLogin();
+    toggleSignUp();
+  }, [toggleLogin, toggleSignUp]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
     const { expiredTime, bearerToken } = info;
@@ -84,6 +103,15 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         isLoading,
+        isShowLogin,
+        toggleLogin,
+        isShowSignUp,
+        toggleSignUp,
+        isShowForgetPassword,
+        toggleForgetPassword,
+        handleChangeForget,
+        handleChangeSignIn,
+        handleChangeSignUp,
       }}
     >
       {children}

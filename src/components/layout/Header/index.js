@@ -1,13 +1,11 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
-import { useModal } from 'hooks';
 import clsx from 'clsx';
 import { DateTimeUtils } from 'utils';
 import { IconButton, Menu, Fade, Badge } from '@material-ui/core';
 import { CardTravel, House, NewReleases, NotificationsNoneOutlined } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
-import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { HeaderUser, SearchInput } from 'components/mocules';
 import { LinkComp, ButtonHeader } from 'components/atoms';
 import { useAuth, useNotify } from 'context';
@@ -18,10 +16,7 @@ import styles from './styles.module.css';
 const InfoHeader = memo(({ t }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [isShowingLogin, toggleLogin] = useModal();
-  const [isShowingSignUp, toggleSignUp] = useModal();
-  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, toggleLogin, toggleSignUp } = useAuth();
   const { getNotifcations, notification } = useNotify();
 
   const handleClick = (event) => {
@@ -32,21 +27,6 @@ const InfoHeader = memo(({ t }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const handleChangeForget = useCallback(() => {
-    toggleLogin();
-    toggleForgetPassword();
-  }, [toggleLogin, toggleForgetPassword]);
-
-  const handleChangeSignUp = useCallback(() => {
-    toggleLogin();
-    toggleSignUp();
-  }, [toggleLogin, toggleSignUp]);
-
-  const handleChangeSignIn = useCallback(() => {
-    toggleSignUp();
-    toggleLogin();
-  }, [toggleSignUp, toggleLogin]);
 
   return (
     <div>
@@ -80,19 +60,6 @@ const InfoHeader = memo(({ t }) => {
         </LinkComp>
         {!isAuthenticated ? (
           <>
-            <SignInModal
-              visible={isShowingLogin}
-              onClose={toggleLogin}
-              onChangeForget={handleChangeForget}
-              onChangeSignUp={handleChangeSignUp}
-            />
-            <ForgetPasswordModal visible={isShowingForgetPassword} onClose={toggleForgetPassword} />
-            <SignUpModal
-              visible={isShowingSignUp}
-              onClose={toggleSignUp}
-              onChangeSignIn={handleChangeSignIn}
-            />
-
             <div className={styles.div_buttons}>
               <ButtonHeader variant="contained" btnType="warning" onClick={toggleLogin}>
                 {t('login')}
