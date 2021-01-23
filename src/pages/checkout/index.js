@@ -30,16 +30,8 @@ export async function getServerSideProps(ctx) {
       };
     });
   } catch (error) {
-    window.location.href = '/';
-
     return {
-      props: {
-        user: {
-          name: '',
-          phone: '',
-          email: '',
-        },
-      },
+      props: {},
     };
   }
 }

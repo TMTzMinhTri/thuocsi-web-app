@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
-import { Button } from 'components/atoms';
-import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen } from 'components';
+import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen, Button } from 'components';
 import { useCart, withLogin } from 'context';
 import { doWithServerSide } from 'clients';
 import { QUICK_ORDER } from 'constants/Paths';
