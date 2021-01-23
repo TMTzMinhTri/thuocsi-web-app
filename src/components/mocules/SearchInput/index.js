@@ -1,11 +1,11 @@
-import React, { memo, useState, useCallback } from 'react';
+import React, { memo, useState } from 'react';
 import { InputAdornment, TextField } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { WEB_STYLES } from 'styles';
 import { SearchClient } from 'clients';
-import debounce from 'utils/debounce';
+import { debounceFunc500 } from 'utils/debounce';
 
 import SearchDropdown from '../SearchDropdown';
 import styles from './styles.module.css';
@@ -15,18 +15,13 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
   const [searchProduct, setSearchProduct] = useState([]);
   const [keyword, setKeyword] = useState('');
 
-  const handler = useCallback(
-    debounce((cb) => cb(), 500),
-    [],
-  );
-
   const handleSearchbox = (e) => {
     setKeyword(e.target.value);
     const fetchData = async () => {
       const res = await SearchClient.searchKeywords(e.target.value);
       setSearchProduct(res);
     };
-    handler(fetchData);
+    debounceFunc500(fetchData);
   };
 
   const handleKeyDown = (event) => {
@@ -68,7 +63,6 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
             classes: { focused: styles.focus },
           }}
           onFocus={handleFocus}
-
         />
       </form>
       {keyword && (

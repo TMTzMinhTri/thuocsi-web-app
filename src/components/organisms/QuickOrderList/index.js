@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { SearchClient } from 'clients';
-import debounce from 'utils/debounce';
+import { debounceFunc500 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
 import { useRouter } from 'next/router';
 import ProductCardHorizontal from '../ProductCardHorizontal';
@@ -34,7 +34,6 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
     setNumPage(value);
   };
 
-  const handler = debounce((cb) => cb(), 500);
   const handleSearchbox = (e) => {
     setKeyword(e.target.value);
     const fetchData = async () => {
@@ -49,9 +48,9 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
       }
     };
     if (e.target.value.length === 0) {
-      handler(() => setSearchProduct(products));
+      debounceFunc500(() => setSearchProduct(products));
     } else {
-      handler(fetchData);
+      debounceFunc500(fetchData);
     }
   };
 
