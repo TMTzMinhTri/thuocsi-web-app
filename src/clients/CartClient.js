@@ -19,12 +19,8 @@ async function updateCartItem(data) {
 }
 
 async function getInfoCartItem(data) {
-  const arraySku = [];
-  data.forEach((item) => {
-    arraySku.push(item.sku);
-  });
   const body = {
-    codes: arraySku,
+    codes: data.map((item) => item.sku),
   };
   const res = await POST({ url: PRODUCT_API.PRODUCT_LIST, body });
   if (!isValidWithData(res)) {
