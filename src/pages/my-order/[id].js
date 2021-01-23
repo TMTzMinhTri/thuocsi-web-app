@@ -1,6 +1,6 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { OrderClient, doWithServerSide, isValid } from 'clients';
+import { OrderClient, doWithServerSide, isValid, isValidWithoutData } from 'clients';
 import { withLogin } from 'context';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
@@ -8,8 +8,8 @@ export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
     const [order, products] = await Promise.all([
-      OrderClient.getOrderById(id),
-      OrderClient.getProductByOrderId(id),
+      OrderClient.getOrderById(id, ctx),
+      OrderClient.getProductByOrderId(id, ctx),
     ]);
     if (!isValid(order) || !isValid(products)) {
       return {
@@ -19,10 +19,26 @@ export async function getServerSideProps(ctx) {
         },
       };
     }
+
+    const mapProductInfo = await OrderClient.getInfoOrderItem(products.data, ctx);
+    if (!isValidWithoutData(mapProductInfo)) {
+      return {
+        redirect: {
+          destination: NOT_FOUND_URL,
+          permanent: false,
+        },
+      };
+    }
+
+    const prds = products?.data || [];
+    const productDetails = prds.map((product) => ({
+      productInfo: mapProductInfo[product.productSKU],
+      ...product,
+    }));
     return {
       props: {
         order: order.data[0],
-        products: products.data,
+        products: productDetails,
       },
     };
   });

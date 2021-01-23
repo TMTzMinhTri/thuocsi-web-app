@@ -6,6 +6,8 @@ import {
   ResponseButton,
   PrintInvoiceButton,
 } from 'components/mocules';
+import { PATH_INFO_BILL } from 'constants/Paths';
+import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { DateTimeUtils } from 'utils';
 import styles from './styles.module.css';
 
@@ -15,19 +17,19 @@ const OrderDetailContainer = ({ order, products, user }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container>
           <Grid item xs={12}>
-            <h3 className={styles.title}> Chi tiết đơn hàng #{order.orderID} </h3>
+            <h3 className={styles.title}> Chi tiết đơn hàng #{order.orderNo} </h3>
           </Grid>
           <Grid item xs={12}>
-            <OrderDetailStep activeStep={order?.activeStep} />
+            <OrderDetailStep status={order?.status} />
           </Grid>
           <Grid item xs={12} classes={{ root: styles.order_status_bottom }}>
             <Grid container justify="center" direction="column">
               <div className={styles.order_status_bottom_text}>
                 Dự kiến giao vào &nbsp;
-                <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryAt))}</span>
+                <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate))}</span>
               </div>
             </Grid>
-            <ResponseButton orderID={order.orderID} name={user?.name} phone={user?.phone} />
+            <ResponseButton orderID={order.orderNo} name={user?.name} phone={user?.phone} />
           </Grid>
         </Grid>
       </Paper>
@@ -37,13 +39,23 @@ const OrderDetailContainer = ({ order, products, user }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container direction="row">
           <Grid item xs={3}>
-            <PrintInvoiceButton orderID={order.orderID} user={user} />
+            <PrintInvoiceButton orderID={order.orderNo} user={user} />
           </Grid>
 
           <Grid item container direction="column" justify="center" xs={5}>
-            <div className={styles.text_danger}>
-              Đơn hàng của bạn đã quá thời gian để xuất hóa đơn
-            </div>
+            {order.status === ENUM_ORDER_STATUS.CANCEL
+            || order.status === ENUM_ORDER_STATUS.COMPLETED ? (
+              <div className={styles.text_danger}>
+                Đơn hàng của bạn đã quá thời gian để xuất hóa đơn
+              </div>
+              ) : (
+                <div className={styles.text_bill}>
+                  Xem thông tin xuất hoá đơn đỏ&nbsp;
+                  <a href={PATH_INFO_BILL} target="_blank" rel="noreferrer">
+                    tại đây
+                  </a>
+                </div>
+              )}
           </Grid>
         </Grid>
       </Paper>
@@ -60,7 +72,11 @@ const OrderDetailContainer = ({ order, products, user }) => (
     </Grid>
 
     <Grid item xs={12}>
-      <OrderDetailProduct products={products} promo={order?.promo} />
+      <OrderDetailProduct
+        products={products}
+        promoName={order?.redeemCode}
+        totalDiscount={order?.totalDiscount}
+      />
     </Grid>
   </Grid>
 );
