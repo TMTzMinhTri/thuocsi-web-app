@@ -35,3 +35,4 @@ export { default as IngredientDetailContainer } from './IngredientDetailContaine
 export { default as PromoCodesContainer } from './PromoCodesContainer';
 export { default as CustomerSupportContainer } from './CustomerSupportContainer';
 export { default as ManufacturerContainer } from './ManufacturerContainer';
+export { default as HomeCTASection } from './HomeCTASection';

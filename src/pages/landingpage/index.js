@@ -12,10 +12,9 @@ export default function LandingPage(props) {
   const DynamicPartners = dynamic(() => import('components/organisms/Partners'));
   const DynamicSliderComp = dynamic(() => import('components/organisms/SliderComp'));
   const DynamicMedia = dynamic(() => import('components/organisms/Media'));
-  const DynamicHomeCTASection = dynamic(() => import('components/mocules/HomeCTASection'));
+  const DynamicHomeCTASection = dynamic(() => import('components/organisms/HomeCTASection'));
   const DynamicBannerSlider = dynamic(() => import('components/organisms/BannerSlider'));
-  const DynamicProductSliderSection = dynamic(() =>
-    import('components/organisms/ProductSliderSection'));
+  const DynamicProductSlider = dynamic(() => import('components/organisms/ProductSliderSection'));
 
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>
@@ -29,7 +28,7 @@ export default function LandingPage(props) {
       ) : (
         <div className="SliderProductWrap">
           {products?.map((item) => (
-            <DynamicProductSliderSection
+            <DynamicProductSlider
               key={uuidv4()}
               slug={item?.slug}
               name={item?.name}

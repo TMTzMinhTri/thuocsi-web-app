@@ -47,7 +47,6 @@ export { default as IngredientList } from './IngredientList';
 export { default as FloatSearch } from './FloatSearch';
 export { default as SearchOrder } from './SearchOrder';
 export { default as CouponCard } from './CouponCard';
-export { default as HomeCTASection } from './HomeCTASection';
 export { default as CartCouponCard } from './CartCouponCard';
 export { default as PromoListModal } from './PromoListModal';
 export { default as ManufacturerList } from './ManufacturerList';

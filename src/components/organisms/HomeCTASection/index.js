@@ -1,10 +1,14 @@
 import React, { useCallback } from 'react';
 import { Grid } from '@material-ui/core';
 import { useModal } from 'hooks';
-import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { Button } from 'components/atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+
+import SignUpModal from '../SignUpModal';
+import SignInModal from '../SignInModal';
+import ForgetPasswordModal from '../ForgetPasswordModal';
+
 import styles from './styles.module.css';
 
 const HomeCTASection = () => {
