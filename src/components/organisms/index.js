@@ -25,7 +25,7 @@ export { default as LoadingScreen } from './LoadingScreen';
 export { default as OrderDetailContainer } from './OrderDetailContainer';
 export { default as PromotionProduct } from './PromotionProduct';
 export { default as GridSkeletonProductHorizontal } from './Skeleton/GirdSkeleton';
-export { default as GridLineItem } from './Skeleton/LineItem';
+export { default as GridLineItem } from './Skeleton/GridLineItem';
 export { default as ThankYouContainer } from './ThankYouContainer';
 export { default as IngredientContainer } from './IngredientContainer';
 export { default as IngredientDetailContainer } from './IngredientDetailContainer';
@@ -34,3 +34,4 @@ export { default as CustomerSupportContainer } from './CustomerSupportContainer'
 export { default as ManufacturerContainer } from './ManufacturerContainer';
 export { default as HomeCTASection } from './HomeCTASection';
 export { default as InfoContainer } from './InfoContainer';
+export { default as Dialog } from './Dialog';

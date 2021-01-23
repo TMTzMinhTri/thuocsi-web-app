@@ -7,8 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { GridLineItem } from 'components/organisms';
 import { ContentClient } from 'clients';
+import GridLineItem from '../Skeleton/GridLineItem';
 import styles from './styles.module.css';
 
 const DialogTitle = withStyles(styles)((props) => {
