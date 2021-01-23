@@ -69,11 +69,6 @@ const ProductCartList = ({ products }) => {
           value={note}
           onChange={handleChangeNote}
         />
-        <Box mt={2} display="flex" justifyContent="flex-end">
-          <Button className={styles.btn} onClick={handleUpdateNote}>
-            Cập nhật ghi chú
-          </Button>
-        </Box>
       </Box>
     </>
   );
