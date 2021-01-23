@@ -1,9 +1,10 @@
 import React, { memo, useState, useEffect } from 'react';
-import { Modal, InfoFormControl, InfoTable, Button } from 'components/atoms';
+import { Modal, InfoFormControl, InfoTable, Button, LinkComp } from 'components/atoms';
 import { Grid, Box, TableRow, TableCell, Divider } from '@material-ui/core';
 import { OrderClient, isValid, isValidWithoutData } from 'clients';
 import styled from 'styled-components';
 import { FormarCurrency, NotifyUtils } from 'utils';
+import { getPathProductBySlug } from 'constants/Paths';
 import GroupAddressSelect from '../GroupAddressSelect';
 import InfoInput from '../InfoInput';
 import styles from './style.module.css';
@@ -58,9 +59,15 @@ const PrintInvoiceModal = memo((props) => {
       try {
         const res = await OrderClient.getProductByOrderId(orderID);
         if (!isValid(res)) throw Error('Lấy danh sách không thành công');
-        const prd = await OrderClient.getInfoOrderItem(res.data);
-        if (!isValidWithoutData(prd)) throw Error('Lấy danh sách không thành công');
-        setProducts(prd);
+        let prds = res?.data || [];
+        const mapProductInfo = await OrderClient.getInfoOrderItem(prds);
+        if (!isValidWithoutData(mapProductInfo)) throw Error('Lấy danh sách không thành công');
+        prds = prds.map((product) => ({
+          productInfo: mapProductInfo[product?.productSKU],
+          ...product,
+        }));
+        console.log(prds);
+        setProducts(prds);
       } catch (error) {
         NotifyUtils.error(error?.message || 'Lấy dữ liệu bị lỗi');
       }
@@ -101,22 +108,32 @@ const PrintInvoiceModal = memo((props) => {
             idWard="ward"
           />
           <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
-            { products.map((product) => (
-              <TableRow key={product.name} hover>
-                <TableCell align="left" className={styles.product_name}>
-                  {product.name}
-                </TableCell>
-                <TableCell align="left">
-                  {FormarCurrency(product.price)}
-                </TableCell>
-                <TableCell align="left">
-                  {product.quantity}
-                </TableCell>
-                <TableCell align="left">
-                  {FormarCurrency(product.price * product.quantity)}
-                </TableCell>
-              </TableRow>
-            ))}
+            { products.map((product) => {
+              const { price, quantity, totalPrice } = product;
+              const { name, slug } = product.productInfo;
+              return (
+                <TableRow key={name} hover>
+                  <TableCell align="left" className={styles.product_name}>
+                    <LinkComp
+                      variant="h5"
+                      href={getPathProductBySlug(slug)}
+                      className={styles.product_name}
+                    >
+                      {name}
+                    </LinkComp>
+                  </TableCell>
+                  <TableCell align="left">
+                    {FormarCurrency(price)}
+                  </TableCell>
+                  <TableCell align="left">
+                    {quantity}
+                  </TableCell>
+                  <TableCell align="left">
+                    {FormarCurrency(totalPrice)}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </InfoTable>
           <StyledCompleteButton onClick={handleCompleted}> Hoàn tất </StyledCompleteButton>
         </Box>

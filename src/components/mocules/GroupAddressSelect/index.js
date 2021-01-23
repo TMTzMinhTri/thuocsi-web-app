@@ -49,12 +49,10 @@ const GroupAddressSelect = ({
   useEffect(() => {
     getProvinces();
     if (province !== DEFAULT_PROVINCE_ARRAY[0].value) {
-      getDistricts();
       setPos(ADDRESS_POS.DISTRICT);
     }
 
     if (district !== DEFAULT_DISTRICT_ARRAY[0].value) {
-      getWards();
       setPos(ADDRESS_POS.WARD);
     }
   }, []);

@@ -34,12 +34,13 @@ async function getInfoOrderItem(data = [], ctx) {
   if (!isValid(res)) {
     return [];
   }
-  res.data.forEach((resp) => {
-    obj[resp?.sku] = resp;
+  const products = res?.data || [];
+  products.forEach((product) => {
+    obj[product?.sku] = product;
   });
-  const result = data.map((el) => ({ ...obj[el?.productSKU], ...el }));
-
-  return result;
+  obj.status = res.status;
+  obj.message = res.message;
+  return obj;
 }
 export default {
   getOrderById,

@@ -12,6 +12,7 @@ import StarIcon from '@material-ui/icons/Star';
 import { LinkComp } from 'components/atoms';
 import { FormarCurrency } from 'utils';
 import { getPathProductBySlug } from 'constants/Paths';
+import { v4 as uuidV4 } from 'uuid';
 import styles from './styles.module.css';
 
 const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
@@ -36,31 +37,37 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((product) => (
-            <TableRow key={product.name} className={styles.product_row}>
-              <TableCell align="left">
-                <StarIcon />
-              </TableCell>
-              <TableCell>
-                <img src={product.imageUrls ? product.imageUrls[0] : ''} alt={product.name} width={50} height={30} />
-              </TableCell>
-              <TableCell align="left" className={styles.product_name}>
-                <LinkComp
-                  variant="h5"
-                  href={getPathProductBySlug(product.slug)}
-                  className={styles.product_name}
-                >
-                  {product.name}
-                </LinkComp>
-              </TableCell>
-              <TableCell align="center" className={styles.product_price}>
-                {`${product.quantity} x ${FormarCurrency(product.price)}`}
-              </TableCell>
-              <TableCell align="center">
-                {FormarCurrency(product.totalPrice)}
-              </TableCell>
-            </TableRow>
-          ))}
+          {products.map((product) => {
+            console.log(product);
+            const { price, totalPrice, quantity } = product;
+            const { imageUrls, name, slug } = product?.productInfo;
+
+            return (
+              <TableRow key={uuidV4()} className={styles.product_row}>
+                <TableCell align="left">
+                  <StarIcon />
+                </TableCell>
+                <TableCell>
+                  <img src={imageUrls ? imageUrls[0] : ''} alt={name} width={50} height={30} />
+                </TableCell>
+                <TableCell align="left" className={styles.product_name}>
+                  <LinkComp
+                    variant="h5"
+                    href={getPathProductBySlug(slug)}
+                    className={styles.product_name}
+                  >
+                    {name}
+                  </LinkComp>
+                </TableCell>
+                <TableCell align="center" className={styles.product_price}>
+                  {`${quantity} x ${FormarCurrency(price)}`}
+                </TableCell>
+                <TableCell align="center">
+                  {FormarCurrency(totalPrice)}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
       <Grid container justify="space-between" className={styles.promo}>

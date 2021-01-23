@@ -21,5 +21,11 @@
       "SUCCESS": "Đăng nhập thành công",
       "NOT_FOUND": "Không tìm thấy thông tin người dùng"
     }
+  },
+  "payment": {
+    "method": {
+      "COD": "COD",
+      "CK": "Chuyển Khoản"
+    }
   }
 }
