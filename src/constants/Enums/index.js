@@ -5,12 +5,17 @@ export const ENUM_SCOPE = {
 };
 
 export const ENUM_ORDER_STATUS = {
-  PENDING: 'pending',
+  PENDING: 'WaitConfirm',
   ALL: 'all',
   COMPLETED: 'completed',
-  CANCEL: 'cancel',
+  CANCEL: 'Canceled',
   DELIVERY: 'delivery',
-  CONFIRM: 'confirm',
+  CONFIRM: 'Confirmed',
+};
+
+export const PAYMENT_METHOD = {
+  COD: 'COD',
+  ChuyenKhoan: 'CK',
 };
 
 export const ENUM_TYPE = {};
