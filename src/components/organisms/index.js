@@ -1,6 +1,3 @@
-export { default as Footer } from './Footer';
-// eslint-disable-next-line import/no-cycle
-export { default as FooterMobile } from './FooterMobile';
 export { default as SideBar } from './SideBar';
 export { default as Partners } from './Partners';
 export { default as SliderComp } from './SliderComp';
@@ -36,3 +33,4 @@ export { default as PromoCodesContainer } from './PromoCodesContainer';
 export { default as CustomerSupportContainer } from './CustomerSupportContainer';
 export { default as ManufacturerContainer } from './ManufacturerContainer';
 export { default as HomeCTASection } from './HomeCTASection';
+export { default as InfoContainer } from './InfoContainer';

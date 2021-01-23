@@ -5,9 +5,7 @@ import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [referrals] = await Promise.all([
-      CustomerClient.getReferral(),
-    ]);
+    const [referrals] = await Promise.all([CustomerClient.getReferral()]);
     return {
       props: {
         referrals,

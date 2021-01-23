@@ -1,9 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
-import { Footer, FooterMobile } from 'components/organisms';
 import NavBar from '../NavBar';
 import Header from '../Header';
 import HeaderMobile from '../HeaderMobile';
+import Footer from '../Footer';
+import FooterMobile from '../FooterMobile';
 
 export default function Template({ title, children, isMobile, pageName }) {
   return (

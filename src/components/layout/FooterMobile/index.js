@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { Container, AppBar } from '@material-ui/core';
-import { SignUpModal } from 'components/organisms';
 import { useRouter } from 'next/router';
 import { useModal } from 'hooks';
 import { useAuth } from 'context';
 import { ButtonHeader } from 'components/atoms';
+import { SignUpModal } from 'components/organisms';
 import FooterWithToolBar from './components/FooterWithToolBar';
 import FooterWithCart from './components/FooterWithCart';
 import styles from './styles.module.css';

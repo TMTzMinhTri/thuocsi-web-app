@@ -5,9 +5,7 @@ import { withLogin } from 'context';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  return doWithServerSide(ctx, async () => ({
-
-  }));
+  return doWithServerSide(ctx, async () => ({}));
 }
 
 const MyLoyaltyPoint = ({ user, isMobile }) => {
