@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Grid, Container } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from 'components';
+import Button from 'components/atoms/Button';
 import styled from 'styled-components';
 
 const Error404 = ({ className }) => (

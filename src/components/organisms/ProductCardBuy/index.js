@@ -7,10 +7,10 @@ import useModal from 'hooks/useModal';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
-import RemoveProductModal from 'components/organisms/RemoveProductModal';
-import ErrorQuantityCartModal from 'components//organisms/ErrorQuantityCartModal';
+import DealSection from 'components/mocules/DealSection';
+import RemoveProductModal from '../RemoveProductModal';
+import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
-import DealSection from '../DealSection';
 import styles from './styles.module.css';
 
 const ProductCardBuy = ({

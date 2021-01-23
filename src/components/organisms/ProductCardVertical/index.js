@@ -3,7 +3,8 @@ import { Card, CardActionArea, CardMedia } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { MISSING_IMAGE } from 'constants/Images';
 import { getPathProductBySlug } from 'constants/Paths';
-import { ProductCardBuy, ProductCardContent, StatusProduct } from 'components/mocules';
+import { ProductCardContent, StatusProduct } from 'components/mocules';
+import ProductCardBuy from '../ProductCardBuy';
 import styles from './styles.module.css';
 
 const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, value }) => {

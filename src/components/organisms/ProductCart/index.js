@@ -4,7 +4,8 @@ import { Grade } from '@material-ui/icons';
 import { MISSING_IMAGE } from 'constants/Images';
 import useModal from 'hooks/useModal';
 import { useCart } from 'context';
-import { ProductCardBuy, ProductCardContent, CustomModal } from 'components/mocules';
+import { ProductCardContent, CustomModal } from 'components/mocules';
+import ProductCardBuy from '../ProductCardBuy';
 import styles from './styles.module.css';
 
 const ProductCart = React.memo((props) => {

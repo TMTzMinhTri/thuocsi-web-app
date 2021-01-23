@@ -35,3 +35,4 @@ export { default as ManufacturerContainer } from './ManufacturerContainer';
 export { default as HomeCTASection } from './HomeCTASection';
 export { default as InfoContainer } from './InfoContainer';
 export { default as Dialog } from './Dialog';
+export { default as ProductCardBuy } from './ProductCardBuy';
