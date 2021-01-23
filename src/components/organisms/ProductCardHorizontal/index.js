@@ -11,7 +11,7 @@ import styles from './styles.module.css';
 const ProductCardHorizontal = ({ product }) => {
   const router = useRouter();
   const searchInput = useRef(null);
-  const { imageUrls } = product;
+  const { imageUrls, slug } = product;
 
   const handleFocus = () => {
     searchInput.current.focus();
@@ -21,7 +21,7 @@ const ProductCardHorizontal = ({ product }) => {
       <Box className={styles.root_card}>
         <Card className={styles.product_card}>
           <Box className={styles.product_image}>
-            <CardActionArea onClick={() => router.push(getPathProductBySlug(product.slug))}>
+            <CardActionArea onClick={() => router.push(getPathProductBySlug(slug))}>
               <CardMedia
                 component="img"
                 alt="Contemplative Reptile"

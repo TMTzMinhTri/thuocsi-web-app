@@ -9,8 +9,7 @@ import { ProductCardContent, CustomModal } from 'components/mocules';
 import ProductCardBuy from '../ProductCardBuy';
 import styles from './styles.module.css';
 
-const ProductCart = React.memo((props) => {
-  const { product, name } = props;
+const ProductCart = ({ product, name }) => {
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
@@ -87,5 +86,5 @@ const ProductCart = React.memo((props) => {
       />
     </Box>
   );
-});
+};
 export default ProductCart;
