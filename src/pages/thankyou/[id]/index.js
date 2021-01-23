@@ -1,4 +1,5 @@
-import { Template, ThankYouContainer } from 'components';
+import Template from 'components/layout/Template';
+import ThankYouContainer from 'components/organisms/ThankYouContainer';
 import { Container } from '@material-ui/core';
 import { OrderClient, doWithServerSide, isValid } from 'clients';
 import { withLogin } from 'context';

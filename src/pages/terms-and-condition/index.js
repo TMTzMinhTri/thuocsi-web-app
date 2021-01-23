@@ -1,5 +1,5 @@
 import { Container } from '@material-ui/core';
-import { Template } from 'components';
+import Template from 'components/layout/Template';
 import React from 'react';
 import TermAndCondition from './terms-and-condition';
 

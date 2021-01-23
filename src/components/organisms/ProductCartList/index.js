@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Typography, TextareaAutosize, Button } from '@material-ui/core';
+import { Box, Typography, TextareaAutosize } from '@material-ui/core';
 import Link from 'next/link';
 import { Star, Info } from '@material-ui/icons';
 import { NotifyUtils } from 'utils';

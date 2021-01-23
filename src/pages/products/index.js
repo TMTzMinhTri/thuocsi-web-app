@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Template, ProductListing } from 'components';
+import Template from 'components/layout/Template';
+import ProductListing from 'components/organisms/ProductListing';
 import ProductClient from 'clients/ProductClient';
 import CatClient from 'clients/CatClient';
-import { TAB_LIST } from '../../constants/data';
+import { TAB_LIST } from 'constants/data';
 
 export async function getServerSideProps(ctx) {
   const [products, brand, group, tags] = await Promise.all([

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Template, PromotionProduct } from 'components';
+import Template from 'components/layout/Template';
+import PromotionProduct from 'components/organisms/PromotionProduct';
 
 import ProductClient from 'clients/ProductClient';
 

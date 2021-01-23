@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Template, OrderInfoFormContainer, InfoContainer } from 'components';
+import Template from 'components/layout/Template';
+import OrderInfoContainer from 'components/organisms/OrderInfoContainer';
+import InfoContainer from 'components/organisms/InfoContainer';
+
 import { Container } from '@material-ui/core';
 import { CustomerClient, doWithServerSide, isValid } from 'clients';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
@@ -54,7 +57,7 @@ const MyOrder = ({ user, orders: orderR = [], isMobile }) => {
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={2} title="Đơn hàng của tôi" name={user?.name}>
-            <OrderInfoFormContainer
+            <OrderInfoContainer
               orders={orders}
               handleSetOrderStatus={handleSetOrderStatus}
               orderStatus={orderStatus}

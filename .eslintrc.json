@@ -8,7 +8,8 @@
     "plugin:import/warnings",
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
-    "airbnb"
+    "airbnb",
+    "prettier"
   ],
   "env": {
     "browser": true,

@@ -1,4 +1,5 @@
-import { Template, InfoContainer } from 'components';
+import Template from 'components/layout/Template';
+import InfoContainer from 'components/organisms/InfoContainer';
 import { Container, Grid } from '@material-ui/core';
 import { doWithServerSide } from 'clients';
 import { withLogin } from 'context';

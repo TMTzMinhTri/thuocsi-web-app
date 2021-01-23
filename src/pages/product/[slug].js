@@ -31,7 +31,7 @@ import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide } from 'clients';
 import { useCart } from 'context';
 import debounce from 'utils/debounce';
-import ErrorQuantityCartModal from '../../components/organisms/ErrorQuantityCartModal';
+import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
 
 import styles from './styles.module.css';
 
@@ -125,8 +125,9 @@ export default function ProductDetail({ product, isAuthenticated }) {
   const open = Boolean(anchorEl);
   const id = open ? 'detail-product-popover' : undefined;
 
-  const ingredientEle = ingredient
-    && ingredient.map((row) => (
+  const ingredientEle =
+    ingredient &&
+    ingredient.map((row) => (
       <TableRow key={row.name}>
         <TableCell className={styles.border_right} component="th" scope="row">
           <a className={styles.text_capitalize} href="/">

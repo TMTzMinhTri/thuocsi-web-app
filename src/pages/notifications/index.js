@@ -1,5 +1,7 @@
 import React from 'react';
-import { Template, LinkComp } from 'components';
+import Template from 'components/layout/Template';
+import LinkComp from 'components/atoms/LinkComp';
+
 import { Container, Grid, Button } from '@material-ui/core';
 import clsx from 'clsx';
 import { NotifyClient } from 'clients';
