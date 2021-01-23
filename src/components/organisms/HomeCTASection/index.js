@@ -1,32 +1,14 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
-import { useModal } from 'hooks';
-import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { Button } from 'components/atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from 'context';
+
 import styles from './styles.module.css';
 
 const HomeCTASection = () => {
-  const [isShowingLogin, toggleLogin] = useModal();
-  const [isShowingSignUp, toggleSignUp] = useModal();
-  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
-
-  const handleChangeForget = useCallback(() => {
-    toggleLogin();
-    toggleForgetPassword();
-  }, [toggleLogin, toggleForgetPassword]);
-
-  const handleChangeSignUp = useCallback(() => {
-    toggleLogin();
-    toggleSignUp();
-  }, [toggleLogin, toggleSignUp]);
-
-  const handleChangeSignIn = useCallback(() => {
-    toggleSignUp();
-    toggleLogin();
-  }, [toggleSignUp, toggleLogin]);
-
+  const { toggleLogin, toggleSignUp } = useAuth();
   return (
     <div className={styles.homeCTA}>
       <Grid className={styles.homeCTAOverlay} container>
@@ -47,18 +29,6 @@ const HomeCTASection = () => {
             <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
             đăng kí
           </Button>
-          <SignInModal
-            visible={isShowingLogin}
-            onClose={toggleLogin}
-            onChangeForget={handleChangeForget}
-            onChangeSignUp={handleChangeSignUp}
-          />
-          <ForgetPasswordModal visible={isShowingForgetPassword} onClose={toggleForgetPassword} />
-          <SignUpModal
-            visible={isShowingSignUp}
-            onClose={toggleSignUp}
-            onChangeSignIn={handleChangeSignIn}
-          />
         </Grid>
       </Grid>
     </div>

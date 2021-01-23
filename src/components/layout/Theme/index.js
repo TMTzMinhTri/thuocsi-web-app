@@ -116,6 +116,8 @@ const Theme = createMuiTheme({
       primary: '#66bb6a',
       success: '#66bb6a',
       warning: '#ffb74d',
+      payment: '#f9b514',
+      disabled: '#dddddd',
     },
   },
   palette: {

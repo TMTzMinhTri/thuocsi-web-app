@@ -10,7 +10,11 @@ export const DISPUTE_RESOLUTION_URL = '/dispute-resolution';
 export const TERMS_URL = '/terms-and-condition';
 export const REGULATIONS_URL = '/regulations';
 export const QUICK_ORDER = '/quick-order';
-export const PRODUCT = '/products';
+export const PRODUCT = '/product';
+export const PRODUCTS_URL = '/products';
+export const CART_URL = '/cart';
+export const CHECKOUT_URL = '/checkout';
+export const THANKYOU_URL = '/thankyou';
 export const NOT_FOUND_URL = '/404';
 
 export const getPathProductBySlug = (slug) => `${PRODUCT}/${encodeUrl(slug)}`;

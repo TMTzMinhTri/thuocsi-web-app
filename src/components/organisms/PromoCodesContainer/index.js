@@ -42,7 +42,7 @@ const PromoCodesContainer = ({ promos }) => {
             &nbsp;để nhận được code riêng
           </p>
 
-          { promos ? (
+          {promos ? (
             <Grid container spacing={4}>
               {promos.map((promo) => (
                 <Grid item xs={maxWidth3Card ? 6 : 4}>
@@ -50,7 +50,9 @@ const PromoCodesContainer = ({ promos }) => {
                 </Grid>
               ))}
             </Grid>
-          ) : <p className={styles.promo_for_you}>Chưa có mã</p>}
+          ) : (
+            <p className={styles.promo_for_you}>Chưa có mã</p>
+          )}
         </div>
       </Container>
       <div className={styles.promo_special}>
@@ -59,7 +61,7 @@ const PromoCodesContainer = ({ promos }) => {
       </div>
       <Container maxWidth="lg" className={styles.container}>
         <h1 className={styles.title}> Các mã khác </h1>
-        { promos ? (
+        {promos ? (
           <Grid container spacing={4}>
             {promos.map((promo) => (
               <Grid item xs={maxWidth3Card ? 6 : 4}>
@@ -67,7 +69,9 @@ const PromoCodesContainer = ({ promos }) => {
               </Grid>
             ))}
           </Grid>
-        ) : <p className={styles.promo_for_you}>Chưa có mã</p>}
+        ) : (
+          <p className={styles.promo_for_you}>Chưa có mã</p>
+        )}
       </Container>
     </div>
   );

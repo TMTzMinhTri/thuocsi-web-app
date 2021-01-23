@@ -21,10 +21,18 @@ const ReferralList = ({ referrals }) => {
       <Grid item xs={12}>
         <Grid container spacing={3} direction="row">
           <Grid item xs={4}>
-            <Input placeholder="Nhập số điện thoại bạn bè" className={styles.input} value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <Input
+              placeholder="Nhập số điện thoại bạn bè"
+              className={styles.input}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </Grid>
           <Grid item className={styles.button_container}>
-            <Button className={styles.button} onClick={handleSendSMS}> Gửi SMS giới thiệu </Button>
+            <Button className={styles.button} onClick={handleSendSMS}>
+              {' '}
+              Gửi SMS giới thiệu{' '}
+            </Button>
           </Grid>
         </Grid>
         <Grid container>

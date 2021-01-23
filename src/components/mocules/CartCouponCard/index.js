@@ -1,12 +1,40 @@
 import { Card, Grid } from '@material-ui/core';
 import Image from 'next/image';
+import styled from 'styled-components';
 import { PROMO_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE } from 'constants/Images';
 import clsx from 'clsx';
+import { Button } from 'components/atoms';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
-import UsedButton from './UsedButton';
-import UseButton from './UseButton';
+
+const UseButton = styled(Button)`
+  margin-top: 20px !important;
+  margin-left: 22px !important;
+  text-transform: none !important;
+  color: #00b46e !important;
+  border: 1px solid #00b46e !important;
+  background: transparent !important;
+  padding: 4px 10px !important;
+  transition: 0.5s;
+  &:hover {
+    color: #fff !important;
+    background-color: #00b46e !important;
+    border-color: #00b46e !important;
+  }
+`;
+
+const UsedButton = styled(Button)`
+  margin-top: 20px !important;
+  margin-left: 22px !important;
+  text-transform: none !important;
+  color: #fff !important;
+  background-color: #00b46e !important;
+  border: 1px solid #00b46e !important;
+  padding: 4px 10px !important;
+  transition: 0.5s;
+  opacity: 0.65;
+`;
 
 const CartCounponCard = ({
   promotionCode = '',
@@ -29,7 +57,7 @@ const CartCounponCard = ({
           {type === PROMO_TYPE.COMBO && <Image width={60} height={60} src={GIFT_IMAGE} />}
           {type === PROMO_TYPE.GIFT && <Image width={60} height={60} src={GIFT_IMAGE} />}
           {type === PROMO_TYPE.DISCOUNT && (
-          <div style={{ fontWeight: 'bold', textAlign: 'center' }}>{value} </div>
+            <div style={{ fontWeight: 'bold', textAlign: 'center' }}>{value} </div>
           )}
           <br />
           {type === PROMO_TYPE.COMBO && 'COMBO'}
@@ -39,9 +67,9 @@ const CartCounponCard = ({
       </Grid>
       <Grid item xs={4} container direction="column">
         {type !== PROMO_TYPE.COMBO && (
-        <Grid item className={styles.coupon_description}>
-          {description}
-        </Grid>
+          <Grid item className={styles.coupon_description}>
+            {description}
+          </Grid>
         )}
 
         <Grid item>

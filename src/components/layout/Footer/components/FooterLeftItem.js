@@ -17,7 +17,7 @@ import {
   LOGO_FOOTER_REGISTER,
   LOGO_FOOTER_SVG,
 } from 'constants/Images';
-import { Dialog } from 'components/mocules';
+import { Dialog } from 'components/organisms';
 import { LinkComp } from 'components/atoms';
 import styles from '../styles.module.css';
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Typography, IconButton } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { LocalOffer } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
@@ -7,7 +8,7 @@ import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
 import { CartClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
-import { LinkComp } from '../../atoms';
+import { Button, LinkComp } from 'components/atoms';
 import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
 
@@ -19,7 +20,21 @@ const DeleteIconButton = (props) => (
   </IconButton>
 );
 
-const CardInfo = ({ cart, promo, className }) => {
+const PaymentButton = ({ user }) => (
+  <>
+    {user?.isActive ? null : (
+      <Alert severity="error" style={{ margin: '5px' }}>
+        Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ 02 873 008
+        840 để kích hoạt
+      </Alert>
+    )}
+    <Button disabled={!user.isActive} btnType="payment" className="payment_button">
+      Tiếp tục thanh toán
+    </Button>
+  </>
+);
+
+const CardInfo = ({ cart, promo, className, user }) => {
   const { itemCount, total, updateCart, redeemCode } = useCart();
   const [promoVisible, setPromoVisible] = useState(false);
   const handleSetPromoVisible = () => {
@@ -68,7 +83,14 @@ const CardInfo = ({ cart, promo, className }) => {
         </Grid>
       </Grid>
       {promo && (
-        <Grid className={clsx(styles.wrapper, styles.promo_border)} xs={12} container item direction="row" justifyContent="center">
+        <Grid
+          className={clsx(styles.wrapper, styles.promo_border)}
+          xs={12}
+          container
+          item
+          direction="row"
+          justifyContent="center"
+        >
           <LocalOffer className={styles.icon_promo} />
           <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
             {redeemCode || 'Dùng mã khuyến mãi'}
@@ -78,9 +100,7 @@ const CardInfo = ({ cart, promo, className }) => {
       )}
       <Grid className={styles.wrapper} xs={12} container item>
         {cart ? (
-          <LinkComp href="/checkout" className={styles.btn}>
-            Tiếp tục thanh toán
-          </LinkComp>
+          <PaymentButton user={user} />
         ) : (
           <LinkComp href="/cart" className={styles.btn}>
             Xem giỏ hàng

@@ -1,67 +1,32 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Template, ProductListing } from 'components';
-import CatClient from 'clients/CatClient';
+import { Template, ManufacturerContainer } from 'components';
+import { ProductClient, doWithServerSide } from 'clients';
+import { Container } from '@material-ui/core';
 
 export async function getServerSideProps(ctx) {
-  const [products, catInfo, brand, group, tags] = await Promise.all([
-    CatClient.loadProductWithManufacturer(ctx),
-    CatClient.loadManufacturerInfoBySlug(ctx),
-    CatClient.loadBrand(ctx),
-    CatClient.loadGroup(ctx),
-    CatClient.loadTags(ctx),
-  ]);
-  const current_tab = ctx.query.current_tab || '';
-  const sortBy = ctx.query.sortBy || '';
-  const page = Number(ctx.query.page) || 1;
-  const slug = ctx.query.slug || '';
-  const { data = [], total = 0 } = products;
-  return {
-    props: {
-      products: data,
-      total,
-      catInfo,
-      current_tab,
-      page,
-      sortBy,
-      brand,
-      group,
-      slug,
-      tags,
-    },
-  };
+  return doWithServerSide(ctx, async () => {
+    const [manufacturers] = await Promise.all([ProductClient.loadDataManufacturer(ctx)]);
+    return {
+      props: {
+        manufacturers,
+      },
+    };
+  });
 }
 
-export default function Products({
-  products,
-  catInfo = '',
-  total,
-  brand = [],
-  group = [],
-  tags = [],
-  current_tab = '',
-  page = '',
-  sortBy = '',
-  slug = '',
-  isMobile,
-}) {
-  const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-  const cat = 'manufacturers';
+const Manufacturers = ({ manufacturers = [], isMobile }) => {
+  const title = 'Tất cả nhà sản xuất – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+  const pageName = 'manufacturers';
   return (
-    <Template title={title} isMobile={isMobile} pageName={cat}>
-      <ProductListing
-        products={products}
-        total={total}
-        brand={brand}
-        group={group}
-        current_tab={current_tab}
-        page={page}
-        sortBy={sortBy}
-        catName={cat}
-        slug={slug}
-        tags={tags}
-        name={catInfo && catInfo[0] && catInfo[0].name}
-      />
+    <Template title={title} isMobile={isMobile} pageName={pageName}>
+      <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
+        <Container maxWidth="lg">
+          <ManufacturerContainer manufacturers={manufacturers} />
+        </Container>
+      </div>
     </Template>
   );
-}
+};
+
+export default Manufacturers;

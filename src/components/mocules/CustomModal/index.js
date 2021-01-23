@@ -43,4 +43,4 @@ const CustomModal = memo(
   ),
 );
 
-export default CustomModal;
+export default React.memo(CustomModal);

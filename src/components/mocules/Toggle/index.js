@@ -12,11 +12,15 @@ import { Button, MenuItem, Typography, Divider } from '@material-ui/core';
 import { useAuth, useCart } from 'context';
 import { useRouter } from 'next/router';
 import { MenuDropDown, MenuDropDownItem } from 'components/atoms';
+import { useModal } from 'hooks';
 import { FormarCurrency } from 'utils';
+
+import CustomModal from '../CustomModal';
 import styles from './styles.module.css';
 
 export default function Toggle({ point, balance }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showPoupLogout, toggleLogout] = useModal(false);
   const open = Boolean(anchorEl);
   const router = useRouter();
   const { clearCart } = useCart();
@@ -93,10 +97,19 @@ export default function Toggle({ point, balance }) {
         >
           <MonetizationOnIcon />
         </MenuDropDownItem>
-        <MenuDropDownItem handleClick={handleLogout} text="Đăng xuất">
+        <MenuDropDownItem handleClick={toggleLogout} text="Đăng xuất">
           <ExitToAppIcon />
         </MenuDropDownItem>
       </MenuDropDown>
+      <CustomModal
+        visible={showPoupLogout}
+        onClose={toggleLogout}
+        title="Xin xác nhận"
+        content="Bạn có chắc muốn đăng xuất?"
+        btnOk="Có"
+        onClickOk={handleLogout}
+        btnOnClose="Không"
+      />
     </>
   );
 }

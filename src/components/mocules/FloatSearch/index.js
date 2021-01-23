@@ -10,7 +10,7 @@ const IngredientInput = ({ className, ...rest }) => <Input className={className}
 const StyledIngredientInput = styled(IngredientInput)`
   cursor: pointer;
   padding: 10px 10px;
-  width: 250px;
+  width: 275px;
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -38,11 +38,11 @@ const StyledFab = styled(Fab)`
 `;
 
 const CloseButton = ({ handleClose }) => <CloseIcon onClick={handleClose} />;
-const IngredientSearch = ({ value, handleChangeValue, handleClose }) => (
+const FloatSearch = ({ value, handleChangeValue, handleClose, placeholder }) => (
   <Grid container spacing={0} alignItems="baseline" justify="center">
     <Grid item>
       <StyledIngredientInput
-        placeholder="Nhập tên hoạt chất cần tìm"
+        placeholder={placeholder}
         value={value}
         onChange={handleChangeValue}
         endAdornment={value ? <CloseButton handleClose={handleClose} /> : null}
@@ -56,4 +56,4 @@ const IngredientSearch = ({ value, handleChangeValue, handleClose }) => (
   </Grid>
 );
 
-export default IngredientSearch;
+export default FloatSearch;

@@ -3,7 +3,8 @@ import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
 import { MISSING_IMAGE } from 'constants/Images';
 import { useRouter } from 'next/router';
 import { getPathProductBySlug } from 'constants/Paths';
-import { ProductCardBuy, ProductCardContent } from 'components/mocules';
+import { ProductCardContent } from 'components/mocules';
+import ProductCardBuy from '../ProductCardBuy';
 
 import styles from './styles.module.css';
 

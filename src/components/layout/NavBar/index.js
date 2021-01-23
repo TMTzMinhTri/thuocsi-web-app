@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { useModal } from 'hooks';
 import {
   makeStyles,
   Typography,
@@ -17,13 +16,12 @@ import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
 
-import { SignUpModal, SignInModal, ForgetPasswordModal } from '../../organisms';
-import { Toggle, SearchInput } from '../../mocules';
+import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
+import { Toggle, SearchInput } from 'components/mocules';
 
 // comp
-import { LinkComp, TagComp } from '../../atoms';
+import { LinkComp, TagComp } from 'components/atoms';
 
 import styles from './styles.module.css';
 
@@ -74,27 +72,24 @@ function renderMostSearched(data, classes) {
 }
 
 export default function NavBar({ mostResearched, point = 0, balance = 0, pageName = [] }) {
-  const router = useRouter();
-  const isShowLogin = router?.query?.login === 'true';
-  const [isShowingLogin, toggleLogin] = useModal(isShowLogin);
-  const [isShowingSignUp, toggleSignUp] = useModal();
-  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
   const { itemCount } = useCart();
   const classes = useStyle();
-  const { isAuthenticated } = useAuth();
+
+  const {
+    isAuthenticated,
+    isShowLogin,
+    toggleLogin,
+    toggleSignUp,
+    isShowSignUp,
+    isShowForgetPassword,
+    toggleForgetPassword,
+    handleChangeForget,
+    handleChangeSignIn,
+    handleChangeSignUp,
+  } = useAuth();
 
   renderMostSearched(mostResearched, classes);
   const nav = useRef();
-
-  const handleChangeForget = useCallback(() => {
-    toggleLogin();
-    toggleForgetPassword();
-  }, [toggleLogin, toggleForgetPassword]);
-
-  const handleChangeSignIn = useCallback(() => {
-    toggleSignUp();
-    toggleLogin();
-  }, [toggleSignUp, toggleLogin]);
 
   useEffect(() => {
     if (!nav.current) return undefined;
@@ -195,16 +190,14 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
           ) : (
             <>
               <SignInModal
-                visible={isShowingLogin}
+                visible={isShowLogin}
                 onClose={toggleLogin}
                 onChangeForget={handleChangeForget}
+                onChangeSignUp={handleChangeSignUp}
               />
-              <ForgetPasswordModal
-                visible={isShowingForgetPassword}
-                onClose={toggleForgetPassword}
-              />
+              <ForgetPasswordModal visible={isShowForgetPassword} onClose={toggleForgetPassword} />
               <SignUpModal
-                visible={isShowingSignUp}
+                visible={isShowSignUp}
                 onClose={toggleSignUp}
                 onChangeSignIn={handleChangeSignIn}
               />
@@ -224,7 +217,6 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
             </>
           )}
         </div>
-        {/* {mostSearchedEle} */}
       </Container>
     </div>
   );

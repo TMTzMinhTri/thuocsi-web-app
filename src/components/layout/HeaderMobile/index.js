@@ -1,12 +1,13 @@
 import React, { memo, useCallback, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Drawer, IconButton, Fab } from '@material-ui/core';
 import { Menu, Close } from '@material-ui/icons';
 import { useModal } from 'hooks';
 import { useAuth, useCart } from 'context';
-import { useRouter } from 'next/router';
 import { LOGO_THUOCSI } from 'constants/Images';
+import { QUICK_ORDER, CART_URL } from 'constants/Paths';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
 import { LinkComp, ButtonHeader } from 'components/atoms';
 
@@ -47,8 +48,8 @@ const HeaderMobile = memo(({ title = '' }) => {
         className={clsx(
           styles.login,
           isAuthenticated && styles.logged,
-          router.pathname === '/quick-order' ? styles.search_tool_wrapper : '',
-          router.pathname === '/cart' ? styles.cart_wrapper : '',
+          router.pathname === QUICK_ORDER ? styles.search_tool_wrapper : '',
+          router.pathname === CART_URL ? styles.cart_wrapper : '',
         )}
       >
         {!isAuthenticated ? (
@@ -91,14 +92,14 @@ const HeaderMobile = memo(({ title = '' }) => {
               <IconButton onClick={toggleDrawer(true)} aria-label="menu">
                 <Menu />
               </IconButton>
-              {router.pathname !== '/quick-order' && (
+              {router.pathname !== QUICK_ORDER && (
                 <span className={styles.text}>
                   {title && title} {itemCount && `(${itemCount})`}
                 </span>
               )}
             </div>
             <div className={styles.rSection}>
-              {router.pathname === '/quick-order' ? <HeaderWithSearchTool /> : <HeaderWithCart />}
+              {router.pathname === QUICK_ORDER ? <HeaderWithSearchTool /> : <HeaderWithCart />}
             </div>
 
             <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer(false)}>

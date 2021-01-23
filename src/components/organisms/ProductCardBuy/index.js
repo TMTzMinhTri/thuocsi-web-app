@@ -1,18 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import { CardActions, Typography, Box, IconButton } from '@material-ui/core';
-import { Button as CustomButton } from 'components';
 import { Delete } from '@material-ui/icons';
 import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import useModal from 'hooks/useModal';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
-import { MinusButton, PlusButton, InputProduct } from '../../atoms';
-import DealSection from '../DealSection';
-import RemoveProductModal from '../../organisms/RemoveProductModal';
-import SignInModal from '../../organisms/SignInModal';
-import ForgetPasswordModal from '../../organisms/ForgetPasswordModal';
-import ErrorQuantityCartModal from '../../organisms/ErrorQuantityCartModal';
+import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
+import DealSection from 'components/mocules/DealSection';
+import RemoveProductModal from '../RemoveProductModal';
+import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
+
 import styles from './styles.module.css';
 
 const ProductCardBuy = ({
@@ -31,16 +29,12 @@ const ProductCardBuy = ({
   product,
 }) => {
   const [value, setValue] = useState(product.quantity || 0);
-  const [isShowingLogin, toggleLogin] = useModal();
-  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, toggleLogin } = useAuth();
+
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { updateCartItem, removeCartItem } = useCart();
-  const handleChangeForget = useCallback(() => {
-    toggleLogin();
-    toggleForgetPassword();
-  }, [toggleLogin, toggleForgetPassword]);
+
   const removeProductOutCart = () => {
     toggleRemove();
   };
@@ -185,15 +179,6 @@ const ProductCardBuy = ({
               >
                 Đăng nhập để xem giá
               </CustomButton>
-              <SignInModal
-                visible={isShowingLogin}
-                onClose={toggleLogin}
-                onChangeForget={handleChangeForget}
-              />
-              <ForgetPasswordModal
-                visible={isShowingForgetPassword}
-                onClose={toggleForgetPassword}
-              />
             </div>
           )}
         </>

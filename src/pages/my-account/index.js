@@ -4,9 +4,7 @@ import { doWithServerSide } from 'clients';
 import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
-  return doWithServerSide(ctx, async () => ({
-
-  }));
+  return doWithServerSide(ctx, async () => ({}));
 }
 
 const MyAccount = ({ user, isMobile }) => {

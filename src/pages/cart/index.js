@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
-import { Button } from 'components/atoms';
+import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen, Button } from 'components';
 import { useCart, withLogin } from 'context';
 import { doWithServerSide } from 'clients';
+import { QUICK_ORDER } from 'constants/Paths';
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, () => ({ props: {} }));
 }
 
-function Cart({ isMobile }) {
+function Cart({ isMobile, user }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
   const { cartItems, loading } = useCart();
   const pageName = 'cart';
-  if (loading) return (<LoadingScreen />);
+  if (loading) return <LoadingScreen />;
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>
       <Container className={styles.wrapper} maxWidth="lg">
@@ -34,7 +34,7 @@ function Cart({ isMobile }) {
               {!isMobile && (
                 <Grid sm={4} item>
                   {/* gio hang */}
-                  <CardInfo className={styles.card_info} cart promo />
+                  <CardInfo user={user} className={styles.card_info} cart promo />
                 </Grid>
               )}
             </Grid>
@@ -43,7 +43,7 @@ function Cart({ isMobile }) {
           <Container>
             <Typography className={styles.card_title_empty}>Giỏ hàng của bạn trống</Typography>
             <Box justifyContent="center" display="flex">
-              <LinkComp href="/quick-order">
+              <LinkComp href={QUICK_ORDER}>
                 <Button
                   className={styles.card_button_empty}
                   variant="contained"

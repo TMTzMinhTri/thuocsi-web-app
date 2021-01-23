@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
-import { AlphabetFilter, IngredientList, FloatSearch } from 'components/mocules';
+import { AlphabetFilter, ManufacturerList, FloatSearch } from 'components/mocules';
 import { StringUtils } from 'utils';
 
 const TEXT_DEFAULT = '';
@@ -11,13 +11,13 @@ const searchString = (arr, str) => {
   return result;
 };
 
-const IngredientContainer = ({ ingredients }) => {
+const ManufacturerContainer = ({ manufacturers }) => {
   const [filter, setFilter] = useState({
     word: WORD_DEFAULT,
     text: TEXT_DEFAULT,
     isByWord: true,
   });
-  const [ingres, setIngres] = useState(ingredients);
+  const [manus, setManus] = useState(manufacturers);
 
   const handleChangeWord = (e) => {
     const val = e.target.innerText;
@@ -36,17 +36,17 @@ const IngredientContainer = ({ ingredients }) => {
 
   useEffect(() => {
     if (filter.isByWord) {
-      if (filter.word === WORD_DEFAULT) setIngres(ingredients);
+      if (filter.word === WORD_DEFAULT) setManus(manufacturers);
       else {
-        const ws = ingredients.filter(
+        const ws = manufacturers.filter(
           (ingredient) =>
             StringUtils.changeAlias(ingredient?.name.charAt(0).toUpperCase()) === filter.word,
         );
-        setIngres(ws);
+        setManus(ws);
       }
     } else {
-      const searchs = searchString(ingredients, filter.text);
-      setIngres(searchs);
+      const searchs = searchString(manufacturers, filter.text);
+      setManus(searchs);
     }
   }, [filter]);
 
@@ -56,13 +56,13 @@ const IngredientContainer = ({ ingredients }) => {
         value={filter.text}
         handleChangeValue={handleChangeText}
         handleClose={handleRemoveText}
-        placeholder="Nhập tên hoạt chất cần tìm"
+        placeholder="Nhập tên nhà sản xuất cần tìm"
       />
       <AlphabetFilter handleChangeWord={handleChangeWord} word={filter.word} />
 
-      <IngredientList ingredients={ingres} text={filter.text} />
+      <ManufacturerList manufacturers={manus} text={filter.text} />
     </Grid>
   );
 };
 
-export default IngredientContainer;
+export default ManufacturerContainer;

@@ -5,10 +5,9 @@ import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { useCart } from 'context';
 import clsx from 'clsx';
-import { NotifyUtils, ValidateUtils } from 'utils';
+import { NotifyUtils, ValidateUtils, FormarCurrency } from 'utils';
 import { CheckoutClient, isValid } from 'clients';
-
-import FormarCurrency from 'utils/FormarCurrency';
+import { THANKYOU_URL } from 'constants/Paths';
 
 import styles from './styles.module.css';
 
@@ -83,7 +82,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
     const response = await CheckoutClient.Checkout(formValue);
     if (isValid(response)) {
       const { orderNo } = response.data[0];
-      router.push(`/thankyou/${orderNo}`);
+      router.push(`${THANKYOU_URL}/${orderNo}`);
     } else {
       NotifyUtils.error(
         `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
@@ -111,7 +110,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
           <div className={styles.checkout_content}>{FormarCurrency(shippingFee)}</div>
         </div>
         <div className={styles.d_flex}>
-          <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước.</div>
+          <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước</div>
           <div className={styles.checkout_content}>
             {selectedValue === 'CK' ? `-${FormarCurrency(transferValue)}` : FormarCurrency(0)}
           </div>
