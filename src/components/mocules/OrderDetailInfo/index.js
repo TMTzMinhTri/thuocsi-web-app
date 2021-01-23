@@ -28,7 +28,6 @@ const OrderDetailInfo = ({
 }) => {
   const classes = useStyles();
   const paymentMethodTrans = `payment.method.${paymentMethod}`;
-  console.log(paymentMethodTrans);
   return (
     <div>
       <Grid container spacing={2}>

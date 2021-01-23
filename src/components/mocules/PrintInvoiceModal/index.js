@@ -66,7 +66,6 @@ const PrintInvoiceModal = memo((props) => {
           productInfo: mapProductInfo[product?.productSKU],
           ...product,
         }));
-        console.log(prds);
         setProducts(prds);
       } catch (error) {
         NotifyUtils.error(error?.message || 'Lấy dữ liệu bị lỗi');
