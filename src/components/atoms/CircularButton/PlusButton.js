@@ -8,7 +8,7 @@ const PlusButton = memo(({ className, disabled, ...restProps }) => (
   <>
     <IconButton
       {...restProps}
-      disabled
+      disabled={disabled}
       classes={{
         root: clsx(styles.button_root, disabled ? styles.plus_disabled : styles.plus, className),
       }}
