@@ -3,10 +3,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useCart } from 'context';
 
-import SliderProduct from '../../mocules/SliderProduct';
+import SliderProduct from 'components/mocules/SliderProduct';
 import ProductCardVertical from '../ProductCardVertical';
 
-const ProductSliderSection = ({ products }) => {
+const ProductSliderSection = ({ products = [] }) => {
   const { increase } = useCart();
   const handleIncrement = (product) => {
     increase(product);

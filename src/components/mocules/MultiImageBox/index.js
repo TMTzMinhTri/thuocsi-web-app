@@ -50,9 +50,16 @@ const MultiImageBox = ({ loading, images, imageType }) => {
             </>
           )}
         </Grid>
-        {images
-          && images.map((src, index) => (
-            <Grid item spacing={1} container direction="row" classes={{ root: styles.thumbnail }}>
+        {images &&
+          images.map((src, index) => (
+            <Grid
+              item
+              spacing={1}
+              container
+              direction="row"
+              classes={{ root: styles.thumbnail }}
+              key={uuidv4()}
+            >
               <Grid item key={uuidv4()}>
                 {loading ? (
                   <Skeleton variant="rect" classes={{ root: styles.thumbnailImage }} />

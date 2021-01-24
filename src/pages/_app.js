@@ -43,7 +43,10 @@ const MyApp = (props) => {
   return (
     <>
       <Head>
-        <title>ThuocSi</title>
+        <title>Tra cứu và đặt thuốc giá sỉ nhanh tại thuocsi.vn</title>
+        <link rel="shortcut icon" href="images/favicon-16x16.png" size="16x16" />
+        <link rel="shortcut icon" href="images/favicon-32x32.png" size="32x32" />
+        <link rel="shortcut icon" href="images/favicon-96x96.png" size="96x96" />
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
 

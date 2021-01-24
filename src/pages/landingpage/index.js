@@ -27,9 +27,9 @@ export default function LandingPage(props) {
         </>
       ) : (
         <div className="SliderProductWrap">
-          {products[0]?.map((item) => (
-            <DynamicProductSlider key={uuidv4()} products={item} />
-          ))}
+          {products &&
+            products[0] &&
+            products[0]?.map((item) => <DynamicProductSlider key={uuidv4()} products={item} />)}
         </div>
       )}
       <DynamicPartners />

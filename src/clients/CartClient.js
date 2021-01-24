@@ -19,6 +19,9 @@ async function updateCartItem(data) {
 }
 
 async function getInfoCartItem(data) {
+  if (!data || data.length === 0) {
+    return [];
+  }
   const body = {
     codes: data.map((item) => item.sku),
   };
