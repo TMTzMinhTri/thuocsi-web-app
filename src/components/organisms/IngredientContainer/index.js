@@ -20,12 +20,12 @@ const IngredientContainer = ({ ingredients }) => {
   const [ingres, setIngres] = useState(ingredients);
 
   const handleChangeWord = (e) => {
-    const val = e.target.innerText.trim();
+    const val = e.target.innerText;
     setFilter({ ...filter, word: val, text: TEXT_DEFAULT, isByWord: true });
   };
 
   const handleChangeText = (e) => {
-    const val = e.target.value.trim();
+    const val = e.target.value;
     setFilter({ ...filter, text: val, word: WORD_DEFAULT, isByWord: false });
   };
 
@@ -47,7 +47,7 @@ const IngredientContainer = ({ ingredients }) => {
       const searchs = searchString(ingredients, filter.text);
       setIngres(searchs);
     }
-  }, [filter]);
+  }, [filter, ingredients]);
 
   return (
     <Grid>

@@ -5,11 +5,15 @@ import IngredientContainer from 'components/organisms/IngredientContainer';
 import { ProductClient } from 'clients';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
+import { DAY_SECONDS } from 'utils/DateTimeUtils';
 
 const convertIngredients = (ingredients = []) =>
   ingredients.map(({ name, slug }) => {
     const unsignedKey = changeAlias(name);
-    const search = [...new Set([...name.split(' '), ...unsignedKey.split(' ')])].join(' ');
+    let search = name;
+    if (unsignedKey !== name) {
+      search += ` ${unsignedKey}`;
+    }
     return {
       search,
       name,
@@ -23,6 +27,10 @@ export async function getStaticProps(ctx) {
     props: {
       ingredients: convertIngredients(ingredients),
     },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every second
+    revalidate: DAY_SECONDS, // In seconds
   };
 }
 
