@@ -4,9 +4,15 @@ import { Add } from '@material-ui/icons';
 import clsx from 'clsx';
 import styles from './styles.module.css';
 
-const PlusButton = memo(({ className, ...restProps }) => (
+const PlusButton = memo(({ className, disabled, ...restProps }) => (
   <>
-    <IconButton {...restProps} classes={{ root: clsx(styles.button_root, styles.plus, className) }}>
+    <IconButton
+      {...restProps}
+      disabled
+      classes={{
+        root: clsx(styles.button_root, disabled ? styles.plus_disabled : styles.plus, className),
+      }}
+    >
       <Add className={styles.icon} />
     </IconButton>
   </>

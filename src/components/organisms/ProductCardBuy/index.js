@@ -48,7 +48,6 @@ const ProductCardBuy = ({
       setValue(q);
     }
     if (response.errorCode === 'CART_MAXQUANTITY') {
-      toggleErrorQuantity();
       setValue(maxQuantity);
     }
   };
@@ -161,7 +160,7 @@ const ProductCardBuy = ({
                   value={value}
                   name={name}
                 />
-                <PlusButton onClick={() => handleIncrease()} />
+                <PlusButton disabled={value === maxQuantity} onClick={() => handleIncrease()} />
                 {cart && (
                   <IconButton onClick={removeProductOutCart}>
                     <Delete className={styles.icon} />
