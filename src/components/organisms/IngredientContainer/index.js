@@ -9,18 +9,18 @@ const WORD_DEFAULT = '#';
 const searchString = (arr, str) => {
   const searchValue = str.toUpperCase();
   const searchValueUnsigned = StringUtils.changeAlias(searchValue);
-  const isSigned = searchValue === searchValueUnsigned;
+  const isUnSigned = searchValue === searchValueUnsigned;
 
-  if (!isSigned) {
+  if (isUnSigned) {
     return arr.filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1);
   }
 
-  const resultUnSigned = arr.filter(
-    (el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1,
+  const resultSigned = arr.filter(
+    (el) => el.unsignedKey.toUpperCase().indexOf(resultSigned, 0) > -1,
   );
 
-  const resultSigned = arr
-    .filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) === -1)
+  const resultUnSigned = arr
+    .filter((el) => el.unsignedKey.toUpperCase().indexOf(resultSigned, 0) === -1)
     .filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1);
   return [...resultSigned, ...resultUnSigned];
 };
