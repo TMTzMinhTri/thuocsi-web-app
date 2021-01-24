@@ -9,8 +9,9 @@ import { changeAlias } from 'utils/StringUtils';
 const convertIngredients = (ingredients = []) =>
   ingredients.map(({ name, slug }) => {
     const unsignedKey = changeAlias(name);
+    const search = [...new Set([...name.split(' '), ...unsignedKey.split(' ')])].join(' ');
     return {
-      unsignedKey,
+      search,
       name,
       slug,
     };

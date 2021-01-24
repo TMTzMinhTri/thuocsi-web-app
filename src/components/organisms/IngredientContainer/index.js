@@ -7,11 +7,7 @@ const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
 
 const searchString = (arr, str) => {
-  const result = arr.filter(
-    (el) =>
-      el.name.toUpperCase().indexOf(str.toUpperCase(), 0) > -1 ||
-      el.unsignedKey.toUpperCase().indexOf(str.toUpperCase(), 0) > -1,
-  );
+  const result = arr.filter((el) => el.search.toUpperCase().indexOf(str.toUpperCase(), 0) > -1);
   return result;
 };
 
@@ -24,12 +20,12 @@ const IngredientContainer = ({ ingredients }) => {
   const [ingres, setIngres] = useState(ingredients);
 
   const handleChangeWord = (e) => {
-    const val = e.target.innerText;
+    const val = e.target.innerText.trim();
     setFilter({ ...filter, word: val, text: TEXT_DEFAULT, isByWord: true });
   };
 
   const handleChangeText = (e) => {
-    const val = e.target.value;
+    const val = e.target.value.trim();
     setFilter({ ...filter, text: val, word: WORD_DEFAULT, isByWord: false });
   };
 
