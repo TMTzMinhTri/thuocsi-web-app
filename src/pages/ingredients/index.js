@@ -6,18 +6,18 @@ import { ProductClient } from 'clients';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
 import { DAY_SECONDS } from 'utils/DateTimeUtils';
-
-const convertIngredients = (ingredients = []) =>
-  ingredients
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .map(({ name, slug }) => ({
-      unsignedKey: changeAlias(name),
-      name,
-      slug,
-    }));
+import { useView } from 'context';
 
 export async function getStaticProps(ctx) {
   const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
+  const convertIngredients = (ingre = []) =>
+    ingre
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map(({ name, slug }) => ({
+        unsignedKey: changeAlias(name),
+        name,
+        slug,
+      }));
   return {
     props: {
       ingredients: convertIngredients(ingredients),
@@ -25,11 +25,14 @@ export async function getStaticProps(ctx) {
     revalidate: DAY_SECONDS,
   };
 }
-const Ingredients = ({ ingredients = [], isMobile = false }) => {
+
+const Ingredients = ({ ingredients = [] }) => {
   const title = 'Tất cả hoạt chất – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const pageName = 'ingredients';
+  const { width } = useView();
+  const isMobile = width < 620;
   return (
-    <Template title={title} isMobile={isMobile} pageName={pageName}>
+    <Template title={title} const={isMobile} pageName={pageName}>
       <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
         <Container maxWidth="lg">
           <IngredientContainer ingredients={ingredients} />
