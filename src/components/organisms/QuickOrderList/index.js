@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { SearchClient } from 'clients';
-import debounce from 'utils/debounce';
+import { debounceFunc500 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
 import { useRouter } from 'next/router';
+import { PAGE_SIZE } from 'constants/data';
+import { SearchOrder } from 'components/mocules';
+import { QUICK_ORDER } from 'constants/Paths';
 import ProductCardHorizontal from '../ProductCardHorizontal';
-import { PAGE_SIZE } from '../../../constants/data';
-import { SearchOrder } from '../../mocules';
 
 import styles from './style.module.css';
 
@@ -26,7 +27,7 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
     if (page === value) return;
     router.push(
       {
-        pathname: '/quick-order',
+        pathname: QUICK_ORDER,
         query: { page: value },
       },
       { shallow: true },
@@ -34,24 +35,25 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
     setNumPage(value);
   };
 
-  const handler = debounce((cb) => cb(), 500);
   const handleSearchbox = (e) => {
-    setKeyword(e.target.value);
+    const { value } = e.target;
+    setKeyword(value);
+    setNumPage(1);
     const fetchData = async () => {
-      const res = await SearchClient.searchProducts(e.target.value, numPage);
+      const res = await SearchClient.searchProducts(value, numPage);
       if (res.length !== 0) {
-        setNumPage(1);
         setTotalVal(res.total);
         setSearchProduct(res.data);
       } else {
-        setNumPage(1);
-        setSearchProduct(false);
+        setSearchProduct([]);
       }
     };
-    if (e.target.value.length === 0) {
-      handler(() => setSearchProduct(products));
+    if (value.length === 0) {
+      setSearchProduct(products);
+      setTotalVal(total);
+      setNumPage(page);
     } else {
-      handler(fetchData);
+      debounceFunc500(fetchData);
     }
   };
 
@@ -64,13 +66,15 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
       )}
       {searchProduct ? (
         <>
-          {searchProduct.map((item) => (
-            <ProductCardHorizontal key={item.id} product={item} />
-          ))}
+          {searchProduct.map(
+            (item) =>
+              item && <ProductCardHorizontal key={`search-product-${item.skuId}`} product={item} />,
+          )}
           <div className={styles.pagging}>
             <Pagination
               count={pages}
-              defaultPage={numPage}
+              defaultPage={1}
+              page={numPage}
               boundaryCount={2}
               onChange={handleChangePage}
             />

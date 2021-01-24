@@ -1,5 +1,9 @@
+import React from 'react';
 import { Paper, Grid, makeStyles, Typography } from '@material-ui/core';
+import { i18n } from 'i18n-lib';
 import styles from './styles.module.css';
+
+const NOT_YET = '(Chưa có)';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,8 +14,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OrderDetailInfo = ({ name, address, email, phone, order = {} }) => {
+const OrderDetailInfo = ({
+  name,
+  address,
+  email,
+  phone,
+  t,
+  note,
+  paymentMethod,
+  deliveryTrackingNumber,
+  deliveryDate,
+  deliveryPlatform,
+}) => {
   const classes = useStyles();
+  const paymentMethodTrans = `payment.method.${paymentMethod}`;
   return (
     <div>
       <Grid container spacing={2}>
@@ -55,33 +71,33 @@ const OrderDetailInfo = ({ name, address, email, phone, order = {} }) => {
           <Grid item className={styles.info_container}>
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
-                Hình thức thanh toán
+                Hình thức thanh toán:
               </Typography>
               <Typography variant="h6" className={styles.info_value}>
-                {order.payment || '(Chưa có)'}
+                {t(paymentMethodTrans) || NOT_YET}
               </Typography>
             </Paper>
           </Grid>
           <Grid item className={styles.info_container}>
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
-                Đơn vị vận chuyển: {order.delivery || '(Chưa có)'}
+                Đơn vị vận chuyển:&nbsp; <span>{deliveryPlatform || NOT_YET} </span>
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
-                Ngày giao: {order.delivery_time || '(Chưa có)'}
+                Ngày giao:&nbsp; <span>{deliveryDate || NOT_YET} </span>
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
-                Mã vận đơn:{order.code || '(Chưa có)'}
+                Mã vận đơn:&nbsp; <span>{deliveryTrackingNumber || NOT_YET} </span>
               </Typography>
             </Paper>
           </Grid>
           <Grid item className={styles.info_container}>
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
-                Hình thức thanh toán
+                Ghi chú:
               </Typography>
               <Typography variant="h6" className={styles.info_value}>
-                {order.payment || '(Chưa có)'}
+                {note || NOT_YET}
               </Typography>
             </Paper>
           </Grid>
@@ -91,4 +107,4 @@ const OrderDetailInfo = ({ name, address, email, phone, order = {} }) => {
   );
 };
 
-export default OrderDetailInfo;
+export default i18n.withTranslation('common')(React.memo(OrderDetailInfo));

@@ -102,9 +102,12 @@ const getTimeAgo = (date) => {
   return str;
 };
 
+export const DAY_SECONDS = 24 * 60 * 60;
+
 export default {
   getFormattedDate,
   getDayOfWeek,
   getFormattedWithDate,
   getTimeAgo,
+  DAY_SECONDS,
 };

@@ -1,10 +1,10 @@
 import React, { memo, useState, useEffect } from 'react';
-import { Modal, InfoFormControl, InfoTable, Button } from 'components/atoms';
+import { Modal, InfoFormControl, InfoTable, Button, LinkComp } from 'components/atoms';
 import { Grid, Box, TableRow, TableCell, Divider } from '@material-ui/core';
-import { OrderClient, isValid } from 'clients';
+import { OrderClient, isValid, isValidWithoutData } from 'clients';
 import styled from 'styled-components';
 import { FormarCurrency, NotifyUtils } from 'utils';
-import { PRODUCT_TYPE } from 'constants/Enums';
+import { getPathProductBySlug } from 'constants/Paths';
 import GroupAddressSelect from '../GroupAddressSelect';
 import InfoInput from '../InfoInput';
 import styles from './style.module.css';
@@ -13,7 +13,7 @@ import validateForm from './validateForm';
 const heads = ['Sản phẩm hóa đơn nhanh', 'Giá', 'Số lượng', 'Tổng cộng'];
 
 const StyledCompleteButton = styled(Button)`
-  color: #fff!important;
+  color: #fff !important;
   background-color: #00b46e !important;
   border-color: #00b46e !important;
   font-weight: 500 !important;
@@ -57,10 +57,16 @@ const PrintInvoiceModal = memo((props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await OrderClient.getProductByOrderId(orderID, PRODUCT_TYPE.CAN_INVOICE);
-
+        const res = await OrderClient.getProductByOrderId(orderID);
         if (!isValid(res)) throw Error('Lấy danh sách không thành công');
-        setProducts(res.data);
+        let prds = res?.data || [];
+        const mapProductInfo = await OrderClient.getInfoOrderItem(prds);
+        if (!isValidWithoutData(mapProductInfo)) throw Error('Lấy danh sách không thành công');
+        prds = prds.map((product) => ({
+          productInfo: mapProductInfo[product?.productSKU],
+          ...product,
+        }));
+        setProducts(prds);
       } catch (error) {
         NotifyUtils.error(error?.message || 'Lấy dữ liệu bị lỗi');
       }
@@ -76,19 +82,35 @@ const PrintInvoiceModal = memo((props) => {
           <Divider />
           <Grid container>
             <InfoFormControl xs={12} label="Tên nhà thuốc/phòng khám" htmlFor="address" isRequired>
-              <InfoInput id="businessName" value={val.businessName} onChange={(e) => handleChangeVal('businessName', e.target.value)} />
+              <InfoInput
+                id="businessName"
+                value={val.businessName}
+                onChange={(e) => handleChangeVal('businessName', e.target.value)}
+              />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Mã số thuế" htmlFor="address" isRequired>
-              <InfoInput id="mst" value={val.mst} onChange={(e) => handleChangeVal('mst', e.target.value)} />
+              <InfoInput
+                id="mst"
+                value={val.mst}
+                onChange={(e) => handleChangeVal('mst', e.target.value)}
+              />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Email" htmlFor="address" isRequired>
-              <InfoInput id="email" value={val.email} onChange={(e) => handleChangeVal('email', e.target.value)} />
+              <InfoInput
+                id="email"
+                value={val.email}
+                onChange={(e) => handleChangeVal('email', e.target.value)}
+              />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Địa chỉ nhận hoá đơn" htmlFor="address" isRequired>
-              <InfoInput id="address" value={val.address} onChange={(e) => handleChangeVal('address', e.target.value)} />
+              <InfoInput
+                id="address"
+                value={val.address}
+                onChange={(e) => handleChangeVal('address', e.target.value)}
+              />
             </InfoFormControl>
           </Grid>
           <GroupAddressSelect
@@ -101,22 +123,26 @@ const PrintInvoiceModal = memo((props) => {
             idWard="ward"
           />
           <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
-            { products.map((product) => (
-              <TableRow key={product.name} hover>
-                <TableCell align="left" className={styles.product_name}>
-                  {product.name}
-                </TableCell>
-                <TableCell align="left">
-                  {FormarCurrency(product.price)}
-                </TableCell>
-                <TableCell align="left">
-                  {product.quantity}
-                </TableCell>
-                <TableCell align="left">
-                  {FormarCurrency(product.price * product.quantity)}
-                </TableCell>
-              </TableRow>
-            ))}
+            {products.map((product) => {
+              const { price, quantity, totalPrice } = product;
+              const { name, slug } = product.productInfo;
+              return (
+                <TableRow key={name} hover>
+                  <TableCell align="left" className={styles.product_name}>
+                    <LinkComp
+                      variant="h5"
+                      href={getPathProductBySlug(slug)}
+                      className={styles.product_name}
+                    >
+                      {name}
+                    </LinkComp>
+                  </TableCell>
+                  <TableCell align="left">{FormarCurrency(price)}</TableCell>
+                  <TableCell align="left">{quantity}</TableCell>
+                  <TableCell align="left">{FormarCurrency(totalPrice)}</TableCell>
+                </TableRow>
+              );
+            })}
           </InfoTable>
           <StyledCompleteButton onClick={handleCompleted}> Hoàn tất </StyledCompleteButton>
         </Box>

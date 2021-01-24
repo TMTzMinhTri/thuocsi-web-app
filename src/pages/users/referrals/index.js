@@ -1,4 +1,6 @@
-import { Template, ReferralList, InfoContainer } from 'components';
+import Template from 'components/layout/Template';
+import InfoContainer from 'components/organisms/InfoContainer';
+import ReferralList from 'components/organisms/ReferralList';
 import { Container } from '@material-ui/core';
 import { CustomerClient, doWithServerSide } from 'clients';
 import { withLogin } from 'context';

@@ -7,6 +7,7 @@ import {
   Check as CheckIcon,
 } from '@material-ui/icons';
 import clsx from 'clsx';
+import { ENUM_ORDER_STATUS } from 'constants/Enums';
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -80,8 +81,16 @@ function ColorlibStepIcon({ icon, active, completed }) {
 
 const steps = ['Chờ xác nhận', 'Đã xác nhận', 'Đang xử lý', 'Đang giao hàng', 'Hoàn tất'];
 
-const OrderDetailStep = ({ activeStep = 1 }) => (
-  <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+const MappingStep = {
+  [ENUM_ORDER_STATUS.PENDING]: 0,
+  [ENUM_ORDER_STATUS.CONFIRM]: 1,
+  // forbidden
+  [ENUM_ORDER_STATUS.DELIVERY]: 3,
+  [ENUM_ORDER_STATUS.COMPLETED]: 4,
+};
+
+const OrderDetailStep = ({ status = 1 }) => (
+  <Stepper alternativeLabel activeStep={MappingStep[status]} connector={<ColorlibConnector />}>
     {steps.map((label) => (
       <Step key={label}>
         <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>

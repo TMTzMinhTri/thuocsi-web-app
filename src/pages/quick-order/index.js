@@ -1,6 +1,8 @@
 import React from 'react';
+import Template from 'components/layout/Template';
+import QuickOrderList from 'components/organisms/QuickOrderList';
+import CardInfo from 'components/mocules/CardInfo';
 
-import { Template, QuickOrderList, CardInfo } from 'components';
 import { Container, Typography, Box, Grid } from '@material-ui/core';
 import { ProductClient, doWithServerSide } from 'clients';
 import { withLogin } from 'context';

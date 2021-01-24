@@ -29,9 +29,9 @@ import {
 } from 'components';
 import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide } from 'clients';
-import { useCart } from 'context';
+import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
-import ErrorQuantityCartModal from '../../components/organisms/ErrorQuantityCartModal';
+import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
 
 import styles from './styles.module.css';
 
@@ -47,13 +47,25 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function ProductDetail({ product, isAuthenticated }) {
-  const title = product.name;
+  const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
-  const { name, price, unit, volume, ingredient = [], madeBy, category, tags } = product;
+  const {
+    name,
+    price,
+    unit,
+    volume,
+    ingredient = [],
+    madeBy,
+    category,
+    tags,
+    maxQuantity,
+  } = product;
   const [value, setValue] = React.useState('1');
   const [quantity, setQuantity] = useState(product.quantity || 0);
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
+
+  const { toggleLogin } = useAuth();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -73,7 +85,6 @@ export default function ProductDetail({ product, isAuthenticated }) {
       setQuantity(q);
     }
     if (response.errorCode === 'CART_MAXQUANTITY') {
-      toggleErrorQuantity();
       setQuantity(product.maxQuantity);
     }
   };
@@ -89,7 +100,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
   };
 
   const handler = useCallback(
-    debounce((val, updateType) => handleCart(val, updateType), 1500),
+    debounce((val, updateType) => handleCart(val, updateType), 500),
     [],
   );
 
@@ -125,8 +136,9 @@ export default function ProductDetail({ product, isAuthenticated }) {
   const open = Boolean(anchorEl);
   const id = open ? 'detail-product-popover' : undefined;
 
-  const ingredientEle = ingredient
-    && ingredient.map((row) => (
+  const ingredientEle =
+    ingredient &&
+    ingredient.map((row) => (
       <TableRow key={row.name}>
         <TableCell className={styles.border_right} component="th" scope="row">
           <a className={styles.text_capitalize} href="/">
@@ -223,11 +235,19 @@ export default function ProductDetail({ product, isAuthenticated }) {
                           onChange={handleInputChange}
                           value={quantity}
                         />
-                        <PlusButton className={styles.plus} onClick={() => handleIncrease()} />
+                        <PlusButton
+                          disabled={maxQuantity && quantity >= maxQuantity}
+                          className={styles.plus}
+                          onClick={() => handleIncrease()}
+                        />
                       </div>
                     </>
                   ) : (
-                    <CustomButton backgroundColor="#e1a006" className={styles.signin_btn}>
+                    <CustomButton
+                      backgroundColor="#e1a006"
+                      className={styles.signin_btn}
+                      onClick={toggleLogin}
+                    >
                       Đăng nhập để xem giá
                     </CustomButton>
                   )}
@@ -275,15 +295,16 @@ export default function ProductDetail({ product, isAuthenticated }) {
 
               <div className={styles.mb_3}>
                 <div className={styles.product_info_label}>Nhóm thuốc</div>
-                {category.map((item) => (
-                  <a
-                    key={uuidv4()}
-                    className={styles.text_capitalize}
-                    href="/categories/giam-dau-ha-sot"
-                  >
-                    {item.name}
-                  </a>
-                ))}
+                {category &&
+                  category.map((item) => (
+                    <a
+                      key={uuidv4()}
+                      className={styles.text_capitalize}
+                      href="/categories/giam-dau-ha-sot"
+                    >
+                      {item.name}
+                    </a>
+                  ))}
               </div>
 
               <div className={styles.mb_3}>

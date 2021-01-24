@@ -12,16 +12,13 @@ import StarIcon from '@material-ui/icons/Star';
 import { LinkComp } from 'components/atoms';
 import { FormarCurrency } from 'utils';
 import { getPathProductBySlug } from 'constants/Paths';
+import { v4 as uuidV4 } from 'uuid';
 import styles from './styles.module.css';
 
-const OrderDetailProduct = ({ products, promo }) => {
-  const getTotalByProduct = (price, quantity) => price * quantity;
+const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
   const getTotal = () => {
-    let sum = products.reduce(
-      (b, product) => getTotalByProduct(product.price, product.quantity) + b,
-      0,
-    );
-    sum -= promo.total;
+    let sum = products.reduce((b, product) => product.totalPrice + b, 0);
+    sum -= totalDiscount;
     return sum;
   };
   return (
@@ -37,36 +34,40 @@ const OrderDetailProduct = ({ products, promo }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((product) => (
-            <TableRow key={product.name} className={styles.product_row}>
-              <TableCell align="left">
-                <StarIcon />
-              </TableCell>
-              <TableCell>
-                <img src={product.image} alt={product.name} width={50} height={30} />
-              </TableCell>
-              <TableCell align="left" className={styles.product_name}>
-                <LinkComp
-                  variant="h5"
-                  href={getPathProductBySlug(product.slug)}
-                  className={styles.product_name}
-                >
-                  {product.name}
-                </LinkComp>
-              </TableCell>
-              <TableCell align="center" className={styles.product_price}>
-                {`${product.quantity} x ${FormarCurrency(product.price)}`}
-              </TableCell>
-              <TableCell align="center">
-                {FormarCurrency(getTotalByProduct(product.price, product.quantity))}
-              </TableCell>
-            </TableRow>
-          ))}
+          {products &&
+            products.map((product) => {
+              const { price, totalPrice, quantity } = product;
+              const { imageUrls, name, slug } = product?.productInfo;
+
+              return (
+                <TableRow key={uuidV4()} className={styles.product_row}>
+                  <TableCell align="left">
+                    <StarIcon />
+                  </TableCell>
+                  <TableCell>
+                    <img src={imageUrls ? imageUrls[0] : ''} alt={name} width={50} height={30} />
+                  </TableCell>
+                  <TableCell align="left" className={styles.product_name}>
+                    <LinkComp
+                      variant="h5"
+                      href={getPathProductBySlug(slug)}
+                      className={styles.product_name}
+                    >
+                      {name}
+                    </LinkComp>
+                  </TableCell>
+                  <TableCell align="center" className={styles.product_price}>
+                    {`${quantity} x ${FormarCurrency(price)}`}
+                  </TableCell>
+                  <TableCell align="center">{FormarCurrency(totalPrice)}</TableCell>
+                </TableRow>
+              );
+            })}
         </TableBody>
       </Table>
       <Grid container justify="space-between" className={styles.promo}>
-        <Grid item>Mã giảm giá {promo.name}</Grid>
-        <Grid item>-{FormarCurrency(promo.total)}</Grid>
+        <Grid item>Mã giảm giá {promoName}</Grid>
+        <Grid item>-{FormarCurrency(totalDiscount)}</Grid>
       </Grid>
       <Grid container justify="flex-end" style={{ padding: ' 30px 45px' }} spacing={3}>
         <Grid item className={styles.price_label}>

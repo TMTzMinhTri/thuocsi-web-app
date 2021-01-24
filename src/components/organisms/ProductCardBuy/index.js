@@ -48,7 +48,6 @@ const ProductCardBuy = ({
       setValue(q);
     }
     if (response.errorCode === 'CART_MAXQUANTITY') {
-      toggleErrorQuantity();
       setValue(maxQuantity);
     }
   };
@@ -64,7 +63,7 @@ const ProductCardBuy = ({
   };
 
   const handler = useCallback(
-    debounce((val, updateType) => handleCart(val, updateType), 1500),
+    debounce((val, updateType) => handleCart(val, updateType), 500),
     [],
   );
 
@@ -161,7 +160,10 @@ const ProductCardBuy = ({
                   value={value}
                   name={name}
                 />
-                <PlusButton onClick={() => handleIncrease()} />
+                <PlusButton
+                  disabled={maxQuantity && value >= maxQuantity}
+                  onClick={() => handleIncrease()}
+                />
                 {cart && (
                   <IconButton onClick={removeProductOutCart}>
                     <Delete className={styles.icon} />

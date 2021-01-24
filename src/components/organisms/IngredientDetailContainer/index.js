@@ -45,17 +45,18 @@ const IngredientDetailContainer = ({ ingredient, products }) => {
         </div>
       </Grid>
       <Grid container spacing={1}>
-        {products.map((item) => (
-          <Grid key={uuidv4()} item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
-            <ProductCardVertical
-              key={`products-${item.sku}`}
-              product={item}
-              value={item.quantity || 0}
-              tag
-              category
-            />
-          </Grid>
-        ))}
+        {products &&
+          products.map((item) => (
+            <Grid key={uuidv4()} item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
+              <ProductCardVertical
+                key={`products-${item.sku}`}
+                product={item}
+                value={item.quantity || 0}
+                tag
+                category
+              />
+            </Grid>
+          ))}
       </Grid>
     </Grid>
   );

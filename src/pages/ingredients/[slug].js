@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Template, IngredientDetailContainer } from 'components';
+import Template from 'components/layout/Template';
+import IngredientDetailContainer from 'components/organisms/IngredientDetailContainer';
 import { ProductClient, doWithServerSide } from 'clients';
 import { Container } from '@material-ui/core';
 

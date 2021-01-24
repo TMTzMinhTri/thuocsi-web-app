@@ -18,3 +18,7 @@
   /* padding-bottom: 52px !important; */
   height: 100%;
 }
+
+.info_label span {
+  color: #919aa3 !important;
+}

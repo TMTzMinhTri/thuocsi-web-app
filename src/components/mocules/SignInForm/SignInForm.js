@@ -7,7 +7,7 @@ import {
 } from '@material-ui/icons';
 import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
 import { Button, Input, CheckBox } from 'components/atoms';
-import { FormDataUtils, NotifyUtils } from 'utils';
+import { FormDataUtils } from 'utils';
 import { i18n } from 'i18n-lib';
 
 const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClickSignUp }) => {
@@ -20,7 +20,6 @@ const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClick
     setErrorUserName(false);
     setErrorPassword(false);
     if (!data) {
-      NotifyUtils.error('Bạn chưa điền thông tin đang nhập');
       setErrorUserName(true);
       setErrorPassword(true);
       return false;
@@ -28,13 +27,11 @@ const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClick
 
     if (!data.username) {
       setErrorUserName(true);
-      NotifyUtils.error('Bạn chưa điền tên đăng nhập.');
       return false;
     }
 
     if (!data.password) {
       setErrorPassword(true);
-      NotifyUtils.error('Bạn chưa điền mật khẩu.');
       return false;
     }
     return true;

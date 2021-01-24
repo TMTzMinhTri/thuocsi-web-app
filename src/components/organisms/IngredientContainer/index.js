@@ -2,13 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { AlphabetFilter, IngredientList, FloatSearch } from 'components/mocules';
 import { StringUtils } from 'utils';
+import { debounceFunc500 } from 'utils/debounce';
 
 const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
 
 const searchString = (arr, str) => {
-  const result = arr.filter((el) => el.name.toUpperCase().indexOf(str.toUpperCase(), 0) > -1);
-  return result;
+  if (!str || str.length === 0) {
+    return arr;
+  }
+  const searchValue = str.toUpperCase();
+  const searchValueUnsigned = StringUtils.changeAlias(searchValue);
+  const isUnSigned = searchValue === searchValueUnsigned;
+
+  let rsUnSigned = arr.filter(
+    (el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1,
+  );
+
+  if (isUnSigned) {
+    return rsUnSigned;
+  }
+
+  const arrSearch = searchValue.split(' ');
+  for (let i = 0; i <= arrSearch.length; i += 1) {
+    const w = arrSearch[i];
+
+    if (w && w.length > 0 && StringUtils.changeAlias(w) !== w) {
+      rsUnSigned = rsUnSigned.filter((el) => el.name.toUpperCase().indexOf(w, 0) > -1);
+    }
+  }
+
+  return rsUnSigned;
 };
 
 const IngredientContainer = ({ ingredients }) => {
@@ -26,7 +50,6 @@ const IngredientContainer = ({ ingredients }) => {
 
   const handleChangeText = (e) => {
     const val = e.target.value;
-
     setFilter({ ...filter, text: val, word: WORD_DEFAULT, isByWord: false });
   };
 
@@ -45,10 +68,12 @@ const IngredientContainer = ({ ingredients }) => {
         setIngres(ws);
       }
     } else {
-      const searchs = searchString(ingredients, filter.text);
-      setIngres(searchs);
+      debounceFunc500(() => {
+        const searchs = searchString(ingredients, filter.text);
+        setIngres(searchs);
+      });
     }
-  }, [filter]);
+  }, [filter, ingredients]);
 
   return (
     <Grid>

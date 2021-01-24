@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductClient, doWithServerSide, isValid } from 'clients';
+import { ProductClient, doWithServerSide } from 'clients';
 import dynamic from 'next/dynamic';
 
 export async function getServerSideProps(ctx) {
@@ -10,20 +10,11 @@ export async function getServerSideProps(ctx) {
       ProductClient.getInfoBanner(),
       ProductClient.loadDataProductCollection(ctx, isTotal),
     ]);
-    if (!isValid(products)) {
-      return {
-        props: {
-          mostResearched,
-          infoBanner,
-          products: [],
-        },
-      };
-    }
     return {
       props: {
         mostResearched,
         infoBanner,
-        products: products.data,
+        products,
       },
     };
   });

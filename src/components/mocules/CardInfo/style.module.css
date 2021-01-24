@@ -64,6 +64,9 @@
   font-weight: 500;
   color: #919aa3;
 }
+.width100 {
+  width: 100%;
+}
 
 .btn {
   width: 100%;

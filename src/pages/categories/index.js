@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Template, ProductListing } from 'components';
+import Template from 'components/layout/Template';
+import ProductListing from 'components/organisms/ProductListing';
 import CatClient from 'clients/CatClient';
 
 export async function getServerSideProps(ctx) {

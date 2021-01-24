@@ -1,4 +1,5 @@
-import { Template, CustomerSupportContainer } from 'components';
+import Template from 'components/layout/Template';
+import CustomerSupportContainer from 'components/organisms/CustomerSupportContainer';
 import { Container } from '@material-ui/core';
 
 const CustomerSupport = () => {

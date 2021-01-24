@@ -8,7 +8,13 @@ import { useRouter } from 'next/router';
 import { ThemeProvider as StyledTheme } from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { AuthProvider, CartContextProvider, LoadingRoute, NotiContextProvider } from 'context';
+import {
+  AuthProvider,
+  CartContextProvider,
+  LoadingRoute,
+  NotiContextProvider,
+  ViewProvider,
+} from 'context';
 import Theme from 'components/layout/Theme';
 
 // Toast
@@ -43,7 +49,10 @@ const MyApp = (props) => {
   return (
     <>
       <Head>
-        <title>ThuocSi</title>
+        <title>Tra cứu và đặt thuốc giá sỉ nhanh tại thuocsi.vn</title>
+        <link rel="shortcut icon" href="images/favicon-16x16.png" size="16x16" />
+        <link rel="shortcut icon" href="images/favicon-32x32.png" size="32x32" />
+        <link rel="shortcut icon" href="images/favicon-96x96.png" size="96x96" />
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
 
@@ -57,7 +66,9 @@ const MyApp = (props) => {
               {/* Cart context provider */}
               <CartContextProvider>
                 <NotiContextProvider>
-                  <Component {...pageProps} />
+                  <ViewProvider>
+                    <Component {...pageProps} />
+                  </ViewProvider>
                 </NotiContextProvider>
                 <ToastContainer limit={6} />
               </CartContextProvider>

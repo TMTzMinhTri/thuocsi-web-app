@@ -1,0 +1,3 @@
+export const FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS';
+
+export default { FETCH_PRODUCT_SUCCESS };

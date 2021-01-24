@@ -1,4 +1,5 @@
 import { PRODUCT_API, CART_API } from 'constants/APIUri';
+import { convertArrayToMap } from 'utils/ArrUtils';
 import { GET, POST, PUT, isValid, isValidWithData } from './Clients';
 
 async function loadDataCart(ctx) {
@@ -18,29 +19,31 @@ async function updateCartItem(data) {
 }
 
 async function getInfoCartItem(data) {
-  const arraySku = [];
-  data.forEach((item) => {
-    arraySku.push(item.sku);
-  });
+  if (!data || data.length === 0) {
+    return [];
+  }
   const body = {
-    codes: arraySku,
+    codes: data.map((item) => item.sku),
   };
   const res = await POST({ url: PRODUCT_API.PRODUCT_LIST, body });
   if (!isValidWithData(res)) {
     return [];
   }
-  const result = [];
-  data.forEach((item, index) => {
-    result[index] = {
+
+  const mapProducts = convertArrayToMap(res.data, 'skuId');
+
+  return data.map((item) => {
+    const { imageUrls, unit, volume, name, maxQuantity, slug } = mapProducts.get(item.skuId) || {};
+    return {
       ...item,
-      imageUrls: res.data[index] && res.data[index].imageUrls && res.data[index].imageUrls,
-      unit: res.data[index] && res.data[index].unit && res.data[index].unit,
-      volume: res.data[index] && res.data[index].volume && res.data[index].volume,
-      name: res.data[index] && res.data[index].name && res.data[index].name,
-      maxQuantity: res.data[index] && res.data[index].maxQuantity && res.data[index].maxQuantity,
+      imageUrls,
+      unit,
+      volume,
+      name,
+      maxQuantity,
+      slug,
     };
   });
-  return result;
 }
 
 async function removeCartItem(data) {

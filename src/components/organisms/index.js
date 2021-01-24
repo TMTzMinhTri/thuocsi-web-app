@@ -17,7 +17,7 @@ export { default as ErrorQuantityCartModal } from './ErrorQuantityCartModal';
 export { default as RemoveProductModal } from './RemoveProductModal';
 export { default as ProductSliderSection } from './ProductSliderSection';
 export { default as AccountInfoFormContainer } from './AccountInfoContainer';
-export { default as OrderInfoFormContainer } from './OrderInfoContainer';
+export { default as OrderInfoContainer } from './OrderInfoContainer';
 export { default as ReferralList } from './ReferralList';
 export { default as PromoList } from './PromoList';
 export { default as ProductListing } from './ProductListing';

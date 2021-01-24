@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Template, PromoCodesContainer } from 'components';
+import Template from 'components/layout/Template';
+import PromoCodesContainer from 'components/organisms/PromoCodesContainer';
 import { PromoClient, doWithServerSide } from 'clients';
 import { withLogin } from 'context';
 import { PROMOTION_STATUS } from 'constants/Enums';

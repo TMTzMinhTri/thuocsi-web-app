@@ -1,32 +1,34 @@
-import React, { useState } from 'react';
-import { Box, Typography, TextareaAutosize, Button } from '@material-ui/core';
+import React, { useState, useCallback } from 'react';
+import { Box, Typography, TextareaAutosize } from '@material-ui/core';
 import Link from 'next/link';
 import { Star, Info } from '@material-ui/icons';
 import { NotifyUtils } from 'utils';
 import { CartClient, isValid } from 'clients';
 import { QUICK_ORDER } from 'constants/Paths';
 import { useCart } from 'context';
+import { debounceFunc500 } from 'utils/debounce';
 import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
-const ProductCartList = (props) => {
-  const { products } = props;
-  const { note: noteC, updateCart } = useCart();
+const ProductCartList = ({ products }) => {
+  const { note: noteC } = useCart();
   const [note, setNote] = useState(noteC);
 
-  const handleChangeNote = (e) => {
-    setNote(e.target.value);
-  };
-  const handleUpdateNote = async () => {
+  const handleUpdateNote = useCallback(async () => {
     try {
       const res = await CartClient.updateNote(note);
       if (!isValid(res)) throw new Error(res.messsage);
-      updateCart();
       NotifyUtils.success('Cập nhật ghi chú thành công');
     } catch (error) {
       NotifyUtils.error(error?.message || 'Cập nhật ghi chú thất bại');
     }
+  });
+
+  const handleChangeNote = (e) => {
+    setNote(e.target.value);
+    debounceFunc500(handleUpdateNote);
   };
+
   return (
     <>
       <Box className={styles.instruction_text}>
@@ -37,9 +39,14 @@ const ProductCartList = (props) => {
         </Typography>
       </Box>
       <Box mb={2}>
-        {products.map((item) => (
-          <ProductCart key={`product-cart-${item.sku}`} product={item} name={`cart-${item.sku}`} />
-        ))}
+        {products &&
+          products.map((item) => (
+            <ProductCart
+              key={`product-cart-${item.sku}`}
+              product={item}
+              name={`cart-${item.sku}`}
+            />
+          ))}
       </Box>
       <Box className={styles.instruction_text}>
         <Info className={styles.info_icon} />
@@ -67,9 +74,6 @@ const ProductCartList = (props) => {
           value={note}
           onChange={handleChangeNote}
         />
-        <Box mt={2} display="flex" justifyContent="flex-end">
-          <Button className={styles.btn} onClick={handleUpdateNote}>Cập nhật ghi chú</Button>
-        </Box>
       </Box>
     </>
   );

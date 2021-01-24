@@ -36,3 +36,8 @@
 .print_invoice {
   width: 100%;
 }
+
+.text_bill {
+  color: #919aa3 !important;
+  font-size: 1rem;
+}

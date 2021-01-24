@@ -19,6 +19,7 @@ const DeleteIconButton = (props) => (
     <DeleteIcon {...props} />
   </IconButton>
 );
+const handleToCheckout = () => {};
 
 const PaymentButton = ({ user }) => (
   <>
@@ -28,9 +29,16 @@ const PaymentButton = ({ user }) => (
         840 để kích hoạt
       </Alert>
     )}
-    <Button disabled={!user.isActive} btnType="payment" className="payment_button">
-      Tiếp tục thanh toán
-    </Button>
+    <LinkComp href="/checkout" className={styles.width100}>
+      <Button
+        disabled={!user.isActive}
+        btnType="payment"
+        className="payment_button"
+        onClick={handleToCheckout}
+      >
+        Tiếp tục thanh toán
+      </Button>
+    </LinkComp>
   </>
 );
 
@@ -89,7 +97,6 @@ const CardInfo = ({ cart, promo, className, user }) => {
           container
           item
           direction="row"
-          justifyContent="center"
         >
           <LocalOffer className={styles.icon_promo} />
           <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
