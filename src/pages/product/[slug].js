@@ -29,7 +29,7 @@ import {
 } from 'components';
 import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide } from 'clients';
-import { useCart } from 'context';
+import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
 
@@ -64,6 +64,8 @@ export default function ProductDetail({ product, isAuthenticated }) {
   const [quantity, setQuantity] = useState(product.quantity || 0);
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
+
+  const { toggleLogin } = useAuth();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -241,7 +243,11 @@ export default function ProductDetail({ product, isAuthenticated }) {
                       </div>
                     </>
                   ) : (
-                    <CustomButton backgroundColor="#e1a006" className={styles.signin_btn}>
+                    <CustomButton
+                      backgroundColor="#e1a006"
+                      className={styles.signin_btn}
+                      onClick={toggleLogin}
+                    >
                       Đăng nhập để xem giá
                     </CustomButton>
                   )}
