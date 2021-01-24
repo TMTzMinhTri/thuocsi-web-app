@@ -8,18 +8,20 @@ import { changeAlias } from 'utils/StringUtils';
 import { DAY_SECONDS } from 'utils/DateTimeUtils';
 
 const convertIngredients = (ingredients = []) =>
-  ingredients.map(({ name, slug }) => {
-    const unsignedKey = changeAlias(name);
-    let search = name;
-    if (unsignedKey !== name) {
-      search += ` ${unsignedKey}`;
-    }
-    return {
-      search,
-      name,
-      slug,
-    };
-  });
+  ingredients
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map(({ name, slug }) => {
+      const unsignedKey = changeAlias(name);
+      let search = name;
+      if (unsignedKey !== name) {
+        search += ` ${unsignedKey}`;
+      }
+      return {
+        search,
+        name,
+        slug,
+      };
+    });
 
 export async function getStaticProps(ctx) {
   const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
@@ -45,7 +47,7 @@ export async function getStaticProps(ctx) {
 //   });
 // }
 
-const Ingredients = ({ ingredients = [], isMobile }) => {
+const Ingredients = ({ ingredients = [], isMobile = false }) => {
   const title = 'Tất cả hoạt chất – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const pageName = 'ingredients';
   return (
