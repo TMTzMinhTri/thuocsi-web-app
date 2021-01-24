@@ -142,7 +142,8 @@ async function loadDataProduct(ctx, isTotal) {
 }
 // TODO  @dat.le
 async function loadDataIngredient(ctx) {
-  const res = await GET({ url: PRODUCT_API.INGREDIENT_LIST, ctx, isBasic: true });
+  const params = { limit: 0 };
+  const res = await GET({ url: PRODUCT_API.INGREDIENT_LIST, ctx, isBasic: true, params });
   if (!isValid(res)) {
     return [];
   }

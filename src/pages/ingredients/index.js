@@ -2,7 +2,7 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import IngredientContainer from 'components/organisms/IngredientContainer';
-import { ProductClient, doWithServerSide } from 'clients';
+import { ProductClient } from 'clients';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
 
@@ -16,16 +16,25 @@ const convertIngredients = (ingredients = []) =>
     };
   });
 
-export async function getServerSideProps(ctx) {
-  return doWithServerSide(ctx, async () => {
-    const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
-    return {
-      props: {
-        ingredients: convertIngredients(ingredients),
-      },
-    };
-  });
+export async function getStaticProps(ctx) {
+  const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
+  return {
+    props: {
+      ingredients: convertIngredients(ingredients),
+    },
+  };
 }
+
+// export async function getServerSideProps(ctx) {
+//   return doWithServerSide(ctx, async () => {
+//     const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
+//     return {
+//       props: {
+//         ingredients: convertIngredients(ingredients),
+//       },
+//     };
+//   });
+// }
 
 const Ingredients = ({ ingredients = [], isMobile }) => {
   const title = 'Tất cả hoạt chất – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
