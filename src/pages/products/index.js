@@ -44,6 +44,7 @@ export default function Products({
   sortBy = '',
   slug = '',
   isMobile,
+  isAuthenticated,
 }) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'products';
@@ -69,6 +70,7 @@ export default function Products({
         slug={slug}
         tags={tags}
         name={namePage(current_tab)}
+        isAuthenticated={isAuthenticated}
       />
     </Template>
   );

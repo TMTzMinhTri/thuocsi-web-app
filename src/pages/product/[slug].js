@@ -289,15 +289,16 @@ export default function ProductDetail({ product, isAuthenticated }) {
 
               <div className={styles.mb_3}>
                 <div className={styles.product_info_label}>Nhóm thuốc</div>
-                {category.map((item) => (
-                  <a
-                    key={uuidv4()}
-                    className={styles.text_capitalize}
-                    href="/categories/giam-dau-ha-sot"
-                  >
-                    {item.name}
-                  </a>
-                ))}
+                {category &&
+                  category.map((item) => (
+                    <a
+                      key={uuidv4()}
+                      className={styles.text_capitalize}
+                      href="/categories/giam-dau-ha-sot"
+                    >
+                      {item.name}
+                    </a>
+                  ))}
               </div>
 
               <div className={styles.mb_3}>

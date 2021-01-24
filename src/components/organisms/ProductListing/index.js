@@ -1,7 +1,4 @@
-/* eslint-disable operator-linebreak */
 /* eslint-disable camelcase */
-// eslint-disable-next-line operator-linebreak
-// eslint-disable-next-line camelcase
 import React, { useState, useEffect } from 'react';
 import {
   NativeSelect,
@@ -20,8 +17,9 @@ import { Pagination } from '@material-ui/lab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
+import { v4 as uuidv4 } from 'uuid';
 import { SearchResultText } from 'components/mocules';
-import { SORT_PRODUCT, PAGE_SIZE } from 'constants/data';
+import { SORT_PRODUCT, SORT_PRODUCT_NOT_LOGIN, PAGE_SIZE } from 'constants/data';
 import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
 import ProductCardVertical from '../ProductCardVertical';
 
@@ -39,12 +37,15 @@ export default function ProductListing({
   catName = '',
   name = '',
   total,
+  isAuthenticated = false,
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
   const pages = Math.ceil(total / PAGE_SIZE);
   const router = useRouter();
   const pathName = `/${catName}/${slug}`;
+
+  const SORT_LIST = isAuthenticated ? SORT_PRODUCT : SORT_PRODUCT_NOT_LOGIN;
 
   useEffect(() => {
     setIsLoading(false);
@@ -115,7 +116,7 @@ export default function ProductListing({
                 IconComponent={() => <ExpandMoreIcon className={styles.selectIcon} />}
                 onChange={handleChangeSort}
               >
-                {SORT_PRODUCT.map((item) => (
+                {SORT_LIST.map((item) => (
                   <option key={item.value} value={item.value}>
                     {item.label}
                   </option>
@@ -220,6 +221,7 @@ export default function ProductListing({
                 {tags &&
                   tags.map((item) => (
                     <Link
+                      key={`tags-${item.slug}`}
                       href={{
                         pathname: pathName,
                         query: { ...getTabQuery(), current_tab: item.slug },
@@ -244,7 +246,7 @@ export default function ProductListing({
               </div>
             </div>
             {products && products.length > 0 ? (
-              <main className={styles.product_listing}>
+              <main className={styles.product_listing} key={uuidv4()}>
                 <div className={styles.pagging}>
                   <Pagination
                     count={pages}
@@ -256,7 +258,15 @@ export default function ProductListing({
                 <div className={styles.product_grid_wrapper}>
                   <Grid container spacing={1}>
                     {products.map((item) => (
-                      <Grid item xl={2} lg={3} md={4} xs={6} className={styles.customGrid}>
+                      <Grid
+                        item
+                        xl={2}
+                        lg={3}
+                        md={4}
+                        xs={6}
+                        className={styles.customGrid}
+                        key={uuidv4()}
+                      >
                         <ProductCardVertical
                           key={`products-${item.sku}`}
                           product={item}

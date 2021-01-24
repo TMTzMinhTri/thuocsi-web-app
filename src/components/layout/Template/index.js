@@ -25,7 +25,7 @@ export default function Template({ title, children, isMobile, pageName }) {
         <title>{title}</title>
       </Head>
       <div id="main">
-        {isMobile ? <HeaderMobile title="Trang chủ" /> : <Header />}
+        {isMobile ? <HeaderMobile title={title} /> : <Header />}
         {!isMobile && <NavBar pageName={pageName} />}
         {children}
         {isMobile ? <FooterMobile /> : <Footer />}
