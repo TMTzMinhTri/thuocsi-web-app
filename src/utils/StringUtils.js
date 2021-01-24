@@ -13,7 +13,7 @@ export const hashCode = (text) => {
 };
 export const encodeUrl = (url) => encodeURIComponent(url);
 
-const changeAlias = (alias) => {
+export const changeAlias = (alias) => {
   let str = alias;
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
   str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
@@ -32,5 +32,4 @@ const changeAlias = (alias) => {
   str = str.trim();
   return str;
 };
-
 export default { hashCode, changeAlias, encodeUrl };

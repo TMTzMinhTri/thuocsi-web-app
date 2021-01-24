@@ -13,7 +13,7 @@ import validateForm from './validateForm';
 const heads = ['Sản phẩm hóa đơn nhanh', 'Giá', 'Số lượng', 'Tổng cộng'];
 
 const StyledCompleteButton = styled(Button)`
-  color: #fff!important;
+  color: #fff !important;
   background-color: #00b46e !important;
   border-color: #00b46e !important;
   font-weight: 500 !important;
@@ -82,19 +82,35 @@ const PrintInvoiceModal = memo((props) => {
           <Divider />
           <Grid container>
             <InfoFormControl xs={12} label="Tên nhà thuốc/phòng khám" htmlFor="address" isRequired>
-              <InfoInput id="businessName" value={val.businessName} onChange={(e) => handleChangeVal('businessName', e.target.value)} />
+              <InfoInput
+                id="businessName"
+                value={val.businessName}
+                onChange={(e) => handleChangeVal('businessName', e.target.value)}
+              />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Mã số thuế" htmlFor="address" isRequired>
-              <InfoInput id="mst" value={val.mst} onChange={(e) => handleChangeVal('mst', e.target.value)} />
+              <InfoInput
+                id="mst"
+                value={val.mst}
+                onChange={(e) => handleChangeVal('mst', e.target.value)}
+              />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Email" htmlFor="address" isRequired>
-              <InfoInput id="email" value={val.email} onChange={(e) => handleChangeVal('email', e.target.value)} />
+              <InfoInput
+                id="email"
+                value={val.email}
+                onChange={(e) => handleChangeVal('email', e.target.value)}
+              />
             </InfoFormControl>
 
             <InfoFormControl xs={12} label="Địa chỉ nhận hoá đơn" htmlFor="address" isRequired>
-              <InfoInput id="address" value={val.address} onChange={(e) => handleChangeVal('address', e.target.value)} />
+              <InfoInput
+                id="address"
+                value={val.address}
+                onChange={(e) => handleChangeVal('address', e.target.value)}
+              />
             </InfoFormControl>
           </Grid>
           <GroupAddressSelect
@@ -107,7 +123,7 @@ const PrintInvoiceModal = memo((props) => {
             idWard="ward"
           />
           <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
-            { products.map((product) => {
+            {products.map((product) => {
               const { price, quantity, totalPrice } = product;
               const { name, slug } = product.productInfo;
               return (
@@ -121,15 +137,9 @@ const PrintInvoiceModal = memo((props) => {
                       {name}
                     </LinkComp>
                   </TableCell>
-                  <TableCell align="left">
-                    {FormarCurrency(price)}
-                  </TableCell>
-                  <TableCell align="left">
-                    {quantity}
-                  </TableCell>
-                  <TableCell align="left">
-                    {FormarCurrency(totalPrice)}
-                  </TableCell>
+                  <TableCell align="left">{FormarCurrency(price)}</TableCell>
+                  <TableCell align="left">{quantity}</TableCell>
+                  <TableCell align="left">{FormarCurrency(totalPrice)}</TableCell>
                 </TableRow>
               );
             })}

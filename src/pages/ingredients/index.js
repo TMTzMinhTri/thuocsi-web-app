@@ -4,13 +4,24 @@ import Template from 'components/layout/Template';
 import IngredientContainer from 'components/organisms/IngredientContainer';
 import { ProductClient, doWithServerSide } from 'clients';
 import { Container } from '@material-ui/core';
+import { changeAlias } from 'utils/StringUtils';
+
+const convertIngredients = (ingredients = []) =>
+  ingredients.map(({ name, slug }) => {
+    const unsignedKey = changeAlias(name);
+    return {
+      unsignedKey,
+      name,
+      slug,
+    };
+  });
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
     return {
       props: {
-        ingredients,
+        ingredients: convertIngredients(ingredients),
       },
     };
   });

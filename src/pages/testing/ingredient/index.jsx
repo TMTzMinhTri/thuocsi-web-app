@@ -1,4 +1,4 @@
-import { IngredientContainer } from 'components/organisms';
+import IngredientContainer from 'components/organisms/IngredientContainer';
 import { Container } from '@material-ui/core';
 import { ProductClient, doWithServerSide } from 'clients';
 
