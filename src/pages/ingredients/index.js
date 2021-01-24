@@ -6,7 +6,7 @@ import { ProductClient } from 'clients';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
 import { DAY_SECONDS } from 'utils/DateTimeUtils';
-import { useView } from 'context';
+import { useIsMobile } from 'hooks';
 
 export async function getStaticProps(ctx) {
   const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
@@ -29,10 +29,9 @@ export async function getStaticProps(ctx) {
 const Ingredients = ({ ingredients = [] }) => {
   const title = 'Tất cả hoạt chất – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const pageName = 'ingredients';
-  const { width } = useView();
-  const isMobile = width < 620;
+  const { isMobile } = useIsMobile();
   return (
-    <Template title={title} const={isMobile} pageName={pageName}>
+    <Template title={title} isMobile={isMobile()} pageName={pageName}>
       <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
         <Container maxWidth="lg">
           <IngredientContainer ingredients={ingredients} />
