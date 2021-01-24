@@ -7,8 +7,22 @@ const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
 
 const searchString = (arr, str) => {
-  const result = arr.filter((el) => el.search.toUpperCase().indexOf(str.toUpperCase(), 0) > -1);
-  return result;
+  const searchValue = str.toUpperCase();
+  const searchValueUnsigned = StringUtils.changeAlias(searchValue);
+  const isSigned = searchValue === searchValueUnsigned;
+
+  if (!isSigned) {
+    return arr.filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1);
+  }
+
+  const resultUnSigned = arr.filter(
+    (el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1,
+  );
+
+  const resultSigned = arr
+    .filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) === -1)
+    .filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1);
+  return [...resultSigned, ...resultUnSigned];
 };
 
 const IngredientContainer = ({ ingredients }) => {

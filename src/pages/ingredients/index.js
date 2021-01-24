@@ -10,18 +10,11 @@ import { DAY_SECONDS } from 'utils/DateTimeUtils';
 const convertIngredients = (ingredients = []) =>
   ingredients
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map(({ name, slug }) => {
-      const unsignedKey = changeAlias(name);
-      let search = name;
-      if (unsignedKey !== name) {
-        search += ` ${unsignedKey}`;
-      }
-      return {
-        search,
-        name,
-        slug,
-      };
-    });
+    .map(({ name, slug }) => ({
+      unsignedKey: changeAlias(name),
+      name,
+      slug,
+    }));
 
 export async function getStaticProps(ctx) {
   const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
