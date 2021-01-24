@@ -234,7 +234,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
                           value={quantity}
                         />
                         <PlusButton
-                          disabled={quantity >= maxQuantity}
+                          disabled={maxQuantity && quantity >= maxQuantity}
                           className={styles.plus}
                           onClick={() => handleIncrease()}
                         />

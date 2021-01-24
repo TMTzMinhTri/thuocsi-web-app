@@ -160,7 +160,10 @@ const ProductCardBuy = ({
                   value={value}
                   name={name}
                 />
-                <PlusButton disabled={value >= maxQuantity} onClick={() => handleIncrease()} />
+                <PlusButton
+                  disabled={maxQuantity && value >= maxQuantity}
+                  onClick={() => handleIncrease()}
+                />
                 {cart && (
                   <IconButton onClick={removeProductOutCart}>
                     <Delete className={styles.icon} />
