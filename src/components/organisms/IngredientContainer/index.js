@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { AlphabetFilter, IngredientList, FloatSearch } from 'components/mocules';
 import { StringUtils } from 'utils';
+import { debounceFunc500 } from 'utils/debounce';
 
 const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
 
 const searchString = (arr, str) => {
+  if (!str || str.length === 0) {
+    return [];
+  }
   const searchValue = str.toUpperCase();
   const searchValueUnsigned = StringUtils.changeAlias(searchValue);
   const isUnSigned = searchValue === searchValueUnsigned;
@@ -15,14 +19,24 @@ const searchString = (arr, str) => {
     return arr.filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1);
   }
 
-  const resultSigned = arr.filter(
-    (el) => el.unsignedKey.toUpperCase().indexOf(resultSigned, 0) > -1,
-  );
+  const resultSigned = arr.filter((el) => el.name.toUpperCase().indexOf(searchValue, 0) > -1);
 
-  const resultUnSigned = arr
-    .filter((el) => el.unsignedKey.toUpperCase().indexOf(resultSigned, 0) === -1)
+  const arrWordSearch = str.split(' ');
+
+  let rsUnSigned = arr
+    .filter((el) => el.name.toUpperCase().indexOf(searchValue, 0) === -1)
     .filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1);
-  return [...resultSigned, ...resultUnSigned];
+
+  const arrSearch = searchValue.split(' ');
+  for (let i = 0; i <= arrWordSearch.length; i += 1) {
+    const w = arrSearch[i];
+
+    if (w && w.length > 0 && StringUtils.changeAlias(w) !== w) {
+      rsUnSigned = rsUnSigned.filter((el) => el.name.toUpperCase().indexOf(w, 0) > -1);
+    }
+  }
+
+  return [...resultSigned, ...rsUnSigned];
 };
 
 const IngredientContainer = ({ ingredients }) => {
@@ -58,8 +72,10 @@ const IngredientContainer = ({ ingredients }) => {
         setIngres(ws);
       }
     } else {
-      const searchs = searchString(ingredients, filter.text);
-      setIngres(searchs);
+      debounceFunc500(() => {
+        const searchs = searchString(ingredients, filter.text);
+        setIngres(searchs);
+      });
     }
   }, [filter, ingredients]);
 

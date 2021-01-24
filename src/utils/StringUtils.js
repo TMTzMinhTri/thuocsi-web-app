@@ -14,6 +14,9 @@ export const hashCode = (text) => {
 export const encodeUrl = (url) => encodeURIComponent(url);
 
 export const changeAlias = (alias) => {
+  if (!alias || alias.length === 0) {
+    return '';
+  }
   let str = alias;
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
   str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
