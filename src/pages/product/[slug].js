@@ -47,7 +47,7 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function ProductDetail({ product, isAuthenticated }) {
-  const title = product.name;
+  const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
   const {
     name,

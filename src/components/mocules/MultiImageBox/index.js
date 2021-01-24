@@ -50,38 +50,42 @@ const MultiImageBox = ({ loading, images, imageType }) => {
             </>
           )}
         </Grid>
-        {images &&
-          images.map((src, index) => (
-            <Grid
-              item
-              spacing={1}
-              container
-              direction="row"
-              classes={{ root: styles.thumbnail }}
-              key={uuidv4()}
-            >
-              <Grid item key={uuidv4()}>
-                {loading ? (
-                  <Skeleton variant="rect" classes={{ root: styles.thumbnailImage }} />
-                ) : (
-                  <ButtonBase
-                    classes={{ root: styles.imgButtonBase }}
-                    onClick={() => handleImageSelection(index)}
-                  >
-                    <Image
-                      width="100px"
-                      height="100px"
-                      alt={src ? `${imageType}-auxiliary-image-${index}` : undefined}
-                      className={clsx(styles.thumbnailImage, {
-                        [styles.thumbnailSelected]: index === selectedImage,
-                      })}
-                      src={src}
-                    />
-                  </ButtonBase>
-                )}
+        <Grid>
+          {images &&
+            images.map((src, index) => (
+              <Grid
+                item
+                spacing={1}
+                container
+                direction="column"
+                classes={{ root: styles.thumbnail }}
+                key={uuidv4()}
+                alignItems="flex-start"
+                alignContent="flex-start"
+              >
+                <Grid item key={uuidv4()}>
+                  {loading ? (
+                    <Skeleton variant="rect" classes={{ root: styles.thumbnailImage }} />
+                  ) : (
+                    <ButtonBase
+                      classes={{ root: styles.imgButtonBase }}
+                      onClick={() => handleImageSelection(index)}
+                    >
+                      <Image
+                        width="70px"
+                        height="70px"
+                        alt={src ? `${imageType}-auxiliary-image-${index}` : undefined}
+                        className={clsx(styles.thumbnailImage, {
+                          [styles.thumbnailSelected]: index === selectedImage,
+                        })}
+                        src={src}
+                      />
+                    </ButtonBase>
+                  )}
+                </Grid>
               </Grid>
-            </Grid>
-          ))}
+            ))}
+        </Grid>
       </Grid>
 
       {images && (
