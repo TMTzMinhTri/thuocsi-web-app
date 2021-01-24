@@ -49,7 +49,17 @@ export async function getServerSideProps(ctx) {
 export default function ProductDetail({ product, isAuthenticated }) {
   const title = product.name;
   const [anchorEl, setAnchorEl] = useState(null);
-  const { name, price, unit, volume, ingredient = [], madeBy, category, tags } = product;
+  const {
+    name,
+    price,
+    unit,
+    volume,
+    ingredient = [],
+    madeBy,
+    category,
+    tags,
+    maxQuantity,
+  } = product;
   const [value, setValue] = React.useState('1');
   const [quantity, setQuantity] = useState(product.quantity || 0);
   const { updateCartItem, removeCartItem } = useCart();
@@ -73,7 +83,6 @@ export default function ProductDetail({ product, isAuthenticated }) {
       setQuantity(q);
     }
     if (response.errorCode === 'CART_MAXQUANTITY') {
-      toggleErrorQuantity();
       setQuantity(product.maxQuantity);
     }
   };
@@ -224,7 +233,11 @@ export default function ProductDetail({ product, isAuthenticated }) {
                           onChange={handleInputChange}
                           value={quantity}
                         />
-                        <PlusButton className={styles.plus} onClick={() => handleIncrease()} />
+                        <PlusButton
+                          disabled={quantity >= maxQuantity}
+                          className={styles.plus}
+                          onClick={() => handleIncrease()}
+                        />
                       </div>
                     </>
                   ) : (
