@@ -121,11 +121,7 @@ export const CartContextProvider = ({ children }) => {
     ...state,
   };
 
-  return (
-    <CartContext.Provider value={contextValues}>
-      { children }
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={contextValues}>{children}</CartContext.Provider>;
 };
 
 export const useCart = () => useContext(CartContext);

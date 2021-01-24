@@ -1,15 +1,16 @@
 const Storage = (cartItems) => {
   // eslint-disable-next-line no-unused-expressions
-  typeof localStorage !== 'undefined'
-    && localStorage.setItem('cartThuocSi', JSON.stringify(cartItems.length > 0 ? cartItems : []));
+  typeof localStorage !== 'undefined' &&
+    localStorage.setItem('cartThuocSi', JSON.stringify(cartItems.length > 0 ? cartItems : []));
 };
 
 export const sumItems = (cartItems) => {
   Storage(cartItems);
   const itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
-  // eslint-disable-next-line max-len
-  const total = cartItems
-    .reduce((totalItem, product) => totalItem + product.price * product.quantity, 0);
+  const total = cartItems.reduce(
+    (totalItem, product) => totalItem + product.price * product.quantity,
+    0,
+  );
   return { itemCount, total };
 };
 
@@ -54,17 +55,13 @@ export const CartReducer = (state, action) => {
         cartItems: [...cartItems.filter((item) => item.sku !== action.payload.sku)],
       };
     case 'INCREASE':
-      // eslint-disable-next-line no-param-reassign
       if (!cartItems.find((item) => item.sku === action.payload.sku)) {
         cartItems.push({
           ...action.payload,
           quantity: 1,
         });
       } else {
-        // eslint-disable-next-line no-param-reassign
-        cartItems[
-          cartItems.findIndex((item) => item.sku === action.payload.sku)
-        ].quantity += 1;
+        cartItems[cartItems.findIndex((item) => item.sku === action.payload.sku)].quantity += 1;
       }
       return {
         ...state,
@@ -72,14 +69,12 @@ export const CartReducer = (state, action) => {
         cartItems: [...cartItems],
       };
     case 'INCREASE_BY':
-      // eslint-disable-next-line no-param-reassign
       if (!cartItems.find((item) => item.skuId === action.payload.product.skuId)) {
         cartItems.push({
           ...action.payload.product,
           quantity: action.payload.q,
         });
       } else {
-        // eslint-disable-next-line no-param-reassign
         cartItems[
           cartItems.findIndex((item) => item.skuId === action.payload.product.skuId)
         ].quantity = action.payload.q;
@@ -97,13 +92,11 @@ export const CartReducer = (state, action) => {
       }
       return {
         ...state,
-        // eslint-disable-next-line max-len
         ...sumItems(
           currentItem && currentItem.quantity !== 0
             ? cartItems
             : cartItems.filter((item) => item.sku !== action.payload.sku),
         ),
-        // eslint-disable-next-line max-len
         cartItems:
           currentItem && currentItem.quantity !== 0
             ? [...cartItems]
@@ -127,9 +120,8 @@ export const CartReducer = (state, action) => {
       };
     case 'REMOVE_IMPORTANT':
       // eslint-disable-next-line no-param-reassign
-      delete state.cartItems[
-        state.cartItems.findIndex((item) => item.sku === action.payload.sku)
-      ].important;
+      delete state.cartItems[state.cartItems.findIndex((item) => item.sku === action.payload.sku)]
+        .important;
       return {
         ...state,
         ...sumItems(state.cartItems),
