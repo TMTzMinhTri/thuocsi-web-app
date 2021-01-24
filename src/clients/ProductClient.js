@@ -1,4 +1,4 @@
-import GetQuantityProductFromCart from 'utils/GetQuantityProductFromCart';
+import { GetQuantityProductFromCart } from 'utils';
 import { PRODUCT_API } from 'constants/APIUri';
 import { PAGE_SIZE } from 'constants/data';
 import { GET, isValid } from './Clients';
@@ -56,7 +56,7 @@ async function loadDataProductDetail(ctx) {
     for (const item of cart[0].cartItems) {
       cartObject[item.sku] = item;
     }
-    productListWithQuantityInCart = GetQuantityProductFromCart(result, cartObject);
+    productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(result, cartObject);
   } else {
     productListWithQuantityInCart = result || [];
   }
@@ -77,7 +77,27 @@ async function loadDataProductCollection(ctx) {
 
   const result = await GET({ url, ctx, isBasic: true });
 
-  return result;
+  let cart = {};
+  let productListWithQuantityInCart = {};
+  try {
+    cart = await CartClient.loadDataCart(ctx);
+  } catch (error) {
+    cart.status = 'ERROR';
+  }
+  const cartObject = {};
+  // eslint-disable-next-line no-restricted-syntax
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of cart[0].cartItems) {
+      cartObject[item.sku] = item;
+    }
+
+    productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity2(result, cartObject);
+  } else {
+    productListWithQuantityInCart = result || [];
+  }
+
+  return [productListWithQuantityInCart];
 }
 
 async function loadDataProduct(ctx, isTotal) {
@@ -113,7 +133,7 @@ async function loadDataProduct(ctx, isTotal) {
     for (const item of cart[0].cartItems) {
       cartObject[item.sku] = item;
     }
-    productListWithQuantityInCart = GetQuantityProductFromCart(result, cartObject);
+    productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(result, cartObject);
   } else {
     productListWithQuantityInCart = result || [];
   }
