@@ -29,24 +29,9 @@ export async function getStaticProps(ctx) {
     props: {
       ingredients: convertIngredients(ingredients),
     },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every second
-    revalidate: DAY_SECONDS, // In seconds
+    revalidate: DAY_SECONDS,
   };
 }
-
-// export async function getServerSideProps(ctx) {
-//   return doWithServerSide(ctx, async () => {
-//     const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
-//     return {
-//       props: {
-//         ingredients: convertIngredients(ingredients),
-//       },
-//     };
-//   });
-// }
-
 const Ingredients = ({ ingredients = [], isMobile = false }) => {
   const title = 'Tất cả hoạt chất – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const pageName = 'ingredients';
