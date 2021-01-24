@@ -9,26 +9,22 @@ const WORD_DEFAULT = '#';
 
 const searchString = (arr, str) => {
   if (!str || str.length === 0) {
-    return [];
+    return arr;
   }
   const searchValue = str.toUpperCase();
   const searchValueUnsigned = StringUtils.changeAlias(searchValue);
   const isUnSigned = searchValue === searchValueUnsigned;
 
+  let rsUnSigned = arr.filter(
+    (el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1,
+  );
+
   if (isUnSigned) {
-    return arr.filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1);
+    return rsUnSigned;
   }
 
-  const resultSigned = arr.filter((el) => el.name.toUpperCase().indexOf(searchValue, 0) > -1);
-
-  const arrWordSearch = str.split(' ');
-
-  let rsUnSigned = arr
-    .filter((el) => el.name.toUpperCase().indexOf(searchValue, 0) === -1)
-    .filter((el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1);
-
   const arrSearch = searchValue.split(' ');
-  for (let i = 0; i <= arrWordSearch.length; i += 1) {
+  for (let i = 0; i <= arrSearch.length; i += 1) {
     const w = arrSearch[i];
 
     if (w && w.length > 0 && StringUtils.changeAlias(w) !== w) {
@@ -36,7 +32,7 @@ const searchString = (arr, str) => {
     }
   }
 
-  return [...resultSigned, ...rsUnSigned];
+  return rsUnSigned;
 };
 
 const IngredientContainer = ({ ingredients }) => {
