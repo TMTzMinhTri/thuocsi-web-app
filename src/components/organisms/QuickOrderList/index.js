@@ -36,20 +36,22 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
   };
 
   const handleSearchbox = (e) => {
-    setKeyword(e.target.value);
+    const { value } = e.target;
+    setKeyword(value);
+    setNumPage(1);
     const fetchData = async () => {
-      const res = await SearchClient.searchProducts(e.target.value, numPage);
+      const res = await SearchClient.searchProducts(value, numPage);
       if (res.length !== 0) {
-        setNumPage(1);
         setTotalVal(res.total);
         setSearchProduct(res.data);
       } else {
-        setNumPage(1);
-        setSearchProduct(false);
+        setSearchProduct([]);
       }
     };
-    if (e.target.value.length === 0) {
-      debounceFunc500(() => setSearchProduct(products));
+    if (value.length === 0) {
+      setSearchProduct(products);
+      setTotalVal(total);
+      setNumPage(page);
     } else {
       debounceFunc500(fetchData);
     }
@@ -71,7 +73,8 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
           <div className={styles.pagging}>
             <Pagination
               count={pages}
-              defaultPage={numPage}
+              defaultPage={1}
+              page={numPage}
               boundaryCount={2}
               onChange={handleChangePage}
             />
