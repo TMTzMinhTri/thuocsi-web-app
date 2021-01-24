@@ -63,7 +63,7 @@ const ProductCardBuy = ({
   };
 
   const handler = useCallback(
-    debounce((val, updateType) => handleCart(val, updateType), 1500),
+    debounce((val, updateType) => handleCart(val, updateType), 500),
     [],
   );
 

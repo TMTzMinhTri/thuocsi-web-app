@@ -6,7 +6,7 @@ import { NotifyUtils } from 'utils';
 import { CartClient, isValid } from 'clients';
 import { QUICK_ORDER } from 'constants/Paths';
 import { useCart } from 'context';
-import { debounceFunc1000 } from 'utils/debounce';
+import { debounceFunc500 } from 'utils/debounce';
 import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
@@ -26,7 +26,7 @@ const ProductCartList = ({ products }) => {
 
   const handleChangeNote = (e) => {
     setNote(e.target.value);
-    debounceFunc1000(handleUpdateNote);
+    debounceFunc500(handleUpdateNote);
   };
 
   return (
