@@ -1,7 +1,7 @@
 import { GetQuantityProductFromCart } from 'utils';
 import { PRODUCT_API } from 'constants/APIUri';
 import { PAGE_SIZE } from 'constants/data';
-import { GET, GET_ALL, isValid } from './Clients';
+import { GET, isValid } from './Clients';
 import CartClient from './CartClient';
 
 async function loadDataMostSearch(ctx) {
@@ -115,8 +115,7 @@ async function loadDataProduct(ctx, isTotal) {
   };
 
   const result = await GET({ url, ctx, params, isBasic: true });
-
-  if (!isValid(result)) return [];
+  if (!isValid(result)) return result;
 
   let cart = {};
   let productListWithQuantityInCart = {};
@@ -133,38 +132,10 @@ async function loadDataProduct(ctx, isTotal) {
     }
     productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(result, cartObject);
   } else {
-    productListWithQuantityInCart = result.data || [];
+    productListWithQuantityInCart = result;
   }
 
   return productListWithQuantityInCart;
-}
-async function loadDataIngredient(ctx) {
-  const res = await GET_ALL({ url: PRODUCT_API.INGREDIENT_LIST, ctx, isBasic: true });
-  if (!isValid(res)) {
-    return [];
-  }
-  return res.data;
-}
-
-async function getIngredientBySlug(ctx, slug) {
-  const url = `${PRODUCT_API.INGREDIENT}/info`;
-  const params = {
-    q: slug,
-  };
-  const res = await GET({ url, params, ctx, isBasic: true });
-  if (!isValid(res)) {
-    return [];
-  }
-  return res.data;
-}
-
-async function getProductsBySlug(ctx, slug) {
-  const url = `/ingredients/${slug}/products`;
-  const res = await GET({ url, ctx, mock: true });
-  if (!isValid(res)) {
-    return [];
-  }
-  return res.data;
 }
 
 // TODO  @dat.le
@@ -183,9 +154,6 @@ export default {
   loadDataProduct,
   loadDataProductDetail,
   loadDataPormotion,
-  loadDataIngredient,
-  getIngredientBySlug,
-  getProductsBySlug,
   loadDataProductCollection,
   loadDataManufacturer,
 };
