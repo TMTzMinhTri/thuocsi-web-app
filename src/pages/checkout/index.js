@@ -156,21 +156,21 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
               </Paper>
               <div className={styles.condition}>
                 <FormControlLabel
-                  control={
+                  control={(
                     <GreenCheckbox
                       checked={checkCondition.checked}
                       onChange={handleCheckCondition}
                       name="checked"
                     />
-                  }
-                  label={
+                  )}
+                  label={(
                     <span className={styles.check_agree_txt}>
                       Tôi đồng ý với{' '}
                       <LinkComp href="/condition" className={styles.btn} color="#00b46e" target>
                         Điều khoản sử dụng
                       </LinkComp>
                     </span>
-                  }
+                  )}
                 />
                 <div className={styles.list_note}>
                   <p>

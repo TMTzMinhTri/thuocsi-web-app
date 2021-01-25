@@ -10,5 +10,6 @@ export { default as SearchClient } from './SearchClient';
 export { default as NotifyClient } from './NotifyClient';
 export { default as CartClient } from './CartClient';
 export { default as CheckoutClient } from './CheckoutClient';
+export { default as IngredientCLient } from './IngredientClient';
 export * from './Clients';
 export * from './SsrClient';

@@ -12,6 +12,10 @@ import {
 import styles from './style.module.css';
 
 const TagTypeProps = {
+  default: {
+    backgroundColor: '#f8f9fa',
+    color: '#000',
+  },
   'ban-chay': {
     text: 'Bán chạy',
     backgroundColor: '#00b46e',
