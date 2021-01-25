@@ -23,6 +23,7 @@ const EnterpriseForm = ({
   districtCode,
   provinceCode,
   handleSetValue,
+  handleChangeAddress
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
   return (
@@ -104,7 +105,7 @@ const EnterpriseForm = ({
         district={districtCode}
         idWard="wardCode"
         ward={wardCode}
-        handleSetValue={handleSetValue}
+        handleChangeAddress={handleChangeAddress}
       />
     </Paper>
   );

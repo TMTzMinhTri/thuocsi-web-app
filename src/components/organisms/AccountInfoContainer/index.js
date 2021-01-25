@@ -49,11 +49,15 @@ const AccountInfoFormContainer = ({ user }) => {
     setValue({ ...value, [key]: val });
   };
 
+  const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
+    setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
+  };
+
   const handleUpdateProfile = async () => {
     try {
       validateForm({ ...value });
       const res = await CustomerClient.updateProfile(value);
-      if (!isValid(res)) throw Error(res.message);
+      if (!isValid(res)) throw Error(res?.message);
       NotifyUtils.success('Cập nhật thông tin thành công');
     } catch (error) {
       NotifyUtils.error(error?.message || 'Cập nhật thông tin thất bại');
@@ -66,10 +70,18 @@ const AccountInfoFormContainer = ({ user }) => {
         <AccountForm {...value} handleSetValue={handleSetValue} />
       </Grid>
       <Grid item xs={12}>
-        <EnterpriseForm {...value} handleSetValue={handleSetValue} />
+        <EnterpriseForm
+          {...value}
+          handleSetValue={handleSetValue}
+          handleChangeAddress={handleChangeAddress}
+        />
       </Grid>
       <Grid item xs={12}>
-        <DeliveryForm {...value} handleSetValue={handleSetValue} />
+        <DeliveryForm
+          {...value}
+          handleSetValue={handleSetValue}
+          handleChangeAddress={handleChangeAddress}
+        />
       </Grid>
       <Grid item xs={12}>
         <Grid container justify="center">

@@ -34,6 +34,10 @@
     padding-left: 15px!important;
 }
 
+.image_gallery [class*='container'] {
+    align-items: flex-start;
+}
+
 .product_content_wrap {
     padding-right: 15px!important;
     padding-left: 15px!important;
@@ -201,4 +205,10 @@
 
 .signin_btn {
     text-transform: capitalize!important;
+}
+.text_danger {
+    font-size: 12.8px!important;
+    font-weight: 400!important;
+    color: #dc3545 !important;
+    line-height: 2!important;
 }

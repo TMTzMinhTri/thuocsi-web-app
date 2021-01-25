@@ -1,11 +1,11 @@
 const ACCOUNT_API_PREFIX = '/core/account/v1';
-const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
 
 const AUTHENTICATION = `${ACCOUNT_API_PREFIX}/authentication`;
 export const ACCOUNT_API = {
   AUTHENTICATION,
 };
 
+const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
 const REGISTER = `${CUSTOMER_API_PREFIX}/register`;
 const INFO = `${CUSTOMER_API_PREFIX}/me`;
 const WALLET = `${CUSTOMER_API_PREFIX}/wallets`;
@@ -43,16 +43,19 @@ export const CONTENT_API = {
 const PRODUCT_API_PREFIX = '/marketplace/product/v1';
 const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredients`;
 const INGREDIENT_LIST = `${INGREDIENT}/list`;
+const INGREDIENT_PRODUCT_LIST = `${INGREDIENT}/list`;
 const MANUFACTURER = `${PRODUCT_API_PREFIX}/manufacturers`;
 const MANUFACTURER_LIST = `${MANUFACTURER}/list`;
+
 const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
 const PRODUCT_LIST_COLLECTION = `${PRODUCT_API_PREFIX}/collection/page`;
 const TAGS = `${PRODUCT_API_PREFIX}/tags/list`;
 
 export const PRODUCT_API = {
   INGREDIENT,
-  MANUFACTURER,
   INGREDIENT_LIST,
+  INGREDIENT_PRODUCT_LIST,
+  MANUFACTURER,
   MANUFACTURER_LIST,
   PRODUCT_LIST,
   PRODUCT_LIST_COLLECTION,
@@ -93,8 +96,10 @@ export const PROMOTION_API = {
 const ORDER_API_PREFIX = '/marketplace/order/v1';
 export const ORDER_ITEM_LIST = `${ORDER_API_PREFIX}/me/order-item`;
 export const ORDER_INFO = `${ORDER_API_PREFIX}/order`;
+export const MY_ORDER_LIST = `${ORDER_API_PREFIX}/me/orders`;
 
 export const ORDER_API = {
   ORDER_ITEM_LIST,
   ORDER_INFO,
+  MY_ORDER_LIST,
 };

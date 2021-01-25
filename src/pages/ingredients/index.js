@@ -2,14 +2,14 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import IngredientContainer from 'components/organisms/IngredientContainer';
-import { ProductClient } from 'clients';
+import { IngredientCLient } from 'clients';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
 import { DAY_SECONDS } from 'utils/DateTimeUtils';
 import { useIsMobile } from 'hooks';
 
 export async function getStaticProps(ctx) {
-  const [ingredients] = await Promise.all([ProductClient.loadDataIngredient(ctx)]);
+  const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
   const convertIngredients = (ingre = []) =>
     ingre
       .sort((a, b) => a.name.localeCompare(b.name))

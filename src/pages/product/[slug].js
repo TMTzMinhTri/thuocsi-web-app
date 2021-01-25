@@ -11,6 +11,7 @@ import {
   Button,
   IconButton,
   Popover,
+  Typography,
 } from '@material-ui/core';
 import FormarCurrency from 'utils/FormarCurrency';
 import { tabsProductData } from 'constants/data';
@@ -126,6 +127,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
       const curValue = e.currentTarget.value;
       setValue(curValue);
       if (!curValue || curValue === 0) {
+        if(quantity === 0) return;
         handler(product, 'remove');
       } else {
         handler(+curValue, 'update');
@@ -226,6 +228,11 @@ export default function ProductDetail({ product, isAuthenticated }) {
                           </TableContainer>
                         </Popover>
                       </div>
+                      {maxQuantity && maxQuantity > 0 && (
+                        <Typography className={styles.text_danger}>
+                          Đặt tối đa {maxQuantity} sản phẩm
+                        </Typography>
+                      )}
                       <div className={styles.product_action}>
                         <MinusButton className={styles.minus} onClick={handleDecrease} />
                         <InputProduct

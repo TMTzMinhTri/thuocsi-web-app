@@ -2,15 +2,15 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import IngredientDetailContainer from 'components/organisms/IngredientDetailContainer';
-import { ProductClient, doWithServerSide } from 'clients';
+import { IngredientCLient, doWithServerSide } from 'clients';
 import { Container } from '@material-ui/core';
 
 export async function getServerSideProps(ctx) {
   const { slug } = ctx.query;
   return doWithServerSide(ctx, async () => {
     const [ingredient, products] = await Promise.all([
-      ProductClient.getIngredientBySlug(ctx, slug),
-      ProductClient.getProductsBySlug(ctx, slug),
+      IngredientCLient.getIngredientBySlug(ctx, slug),
+      IngredientCLient.getProductsBySlug(ctx, slug),
     ]);
     return {
       props: {

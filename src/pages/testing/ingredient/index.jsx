@@ -1,10 +1,10 @@
 import IngredientContainer from 'components/organisms/IngredientContainer';
 import { Container } from '@material-ui/core';
-import { ProductClient, doWithServerSide } from 'clients';
+import { IngredientCLient, doWithServerSide } from 'clients';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const ingredients = await ProductClient.loadDataIngredient(ctx);
+    const ingredients = await IngredientCLient.loadDataIngredient(ctx);
     return {
       props: {
         ingredients,
