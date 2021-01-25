@@ -9,7 +9,7 @@ import { LinkComp } from 'components/atoms';
 
 import styles from './styles.module.css';
 
-const SliderProduct = ({ children, name, slug, viewMore }) => {
+const SliderProduct = ({ children, name, redirect, viewMore }) => {
   const ref = useRef({});
   return (
     <div className={styles.wrapper_media}>
@@ -28,7 +28,7 @@ const SliderProduct = ({ children, name, slug, viewMore }) => {
             {children}
           </Slider>
           {viewMore && (
-            <LinkComp href={`${slug}`} className={styles.seeAll}>
+            <LinkComp href={`${redirect}`} className={styles.seeAll}>
               Xem tất cả
             </LinkComp>
           )}

@@ -3,10 +3,8 @@ import { Box } from '@material-ui/core';
 import { SearchClient } from 'clients';
 import { debounceFunc500 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
-import { useRouter } from 'next/router';
 import { PAGE_SIZE } from 'constants/data';
 import { SearchOrder } from 'components/mocules';
-import { QUICK_ORDER } from 'constants/Paths';
 import ProductCardHorizontal from '../ProductCardHorizontal';
 
 import styles from './style.module.css';
@@ -14,47 +12,40 @@ import styles from './style.module.css';
 const QuickOrderList = ({ products, isMobile, page, total }) => {
   const [searchProduct, setSearchProduct] = useState(products);
   const [totalVal, setTotalVal] = useState(total);
-  const router = useRouter();
   const [keyword, setKeyword] = useState('');
   const [numPage, setNumPage] = useState(page || 1);
-  const pages = Math.ceil(totalVal / PAGE_SIZE);
+  const [pages, setPages] = useState(page || 1);
 
   useEffect(() => {
-    setSearchProduct(products);
-  }, [products]);
+    if (keyword === '') {
+      setSearchProduct(products);
+    }
+  }, []);
 
-  const handleChangePage = (event, value) => {
-    if (page === value) return;
-    router.push(
-      {
-        pathname: QUICK_ORDER,
-        query: { page: value },
-      },
-      { shallow: true },
-    );
-    setNumPage(value);
+  useEffect(() => {
+    setPages(Math.ceil(totalVal / PAGE_SIZE));
+  }, [totalVal]);
+
+  const fetchData = async (keywords, num) => {
+    const res = await SearchClient.searchProducts(keywords, num);
+    if (res.length !== 0) {
+      setTotalVal(res.total);
+      setSearchProduct(res.data);
+    } else {
+      setSearchProduct(null);
+    }
   };
 
   const handleSearchbox = (e) => {
     const { value } = e.target;
     setKeyword(value);
     setNumPage(1);
-    const fetchData = async () => {
-      const res = await SearchClient.searchProducts(value, numPage);
-      if (res.length !== 0) {
-        setTotalVal(res.total);
-        setSearchProduct(res.data);
-      } else {
-        setSearchProduct([]);
-      }
-    };
-    if (value.length === 0) {
-      setSearchProduct(products);
-      setTotalVal(total);
-      setNumPage(page);
-    } else {
-      debounceFunc500(fetchData);
-    }
+    debounceFunc500(() => fetchData(value, 1));
+  };
+
+  const handleChangePage = (event, value) => {
+    setNumPage(value);
+    debounceFunc500(() => fetchData(keyword, value));
   };
 
   return (

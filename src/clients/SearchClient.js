@@ -1,4 +1,7 @@
 import { PAGE_SIZE } from 'constants/data';
+import { GetQuantityProductFromCart } from 'utils';
+import CartClient from './CartClient';
+
 import { GET, isValid } from './Clients';
 
 async function searchKeywords(keyword) {
@@ -22,7 +25,26 @@ async function searchProducts(keyword, page) {
   if (!isValid(res)) {
     return [];
   }
-  return res;
+  let cart = {};
+  let productListWithQuantityInCart = {};
+  try {
+    cart = await CartClient.loadDataCart();
+  } catch (error) {
+    cart.status = 'ERROR';
+  }
+  const cartObject = {};
+  // eslint-disable-next-line no-restricted-syntax
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of cart[0].cartItems) {
+      cartObject[item.sku] = item;
+    }
+    productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(res, cartObject);
+  } else {
+    productListWithQuantityInCart = res || [];
+  }
+
+  return productListWithQuantityInCart;
 }
 
 export default {
