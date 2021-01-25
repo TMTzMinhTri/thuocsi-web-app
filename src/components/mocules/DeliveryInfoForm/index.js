@@ -51,7 +51,7 @@ const DeliveryInfoForm = ({
           <InfoInput
             error={name}
             id="customerName"
-            placeholder="Trần Thị B"
+            placeholder="Họ và tên"
             value={customerName}
             onChange={(e) => handleSetValue('customerName', e.target.value)}
           />
@@ -66,7 +66,7 @@ const DeliveryInfoForm = ({
             <InfoInput
               error={phone}
               id="customerPhone"
-              placeholder="0912233311"
+              placeholder="số điện thoại"
               value={customerPhone}
               onChange={(e) => handleSetValue('customerPhone', e.target.value)}
             />
@@ -79,7 +79,7 @@ const DeliveryInfoForm = ({
           >
             <InfoInput
               id="customerEmail"
-              placeholder="tranthib@email.com"
+              placeholder="email "
               value={customerEmail}
               onChange={(e) => handleSetValue('customerEmail', e.target.value)}
             />
@@ -95,7 +95,7 @@ const DeliveryInfoForm = ({
           <InfoInput
             error={address}
             id="customerShippingAddress"
-            placeholder="11 Ngô Quyền, Tân Lợi, Tp. Buôn Ma Thuột, Đắk Lắk"
+            placeholder="Địa chỉ nhà thuốc"
             value={customerShippingAddress}
             onChange={(e) => {
               handleSetValue('customerShippingAddress', e.target.value);

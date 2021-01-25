@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable camelcase */
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Grid, TextareaAutosize, Paper, FormControlLabel, Checkbox } from '@material-ui/core';
 import {
   Template,
@@ -12,10 +12,11 @@ import {
   LoadingScreen,
 } from 'components';
 import { LinkComp } from 'components/atoms';
-import { doWithServerSide, CartClient } from 'clients';
+import { doWithServerSide, CartClient, isValid } from 'clients';
 import { useCart, withLogin } from 'context';
 import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
+import { debounceFunc500 } from 'utils/debounce';
 import { CART_URL } from 'constants/Paths';
 
 import styles from './styles.module.css';
@@ -101,8 +102,20 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     setError({ ...value, [key]: val });
   };
 
+  const handleUpdateNote = useCallback(async () => {
+    try {
+      const res = await CartClient.updateNote(note);
+      if (!isValid(res)) throw new Error(res.messsage);
+      NotifyUtils.success('Cập nhật ghi chú thành công');
+    } catch (err) {
+      NotifyUtils.error(err?.message || 'Cập nhật ghi chú thất bại');
+    }
+  });
+
   const handleSetNote = (e) => {
     setNote(e.target.value);
+    // TODO update cart
+    debounceFunc500(handleUpdateNote);
   };
 
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
