@@ -11,7 +11,7 @@ import { THANKYOU_URL } from 'constants/Paths';
 
 import styles from './styles.module.css';
 
-const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError }) => {
+const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError, checkCondition }) => {
   const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, totalDiscount = 0 } = cart[0];
   const { itemCount = 0 } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
@@ -77,6 +77,12 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
     };
     if (!validateSubmit(formValue)) {
       return;
+    }
+    if(!checkCondition.checked) {
+      NotifyUtils.error(
+        `Bạn chưa chấp nhận điều khoản sử dụng`,
+      );
+      return
     }
 
     const response = await CheckoutClient.Checkout(formValue);
