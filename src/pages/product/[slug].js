@@ -127,7 +127,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
       const curValue = e.currentTarget.value;
       setValue(curValue);
       if (!curValue || curValue === 0) {
-        if(quantity === 0) return;
+        if (quantity === 0) return;
         handler(product, 'remove');
       } else {
         handler(+curValue, 'update');
@@ -167,7 +167,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
                 <Grid xs={12} item>
                   <h1 className={styles.product_name}>{name}</h1>
                   <div className={styles.product_tags}>
-                    {tags && tags.map((item) => <TagType key={uuidv4()} type={item.slug} />)}
+                    {tags && tags.map((item) => <TagType key={uuidv4()} item={item} />)}
                   </div>
                 </Grid>
                 <Grid className={styles.product_content_wrap} md={7} item>
