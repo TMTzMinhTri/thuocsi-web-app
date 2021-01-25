@@ -23,7 +23,6 @@ async function searchProducts(keyword, page) {
   };
   const res = await GET({ url, params });
 
-  console.log(res);
   if (!isValid(res)) {
     return [];
   }
