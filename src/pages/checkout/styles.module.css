@@ -1,3 +1,6 @@
+.wrapper_gray{
+    background-color: #f4f7fc;
+}
 .payment_wrapper {
     max-width: 1140px;
     margin: 0 auto;
@@ -36,4 +39,29 @@
     border-radius: 0.25rem!important    ;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     resize: vertical;
+}
+.condition{
+    margin-top: 30px
+}
+.list_note p{
+    margin: 0;
+}
+.list_note{
+    background-color: white;
+    padding: 1em;
+    border-radius: 6px;
+    font-size: small;
+    margin-left: 30px;   
+}
+.checkbox {
+    color: #00b46e!important;
+}
+.check_agree_txt,
+.check_agree_txt a{
+    display: inline-block;
+    font-size: 1rem;
+    padding: 0;
+}
+.check_agree_txt a:hover{
+    color: #00683f;
 }

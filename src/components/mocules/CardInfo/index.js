@@ -73,54 +73,64 @@ const CardInfo = ({ cart, promo, className, user }) => {
   };
 
   return (
-    <Grid className={clsx(styles.container, className)} container>
-      <Grid container item>
-        <Grid
-          xs={6}
-          className={clsx(styles.wrapper, styles.text_center, styles.quantity_border)}
-          item
-        >
-          <Typography className={styles.text}>Số lượng</Typography>
-          <Typography className={clsx(styles.number, styles.quantity)}>{itemCount}</Typography>
+    <div className={className}>
+      <Grid className={clsx(styles.container)} container>
+        <Grid container item>
+          <Grid
+            xs={6}
+            className={clsx(styles.wrapper, styles.text_center, styles.quantity_border)}
+            item
+          >
+            <Typography className={styles.text}>Số lượng</Typography>
+            <Typography className={clsx(styles.number, styles.quantity)}>{itemCount}</Typography>
+          </Grid>
+          <Grid xs={6} className={clsx(styles.wrapper, styles.text_right, styles.total_border)} item>
+            <Typography className={styles.text}>Tổng tiền</Typography>
+            <Typography className={clsx(styles.number, styles.price)}>
+              {formatCurrency(total || 0)}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid xs={6} className={clsx(styles.wrapper, styles.text_right, styles.total_border)} item>
-          <Typography className={styles.text}>Tổng tiền</Typography>
-          <Typography className={clsx(styles.number, styles.price)}>
-            {formatCurrency(total || 0)}
-          </Typography>
-        </Grid>
-      </Grid>
-      {promo && (
-        <Grid
-          className={clsx(styles.wrapper, styles.promo_border)}
-          xs={12}
-          container
-          item
-          direction="row"
-        >
-          <LocalOffer className={styles.icon_promo} />
-          <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
-            {redeemCode || 'Dùng mã khuyến mãi'}
-          </Typography>
-          {redeemCode ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
-        </Grid>
-      )}
-      <Grid className={styles.wrapper} xs={12} container item>
-        {cart ? (
-          <PaymentButton user={user} />
-        ) : (
-          <LinkComp href="/cart" className={styles.btn}>
-            Xem giỏ hàng
-          </LinkComp>
+        {promo && (
+          <Grid
+            className={clsx(styles.wrapper, styles.promo_border)}
+            xs={12}
+            container
+            item
+            direction="row"
+          >
+            <LocalOffer className={styles.icon_promo} />
+            <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
+              {redeemCode || 'Dùng mã khuyến mãi'}
+            </Typography>
+            {redeemCode ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
+          </Grid>
         )}
+        <Grid className={styles.wrapper} xs={12} container item>
+          {cart ? (
+            <PaymentButton user={user} />
+          ) : (
+            <LinkComp href="/cart" className={styles.btn}>
+              Xem giỏ hàng
+            </LinkComp>
+          )}
+        </Grid>
+        <PromoListModal
+          visible={promoVisible}
+          onClose={handleSetPromoVisible}
+          handleChangePromo={handleChangePromo}
+          redeemCode={redeemCode}
+        />
       </Grid>
-      <PromoListModal
-        visible={promoVisible}
-        onClose={handleSetPromoVisible}
-        handleChangePromo={handleChangePromo}
-        redeemCode={redeemCode}
-      />
-    </Grid>
+      <Grid className={styles.wrapper} xs={12} container item>
+        <LinkComp
+          className={clsx(styles.counpon_button, styles.quick_link)}
+          name="<< Tiếp tục đặt hàng"
+          href="/quick-order"
+          color="#00b46e"
+        ></LinkComp>
+      </Grid>
+    </div>
   );
 };
 
