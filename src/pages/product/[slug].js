@@ -127,6 +127,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
       const curValue = e.currentTarget.value;
       setValue(curValue);
       if (!curValue || curValue === 0) {
+        if(quantity === 0) return;
         handler(product, 'remove');
       } else {
         handler(+curValue, 'update');

@@ -85,6 +85,7 @@ const ProductCardBuy = ({
       const curValue = e.currentTarget.value;
       setValue(curValue);
       if (!curValue || curValue === 0) {
+        if(value === 0) return;
         handler(product, 'remove');
       } else {
         handler(+curValue, 'update');
