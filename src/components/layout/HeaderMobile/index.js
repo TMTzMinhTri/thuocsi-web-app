@@ -1,10 +1,9 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Drawer, IconButton, Fab } from '@material-ui/core';
 import { Menu, Close } from '@material-ui/icons';
-import { useModal } from 'hooks';
 import { useAuth, useCart } from 'context';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { QUICK_ORDER, CART_URL } from 'constants/Paths';
@@ -17,23 +16,21 @@ import HeaderWithCart from './components/HeaderWithCart';
 import styles from './styles.module.css';
 
 const HeaderMobile = memo(({ title = '' }) => {
-  const [isShowingLogin, toggleLogin] = useModal();
-  const [isShowingSignUp, toggleSignUp] = useModal();
-  const [isShowingForgetPassword, toggleForgetPassword] = useModal();
-  const { isAuthenticated } = useAuth();
+  const {
+    isAuthenticated,
+    toggleLogin,
+    isShowLogin,
+    handleChangeForget,
+    isShowForgetPassword,
+    toggleForgetPassword,
+    isShowSignUp,
+    toggleSignUp,
+    handleChangeSignIn,
+    handleChangeSignUp,
+  } = useAuth();
   const [openDrawer, setOpenDrawer] = useState(false);
   const router = useRouter();
   const { itemCount } = useCart();
-
-  const handleChangeForget = useCallback(() => {
-    toggleLogin();
-    toggleForgetPassword();
-  }, [toggleLogin, toggleForgetPassword]);
-
-  const handleChangeSignIn = useCallback(() => {
-    toggleSignUp();
-    toggleLogin();
-  }, [toggleSignUp, toggleLogin]);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -64,13 +61,14 @@ const HeaderMobile = memo(({ title = '' }) => {
               />
             </LinkComp>
             <SignInModal
-              visible={isShowingLogin}
+              visible={isShowLogin}
               onClose={toggleLogin}
               onChangeForget={handleChangeForget}
+              onChangeSignUp={handleChangeSignUp}
             />
-            <ForgetPasswordModal visible={isShowingForgetPassword} onClose={toggleForgetPassword} />
+            <ForgetPasswordModal visible={isShowForgetPassword} onClose={toggleForgetPassword} />
             <SignUpModal
-              visible={isShowingSignUp}
+              visible={isShowSignUp}
               onClose={toggleSignUp}
               onChangeSignIn={handleChangeSignIn}
             />
