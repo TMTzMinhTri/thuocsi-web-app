@@ -47,10 +47,10 @@ const ProductCardContent = ({
             {name}
           </Typography>
         </Link>
-        {tag && tags && (
+        {tag && tags && tags[0] && (
           <div className={clsx(styles.product_tags, styles.product_tags_column)}>
             {tags.map((item) => (
-              <TagType key={uuidv4()} type={item.slug} />
+              <TagType key={uuidv4()} item={item} />
             ))}
           </div>
         )}
