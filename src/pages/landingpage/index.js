@@ -4,7 +4,7 @@ import Template from 'components/layout/Template';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function LandingPage(props) {
-  const { infoBanner = [], isMobile, isAuthenticated, products = [] } = props;
+  const { infoBanner = [], isMobile, isAuthenticated, blocks = [] } = props;
   const title = 'Tra cứu và đặt thuốc giá sỉ nhanh tại thuocsi.vn';
   const pageName = 'home';
   const DynamicWhyBuymed = dynamic(() => import('components/organisms/WhyBuymed'));
@@ -15,7 +15,6 @@ export default function LandingPage(props) {
   const DynamicHomeCTASection = dynamic(() => import('components/organisms/HomeCTASection'));
   const DynamicBannerSlider = dynamic(() => import('components/organisms/BannerSlider'));
   const DynamicProductSlider = dynamic(() => import('components/organisms/ProductSliderSection'));
-
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName}>
       <DynamicBannerSlider infoBanner={infoBanner} />
@@ -27,8 +26,16 @@ export default function LandingPage(props) {
         </>
       ) : (
         <div className="SliderProductWrap">
-          {products &&
-            products.map((item) => <DynamicProductSlider key={uuidv4()} products={item} />)}
+          {blocks &&
+            blocks.map((item) => (
+              <DynamicProductSlider
+                key={uuidv4()}
+                name={item.name}
+                viewMore={item.viewMore}
+                products={item.data}
+                redirect={item.redirectUrl}
+              />
+            ))}
         </div>
       )}
       <DynamicPartners />

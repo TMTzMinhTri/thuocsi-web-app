@@ -7,8 +7,9 @@ import { ProductCardContent, StatusProduct } from 'components/mocules';
 import ProductCardBuy from '../ProductCardBuy';
 import styles from './styles.module.css';
 
-const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, value }) => {
+const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement }) => {
   const { name, imageUrls } = product;
+
   const router = useRouter();
   return (
     <div className={styles.root_card}>
@@ -31,7 +32,6 @@ const ProductCardVertical = ({ product, type, category, tag, cart, onIncrement, 
         </div>
         <div>
           <ProductCardBuy
-            value={value}
             product={product}
             onIncrement={onIncrement}
             cart={cart}

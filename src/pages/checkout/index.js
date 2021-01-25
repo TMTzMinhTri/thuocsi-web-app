@@ -105,6 +105,10 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     setNote(e.target.value);
   };
 
+  const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
+    setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
+  };
+
   const GreenCheckbox = (props) => (
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   );
@@ -119,7 +123,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
         <div className={styles.payment_wrapper}>
           <Grid spacing={4} container>
             <Grid item xs={12} md={8}>
-              <DeliveryInfoForm {...error} {...value} handleSetValue={handleSetValue} />
+              <DeliveryInfoForm
+                {...error}
+                {...value}
+                handleSetValue={handleSetValue}
+                handleChangeAddress={handleChangeAddress}
+              />
               <DeliveryMethod
                 selectedValue={selectedDeliveryValue}
                 handleChange={handleDeliveryChange}
