@@ -4,6 +4,8 @@ import { HTTP_STATUS } from 'constants/Enums';
 import { CookiesParser, RequestUtils } from 'utils';
 import { API_HOST, MOCK_API_HOST, BASIC_AUTHEN } from '../../config/index';
 
+const MAX_LIMIT = 1000;
+
 export function getSessionToken(ctx) {
   const tk = CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN);
   if (tk && tk.length > 0) {
@@ -120,8 +122,51 @@ export function isValidWithData(resp) {
   return resp && resp.status && resp.status === HTTP_STATUS.Ok && resp.data && resp.data[0];
 }
 
+export async function GET_ALL(props) {
+  const { params, limit } = props;
+  const result = {
+    status: HTTP_STATUS.Ok,
+    data: [],
+  };
+  const limitPage = limit || MAX_LIMIT;
+
+  const rsTotal = await GET({
+    ...props,
+    params: { ...params, getTotal: true, limit: 1, page: 1 },
+  });
+  // console.log('get total >> ', rsTotal);
+
+  if (!isValid(rsTotal)) {
+    return rsTotal;
+  }
+  const { total } = rsTotal;
+  const promiseAll = [];
+  const totalPage = total / limitPage;
+  for (let i = 0; i <= totalPage; i += 1) {
+    // console.log('get all : ', i + 1, totalPage, limitPage);
+    promiseAll.push(
+      GET({
+        ...props,
+        params: { ...params, limit: limitPage, page: i + 1 },
+      }).then((rs) => {
+        if (isValid(rs)) {
+          result.data = [...result.data, ...rs.data];
+        } else {
+          result.status = rs.status || 'Error';
+          result.message = rs.message || 'Lỗi : ';
+        }
+      }),
+    );
+  }
+
+  await Promise.all(promiseAll);
+
+  return result;
+}
+
 export default {
   GET,
+  GET_ALL,
   POST,
   PUT,
   DELETE,

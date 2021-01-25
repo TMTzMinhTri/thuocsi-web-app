@@ -1,7 +1,7 @@
 import { GetQuantityProductFromCart } from 'utils';
 import { PRODUCT_API } from 'constants/APIUri';
 import { PAGE_SIZE } from 'constants/data';
-import { GET, isValid } from './Clients';
+import { GET, GET_ALL, isValid } from './Clients';
 import CartClient from './CartClient';
 
 async function loadDataMostSearch(ctx) {
@@ -140,10 +140,8 @@ async function loadDataProduct(ctx, isTotal) {
 
   return productListWithQuantityInCart;
 }
-// TODO  @dat.le
 async function loadDataIngredient(ctx) {
-  const params = { limit: 0 };
-  const res = await GET({ url: PRODUCT_API.INGREDIENT_LIST, ctx, isBasic: true, params });
+  const res = await GET_ALL({ url: PRODUCT_API.INGREDIENT_LIST, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }

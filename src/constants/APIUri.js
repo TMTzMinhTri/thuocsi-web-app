@@ -41,7 +41,7 @@ export const CONTENT_API = {
 };
 
 const PRODUCT_API_PREFIX = '/marketplace/product/v1';
-const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredient`;
+const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredients`;
 const INGREDIENT_LIST = `${INGREDIENT}/list`;
 const MANUFACTURER = `${PRODUCT_API_PREFIX}/manufacturers`;
 const MANUFACTURER_LIST = `${MANUFACTURER}/list`;
