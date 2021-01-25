@@ -80,10 +80,6 @@ async function loadDataProductCollection(ctx) {
     return [];
   }
 
-  if (!isValid(result)) {
-    return [];
-  }
-
   let cart = {};
   let productListWithQuantityInCart = {};
   try {

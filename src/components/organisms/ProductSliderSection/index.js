@@ -2,6 +2,7 @@ import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useCart } from 'context';
+import { v4 as uuidV4 } from 'uuid';
 
 import SliderProduct from 'components/mocules/SliderProduct';
 import ProductCardVertical from '../ProductCardVertical';
@@ -17,7 +18,7 @@ const ProductSliderSection = ({ products = [], name = '', viewMore = true, redir
       {products.map((product) => (
         <ProductCardVertical
           onIncrement={handleIncrement}
-          key={`bestsale-${product?.skuId}`}
+          key={uuidV4()}
           product={product}
           tag
           category

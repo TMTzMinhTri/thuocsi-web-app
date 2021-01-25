@@ -22,6 +22,8 @@ async function searchProducts(keyword, page) {
     getTotal: true,
   };
   const res = await GET({ url, params });
+
+  console.log(res);
   if (!isValid(res)) {
     return [];
   }
@@ -41,7 +43,7 @@ async function searchProducts(keyword, page) {
     }
     productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(res, cartObject);
   } else {
-    productListWithQuantityInCart = res || [];
+    productListWithQuantityInCart = res.data || [];
   }
 
   return productListWithQuantityInCart;
