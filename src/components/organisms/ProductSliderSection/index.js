@@ -13,16 +13,17 @@ const ProductSliderSection = ({ products = [] }) => {
   };
   return (
     <SliderProduct>
-      {products?.map((item) => (
-        <ProductCardVertical
-          onIncrement={handleIncrement}
-          key={`bestsale-${item?.skuId}`}
-          product={item}
-          value={item?.quantity || 0}
-          tag
-          category
-        />
-      ))}
+      {products &&
+        products.data.map((item) => (
+          <ProductCardVertical
+            onIncrement={handleIncrement}
+            key={`bestsale-${item?.skuId}`}
+            product={item}
+            value={item?.quantity || 0}
+            tag
+            category
+          />
+        ))}
     </SliderProduct>
   );
 };

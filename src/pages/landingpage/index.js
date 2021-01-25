@@ -4,6 +4,7 @@ import Template from 'components/layout/Template';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function LandingPage(props) {
+  console.log('landing page > ', props);
   const { infoBanner = [], isMobile, isAuthenticated, products = [] } = props;
   const title = 'Tra cứu và đặt thuốc giá sỉ nhanh tại thuocsi.vn';
   const pageName = 'home';
@@ -28,8 +29,7 @@ export default function LandingPage(props) {
       ) : (
         <div className="SliderProductWrap">
           {products &&
-            products[0] &&
-            products[0]?.map((item) => <DynamicProductSlider key={uuidv4()} products={item} />)}
+            products.map((item) => <DynamicProductSlider key={uuidv4()} products={item} />)}
         </div>
       )}
       <DynamicPartners />
