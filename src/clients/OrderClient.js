@@ -1,5 +1,18 @@
 import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
+import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { GET, POST, isValid } from './Clients';
+
+async function getOrders(offset, limit, status, ctx) {
+  const url = `${ORDER_API.MY_ORDER_LIST}`;
+  const params = {
+    offset,
+    limit,
+    getTotal: true,
+  };
+  if (status !== ENUM_ORDER_STATUS.ALL) params.status = status;
+  const result = await GET({ url, ctx });
+  return result;
+}
 
 async function getOrderById(id = '', ctx) {
   const url = `${ORDER_API.ORDER_INFO}`;
@@ -43,6 +56,7 @@ async function getInfoOrderItem(data = [], ctx) {
   return obj;
 }
 export default {
+  getOrders,
   getOrderById,
   getProductByOrderId,
   getInfoOrderItem,
