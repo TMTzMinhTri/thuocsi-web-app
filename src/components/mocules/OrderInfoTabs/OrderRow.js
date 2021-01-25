@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { Grid, Paper, useMediaQuery } from '@material-ui/core';
-import { DateTimeUtils, FormarCurrency } from 'utils';
+import { DateTimeUtils, FormarCurrency, NotifyUtils } from 'utils';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
+import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
 import PrintInvoiceButton from '../PrintInvoiceButton';
 import EditOrderButton from '../EditOrderButton';
@@ -8,31 +10,45 @@ import ResponseButton from '../ResponseButton';
 import styles from './styles.module.css';
 import OrderStatusButton from './OrderStatusButton';
 
-const MyOrderDetail = ({ amount, createdAt, deliveryAt }) => (
-  <div>
+const MyOrderDetail = ({ amount, createdTime, deliveryDate }) => (
+  <Grid item xs={12}>
     <div>
       <span className={styles.order_detail_label}>Sản phẩm: </span> {amount}
     </div>
     <div>
       <span className={styles.order_detail_label}>Ngày mua: </span>
-      {DateTimeUtils.getFormattedDate(new Date(createdAt), 'DD/MM/YYYY HH:mm:ss')}
+      {DateTimeUtils.getFormattedDate(new Date(createdTime), 'DD/MM/YYYY HH:mm:ss')}
     </div>
     <div>
       <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
-      {DateTimeUtils.getFormattedWithDate(new Date(deliveryAt))}
+      {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate))}
     </div>
-  </div>
+  </Grid>
 );
 const OrderRow = ({
-  orderID,
-  amount,
-  createdAt,
-  deliveryAt,
+  orderNo: orderID,
+  createdTime,
+  deliveryDate,
   status,
-  total,
+  totalPrice,
   user,
   handleSetOrderStatus,
 }) => {
+  const [amount, setAmount] = useState(0);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // will change in future
+        const res = await OrderClient.getProductByOrderId(orderID);
+        if (!isValid(res)) throw Error('Lấy danh sách sản phẩm không thành công');
+        const quantity = res.data.reduce((accumulator, currentValue) => accumulator + (currentValue?.quantity || 0), 0);
+        setAmount(quantity);
+      } catch (error) {
+        NotifyUtils.error(error.message || 'Lấy danh sách thất bại');
+      }
+    }
+    fetchData();
+  }, []);
   const { name, phone } = user;
   const maxWidth = useMediaQuery('(max-width:715px)');
   return (
@@ -54,7 +70,7 @@ const OrderRow = ({
             <OrderStatusButton status={status} handleSetOrderStatus={handleSetOrderStatus} />
           </Grid>
           {maxWidth ? null : (
-            <MyOrderDetail amount={amount} createdAt={createdAt} deliveryAt={deliveryAt} />
+            <MyOrderDetail amount={amount} createdTime={createdTime} deliveryDate={deliveryDate} />
           )}
         </Grid>
 
@@ -68,11 +84,11 @@ const OrderRow = ({
         >
           {maxWidth ? (
             <Grid className={styles.delivery_date} item>
-              {DateTimeUtils.getFormattedDate(new Date(createdAt), 'DD/MM/YYYY HH:mm:ss')}
+              {DateTimeUtils.getFormattedDate(new Date(createdTime), 'DD/MM/YYYY HH:mm:ss')}
             </Grid>
           ) : null}
           <Grid className={maxWidth ? styles.price_small_screen : styles.price} item>
-            {FormarCurrency(total)}
+            {FormarCurrency(totalPrice)}
           </Grid>
         </Grid>
 

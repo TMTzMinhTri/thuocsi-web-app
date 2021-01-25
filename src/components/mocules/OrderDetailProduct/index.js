@@ -37,7 +37,7 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
           {products &&
             products.map((product) => {
               const { price, totalPrice, quantity } = product;
-              const { imageUrls, name, slug } = product?.productInfo;
+              const { imageUrls = [], name = '', slug = '' } = product?.productInfo || {};
 
               return (
                 <TableRow key={uuidV4()} className={styles.product_row}>
