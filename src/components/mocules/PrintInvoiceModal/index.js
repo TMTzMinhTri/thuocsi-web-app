@@ -124,8 +124,9 @@ const PrintInvoiceModal = memo((props) => {
           />
           <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
             {products.map((product) => {
+              
               const { price, quantity, totalPrice } = product;
-              const { name, slug } = product.productInfo;
+              const { name = '', slug = '' } = product.productInfo || {};
               return (
                 <TableRow key={name} hover>
                   <TableCell align="left" className={styles.product_name}>

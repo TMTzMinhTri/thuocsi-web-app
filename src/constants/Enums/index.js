@@ -55,6 +55,12 @@ export const PRODUCT_TYPE = {
   CAN_INVOICE: 'can invoice',
 };
 
+export const DEFAULT_PAGINATION = {
+  OFFSET: 0,
+  LIMIT: 20,
+  TOTAL: 0,
+};
+
 export default {
   ENUM_SCOPE,
   ENUM_TYPE,
