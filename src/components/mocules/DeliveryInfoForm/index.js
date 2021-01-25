@@ -23,6 +23,7 @@ const DeliveryInfoForm = ({
   name,
   phone,
   address,
+  handleChangeAddress,
 }) => {
   const [savedInfo, setSavedInfo] = React.useState({
     checked: true,
@@ -110,6 +111,7 @@ const DeliveryInfoForm = ({
           idWard="customerWardCode"
           ward={customerWardCode}
           handleSetValue={handleSetValue}
+          handleChangeAddress={handleChangeAddress}
         />
         <FormControlLabel
           control={

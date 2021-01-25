@@ -14,24 +14,24 @@ const GetQuantity = (products, cart) => {
   return pObject;
 };
 
-const GetQuantity2 = (products, cart) => {
-  const blockRaw = products?.data;
-  const newList = [];
+const GetQuantity2 = (objBlocks, cart) => {
+  const blocks = objBlocks?.data;
+  const newBlocks = [];
 
-  for (let i = 0; i < blockRaw.length; i += 1) {
-    const block = blockRaw[i];
-    newList.push(
-      block?.data.map((item) => ({
-        ...item,
-        quantity: cart[item.sku]?.quantity || 0,
-        vewMore: block?.vewMore || true,
-        slug: block?.slug || '',
-        nameTitle: block?.name || '',
-      })),
-    );
+  for (let i = 0; i < blocks.length; i += 1) {
+    const block = blocks[i];
+    const products = block.data;
+
+    const newProducts = products.map((item) => ({
+      ...item,
+      quantity: cart[item.sku]?.quantity || 0,
+    }));
+
+    block.data = newProducts;
+    newBlocks.push({ ...block });
   }
 
-  return newList;
+  return newBlocks;
 };
 
 export default {
