@@ -55,11 +55,11 @@ const GroupAddressSelect = ({
       let position = ADDRESS_POS.PROVINCE;
       if (province !== DEFAULT_PROVINCE_ARRAY[0].value) {
         position = ADDRESS_POS.DISTRICT;
-        districts = await getDistricts();
+        districts = await getDistricts(province);
       }
       if (district !== DEFAULT_DISTRICT_ARRAY[0].value) {
         position = ADDRESS_POS.WARD;
-        wards = await getWards();
+        wards = await getWards(district);
       }
       setAddress({
         provinces,
