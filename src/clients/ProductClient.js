@@ -76,6 +76,9 @@ async function loadDataProductCollection(ctx) {
   const url = `${PRODUCT_API.PRODUCT_LIST_COLLECTION}?q=MAIN_PAGE`;
 
   const result = await GET({ url, ctx, isBasic: true });
+  if (!isValid(result)) {
+    return [];
+  }
 
   let cart = {};
   let productListWithQuantityInCart = {};
@@ -94,10 +97,10 @@ async function loadDataProductCollection(ctx) {
 
     productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity2(result, cartObject);
   } else {
-    productListWithQuantityInCart = result || [];
+    productListWithQuantityInCart = result.data || [];
   }
 
-  return [productListWithQuantityInCart];
+  return productListWithQuantityInCart;
 }
 
 async function loadDataProduct(ctx, isTotal) {
@@ -111,14 +114,10 @@ async function loadDataProduct(ctx, isTotal) {
     getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
   };
 
-  const result = await GET({
-    url,
-    ctx,
-    params,
-    isBasic: true,
-  });
+  const result = await GET({ url, ctx, params, isBasic: true });
 
-  if (!isValid(result)) return result;
+  if (!isValid(result)) return [];
+
   let cart = {};
   let productListWithQuantityInCart = {};
   try {
@@ -127,7 +126,6 @@ async function loadDataProduct(ctx, isTotal) {
     cart.status = 'ERROR';
   }
   const cartObject = {};
-  // eslint-disable-next-line no-restricted-syntax
   if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
     // eslint-disable-next-line no-restricted-syntax
     for (const item of cart[0].cartItems) {
@@ -135,7 +133,7 @@ async function loadDataProduct(ctx, isTotal) {
     }
     productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(result, cartObject);
   } else {
-    productListWithQuantityInCart = result || [];
+    productListWithQuantityInCart = result.data || [];
   }
 
   return productListWithQuantityInCart;
