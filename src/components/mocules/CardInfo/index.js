@@ -128,7 +128,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
           name="<< Tiếp tục đặt hàng"
           href="/quick-order"
           color="#00b46e"
-        ></LinkComp>
+        />
       </Grid>
     </div>
   );
