@@ -61,7 +61,7 @@ const AccountInfoFormContainer = ({ user }) => {
       const errL = validateForm(value);
       if(errL){
         setErr(errL);
-        throw Error();
+        throw Error('Chưa điền đủ thông tin');
       }
       const res = await CustomerClient.updateProfile(value);
       if (!isValid(res)) throw Error(res?.message);
