@@ -2,15 +2,15 @@ import Template from 'components/layout/Template';
 import OrderInfoContainer from 'components/organisms/OrderInfoContainer';
 import InfoContainer from 'components/organisms/InfoContainer';
 import { ENUM_ORDER_STATUS, DEFAULT_PAGINATION } from 'constants/Enums';
-import { NOT_FOUND_URL } from 'constants/Paths';
 import { Container } from '@material-ui/core';
 import { doWithServerSide, OrderClient, isValidWithoutData } from 'clients';
 import { withLogin } from 'context';
 
 export async function getServerSideProps(ctx) {
+  let { status } = ctx.query;
   return doWithServerSide(ctx, async () => {
     try {
-      let { status } = ctx.query;
+      
       if (!status) status = ENUM_ORDER_STATUS.ALL;
       let [orders] = await Promise.all([
         OrderClient.getOrders(
@@ -35,10 +35,10 @@ export async function getServerSideProps(ctx) {
       };
     } catch (error) {
       return {
-        redirect: {
-          destination: NOT_FOUND_URL,
-          permanent: false,
-        },
+        props: {
+          orders: [],
+          status,
+        }
       };
     }
   });

@@ -20,7 +20,7 @@ export async function getServerSideProps(ctx) {
       };
     }
 
-    const mapProductInfo = await OrderClient.getInfoOrderItem(products.data, ctx);
+    const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems: products.data, ctx });
     if (!isValidWithoutData(mapProductInfo)) {
       return {
         redirect: {
