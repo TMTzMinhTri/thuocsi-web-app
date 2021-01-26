@@ -8,7 +8,25 @@ import { changeAlias } from 'utils/StringUtils';
 import { DAY_SECONDS } from 'utils/DateTimeUtils';
 import { useIsMobile } from 'hooks';
 
-export async function getStaticProps(ctx) {
+// export async function getStaticProps(ctx) {
+//   const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
+//   const convertIngredients = (ingre = []) =>
+//     ingre
+//       .sort((a, b) => a.name.localeCompare(b.name))
+//       .map(({ name, slug }) => ({
+//         unsignedKey: changeAlias(name),
+//         name,
+//         slug,
+//       }));
+//   return {
+//     props: {
+//       ingredients: convertIngredients(ingredients),
+//     },
+//     revalidate: DAY_SECONDS,
+//   };
+// }
+
+export async function getServerSideProps(ctx) {
   const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
   const convertIngredients = (ingre = []) =>
     ingre

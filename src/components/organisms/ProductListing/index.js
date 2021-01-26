@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
+import { useAuth } from 'context';
 import { SearchResultText } from 'components/mocules';
 import { SORT_PRODUCT, SORT_PRODUCT_NOT_LOGIN, PAGE_SIZE } from 'constants/data';
 import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
@@ -37,13 +38,13 @@ export default function ProductListing({
   catName = '',
   name = '',
   total,
-  isAuthenticated = false,
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
   const pages = Math.ceil(total / PAGE_SIZE);
   const router = useRouter();
   const pathName = `/${catName}/${slug}`;
+  const { isAuthenticated } = useAuth();
 
   const SORT_LIST = isAuthenticated ? SORT_PRODUCT : SORT_PRODUCT_NOT_LOGIN;
 

@@ -27,5 +27,9 @@
       "COD": "COD",
       "CK": "Chuyển Khoản"
     }
+  },
+  "scope": {
+    "PHARMACY": "Nhà thuốc",
+    "CLINIC": "Phòng khám"
   }
 }

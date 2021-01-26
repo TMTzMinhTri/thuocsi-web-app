@@ -1,5 +1,4 @@
 .navBar{
-    /* padding: 1px; */
     align-items: center !important;
     background-image: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
     z-index: 500
@@ -8,9 +7,24 @@
     max-width: 1290px!important;
 }
 .navBar.sticky{
+    animation: fadeInDownPerso;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
     position: sticky;
-    top: 0
+    top: 0;
+    z-index: 500;
 }
+
+@keyframes fadeInDownPerso {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+  }
 
 .searchInput {
     display: none!important;
@@ -20,15 +34,12 @@
     align-items: center;
 }
 .logoNav {
-    width: 0;
-    transition: width .5s;
+    display: block;
+    width: 50px;
     line-height: 1;
     cursor: pointer;
 }
-.navBar.sticky .logoNav {
-    display: block;
-    width: 50px
-}
+
 
 
 .navBar.sticky .searchInput {
@@ -63,8 +74,6 @@
 }
 .navBarRight{
     display: flex;
-    /* flex: 1;
-    justify-content: flex-end; */
 }
 .navBarRightLink{
     margin-right: 10px;
@@ -115,7 +124,31 @@
 }
 
 .customWidth {
+    max-width: 0;
+}
+
+.navBar.sticky .customWidth {
     max-width: 280px!important;
+}
+
+@media (max-width: 1200px){
+    .leftNavBar a p{
+        font-size: 13px!important;
+    }
+}
+
+
+@media (max-width: 1125px){
+    .leftNavBar{
+        width: 100%;
+    }
+    .navBar.sticky .leftNavBar a p{
+        display: none;
+    }
+
+    .navBar.sticky .leftNavBar a {
+        padding: 12px 10px;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 860px) {
