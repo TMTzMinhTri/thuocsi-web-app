@@ -32,7 +32,7 @@ export async function getServerSideProps(ctx) {
 
     const prds = products?.data || [];
     const productDetails = prds.map((product) => ({
-      productInfo: mapProductInfo[product?.productSku || ''] || {},
+      productInfo: mapProductInfo[product?.productSku] || {},
       ...product,
     }));
     return {

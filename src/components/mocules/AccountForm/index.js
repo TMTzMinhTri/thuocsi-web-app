@@ -10,7 +10,6 @@ const AccountForm = ({ name, email, phone, password, handleSetValue, err }) => {
   const handleClickShowPassword = () => {
     setIsShowPassword(!isShowPassword);
   };
-  console.log(err)
   const IconEndPassword = () => (
     <InputAdornment className={styles.padding_none}>
       <IconButton onClick={handleClickShowPassword}>

@@ -47,22 +47,7 @@ const AccountInfoFormContainer = ({ user }) => {
   });
 
 
-  const [err, setErr] = useState({
-    name: '',
-    phone: '',
-    email : '',
-    password: '',
-    legalRepresentative: '',
-    bussinessName: '',
-    provinceCode: '',
-    districtCode: '',
-    wardCode : '',
-    mst : '',
-    address: '',
-    province: '',
-    district: '',
-    ward: '',
-  });
+  const [err, setErr] = useState({});
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
   };
@@ -73,7 +58,7 @@ const AccountInfoFormContainer = ({ user }) => {
 
   const handleUpdateProfile = async () => {
     try {
-      const errL = validateForm({ ...value });
+      const errL = validateForm(value);
       if(errL){
         setErr(errL);
         throw Error();

@@ -8,7 +8,7 @@ const InfoFormControl = ({ xs, isRequired, children, label, htmlFor, error }) =>
         {label} {isRequired ? <span className={styles.required}> * </span> : <></>}
       </InputLabel>
       {children}
-      {error !== '' && <FormHelperText className={styles.error}>{error}</FormHelperText>}
+      {error && <FormHelperText className={styles.error}>{error}</FormHelperText>}
     </FormControl>
   </Grid>
 );
