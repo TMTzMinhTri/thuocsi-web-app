@@ -129,10 +129,10 @@
 
 .text_capitalize {
     text-transform: capitalize !important;
-    color: #00b46e;
+    color: #00b46e!important;
     text-decoration: none;
     background-color: transparent;
-    font-size: 16px;
+    font-size: 16px!important;
 }
 
 
