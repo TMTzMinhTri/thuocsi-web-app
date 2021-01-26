@@ -30,8 +30,7 @@ const ReferralList = ({ referrals }) => {
           </Grid>
           <Grid item className={styles.button_container}>
             <Button className={styles.button} onClick={handleSendSMS}>
-              {' '}
-              Gửi SMS giới thiệu{' '}
+              Gửi SMS giới thiệu
             </Button>
           </Grid>
         </Grid>
