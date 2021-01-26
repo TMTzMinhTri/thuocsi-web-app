@@ -35,21 +35,21 @@ const EnterpriseForm = ({
           <InfoInput id="scope" value={scope} disabled />
         </InfoFormControl>
 
-        <InfoFormControl xs={maxWidthScope ? 12 : 9} label="Tên nhà thuốc/phòng khám" htmlFor="legalRepresentative">
+        <InfoFormControl xs={maxWidthScope ? 12 : 9} label="Tên nhà thuốc/phòng khám" htmlFor="bussinessName">
           <InfoInput
-            id="legalRepresentative"
+            id="bussinessName"
             placeholder="Tên nhà thuốc/phòng khám"
-            value={legalRepresentative}
-            onChange={(e) => handleSetValue('legalRepresentative', e.target.value)}
+            value={bussinessName}
+            onChange={(e) => handleSetValue('bussinessName', e.target.value)}
           />
         </InfoFormControl>
 
-        <InfoFormControl xs={12} label="Tên người đại diện pháp luật" htmlFor="bussinessName">
+        <InfoFormControl xs={12} label="Tên người đại diện pháp luật" htmlFor="legalRepresentative">
           <InfoInput
-            id="bussinessName"
+            id="legalRepresentative"
             placeholder="Tên người đại diện pháp luật"
-            value={bussinessName}
-            onChange={(e) => handleSetValue('bussinessName', e.target.value)}
+            value={legalRepresentative}
+            onChange={(e) => handleSetValue('legalRepresentative', e.target.value)}
 
           />
         </InfoFormControl>
