@@ -27,7 +27,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue, err }) => {
             id="name"
             placeholder="Họ và tên"
             value={name}
-            error={err.name !== ''}
+            error={err.name}
             onChange={(e) => handleSetValue('name', e.target.value)}
           />
         </InfoFormControl>
@@ -37,7 +37,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue, err }) => {
             id="phone"
             placeholder="Số điện thoại"
             value={phone}
-            error={err.phone !== ''}
+            error={err.phone}
             onChange={(e) => handleSetValue('phone', e.target.value)}
           />
         </InfoFormControl>
@@ -47,7 +47,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue, err }) => {
             id="email"
             placeholder="Email"
             value={email}
-            error={err.email !== ''}
+            error={err.email}
             onChange={(e) => handleSetValue('email', e.target.value)}
           />
         </InfoFormControl>

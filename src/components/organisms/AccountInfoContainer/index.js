@@ -96,6 +96,7 @@ const AccountInfoFormContainer = ({ user }) => {
           {...value}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
+          err={err}
         />
       </Grid>
       <Grid item xs={12}>
@@ -103,6 +104,7 @@ const AccountInfoFormContainer = ({ user }) => {
           {...value}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
+          err={err}
         />
       </Grid>
       <Grid item xs={12}>
