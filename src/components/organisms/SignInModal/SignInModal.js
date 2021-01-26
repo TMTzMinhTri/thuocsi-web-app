@@ -31,8 +31,11 @@ const SignInModal = ({ className, visible, onClose, onChangeForget, onChangeSign
         login(userInfo, rememberMe === '');
         updateCart();
         // redirect to quick-order - when login success
-        router.push(QUICK_ORDER);
+        if (router.pathname === '/') {
+          router.push(QUICK_ORDER);
+        }
       })
+
       .catch((error) => {
         NotifyUtils.error(t('error'));
         setHasAlert(`Đã có lỗi xảy ra ${error}`);
