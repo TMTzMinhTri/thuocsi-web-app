@@ -6,6 +6,9 @@ import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cook
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
 import { useModal } from 'hooks';
+import { QUICK_ORDER } from 'constants/Paths';
+
+import { i18n } from 'i18n-lib';
 
 const AuthContext = createContext({});
 
@@ -17,6 +20,8 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
   const [isShowSignUp, toggleSignUp] = useModal();
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
+
+  const { t } = i18n.useTranslation(['apiErrors']);
 
   const handleChangeForget = useCallback(() => {
     toggleLogin();
@@ -78,14 +83,40 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
     loadUserFromCookies();
   };
 
+  const handleLogin = ({ username, password, rememberMe, success }) => {
+    AuthClient.login({ username, password })
+      .then((result) => {
+        if (!isValid(result)) {
+          const errorCode = `login.${result.errorCode}`;
+          NotifyUtils.error(t(errorCode));
+          return;
+        }
+
+        NotifyUtils.success(t('login.success'));
+        const userInfo = result?.data[0];
+        login(userInfo, rememberMe === '');
+        // callback
+        if (success) {
+          success();
+          if (router.pathname === '/') {
+            router.push(QUICK_ORDER);
+          }
+        }
+      })
+      .catch(() => {
+        NotifyUtils.error(t('error'));
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   const logout = () => {
     setUser(null);
     Cookies.set(ACCESS_TOKEN, null);
     Cookies.set(ACCESS_TOKEN_LONGLIVE, null);
     Cookies.set(REMEMBER_ME, null);
-
     setCookies({}, undefined);
-
     push('/');
   };
 
@@ -101,6 +132,7 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
         getUserInfo,
         loadUserFromCookies,
         login,
+        handleLogin,
         logout,
         isLoading,
         isShowLogin,
