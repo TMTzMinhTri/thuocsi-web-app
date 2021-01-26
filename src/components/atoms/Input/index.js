@@ -33,6 +33,7 @@ const Input = styled(InputCustom)`
 
   &.input__info {
     height: 2.4em !important;
+    margin-bottom: 0!important;
 
     & .MuiInputBase-input {
       border-radius: 4px;

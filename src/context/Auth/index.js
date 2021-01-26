@@ -6,6 +6,7 @@ import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cook
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
 import { useModal } from 'hooks';
+import { QUICK_ORDER } from 'constants/Paths';
 
 import { i18n } from 'i18n-lib';
 
@@ -97,6 +98,9 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
         // callback
         if (success) {
           success();
+          if (router.pathname === '/') {
+            router.push(QUICK_ORDER);
+          }
         }
       })
       .catch(() => {

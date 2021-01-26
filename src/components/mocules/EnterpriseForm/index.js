@@ -23,7 +23,8 @@ const EnterpriseForm = ({
   districtCode,
   provinceCode,
   handleSetValue,
-  handleChangeAddress
+  handleChangeAddress,
+  err
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
   return (
@@ -76,7 +77,7 @@ const EnterpriseForm = ({
       </Grid>
       <h1 className={styles.title}> Thông tin xuất hoá đơn </h1>
       <Grid container spacing={2}>
-        <InfoFormControl xs={12} label="Mã số thuế" htmlFor="mst">
+        <InfoFormControl xs={12} label="Mã số thuế" htmlFor="mst" error={err.mst}>
           <InfoInput
             id="mst"
             placeholder="Mã số thuế"

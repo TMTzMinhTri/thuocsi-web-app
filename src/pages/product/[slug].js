@@ -47,7 +47,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-export default function ProductDetail({ product, isAuthenticated }) {
+export default function ProductDetail({ product }) {
   const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
   const {
@@ -66,7 +66,7 @@ export default function ProductDetail({ product, isAuthenticated }) {
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
 
-  const { toggleLogin } = useAuth();
+  const { toggleLogin, isAuthenticated } = useAuth();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
