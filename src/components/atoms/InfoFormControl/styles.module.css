@@ -49,3 +49,7 @@
 .form_control [class*='MuiFormLabel-root'] {
   line-height: 0 !important;
 }
+
+.error {
+  color: rgb(255, 23, 68) !important;
+}
