@@ -31,7 +31,12 @@ export default function ProductDetailTabs({ data, product, handleChange, value }
           if (item.value === '1') {
             return (
               <TabPanel value={item.value} key={uuidv4()}>
-                {description !== '' ? description : 'Đang cập nhật ...'}
+                <div
+                  className={styles.content}
+                  dangerouslySetInnerHTML={{
+                    __html: description !== '' ? description : 'Đang cập nhật ...',
+                  }}
+                />
               </TabPanel>
             );
           }
