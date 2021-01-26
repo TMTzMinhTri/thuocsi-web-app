@@ -73,7 +73,7 @@ const ProductCardContent = ({
       >
         Nhóm:{' '}
         {category.map((item) => (
-          <a key={uuidv4()} href="/">
+          <a key={uuidv4()} href={`/categories/${item.slug}`}>
             {item.name}
           </a>
         ))}

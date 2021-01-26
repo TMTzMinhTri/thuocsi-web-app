@@ -34,6 +34,8 @@ const useStyle = makeStyles({
   },
   link_wrap: {
     display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
   },
   link: {
     position: 'relative',

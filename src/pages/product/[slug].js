@@ -307,7 +307,7 @@ export default function ProductDetail({ product }) {
                     <a
                       key={uuidv4()}
                       className={styles.text_capitalize}
-                      href="/categories/giam-dau-ha-sot"
+                      href={`/categories/${item.slug}`}
                     >
                       {item.name}
                     </a>

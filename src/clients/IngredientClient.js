@@ -22,9 +22,12 @@ async function getIngredientBySlug(ctx, slug) {
 }
 
 async function getProductsBySlug(ctx, slug) {
-  const url = PRODUCT_API.INGREDIENT_PRODUCT_LIST;
-  const res = await GET({ url, ctx, params: { slug } });
-  return res;
+  const url = PRODUCT_API.PRODUCT_LIST;
+  const res = await GET({ url, ctx, params: { ingredient: slug } });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
 }
 
 export default {
