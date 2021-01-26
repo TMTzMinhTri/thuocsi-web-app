@@ -34,10 +34,10 @@ async function getProductByOrderId(id = '', ctx) {
   return result;
 }
 
-async function getInfoOrderItem(data = [], ctx) {
+async function getInfoOrderItem({orderItems = [], ctx}) {
   const obj = {};
   const arraySku = [];
-  data.forEach((item) => {
+  orderItems.forEach((item) => {
     arraySku.push(item?.productSKU);
   });
   const body = {
@@ -45,7 +45,7 @@ async function getInfoOrderItem(data = [], ctx) {
   };
   const res = await POST({ url: PRODUCT_API.PRODUCT_LIST, body, ctx });
   if (!isValid(res)) {
-    return [];
+    return obj;
   }
   const products = res?.data || [];
   products.forEach((product) => {
