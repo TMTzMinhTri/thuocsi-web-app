@@ -59,14 +59,14 @@ const PrintInvoiceModal = memo((props) => {
       try {
         const res = await OrderClient.getProductByOrderId(orderID);
         if (!isValid(res)) throw Error('Lấy danh sách không thành công');
-        let prds = res?.data || [];
-        const mapProductInfo = await OrderClient.getInfoOrderItem(prds);
+        let orderItems = res?.data || [];
+        const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems });
         if (!isValidWithoutData(mapProductInfo)) throw Error('Lấy danh sách không thành công');
-        prds = prds.map((product) => ({
+        orderItems = orderItems.map((product) => ({
           productInfo: mapProductInfo[product?.productSKU],
           ...product,
         }));
-        setProducts(prds);
+        setProducts(orderItems);
       } catch (error) {
         NotifyUtils.error(error?.message || 'Lấy dữ liệu bị lỗi');
       }
@@ -124,7 +124,6 @@ const PrintInvoiceModal = memo((props) => {
           />
           <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
             {products.map((product) => {
-              
               const { price, quantity, totalPrice } = product;
               const { name = '', slug = '' } = product.productInfo || {};
               return (
