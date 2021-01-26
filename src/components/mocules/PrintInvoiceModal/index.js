@@ -63,7 +63,7 @@ const PrintInvoiceModal = memo((props) => {
         const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems });
         if (!isValidWithoutData(mapProductInfo)) throw Error('Lấy danh sách không thành công');
         orderItems = orderItems.map((product) => ({
-          productInfo: mapProductInfo[product?.productSKU],
+          productInfo: mapProductInfo[product?.productSku],
           ...product,
         }));
         setProducts(orderItems);
