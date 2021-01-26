@@ -17,7 +17,7 @@ import FormarCurrency from 'utils/FormarCurrency';
 import { tabsProductData } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchDollar } from '@fortawesome/free-solid-svg-icons';
+import { faSearchDollar, faStoreAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import {
   MultiImageBox,
   InputProduct,
@@ -27,6 +27,7 @@ import {
   ProductDetailTabs,
   Button as CustomButton,
   Template,
+  LinkComp,
 } from 'components';
 import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide } from 'clients';
@@ -267,6 +268,44 @@ export default function ProductDetail({ product }) {
                         Điều Khoản Sử Dụng
                       </a>
                     </p>
+                    <div className={styles.supplierTitle}>
+                      <div className={styles.icon}>
+                        <FontAwesomeIcon icon={faStoreAlt} />
+                      </div>
+
+                      <LinkComp className={styles.supplierName} href="/supplier/medx">
+                        Medx
+                      </LinkComp>
+                    </div>
+                    <div className={styles.supplierInfo}>
+                      <div className={styles.supplierYearWrap}>
+                        <div className={styles.supplierYear}>
+                          <span className={styles.activePeriodYear}>2+</span>
+                          <br />
+                          năm
+                        </div>
+                        <span>Hợp tác cùng thuocsi.vn</span>
+                      </div>
+
+                      <div className={styles.supplierRating}>
+                        <div className={styles.rating}>
+                          <div className={styles.ratingBase}>
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                          </div>
+                          <div className={styles.ratingStars} style={{ width: '91%' }}>
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <hr className={styles.divider} />
                     <div className={styles.subscribe_section}>
                       Đăng ký bán hàng cùng thuocsi.vn
