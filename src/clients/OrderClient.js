@@ -36,10 +36,8 @@ async function getProductByOrderId(id = '', ctx) {
 
 async function getInfoOrderItem({orderItems = [], ctx}) {
   const obj = {};
-  const arraySku = [];
-  orderItems.forEach((item) => {
-    arraySku.push(item?.productSKU);
-  });
+  const arraySku = orderItems.map(item => item?.productSku);
+
   const body = {
     codes: arraySku,
   };

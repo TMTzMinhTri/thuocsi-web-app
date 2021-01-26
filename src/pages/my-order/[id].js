@@ -23,16 +23,16 @@ export async function getServerSideProps(ctx) {
     const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems: products.data, ctx });
     if (!isValidWithoutData(mapProductInfo)) {
       return {
-        redirect: {
-          destination: NOT_FOUND_URL,
-          permanent: false,
+        props: {
+          order: order.data[0],
+        products: products.data,
         },
       };
     }
 
     const prds = products?.data || [];
     const productDetails = prds.map((product) => ({
-      productInfo: mapProductInfo[product?.productSKU || ''] || {},
+      productInfo: mapProductInfo[product?.productSku || ''] || {},
       ...product,
     }));
     return {

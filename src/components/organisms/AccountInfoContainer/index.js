@@ -45,6 +45,24 @@ const AccountInfoFormContainer = ({ user }) => {
     ward: wardCode,
     customerID,
   });
+
+
+  const [err, setErr] = useState({
+    name: '',
+    phone: '',
+    email : '',
+    password: '',
+    legalRepresentative: '',
+    bussinessName: '',
+    provinceCode: '',
+    districtCode: '',
+    wardCode : '',
+    mst : '',
+    address: '',
+    province: '',
+    district: '',
+    ward: '',
+  });
   const handleSetValue = (key, val) => {
     setValue({ ...value, [key]: val });
   };
@@ -55,7 +73,11 @@ const AccountInfoFormContainer = ({ user }) => {
 
   const handleUpdateProfile = async () => {
     try {
-      validateForm({ ...value });
+      const errL = validateForm({ ...value });
+      if(errL){
+        setErr(errL);
+        throw Error();
+      }
       const res = await CustomerClient.updateProfile(value);
       if (!isValid(res)) throw Error(res?.message);
       NotifyUtils.success('Cập nhật thông tin thành công');
@@ -67,7 +89,7 @@ const AccountInfoFormContainer = ({ user }) => {
   return (
     <Grid item container spacing={3}>
       <Grid item xs={12}>
-        <AccountForm {...value} handleSetValue={handleSetValue} />
+        <AccountForm {...value} handleSetValue={handleSetValue} err={err} />
       </Grid>
       <Grid item xs={12}>
         <EnterpriseForm
