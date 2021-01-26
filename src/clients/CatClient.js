@@ -1,5 +1,7 @@
 import { CATEGORY_API, PRODUCT_API } from 'constants/APIUri';
+import { GetQuantityProductFromCart } from 'utils';
 import { GET, isValid } from './Clients';
+import CartClient from './CartClient';
 import { PAGE_SIZE } from '../constants/data';
 
 async function loadBrand(ctx) {
@@ -25,22 +27,40 @@ async function loadCategoryInfoBySlug(ctx) {
   }
   return res.data;
 }
-async function loadProductWithCategory(ctx) {
+async function loadProductWithCategory(ctx, isTotal) {
   const { query } = ctx;
-  const page = query.page - 1 || 0;
-  const slug = query.slug || '';
-  const currentTab = query.current_tab || '';
-  const sortBy = query.sortBy || '';
-  const url = `${PRODUCT_API.PRODUCT_LIST}?category=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`;
-  const res = await GET({
-    url,
-    ctx,
-    isBasic: true,
-  });
-  if (!isValid(res)) {
-    return [];
+  const url = PRODUCT_API.PRODUCT_LIST;
+  const params = {
+    category: query.slug || '',
+    current_tab: ctx.query.current_tab ? ctx.query.current_tab : '',
+    sortBy: ctx.query.sortBy ? ctx.query.sortBy : '',
+    page: ctx.query.page || 0,
+    q: ctx.query.q ? ctx.query.q : '',
+    limit: PAGE_SIZE,
+    getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
+  };
+  const result = await GET({ url, ctx, params, isBasic: true });
+  if (!isValid(result)) return result;
+
+  let cart = {};
+  let productListWithQuantityInCart = {};
+  try {
+    cart = await CartClient.loadDataCart(ctx);
+  } catch (error) {
+    cart.status = 'ERROR';
   }
-  return res;
+  const cartObject = {};
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of cart[0].cartItems) {
+      cartObject[item.sku] = item;
+    }
+    productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(result, cartObject);
+  } else {
+    productListWithQuantityInCart = result;
+  }
+
+  return productListWithQuantityInCart;
 }
 async function loadManufacturerInfoBySlug(ctx) {
   const { query } = ctx;
@@ -51,22 +71,40 @@ async function loadManufacturerInfoBySlug(ctx) {
   }
   return res.data;
 }
-async function loadProductWithManufacturer(ctx) {
+async function loadProductWithManufacturer(ctx, isTotal) {
   const { query } = ctx;
-  const page = query.page - 1 || 0;
-  const slug = query.slug || '';
-  const currentTab = query.current_tab || '';
-  const sortBy = query.sortBy || '';
-  const url = `${PRODUCT_API.PRODUCT_LIST}?manufacturers=${slug}&current_tab=${currentTab}&sortBy=${sortBy}&offset=${page}&getTotal=true&limit=${PAGE_SIZE}`;
-  const res = await GET({
-    url,
-    ctx,
-    isBasic: true,
-  });
-  if (!isValid(res)) {
-    return [];
+  const url = PRODUCT_API.PRODUCT_LIST;
+  const params = {
+    manufacturers: query.slug || '',
+    current_tab: ctx.query.current_tab ? ctx.query.current_tab : '',
+    sortBy: ctx.query.sortBy ? ctx.query.sortBy : '',
+    page: ctx.query.page || 0,
+    q: ctx.query.q ? ctx.query.q : '',
+    limit: PAGE_SIZE,
+    getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
+  };
+  const result = await GET({ url, ctx, params, isBasic: true });
+  if (!isValid(result)) return result;
+
+  let cart = {};
+  let productListWithQuantityInCart = {};
+  try {
+    cart = await CartClient.loadDataCart(ctx);
+  } catch (error) {
+    cart.status = 'ERROR';
   }
-  return res;
+  const cartObject = {};
+  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of cart[0].cartItems) {
+      cartObject[item.sku] = item;
+    }
+    productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(result, cartObject);
+  } else {
+    productListWithQuantityInCart = result;
+  }
+
+  return productListWithQuantityInCart;
 }
 async function loadTags(ctx) {
   const url = PRODUCT_API.TAGS;
