@@ -6,7 +6,7 @@ import HeaderMobile from '../HeaderMobile';
 import Footer from '../Footer';
 import FooterMobile from '../FooterMobile';
 
-export default function Template({ title, children, isMobile, pageName }) {
+export default function Template({ title, children, isMobile, pageName, pageTitle = '' }) {
   return (
     <div>
       <Head>
@@ -25,7 +25,7 @@ export default function Template({ title, children, isMobile, pageName }) {
         <title>{title}</title>
       </Head>
       <div id="main">
-        {isMobile ? <HeaderMobile title={title} /> : <Header />}
+        {isMobile ? <HeaderMobile title={pageTitle} /> : <Header />}
         {!isMobile && <NavBar pageName={pageName} />}
         {children}
         {isMobile ? <FooterMobile /> : <Footer />}
