@@ -67,7 +67,7 @@ export default function Supplier({
     <Template title={title} isMobile={isMobile} pageName={cat}>
       <Grid className={styles.supplierWrapper} container>
         <Grid container item className={styles.container}>
-          <div style={{ width: '30%' }}>
+          <div className={styles.logoPharma}>
             <Image src={LOGO_PHARMACY} width="215px" height="200px" />
           </div>
           <div style={{ width: '70%' }}>

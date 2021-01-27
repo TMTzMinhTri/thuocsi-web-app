@@ -34,3 +34,19 @@
     padding: 3rem;
     display: flex;
 }
+
+.logoPharma {
+    padding-right: 20px;
+}
+
+
+@media (max-width: 896px){
+    .logoPharma {
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .container {
+        flex-direction: column
+    }
+}
