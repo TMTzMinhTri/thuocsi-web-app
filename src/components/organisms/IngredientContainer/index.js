@@ -73,7 +73,7 @@ const IngredientContainer = ({ ingredients }) => {
         setIngres(searchs);
       });
     }
-  }, [filter, ingredients]);
+  }, [filter]);
 
   return (
     <Grid>
