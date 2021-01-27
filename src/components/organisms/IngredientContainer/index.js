@@ -79,7 +79,7 @@ const IngredientContainer = ({ ingredients }) => {
         setIngres(searchs);
       });
     }
-  }, [filter.isByWord, filter.text, filter.word, ingredients, searchByWord, searchString]);
+  }, [filter.isByWord, filter.text, filter.word]);
 
   const DynamicIngredientList = dynamic(() => import('components/mocules/IngredientList'));
 
