@@ -27,6 +27,7 @@ import {
   ProductDetailTabs,
   Button as CustomButton,
   Template,
+  LinkComp,
 } from 'components';
 import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide } from 'clients';
@@ -143,9 +144,9 @@ export default function ProductDetail({ product }) {
     ingredient.map((row) => (
       <TableRow key={row.name}>
         <TableCell className={styles.border_right} component="th" scope="row">
-          <a className={styles.text_capitalize} href="/">
+          <LinkComp className={styles.text_capitalize} href={`/ingredients/${row.slug}`}>
             {row.name}
-          </a>
+          </LinkComp>
         </TableCell>
         <TableCell align="left">{row.unit}</TableCell>
       </TableRow>
@@ -304,13 +305,13 @@ export default function ProductDetail({ product }) {
                 <div className={styles.product_info_label}>Nhóm thuốc</div>
                 {category &&
                   category.map((item) => (
-                    <a
+                    <LinkComp
                       key={uuidv4()}
                       className={styles.text_capitalize}
                       href={`/categories/${item.slug}`}
                     >
                       {item.name}
-                    </a>
+                    </LinkComp>
                   ))}
               </div>
 
