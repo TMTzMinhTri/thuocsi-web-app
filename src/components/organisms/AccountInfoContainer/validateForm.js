@@ -13,6 +13,7 @@ const validateForm = ({
   const err = {};
   if (ValidateUtils.isEmpty(name)) err.name = 'Bạn chưa điền tên';
   if (ValidateUtils.isEmpty(phone)) err.phone ='Bạn chưa điền số điện thoại';
+  if(ValidateUtils.isEmpty(mst)) err.mst = 'Bạn chưa điền mã số thuế';
   if (provinceCode === '0') throw Error('Tỉnh/Thành Phố không được trống');
   if (districtCode === '0') throw Error('Quận/Huyện không được trống');
   if (wardCode === '0') throw Error('Phường/Xã phố không được trống');
