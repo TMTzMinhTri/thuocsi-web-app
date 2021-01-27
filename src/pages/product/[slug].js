@@ -72,6 +72,7 @@ export default function ProductDetail({ product, supplier = [] }) {
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { toggleLogin, isAuthenticated } = useAuth();
+
   const yearNumber = new Date().getFullYear() - supplier.yearFounded;
 
   const handleChange = (event, newValue) => {
@@ -286,7 +287,7 @@ export default function ProductDetail({ product, supplier = [] }) {
                       <div className={styles.supplierYearWrap}>
                         <div className={styles.supplierYear}>
                           <span className={styles.activePeriodYear}>
-                            {yearNumber > 1 ? '2+' : yearNumber}
+                            {yearNumber > 1 ? `${yearNumber}+` : yearNumber}
                           </span>
                           <br />
                           năm

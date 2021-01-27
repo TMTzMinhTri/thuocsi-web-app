@@ -95,7 +95,9 @@ export default function Supplier({
                 </div>
               </div>
             </div>
-            <span className={styles.supplierYear}>Thành viên từ: {supplier.yearFounded}</span>
+            <span className={styles.supplierYear}>
+              Thành viên từ: {supplier.yearFounded.getFullYear()}
+            </span>
           </div>
         </Grid>
       </Grid>
