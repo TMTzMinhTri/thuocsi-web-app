@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE } from 'constants/Cookies';
 import { HTTP_STATUS } from 'constants/Enums';
 import { CookiesParser, RequestUtils } from 'utils';
-import { API_HOST, MOCK_API_HOST, BASIC_AUTHEN } from '../../config/index';
+import { API_HOST, MOCK_API_HOST, BASIC_AUTHEN } from 'sysconfig';
 
 const MAX_LIMIT = 1000;
 

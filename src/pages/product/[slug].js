@@ -33,6 +33,7 @@ import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide, SupplierClient } from 'clients';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
+import { DOMAIN_SELLER_CENTER } from 'sysconfig';
 import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
 
 import styles from './styles.module.css';
@@ -322,7 +323,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       Đăng ký bán hàng cùng thuocsi.vn
                       <Button
                         className={styles.subscribe_btn}
-                        href="https://sc-stg.thuocsi.vn"
+                        href={DOMAIN_SELLER_CENTER}
                         // target="_blank"
                         title="Đăng ký bán hàng cùng thuocsi"
                       >
