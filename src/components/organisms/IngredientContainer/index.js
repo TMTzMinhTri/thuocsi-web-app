@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Grid } from '@material-ui/core';
-import { AlphabetFilter, IngredientList, FloatSearch } from 'components/mocules';
+import { AlphabetFilter, FloatSearch } from 'components/mocules';
 import { StringUtils } from 'utils';
 import { debounceFunc500 } from 'utils/debounce';
+import dynamic from 'next/dynamic';
 
 const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
@@ -78,7 +79,9 @@ const IngredientContainer = ({ ingredients }) => {
         setIngres(searchs);
       });
     }
-  }, [filter.isByWord, filter.text, filter.word, ingredients, searchByWord]);
+  }, [filter.isByWord, filter.text, filter.word, ingredients, searchByWord, searchString]);
+
+  const DynamicIngredientList = dynamic(() => import('components/mocules/IngredientList'));
 
   return (
     <Grid>
@@ -90,7 +93,7 @@ const IngredientContainer = ({ ingredients }) => {
       />
       <AlphabetFilter handleChangeWord={handleChangeWord} word={filter.word} />
 
-      <IngredientList ingredients={ingres} text={filter.text} />
+      <DynamicIngredientList ingredients={ingres} text={filter.text} />
     </Grid>
   );
 };
