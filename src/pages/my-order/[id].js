@@ -25,7 +25,7 @@ export async function getServerSideProps(ctx) {
       return {
         props: {
           order: order.data[0],
-        products: products.data,
+          products: products.data,
         },
       };
     }
@@ -50,7 +50,7 @@ const MyOrder = ({ user, order, products = [] }) => {
     <Template title={title}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={2} title="Đơn hàng của bạn" name={user?.name}>
+          <InfoContainer value={2} name={user?.name}>
             <OrderDetailContainer order={order} products={products} user={user} />
           </InfoContainer>
         </Container>

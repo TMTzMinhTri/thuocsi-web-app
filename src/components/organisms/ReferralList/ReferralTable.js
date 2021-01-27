@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Button, Grid } from '@material-ui/core';
+import { TableRow, TableCell, Button, Grid, Paper } from '@material-ui/core';
 import { InfoTable } from 'components/atoms';
 import { DateTimeUtils, NotifyUtils } from 'utils';
 import styles from './styles.module.css';
@@ -26,7 +26,7 @@ const SendSMSButton = () => {
 function ReferralTable({ referrals }) {
   return (
     <div>
-      <InfoTable heads={heads}>
+      <InfoTable heads={heads} className={styles.bottom_square}>
         {referrals.length !== 0 && referrals.map((row) => (
           <TableRow key={row.code} hover>
             <TableCell component="th" scope="row">
@@ -50,10 +50,10 @@ function ReferralTable({ referrals }) {
           </TableRow>
       ))}
       </InfoTable>
-      <Grid container justify="center" className={styles.not_friend}> 
-        {/* <Grid item xs={12}> */}
-        Bạn chưa giới thiệu bạn bè
-        {/* </Grid> */}
+      <Grid container justify="center"> 
+        <Paper className={styles.not_friend}>
+          Bạn chưa giới thiệu bạn bè
+        </Paper>
       </Grid>
     </div>
   );

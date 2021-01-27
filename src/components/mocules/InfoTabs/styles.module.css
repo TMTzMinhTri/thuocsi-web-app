@@ -1,6 +1,7 @@
 .tab_active {
   color: #00b46e !important;
   outline: none !important;
+  cursor: pointer;
 }
 .tab_inactive {
   outline: none !important;

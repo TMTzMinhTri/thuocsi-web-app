@@ -29,7 +29,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
                 <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate || Date.now()))}</span>
               </div>
             </Grid>
-            <ResponseButton orderID={order.orderNo} name={user?.name} phone={user?.phone} />
+            <ResponseButton orderID={order.orderNo} name={order?.customerName} phone={order?.customerPhone} />
           </Grid>
         </Grid>
       </Paper>
@@ -64,10 +64,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
     <Grid item xs={12}>
       <OrderDetailInfo
         {...order}
-        name={user?.name}
-        phone={user?.phone}
-        address={user?.address}
-        email={user?.email}
+        
       />
     </Grid>
 
