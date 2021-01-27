@@ -32,4 +32,6 @@ export const LOGO_THUOCSI = '/images/logo_thuocsi.svg';
 export const LOGO_THUOCSI_SHORTENED = '/images/logo_icon_thuocsi.svg';
 export const FAVICON_DEFAULT = '/images/favicon.ico';
 export const MISSING_IMAGE = '/images/default/missing.png';
-export const GIFT_IMAGE = 'https://assets.thuocsi.vn/assets/defaults/qua_tang-d6b9623d40a9924ac56d42815f5ed983f93ef06a88ec91c36261bb3bbb222553.jpg';
+export const GIFT_IMAGE =
+  'https://assets.thuocsi.vn/assets/defaults/qua_tang-d6b9623d40a9924ac56d42815f5ed983f93ef06a88ec91c36261bb3bbb222553.jpg';
+export const LOGO_PHARMACY = '/images/default/pharmacy.svg';

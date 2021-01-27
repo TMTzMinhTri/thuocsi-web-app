@@ -5,7 +5,7 @@ import NotiReducer from './NotiReducer';
 export const NotiContext = createContext();
 
 export const NotiContextProvider = ({ children }) => {
-  const initialState = { loading: true, notification: [] };
+  const initialState = { loading: true, notification: [], totalNotification: 0 };
   const [state, dispatch] = useReducer(NotiReducer, initialState);
   useEffect(() => {
     async function fetchData() {
@@ -32,11 +32,7 @@ export const NotiContextProvider = ({ children }) => {
     ...state,
   };
 
-  return (
-    <NotiContext.Provider value={contextValues}>
-      { children }
-    </NotiContext.Provider>
-  );
+  return <NotiContext.Provider value={contextValues}>{children}</NotiContext.Provider>;
 };
 
 export const useNotify = () => useContext(NotiContext);

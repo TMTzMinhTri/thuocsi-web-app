@@ -68,9 +68,13 @@ const ProductCardBuy = ({
   );
 
   const handleDecrease = () => {
-    if (value < 2) return;
+    if (value < 1) return;
     const q = value - 1;
     setValue(q);
+    if (q < 1) {
+      handler(product, 'remove');
+      return;
+    }
     handler(q, 'update');
   };
 
@@ -85,7 +89,7 @@ const ProductCardBuy = ({
       const curValue = e.currentTarget.value;
       setValue(curValue);
       if (!curValue || curValue === 0) {
-        if(value === 0) return;
+        if (value === 0) return;
         handler(product, 'remove');
       } else {
         handler(+curValue, 'update');
@@ -175,8 +179,8 @@ const ProductCardBuy = ({
           ) : (
             <div className={styles.view_signin_btn}>
               <CustomButton
-                color="#00b46e"
-                backgroundColor="#fff"
+                color="#fff"
+                backgroundColor="#00b46e"
                 className={styles.signin_btn}
                 onClick={toggleLogin}
               >

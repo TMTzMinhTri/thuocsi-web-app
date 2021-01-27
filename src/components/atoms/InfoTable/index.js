@@ -7,6 +7,7 @@ import {
   TableBody,
   TableCell,
 } from '@material-ui/core';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import styles from './styles.module.css';
 
@@ -16,7 +17,7 @@ const InfoTable = ({ heads, children, className, stickyHeader }) => (
       <TableHead>
         <TableRow>
           {heads.map((head) => (
-            <TableCell classes={{ root: styles.table_head }} align="left">
+            <TableCell key={uuidv4()} classes={{ root: styles.table_head }} align="left">
               {head}
             </TableCell>
           ))}
@@ -28,9 +29,9 @@ const InfoTable = ({ heads, children, className, stickyHeader }) => (
 );
 
 const StyledInfoTable = styled(InfoTable)`
-    &.MuiPaper-rounded {
-      border-radius: 10px !important;
-    }
+  &.MuiPaper-rounded {
+    border-radius: 10px !important;
+  }
 `;
 
 export default StyledInfoTable;

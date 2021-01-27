@@ -16,14 +16,14 @@ const TagTypeProps = {
     backgroundColor: '#f8f9fa',
     color: '#000',
   },
-  'ban-chay': {
+  BAN_CHAY: {
     text: 'Bán chạy',
     backgroundColor: '#00b46e',
     color: '#fff',
     icon: <ThumbUp className={styles.icon} />,
   },
 
-  'hoa-don-nhanh': {
+  HOA_DON_NHANH: {
     text: 'Hóa đơn nhanh',
     backgroundColor: '#f8f9fa',
     color: '#00b46e',
@@ -49,7 +49,7 @@ const TagTypeProps = {
     color: '#00b46e',
   },
 
-  'flash-sale': {
+  FLASH_SALE: {
     text: 'Flash Sale',
     backgroundColor: '#f8f9fa',
     color: '#f9b514',
@@ -69,7 +69,7 @@ const TagTypeProps = {
     color: '#f9b514',
   },
 
-  'giao-nhanh': {
+  GIAO_NHANH: {
     text: 'Giao nhanh',
     backgroundColor: '#00b46e',
     color: '#fff',

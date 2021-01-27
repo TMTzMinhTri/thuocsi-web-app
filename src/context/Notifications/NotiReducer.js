@@ -5,18 +5,21 @@ const NotiReducer = (state, action) => {
       return {
         ...state,
         notification: [...action.payload],
+        totalNotification: [...action.payload].length,
         loading: false,
       };
     case 'FETCH_ERROR':
       return {
         ...state,
         notification: [],
+        totalNotification: 0,
         loading: false,
       };
     case 'GET_NOTIFICATIONS':
       return {
         ...state,
         notification: [...notification],
+        totalNotification: [...notification].length,
       };
     default:
       return state;

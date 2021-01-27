@@ -18,13 +18,17 @@
   display: flex;
   justify-content: space-between !important;
   align-items: center;
+  height: 60px;
+}
+
+.login a{
+  padding: 0;
 }
 
 .logo {
   padding: 15px;
   cursor: pointer;
 }
-
 .div_buttons {
   padding: 15px;
 }
@@ -130,6 +134,7 @@
 @media (max-width: 480px){
   .login>div:last-child{
     flex-grow: 1;
+    text-align: right;
   }
 }
 .search_tool_wrapper{

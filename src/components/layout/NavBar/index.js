@@ -17,6 +17,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';
 
+import {
+  INGREDIENT,
+  CART_URL,
+  HOME_PAGE,
+  PRODUCTS_URL,
+  DEALS,
+  QUICK_ORDER,
+  PROMO_CODES,
+} from 'constants/Paths';
+
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { Toggle, SearchInput } from 'components/mocules';
 
@@ -61,7 +71,7 @@ function renderMostSearched(data, classes) {
   }
 
   const listItems = data.map(({ name, id }) => (
-    <TagComp name={name} key={`tags-${id}`} href="/" color="white" />
+    <TagComp name={name} key={`tags-${id}`} href={HOME_PAGE} color="white" />
   ));
   return (
     <div className={styles.navBarContaint}>
@@ -119,7 +129,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
         <div className={styles.navBarContaint}>
           <div className={styles.leftNavBar}>
             <div className={styles.logoNav}>
-              <LinkComp href="/">
+              <LinkComp href={HOME_PAGE}>
                 <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
               </LinkComp>
             </div>
@@ -130,7 +140,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                   (isPageProduct || isPageManufacturers || isPageCategiries) && styles.active,
                 )}
                 name="Sản phẩm"
-                href="/products"
+                href={PRODUCTS_URL}
                 color="white"
               >
                 <Icon className={`icon-product ${styles.navIcon}`} />
@@ -139,7 +149,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <LinkComp
                 className={clsx(classes.link, pageName === 'ingredients' && styles.active)}
                 name="Hoạt Chất"
-                href="/ingredients"
+                href={INGREDIENT}
                 color="white"
               >
                 <Icon className={`icon-ingredients ${styles.navIcon}`} />
@@ -148,7 +158,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <LinkComp
                 className={clsx(classes.link, pageName === 'quick-order' && styles.active)}
                 name="Đặt Hàng Nhanh"
-                href="/quick-order"
+                href={QUICK_ORDER}
                 color="white"
               >
                 <Icon className={`icon-quick-order ${styles.navIcon}`} />
@@ -157,7 +167,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <LinkComp
                 className={clsx(classes.link, pageName === 'deals' && styles.active)}
                 name="Khuyến Mãi"
-                href="/deals"
+                href={DEALS}
                 color="white"
               >
                 <Whatshot className={styles.navIcon} />
@@ -166,7 +176,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <LinkComp
                 className={clsx(classes.link, pageName === 'promo-codes' && styles.active)}
                 name="Mã Giảm Giá"
-                href="/promo-codes"
+                href={PROMO_CODES}
                 color="white"
               >
                 <span className={styles.badge}>Mới</span>
@@ -179,9 +189,9 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
             <>
               <SearchInput classCustom={styles.customWidth} className={styles.searchInput} />
               <div className={styles.navBarRight}>
-                <LinkComp className={styles.navBarRightLink} href="/cart">
+                <LinkComp className={styles.navBarRightLink} href={CART_URL}>
                   <IconButton aria-label="cart">
-                    <Badge badgeContent={itemCount} invisible={false} color="secondary">
+                    <Badge badgeContent={itemCount} invisible={itemCount === 0} color="secondary">
                       <LocalMallOutlined className={styles.rIcon} />
                     </Badge>
                   </IconButton>
