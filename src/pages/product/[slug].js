@@ -30,7 +30,7 @@ import {
   LinkComp,
 } from 'components';
 import useModal from 'hooks/useModal';
-import { ProductClient, doWithServerSide } from 'clients';
+import { ProductClient, doWithServerSide, SupplierClient } from 'clients';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
@@ -39,16 +39,20 @@ import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const product = await ProductClient.loadDataProductDetail(ctx);
+    const [product, supplier] = await Promise.all([
+      ProductClient.loadDataProductDetail(ctx),
+      SupplierClient.getInfoSupplier(ctx),
+    ]);
     return {
       props: {
         product: product.data && product.data[0] ? product.data[0] : [],
+        supplier,
       },
     };
   });
 }
 
-export default function ProductDetail({ product }) {
+export default function ProductDetail({ product, supplier = [] }) {
   const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
   const {
@@ -67,8 +71,8 @@ export default function ProductDetail({ product }) {
   const [quantity, setQuantity] = useState(product.quantity || 0);
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
-
   const { toggleLogin, isAuthenticated } = useAuth();
+  const yearNumber = new Date().getFullYear() - supplier.yearFounded;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -281,7 +285,9 @@ export default function ProductDetail({ product }) {
                     <div className={styles.supplierInfo}>
                       <div className={styles.supplierYearWrap}>
                         <div className={styles.supplierYear}>
-                          <span className={styles.activePeriodYear}>2+</span>
+                          <span className={styles.activePeriodYear}>
+                            {yearNumber > 1 ? '2+' : yearNumber}
+                          </span>
                           <br />
                           năm
                         </div>
@@ -297,7 +303,10 @@ export default function ProductDetail({ product }) {
                             <FontAwesomeIcon className={styles.star} icon={faStar} />
                             <FontAwesomeIcon className={styles.star} icon={faStar} />
                           </div>
-                          <div className={styles.ratingStars} style={{ width: '91%' }}>
+                          <div
+                            className={styles.ratingStars}
+                            style={{ width: `${(supplier?.rating / 5) * 100}%` }}
+                          >
                             <FontAwesomeIcon className={styles.star} icon={faStar} />
                             <FontAwesomeIcon className={styles.star} icon={faStar} />
                             <FontAwesomeIcon className={styles.star} icon={faStar} />

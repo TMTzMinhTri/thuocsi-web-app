@@ -2,8 +2,7 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
-import ProductClient from 'clients/ProductClient';
-import { CatClient, SupplierClient } from 'clients';
+import { CatClient, SupplierClient, ProductClient } from 'clients';
 import { TAB_LIST } from 'constants/data';
 import Image from 'next/image';
 import { Grid } from '@material-ui/core';
@@ -96,7 +95,7 @@ export default function Supplier({
                 </div>
               </div>
             </div>
-            <span className={styles.supplierYear}>Thành viên từ: 2019</span>
+            <span className={styles.supplierYear}>Thành viên từ: {supplier.yearFounded}</span>
           </div>
         </Grid>
       </Grid>
