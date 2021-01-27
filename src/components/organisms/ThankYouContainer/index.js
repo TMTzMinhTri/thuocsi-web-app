@@ -14,7 +14,7 @@ const WatchOrderButton = ({ handleClick }) => (
   </Button>
 );
 
-const ThankYouContainer = ({ orderID = 0, deliveryAt = Date.now() }) => {
+const ThankYouContainer = ({ orderID = 0, deliveryDate = Date.now() }) => {
   const router = useRouter();
   const handleWatchOrder = () => {
     router.push(`${MY_ORDER_URL}/${orderID}`);
@@ -29,7 +29,7 @@ const ThankYouContainer = ({ orderID = 0, deliveryAt = Date.now() }) => {
       </Typography>
       <Grid item>
         Dự kiến giao vào
-        <strong> {DateTimeUtils.getFormattedWithDate(new Date(deliveryAt))} </strong>
+        <strong> {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate || Date.now()))} </strong>
       </Grid>
 
       <Grid item>

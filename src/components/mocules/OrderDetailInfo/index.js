@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OrderDetailInfo = ({
-  name,
-  address,
-  email,
-  phone,
+  customerName,
+  customerShippingAddress,
+  customerEmail,
+  customerPhone,
   t,
   note,
   paymentMethod,
@@ -37,25 +37,25 @@ const OrderDetailInfo = ({
               Tên người nhận
             </Typography>
             <Typography variant="h6" className={styles.info_value}>
-              {name}
+              {customerName}
             </Typography>
             <Typography variant="h5" className={styles.info_label}>
               Địa chỉ giao hàng
             </Typography>
             <Typography variant="h6" className={styles.info_value}>
-              {address}
+              {customerShippingAddress}
             </Typography>
             <Typography variant="h5" className={styles.info_label}>
               Số điện thoại
             </Typography>
             <Typography variant="h6" className={styles.info_value}>
-              {phone}
+              {customerPhone}
             </Typography>
             <Typography variant="h5" className={styles.info_label}>
               Email
             </Typography>
             <Typography variant="h6" className={styles.info_value}>
-              {email}
+              {customerEmail}
             </Typography>
           </Paper>
         </Grid>

@@ -35,4 +35,32 @@ export const changeAlias = (alias) => {
   str = str.trim();
   return str;
 };
-export default { hashCode, changeAlias, encodeUrl };
+const searchStringInStrings = (arr, str) => {
+  if (!str || str.length === 0) {
+    return arr;
+  }
+  const searchValue = str.toUpperCase();
+  const searchValueUnsigned = changeAlias(searchValue);
+  const isUnSigned = searchValue === searchValueUnsigned;
+
+  let rsUnSigned = arr.filter(
+    (el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1,
+  );
+
+  if (isUnSigned) {
+    return rsUnSigned;
+  }
+
+  const arrSearch = searchValue.split(' ');
+  for (let i = 0; i <= arrSearch.length; i += 1) {
+    const w = arrSearch[i];
+
+    if (w && w.length > 0 && changeAlias(w) !== w) {
+      rsUnSigned = rsUnSigned.filter((el) => el.name.toUpperCase().indexOf(w, 0) > -1);
+    }
+  }
+
+  return rsUnSigned;
+}
+
+export default { hashCode, changeAlias, encodeUrl, searchStringInStrings };

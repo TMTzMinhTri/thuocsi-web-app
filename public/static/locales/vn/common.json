@@ -24,8 +24,13 @@
   },
   "payment": {
     "method": {
-      "COD": "COD",
+      "COD": "Thanh toán tiền mặt khi nhận hàng",
       "CK": "Chuyển Khoản"
     }
+  },
+  "scope": {
+    "PHARMACY": "Nhà thuốc",
+    "CLINIC": "Phòng khám",
+    "DRUGSTORE": "Tiệm thuốc"
   }
 }

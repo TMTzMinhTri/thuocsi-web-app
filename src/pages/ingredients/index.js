@@ -5,10 +5,27 @@ import IngredientContainer from 'components/organisms/IngredientContainer';
 import { IngredientCLient } from 'clients';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
-import { DAY_SECONDS } from 'utils/DateTimeUtils';
 import { useIsMobile } from 'hooks';
 
-export async function getStaticProps(ctx) {
+// export async function getStaticProps(ctx) {
+//   const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
+//   const convertIngredients = (ingre = []) =>
+//     ingre
+//       .sort((a, b) => a.name.localeCompare(b.name))
+//       .map(({ name, slug }) => ({
+//         unsignedKey: changeAlias(name),
+//         name,
+//         slug,
+//       }));
+//   return {
+//     props: {
+//       ingredients: convertIngredients(ingredients),
+//     },
+//     revalidate: DAY_SECONDS,
+//   };
+// }
+
+export async function getServerSideProps(ctx) {
   const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
   const convertIngredients = (ingre = []) =>
     ingre
@@ -22,7 +39,6 @@ export async function getStaticProps(ctx) {
     props: {
       ingredients: convertIngredients(ingredients),
     },
-    revalidate: DAY_SECONDS,
   };
 }
 

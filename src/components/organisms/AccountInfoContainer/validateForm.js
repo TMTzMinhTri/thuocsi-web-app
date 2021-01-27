@@ -13,15 +13,14 @@ const validateForm = ({
   const err = {};
   if (ValidateUtils.isEmpty(name)) err.name = 'Bạn chưa điền tên';
   if (ValidateUtils.isEmpty(phone)) err.phone ='Bạn chưa điền số điện thoại';
-  if (ValidateUtils.isEmpty(email)) err.email = 'Bạn chưa điền email';
-  if (provinceCode === '0') err.provinceCode = 'Tỉnh/Thành Phố không được trống';
-  if (districtCode === '0') err.districtCode = 'Quận/Huyện không được trống';
-  if (wardCode === '0') err.wardCode ='Phường/Xã phố không được trống';
-  if(err) return err;
+  if(ValidateUtils.isEmpty(mst)) err.mst = 'Bạn chưa điền mã số thuế';
+  if (provinceCode === '0') throw Error('Tỉnh/Thành Phố không được trống');
+  if (districtCode === '0') throw Error('Quận/Huyện không được trống');
+  if (wardCode === '0') throw Error('Phường/Xã phố không được trống');
 
-  if (!ValidateUtils.validatePhone(phone)) err.phone = 'Số điện thoại sai định dạng';
-  if (!ValidateUtils.validateEmail(email)) err.email = 'Email sai định dạng';
-  if (!ValidateUtils.isNumber(mst)) err.mst = 'Mã số thuế sai định dạng';
+  if (!ValidateUtils.isEmpty(phone) && !ValidateUtils.validatePhone(phone)) err.phone = 'Số điện thoại sai định dạng';
+  if (!ValidateUtils.isEmpty(email) && !ValidateUtils.validateEmail(email)) err.email = 'Email sai định dạng';
+  if (!ValidateUtils.isEmpty(mst) && !ValidateUtils.isNumber(mst)) err.mst = 'Mã số thuế sai định dạng';
   return err;
 };
 

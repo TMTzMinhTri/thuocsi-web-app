@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Button } from '@material-ui/core';
+import { TableRow, TableCell, Button, Grid, Paper } from '@material-ui/core';
 import { InfoTable } from 'components/atoms';
 import { DateTimeUtils, NotifyUtils } from 'utils';
 import styles from './styles.module.css';
@@ -25,30 +25,37 @@ const SendSMSButton = () => {
 
 function ReferralTable({ referrals }) {
   return (
-    <InfoTable heads={heads}>
-      {referrals.map((row) => (
-        <TableRow key={row.code} hover>
-          <TableCell component="th" scope="row">
-            {row.phone}
-          </TableCell>
-          <TableCell align="left">{row.code}</TableCell>
-          <TableCell align="left">
-            {DateTimeUtils.getFormattedDate(new Date(row.expiredAt), 'DD/MM/YYYY HH:mm:ss')}
-          </TableCell>
-          <TableCell align="left">{row.isRegister ? row.userName : 'Chưa tạo tài khoản'}</TableCell>
-          <TableCell align="left">{row.paid}</TableCell>
-          <TableCell align="left" className={styles.text_danger}>
-            {row.canSendSMS ? (
-              <SendSMSButton />
+    <div>
+      <InfoTable heads={heads} className={styles.bottom_square}>
+        {referrals.length !== 0 && referrals.map((row) => (
+          <TableRow key={row.code} hover>
+            <TableCell component="th" scope="row">
+              {row.phone}
+            </TableCell>
+            <TableCell align="left">{row.code}</TableCell>
+            <TableCell align="left">
+              {DateTimeUtils.getFormattedDate(new Date(row.expiredAt), 'DD/MM/YYYY HH:mm:ss')}
+            </TableCell>
+            <TableCell align="left">{row.isRegister ? row.userName : 'Chưa tạo tài khoản'}</TableCell>
+            <TableCell align="left">{row.paid}</TableCell>
+            <TableCell align="left" className={styles.text_danger}>
+              {row.canSendSMS ? (
+                <SendSMSButton />
             ) : (
               <span className={styles.text_danger}>
                 Chưa thể gửi lại. Trong vòng 3 giờ, bạn chỉ có thể gửi 1 tin SMS!
               </span>
             )}
-          </TableCell>
-        </TableRow>
+            </TableCell>
+          </TableRow>
       ))}
-    </InfoTable>
+      </InfoTable>
+      <Grid container justify="center"> 
+        <Paper className={styles.not_friend}>
+          Bạn chưa giới thiệu bạn bè
+        </Paper>
+      </Grid>
+    </div>
   );
 }
 

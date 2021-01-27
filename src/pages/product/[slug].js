@@ -52,7 +52,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-export default function ProductDetail({ product, supplier = [] }) {
+export default function ProductDetail({ product, supplier = [] ,isMobile }) {
   const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
   const {
@@ -150,16 +150,16 @@ export default function ProductDetail({ product, supplier = [] }) {
     ingredient.map((row) => (
       <TableRow key={row.name}>
         <TableCell className={styles.border_right} component="th" scope="row">
-          <a className={styles.text_capitalize} href="/">
+          <LinkComp className={styles.text_capitalize} href={`/ingredients/${row.slug}`}>
             {row.name}
-          </a>
+          </LinkComp>
         </TableCell>
         <TableCell align="left">{row.unit}</TableCell>
       </TableRow>
     ));
 
   return (
-    <Template title={title}>
+    <Template title={title} isMobile={isMobile} pageTitle={name}>
       <div className={styles.detail_wrapper}>
         <div className={styles.container}>
           <Grid container className={styles.detail_card}>
@@ -354,13 +354,13 @@ export default function ProductDetail({ product, supplier = [] }) {
                 <div className={styles.product_info_label}>Nhóm thuốc</div>
                 {category &&
                   category.map((item) => (
-                    <a
+                    <LinkComp
                       key={uuidv4()}
                       className={styles.text_capitalize}
                       href={`/categories/${item.slug}`}
                     >
                       {item.name}
-                    </a>
+                    </LinkComp>
                   ))}
               </div>
 

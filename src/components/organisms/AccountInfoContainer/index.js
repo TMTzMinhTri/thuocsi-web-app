@@ -1,19 +1,13 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { AccountForm, EnterpriseForm, DeliveryForm } from 'components/mocules';
 import { CustomerClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
+import { i18n } from 'i18n-lib';
 import UpdateButton from './UpdateButton';
 import validateForm from './validateForm';
 
-const parseScopeName = (scope) => {
-  if (scope === 'PHARMACY') {
-    return 'Nhà Thuốc';
-  }
-  return '';
-};
-
-const AccountInfoFormContainer = ({ user }) => {
+const AccountInfoFormContainer = ({ user, t }) => {
   const {
     name,
     phone,
@@ -32,7 +26,7 @@ const AccountInfoFormContainer = ({ user }) => {
     phone,
     email,
     password: '',
-    scope: parseScopeName(scope),
+    scope: t(`scope.${scope}`),
     legalRepresentative,
     bussinessName: '',
     provinceCode,
@@ -59,9 +53,9 @@ const AccountInfoFormContainer = ({ user }) => {
   const handleUpdateProfile = async () => {
     try {
       const errL = validateForm(value);
-      if(errL){
+      if(Object.keys(errL).length !== 0){
         setErr(errL);
-        throw Error('Chưa điền đủ thông tin');
+        throw Error('Thông tin chưa đúng');
       }
       const res = await CustomerClient.updateProfile(value);
       if (!isValid(res)) throw Error(res?.message);
@@ -101,4 +95,4 @@ const AccountInfoFormContainer = ({ user }) => {
   );
 };
 
-export default AccountInfoFormContainer;
+export default i18n.withTranslation('common')(React.memo(AccountInfoFormContainer));
