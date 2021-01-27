@@ -5,7 +5,6 @@ import IngredientContainer from 'components/organisms/IngredientContainer';
 import { IngredientCLient } from 'clients';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
-import { DAY_SECONDS } from 'utils/DateTimeUtils';
 import { useIsMobile } from 'hooks';
 
 // export async function getStaticProps(ctx) {
@@ -40,7 +39,6 @@ export async function getServerSideProps(ctx) {
     props: {
       ingredients: convertIngredients(ingredients),
     },
-    revalidate: DAY_SECONDS,
   };
 }
 
