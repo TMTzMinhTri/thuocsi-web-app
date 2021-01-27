@@ -29,8 +29,8 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
             <TableCell />
             <TableCell />
             <TableCell align="center">Sản phẩm</TableCell>
-            <TableCell align="center">Giá</TableCell>
-            <TableCell align="center">Tổng cộng</TableCell>
+            <TableCell align="center">Giá (đ)</TableCell>
+            <TableCell align="center">Tổng cộng (đ)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -57,9 +57,9 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
                     </LinkComp>
                   </TableCell>
                   <TableCell align="center" className={styles.product_price}>
-                    {`${quantity} x ${FormarCurrency(price)}`}
+                    {`${quantity} x ${FormarCurrency(price, '.', '')}`}
                   </TableCell>
-                  <TableCell align="center">{FormarCurrency(totalPrice)}</TableCell>
+                  <TableCell align="center">{FormarCurrency(totalPrice, '.', '')}</TableCell>
                 </TableRow>
               );
             })}
