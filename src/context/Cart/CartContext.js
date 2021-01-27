@@ -41,7 +41,6 @@ export const CartContextProvider = ({ children }) => {
       NotifyUtils.success('Đã cập nhật giỏ hàng');
     }
     if (res.errorCode === 'CART_MAXQUANTITY') {
-      NotifyUtils.error(res.message);
       const revertPayload = payload;
       revertPayload.q = payload.product.maxQuantity;
       CartClient.updateCartItem(revertPayload);
