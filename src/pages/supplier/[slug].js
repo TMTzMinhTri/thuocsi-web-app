@@ -54,7 +54,7 @@ export default function Supplier({
   isAuthenticated,
   supplier = [],
 }) {
-  const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+  const title = `${supplier.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const cat = 'supplier';
 
   return (

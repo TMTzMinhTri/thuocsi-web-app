@@ -7,7 +7,7 @@ export default (req, res) => {
     data: [
       {
         id: '1',
-        name: 'Seller name',
+        name: 'Medx',
         rating: 4.8,
         yearFounded: 2019,
       },

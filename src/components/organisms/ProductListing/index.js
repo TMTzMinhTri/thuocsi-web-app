@@ -201,7 +201,7 @@ export default function ProductListing({
             <div>
               {name && (
                 <Typography className="product_title" variant="h4" component="h1">
-                  {name && name}
+                  {name}
                 </Typography>
               )}
               <SearchResultText total={total} page={page} pages={pages} />
