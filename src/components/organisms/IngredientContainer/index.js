@@ -78,7 +78,7 @@ const IngredientContainer = ({ ingredients }) => {
         setIngres(searchs);
       });
     }
-  }, [filter.isByWord, filter.text, filter.word, ingredients, searchByWord]);
+  }, [filter.isByWord, filter.text, filter.word, searchByWord]);
 
   return (
     <Grid>
