@@ -52,7 +52,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-export default function ProductDetail({ product, supplier = [] ,isMobile }) {
+export default function ProductDetail({ product, supplier = [], isMobile }) {
   const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
   const {
