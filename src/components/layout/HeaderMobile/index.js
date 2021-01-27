@@ -56,7 +56,7 @@ const HeaderMobile = memo(({ title = '' }) => {
                 href="/"
                 src={LOGO_THUOCSI}
                 width="164px"
-                height="45px"
+                height="40px"
               />
             </LinkComp>
             <SignInModal
