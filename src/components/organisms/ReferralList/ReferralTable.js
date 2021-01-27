@@ -51,10 +51,8 @@ function ReferralTable({ referrals }) {
       ))}
       </InfoTable>
       <Grid container justify="center"> 
-        {/* <Grid item xs={12}> */}
         <Paper className={styles.not_friend}>
           Bạn chưa giới thiệu bạn bè
-          {/* </Grid> */}
         </Paper>
       </Grid>
     </div>
