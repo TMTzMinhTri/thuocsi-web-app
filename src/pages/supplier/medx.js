@@ -3,7 +3,7 @@ import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
 import ProductClient from 'clients/ProductClient';
-import CatClient from 'clients/CatClient';
+import { CatClient, SupplierClient } from 'clients';
 import { TAB_LIST } from 'constants/data';
 import Image from 'next/image';
 import { Grid } from '@material-ui/core';
@@ -14,11 +14,12 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [products, brand, group, tags] = await Promise.all([
+  const [products, brand, group, tags, supplier] = await Promise.all([
     ProductClient.loadDataProduct(ctx),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
     CatClient.loadTags(ctx),
+    SupplierClient.getInfoSupplier(ctx),
   ]);
   const current_tab = ctx.query.current_tab || '';
   const sortBy = ctx.query.sortBy || '';
@@ -36,6 +37,7 @@ export async function getServerSideProps(ctx) {
       group,
       slug,
       tags,
+      supplier,
     },
   };
 }
@@ -52,6 +54,7 @@ export default function Supplier({
   slug = '',
   isMobile,
   isAuthenticated,
+  supplier = [],
 }) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'supplier/medx';
@@ -71,7 +74,7 @@ export default function Supplier({
             <Image src={LOGO_PHARMACY} width="215px" height="200px" />
           </div>
           <div style={{ width: '70%' }}>
-            <h1>Medx</h1>
+            <h1>{supplier?.name}</h1>
             <div className={styles.supplierRating}>
               <div className={styles.rating}>
                 <div className={styles.ratingBase}>
@@ -81,7 +84,10 @@ export default function Supplier({
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
                 </div>
-                <div className={styles.ratingStars} style={{ width: '91%' }}>
+                <div
+                  className={styles.ratingStars}
+                  style={{ width: `${(supplier?.rating / 5) * 100}%` }}
+                >
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
@@ -90,7 +96,7 @@ export default function Supplier({
                 </div>
               </div>
             </div>
-            <span>Thành viên từ: 2019</span>
+            <span className={styles.supplierYear}>Thành viên từ: 2019</span>
           </div>
         </Grid>
       </Grid>

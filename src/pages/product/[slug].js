@@ -61,6 +61,7 @@ export default function ProductDetail({ product }) {
     category,
     tags,
     maxQuantity,
+    seller,
   } = product;
   const [value, setValue] = React.useState('1');
   const [quantity, setQuantity] = useState(product.quantity || 0);
@@ -273,8 +274,8 @@ export default function ProductDetail({ product }) {
                         <FontAwesomeIcon icon={faStoreAlt} />
                       </div>
 
-                      <LinkComp className={styles.supplierName} href="/supplier/medx">
-                        Medx
+                      <LinkComp className={styles.supplierName} href={`/supplier/${seller.slug}`}>
+                        {seller.name}
                       </LinkComp>
                     </div>
                     <div className={styles.supplierInfo}>
