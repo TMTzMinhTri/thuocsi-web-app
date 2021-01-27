@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Grid, Tooltip } from '@material-ui/core';
+import { TableRow, TableCell, Grid, Tooltip, Paper } from '@material-ui/core';
 import { DateTimeUtils, FormarCurrency } from 'utils';
 import InfoIcon from '@material-ui/icons/Info';
 import { InfoTable } from 'components/atoms';
@@ -59,8 +59,10 @@ function PromoTable({ promos }) {
       </InfoTable>
       {
       promos.length === 0 && (
-      <Grid container justify="center" className={styles.not_use}> 
-        Bạn chưa dùng mã giảm giá lần nào
+      <Grid container justify="center"> 
+        <Paper className={styles.not_use}>
+          Bạn chưa dùng mã giảm giá nào
+        </Paper>
       </Grid>
 )
     }

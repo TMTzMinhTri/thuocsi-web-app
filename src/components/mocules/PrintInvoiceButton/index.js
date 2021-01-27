@@ -10,7 +10,14 @@ const PrintInvoiceButton = ({ disabled, orderID, user }) => {
   };
   return (
     <>
-      <Button startIcon={<PrintIcon />} className="my-order__button my-order__button--secondary" disabled={disabled} onClick={handleChangeVal}> Xuất hoá đơn </Button>
+      <Button
+        startIcon={<PrintIcon />}
+        className="my-order__button my-order__button--secondary"
+        disabled={disabled}
+        onClick={handleChangeVal}
+      >
+        Xuất hoá đơn
+      </Button>
       <PrintInvoiceModal visible={val} onClose={handleChangeVal} orderID={orderID} user={user} />
     </>
   );
