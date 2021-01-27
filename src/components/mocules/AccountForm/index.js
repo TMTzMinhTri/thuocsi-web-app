@@ -41,7 +41,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue, err }) => {
           />
         </InfoFormControl>
 
-        <InfoFormControl xs={12} isRequired label="Email" htmlFor="email" error={err.email}>
+        <InfoFormControl xs={12} label="Email" htmlFor="email" error={err.email}>
           <InfoInput
             id="email"
             placeholder="Email"
@@ -51,7 +51,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue, err }) => {
           />
         </InfoFormControl>
 
-        <InfoFormControl xs={12} isRequired label="Mật khẩu mới" htmlFor="password">
+        <InfoFormControl xs={12} label="Mật khẩu mới" htmlFor="password">
           <InfoInput
             id="password"
             type={isShowPassword ? 'text' : 'password'}

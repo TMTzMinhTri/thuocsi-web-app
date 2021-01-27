@@ -82,6 +82,7 @@ const EnterpriseForm = ({
             id="mst"
             placeholder="Mã số thuế"
             value={mst}
+            error={err.mst}
             onChange={(e) => {
               handleSetValue('mst', e.target.value);
             }}

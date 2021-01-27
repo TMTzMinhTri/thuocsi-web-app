@@ -34,10 +34,14 @@
     align-items: center;
 }
 .logoNav {
-    display: block;
+    display: none;
     width: 50px;
     line-height: 1;
     cursor: pointer;
+}
+
+.navBar.sticky .logoNav {
+    display: block;
 }
 
 
