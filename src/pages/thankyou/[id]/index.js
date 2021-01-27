@@ -32,7 +32,7 @@ const ThankYou = ({ order = {}, isMobile }) => {
     <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <ThankYouContainer orderID={orderNo} deliveryAt={deliveryDate} />
+          <ThankYouContainer orderID={orderNo} deliveryDate={deliveryDate} />
         </Container>
       </div>
     </Template>
