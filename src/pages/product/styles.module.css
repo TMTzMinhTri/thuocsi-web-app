@@ -177,7 +177,8 @@
 
 .subscribe_btn {
     min-width: 100px!important;
-    color: #00b46e!important;
+    color: #fff!important;
+    background-color: #00b46e!important;
     border: 1px solid #00b46e!important;
     border-radius: 50px!important;
 }

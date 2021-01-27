@@ -21,7 +21,7 @@ import {
   INGREDIENT,
   CART_URL,
   HOME_PAGE,
-  PRODUCT,
+  PRODUCTS_URL,
   DEALS,
   QUICK_ORDER,
   PROMO_CODES,
@@ -140,7 +140,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                   (isPageProduct || isPageManufacturers || isPageCategiries) && styles.active,
                 )}
                 name="Sản phẩm"
-                href={PRODUCT}
+                href={PRODUCTS_URL}
                 color="white"
               >
                 <Icon className={`icon-product ${styles.navIcon}`} />
@@ -191,7 +191,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <div className={styles.navBarRight}>
                 <LinkComp className={styles.navBarRightLink} href={CART_URL}>
                   <IconButton aria-label="cart">
-                    <Badge badgeContent={itemCount} invisible={false} color="secondary">
+                    <Badge badgeContent={itemCount} invisible={itemCount === 0} color="secondary">
                       <LocalMallOutlined className={styles.rIcon} />
                     </Badge>
                   </IconButton>

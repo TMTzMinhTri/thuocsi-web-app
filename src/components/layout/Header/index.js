@@ -17,7 +17,7 @@ const InfoHeader = memo(({ t }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { user, isAuthenticated, toggleLogin, toggleSignUp } = useAuth();
-  const { getNotifcations, notification } = useNotify();
+  const { getNotifcations, notification, totalNotification } = useNotify();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -120,7 +120,11 @@ const InfoHeader = memo(({ t }) => {
                 ))}
               </Menu>
               <IconButton className={styles.notiIcon} onClick={handleClick}>
-                <Badge badgeContent={notification.length} invisible={false} color="secondary">
+                <Badge
+                  badgeContent={totalNotification}
+                  invisible={totalNotification === 0}
+                  color="secondary"
+                >
                   <NotificationsNoneOutlined />
                 </Badge>
               </IconButton>

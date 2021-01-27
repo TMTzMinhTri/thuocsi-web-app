@@ -179,8 +179,8 @@ const ProductCardBuy = ({
           ) : (
             <div className={styles.view_signin_btn}>
               <CustomButton
-                color="#00b46e"
-                backgroundColor="#fff"
+                color="#fff"
+                backgroundColor="#00b46e"
                 className={styles.signin_btn}
                 onClick={toggleLogin}
               >
