@@ -59,12 +59,14 @@ const IngredientContainer = ({ ingredients }) => {
 
   useEffect(() => {
     if (filter.isByWord) {
-      if (filter.word === WORD_DEFAULT) setIngres(ingredients);
-      else {
+      if (filter.word === WORD_DEFAULT) {
+        setIngres(ingredients);
+      } else {
         const ws = ingredients.filter(
           (ingredient) =>
             StringUtils.changeAlias(ingredient?.name.charAt(0).toUpperCase()) === filter.word,
         );
+
         setIngres(ws);
       }
     } else {
