@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 
 const IngredientList = ({ ingredients = [], text = '' }) => {
   const listIngredients = ingredients.map((val) => (
-    <Grid item xs={3} key={val.slug}>
+    <Grid item xs={3} key={`ingredients-${val.slug}`}>
       <Link href={`ingredients/${val.slug}`}>
         <div className={styles.ingredient}> {val?.name} </div>
       </Link>
