@@ -95,6 +95,7 @@ export default function ProductListing({
     });
     setNumPage(1);
   };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>
@@ -198,9 +199,11 @@ export default function ProductListing({
         ) : (
           <div>
             <div>
-              <Typography className="product_title" variant="h4" component="h1">
-                {name && name}
-              </Typography>
+              {name && (
+                <Typography className="product_title" variant="h4" component="h1">
+                  {name && name}
+                </Typography>
+              )}
               <SearchResultText total={total} page={page} pages={pages} />
             </div>
             <div>

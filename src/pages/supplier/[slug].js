@@ -3,7 +3,6 @@ import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
 import { CatClient, SupplierClient, ProductClient } from 'clients';
-import { TAB_LIST } from 'constants/data';
 import Image from 'next/image';
 import { Grid } from '@material-ui/core';
 import { LOGO_PHARMACY } from 'constants/Images';
@@ -56,24 +55,17 @@ export default function Supplier({
   supplier = [],
 }) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-  const cat = 'supplier/medx';
-  const namePage = (val) => {
-    let name = 'Tất cả sản phẩm';
-    if (val) {
-      const currentTab = TAB_LIST.filter((tab) => tab.value === val);
-      name = currentTab[0] ? currentTab[0].label : name;
-    }
-    return name;
-  };
+  const cat = 'supplier';
+
   return (
-    <Template title={title} isMobile={isMobile} pageName={cat}>
+    <Template title={title} isMobile={isMobile}>
       <Grid className={styles.supplierWrapper} container>
         <Grid container item className={styles.container}>
           <div className={styles.logoPharma}>
             <Image src={LOGO_PHARMACY} width="215px" height="200px" />
           </div>
           <div style={{ width: '70%' }}>
-            <h1>{supplier?.name}</h1>
+            <h1 className={styles.supplierName}>{supplier?.name}</h1>
             <div className={styles.supplierRating}>
               <div className={styles.rating}>
                 <div className={styles.ratingBase}>
@@ -110,7 +102,6 @@ export default function Supplier({
         catName={cat}
         slug={slug}
         tags={tags}
-        name={namePage(current_tab)}
         isAuthenticated={isAuthenticated}
       />
     </Template>
