@@ -26,7 +26,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
             <Grid container justify="center" direction="column">
               <div className={styles.order_status_bottom_text}>
                 Dự kiến giao vào &nbsp;
-                <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate))}</span>
+                <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate || Date.now()))}</span>
               </div>
             </Grid>
             <ResponseButton orderID={order.orderNo} name={user?.name} phone={user?.phone} />
