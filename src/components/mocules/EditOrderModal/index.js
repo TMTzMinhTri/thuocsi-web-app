@@ -11,7 +11,7 @@ const EditOrderModal = memo((props) => {
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
-        <div textAlign="center">
+        <div>
           <div className={styles.warning_icon}>
             <Typography className={styles.text_icon}>!</Typography>
           </div>

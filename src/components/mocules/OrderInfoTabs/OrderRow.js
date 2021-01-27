@@ -4,6 +4,7 @@ import { DateTimeUtils, FormarCurrency, NotifyUtils } from 'utils';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
+import { MY_ORDER_URL } from 'constants/Paths';
 import PrintInvoiceButton from '../PrintInvoiceButton';
 import EditOrderButton from '../EditOrderButton';
 import ResponseButton from '../ResponseButton';
@@ -41,7 +42,10 @@ const OrderRow = ({
         // will change in future
         const res = await OrderClient.getProductByOrderId(orderID);
         if (!isValid(res)) throw Error('Lấy danh sách sản phẩm không thành công');
-        const quantity = res.data.reduce((accumulator, currentValue) => accumulator + (currentValue?.quantity || 0), 0);
+        const quantity = res.data.reduce(
+          (accumulator, currentValue) => accumulator + (currentValue?.quantity || 0),
+          0,
+        );
         setAmount(quantity);
       } catch (error) {
         NotifyUtils.error(error.message || 'Lấy danh sách thất bại');
@@ -59,10 +63,10 @@ const OrderRow = ({
           xs={maxWidth ? 12 : 5}
           container
           direction="row"
-          justify={maxWidth ? 'space-between' : 'end'}
+          justify={maxWidth ? 'space-between' : 'flex-start'}
         >
           <Grid item>
-            <Link href={`/my-order/${orderID}`} key={`order-row-${orderID}`}>
+            <Link href={`${MY_ORDER_URL}/${orderID}`} key={`order-row-${orderID}`}>
               <h4 className={styles.order_id}>#{orderID} &nbsp;</h4>
             </Link>
           </Grid>
