@@ -144,9 +144,9 @@ export default function ProductDetail({ product }) {
     ingredient.map((row) => (
       <TableRow key={row.name}>
         <TableCell className={styles.border_right} component="th" scope="row">
-          <a className={styles.text_capitalize} href={`/ingredients/${row.slug}`}>
+          <LinkComp className={styles.text_capitalize} href={`/ingredients/${row.slug}`}>
             {row.name}
-          </a>
+          </LinkComp>
         </TableCell>
         <TableCell align="left">{row.unit}</TableCell>
       </TableRow>
