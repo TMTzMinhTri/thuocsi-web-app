@@ -130,6 +130,7 @@
 @media (max-width: 480px){
   .login>div:last-child{
     flex-grow: 1;
+    text-align: right;
   }
 }
 .search_tool_wrapper{

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Drawer, IconButton, Fab } from '@material-ui/core';
 import { Menu, Close } from '@material-ui/icons';
-import { useAuth, useCart } from 'context';
+import { useAuth } from 'context';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { QUICK_ORDER, CART_URL } from 'constants/Paths';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
@@ -30,7 +30,6 @@ const HeaderMobile = memo(({ title = '' }) => {
   } = useAuth();
   const [openDrawer, setOpenDrawer] = useState(false);
   const router = useRouter();
-  const { itemCount } = useCart();
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -92,7 +91,7 @@ const HeaderMobile = memo(({ title = '' }) => {
               </IconButton>
               {router.pathname !== QUICK_ORDER && (
                 <span className={styles.text}>
-                  {title && title} {itemCount && `(${itemCount})`}
+                  {title && title}
                 </span>
               )}
             </div>

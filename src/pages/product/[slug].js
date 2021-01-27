@@ -48,7 +48,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-export default function ProductDetail({ product }) {
+export default function ProductDetail({ product, isMobile }) {
   const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
   const {
@@ -153,7 +153,7 @@ export default function ProductDetail({ product }) {
     ));
 
   return (
-    <Template title={title}>
+    <Template title={title} isMobile={isMobile} pageTitle={name}>
       <div className={styles.detail_wrapper}>
         <div className={styles.container}>
           <Grid container className={styles.detail_card}>

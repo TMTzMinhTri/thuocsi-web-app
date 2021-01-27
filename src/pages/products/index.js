@@ -48,6 +48,7 @@ export default function Products({
 }) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'products';
+  const pageTitle = 'Sản phẩm';
   const namePage = (val) => {
     let name = 'Tất cả sản phẩm';
     if (val) {
@@ -57,7 +58,7 @@ export default function Products({
     return name;
   };
   return (
-    <Template title={title} isMobile={isMobile} pageName={cat}>
+    <Template title={title} isMobile={isMobile} pageName={cat} pageTitle={pageTitle}>
       <ProductListing
         products={products}
         total={total}
