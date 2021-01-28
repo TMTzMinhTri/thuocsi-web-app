@@ -12,7 +12,7 @@ async function loadDataCart(ctx) {
 
 async function updateCartItem(data) {
   const body = {
-    sku: data.product.skuId,
+    sku: data.product.sku,
     quantity: data.q,
   };
   return POST({ url: CART_API.CART_ADD, body });
@@ -35,10 +35,10 @@ async function getInfoCartItem(data) {
     return [];
   }
 
-  const mapProducts = convertArrayToMap(res.data, 'skuId');
+  const mapProducts = convertArrayToMap(res.data, 'sku');
 
   return data.map((item) => {
-    const { imageUrls, unit, volume, name, maxQuantity, slug } = mapProducts.get(item.skuId) || {};
+    const { imageUrls, unit, volume, name, maxQuantity, slug } = mapProducts.get(item.sku) || {};
     return {
       ...item,
       imageUrls,
@@ -53,7 +53,7 @@ async function getInfoCartItem(data) {
 
 async function removeCartItem(data) {
   const body = {
-    skuId: data.skuId,
+    sku: data.sku,
   };
   return PUT({ url: CART_API.CART_REMOVE, body });
 }

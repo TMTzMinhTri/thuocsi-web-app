@@ -99,7 +99,7 @@ export const CartContextProvider = ({ children }) => {
 
   const addImportant = async (payload) => {
     const res = await CartClient.updateCartItemImportant({
-      sku: payload.skuId,
+      sku: payload.sku,
       isImportant: true,
       quantity: payload.quantity,
     });
@@ -113,7 +113,7 @@ export const CartContextProvider = ({ children }) => {
 
   const removeImportant = async (payload) => {
     const res = await CartClient.updateCartItemImportant({
-      sku: payload.skuId,
+      sku: payload.sku,
       isImportant: false,
       quantity: payload.quantity,
     });
