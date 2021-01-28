@@ -15,12 +15,15 @@ export const PRODUCT = '/product';
 export const DEALS = '/deals';
 export const PRODUCTS_URL = '/products';
 export const CART_URL = '/cart';
+export const SUPPLIER = '/supplier';
 export const INGREDIENT = '/ingredients';
+export const MANUFACTURERS = '/manufacturers';
 export const CHECKOUT_URL = '/checkout';
 export const THANKYOU_URL = '/thankyou';
 export const NOT_FOUND_URL = '/404';
 export const PROMO_CODES = '/promo-codes';
 export const HOME_PAGE = '/';
+export const CATEGORIES = '/categories';
 
 export const getPathProductBySlug = (slug) => `${PRODUCT}/${encodeUrl(slug)}`;
 

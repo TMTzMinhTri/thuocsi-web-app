@@ -33,6 +33,7 @@ import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide, SupplierClient } from 'clients';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
+import { TERMS_URL, SUPPLIER, INGREDIENT, MANUFACTURERS, CATEGORIES } from 'constants/Paths';
 import { DOMAIN_SELLER_CENTER } from 'sysconfig';
 import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
 
@@ -62,11 +63,12 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     unit,
     volume,
     ingredient = [],
-    madeBy,
     category,
     tags,
     maxQuantity,
     seller,
+    manufacturer,
+    countryOfManufacture,
   } = product;
   const [value, setValue] = React.useState('1');
   const [quantity, setQuantity] = useState(product.quantity || 0);
@@ -151,11 +153,11 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     ingredient.map((row) => (
       <TableRow key={row.name}>
         <TableCell className={styles.border_right} component="th" scope="row">
-          <LinkComp className={styles.text_capitalize} href={`/ingredients/${row.slug}`}>
+          <LinkComp className={styles.text_capitalize} href={`${INGREDIENT}/${row.slug}`}>
             {row.name}
           </LinkComp>
         </TableCell>
-        <TableCell align="left">{row.unit}</TableCell>
+        <TableCell align="left">{row.volume}</TableCell>
       </TableRow>
     ));
 
@@ -273,7 +275,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                   <div className={styles.product_suppliers}>
                     <p>
                       Hệ thống sẽ chọn nhà cung cấp tốt nhất cho bạn.
-                      <a className={styles.ml_1} data-modal="true" href="/terms-and-condition">
+                      <a className={styles.ml_1} data-modal="true" href={TERMS_URL}>
                         Điều Khoản Sử Dụng
                       </a>
                     </p>
@@ -282,7 +284,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                         <FontAwesomeIcon icon={faStoreAlt} />
                       </div>
 
-                      <LinkComp className={styles.supplierName} href={`/supplier/${seller.slug}`}>
+                      <LinkComp className={styles.supplierName} href={`${SUPPLIER}/${seller.slug}`}>
                         {seller.name}
                       </LinkComp>
                     </div>
@@ -343,14 +345,30 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
             <Grid className={styles.manufacturer} md={3} item>
               <div className={styles.mb_3}>
                 <div className={styles.product_info_label}>Nhà sản xuất</div>
-                <div>
-                  <a
-                    className={styles.text_capitalize}
-                    href="/manufacturers/cong-ty-duoc-pham-glaxosmithkline-gsk"
-                  >
-                    {madeBy}
-                  </a>
-                </div>
+                {manufacturer ? (
+                  <div>
+                    <a
+                      className={styles.text_capitalize}
+                      href={`${MANUFACTURERS}/${manufacturer.slug}}`}
+                    >
+                      {manufacturer.name}
+                    </a>
+                  </div>
+                ) : null}
+              </div>
+
+              <div className={styles.mb_3}>
+                <div className={styles.product_info_label}>Nước sản xuất</div>
+                {countryOfManufacture ? (
+                  <div>
+                    <a
+                      className={styles.text_capitalize}
+                      href={`${MANUFACTURERS}/${manufacturer.slug}}`}
+                    >
+                      {countryOfManufacture.name}
+                    </a>
+                  </div>
+                ) : null}
               </div>
 
               <div className={styles.mb_3}>
@@ -360,7 +378,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                     <LinkComp
                       key={uuidv4()}
                       className={styles.text_capitalize}
-                      href={`/categories/${item.slug}`}
+                      href={`${CATEGORIES}/${item.slug}`}
                     >
                       {item.name}
                     </LinkComp>
