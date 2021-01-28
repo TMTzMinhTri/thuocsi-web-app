@@ -186,14 +186,14 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                   </div>
                   <div className={styles.mb_3}>
                     <small className={styles.text_muted}>
-                      <span className={styles.mr_3}>
+                      {/* <span className={styles.mr_3}>
                         <i className="far fa-eye" />
                         <strong>4736</strong> lượt xem
                       </span>
                       <span>
                         <i className={`icomoon icon-shopping + ${styles.mr_1}`} />
                         <strong>2368</strong> lượt mua trong 24 giờ qua
-                      </span>
+                      </span> */}
                     </small>
                   </div>
                   <hr className={styles.divider} />
