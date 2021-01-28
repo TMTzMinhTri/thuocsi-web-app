@@ -8,13 +8,7 @@ import { useRouter } from 'next/router';
 import { ThemeProvider as StyledTheme } from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {
-  AuthProvider,
-  CartContextProvider,
-  LoadingRoute,
-  NotiContextProvider,
-  ViewProvider,
-} from 'context';
+import { AuthProvider, CartContextProvider, LoadingRoute, NotiContextProvider } from 'context';
 import Theme from 'components/layout/Theme';
 
 // Toast
@@ -56,8 +50,8 @@ const MyApp = (props) => {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
 
-      <MuiThemeProvider theme={Theme}>
-        <StyledTheme theme={Theme}>
+      <StyledTheme theme={Theme}>
+        <MuiThemeProvider theme={Theme}>
           <CssBaseline />
           {/* Authen */}
           <AuthProvider isShowingLogin={isShowingLogin}>
@@ -66,16 +60,14 @@ const MyApp = (props) => {
               {/* Cart context provider */}
               <CartContextProvider>
                 <NotiContextProvider>
-                  <ViewProvider>
-                    <Component {...pageProps} />
-                  </ViewProvider>
+                  <Component {...pageProps} />
                 </NotiContextProvider>
                 <ToastContainer limit={6} />
               </CartContextProvider>
             </LoadingRoute>
           </AuthProvider>
-        </StyledTheme>
-      </MuiThemeProvider>
+        </MuiThemeProvider>
+      </StyledTheme>
     </>
   );
 };

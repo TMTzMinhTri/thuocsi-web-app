@@ -1,13 +1,13 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/core/styles';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles';
+import { ServerStyleSheet as StyledComponentSheets } from 'styled-components';
 import Theme from 'components/layout/Theme';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const styledComponentsSheet = new ServerStyleSheet();
-    const materialSheets = new ServerStyleSheets();
+    const styledComponentsSheet = new StyledComponentSheets();
+    const materialSheets = new MaterialUiServerStyleSheets();
     const originalRenderPage = ctx.renderPage;
 
     try {
