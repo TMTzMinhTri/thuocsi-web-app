@@ -60,6 +60,7 @@ const AccountInfoFormContainer = ({ user, t }) => {
       const res = await CustomerClient.updateProfile(value);
       if (!isValid(res)) throw Error(res?.message);
       NotifyUtils.success('Cập nhật thông tin thành công');
+      setErr({});
     } catch (error) {
       NotifyUtils.error(error?.message || 'Cập nhật thông tin thất bại');
     }

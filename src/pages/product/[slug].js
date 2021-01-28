@@ -17,7 +17,7 @@ import FormarCurrency from 'utils/FormarCurrency';
 import { tabsProductData } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchDollar } from '@fortawesome/free-solid-svg-icons';
+import { faSearchDollar, faStoreAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import {
   MultiImageBox,
   InputProduct,
@@ -30,25 +30,30 @@ import {
   LinkComp,
 } from 'components';
 import useModal from 'hooks/useModal';
-import { ProductClient, doWithServerSide } from 'clients';
+import { ProductClient, doWithServerSide, SupplierClient } from 'clients';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
+import { DOMAIN_SELLER_CENTER } from 'sysconfig';
 import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
 
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const product = await ProductClient.loadDataProductDetail(ctx);
+    const [product, supplier] = await Promise.all([
+      ProductClient.loadDataProductDetail(ctx),
+      SupplierClient.getInfoSupplier(ctx),
+    ]);
     return {
       props: {
         product: product.data && product.data[0] ? product.data[0] : [],
+        supplier,
       },
     };
   });
 }
 
-export default function ProductDetail({ product }) {
+export default function ProductDetail({ product, supplier = [], isMobile }) {
   const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
   const {
@@ -61,13 +66,15 @@ export default function ProductDetail({ product }) {
     category,
     tags,
     maxQuantity,
+    seller,
   } = product;
   const [value, setValue] = React.useState('1');
   const [quantity, setQuantity] = useState(product.quantity || 0);
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
-
   const { toggleLogin, isAuthenticated } = useAuth();
+
+  const yearNumber = new Date().getFullYear() - supplier.yearFounded;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -153,7 +160,7 @@ export default function ProductDetail({ product }) {
     ));
 
   return (
-    <Template title={title}>
+    <Template title={title} isMobile={isMobile} pageTitle={name}>
       <div className={styles.detail_wrapper}>
         <div className={styles.container}>
           <Grid container className={styles.detail_card}>
@@ -268,12 +275,55 @@ export default function ProductDetail({ product }) {
                         Điều Khoản Sử Dụng
                       </a>
                     </p>
+                    <div className={styles.supplierTitle}>
+                      <div className={styles.icon}>
+                        <FontAwesomeIcon icon={faStoreAlt} />
+                      </div>
+
+                      <LinkComp className={styles.supplierName} href={`/supplier/${seller.slug}`}>
+                        {seller.name}
+                      </LinkComp>
+                    </div>
+                    <div className={styles.supplierInfo}>
+                      <div className={styles.supplierYearWrap}>
+                        <div className={styles.supplierYear}>
+                          <span className={styles.activePeriodYear}>
+                            {yearNumber > 1 ? `${yearNumber}+` : yearNumber}
+                          </span>
+                          <br />
+                          năm
+                        </div>
+                        <span>Hợp tác cùng thuocsi.vn</span>
+                      </div>
+
+                      <div className={styles.supplierRating}>
+                        <div className={styles.rating}>
+                          <div className={styles.ratingBase}>
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                          </div>
+                          <div
+                            className={styles.ratingStars}
+                            style={{ width: `${(supplier?.rating / 5) * 100}%` }}
+                          >
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <hr className={styles.divider} />
                     <div className={styles.subscribe_section}>
                       Đăng ký bán hàng cùng thuocsi.vn
                       <Button
                         className={styles.subscribe_btn}
-                        href="https://sc-stg.thuocsi.vn"
+                        href={DOMAIN_SELLER_CENTER}
                         // target="_blank"
                         title="Đăng ký bán hàng cùng thuocsi"
                       >

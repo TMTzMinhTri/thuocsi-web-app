@@ -38,34 +38,6 @@ const IngredientContainer = ({ ingredients }) => {
     [ingredients],
   );
 
-  const searchString = useCallback((arr, str) => {
-    if (!str || str.length === 0) {
-      return arr;
-    }
-    const searchValue = str.toUpperCase();
-    const searchValueUnsigned = StringUtils.changeAlias(searchValue);
-    const isUnSigned = searchValue === searchValueUnsigned;
-
-    let rsUnSigned = arr.filter(
-      (el) => el.unsignedKey.toUpperCase().indexOf(searchValueUnsigned, 0) > -1,
-    );
-
-    if (isUnSigned) {
-      return rsUnSigned;
-    }
-
-    const arrSearch = searchValue.split(' ');
-    for (let i = 0; i <= arrSearch.length; i += 1) {
-      const w = arrSearch[i];
-
-      if (w && w.length > 0 && StringUtils.changeAlias(w) !== w) {
-        rsUnSigned = rsUnSigned.filter((el) => el.name.toUpperCase().indexOf(w, 0) > -1);
-      }
-    }
-
-    return rsUnSigned;
-  }, []);
-
   useEffect(() => {
     if (filter.isByWord) {
       if (filter.word === WORD_DEFAULT) {
@@ -75,7 +47,7 @@ const IngredientContainer = ({ ingredients }) => {
       }
     } else {
       debounceFunc500(() => {
-        const searchs = searchString(ingredients, filter.text);
+        const searchs = StringUtils.searchStringInStrings(ingredients, filter.text);
         setIngres(searchs);
       });
     }

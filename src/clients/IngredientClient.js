@@ -23,7 +23,7 @@ async function getIngredientBySlug(ctx, slug) {
 
 async function getProductsBySlug(ctx, slug) {
   const url = PRODUCT_API.PRODUCT_LIST;
-  const res = await GET({ url, ctx, params: { ingredient: slug } });
+  const res = await GET({ url, ctx, isBasic: true, params: { ingredient: slug } });
   if (!isValid(res)) {
     return [];
   }

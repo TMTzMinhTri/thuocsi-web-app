@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Grid } from '@material-ui/core';
-import { AlphabetFilter, ManufacturerList, FloatSearch } from 'components/mocules';
+import { AlphabetFilter, FloatSearch } from 'components/mocules';
 import { StringUtils } from 'utils';
+import { debounceFunc500 } from 'utils/debounce';
+import ManufacturerList from 'components/mocules/ManufacturerList';
 
 const TEXT_DEFAULT = '';
 const WORD_DEFAULT = '#';
-
-const searchString = (arr, str) => {
-  const result = arr.filter((el) => el.name.toUpperCase().indexOf(str.toUpperCase(), 0) > -1);
-  return result;
-};
 
 const ManufacturerContainer = ({ manufacturers }) => {
   const [filter, setFilter] = useState({
@@ -34,21 +31,29 @@ const ManufacturerContainer = ({ manufacturers }) => {
     setFilter({ ...filter, text: TEXT_DEFAULT, word: WORD_DEFAULT, isByWord: true });
   };
 
+  const searchByWord = useCallback(
+    (word) =>
+      manufacturers.filter(
+        ({ name }) => StringUtils.changeAlias(name.charAt(0).toUpperCase()) === word,
+      ),
+    [manufacturers],
+  );
+
   useEffect(() => {
     if (filter.isByWord) {
-      if (filter.word === WORD_DEFAULT) setManus(manufacturers);
-      else {
-        const ws = manufacturers.filter(
-          (ingredient) =>
-            StringUtils.changeAlias(ingredient?.name.charAt(0).toUpperCase()) === filter.word,
-        );
-        setManus(ws);
+      if (filter.word === WORD_DEFAULT) {
+        setManus(manufacturers);
+      } else {
+        setManus(searchByWord(filter.word));
       }
     } else {
-      const searchs = searchString(manufacturers, filter.text);
-      setManus(searchs);
+      debounceFunc500(() => {
+        const searchs = StringUtils.searchStringInStrings(manufacturers, filter.text);
+        setManus(searchs);
+      });
     }
   }, [filter]);
+
 
   return (
     <Grid>

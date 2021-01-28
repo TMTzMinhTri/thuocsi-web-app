@@ -1,6 +1,7 @@
 import { encodeUrl } from 'utils/StringUtils';
 /* eslint-disable operator-linebreak */
 // WEB
+export const MY_ACCOUNT = '/my-account';
 export const MY_ORDER_URL = '/my-order';
 export const ABOUT_US_URL = '/about-us';
 export const PRIVACY_POLICY_URL = '/privacy-policy';
@@ -11,11 +12,15 @@ export const TERMS_URL = '/terms-and-condition';
 export const REGULATIONS_URL = '/regulations';
 export const QUICK_ORDER = '/quick-order';
 export const PRODUCT = '/product';
+export const DEALS = '/deals';
 export const PRODUCTS_URL = '/products';
 export const CART_URL = '/cart';
+export const INGREDIENT = '/ingredients';
 export const CHECKOUT_URL = '/checkout';
 export const THANKYOU_URL = '/thankyou';
 export const NOT_FOUND_URL = '/404';
+export const PROMO_CODES = '/promo-codes';
+export const HOME_PAGE = '/';
 
 export const getPathProductBySlug = (slug) => `${PRODUCT}/${encodeUrl(slug)}`;
 
