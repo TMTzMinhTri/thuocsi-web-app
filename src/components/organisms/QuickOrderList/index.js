@@ -60,7 +60,7 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
         <>
           {searchProduct.map(
             (item) =>
-              item && <ProductCardHorizontal key={`search-product-${item.skuId}`} product={item} />,
+              item && <ProductCardHorizontal key={`search-product-${item.skuId}`} product={item} isMobile={isMobile} />,
           )}
           <div className={styles.pagging}>
             <Pagination
