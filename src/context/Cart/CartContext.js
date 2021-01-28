@@ -97,12 +97,32 @@ export const CartContextProvider = ({ children }) => {
     dispatch({ type: 'CHECKOUT' });
   };
 
-  const addImportant = (payload) => {
-    dispatch({ type: 'ADD_IMPORTANT', payload });
+  const addImportant = async (payload) => {
+    const res = await CartClient.updateCartItemImportant({
+      sku: payload.skuId,
+      isImportant: true,
+      quantity: payload.quantity,
+    });
+    if (!isValid(res)) {
+      NotifyUtils.error('Không thể đánh dấu quan trọng');
+    } else {
+      dispatch({ type: 'ADD_IMPORTANT', payload });
+      NotifyUtils.success('Đánh dấu quan trọng thành công ');
+    }
   };
 
-  const removeImportant = (payload) => {
-    dispatch({ type: 'REMOVE_IMPORTANT', payload });
+  const removeImportant = async (payload) => {
+    const res = await CartClient.updateCartItemImportant({
+      sku: payload.skuId,
+      isImportant: false,
+      quantity: payload.quantity,
+    });
+    if (!isValid(res)) {
+      NotifyUtils.error('Không thể xoá đánh dấu quan trọng');
+    } else {
+      dispatch({ type: 'REMOVE_IMPORTANT', payload });
+      NotifyUtils.success('Xoá đánh dấu quan trọng thành công ');
+    }
   };
 
   const contextValues = {

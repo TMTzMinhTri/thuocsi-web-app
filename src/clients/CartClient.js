@@ -18,6 +18,11 @@ async function updateCartItem(data) {
   return POST({ url: CART_API.CART_ADD, body });
 }
 
+// { sku, quantity, isImportant }
+async function updateCartItemImportant(body) {
+  return POST({ url: CART_API.CART_ADD, body });
+}
+
 async function getInfoCartItem(data) {
   if (!data || data.length === 0) {
     return [];
@@ -74,4 +79,5 @@ export default {
   updateRedeemCode,
   updateNote,
   getInfoCartItem,
+  updateCartItemImportant,
 };
