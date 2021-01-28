@@ -15,11 +15,11 @@ const ProductCart = ({ product, name }) => {
   const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
 
-  const { important, imageUrls } = product;
+  const { isImportant, imageUrls } = product;
 
   const handleSetImportant = () => {
-    const importantList = cartItems.filter((item) => item.important === true);
-    if (important) {
+    const importantList = cartItems.filter((item) => item.isImportant);
+    if (isImportant) {
       setUnset(true);
     } else {
       if (importantList.length >= (Math.floor((cartItems.length * 20) / 100) || 1)) {
@@ -32,7 +32,7 @@ const ProductCart = ({ product, name }) => {
   };
 
   const handleConfirmImportantModal = () => {
-    if (important) {
+    if (isImportant) {
       removeImportant(product);
     } else {
       addImportant(product);

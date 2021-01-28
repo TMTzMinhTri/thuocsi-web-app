@@ -36,13 +36,13 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
         <TableBody>
           {products &&
             products.map((product) => {
-              const { price, totalPrice, quantity } = product;
+              const { price, totalPrice, quantity, isImportant } = product;
               const { imageUrls = [], name = '', slug = '' } = product?.productInfo || {};
 
               return (
                 <TableRow key={uuidV4()} className={styles.product_row}>
                   <TableCell align="left">
-                    <StarIcon />
+                    <StarIcon style={{ color: isImportant ? '#f9b514' : '' }} />
                   </TableCell>
                   <TableCell>
                     <img src={imageUrls ? imageUrls[0] : ''} alt={name} width={50} height={30} />
