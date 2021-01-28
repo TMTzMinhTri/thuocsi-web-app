@@ -45,11 +45,13 @@ export default function Products({
   sortBy = '',
   slug = '',
   isMobile,
+  isAuthenticated,
 }) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'manufacturers';
+  const pageTitle = 'Sản phẩm';
   return (
-    <Template title={title} isMobile={isMobile} pageName={cat}>
+    <Template title={title} isMobile={isMobile} pageName={cat} pageTitle={pageTitle}>
       <ProductListing
         products={products}
         total={total}
@@ -62,6 +64,8 @@ export default function Products({
         slug={slug}
         tags={tags}
         name={catInfo && catInfo[0] && catInfo[0].name}
+        isAuthenticated={isAuthenticated}
+        isMobile={isMobile}
       />
     </Template>
   );

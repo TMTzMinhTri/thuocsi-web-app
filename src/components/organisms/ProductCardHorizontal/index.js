@@ -8,7 +8,7 @@ import ProductCardBuy from '../ProductCardBuy';
 
 import styles from './styles.module.css';
 
-const ProductCardHorizontal = ({ product }) => {
+const ProductCardHorizontal = ({ product, isMobile }) => {
   const router = useRouter();
   const searchInput = useRef(null);
   const { imageUrls, slug } = product;
@@ -32,8 +32,17 @@ const ProductCardHorizontal = ({ product }) => {
               />
             </CardActionArea>
           </Box>
-          <ProductCardContent tag cate {...product} />
-          <ProductCardBuy searchInput={searchInput} {...product} product={product} />
+          {isMobile ? (
+            <div className={styles.rightBox}>
+              <ProductCardContent tag cate {...product} isMobile={isMobile} />
+              <ProductCardBuy searchInput={searchInput} {...product} product={product} />
+            </div>
+          ) : (
+            <>
+              <ProductCardContent tag cate {...product} />
+              <ProductCardBuy searchInput={searchInput} {...product} product={product} />
+            </>
+          )}
         </Card>
       </Box>
     </Box>

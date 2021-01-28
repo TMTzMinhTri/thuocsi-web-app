@@ -35,6 +35,11 @@ const PrintInvoiceModal = memo((props) => {
     ward: user?.wardCode,
   });
 
+  const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
+    setAddress({ ...val, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
+  };
+
+
   const [products, setProducts] = useState([]);
 
   const handleSetAddress = (key, value) => {
@@ -121,6 +126,7 @@ const PrintInvoiceModal = memo((props) => {
             idProvince="province"
             idDistrict="district"
             idWard="ward"
+            handleChangeAddress={handleChangeAddress}
           />
           <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
             {products.map((product) => {

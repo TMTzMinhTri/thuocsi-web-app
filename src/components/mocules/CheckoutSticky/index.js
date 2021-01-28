@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Button } from '@material-ui/core';
+import { Paper, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
@@ -8,21 +8,43 @@ import clsx from 'clsx';
 import { NotifyUtils, ValidateUtils, FormarCurrency } from 'utils';
 import { CheckoutClient, isValid } from 'clients';
 import { THANKYOU_URL } from 'constants/Paths';
+import { LinkComp } from 'components/atoms';
 
 import styles from './styles.module.css';
 
-const CheckoutSticky = ({
-  selectedValue = '',
-  data,
-  cart,
-  dataCustomer,
-  onSetError,
-  checkCondition,
-}) => {
+const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError }) => {
   const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, totalDiscount = 0 } = cart[0];
   const { itemCount = 0, updateCart } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
   const router = useRouter();
+
+  const [checkCondition, setCheckCondition] = React.useState({
+    checked: true,
+  });
+
+  const GreenCheckbox = React.memo((props) => (
+    <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
+  ));
+
+  const handleCheckCondition = (event) => {
+    setCheckCondition({ ...checkCondition, [event.target.name]: event.target.checked });
+  };
+
+  const GreenCheckBoxElement = (
+    <GreenCheckbox
+      checked={checkCondition.checked}
+      onChange={handleCheckCondition}
+      name="checked"
+    />
+  );
+  const LabelConfirm = (
+    <span className={styles.check_agree_txt}>
+      Tôi đồng ý với{' '}
+      <LinkComp href="/condition" color="#00b46e" target>
+        Điều khoản sử dụng
+      </LinkComp>
+    </span>
+  );
 
   const validateSubmit = (res) => {
     if (!res.customerName) {
@@ -148,6 +170,16 @@ const CheckoutSticky = ({
           Vui lòng kiểm tra kỹ thông tin giao hàng, hình thức thanh toán và nhấn nút "Thanh Toán" để
           hoàn tất đặt hàng.
         </p>
+        <div className={styles.condition}>
+          <FormControlLabel control={GreenCheckBoxElement} label={LabelConfirm} />
+          <div className={styles.list_note}>
+            <p>1. Thuocsi có thể hủy đơn hàng của bạn nếu chênh lệch hơn 5% giá trị sản phẩm.</p>
+            <p>
+              2. Số lượng sản phẩm khi giao có thể không đảm bảo đúng nhu cầu ban đầu tùy thuộc vào
+              nhà cung cấp.
+            </p>
+          </div>
+        </div>
         <Button onClick={handleSubmit} className={styles.checkout_btn}>
           Thanh toán
         </Button>

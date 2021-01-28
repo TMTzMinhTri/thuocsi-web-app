@@ -27,8 +27,6 @@
     transition: background-color 0.2s;
 }
 
-
-
 .button_container {
     justify-self: center;
     width: 100%;
@@ -45,8 +43,6 @@
     box-shadow: unset!important;
 }
 
-
-
 .product_image {
     flex: 15%;
     justify-self: start;
@@ -54,3 +50,59 @@
     margin-right: 10px!important;
     margin-bottom: 0!important;
 }
+@media (max-width: 767px) {
+    .rightBox {
+        width: 100%;
+    }
+    .product_content{
+        display: block;
+    }
+
+    .product_content_column {
+        padding: 0 45px 0 0 !important;
+    }
+    .product_card{
+        align-items: flex-start;
+        min-height: 120px;
+    }
+    .rightBox [class*='price_wrapper_column']{
+        max-width: 100%;
+        display: block;
+    }
+    .rightBox [class*='danger_column']{
+        position: unset;
+    }
+    .rightBox [class*='product_action_column']{
+        position: absolute;
+        right: 0;
+        top: 15px;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .rightBox [class*='root_input']{
+        border: none !important;
+        width: 40px;
+        margin: 0 !important;
+        width: 40px;
+        margin: 5px 0 !important;
+        color: #c3ccdc!important;
+    }
+    .rightBox [class*='product_type']{
+        margin-bottom: 10px;
+    }
+    .rightBox [class*='deal_price']{
+        color: #dc3545;
+    }
+}
+@media (min-width: 768px) {
+    .wrapper {
+        padding: 48px 0;
+      }
+    .product_content_column {
+        min-width: 442px;
+    }
+    .product_image {
+        margin-bottom: 1.5rem!important;
+    }    
+}
+

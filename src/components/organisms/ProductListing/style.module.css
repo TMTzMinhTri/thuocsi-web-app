@@ -1,12 +1,10 @@
 .wrapper{
-  display: flex;
-  padding: 3rem;
+  display: block;
+  padding: 0 15px;
   background-color: #f4f7fc;
 }
 .sidebar{
-  flex: 0 0 240px;
-  max-width: 240px;
-  padding-right: 30px;
+  flex: 1
 }
 .result{
   width: 100%;
@@ -113,6 +111,7 @@
   font-weight: 500;
   text-transform: capitalize;
   margin-bottom: 1rem !important;
+  font-size: 28px;
 }
 .product_main{
   width: 100%;
@@ -139,7 +138,6 @@
   word-break: break-all;
   line-height: 1;
   overflow: hidden;
-  
 }
 .product_main .filters .iconLeft,
 .product_main .filters .iconRight{
@@ -155,8 +153,8 @@
   margin-top: 30px;
 }
 .product_listing{
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 90px;
 }
 .pagging{
   display: flex;
@@ -180,10 +178,25 @@
     flex-basis: 16.666667% !important;
   }
 }
-
 @media (min-width: 768px) {
+  .wrapper{
+    padding: 15px;
+  }
+  .product_listing{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
   .product_main [class*="product_title"]{
     font-size: 1.8rem;
+  }
+  .wrapper{
+    padding: 3rem;
+    display: flex;
+  }
+  .sidebar{
+    flex: 0 0 240px;
+    max-width: 240px;
+    padding-right: 30px;
   }
 }
 @media (min-width: 1024px) {
@@ -195,4 +208,70 @@
   .product_main [class*="product_title"]{
     font-size: 2.5rem;
   }
+}
+.filterMobile{
+  margin: 0 -15px 15px;
+  background-color: white;
+}
+.filterMobileBox{
+  padding: 15px;
+  box-shadow: 0px 3px 20px rgba(0,0,0,0.08);
+}
+.fRow,
+.tagsMobile{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tagsMobile{
+  margin-top: 15px;
+}
+.badgeGray{
+  font-size: 12px;
+  background-color: #ced4da;
+  margin-right: 5px;
+  color: #212529;
+  display: inline-block;
+  padding: 0.25em 0.5rem;
+  font-weight: normal;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  text-transform: capitalize;
+}
+.sortMobile{
+  display: flex;
+  align-items: center;
+}
+.sortMobile div{
+  margin-bottom: 0;
+}
+.sortMobile>div:last-child{
+  margin-left: 10px;
+}
+.filterBtn{
+  border-radius: 20px;
+  padding: 6px 15px !important;
+  border-radius: 20px !important;
+}
+.btnText{
+  margin-left: 5px;
+}
+
+
+.appBar{
+  position: 'relative';
+}
+.title{
+  text-transform: uppercase;
+}
+.icon1{
+  position: relative;
+  z-index: 100;
+  padding: 10px;
+}
+.icon{
+  font-size: 20px !important;
 }

@@ -28,7 +28,7 @@ const SliderProduct = ({ children, name, redirect, viewMore }) => {
             {children}
           </Slider>
           {viewMore && (
-            <LinkComp href={`${redirect}`} className={styles.seeAll}>
+            <LinkComp href={`${redirect}`} color="#fff" className={styles.seeAll}>
               Xem tất cả
             </LinkComp>
           )}
