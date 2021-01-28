@@ -6,9 +6,10 @@ import {
   ResponseButton,
   PrintInvoiceButton,
 } from 'components/mocules';
-import { PATH_INFO_BILL } from 'constants/Paths';
+import { PATH_INFO_BILL, MY_ORDER_URL } from 'constants/Paths';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { DateTimeUtils } from 'utils';
+import Link from 'next/link';
 import styles from './styles.module.css';
 
 const OrderDetailContainer = ({ order, products, user }) => (
@@ -76,7 +77,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
       />
     </Grid>
     <Grid item xs={12} className={styles.comeback}> 
-      {"<< Quay lại đơn hàng của tôi"}
+      <Link href={MY_ORDER_URL}> &lt;&lt; Quay lại đơn hàng của tôi </Link>
     </Grid>
   </Grid>
 );
