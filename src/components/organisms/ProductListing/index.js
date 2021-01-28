@@ -270,12 +270,14 @@ export default function ProductListing({
           <GridSkeletonProductHorizontal counts={12} />
         ) : (
           <div>
-            <div>
-              <Typography className="product_title" variant="h4" component="h1">
-                {name && name}
-              </Typography>
-              <SearchResultText total={total} page={page} pages={pages} />
-            </div>
+            {name && (
+              <div>
+                <Typography className="product_title" variant="h4" component="h1">
+                  {name}
+                </Typography>
+                <SearchResultText total={total} page={page} pages={pages} />
+              </div>
+            )}
             {!isMobile && (
               <div>
                 <div className={styles.filters}>
