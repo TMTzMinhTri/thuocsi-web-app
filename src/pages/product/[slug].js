@@ -222,16 +222,18 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                             horizontal: 'center',
                           }}
                         >
-                          <p className={styles.popover_header}>Giá bán tham khảo</p>
+                          <p className={styles.popover_header}>
+                            Giá bán tham khảo ... đang cập nhập{' '}
+                          </p>
                           <TableContainer classes={{ root: styles.table }} component={Paper}>
                             <Table aria-label="simple table">
                               <TableHead>
                                 <TableRow>
-                                  <TableCell className={styles.border_right}>Tên</TableCell>
-                                  <TableCell align="left">Hàm lượng</TableCell>
+                                  {/* <TableCell className={styles.border_right}>Tên</TableCell>
+                                  <TableCell align="left">Hàm lượng</TableCell> */}
                                 </TableRow>
                               </TableHead>
-                              <TableBody>{ingredientEle}</TableBody>
+                              {/* <TableBody>{ingredientEle}</TableBody> */}
                             </Table>
                           </TableContainer>
                         </Popover>
