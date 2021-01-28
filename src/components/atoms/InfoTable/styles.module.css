@@ -9,3 +9,8 @@
   min-width: 650px;
   border-radius: 30px !important;
 }
+
+.table [class*='MuiTableRow-head'] {
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}

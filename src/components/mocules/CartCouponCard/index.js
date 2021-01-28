@@ -5,6 +5,7 @@ import { PROMO_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE } from 'constants/Images';
 import clsx from 'clsx';
 import { Button } from 'components/atoms';
+import { FormarCurrency } from 'utils';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
@@ -44,6 +45,7 @@ const CartCounponCard = ({
   endTime = '',
   redeemCode = '',
   handleChangePromo,
+  totalPrice = 0
 }) => (
   <Card
     className={clsx(
@@ -79,7 +81,7 @@ const CartCounponCard = ({
         </Grid>
         {/* {type === PROMO_TYPE.DISCOUNT && ( */}
         <Grid item className={styles.text_danger}>
-          Đơn hàng sau khi áp dụng <strong> 4.108.400đ </strong>
+          Đơn hàng sau khi áp dụng <strong> {FormarCurrency(totalPrice)} </strong>
         </Grid>
         {/* )} */}
       </Grid>

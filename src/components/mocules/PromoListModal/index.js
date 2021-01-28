@@ -17,7 +17,7 @@ const searchString = (arr, str) => {
 };
 
 const PromoListModal = memo((props) => {
-  const { onClose, visible, className, restProps, redeemCode, handleChangePromo } = props;
+  const { onClose, visible, className, restProps, redeemCode, handleChangePromo, totalPrice } = props;
   const [text, setText] = useState(TEXT_DEFAULT);
   const [promoSearchs, setPromoSearchs] = useState([]);
   const [promos, setPromos] = useState([]);
@@ -69,6 +69,7 @@ const PromoListModal = memo((props) => {
                   {...pro}
                   redeemCode={redeemCode}
                   handleChangePromo={handleChangePromo}
+                  totalPrice={totalPrice}
                 />
               </Grid>
             ))}
