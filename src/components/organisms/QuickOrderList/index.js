@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
-import { SearchClient } from 'clients';
+import { isValid, SearchClient } from 'clients';
 import { debounceFunc500 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
 import { PAGE_SIZE } from 'constants/data';
@@ -28,10 +28,11 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
 
   const fetchData = async (keywords, num) => {
     const res = await SearchClient.searchProducts(keywords, num);
-    if (res.length !== 0) {
+    if (isValid(res)) {
       setTotalVal(res.total);
       setSearchProduct(res.data);
     } else {
+      setTotalVal(0);
       setSearchProduct(null);
     }
   };

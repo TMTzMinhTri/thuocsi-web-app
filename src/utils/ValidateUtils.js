@@ -3,7 +3,7 @@ const validateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 };
 
-const isEmpty = (val) =>
+export const isEmpty = (val) =>
   !val || val.length === 0 || (typeof val === 'object' && Object.keys(val).length === 0);
 
 const checkLength = (val, length) => {
