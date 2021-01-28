@@ -27,7 +27,8 @@ const SearchDropdown = (props) => {
         </>
       ) : (
         <span className={styles.searchResults}>
-          Không có sản phẩm với từ khóa "{`${keyword}`}" trong tất cả sản phẩm
+          Không có sản phẩm với từ khóa <em>{keyword}</em>&nbsp;&nbsp;Trong&nbsp;
+          <b className={styles.textPrimary}>Tất Cả Sản Phẩm</b>
         </span>
       )}
 
@@ -45,7 +46,8 @@ const SearchDropdown = (props) => {
         </>
       ) : (
         <div className={styles.searchResults}>
-          Không có sản phẩm với từ khóa "{`${keyword}`}" trong tất cả nhà sản xuất
+          Không có sản phẩm với từ khóa <em>{keyword}</em>&nbsp;&nbsp;Trong&nbsp;
+          <b className={styles.textPrimary}>Tất Cả Nhà Sản Xuất </b>
         </div>
       )}
     </div>

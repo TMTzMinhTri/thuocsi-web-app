@@ -68,7 +68,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
       updateCart();
       NotifyUtils.success('Thêm mã giảm giá thành công');
     } catch (error) {
-      NotifyUtils.error(error?.message || 'Xoá mã giảm giá không thành công');
+      NotifyUtils.error(error?.message || 'Thêm mã giảm giá không thành công');
     }
   };
 
@@ -120,6 +120,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
           onClose={handleSetPromoVisible}
           handleChangePromo={handleChangePromo}
           redeemCode={redeemCode}
+          totalPrice={total}
         />
       </Grid>
       <Grid className={styles.wrapper} xs={12} container item>
