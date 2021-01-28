@@ -30,6 +30,8 @@ const InfoTable = ({ heads, children, className, stickyHeader }) => (
 const StyledInfoTable = styled(InfoTable)`
     &.MuiPaper-rounded {
       border-radius: 10px !important;
+      border-bottom-right-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
     }
 `;
 

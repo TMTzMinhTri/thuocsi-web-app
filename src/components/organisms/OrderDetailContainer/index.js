@@ -75,6 +75,9 @@ const OrderDetailContainer = ({ order, products, user }) => (
         totalDiscount={order?.totalDiscount}
       />
     </Grid>
+    <Grid item xs={12} className={styles.comeback}> 
+      {"<< Quay lại đơn hàng của tôi"}
+    </Grid>
   </Grid>
 );
 
