@@ -72,6 +72,7 @@ export default function Products({
         tags={tags}
         name={namePage(current_tab)}
         isAuthenticated={isAuthenticated}
+        isMobile={isMobile}
       />
     </Template>
   );
