@@ -52,3 +52,22 @@
 .root_input [class*='Mui-focused'] [class*='MuiInputBase-input'] {
   border: none !important;
 }
+@media (max-width: 767px) {
+  .root_input{
+    width: 100%;
+  }
+  .root_input .focus{
+    border-radius: 0 !important;
+  }
+  .root_input [class*='MuiInputBase-input'] {
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid #ced4da !important;
+    border-radius: 0 !important;
+    padding-left: 7px !important;
+  }
+  .root_input [class*='MuiInputAdornment'] {
+    display: none;
+  }
+}

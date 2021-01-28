@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 import TagType from '../TagType';
-
 import styles from './styles.module.css';
 
 const ProductCardContent = ({
@@ -27,6 +26,7 @@ const ProductCardContent = ({
   tag,
   // cart,
   className,
+  isMobile
 }) => (
   <CardContent
     className={`${className}
@@ -47,6 +47,17 @@ const ProductCardContent = ({
             {name}
           </Typography>
         </Link>
+        {isMobile && (
+          <Typography
+            className={clsx(styles.product_type, styles.muted)}
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {unit} {volume}
+          </Typography>
+        )}
+        
         {tag && tags && tags[0] && (
           <div className={clsx(styles.product_tags, styles.product_tags_column)}>
             {tags.map((item) => (
@@ -55,14 +66,16 @@ const ProductCardContent = ({
           </div>
         )}
       </Box>
-      <Typography
-        className={clsx(styles.product_type, styles.muted)}
-        variant="body2"
-        color="textSecondary"
-        component="p"
-      >
-        {unit} {volume}
-      </Typography>
+      {!isMobile && (
+        <Typography
+          className={clsx(styles.product_type, styles.muted)}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
+          {unit} {volume}
+        </Typography>
+    )}
     </Box>
     {row === cate && (
       <Typography
@@ -80,6 +93,6 @@ const ProductCardContent = ({
       </Typography>
     )}
   </CardContent>
-);
+  );
 
 export default ProductCardContent;
