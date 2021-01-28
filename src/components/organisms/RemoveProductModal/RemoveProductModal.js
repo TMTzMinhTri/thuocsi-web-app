@@ -24,28 +24,25 @@ const RemoveProductModal = memo((props) => {
             </Typography>
           </div>
         </Box>
-        {product
-          && (
+        {product && (
           <Card className={styles.remove_item}>
             <div className={styles.remove_item_image}>
               <Image
                 className={styles.remove_item_image}
-                src={product.image || MISSING_IMAGE}
+                src={(product.imageUrls && product.imageUrls[0]) || MISSING_IMAGE}
                 width={80}
                 height={80}
                 alt={product.name && product.name}
               />
             </div>
             <div className={styles.remove_item_content}>
-              <div className={styles.remove_item_cart_name}>
-                {product.name && product.name}
-              </div>
+              <div className={styles.remove_item_cart_name}>{product.name && product.name}</div>
               <div className={styles.remove_item_cart_price}>
                 {product.price && FormatCurrency(product.price)}
               </div>
             </div>
           </Card>
-          )}
+        )}
 
         <Box mt={2} textAlign="center">
           <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
