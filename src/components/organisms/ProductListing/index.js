@@ -12,15 +12,19 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
+import { useModal } from 'hooks';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Pagination } from '@material-ui/lab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
-import { useAuth } from 'context';
+import { Button } from 'components/atoms';
 import { SearchResultText } from 'components/mocules';
 import { SORT_PRODUCT, SORT_PRODUCT_NOT_LOGIN, PAGE_SIZE } from 'constants/data';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter, faTag } from '@fortawesome/free-solid-svg-icons';
+import FilterProductOnMobile from 'components/organisms/FilterProductOnMobile';
 import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
 import ProductCardVertical from '../ProductCardVertical';
 
@@ -30,7 +34,7 @@ export default function ProductListing({
   products = [],
   brand = [],
   group = [],
-  tags,
+  tags = [],
   current_tab = '',
   page = '',
   sortBy = '',
@@ -38,19 +42,21 @@ export default function ProductListing({
   catName = '',
   name = '',
   total,
+  isAuthenticated = false,
+  isMobile,
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
   const pages = Math.ceil(total / PAGE_SIZE);
   const router = useRouter();
   const pathName = `/${catName}/${slug}`;
-  const { isAuthenticated } = useAuth();
+  const [open, toggleOpenFilter] = useModal();
 
   const SORT_LIST = isAuthenticated ? SORT_PRODUCT : SORT_PRODUCT_NOT_LOGIN;
 
   useEffect(() => {
     setIsLoading(false);
-  }, [isloading]);
+  }, [isloading, open]);
 
   const getQueryObject = () => {
     const query = {};
@@ -96,134 +102,201 @@ export default function ProductListing({
     setNumPage(1);
   };
 
+  const SelectedTagMobile = () => {
+    const tabName = tags.filter(item => item.slug === current_tab);
+    return (
+      <div className={styles.tagsMobile}>
+        <div className={styles.badgeGray}><FontAwesomeIcon icon={faTag} /> {tabName.length > 0 ? tabName[0].name : "Tất cả"}</div>
+        <div className={styles.badgeGray}>{name}</div>
+      </div>
+    )
+  }
   return (
     <div className={styles.wrapper}>
-      <div className={styles.sidebar}>
-        <div className={styles.headTitle}>
-          <Icon className="icon-tune" color="inherit" fontSize="default" />
-          <div>BỘ LỌC TÌM KIẾM</div>
-        </div>
-        <hr className={styles.hr} />
-        <div className={styles.sort}>
-          <div className={styles.headSort}>Sắp xếp</div>
-          <div className={styles.select}>
-            <FormControl className={styles.formControl}>
-              <NativeSelect
-                className={styles.selectInput}
-                inputProps={{
-                  name: 'sortBy',
-                  id: 'sortBy-product',
-                  placeholder: 'sắp xếp',
-                }}
-                IconComponent={() => <ExpandMoreIcon className={styles.selectIcon} />}
-                onChange={handleChangeSort}
+      {isMobile ? (
+        <div className={styles.filterMobile}>
+          <div className={styles.filterMobileBox}>
+            <div className={styles.fRow}>
+              <div className={styles.sortMobile}>
+                <div className={styles.headSort}>Sắp xếp</div>
+                <div className={styles.select}>
+                  <FormControl className={styles.formControl}>
+                    <NativeSelect
+                      className={styles.selectInput}
+                      inputProps={{
+                        name: 'sortBy',
+                        id: 'sortBy-product',
+                        placeholder: 'sắp xếp',
+                      }}
+                      IconComponent={() => <ExpandMoreIcon className={styles.selectIcon} />}
+                      onChange={handleChangeSort}
+                    >
+                      {SORT_LIST.map((item) => (
+                        <option key={item.value} value={item.value}>
+                          {item.label}
+                        </option>
+                      ))}
+                    </NativeSelect>
+                  </FormControl>
+                </div>
+              </div>
+              <Button
+                onClick={toggleOpenFilter}
+                backgroundColor="#f9b514"
+                className={styles.filterBtn}
               >
-                {SORT_LIST.map((item) => (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-              </NativeSelect>
-            </FormControl>
+                <FontAwesomeIcon icon={faFilter} />
+                <span className={styles.btnText}>Lọc</span>
+              </Button>
+            </div>
+            <div className={styles.fRow}>
+              <SelectedTagMobile />
+            </div>
+          </div>
+          
+          <FilterProductOnMobile
+            open={open}
+            handleClose={toggleOpenFilter}
+            maxWidth="md"
+            group={group}
+            slug={slug}
+            pathName={pathName}
+            currentTab={current_tab}
+            sortBy={sortBy}
+            tags={tags}
+            brand={brand}
+          />
+        </div>
+      ) : (
+        <div className={styles.sidebar}>
+          <div className={styles.headTitle}>
+            <Icon className="icon-tune" color="inherit" fontSize="default" />
+            <div>BỘ LỌC TÌM KIẾM</div>
+          </div>
+          <hr className={styles.hr} />
+          <div className={styles.sort}>
+            <div className={styles.headSort}>Sắp xếp</div>
+            <div className={styles.select}>
+              <FormControl className={styles.formControl}>
+                <NativeSelect
+                  className={styles.selectInput}
+                  inputProps={{
+                    name: 'sortBy',
+                    id: 'sortBy-product',
+                    placeholder: 'sắp xếp',
+                  }}
+                  IconComponent={() => <ExpandMoreIcon className={styles.selectIcon} />}
+                  onChange={handleChangeSort}
+                >
+                  {SORT_LIST.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </NativeSelect>
+              </FormControl>
+            </div>
+          </div>
+          <hr className={styles.hr} />
+          <div className={styles.group}>
+            <Accordion className="accordion" defaultExpanded>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                className="accordion-sumary"
+              >
+                <Typography>Nhóm thuốc</Typography>
+              </AccordionSummary>
+              <AccordionDetails className="accordion-detail">
+                <Box component="div">
+                  <Link key="all-products" href="/products">
+                    <div className={`${styles.accordionLink} ${slug === '' ? styles.active : ''}`}>
+                      Tất cả sản phẩm
+                    </div>
+                  </Link>
+                  {group &&
+                    group.map((item) => (
+                      <Link key={item.categoryID} href={`/categories/${item.slug}`}>
+                        <div
+                          className={`${styles.accordionLink} ${
+                            item.slug === slug ? styles.active : ''
+                          }`}
+                        >
+                          {item.name}
+                        </div>
+                      </Link>
+                    ))}
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+            <hr className={styles.hr_clear} />
+            <Accordion className="accordion" defaultExpanded>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1b-content"
+                id="panel1b-header"
+                className="accordion-sumary"
+              >
+                <Typography>Nhà sản xuất</Typography>
+              </AccordionSummary>
+              <AccordionDetails className="accordion-detail">
+                <Box component="div">
+                  <Link key="all-products" href="/products">
+                    <div className={styles.accordionLink}>Tất cả sản phẩm</div>
+                  </Link>
+                  {brand &&
+                    brand.length > 0 &&
+                    brand.map((item) => (
+                      <Link key={item.manufacturerID} href={`/manufacturers/${item.slug}`}>
+                        <div
+                          className={`${styles.accordionLink} ${
+                            item.slug === slug ? styles.active : ''
+                          }`}
+                        >
+                          {item.name}
+                        </div>
+                      </Link>
+                    ))}
+                </Box>
+              </AccordionDetails>
+            </Accordion>
           </div>
         </div>
-        <hr className={styles.hr} />
-        <div className={styles.group}>
-          <Accordion className="accordion" defaultExpanded>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-              className="accordion-sumary"
-            >
-              <Typography>Nhóm thuốc</Typography>
-            </AccordionSummary>
-            <AccordionDetails className="accordion-detail">
-              <Box component="div">
-                <Link key="all-products" href="/products">
-                  <div className={`${styles.accordionLink} ${slug === '' ? styles.active : ''}`}>
-                    Tất cả sản phẩm
-                  </div>
-                </Link>
-                {group &&
-                  group.map((item) => (
-                    <Link key={item.categoryID} href={`/categories/${item.slug}`}>
-                      <div
-                        className={`${styles.accordionLink} ${
-                          item.slug === slug ? styles.active : ''
-                        }`}
-                      >
-                        {item.name}
-                      </div>
-                    </Link>
-                  ))}
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-          <hr className={styles.hr_clear} />
-          <Accordion className="accordion" defaultExpanded>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1b-content"
-              id="panel1b-header"
-              className="accordion-sumary"
-            >
-              <Typography>Nhà sản xuất</Typography>
-            </AccordionSummary>
-            <AccordionDetails className="accordion-detail">
-              <Box component="div">
-                <Link key="all-products" href="/products">
-                  <div className={styles.accordionLink}>Tất cả sản phẩm</div>
-                </Link>
-                {brand &&
-                  brand.length > 0 &&
-                  brand.map((item) => (
-                    <Link key={item.manufacturerID} href={`/manufacturers/${item.slug}`}>
-                      <div
-                        className={`${styles.accordionLink} ${
-                          item.slug === slug ? styles.active : ''
-                        }`}
-                      >
-                        {item.name}
-                      </div>
-                    </Link>
-                  ))}
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-        </div>
-      </div>
+      )}
+
       <div className={styles.product_main}>
         {isloading ? (
           <GridSkeletonProductHorizontal counts={12} />
         ) : (
           <div>
             <div>
-              {name && (
-                <Typography className="product_title" variant="h4" component="h1">
-                  {name}
-                </Typography>
-              )}
+              <Typography className="product_title" variant="h4" component="h1">
+                {name && name}
+              </Typography>
               <SearchResultText total={total} page={page} pages={pages} />
             </div>
-            <div>
-              <div className={styles.filters}>
-                <Link
-                  href={{
-                    pathname: pathName,
-                    query: { ...getTabQuery() },
-                  }}
-                >
-                  <Fab
-                    variant="extended"
-                    aria-label="all"
-                    className={clsx(current_tab === '' && styles.active, styles.filter_btn)}
-                  >
-                    Tất cả sản phẩm
-                  </Fab>
-                </Link>
-                {tags &&
-                  tags.map((item) => (
+            {!isMobile && (
+              <div>
+                <div className={styles.filters}>
+                  {(total > 0 || tags.length > 0)
+                    && (
+                      <Link
+                        href={{
+                          pathname: pathName,
+                          query: { ...getTabQuery() },
+                        }}
+                      >
+                        <Fab
+                          variant="extended"
+                          aria-label="all"
+                          className={clsx(current_tab === '' && styles.active, styles.filter_btn)}
+                        >
+                          Tất cả sản phẩm
+                        </Fab>
+                      </Link>
+                    )}
+                  {tags.map((item) => (
                     <Link
                       key={`tags-${item.slug}`}
                       href={{
@@ -247,8 +320,9 @@ export default function ProductListing({
                       </Fab>
                     </Link>
                   ))}
+                </div>
               </div>
-            </div>
+            )}
             {products && products.length > 0 ? (
               <main className={styles.product_listing} key={uuidv4()}>
                 <div className={styles.pagging}>
