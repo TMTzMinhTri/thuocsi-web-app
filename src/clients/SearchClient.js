@@ -17,14 +17,14 @@ async function searchProducts(keyword, page) {
   const url = '/marketplace/product/v1/products/list';
   const params = {
     page,
-    q: keyword,
+    q: keyword || null,
     limit: PAGE_SIZE,
     getTotal: true,
   };
   const res = await GET({ url, params });
 
   if (!isValid(res)) {
-    return [];
+    return res;
   }
   let cart = {};
   let productListWithQuantityInCart = {};
@@ -42,7 +42,7 @@ async function searchProducts(keyword, page) {
     }
     productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity(res, cartObject);
   } else {
-    productListWithQuantityInCart = res.data || [];
+    productListWithQuantityInCart = res;
   }
 
   return productListWithQuantityInCart;
