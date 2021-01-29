@@ -34,6 +34,7 @@ const StyledAddressSelect = styled(AddressSelect)`
   }
   & .MuiNativeSelect-icon {
     right: 5px !important;
+    color: #00b46e !important;
   }
   &.MuiOutlinedInput-root {
     height: 2.4em !important;
