@@ -35,9 +35,10 @@ function CountdownTimer({ prefix, dealEndDay, ...otherProps }) {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
+    return () => clearTimeout(timer);
   });
 
   const timerComponents = [];
