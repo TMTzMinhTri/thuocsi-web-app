@@ -16,7 +16,7 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const { pathname, push } = router;
+  const { pathname, reload } = router;
   const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
   const [isShowSignUp, toggleSignUp] = useModal();
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   }, [toggleLogin, toggleSignUp]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
-    const { expiredTime, bearerToken } = info;
+    const { expiredTime = new Date(), bearerToken = null } = info;
 
     Cookies.set(ACCESS_TOKEN, bearerToken);
     Cookies.set(REMEMBER_ME, rememberMe);
@@ -113,11 +113,9 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
 
   const logout = () => {
     setUser(null);
-    Cookies.set(ACCESS_TOKEN, null);
-    Cookies.set(ACCESS_TOKEN_LONGLIVE, null);
-    Cookies.set(REMEMBER_ME, null);
-    setCookies({}, undefined);
-    push('/');
+    setCookies({}, true);
+    reload(pathname);
+    // push('/');
   };
 
   useEffect(() => {

@@ -69,14 +69,14 @@ export const CartReducer = (state, action) => {
         cartItems: [...cartItems],
       };
     case 'INCREASE_BY':
-      if (!cartItems.find((item) => item.skuId === action.payload.product.skuId)) {
+      if (!cartItems.find((item) => item.sku === action.payload.product.sku)) {
         cartItems.push({
           ...action.payload.product,
           quantity: action.payload.q,
         });
       } else {
         cartItems[
-          cartItems.findIndex((item) => item.skuId === action.payload.product.skuId)
+          cartItems.findIndex((item) => item.sku === action.payload.product.sku)
         ].quantity = action.payload.q;
       }
       return {
