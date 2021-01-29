@@ -32,9 +32,9 @@ const FooterComp = ({product}) => {
             </div>
           ) : (
             <AppBar position="fixed" className={styles.appBar}>
-              {router.pathname === QUICK_ORDER || router.pathname === CART_URL && <FooterWithCart />}
+              {(router.pathname === QUICK_ORDER || router.pathname === CART_URL) && <FooterWithCart />}
               {router.pathname === PRODUCT && <FooterWithAddToCart product={product} />}
-              {router.pathname === !QUICK_ORDER && router.pathname === !CART_URL && router.pathname === !PRODUCT && <FooterWithToolBar />}
+              {(router.pathname !== QUICK_ORDER && router.pathname !== CART_URL && router.pathname !== PRODUCT) && <FooterWithToolBar />}
             </AppBar>
           )}
         </Container>
