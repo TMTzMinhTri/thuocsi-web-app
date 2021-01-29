@@ -13,23 +13,26 @@ export async function getServerSideProps(ctx) {
 function Cart({ isMobile, user }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
-  const { cartItems, loading } = useCart();
+  const { cartItems, loading, itemCount} = useCart();
+  const pageTitle = `Giỏ hàng (${itemCount})`;
   const pageName = 'cart';
   if (loading) return <LoadingScreen />;
   return (
-    <Template title={title} isMobile={isMobile} pageName={pageName}>
+    <Template title={title} isMobile={isMobile} pageName={pageName} pageTitle={pageTitle}>
       <Container className={styles.wrapper} maxWidth="lg">
         {cartItems && cartItems.length > 0 ? (
           <>
-            <Box mb={1.5}>
-              <Typography className={styles.cart_title} variant="h5" component="h3">
-                Giỏ hàng
-              </Typography>
-            </Box>
+            {!isMobile && (
+              <Box mb={1.5}>
+                <Typography className={styles.cart_title} variant="h5" component="h3">
+                  Giỏ hàng
+                </Typography>
+              </Box>
+            )}
             <Grid container spacing={3}>
               <Grid sm={8} item>
                 {/* san pham  */}
-                <ProductCartList setCartList={setCartList} products={cartItems} />
+                <ProductCartList setCartList={setCartList} products={cartItems} isMobile={isMobile} />
               </Grid>
               {!isMobile && (
                 <Grid sm={4} item>
