@@ -7,7 +7,7 @@ const ResponseButton = ({ orderID = '', name = '', phone = '' }) => {
   const url = `${FEEDBACK}?order_id=${encodeURI(orderID)}&name=${encodeURI(name)}&phone=${encodeURI(phone)}`;
   return (
     <a href={url} target="_blank" rel="noreferrer">
-      <Button startIcon={<InsertCommentIcon />} className="my-order__button my-order__button--outlined-blue">
+      <Button startIcon={<InsertCommentIcon />} className="my-order__button my-order__button--blue">
         Gửi phản hồi
       </Button>
     </a>

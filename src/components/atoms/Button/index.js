@@ -55,16 +55,32 @@ const StyledButton = styled(CustomButton)`
       color: #212529 !important;
       border: 1px solid #f9b514 !important;
       background-color: #f9b514 !important;
+      &:hover {
+        
+        background: #fff !important;
+      }
     }
 
-    &--outlined-blue {
-      color: #17a2b8 !important;
+    &--blue {
+      // color: #17a2b8 !important;
       border: 1px solid #17a2b8 !important;
+      background: #17a2b8 !important;
+      color: #fff !important;
+      transition: 0.2s;
+      &:hover {
+        color: #17a2b8 !important;
+        background: #fff !important;
+      }
     }
 
-    &--outlined-green {
-      color: #00b46e !important;
+    &--green {
+      color: #fff !important;
+      background: #00b46e !important;
       border: 1px solid #00b46e !important;
+      &:hover {
+        color: #00b46e !important;
+        background: #fff !important;
+      }
     }
   }
 

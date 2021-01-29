@@ -5,6 +5,7 @@ import {
   OrderDetailProduct,
   ResponseButton,
   PrintInvoiceButton,
+  EditOrderButton
 } from 'components/mocules';
 import { PATH_INFO_BILL, MY_ORDER_URL } from 'constants/Paths';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
@@ -30,7 +31,10 @@ const OrderDetailContainer = ({ order, products, user }) => (
                 <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate || Date.now()))}</span>
               </div>
             </Grid>
-            <ResponseButton orderID={order.orderNo} name={order?.customerName} phone={order?.customerPhone} />
+            <Grid item container direction="row" justify="flex-end">
+              <EditOrderButton />
+              <ResponseButton orderID={order.orderNo} name={order?.customerName} phone={order?.customerPhone} />
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
