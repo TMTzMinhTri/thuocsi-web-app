@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Typography, Box, Grid } from '@material-ui/core';
+import { Container, Typography, Grid } from '@material-ui/core';
 import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen, Button } from 'components';
 import { useCart, withLogin } from 'context';
 import { doWithServerSide } from 'clients';
@@ -13,7 +13,7 @@ export async function getServerSideProps(ctx) {
 function Cart({ isMobile, user }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const [, setCartList] = useState();
-  const { cartItems, loading, itemCount} = useCart();
+  const { cartItems, loading, itemCount } = useCart();
   const pageTitle = `Giỏ hàng (${itemCount})`;
   const pageName = 'cart';
   if (loading) return <LoadingScreen />;
@@ -23,16 +23,20 @@ function Cart({ isMobile, user }) {
         {cartItems && cartItems.length > 0 ? (
           <>
             {!isMobile && (
-              <Box mb={1.5}>
+              <div style={{ marginBottom: '12px' }}>
                 <Typography className={styles.cart_title} variant="h5" component="h3">
                   Giỏ hàng
                 </Typography>
-              </Box>
+              </div>
             )}
             <Grid container spacing={3}>
               <Grid sm={8} item>
                 {/* san pham  */}
-                <ProductCartList setCartList={setCartList} products={cartItems} isMobile={isMobile} />
+                <ProductCartList
+                  setCartList={setCartList}
+                  products={cartItems}
+                  isMobile={isMobile}
+                />
               </Grid>
               {!isMobile && (
                 <Grid sm={4} item>
@@ -45,7 +49,7 @@ function Cart({ isMobile, user }) {
         ) : (
           <Container>
             <Typography className={styles.card_title_empty}>Giỏ hàng của bạn trống</Typography>
-            <Box justifyContent="center" display="flex">
+            <div style={{ justifyContent: 'center', display: 'flex' }}>
               <LinkComp href={QUICK_ORDER}>
                 <Button
                   className={styles.card_button_empty}
@@ -56,7 +60,7 @@ function Cart({ isMobile, user }) {
                   Về trang đặt hàng nhanh
                 </Button>
               </LinkComp>
-            </Box>
+            </div>
           </Container>
         )}
       </Container>

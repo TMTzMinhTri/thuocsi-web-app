@@ -3,7 +3,7 @@ import Template from 'components/layout/Template';
 import QuickOrderList from 'components/organisms/QuickOrderList';
 import CardInfo from 'components/mocules/CardInfo';
 
-import { Container, Typography, Box, Grid } from '@material-ui/core';
+import { Container, Typography, Grid } from '@material-ui/core';
 import { ProductClient, doWithServerSide } from 'clients';
 import { withLogin } from 'context';
 import styles from './style.module.css';
@@ -30,11 +30,11 @@ const QuickOrderPage = ({ products = [], isMobile, page = '', total = 0 }) => {
     <Template title={title} isMobile={isMobile} pageName={pageName}>
       <Container className={styles.wrapper} maxWidth="lg">
         {!isMobile && (
-          <Box mb={1.5}>
+          <div style={{ marginBottom: '12px' }}>
             <Typography className={styles.cart_title} variant="h5" component="h3">
               Đặt hàng nhanh
             </Typography>
-          </Box>
+          </div>
         )}
         <Grid container spacing={3}>
           <Grid sm={8} item>

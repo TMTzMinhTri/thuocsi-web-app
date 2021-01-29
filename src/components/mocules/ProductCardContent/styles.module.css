@@ -32,6 +32,10 @@
     margin-top: 6px;
 }
 
+.align_center {
+    align-self: center;
+}
+
 .muted {
     color: #919aa3 !important;
 }

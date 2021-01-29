@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, CardContent, Box } from '@material-ui/core';
+import { Typography, CardContent } from '@material-ui/core';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
@@ -26,7 +26,7 @@ const ProductCardContent = ({
   tag,
   // cart,
   className,
-  isMobile
+  isMobile,
 }) => (
   <CardContent
     className={`${className}
@@ -34,14 +34,14 @@ const ProductCardContent = ({
         row ? styles.product_content : clsx(styles.product_content, styles.product_content_column)
       }`}
   >
-    <Box
+    <div
       className={
         row
           ? styles.product_title_wrap
           : clsx(styles.product_title_wrap, styles.product_title_column_wrap)
       }
     >
-      <Box className={styles.product_title}>
+      <div className={styles.product_title}>
         <Link href={`/product/${slug}`}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
             {name}
@@ -57,7 +57,7 @@ const ProductCardContent = ({
             {unit} {volume}
           </Typography>
         )}
-        
+
         {tag && tags && tags[0] && (
           <div className={clsx(styles.product_tags, styles.product_tags_column)}>
             {tags.map((item) => (
@@ -65,18 +65,22 @@ const ProductCardContent = ({
             ))}
           </div>
         )}
-      </Box>
+      </div>
       {!isMobile && (
         <Typography
-          className={clsx(styles.product_type, styles.muted)}
+          className={
+            row
+              ? clsx(styles.product_type, styles.muted)
+              : clsx(styles.product_type, styles.muted, styles.align_center)
+          }
           variant="body2"
           color="textSecondary"
           component="p"
         >
           {unit} {volume}
         </Typography>
-    )}
-    </Box>
+      )}
+    </div>
     {row === cate && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
@@ -93,6 +97,6 @@ const ProductCardContent = ({
       </Typography>
     )}
   </CardContent>
-  );
+);
 
 export default ProductCardContent;

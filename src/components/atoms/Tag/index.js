@@ -1,16 +1,16 @@
-import { Typography, Box } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React from 'react';
 
 import styles from './style.module.css';
 
 const Tag = ({ backgroundColor, text, color, icon, date = null }) => (
-  <Box component="div" className={styles.tag_root} style={{ color, backgroundColor }}>
+  <div className={styles.tag_root} style={{ color, backgroundColor }}>
     {icon}
     <Typography className={styles.text}>
       {text}
       {date && `: ${date}`}
     </Typography>
-  </Box>
+  </div>
 );
 
 export default Tag;

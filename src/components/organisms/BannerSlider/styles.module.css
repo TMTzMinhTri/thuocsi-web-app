@@ -1,4 +1,5 @@
 .banner_bg_img {
+  position: relative;
   background-image: radial-gradient(circle, #f4f7fc 17%, #e0e8f7 100%);
   background-color: #343a40;
   background-repeat: no-repeat;

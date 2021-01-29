@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import {
   NativeSelect,
   FormControl,
-  Box,
   Icon,
   Typography,
   Fab,
@@ -103,14 +102,16 @@ export default function ProductListing({
   };
 
   const SelectedTagMobile = () => {
-    const tabName = tags.filter(item => item.slug === current_tab);
+    const tabName = tags.filter((item) => item.slug === current_tab);
     return (
       <div className={styles.tagsMobile}>
-        <div className={styles.badgeGray}><FontAwesomeIcon icon={faTag} /> {tabName.length > 0 ? tabName[0].name : "Tất cả"}</div>
+        <div className={styles.badgeGray}>
+          <FontAwesomeIcon icon={faTag} /> {tabName.length > 0 ? tabName[0].name : 'Tất cả'}
+        </div>
         <div className={styles.badgeGray}>{name}</div>
       </div>
-    )
-  }
+    );
+  };
   return (
     <div className={styles.wrapper}>
       {isMobile ? (
@@ -153,7 +154,7 @@ export default function ProductListing({
               <SelectedTagMobile />
             </div>
           </div>
-          
+
           <FilterProductOnMobile
             open={open}
             handleClose={toggleOpenFilter}
@@ -209,7 +210,7 @@ export default function ProductListing({
                 <Typography>Nhóm thuốc</Typography>
               </AccordionSummary>
               <AccordionDetails className="accordion-detail">
-                <Box component="div">
+                <div>
                   <Link key="all-products" href="/products">
                     <div className={`${styles.accordionLink} ${slug === '' ? styles.active : ''}`}>
                       Tất cả sản phẩm
@@ -227,7 +228,7 @@ export default function ProductListing({
                         </div>
                       </Link>
                     ))}
-                </Box>
+                </div>
               </AccordionDetails>
             </Accordion>
             <hr className={styles.hr_clear} />
@@ -241,7 +242,7 @@ export default function ProductListing({
                 <Typography>Nhà sản xuất</Typography>
               </AccordionSummary>
               <AccordionDetails className="accordion-detail">
-                <Box component="div">
+                <div>
                   <Link key="all-products" href="/products">
                     <div className={styles.accordionLink}>Tất cả sản phẩm</div>
                   </Link>
@@ -258,7 +259,7 @@ export default function ProductListing({
                         </div>
                       </Link>
                     ))}
-                </Box>
+                </div>
               </AccordionDetails>
             </Accordion>
           </div>
@@ -281,23 +282,22 @@ export default function ProductListing({
             {!isMobile && (
               <div>
                 <div className={styles.filters}>
-                  {(total > 0 || tags.length > 0)
-                    && (
-                      <Link
-                        href={{
-                          pathname: pathName,
-                          query: { ...getTabQuery() },
-                        }}
+                  {(total > 0 || tags.length > 0) && (
+                    <Link
+                      href={{
+                        pathname: pathName,
+                        query: { ...getTabQuery() },
+                      }}
+                    >
+                      <Fab
+                        variant="extended"
+                        aria-label="all"
+                        className={clsx(current_tab === '' && styles.active, styles.filter_btn)}
                       >
-                        <Fab
-                          variant="extended"
-                          aria-label="all"
-                          className={clsx(current_tab === '' && styles.active, styles.filter_btn)}
-                        >
-                          Tất cả sản phẩm
-                        </Fab>
-                      </Link>
-                    )}
+                        Tất cả sản phẩm
+                      </Fab>
+                    </Link>
+                  )}
                   {tags.map((item) => (
                     <Link
                       key={`tags-${item.slug}`}

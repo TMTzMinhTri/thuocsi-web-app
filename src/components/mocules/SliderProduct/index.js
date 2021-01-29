@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import Slider from 'react-slick';
-import { Box } from '@material-ui/core';
 import { settingsProduct } from 'constants/data';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -13,17 +12,9 @@ const SliderProduct = ({ children, name, redirect, viewMore }) => {
   const ref = useRef({});
   return (
     <div className={styles.wrapper_media}>
-      <Box maxWidth="1240px" m="auto">
+      <div className={styles.wrapper_media_container}>
         <div className={styles.SliderProductWrap}>
-          <Box
-            className={styles.title}
-            component="h2"
-            fontSize="32px"
-            color="#00b46e"
-            fontWeight="fontWeightMedium"
-          >
-            {name}
-          </Box>
+          <h2 className={styles.title}>{name}</h2>
           <Slider ref={ref} {...settingsProduct}>
             {children}
           </Slider>
@@ -33,7 +24,7 @@ const SliderProduct = ({ children, name, redirect, viewMore }) => {
             </LinkComp>
           )}
         </div>
-      </Box>
+      </div>
     </div>
   );
 };

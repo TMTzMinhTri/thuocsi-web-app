@@ -18,9 +18,9 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
   };
   return (
     <Box onClick={handleFocus} className={styles.button_container}>
-      <Box className={styles.root_card}>
+      <div className={styles.root_card}>
         <Card className={styles.product_card}>
-          <Box className={styles.product_image}>
+          <div className={styles.product_image}>
             <CardActionArea onClick={() => router.push(getPathProductBySlug(slug))}>
               <CardMedia
                 component="img"
@@ -31,7 +31,7 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
                 title="Contemplative Reptile"
               />
             </CardActionArea>
-          </Box>
+          </div>
           {isMobile ? (
             <div className={styles.rightBox}>
               <ProductCardContent tag cate {...product} isMobile={isMobile} />
@@ -44,7 +44,7 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
             </>
           )}
         </Card>
-      </Box>
+      </div>
     </Box>
   );
 };

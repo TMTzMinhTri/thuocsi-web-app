@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Modal } from 'components/atoms';
-import { Button, Typography, Box } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 
 import styles from './style.module.css';
@@ -18,15 +18,15 @@ const CustomModal = memo(
     btnOnClose = 'Không',
   }) => (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
-      <Box className={styles.confirm_modal_wrap}>
-        <Box textAlign="center">
-          <Box className={styles.warning_icon}>
+      <div className={styles.confirm_modal_wrap}>
+        <div style={{ textAlign: 'center' }}>
+          <div className={styles.warning_icon}>
             <Typography className={styles.text_icon}>!</Typography>
-          </Box>
+          </div>
           <Typography className={styles.modal_title}>{title}</Typography>
           <Typography className={styles.modal_content}>{content}</Typography>
-        </Box>
-        <Box mt={2} textAlign="center">
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '16px' }}>
           {onClose ? (
             <Button className={clsx(styles.btn, styles.brown_btn)} onClick={onClose}>
               {btnOnClose}
@@ -37,8 +37,8 @@ const CustomModal = memo(
               {btnOk}
             </Button>
           ) : null}
-        </Box>
-      </Box>
+        </div>
+      </div>
     </Modal>
   ),
 );

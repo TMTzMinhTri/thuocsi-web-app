@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Modal } from 'components/atoms';
-import { Button, Typography, Box } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Image from 'next/image';
 import { MISSING_IMAGE } from 'constants/Images';
@@ -13,7 +13,7 @@ const RemoveProductModal = memo((props) => {
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
-        <Box textAlign="center">
+        <div style={{ textAlign: 'center' }}>
           <div className={styles.warning_icon}>
             <Typography className={styles.text_icon}>!</Typography>
           </div>
@@ -23,7 +23,7 @@ const RemoveProductModal = memo((props) => {
               Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng?
             </Typography>
           </div>
-        </Box>
+        </div>
         {product && (
           <Card className={styles.remove_item}>
             <div className={styles.remove_item_image}>
@@ -44,14 +44,14 @@ const RemoveProductModal = memo((props) => {
           </Card>
         )}
 
-        <Box mt={2} textAlign="center">
+        <div style={{ marginTop: '16px', textAlign: 'center' }}>
           <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
             Không
           </Button>
           <Button onClick={() => onRemove()} className={clsx(styles.btn, styles.fill_btn)}>
             Có
           </Button>
-        </Box>
+        </div>
       </div>
     </Modal>
   );

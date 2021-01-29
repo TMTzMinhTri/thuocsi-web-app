@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Grid, Box } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import Image from 'next/image';
 import { imageMediaTop, imageMediaBottom } from 'constants/data';
 
@@ -21,18 +21,18 @@ const renderMediaItem = (data) =>
 
 const Media = () => (
   <div className={styles.media_wrapper}>
-    <Box fontWeight="fontWeightMedium">
+    <div style={{ fontWeight: 500 }}>
       <Typography variant="h4" align="center" className={styles.center}>
         Truyền thông nói gì về thuocsi.vn
       </Typography>
-    </Box>
+    </div>
 
-    <Box>
+    <div>
       <Grid container className={styles.container} item alignItems="center">
         {renderMediaItem(imageMediaTop)}
         {renderMediaItem(imageMediaBottom)}
       </Grid>
-    </Box>
+    </div>
   </div>
 );
 
