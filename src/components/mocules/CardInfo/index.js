@@ -9,6 +9,8 @@ import formatCurrency from 'utils/FormarCurrency';
 import { CartClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
 import { Button, LinkComp } from 'components/atoms';
+import { CART_URL } from 'constants/Paths';
+import { useRouter } from 'next/router';
 import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
 
@@ -44,6 +46,7 @@ const PaymentButton = ({ user }) => (
 
 const CardInfo = ({ cart, promo, className, user }) => {
   const { itemCount, total, updateCart, redeemCode } = useCart();
+  const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
   const handleSetPromoVisible = () => {
     setPromoVisible(!promoVisible);
@@ -123,6 +126,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
           totalPrice={total}
         />
       </Grid>
+      {router.pathname === CART_URL && (
       <Grid className={styles.wrapper} xs={12} container item>
         <LinkComp
           className={clsx(styles.counpon_button, styles.quick_link)}
@@ -131,6 +135,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
           color="#00b46e"
         />
       </Grid>
+    )}
     </div>
   );
 };

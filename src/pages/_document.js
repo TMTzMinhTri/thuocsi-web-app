@@ -38,7 +38,7 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           {/* PWA primary color */}
-          <meta name="theme-color" content={Theme.palette.primary.main} />
+          <meta name="theme-color" content={Theme.palette.thirdly.main} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

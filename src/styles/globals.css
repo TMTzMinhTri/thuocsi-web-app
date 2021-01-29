@@ -76,15 +76,13 @@ a {
   padding: 0;
 }
 
-.section-outstanding__slider button.slick-arrow.slick-next,
 .section-outstanding__slider button.slick-arrow.slick-next {
   right: 0;
   margin-right: -15px;
 }
-.section-outstanding__slider button.slick-arrow,
 .section-outstanding__slider button.slick-arrow {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 20px);
   margin-top: -20px;
   width: 40px;
   z-index: 3;
@@ -184,6 +182,14 @@ a {
   .header_user_avatar{
     width: 40px;
     top: -13px;
+  }
+  .section-outstanding__slider .slick-prev {
+    left: 10px !important;
+    margin-top: -40px !important;
+  }
+  .section-outstanding__slider button.slick-arrow.slick-next {
+    right: 10px;
+    margin-right: 0;
   }
 }
 

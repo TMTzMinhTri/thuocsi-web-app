@@ -9,7 +9,7 @@ import { ProductCardContent, CustomModal } from 'components/mocules';
 import ProductCardBuy from '../ProductCardBuy';
 import styles from './styles.module.css';
 
-const ProductCart = ({ product, name }) => {
+const ProductCart = ({ product, name, isMobile }) => {
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
@@ -63,8 +63,17 @@ const ProductCart = ({ product, name }) => {
               />
             </CardActionArea>
           </div>
-          <ProductCardContent className={styles.product_content} row {...product} />
-          <ProductCardBuy {...product} product={product} cart name={name} />
+          {isMobile ? (
+            <div className={styles.cart_content_mobile}>
+              <ProductCardContent className={styles.product_content} row {...product} />
+              <ProductCardBuy {...product} product={product} cart name={name} isMobile={isMobile} />
+            </div>
+          ) : (
+            <>
+              <ProductCardContent className={styles.product_content} row {...product} />
+              <ProductCardBuy {...product} product={product} cart name={name} isMobile={isMobile} />
+            </>
+          )}
         </Card>
       </div>
       <CustomModal
