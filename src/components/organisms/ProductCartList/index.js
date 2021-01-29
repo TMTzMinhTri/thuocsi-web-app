@@ -10,7 +10,7 @@ import { debounceFunc500 } from 'utils/debounce';
 import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
-const ProductCartList = ({ products }) => {
+const ProductCartList = ({ products, isMobile }) => {
   const { note: noteC } = useCart();
   const [note, setNote] = useState(noteC);
 
@@ -45,6 +45,7 @@ const ProductCartList = ({ products }) => {
               key={`product-cart-${item.sku}`}
               product={item}
               name={`cart-${item.sku}`}
+              isMobile={isMobile}
             />
           ))}
       </Box>

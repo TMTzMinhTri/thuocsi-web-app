@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { CardActions, Typography, Box, IconButton } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
+import { Delete, Close } from '@material-ui/icons';
 import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import useModal from 'hooks/useModal';
@@ -27,6 +27,7 @@ const ProductCardBuy = ({
   id,
   name,
   product,
+  isMobile
 }) => {
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
@@ -170,8 +171,10 @@ const ProductCardBuy = ({
                   onClick={() => handleIncrease()}
                 />
                 {cart && (
-                  <IconButton onClick={removeProductOutCart}>
-                    <Delete className={styles.icon} />
+                  <IconButton className={styles.remove_icon} onClick={removeProductOutCart}>
+                    {isMobile ?
+                      <Close className={styles.icon} /> :
+                      <Delete className={styles.icon} />}
                   </IconButton>
                 )}
               </CardActions>
