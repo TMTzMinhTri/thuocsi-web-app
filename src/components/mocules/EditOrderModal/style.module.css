@@ -37,10 +37,31 @@
   padding: 6px 1.5rem !important;
 }
 
+.brown_btn {
+  color: #fff !important;
+  background: #facea8 !important;
+  border: 1px solid #facea8 !important;
+  margin: 0.5rem !important;
+  padding: 6px 1.5rem !important;
+}
+
+.brown_btn:hover {
+  background: #fff !important;
+  color: #facea8 !important;
+}
+
 .fill_btn {
   color: rgb(255, 255, 255) !important;
   border: 1px solid rgb(0, 180, 110) !important;
   background-color: rgb(0, 180, 110) !important;
+  margin: 0.5rem !important;
+  padding: 6px 1.5rem !important;
+}
+
+.fill_btn:hover {
+  background: rgb(255, 255, 255) !important;
+  border: 1px solid rgb(0, 180, 110) !important;
+  color: rgb(0, 180, 110) !important;
   margin: 0.5rem !important;
   padding: 6px 1.5rem !important;
 }

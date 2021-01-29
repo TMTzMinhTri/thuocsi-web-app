@@ -28,7 +28,7 @@ const CustomModal = memo(
         </Box>
         <Box mt={2} textAlign="center">
           {onClose ? (
-            <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
+            <Button className={clsx(styles.btn, styles.brown_btn)} onClick={onClose}>
               {btnOnClose}
             </Button>
           ) : null}
