@@ -284,7 +284,10 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                         <FontAwesomeIcon icon={faStoreAlt} />
                       </div>
 
-                      <LinkComp className={styles.supplierName} href={`${SUPPLIER}/${seller.slug}`}>
+                      <LinkComp
+                        className={styles.supplierName}
+                        href={`${SUPPLIER}/${supplier.slug}`}
+                      >
                         {seller.name}
                       </LinkComp>
                     </div>
