@@ -13,6 +13,39 @@ import { i18n } from 'i18n-lib';
 
 import styles from './styles.module.css';
 
+const LinkLogo = memo(() => (
+  <LinkComp href="/">
+    <Image className={styles.logo} href="/" src={LOGO_THUOCSI} width="164px" height="45px" />
+  </LinkComp>
+));
+
+const HeaderInfoEle = memo(() => (
+  <div className={styles.header_info}>
+    <div className={styles.header_info_wrap}>
+      <div className={styles.link}>
+        <LinkComp name="Tin Tức" href={PATH_NEWS} color="#6c757d !important">
+          <NewReleases fontSize="small" />
+        </LinkComp>
+      </div>
+      <div className={styles.link}>
+        <LinkComp name="Tuyển dụng | Recruitment" href={PATH_CAREER} color="#6c757d !important">
+          <CardTravel fontSize="small" />
+        </LinkComp>
+      </div>
+
+      <div className={styles.link}>
+        <LinkComp
+          name="Đăng ký bán hàng cùng thuốc sỉ"
+          href={PATH_SUPPLIER}
+          color="#6c757d !important"
+        >
+          <House fontSize="small" />
+        </LinkComp>
+      </div>
+    </div>
+  </div>
+));
+
 const InfoHeader = memo(({ t }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -30,34 +63,9 @@ const InfoHeader = memo(({ t }) => {
 
   return (
     <div>
-      <div className={styles.header_info}>
-        <div className={styles.header_info_wrap}>
-          <div className={styles.link}>
-            <LinkComp name="Tin Tức" href={PATH_NEWS} color="#6c757d !important">
-              <NewReleases fontSize="small" />
-            </LinkComp>
-          </div>
-          <div className={styles.link}>
-            <LinkComp name="Tuyển dụng | Recruitment" href={PATH_CAREER} color="#6c757d !important">
-              <CardTravel fontSize="small" />
-            </LinkComp>
-          </div>
-
-          <div className={styles.link}>
-            <LinkComp
-              name="Tuyển dụng | Recruitment"
-              href={PATH_SUPPLIER}
-              color="#6c757d !important"
-            >
-              <House fontSize="small" />
-            </LinkComp>
-          </div>
-        </div>
-      </div>
+      <HeaderInfoEle />
       <div className={styles.login}>
-        <LinkComp href="/">
-          <Image className={styles.logo} href="/" src={LOGO_THUOCSI} width="164px" height="45px" />
-        </LinkComp>
+        <LinkLogo />
         {!isAuthenticated ? (
           <>
             <div className={styles.div_buttons}>
@@ -77,6 +85,7 @@ const InfoHeader = memo(({ t }) => {
         ) : (
           <>
             <SearchInput className={styles.SearchInput} />
+
             <div className={styles.rSection}>
               <Menu
                 id="fade-menu"

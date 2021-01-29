@@ -224,9 +224,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                             horizontal: 'center',
                           }}
                         >
-                          <p className={styles.popover_header}>
-                            Giá bán tham khảo ... đang cập nhập{' '}
-                          </p>
+                          <p className={styles.popover_header}>Giá bán tham khảo ...</p>
                           <TableContainer classes={{ root: styles.table }} component={Paper}>
                             <Table aria-label="simple table">
                               <TableHead>
@@ -279,49 +277,56 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                         Điều Khoản Sử Dụng
                       </a>
                     </p>
-                    <div className={styles.supplierTitle}>
-                      <div className={styles.icon}>
-                        <FontAwesomeIcon icon={faStoreAlt} />
-                      </div>
-
-                      <LinkComp className={styles.supplierName} href={`${SUPPLIER}/${seller.slug}`}>
-                        {seller.name}
-                      </LinkComp>
-                    </div>
-                    <div className={styles.supplierInfo}>
-                      <div className={styles.supplierYearWrap}>
-                        <div className={styles.supplierYear}>
-                          <span className={styles.activePeriodYear}>
-                            {yearNumber > 1 ? `${yearNumber}+` : yearNumber}
-                          </span>
-                          <br />
-                          năm
-                        </div>
-                        <span>Hợp tác cùng thuocsi.vn</span>
-                      </div>
-
-                      <div className={styles.supplierRating}>
-                        <div className={styles.rating}>
-                          <div className={styles.ratingBase}>
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    {seller && (
+                      <>
+                        <div className={styles.supplierTitle}>
+                          <div className={styles.icon}>
+                            <FontAwesomeIcon icon={faStoreAlt} />
                           </div>
-                          <div
-                            className={styles.ratingStars}
-                            style={{ width: `${(supplier?.rating / 5) * 100}%` }}
+
+                          <LinkComp
+                            className={styles.supplierName}
+                            href={`${SUPPLIER}/${supplier.slug}`}
                           >
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
-                            <FontAwesomeIcon className={styles.star} icon={faStar} />
+                            {seller.name}
+                          </LinkComp>
+                        </div>
+                        <div className={styles.supplierInfo}>
+                          <div className={styles.supplierYearWrap}>
+                            <div className={styles.supplierYear}>
+                              <span className={styles.activePeriodYear}>
+                                {yearNumber > 1 ? `${yearNumber}+` : yearNumber}
+                              </span>
+                              <br />
+                              năm
+                            </div>
+                            <span>Hợp tác cùng thuocsi.vn</span>
+                          </div>
+
+                          <div className={styles.supplierRating}>
+                            <div className={styles.rating}>
+                              <div className={styles.ratingBase}>
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                              </div>
+                              <div
+                                className={styles.ratingStars}
+                                style={{ width: `${(supplier?.rating / 5) * 100}%` }}
+                              >
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                                <FontAwesomeIcon className={styles.star} icon={faStar} />
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      </>
+                    )}
                     <hr className={styles.divider} />
                     <div className={styles.subscribe_section}>
                       Đăng ký bán hàng cùng thuocsi.vn

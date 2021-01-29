@@ -24,7 +24,7 @@ const EditOrderModal = memo((props) => {
           </Typography>
         </div>
         <Box mt={2} textAlign="center">
-          <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
+          <Button className={clsx(styles.btn, styles.brown_btn)} onClick={onClose}>
             Không
           </Button>
           <Button onClick={onClickOk} className={clsx(styles.btn, styles.fill_btn)}>

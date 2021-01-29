@@ -66,10 +66,12 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
             })}
         </TableBody>
       </Table>
+      {promoName && (
       <Grid container justify="space-between" className={styles.promo}>
-        <Grid item>Mã giảm giá {promoName}</Grid>
-        <Grid item>-{FormarCurrency(totalDiscount, '.')}</Grid>
+        <Grid item>Mã giảm giá <strong>{promoName} </strong></Grid>
+        <Grid item>-&nbsp;{FormarCurrency(totalDiscount, '.', ' ')}</Grid>
       </Grid>
+)}
       <Grid container justify="flex-end" style={{ padding: ' 30px 45px' }} spacing={3}>
         <Grid item className={styles.price_label}>
           Tổng cộng

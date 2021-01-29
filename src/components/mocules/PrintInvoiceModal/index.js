@@ -10,14 +10,23 @@ import InfoInput from '../InfoInput';
 import styles from './style.module.css';
 import validateForm from './validateForm';
 
-const heads = ['Sản phẩm hóa đơn nhanh', 'Giá', 'Số lượng', 'Tổng cộng'];
+const heads = ['Sản phẩm hóa đơn nhanh', 'Giá (đ)', 'Số lượng', 'Tổng cộng (đ)'];
 
 const StyledCompleteButton = styled(Button)`
   color: #fff !important;
   background-color: #00b46e !important;
-  border-color: #00b46e !important;
+  border: 1px solid #00b46e !important;
   font-weight: 500 !important;
   margin-top: 50px !important;
+  border-radius: 10px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+
+  &:hover {
+    background: #fff !important;
+    color: #00b46e !important;
+    border: 1px solid #00b46e !important;
+  }
 `;
 
 const PrintInvoiceModal = memo((props) => {
@@ -63,17 +72,17 @@ const PrintInvoiceModal = memo((props) => {
     async function fetchData() {
       try {
         const res = await OrderClient.getProductByOrderId(orderID);
-        if (!isValid(res)) throw Error('Lấy danh sách sản phẩm không thành công');
+        if (!isValid(res)) throw Error();
         let orderItems = res?.data || [];
         const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems });
-        if (!isValidWithoutData(mapProductInfo)) throw Error('Lấy danh sách sản phẩm không thành công');
+        if (!isValidWithoutData(mapProductInfo)) throw Error();
         orderItems = orderItems.map((product) => ({
           productInfo: mapProductInfo[product?.productSku],
           ...product,
         }));
         setProducts(orderItems);
       } catch (error) {
-        NotifyUtils.error(error?.message || 'Lấy dữ liệu sản phẩm bị lỗi');
+        setProducts([]);
       }
     }
     fetchData();
@@ -143,14 +152,14 @@ const PrintInvoiceModal = memo((props) => {
                       {name}
                     </LinkComp>
                   </TableCell>
-                  <TableCell align="left">{FormarCurrency(price)}</TableCell>
+                  <TableCell align="left">{FormarCurrency(price, '.', ' ')}</TableCell>
                   <TableCell align="left">{quantity}</TableCell>
-                  <TableCell align="left">{FormarCurrency(totalPrice)}</TableCell>
+                  <TableCell align="left">{FormarCurrency(totalPrice, '.', ' ')}</TableCell>
                 </TableRow>
               );
             })}
           </InfoTable>
-          <StyledCompleteButton onClick={handleCompleted}> Hoàn tất </StyledCompleteButton>
+          <StyledCompleteButton onClick={handleCompleted}> Xuất hoá đơn </StyledCompleteButton>
         </Box>
       </div>
     </Modal>

@@ -115,3 +115,9 @@
 .SliderProductWrap {
     padding: 48px 0;
 }
+@media (max-width: 767px) {
+    .SliderProductWrap h2{ 
+      font-size: 24px;
+      color: #212529;
+    }
+}
