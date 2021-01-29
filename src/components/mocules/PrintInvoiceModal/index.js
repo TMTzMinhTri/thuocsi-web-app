@@ -30,7 +30,7 @@ const StyledCompleteButton = styled(Button)`
 `;
 
 const PrintInvoiceModal = memo((props) => {
-  const { onClose, visible, className, restProps, orderID, user } = props;
+  const { onClose, visible, className, restProps, orderNo, user } = props;
   const { address: add, businessName, email, mst } = user;
   const [val, setVal] = useState({
     mst: mst || '',
@@ -70,7 +70,7 @@ const PrintInvoiceModal = memo((props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await OrderClient.getProductByOrderId(orderID);
+        const res = await OrderClient.getProductByOrderNo({ orderNo });
         if (!isValid(res)) throw Error();
         let orderItems = res?.data || [];
         const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems });

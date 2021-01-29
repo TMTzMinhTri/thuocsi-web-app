@@ -22,12 +22,13 @@ const MyOrderDetail = ({ amount, createdTime, deliveryDate }) => (
     </div>
     <div>
       <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
-      {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate))}
+      {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate || Date.now()))}
     </div>
   </Grid>
 );
 const OrderRow = ({
-  orderNo: orderID,
+  orderId: orderID,
+  orderNo,
   createdTime,
   deliveryDate,
   status,
@@ -40,7 +41,7 @@ const OrderRow = ({
     async function fetchData() {
       try {
         // will change in future
-        const res = await OrderClient.getProductByOrderId(orderID);
+        const res = await OrderClient.getProductByOrderNo({ orderNo });
         if (!isValid(res)) throw Error('Lấy danh sách sản phẩm không thành công');
         const quantity = res.data.reduce(
           (accumulator, currentValue) => accumulator + (currentValue?.quantity || 0),
@@ -104,7 +105,7 @@ const OrderRow = ({
           justify="center"
         >
           <Grid item>
-            <PrintInvoiceButton orderID={orderID} user={user} />
+            <PrintInvoiceButton orderNo={orderNo} user={user} />
           </Grid>
           {status === ENUM_ORDER_STATUS.PENDING && (
             <Grid item>

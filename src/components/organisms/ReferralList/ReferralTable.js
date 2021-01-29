@@ -28,7 +28,7 @@ const SendSMSButton = () => {
 
 function ReferralTable({ referrals }) {
   return (
-    <div>
+    <div style={{ overflowX: 'auto' }}>
       <InfoTable heads={heads} className={styles.bottom_square}>
         {referrals.length !== 0 &&
           referrals.map((row) => (

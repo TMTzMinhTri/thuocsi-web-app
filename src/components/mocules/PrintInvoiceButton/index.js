@@ -3,7 +3,7 @@ import { Button } from 'components/atoms';
 import PrintIcon from '@material-ui/icons/Print';
 import PrintInvoiceModal from '../PrintInvoiceModal';
 
-const PrintInvoiceButton = ({ disabled, orderID, user }) => {
+const PrintInvoiceButton = ({ disabled, orderNo, user }) => {
   const [val, setVal] = useState(false);
   const handleChangeVal = () => {
     setVal(!val);
@@ -18,7 +18,7 @@ const PrintInvoiceButton = ({ disabled, orderID, user }) => {
       >
         Xuất hoá đơn
       </Button>
-      <PrintInvoiceModal visible={val} onClose={handleChangeVal} orderID={orderID} user={user} />
+      <PrintInvoiceModal visible={val} onClose={handleChangeVal} orderNo={orderNo} user={user} />
     </>
   );
 };
