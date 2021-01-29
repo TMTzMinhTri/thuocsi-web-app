@@ -7,6 +7,7 @@ import Footer from '../Footer';
 import FooterMobile from '../FooterMobile';
 
 export default function Template({ title, children, isMobile, pageName, pageTitle = '' }) {
+  console.log('render template ');
   return (
     <div>
       <Head>
