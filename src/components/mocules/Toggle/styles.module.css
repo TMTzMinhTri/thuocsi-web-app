@@ -27,4 +27,6 @@
 .toggle_button {
   color: #fff !important;
   min-width: auto !important;
+  padding: 12px !important;
+  border-radius: 50%!important;
 }

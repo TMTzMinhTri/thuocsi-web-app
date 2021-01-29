@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, FormHelperText } from '@material-ui/core';
 import { InfoFormControl } from 'components/atoms';
 import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
@@ -11,6 +11,7 @@ const DeliveryForm = ({ province, district, ward, handleSetValue, handleChangeAd
     <Grid container spacing={2}>
       <InfoFormControl xs={12} label="Địa chỉ giao hàng" htmlFor="address">
         <InfoInput id="address" placeholder="Địa chỉ giao hàng" />
+        <FormHelperText>Nhập địa chỉ, đường phố. Rồi chọn tỉnh/thành phố, phường/xã, quận/huyện</FormHelperText>
       </InfoFormControl>
     </Grid>
     <GroupAddressSelect

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Typography, Grid, Container, useMediaQuery } from '@material-ui/core';
 import { CouponCard } from 'components/mocules';
+import { v4 as uuidv4 } from 'uuid';
+
 import styles from './styles.module.css';
 
 const PromoCodesContainer = ({ promos }) => {
@@ -45,7 +47,7 @@ const PromoCodesContainer = ({ promos }) => {
           {promos ? (
             <Grid container spacing={4}>
               {promos.map((promo) => (
-                <Grid item xs={maxWidth3Card ? 6 : 4}>
+                <Grid key={uuidv4()} item xs={maxWidth3Card ? 6 : 4}>
                   <CouponCard {...promo} />
                 </Grid>
               ))}
@@ -64,7 +66,7 @@ const PromoCodesContainer = ({ promos }) => {
         {promos ? (
           <Grid container spacing={4}>
             {promos.map((promo) => (
-              <Grid item xs={maxWidth3Card ? 6 : 4}>
+              <Grid key={uuidv4()} item xs={maxWidth3Card ? 6 : 4}>
                 <CouponCard {...promo} />
               </Grid>
             ))}

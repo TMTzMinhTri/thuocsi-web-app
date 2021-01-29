@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import InfoInput from '../InfoInput';
 
-const AddressSelect = ({ label, id, options, onChange, value, disabled, className }) => {
+const AddressSelect = ({ label, id, options = [], onChange, value, disabled, className }) => {
   const maxWidthAddressSelect = useMediaQuery('(max-width:720px)');
 
   return (
@@ -28,12 +28,14 @@ const AddressSelect = ({ label, id, options, onChange, value, disabled, classNam
 };
 
 const StyledAddressSelect = styled(AddressSelect)`
+
   & .MuiNativeSelect-select {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
   & .MuiNativeSelect-icon {
     right: 5px !important;
+    color: #00b46e !important;
   }
   &.MuiOutlinedInput-root {
     height: 2.4em !important;
