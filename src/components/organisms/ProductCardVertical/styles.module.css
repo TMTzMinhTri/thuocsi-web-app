@@ -36,6 +36,7 @@
     flex-direction: column;
     justify-content: space-between;
     box-shadow: unset!important;
+    margin: 12px;
 }
 
 .product_image {
