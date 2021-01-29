@@ -79,3 +79,12 @@
     background-color: #00b46e !important;
     color: #fff !important;
 }
+.price_wrapper {
+    margin: 15px 0;
+}
+@media (min-width: 768) {
+    .price_wrapper {
+        margin: 0;
+    }
+}
+
