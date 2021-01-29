@@ -15,6 +15,12 @@ import HeaderWithCart from './components/HeaderWithCart';
 
 import styles from './styles.module.css';
 
+const LinkLogo = memo(() => (
+  <LinkComp href="/">
+    <Image className={styles.logo} href="/" src={LOGO_THUOCSI} width="164px" height="40px" />
+  </LinkComp>
+));
+
 const HeaderMobile = memo(({ title = '' }) => {
   const {
     isAuthenticated,
@@ -50,15 +56,7 @@ const HeaderMobile = memo(({ title = '' }) => {
       >
         {!isAuthenticated ? (
           <>
-            <LinkComp href="/">
-              <Image
-                className={styles.logo}
-                href="/"
-                src={LOGO_THUOCSI}
-                width="164px"
-                height="40px"
-              />
-            </LinkComp>
+            <LinkLogo />
             <SignInModal
               visible={isShowLogin}
               onClose={toggleLogin}
@@ -90,9 +88,7 @@ const HeaderMobile = memo(({ title = '' }) => {
                 <Menu />
               </IconButton>
               {router.pathname !== QUICK_ORDER && (
-                <span className={styles.text}>
-                  {title && title}
-                </span>
+                <span className={styles.text}>{title && title}</span>
               )}
             </div>
             <div className={styles.rSection}>

@@ -13,19 +13,33 @@ const useStyles = makeStyles({
   root: {
     textDecoration: 'none',
     ...FontSize.fontNormal,
-    padding: (props ) => (props.padding ? props.padding : '5px'),
+    padding: (props) => (props.padding ? props.padding : '5px'),
     color: (props) => (props.color ? props.color : '#000'),
     display: 'flex',
   },
 });
 
 function LinkComp(props) {
-  const { className, name, children, href, onMouseOver, target, variant = 'body2', ...rest } = props;
+  const {
+    className,
+    name,
+    children,
+    href,
+    onMouseOver,
+    target,
+    variant = 'body2',
+    ...rest
+  } = props;
   const classes = useStyles(props);
 
   return (
     <Link href={href} className={classes.linkRoot} onMouseOver={onMouseOver}>
-      <a {...rest} className={clsx(classes.root, className)} target={target && '_blank'} href={href}>
+      <a
+        {...rest}
+        className={clsx(classes.root, className)}
+        target={target && '_blank'}
+        href={href}
+      >
         {children}
         {name && <Typography variant={variant}>{name}</Typography>}
       </a>

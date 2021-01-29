@@ -19,6 +19,8 @@ const LinkLogo = memo(() => (
   </LinkComp>
 ));
 
+const SearchInpuEle = memo(() => <SearchInput className={styles.SearchInput} />);
+
 const HeaderInfoEle = memo(() => (
   <div className={styles.header_info}>
     <div className={styles.header_info_wrap}>
@@ -84,7 +86,7 @@ const InfoHeader = memo(({ t }) => {
           </>
         ) : (
           <>
-            <SearchInput className={styles.SearchInput} />
+            <SearchInpuEle />
 
             <div className={styles.rSection}>
               <Menu
