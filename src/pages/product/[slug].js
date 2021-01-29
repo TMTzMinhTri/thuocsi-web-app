@@ -162,7 +162,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     ));
 
   return (
-    <Template title={title} isMobile={isMobile} pageTitle={name}>
+    <Template title={title} isMobile={isMobile} pageTitle={name} product={product}>
       <div className={styles.detail_wrapper}>
         <div className={styles.container}>
           <Grid container className={styles.detail_card}>
@@ -243,21 +243,23 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                           Đặt tối đa {maxQuantity} sản phẩm
                         </Typography>
                       )}
-                      <div className={styles.product_action}>
-                        <MinusButton className={styles.minus} onClick={handleDecrease} />
-                        <InputProduct
-                          product={product}
-                          id={product.sku}
-                          className={styles.input_product}
-                          onChange={handleInputChange}
-                          value={quantity}
-                        />
-                        <PlusButton
-                          disabled={maxQuantity && quantity >= maxQuantity}
-                          className={styles.plus}
-                          onClick={() => handleIncrease()}
-                        />
-                      </div>
+                      {!isMobile && (
+                        <div className={styles.product_action}>
+                          <MinusButton className={styles.minus} onClick={handleDecrease} />
+                          <InputProduct
+                            product={product}
+                            id={product.sku}
+                            className={styles.input_product}
+                            onChange={handleInputChange}
+                            value={quantity}
+                          />
+                          <PlusButton
+                            disabled={maxQuantity && quantity >= maxQuantity}
+                            className={styles.plus}
+                            onClick={() => handleIncrease()}
+                          />
+                        </div>
+                      )}
                     </>
                   ) : (
                     <CustomButton
@@ -405,7 +407,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                 </TableContainer>
               </div>
             </Grid>
-            <Grid item md={9}>
+            <Grid className={styles.gridTab} item md={9}>
               <ProductDetailTabs
                 handleChange={handleChange}
                 data={tabsProductData}

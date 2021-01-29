@@ -6,7 +6,7 @@ import { Drawer, IconButton, Fab } from '@material-ui/core';
 import { Menu, Close } from '@material-ui/icons';
 import { useAuth } from 'context';
 import { LOGO_THUOCSI } from 'constants/Images';
-import { QUICK_ORDER, CART_URL } from 'constants/Paths';
+import { QUICK_ORDER, CART_URL, PRODUCT } from 'constants/Paths';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
 import { LinkComp, ButtonHeader } from 'components/atoms';
 
@@ -52,6 +52,8 @@ const HeaderMobile = memo(({ title = '' }) => {
           isAuthenticated && styles.logged,
           router.pathname === QUICK_ORDER ? styles.search_tool_wrapper : '',
           router.pathname === CART_URL ? styles.cart_wrapper : '',
+          router.pathname === CART_URL ? styles.cart_wrapper : '',
+          router.pathname === PRODUCT ? styles.cart_wrapper : '',
         )}
       >
         {!isAuthenticated ? (

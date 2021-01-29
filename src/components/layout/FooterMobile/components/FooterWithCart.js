@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FormarCurrency } from 'utils';
 import { useCart } from 'context';
 import { useRouter } from 'next/router';
+import { CART_URL } from 'constants/Paths';
 import styles from '../styles.module.css';
 
 const FooterWithCart = () => {
@@ -17,7 +18,7 @@ const FooterWithCart = () => {
           <div className={styles.total}>{FormarCurrency(total)}</div>
         </div>
         <div>
-          {router.pathname === '/cart' ? (
+          {router.pathname === CART_URL ? (
             <Link href="/checkout">
               <Button
                 classes={{
