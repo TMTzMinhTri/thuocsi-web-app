@@ -48,7 +48,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     return <LoadingScreen />;
   }
 
-  const { note: noteValue } = cart[0] || '';
+  const { note: noteValue } = (cart && cart[0]) || {};
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
   const [checkCondition, setCheckCondition] = React.useState({
