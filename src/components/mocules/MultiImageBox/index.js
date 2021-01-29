@@ -129,4 +129,4 @@ const MultiImageBox = ({ loading, images, imageType }) => {
   );
 };
 
-export default MultiImageBox;
+export default React.memo(MultiImageBox);
