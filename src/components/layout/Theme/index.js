@@ -133,7 +133,7 @@ const Theme = createMuiTheme({
       main: '#ff4fae',
     },
     thirdly: {
-      main: '#f9b514',
+      main: '#00814f',
     },
     error: {
       main: red.A400,
@@ -152,6 +152,7 @@ const Theme = createMuiTheme({
       dark: '#47824a',
       light: '#00e676',
     },
+    
   },
 });
 

@@ -78,7 +78,13 @@
 .product_title {
     flex: 70%;
 }
+.product_content {
+    padding: 0!important;
+}
 @media (max-width: 767px) {
+    .product_title_wrap {
+        margin-bottom: 0 !important;
+    }
     .product_content_column{
         padding: 0 !important;
     }
@@ -94,7 +100,6 @@
         min-width: 442px;
     }
     .product_content {
-        padding: 0!important;
         margin-bottom: 16px;
     }
     .product_title_wrap {
