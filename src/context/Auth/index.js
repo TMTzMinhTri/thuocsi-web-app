@@ -40,10 +40,8 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
 
   const setCookies = useCallback((info, rememberMe = false) => {
     const { expiredTime = new Date(), bearerToken = null } = info;
-
     Cookies.set(ACCESS_TOKEN, bearerToken);
     Cookies.set(REMEMBER_ME, rememberMe);
-
     if (rememberMe) {
       const DateExpired = new Date(expiredTime);
       Cookies.set(ACCESS_TOKEN_LONGLIVE, bearerToken, {
@@ -161,14 +159,13 @@ export const LoadingRoute = ({ children }) => {
 };
 
 export const withLogin = (Component, redirect = {}) => ({ ...props }) => {
-  const router = useRouter();
   const { url, message } = redirect;
   const { isAuthenticated } = props;
   if (!isAuthenticated) {
     NotifyUtils.error(
       message && message.length > 0 ? message : 'Bạn cần đăng nhập để vào được trang này ',
     );
-    router.push(url && url.length > 0 ? url : '/?login=true');
+    window.location.href = url && url.length > 0 ? url : '/?login=true';
     return <LoadingScreen />;
   }
 
