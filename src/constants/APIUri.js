@@ -95,7 +95,7 @@ export const PROMOTION_API = {
 
 const ORDER_API_PREFIX = '/marketplace/order/v1';
 export const ORDER_ITEM_LIST = `${ORDER_API_PREFIX}/me/order-item`;
-export const ORDER_INFO = `${ORDER_API_PREFIX}/order`;
+export const ORDER_INFO = `${ORDER_API_PREFIX}/me/order`;
 export const MY_ORDER_LIST = `${ORDER_API_PREFIX}/me/orders`;
 
 export const ORDER_API = {
