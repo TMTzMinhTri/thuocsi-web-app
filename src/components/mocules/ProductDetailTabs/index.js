@@ -16,6 +16,7 @@ export default function ProductDetailTabs({ data, product, handleChange, value }
             onChange={handleChange}
             aria-label="product details tabs"
             variant="scrollable"
+            className={styles.tabs}
           >
             {data.map((item) => (
               <Tab
