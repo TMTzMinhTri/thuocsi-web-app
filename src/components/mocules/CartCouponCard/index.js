@@ -13,15 +13,14 @@ const UseButton = styled(Button)`
   margin-top: 20px !important;
   margin-left: 22px !important;
   text-transform: none !important;
-  color: red !important;
+  color: #fff !important;
   background-color: #00b46e !important;
   border: 1px solid #00b46e !important;
-  background: transparent !important;
   padding: 4px 10px !important;
   transition: 0.5s;
   &:hover {
-    color: #fff !important;
-    background-color: #00b46e !important;
+    color: #00b46e !important;
+    background-color: #fff !important;
     border-color: #00b46e !important;
   }
 `;
@@ -31,8 +30,8 @@ const UsedButton = styled(Button)`
   margin-left: 22px !important;
   text-transform: none !important;
   color: #fff !important;
-  background-color: #00b46e !important;
-  border: 1px solid #00b46e !important;
+  background-color: #FFC75F !important;
+  border: 1px solid #FFC75F !important;
   padding: 4px 10px !important;
   transition: 0.5s;
   opacity: 0.65;

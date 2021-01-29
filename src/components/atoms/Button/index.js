@@ -62,7 +62,6 @@ const StyledButton = styled(CustomButton)`
     }
 
     &--blue {
-      // color: #17a2b8 !important;
       border: 1px solid #17a2b8 !important;
       background: #17a2b8 !important;
       color: #fff !important;
