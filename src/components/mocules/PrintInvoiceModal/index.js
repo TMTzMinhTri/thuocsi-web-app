@@ -63,17 +63,17 @@ const PrintInvoiceModal = memo((props) => {
     async function fetchData() {
       try {
         const res = await OrderClient.getProductByOrderId(orderID);
-        if (!isValid(res)) throw Error('Lấy danh sách không thành công');
+        if (!isValid(res)) throw Error('Lấy danh sách sản phẩm không thành công');
         let orderItems = res?.data || [];
         const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems });
-        if (!isValidWithoutData(mapProductInfo)) throw Error('Lấy danh sách không thành công');
+        if (!isValidWithoutData(mapProductInfo)) throw Error('Lấy danh sách sản phẩm không thành công');
         orderItems = orderItems.map((product) => ({
           productInfo: mapProductInfo[product?.productSku],
           ...product,
         }));
         setProducts(orderItems);
       } catch (error) {
-        NotifyUtils.error(error?.message || 'Lấy dữ liệu bị lỗi');
+        NotifyUtils.error(error?.message || 'Lấy dữ liệu sản phẩm bị lỗi');
       }
     }
     fetchData();
