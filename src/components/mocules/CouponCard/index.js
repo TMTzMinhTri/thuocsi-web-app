@@ -1,11 +1,10 @@
 import { Card, Grid, Typography } from '@material-ui/core';
-import { Button } from 'components/atoms';
+import { Button, LinkComp } from 'components/atoms';
 import Image from 'next/image';
 import { PROMO_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE } from 'constants/Images';
 import { QUICK_ORDER } from 'constants/Paths';
 import clsx from 'clsx';
-import Link from 'next/link';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
@@ -25,20 +24,8 @@ const CounponCard = ({
     <Grid container direction="row" spacing={3}>
       <Grid item xs={4}>
         <div className={styles.benefit}>
-          {type === PROMO_TYPE.COMBO && (
-            <Image
-              width={60}
-              height={60}
-              src={GIFT_IMAGE}
-            />
-          )}
-          {type === PROMO_TYPE.GIFT && (
-            <Image
-              width={60}
-              height={60}
-              src={GIFT_IMAGE}
-            />
-          )}
+          {type === PROMO_TYPE.COMBO && <Image width={60} height={60} src={GIFT_IMAGE} />}
+          {type === PROMO_TYPE.GIFT && <Image width={60} height={60} src={GIFT_IMAGE} />}
           {type === PROMO_TYPE.DISCOUNT && (
             <div style={{ fontWeight: 'bold', textAlign: 'center' }}>{promotionName} </div>
           )}
@@ -67,7 +54,9 @@ const CounponCard = ({
         </Grid>
 
         <Grid item xs={12}>
-          <Link href={QUICK_ORDER}><Button className="promo__button"> Đặt hàng ngay</Button></Link>
+          <LinkComp href={QUICK_ORDER}>
+            <Button className="promo__button"> Đặt hàng ngay</Button>
+          </LinkComp>
         </Grid>
       </Grid>
     </Grid>
