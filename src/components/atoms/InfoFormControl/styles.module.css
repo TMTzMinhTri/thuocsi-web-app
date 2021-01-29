@@ -10,8 +10,9 @@
 }
 .form_control {
   width: 100%;
-  margin-top: 10px !important;
+  margin-top: 15px !important;
 }
+
 .required {
   color: red;
 }
