@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
@@ -9,9 +9,9 @@ const Badge = ({ children, url = null, className }) => {
     if (url) router.push(url);
   };
   return (
-    <Box className={className} onClick={handleClick}>
+    <Button className={className} onClick={handleClick}>
       {children}
-    </Box>
+    </Button>
   );
 };
 

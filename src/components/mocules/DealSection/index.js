@@ -1,12 +1,12 @@
 import React from 'react';
-import { LinearProgress, Box, Typography } from '@material-ui/core';
+import { LinearProgress, Typography } from '@material-ui/core';
 import CountdownTimer from '../CountdownTimer';
 
 import styles from './styles.module.css';
 
 const DealSection = ({ dealEndDay }) => (
-  <Box className={styles.deal_section}>
-    <Box className={styles.process_wrapper}>
+  <div className={styles.deal_section}>
+    <div className={styles.process_wrapper}>
       <LinearProgress
         classes={{
           root: styles.root_process,
@@ -17,9 +17,9 @@ const DealSection = ({ dealEndDay }) => (
         value={50}
       />
       <Typography className={styles.process_content}>Đã bán 0</Typography>
-    </Box>
+    </div>
     <CountdownTimer className={styles.count_down} dealEndDay={dealEndDay} />
-  </Box>
+  </div>
 );
 
 export default DealSection;

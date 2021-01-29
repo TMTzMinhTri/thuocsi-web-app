@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Link from 'next/link';
 
 import { FormarCurrency } from 'utils';
@@ -12,11 +12,11 @@ const FooterWithCart = () => {
   const router = useRouter();
   return (
     <div className={styles.fwc_wrapper}>
-      <Box display="flex" alignItems="center" width="100%">
-        <Box flexGrow={1}>
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+        <div style={{ flexGrow: 1 }}>
           <div className={styles.total}>{FormarCurrency(total)}</div>
-        </Box>
-        <Box>
+        </div>
+        <div>
           {router.pathname === '/cart' ? (
             <Link href="/checkout">
               <Button
@@ -40,8 +40,8 @@ const FooterWithCart = () => {
               </Button>
             </Link>
           )}
-        </Box>
-      </Box>
+        </div>
+      </div>
     </div>
   );
 };

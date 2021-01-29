@@ -1,4 +1,4 @@
-import { MenuList, MenuItem, ListItemIcon, Typography, Box } from '@material-ui/core';
+import { MenuList, MenuItem, ListItemIcon, Typography } from '@material-ui/core';
 import {
   AccountCircle as AccountCircleIcon,
   AssignmentTurnedIn as AssignmentTurnedInIcon,
@@ -23,13 +23,13 @@ const tabs = [
   { label: 'Điểm tích luỹ', icon: <MonetizationOnIcon />, id: 5, link: '/users/loyalty_points' },
 ];
 const InfoTabs = ({ value, name, balance = 0 }) => (
-  <Box className={styles.tab_box}>
-    <Box className={styles.account_name}>
+  <div className={styles.tab_box}>
+    <div className={styles.account_name}>
       Tài khoản của
       <Typography variant="h5" className={styles.name}>
         {name}
       </Typography>
-    </Box>
+    </div>
     <MenuList>
       {tabs.map((tab) => (
         <Link href={tab.link} key={`tab-${tab.id}`}>
@@ -45,7 +45,7 @@ const InfoTabs = ({ value, name, balance = 0 }) => (
       ))}
     </MenuList>
     <Typography>Ví - &nbsp; {FormarCurrency(balance)}</Typography>
-  </Box>
+  </div>
 );
 
 export default InfoTabs;

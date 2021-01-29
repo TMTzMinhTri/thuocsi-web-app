@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Typography, TextareaAutosize } from '@material-ui/core';
+import { Typography, TextareaAutosize } from '@material-ui/core';
 import Link from 'next/link';
 import { Star, Info } from '@material-ui/icons';
 import { NotifyUtils } from 'utils';
@@ -31,14 +31,14 @@ const ProductCartList = ({ products }) => {
 
   return (
     <>
-      <Box className={styles.instruction_text}>
+      <div className={styles.instruction_text}>
         <Star className={styles.star_icon} />
         <Typography>
           Nhấp để đánh dấu sản phẩm quan trọng (giới hạn 20% tổng số sản phẩm, 1 sản phẩm đặt nhiều
           cái cũng tính là 1)
         </Typography>
-      </Box>
-      <Box mb={2}>
+      </div>
+      <div style={{ marginBottom: '16px' }}>
         {products &&
           products.map((item) => (
             <ProductCart
@@ -47,8 +47,8 @@ const ProductCartList = ({ products }) => {
               name={`cart-${item.sku}`}
             />
           ))}
-      </Box>
-      <Box className={styles.instruction_text}>
+      </div>
+      <div className={styles.instruction_text}>
         <Info className={styles.info_icon} />
         <Typography>
           Để thêm sản phẩm vào giỏ hàng, vui lòng quay về trang
@@ -56,15 +56,13 @@ const ProductCartList = ({ products }) => {
             <span className={styles.quick_order}>Đặt hàng nhanh </span>
           </Link>
         </Typography>
-      </Box>
-      <Box className={styles.notes}>
-        <Box className={styles.note_title} mb={1} fontSize={16}>
-          Ghi chú khác
-        </Box>
-        <Box className={styles.note_content} mb={1} fontSize={16}>
+      </div>
+      <div className={styles.notes}>
+        <div className={styles.note_title}>Ghi chú khác</div>
+        <div className={styles.note_content}>
           Trường hợp không tìm được thuốc mong muốn, Quý khách vui lòng điền yêu cầu bên dưới. Chúng
           tôi sẽ liên hệ mua thuốc và báo giá sớm nhất có thể.
-        </Box>
+        </div>
 
         <TextareaAutosize
           className={styles.text_area}
@@ -74,7 +72,7 @@ const ProductCartList = ({ products }) => {
           value={note}
           onChange={handleChangeNote}
         />
-      </Box>
+      </div>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import Slider from 'react-slick';
-import { Box, Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { imagePartnerSlider, settingsPartner } from 'constants/data';
@@ -17,22 +17,14 @@ const Partners = () => {
   ));
 
   return (
-    <Box py={5} className={styles.wrapper}>
+    <div style={{ padding: '40px 0' }} className={styles.wrapper}>
       <Container fixed>
-        <Box
-          className={styles.center}
-          component="h2"
-          fontSize="32px"
-          color="#00b46e"
-          fontWeight="fontWeightMedium"
-        >
-          Đối tác của thuocsi.vn
-        </Box>
+        <h2 className={styles.title}>Đối tác của thuocsi.vn</h2>
         <Slider ref={ref} {...settingsPartner}>
           {partnerItem}
         </Slider>
       </Container>
-    </Box>
+    </div>
   );
 };
 

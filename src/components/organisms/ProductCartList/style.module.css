@@ -60,10 +60,14 @@
 
 .note_title {
   font-weight: 500 !important;
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .note_content {
   color: #919aa3 !important;
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .btn {

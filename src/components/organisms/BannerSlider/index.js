@@ -1,6 +1,5 @@
 import React, { useRef, memo } from 'react';
 import Slider from 'react-slick';
-import { Box } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -11,9 +10,9 @@ import styles from './styles.module.css';
 const checkCondition = ({ link, image, alt }) => {
   const urlImage = `url(${image})`;
   const ItemBox = (
-    <Box position="relative" className={styles.banner_bg_img}>
-      <Box style={{ backgroundImage: urlImage }} className={styles.banner_img} />
-    </Box>
+    <div className={styles.banner_bg_img}>
+      <div style={{ backgroundImage: urlImage }} className={styles.banner_img} />
+    </div>
   );
   if (link && link.length > 0) {
     return (

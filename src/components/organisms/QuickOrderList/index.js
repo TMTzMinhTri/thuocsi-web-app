@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '@material-ui/core';
 import { isValid, SearchClient } from 'clients';
 import { debounceFunc500 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
@@ -52,15 +51,21 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
   return (
     <>
       {!isMobile && (
-        <Box className={styles.search_input}>
+        <div className={styles.search_input}>
           <SearchOrder onSearch={handleSearchbox} />
-        </Box>
+        </div>
       )}
       {searchProduct ? (
         <>
           {searchProduct.map(
             (item) =>
-              item && <ProductCardHorizontal key={`search-product-${item.skuId}`} product={item} isMobile={isMobile} />,
+              item && (
+                <ProductCardHorizontal
+                  key={`search-product-${item.skuId}`}
+                  product={item}
+                  isMobile={isMobile}
+                />
+              ),
           )}
           <div className={styles.pagging}>
             <Pagination

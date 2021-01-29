@@ -1,6 +1,9 @@
 .title {
     text-align: center;
     margin-top: 0!important;
+    font-size: 32px;
+    color: #00b46e;
+    font-weight: 500;
 }
 
 .root {
@@ -42,6 +45,11 @@
 
 .wrapper_media {
     background-color: #f4f7fc;
+}
+
+.wrapper_media_container {
+    max-width: 1240px;
+    margin: 0 auto;
 }
 
 .wrapper_media:nth-child(2n) {

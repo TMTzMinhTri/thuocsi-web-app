@@ -4,7 +4,6 @@ import {
   Dialog,
   AccordionDetails,
   Typography,
-  Box,
   IconButton,
   Slide,
   Fab,
@@ -36,7 +35,9 @@ const DialogTitle = (props) => {
           <CloseIcon />
         </IconButton>
       ) : null}
-      <Typography variant="h6" className={styles.title}>{children}</Typography>
+      <Typography variant="h6" className={styles.title}>
+        {children}
+      </Typography>
     </MuiDialogTitle>
   );
 };
@@ -57,14 +58,14 @@ export default function FilterMobileDialogs({
   pathName,
   currentTab,
   sortBy,
-  brand
+  brand,
 }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
-    if(open) {
-      handleClose(); 
+    if (open) {
+      handleClose();
     }
   }, [currentTab]);
 
@@ -109,14 +110,12 @@ export default function FilterMobileDialogs({
         </DialogTitle>
         <DialogContent dividers className={styles.dialogContent}>
           <AccordionDetails className={styles.accordionDetail}>
-            <Box component="div">
+            <div>
               <div className={styles.headline}>
                 <FontAwesomeIcon icon={faTag} />
                 <span>Đánh dấu</span>
               </div>
-              <Link
-                href={pathName}
-              >
+              <Link href={pathName}>
                 <Fab
                   variant="extended"
                   aria-label="all"
@@ -145,9 +144,9 @@ export default function FilterMobileDialogs({
                     </Fab>
                   </Link>
                 ))}
-            </Box>
+            </div>
             <hr className={styles.hr_space} />
-            <Box>
+            <div>
               <div className={styles.group}>
                 <Accordion className="accordion" defaultExpanded>
                   <AccordionSummary
@@ -159,7 +158,7 @@ export default function FilterMobileDialogs({
                     <Typography>Nhóm thuốc</Typography>
                   </AccordionSummary>
                   <AccordionDetails className="accordion-detail">
-                    <Box component="div">
+                    <div>
                       <Link key="all-products" href="/products">
                         <div
                           className={`${styles.accordionLink} ${slug === '' ? styles.active : ''}`}
@@ -179,7 +178,7 @@ export default function FilterMobileDialogs({
                             </div>
                           </Link>
                         ))}
-                    </Box>
+                    </div>
                   </AccordionDetails>
                 </Accordion>
                 <hr className={styles.hr_clear} />
@@ -193,7 +192,7 @@ export default function FilterMobileDialogs({
                     <Typography>Nhà sản xuất</Typography>
                   </AccordionSummary>
                   <AccordionDetails className="accordion-detail">
-                    <Box component="div">
+                    <div>
                       <Link key="all-products" href="/products">
                         <div className={styles.accordionLink}>Tất cả sản phẩm</div>
                       </Link>
@@ -210,20 +209,15 @@ export default function FilterMobileDialogs({
                             </div>
                           </Link>
                         ))}
-                    </Box>
+                    </div>
                   </AccordionDetails>
                 </Accordion>
               </div>
-            </Box>
+            </div>
           </AccordionDetails>
         </DialogContent>
         <DialogActions className={styles.dialogActions}>
-          <Fab
-            variant="extended"
-            aria-label="all"
-            className={styles.close}
-            onClick={handleClose}
-          >
+          <Fab variant="extended" aria-label="all" className={styles.close} onClick={handleClose}>
             Đóng
           </Fab>
         </DialogActions>

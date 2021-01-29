@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia, Box } from '@material-ui/core';
 import { Grade } from '@material-ui/icons';
 import clsx from 'clsx';
 import { MISSING_IMAGE } from 'constants/Images';
@@ -41,8 +41,8 @@ const ProductCart = ({ product, name }) => {
   };
 
   return (
-    <Box className={styles.button_container}>
-      <Box className={styles.root_card}>
+    <div className={styles.button_container}>
+      <div className={styles.root_card}>
         <Box
           onClick={handleSetImportant}
           className={clsx(styles.important_item, product.important && styles.important_item_active)}
@@ -52,7 +52,7 @@ const ProductCart = ({ product, name }) => {
           />
         </Box>
         <Card className={styles.product_card}>
-          <Box className={styles.product_image}>
+          <div className={styles.product_image}>
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -62,11 +62,11 @@ const ProductCart = ({ product, name }) => {
                 image={(imageUrls && imageUrls[0]) || MISSING_IMAGE}
               />
             </CardActionArea>
-          </Box>
+          </div>
           <ProductCardContent className={styles.product_content} row {...product} />
           <ProductCardBuy {...product} product={product} cart name={name} />
         </Card>
-      </Box>
+      </div>
       <CustomModal
         onClickOk={handleConfirmImportantModal}
         visible={isShowModal}
@@ -84,7 +84,7 @@ const ProductCart = ({ product, name }) => {
         content="Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm"
         btnOnClose="OK"
       />
-    </Box>
+    </div>
   );
 };
 export default ProductCart;
