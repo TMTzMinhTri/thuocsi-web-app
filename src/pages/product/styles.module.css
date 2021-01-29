@@ -344,5 +344,6 @@
     }
     .detail_wrapper {
         background-color: #f4f7fc;
+        padding-bottom: 80px;
     }
 }

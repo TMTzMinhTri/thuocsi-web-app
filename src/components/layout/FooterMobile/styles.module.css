@@ -132,6 +132,9 @@
 .btn_checkout span{
     color: #212529!important;
 }
+.addtocartmb{
+    flex-grow: 1;
+}
 .addtocartmb [class*='price_wrapper']{
     display: none;
 }
@@ -163,4 +166,9 @@
     background-color: transparent;
     color: white !important;
     font-size: 20px;
+}
+.fwc_container{
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
