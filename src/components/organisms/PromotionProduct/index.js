@@ -25,7 +25,7 @@ const PromotionProduct = ({ products = [] }) => (
         </div>
       </main>
     ) : (
-      <p>Không có sản phẩm</p>
+      <p className={styles.noData}>Không có sản phẩm khuyến mãi</p>
     )}
   </>
 );

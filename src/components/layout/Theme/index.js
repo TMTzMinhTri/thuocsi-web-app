@@ -75,6 +75,11 @@ const Theme = createMuiTheme({
         },
       },
     },
+    MuiButton: {
+      root: {
+        textTransform: 'capitalize',
+      },
+    },
     MuiPagination: {
       root: {
         padding: 10,

@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 80",
+    "start-debug": "NODE_OPTIONS='--inspect' next start -p 8000",
     "prd": "yarn build  && yarn start",
     "test": "cross-env NODE_ENV=test mocha",
     "lint:check": "eslint --ext=js,jsx src",

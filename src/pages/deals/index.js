@@ -7,7 +7,7 @@ import ProductClient from 'clients/ProductClient';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [products] = await Promise.all([ProductClient.loadDataPormotion(ctx)]);
+  const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
 
   return {
     props: {

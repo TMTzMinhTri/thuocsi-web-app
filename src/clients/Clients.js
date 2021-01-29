@@ -6,12 +6,25 @@ import { API_HOST, MOCK_API_HOST, BASIC_AUTHEN } from 'sysconfig';
 
 const MAX_LIMIT = 1000;
 
+export function isValid(resp) {
+  return resp && resp.status && resp.status === HTTP_STATUS.Ok && resp.data && resp.data[0];
+}
+
+export function isValidWithoutData(resp) {
+  return resp && resp.status && resp.status === HTTP_STATUS.Ok;
+}
+
 export function getSessionToken(ctx) {
   const tk = CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN);
   if (tk && tk.length > 0) {
     return tk;
   }
   return CookiesParser.getCookieFromCtx(ctx, ACCESS_TOKEN_LONGLIVE);
+}
+
+export function removeSessionToken() {
+  Cookies.set(ACCESS_TOKEN, null);
+  Cookies.set(ACCESS_TOKEN_LONGLIVE, null);
 }
 
 export function getSessionTokenClient() {
@@ -78,8 +91,14 @@ async function request(props) {
       body: typeof body === 'object' ? JSON.stringify(body) : body,
     });
     const result = await res.json();
+
     if (isUseBasic) {
       result.isBasic = true;
+    }
+
+    if (result && result.status === HTTP_STATUS.Unauthorized) {
+      removeSessionToken();
+      window.location.href = '/';
     }
     // console.log('result : ', result);
     return result;
@@ -107,14 +126,6 @@ export async function PUT(props) {
 
 export async function DELETE(props) {
   return request({ ...props, method: 'DELETE' });
-}
-
-export function isValid(resp) {
-  return resp && resp.status && resp.status === HTTP_STATUS.Ok && resp.data && resp.data[0];
-}
-
-export function isValidWithoutData(resp) {
-  return resp && resp.status && resp.status === HTTP_STATUS.Ok;
 }
 
 // @deprecate in next release

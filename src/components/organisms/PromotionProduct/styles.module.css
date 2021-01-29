@@ -8,6 +8,12 @@
   margin-bottom: 30px;
 }
 
+.noData {
+  text-align: center;
+  font-size: 25px;
+  color: #fff;
+}
+
 @media (min-width: 1360px) and (max-width: 1700px) {
   .customGrid {
     max-width: 20% !important;

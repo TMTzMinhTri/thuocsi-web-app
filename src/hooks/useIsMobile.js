@@ -1,7 +1,6 @@
 const { useEffect } = require('react');
 
 const getMobileDetect = (userAgent) => {
-  console.log('get mobile detet ', userAgent);
   const isAndroid = () => Boolean(userAgent.match(/Android/i));
   const isIos = () => Boolean(userAgent.match(/iPhone|iPad|iPod/i));
   const isOpera = () => Boolean(userAgent.match(/Opera Mini/i));
@@ -10,8 +9,6 @@ const getMobileDetect = (userAgent) => {
 
   const isMobile = () => Boolean(isAndroid() || isIos() || isOpera() || isWindows());
   const isDesktop = () => Boolean(!isMobile() && !isSSR());
-  console.log(isMobile);
-  console.log(isMobile());
   return {
     isMobile,
     isDesktop,

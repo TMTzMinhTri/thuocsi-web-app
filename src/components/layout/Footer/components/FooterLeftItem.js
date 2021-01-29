@@ -41,7 +41,8 @@ const FooterLeftItem = () => {
           <b>
             <span className={styles.primary_color}>
               <Link href="/">thuocsi.vn</Link>
-            </span> là website thuộc sở hữu của công ty TNHH Buymed.
+            </span>{' '}
+            là website thuộc sở hữu của công ty TNHH Buymed.
           </b>
         </Typography>
       </div>
@@ -72,7 +73,9 @@ const FooterLeftItem = () => {
           <Grid sm={6} item>
             <Link href="/about-us">
               <Typography
-                className={router.pathname === '/about-us' ? clsx(styles.active, styles.link) : styles.link}
+                className={
+                  router.pathname === '/about-us' ? clsx(styles.active, styles.link) : styles.link
+                }
               >
                 Giới thiệu về thuocsi.vn
               </Typography>
@@ -80,13 +83,23 @@ const FooterLeftItem = () => {
             <Link href="/how-to-order">
               <Typography className={styles.link}>Hướng dẫn đặt hàng</Typography>
             </Link>
-            <div className="foo" onClick={() => handleToggleOpen('privacy-policy')} role="button" aria-hidden="true">
+            <div
+              className="foo"
+              onClick={() => handleToggleOpen('privacy-policy')}
+              role="button"
+              aria-hidden="true"
+            >
               <Typography className={styles.link}>Chính sách bảo mật</Typography>
             </div>
             <Link href="/faq">
               <Typography className={styles.link}>Câu hỏi thường gặp (Q&A)</Typography>
             </Link>
-            <div className="foo" onClick={() => handleToggleOpen('general-policy')} role="button" aria-hidden="true">
+            <div
+              className="foo"
+              onClick={() => handleToggleOpen('general-policy')}
+              role="button"
+              aria-hidden="true"
+            >
               <Typography className={styles.link}>Chính sách quy định chung</Typography>
             </div>
             <a className={styles.alink} href="/career" target="_blank">
@@ -95,13 +108,28 @@ const FooterLeftItem = () => {
           </Grid>
           <Grid sm={6} item>
             <>
-              <div className="foo" onClick={() => handleToggleOpen('conditions-of-use')} role="button" aria-hidden="true">
+              <div
+                className="foo"
+                onClick={() => handleToggleOpen('conditions-of-use')}
+                role="button"
+                aria-hidden="true"
+              >
                 <Typography className={styles.link}>Điều khoản sử dụng</Typography>
               </div>
-              <div className="foo" onClick={() => handleToggleOpen('dispute-resolution')} role="button" aria-hidden="true">
+              <div
+                className="foo"
+                onClick={() => handleToggleOpen('dispute-resolution')}
+                role="button"
+                aria-hidden="true"
+              >
                 <Typography className={styles.link}>Cơ chế giải quyết tranh chấp</Typography>
               </div>
-              <div className="foo" onClick={() => handleToggleOpen('terms-and-condition')} role="button" aria-hidden="true">
+              <div
+                className="foo"
+                onClick={() => handleToggleOpen('terms-and-condition')}
+                role="button"
+                aria-hidden="true"
+              >
                 <Typography className={styles.link}>Thỏa thuận về dịch vụ TMDT</Typography>
               </div>
               <div className="foo" role="button" aria-hidden="true">
@@ -137,15 +165,7 @@ const FooterLeftItem = () => {
           </div>
         </div>
       </div>
-      {open
-        && (
-        <Dialog
-          open={open}
-          handleClose={toggleOpen}
-          url={dialogUrl}
-          maxWidth="md"
-        />
-        )}
+      {open && <Dialog open={open} handleClose={toggleOpen} url={dialogUrl} maxWidth="md" />}
     </Grid>
   );
 };

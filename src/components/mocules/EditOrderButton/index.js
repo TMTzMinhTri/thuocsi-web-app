@@ -16,7 +16,7 @@ const EditOrderButton = () => {
   return (
     <>
       <Button
-        className="my-order__button my-order__button--outlined-green"
+        className="my-order__button my-order__button--green"
         onClick={handleChangeVal}
       >
         Sửa đơn hàng
