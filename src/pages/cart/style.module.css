@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 10px 0 90px;
+  padding: 10px 0 130px;
 }
 .cart_title {
   font-weight: 500 !important;
@@ -19,7 +19,7 @@
   text-transform: unset !important;
   font-size: 1rem !important;
 }
-@media (min-width: 767px) {
+@media (max-width: 767px) {
   .wrapper {
     background-color: #f4f7fc;
   }

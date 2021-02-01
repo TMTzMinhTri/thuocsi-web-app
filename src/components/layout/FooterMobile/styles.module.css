@@ -172,3 +172,10 @@
     align-items: center;
     width: 100%;
 }
+.promo_wrapper{
+    padding: 10px;
+}
+.promo_wrapper p{
+    font-weight: 700;
+    padding-left: 10px;
+}
