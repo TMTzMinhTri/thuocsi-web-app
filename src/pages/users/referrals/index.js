@@ -3,7 +3,7 @@ import InfoContainer from 'components/organisms/InfoContainer';
 import ReferralList from 'components/organisms/ReferralList';
 import { Container } from '@material-ui/core';
 import { CustomerClient, doWithServerSide } from 'clients';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {

@@ -5,7 +5,7 @@ import CardInfo from 'components/mocules/CardInfo';
 
 import { Container, Typography, Grid } from '@material-ui/core';
 import { ProductClient, doWithServerSide } from 'clients';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {

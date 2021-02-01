@@ -1,7 +1,7 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
 import { OrderClient, doWithServerSide, isValid, isValidWithoutData } from 'clients';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
 export async function getServerSideProps(ctx) {

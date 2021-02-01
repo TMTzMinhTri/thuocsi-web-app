@@ -4,13 +4,12 @@ import InfoContainer from 'components/organisms/InfoContainer';
 import { ENUM_ORDER_STATUS, DEFAULT_PAGINATION } from 'constants/Enums';
 import { Container } from '@material-ui/core';
 import { doWithServerSide, OrderClient, isValidWithoutData } from 'clients';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   let { status } = ctx.query;
   return doWithServerSide(ctx, async () => {
     try {
-      
       if (!status) status = ENUM_ORDER_STATUS.ALL;
       let [orders] = await Promise.all([
         OrderClient.getOrders(
@@ -38,7 +37,7 @@ export async function getServerSideProps(ctx) {
         props: {
           orders: [],
           status,
-        }
+        },
       };
     }
   });

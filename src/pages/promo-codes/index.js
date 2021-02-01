@@ -3,7 +3,7 @@ import React from 'react';
 import Template from 'components/layout/Template';
 import PromoCodesContainer from 'components/organisms/PromoCodesContainer';
 import { PromoClient, doWithServerSide } from 'clients';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 import { PROMOTION_STATUS } from 'constants/Enums';
 
 export async function getServerSideProps(ctx) {
