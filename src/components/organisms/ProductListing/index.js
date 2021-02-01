@@ -331,7 +331,8 @@ export default function ProductListing({
                   <Pagination
                     count={pages}
                     defaultPage={numPage}
-                    boundaryCount={2}
+                    boundaryCount={isMobile ? 1 : 2}
+                    siblingCount={isMobile && 0}
                     onChange={handleChangePage}
                   />
                 </div>
@@ -362,7 +363,8 @@ export default function ProductListing({
                   <Pagination
                     count={pages}
                     defaultPage={numPage}
-                    boundaryCount={2}
+                    boundaryCount={isMobile ? 1 : 2}
+                    siblingCount={isMobile && 0}
                     onChange={handleChangePage}
                   />
                 </div>
