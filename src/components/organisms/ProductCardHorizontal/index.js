@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia } from '@material-ui/core';
 import { MISSING_IMAGE } from 'constants/Images';
 import { useRouter } from 'next/router';
 import { getPathProductBySlug } from 'constants/Paths';
@@ -17,7 +17,7 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
     searchInput.current.focus();
   };
   return (
-    <Box onClick={handleFocus} className={styles.button_container}>
+    <button onClick={handleFocus} className={styles.button_container}>
       <div className={styles.root_card}>
         <Card className={styles.product_card}>
           <div className={styles.product_image}>
@@ -45,7 +45,7 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
           )}
         </Card>
       </div>
-    </Box>
+    </button>
   );
 };
 
