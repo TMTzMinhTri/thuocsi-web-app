@@ -120,6 +120,16 @@ const FooterWithCart = () => {
                 </Button>
               </Link>
             )}
+            {router.pathname !== CART_URL && router.pathname !== CHECKOUT_URL && (
+              <Link href="/cart">
+                <Button
+                  classes={{ label: styles.label, outlined: styles.outlined, root: styles.root }}
+                  variant="outlined"
+                >
+                  Giỏ hàng ({itemCount})
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
