@@ -6,7 +6,7 @@ import { LocalOffer } from '@material-ui/icons';
 import { FormarCurrency, NotifyUtils} from 'utils';
 import { useCart } from 'context';
 import { useRouter } from 'next/router';
-import { CART_URL } from 'constants/Paths';
+import { CART_URL, CHECKOUT_URL } from 'constants/Paths';
 import clsx from 'clsx';
 import PromoListModal from 'components/mocules/PromoListModal';
 import { CartClient, isValid } from 'clients';
@@ -76,12 +76,27 @@ const FooterWithCart = () => {
           />
         </div>
       </div>
-      <div className={styles.fwc_wrapper}>\
+      <div className={styles.fwc_wrapper}>
         <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
           <div style={{ flexGrow: 1 }}>
             <div className={styles.total}>{FormarCurrency(total)}</div>
           </div>
           <div>
+            {router.pathname === CHECKOUT_URL && (
+              <Link href="/checkout">
+                <Button
+                  classes={{
+                    label: styles.label,
+                    outlined: styles.outlined,
+                    root: styles.btn_checkout,
+                  }}
+                  variant="outlined"
+                >
+                  Thanh toán
+                </Button>
+              </Link>
+            )}
+
             {router.pathname === CART_URL ? (
               <Link href="/checkout">
                 <Button
