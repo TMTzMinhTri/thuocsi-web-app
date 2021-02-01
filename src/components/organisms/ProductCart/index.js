@@ -12,6 +12,7 @@ import styles from './styles.module.css';
 const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
+  const [isShowModalAlert, toggleAlert] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
 
@@ -22,6 +23,10 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
     if (isImportant) {
       setUnset(true);
     } else {
+      if (cartItems.length < 5) {
+        toggleAlert();
+        return;
+      }
       if (importantList.length >= (Math.floor((cartItems.length * 20) / 100) || 1)) {
         toggleWarning();
         return;
@@ -87,6 +92,14 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
       <CustomModal
         onClose={toggleWarning}
         visible={isShowModalWarning}
+        title="Xin xác nhận"
+        content="Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm"
+        btnOnClose="OK"
+      />
+
+      <CustomModal
+        onClose={toggleAlert}
+        visible={isShowModalAlert}
         title="Xin xác nhận"
         content="Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm"
         btnOnClose="OK"
