@@ -9,7 +9,7 @@ import FooterWithCart from './components/FooterWithCart';
 import FooterWithAddToCart from './components/FooterWithAddToCart';
 import styles from './styles.module.css';
 
-const FooterComp = ({product}) => {
+const FooterComp = ({ product }) => {
   const { isAuthenticated, toggleLogin, toggleSignUp } = useAuth();
   const router = useRouter();
   return (
@@ -18,7 +18,12 @@ const FooterComp = ({product}) => {
         <Container maxWidth="lg">
           {!isAuthenticated ? (
             <div className={styles.div_buttons}>
-              <ButtonHeader variant="contained" btnType="warning" onClick={toggleLogin}>
+              <ButtonHeader
+                variant="contained"
+                color="#000"
+                btnType="warning"
+                onClick={toggleLogin}
+              >
                 Đăng nhập
               </ButtonHeader>
               <ButtonHeader
@@ -32,9 +37,13 @@ const FooterComp = ({product}) => {
             </div>
           ) : (
             <AppBar position="fixed" className={styles.appBar}>
-              {(router.pathname === QUICK_ORDER || router.pathname === CART_URL) && <FooterWithCart />}
+              {(router.pathname === QUICK_ORDER || router.pathname === CART_URL) && (
+                <FooterWithCart />
+              )}
               {router.pathname === PRODUCT && <FooterWithAddToCart product={product} />}
-              {(router.pathname !== QUICK_ORDER && router.pathname !== CART_URL && router.pathname !== PRODUCT) && <FooterWithToolBar />}
+              {router.pathname !== QUICK_ORDER &&
+                router.pathname !== CART_URL &&
+                router.pathname !== PRODUCT && <FooterWithToolBar />}
             </AppBar>
           )}
         </Container>

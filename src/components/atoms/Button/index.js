@@ -56,7 +56,6 @@ const StyledButton = styled(CustomButton)`
       border: 1px solid #f9b514 !important;
       background-color: #f9b514 !important;
       &:hover {
-        
         background: #fff !important;
       }
     }

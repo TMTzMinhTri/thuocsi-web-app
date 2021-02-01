@@ -71,7 +71,12 @@ const InfoHeader = memo(({ t }) => {
         {!isAuthenticated ? (
           <>
             <div className={styles.div_buttons}>
-              <ButtonHeader variant="contained" btnType="warning" onClick={toggleLogin}>
+              <ButtonHeader
+                variant="contained"
+                btnType="warning"
+                onClick={toggleLogin}
+                color="#000"
+              >
                 {t('login')}
               </ButtonHeader>
               <ButtonHeader

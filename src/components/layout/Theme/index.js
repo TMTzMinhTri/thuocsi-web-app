@@ -114,8 +114,8 @@ const Theme = createMuiTheme({
   },
   button: {
     color: {
-      primary: '#000',
-      secondary: '#fff',
+      primary: '#fff',
+      secondary: '#000',
     },
     background: {
       primary: '#66bb6a',
@@ -127,7 +127,7 @@ const Theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: '#556cd6',
+      main: '#00AB55',
     },
     secondary: {
       main: '#ff4fae',
@@ -152,7 +152,6 @@ const Theme = createMuiTheme({
       dark: '#47824a',
       light: '#00e676',
     },
-    
   },
 });
 
