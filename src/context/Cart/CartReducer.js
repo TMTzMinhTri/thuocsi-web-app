@@ -75,9 +75,8 @@ export const CartReducer = (state, action) => {
           quantity: action.payload.q,
         });
       } else {
-        cartItems[
-          cartItems.findIndex((item) => item.sku === action.payload.product.sku)
-        ].quantity = action.payload.q;
+        cartItems[cartItems.findIndex((item) => item.sku === action.payload.product.sku)].quantity =
+          action.payload.q;
       }
       return {
         ...state,
@@ -112,7 +111,7 @@ export const CartReducer = (state, action) => {
       // eslint-disable-next-line no-param-reassign
       state.cartItems[
         state.cartItems.findIndex((item) => item.sku === action.payload.sku)
-      ].important = true;
+      ].isImportant = true;
       return {
         ...state,
         ...sumItems(state.cartItems),
@@ -121,7 +120,7 @@ export const CartReducer = (state, action) => {
     case 'REMOVE_IMPORTANT':
       // eslint-disable-next-line no-param-reassign
       delete state.cartItems[state.cartItems.findIndex((item) => item.sku === action.payload.sku)]
-        .important;
+        .isImportant;
       return {
         ...state,
         ...sumItems(state.cartItems),

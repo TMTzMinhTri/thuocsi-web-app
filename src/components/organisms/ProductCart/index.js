@@ -9,13 +9,13 @@ import { ProductCardContent, CustomModal } from 'components/mocules';
 import ProductCardBuy from '../ProductCardBuy';
 import styles from './styles.module.css';
 
-const ProductCart = ({ product, name, isMobile }) => {
+const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
 
-  const { isImportant, imageUrls } = product;
+  const { imageUrls } = product;
 
   const handleSetImportant = () => {
     const importantList = cartItems.filter((item) => item.isImportant);
@@ -80,7 +80,7 @@ const ProductCart = ({ product, name, isMobile }) => {
         onClose={toggle}
         title="Xin xác nhận"
         content={`Bạn có chắc bạn muốn ${
-          unset && 'bỏ'
+          unset ? 'bỏ' : ''
         } đánh dấu sản phẩm này là quan trọng trong đơn hàng hiện tại?`}
       />
 
