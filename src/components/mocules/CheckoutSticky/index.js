@@ -114,10 +114,10 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
 
     const response = await CheckoutClient.Checkout(formValue);
     if (isValid(response)) {
-      const { orderNo } = response.data[0];
+      const { orderId } = response.data[0];
       // update
       updateCart();
-      router.push(`${THANKYOU_URL}/${orderNo}`);
+      router.push(`${THANKYOU_URL}/${orderId}`);
     } else {
       NotifyUtils.error(
         `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
