@@ -84,6 +84,9 @@
         padding-right: 20px !important;
         margin-bottom: 10px;
     }
+    .cart_content_mobile{
+        width: 100%;
+    }
     .cart_content_mobile [class*='price_wrapper']{
         margin: 0;
         flex: 0;
