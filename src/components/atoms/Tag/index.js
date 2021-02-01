@@ -3,8 +3,8 @@ import React from 'react';
 
 import styles from './style.module.css';
 
-const Tag = ({ backgroundColor, text, color, icon, date = null }) => (
-  <div className={styles.tag_root} style={{ color, backgroundColor }}>
+const Tag = ({ border, text, color, icon, date = null }) => (
+  <div className={styles.tag_root} style={{ color, border }}>
     {icon}
     <Typography className={styles.text}>
       {text}
