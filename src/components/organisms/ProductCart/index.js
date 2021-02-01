@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardActionArea, CardMedia, Box } from '@material-ui/core';
-import { Grade } from '@material-ui/icons';
+import { Card, IconButton, CardActionArea, CardMedia } from '@material-ui/core';
+import StarIcon from '@material-ui/icons/Star';
 import clsx from 'clsx';
 import { MISSING_IMAGE } from 'constants/Images';
 import useModal from 'hooks/useModal';
@@ -43,14 +43,12 @@ const ProductCart = ({ product, name, isMobile }) => {
   return (
     <div className={styles.button_container}>
       <div className={styles.root_card}>
-        <Box
+        <IconButton
           onClick={handleSetImportant}
           className={clsx(styles.important_item, product.important && styles.important_item_active)}
         >
-          <Grade
-            className={product.isImportant ? styles.important_item_active : styles.star_icon}
-          />
-        </Box>
+          <StarIcon style={{ color: isImportant ? '#f9b514' : '' }} />
+        </IconButton>
         <Card className={styles.product_card}>
           <div className={styles.product_image}>
             <CardActionArea>

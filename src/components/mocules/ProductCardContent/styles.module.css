@@ -81,6 +81,11 @@
 
 .product_title {
     flex: 70%;
+    text-align: left;
+}
+
+.h40 {
+    height: 40px;
 }
 .product_content {
     padding: 0!important;
