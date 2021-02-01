@@ -12,7 +12,8 @@ import {
   LoadingScreen,
 } from 'components';
 import { doWithServerSide, CartClient, isValid } from 'clients';
-import { useCart, withLogin } from 'context';
+import { useCart } from 'context';
+import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
 import { debounceFunc500 } from 'utils/debounce';

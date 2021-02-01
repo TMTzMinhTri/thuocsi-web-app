@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia } from '@material-ui/core';
 import { MISSING_IMAGE } from 'constants/Images';
 import { useRouter } from 'next/router';
 import { getPathProductBySlug } from 'constants/Paths';
@@ -17,10 +17,10 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
     searchInput.current.focus();
   };
   return (
-    <Box onClick={handleFocus} className={styles.button_container}>
-      <Box className={styles.root_card}>
+    <div aria-hidden="true" onClick={handleFocus} className={styles.button_container}>
+      <div className={styles.root_card}>
         <Card className={styles.product_card}>
-          <Box className={styles.product_image}>
+          <div className={styles.product_image}>
             <CardActionArea onClick={() => router.push(getPathProductBySlug(slug))}>
               <CardMedia
                 component="img"
@@ -31,7 +31,7 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
                 title="Contemplative Reptile"
               />
             </CardActionArea>
-          </Box>
+          </div>
           {isMobile ? (
             <div className={styles.rightBox}>
               <ProductCardContent tag cate {...product} isMobile={isMobile} />
@@ -44,8 +44,8 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
             </>
           )}
         </Card>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Template, AccountInfoFormContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
 import { doWithServerSide } from 'clients';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => ({}));

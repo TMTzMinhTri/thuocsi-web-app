@@ -6,7 +6,7 @@ import { Drawer, IconButton, Fab } from '@material-ui/core';
 import { Menu, Close } from '@material-ui/icons';
 import { useAuth } from 'context';
 import { LOGO_THUOCSI } from 'constants/Images';
-import { QUICK_ORDER, CART_URL } from 'constants/Paths';
+import { QUICK_ORDER, CART_URL, PRODUCT } from 'constants/Paths';
 import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
 import { LinkComp, ButtonHeader } from 'components/atoms';
 
@@ -14,6 +14,12 @@ import HeaderWithSearchTool from './components/HeaderWithSearchTool';
 import HeaderWithCart from './components/HeaderWithCart';
 
 import styles from './styles.module.css';
+
+const LinkLogo = memo(() => (
+  <LinkComp href="/">
+    <Image className={styles.logo} href="/" src={LOGO_THUOCSI} width="164px" height="40px" />
+  </LinkComp>
+));
 
 const HeaderMobile = memo(({ title = '' }) => {
   const {
@@ -46,19 +52,13 @@ const HeaderMobile = memo(({ title = '' }) => {
           isAuthenticated && styles.logged,
           router.pathname === QUICK_ORDER ? styles.search_tool_wrapper : '',
           router.pathname === CART_URL ? styles.cart_wrapper : '',
+          router.pathname === CART_URL ? styles.cart_wrapper : '',
+          router.pathname === PRODUCT ? styles.cart_wrapper : '',
         )}
       >
         {!isAuthenticated ? (
           <>
-            <LinkComp href="/">
-              <Image
-                className={styles.logo}
-                href="/"
-                src={LOGO_THUOCSI}
-                width="164px"
-                height="40px"
-              />
-            </LinkComp>
+            <LinkLogo />
             <SignInModal
               visible={isShowLogin}
               onClose={toggleLogin}
@@ -90,9 +90,7 @@ const HeaderMobile = memo(({ title = '' }) => {
                 <Menu />
               </IconButton>
               {router.pathname !== QUICK_ORDER && (
-                <span className={styles.text}>
-                  {title && title}
-                </span>
+                <span className={styles.text}>{title && title}</span>
               )}
             </div>
             <div className={styles.rSection}>

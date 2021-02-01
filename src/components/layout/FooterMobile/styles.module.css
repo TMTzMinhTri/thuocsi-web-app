@@ -132,3 +132,50 @@
 .btn_checkout span{
     color: #212529!important;
 }
+.addtocartmb{
+    flex-grow: 1;
+}
+.addtocartmb [class*='price_wrapper']{
+    display: none;
+}
+.addtocartmb [class*='product_action']{
+    width: 130px;
+    max-width: 130px;
+}
+
+.addtocartmb [class*='button_root_minus'],
+.addtocartmb [class*='plus']{
+    padding: 16px !important;
+}
+.addtocartmb [class*='icon']{
+    font-size: 26px !important;
+}
+.addtocartmb [class*='plus']{
+    border: 1px solid #f9b514 !important;
+}
+.addtocartmb [class*='plus']:active{ 
+    color: #212529 !important;
+}
+.addtocartmb [class*='button_root_minus']{
+    background-color: transparent !important;
+    border-color: white !important;
+    color: white !important;
+}
+.addtocartmb [class*='root_input']{
+    height: 34px;
+    background-color: transparent;
+    color: white !important;
+    font-size: 20px;
+}
+.fwc_container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.promo_wrapper{
+    padding: 10px;
+}
+.promo_wrapper p{
+    font-weight: 700;
+    padding-left: 10px;
+}

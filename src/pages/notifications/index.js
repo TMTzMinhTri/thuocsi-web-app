@@ -6,7 +6,7 @@ import { Container, Grid, Button } from '@material-ui/core';
 import clsx from 'clsx';
 import { NotifyClient } from 'clients';
 import { DateTimeUtils } from 'utils';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {

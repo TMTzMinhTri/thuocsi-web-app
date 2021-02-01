@@ -1,17 +1,14 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
 import { OrderClient, doWithServerSide, isValid, isValidWithoutData } from 'clients';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
-    const [order, products] = await Promise.all([
-      OrderClient.getOrderById(id, ctx),
-      OrderClient.getProductByOrderId(id, ctx),
-    ]);
-    if (!isValid(order) || !isValid(products)) {
+    const [orderRes] = await Promise.all([OrderClient.getOrderById({ id: Number(id), ctx })]);
+    if (!isValid(orderRes)) {
       return {
         redirect: {
           destination: NOT_FOUND_URL,
@@ -19,25 +16,38 @@ export async function getServerSideProps(ctx) {
         },
       };
     }
+    const order = orderRes.data[0] || {};
+    const { orderNo = '' } = order;
+    const productsRes = await OrderClient.getProductByOrderNo({ orderNo, ctx });
 
-    const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems: products.data, ctx });
-    if (!isValidWithoutData(mapProductInfo)) {
+    if (!isValidWithoutData(productsRes)) {
       return {
         props: {
-          order: order.data[0],
-          products: products.data,
+          order,
+          products: [],
         },
       };
     }
 
-    const prds = products?.data || [];
-    const productDetails = prds.map((product) => ({
+    const products = productsRes.data || [];
+
+    const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems: products, ctx });
+    if (!isValidWithoutData(mapProductInfo)) {
+      return {
+        props: {
+          order,
+          products,
+        },
+      };
+    }
+
+    const productDetails = products.map((product) => ({
       productInfo: mapProductInfo[product?.productSku] || {},
       ...product,
     }));
     return {
       props: {
-        order: order.data[0],
+        order,
         products: productDetails,
       },
     };

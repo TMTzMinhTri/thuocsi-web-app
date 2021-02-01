@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Modal } from 'components/atoms';
-import { Button, Typography, Box } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 
 import styles from './style.module.css';
@@ -23,14 +23,14 @@ const EditOrderModal = memo((props) => {
             đổi theo giá tăng/giảm hàng ngày. Bạn có chắc muốn sửa lại đơn này?
           </Typography>
         </div>
-        <Box mt={2} textAlign="center">
+        <div style={{ marginTop: '16px', textAlign: 'center' }}>
           <Button className={clsx(styles.btn, styles.brown_btn)} onClick={onClose}>
             Không
           </Button>
           <Button onClick={onClickOk} className={clsx(styles.btn, styles.fill_btn)}>
             Có
           </Button>
-        </Box>
+        </div>
       </div>
     </Modal>
   );

@@ -11,7 +11,7 @@ export const DISPUTE_RESOLUTION_URL = '/dispute-resolution';
 export const TERMS_URL = '/terms-and-condition';
 export const REGULATIONS_URL = '/regulations';
 export const QUICK_ORDER = '/quick-order';
-export const PRODUCT = '/product';
+export const PRODUCT = '/product/[slug]';
 export const DEALS = '/deals';
 export const PRODUCTS_URL = '/products';
 export const CART_URL = '/cart';
@@ -25,7 +25,7 @@ export const PROMO_CODES = '/promo-codes';
 export const HOME_PAGE = '/';
 export const CATEGORIES = '/categories';
 
-export const getPathProductBySlug = (slug) => `${PRODUCT}/${encodeUrl(slug)}`;
+export const getPathProductBySlug = (slug) => `${PRODUCT.replace('[slug]', encodeUrl(slug))}`;
 
 // SUB DOMAIN
 export const PATH_NEWS = 'https://news.thuocsi.vn';

@@ -2,13 +2,13 @@ import Template from 'components/layout/Template';
 import ThankYouContainer from 'components/organisms/ThankYouContainer';
 import { Container } from '@material-ui/core';
 import { OrderClient, doWithServerSide, isValid } from 'clients';
-import { withLogin } from 'context';
+import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
-    const [order] = await Promise.all([OrderClient.getOrderById(id, ctx)]);
+    const [order] = await Promise.all([OrderClient.getOrderById({ id: Number(id), ctx })]);
     if (!isValid(order)) {
       return {
         redirect: {

@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from 'react';
 import { Modal, InfoFormControl, InfoTable, Button, LinkComp } from 'components/atoms';
-import { Grid, Box, TableRow, TableCell, Divider } from '@material-ui/core';
+import { Grid, TableRow, TableCell, Divider } from '@material-ui/core';
 import { OrderClient, isValid, isValidWithoutData } from 'clients';
 import styled from 'styled-components';
 import { FormarCurrency, NotifyUtils } from 'utils';
@@ -30,7 +30,7 @@ const StyledCompleteButton = styled(Button)`
 `;
 
 const PrintInvoiceModal = memo((props) => {
-  const { onClose, visible, className, restProps, orderID, user } = props;
+  const { onClose, visible, className, restProps, orderNo, user } = props;
   const { address: add, businessName, email, mst } = user;
   const [val, setVal] = useState({
     mst: mst || '',
@@ -47,7 +47,6 @@ const PrintInvoiceModal = memo((props) => {
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
     setAddress({ ...val, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
   };
-
 
   const [products, setProducts] = useState([]);
 
@@ -71,7 +70,7 @@ const PrintInvoiceModal = memo((props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await OrderClient.getProductByOrderId(orderID);
+        const res = await OrderClient.getProductByOrderNo({ orderNo });
         if (!isValid(res)) throw Error();
         let orderItems = res?.data || [];
         const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems });
@@ -91,7 +90,7 @@ const PrintInvoiceModal = memo((props) => {
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
-        <Box textAlign="center">
+        <div style={{ textAlign: 'center' }}>
           <h2 className={styles.title}> Thông tin xuất hoá đơn</h2>
           <Divider />
           <Grid container>
@@ -160,7 +159,7 @@ const PrintInvoiceModal = memo((props) => {
             })}
           </InfoTable>
           <StyledCompleteButton onClick={handleCompleted}> Xuất hoá đơn </StyledCompleteButton>
-        </Box>
+        </div>
       </div>
     </Modal>
   );

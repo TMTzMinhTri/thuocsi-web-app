@@ -82,7 +82,16 @@
 .price_wrapper {
     margin: 15px 0;
 }
-@media (min-width: 768) {
+@media (max-width: 767px) {
+    .remove_icon{
+        max-width: 100%;
+        position: absolute !important;
+        right: 5px;
+        top: 5px;
+        padding: 5px !important;
+    }
+}
+@media (min-width: 768px) {
     .price_wrapper {
         margin: 0;
     }

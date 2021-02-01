@@ -96,10 +96,6 @@ async function request(props) {
       result.isBasic = true;
     }
 
-    if (result && result.status === HTTP_STATUS.Unauthorized) {
-      removeSessionToken();
-      window.location.href = '/';
-    }
     // console.log('result : ', result);
     return result;
   } catch (err) {

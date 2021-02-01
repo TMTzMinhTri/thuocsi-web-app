@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { CardActions, Typography, Box, IconButton } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
+import { CardActions, Typography, IconButton } from '@material-ui/core';
+import { Delete, Close } from '@material-ui/icons';
 import formatCurrency from 'utils/FormarCurrency';
 import clsx from 'clsx';
 import useModal from 'hooks/useModal';
@@ -27,6 +27,7 @@ const ProductCardBuy = ({
   id,
   name,
   product,
+  isMobile,
 }) => {
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
@@ -100,25 +101,25 @@ const ProductCardBuy = ({
     <>
       {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
       {noSupportDelivery && row ? (
-        <Box mb={2}>
-          <Box
-            mb={2}
+        <div style={{ marginBottom: '16px' }}>
+          <div
+            style={{ marginBottom: '16px' }}
             className={
               row ? styles.price_wrapper : clsx(styles.price_wrapper, styles.price_wrapper_column)
             }
           >
             <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
-          </Box>
+          </div>
           <Typography textAlign="center" className={clsx(styles.text_danger, styles.center)}>
             Chưa hỗ trợ giao tỉnh
           </Typography>
-        </Box>
+        </div>
       ) : (
         <>
           {isAuthenticated ? (
             <>
               {hasEvent ? (
-                <Box
+                <div
                   className={
                     row
                       ? styles.price_wrapper
@@ -127,9 +128,9 @@ const ProductCardBuy = ({
                 >
                   <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
                   <Typography className={styles.old_price}>{formatCurrency(price)}</Typography>
-                </Box>
+                </div>
               ) : (
-                <Box
+                <div
                   className={
                     row
                       ? styles.price_wrapper
@@ -137,7 +138,7 @@ const ProductCardBuy = ({
                   }
                 >
                   <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
-                </Box>
+                </div>
               )}
               {maxQuantity && maxQuantity > 0 && (
                 <Typography
@@ -170,8 +171,12 @@ const ProductCardBuy = ({
                   onClick={() => handleIncrease()}
                 />
                 {cart && (
-                  <IconButton onClick={removeProductOutCart}>
-                    <Delete className={styles.icon} />
+                  <IconButton className={styles.remove_icon} onClick={removeProductOutCart}>
+                    {isMobile ? (
+                      <Close className={styles.icon} />
+                    ) : (
+                      <Delete className={styles.icon} />
+                    )}
                   </IconButton>
                 )}
               </CardActions>

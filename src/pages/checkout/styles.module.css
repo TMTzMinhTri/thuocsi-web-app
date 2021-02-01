@@ -40,3 +40,9 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     resize: vertical;
 }
+
+@media (max-width: 767px){
+    .payment_wrapper {
+        padding: 0 15px 120px;
+    }
+}

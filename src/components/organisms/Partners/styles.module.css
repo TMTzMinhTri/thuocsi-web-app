@@ -1,5 +1,9 @@
-.center {
+.title {
     text-align: center;
+    font-size: 32px;
+    color:#00b46e;
+    font-weight: 500;
+    margin-top: 0;
 }
 .item{
     height: 185px;

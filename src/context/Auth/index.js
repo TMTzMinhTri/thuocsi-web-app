@@ -14,9 +14,10 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children, isShowingLogin }) => {
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const { pathname, reload } = router;
+  const { pathname, push } = router;
   const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
   const [isShowSignUp, toggleSignUp] = useModal();
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
@@ -72,6 +73,10 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
         isActive: userInfo && userInfo.status === 'ACTIVE',
         ...userInfo,
       });
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+      setUser(null);
     }
     setIsLoading(false);
   }, [setUser, setIsLoading, getUserInfo]);
@@ -111,9 +116,9 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
 
   const logout = () => {
     setUser(null);
+    setIsAuthenticated(false);
     setCookies({}, true);
-    reload(pathname);
-    // push('/');
+    push('/');
   };
 
   useEffect(() => {
@@ -124,7 +129,7 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
     <AuthContext.Provider
       value={{
         user,
-        isAuthenticated: !!user,
+        isAuthenticated,
         getUserInfo,
         loadUserFromCookies,
         login,
@@ -156,18 +161,4 @@ export const LoadingRoute = ({ children }) => {
   }
 
   return children;
-};
-
-export const withLogin = (Component, redirect = {}) => ({ ...props }) => {
-  const { url, message } = redirect;
-  const { isAuthenticated } = props;
-  if (!isAuthenticated) {
-    NotifyUtils.error(
-      message && message.length > 0 ? message : 'Bạn cần đăng nhập để vào được trang này ',
-    );
-    window.location.href = url && url.length > 0 ? url : '/?login=true';
-    return <LoadingScreen />;
-  }
-
-  return <Component {...props} />;
 };

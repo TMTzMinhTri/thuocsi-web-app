@@ -40,7 +40,8 @@
           ["utils", "./src/utils"],
           ["context", "./src/context"],
           ["i18n-lib", "./src/i18n-lib"],
-          ["sysconfig", "./src/sysconfig"]
+          ["sysconfig", "./src/sysconfig"],
+          ["HOC","./src/HOC"]
         ]
       }
     }

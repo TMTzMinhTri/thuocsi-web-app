@@ -20,6 +20,7 @@ const StyledModal = styled(ModalItem)`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 15px;
 `;
 
 export default React.memo(StyledModal);

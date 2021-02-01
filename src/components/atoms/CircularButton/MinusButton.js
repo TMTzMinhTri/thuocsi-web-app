@@ -9,7 +9,7 @@ const MinusButton = memo(({ className, ...restProps }) => (
   <>
     <IconButton
       {...restProps}
-      classes={{ root: clsx(styles.button_root, styles.button_root_minus, styles.minus) }}
+      classes={{ root: clsx(styles.button_root, styles.button_root_minus) }}
       className={clsx(styles.minus, className)}
     >
       <Remove className={styles.icon} />

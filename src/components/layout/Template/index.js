@@ -6,8 +6,7 @@ import HeaderMobile from '../HeaderMobile';
 import Footer from '../Footer';
 import FooterMobile from '../FooterMobile';
 
-export default function Template({ title, children, isMobile, pageName, pageTitle = '' }) {
-  console.log('render template ');
+export default function Template({ title, children, isMobile, pageName, pageTitle = '', product = '' }) {
   return (
     <div>
       <Head>
@@ -29,7 +28,7 @@ export default function Template({ title, children, isMobile, pageName, pageTitl
         {isMobile ? <HeaderMobile title={pageTitle} /> : <Header />}
         {!isMobile && <NavBar pageName={pageName} />}
         {children}
-        {isMobile ? <FooterMobile /> : <Footer />}
+        {isMobile ? <FooterMobile product={product} /> : <Footer />}
       </div>
     </div>
   );

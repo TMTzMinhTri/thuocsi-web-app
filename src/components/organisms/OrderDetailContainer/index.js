@@ -19,7 +19,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container>
           <Grid item xs={12}>
-            <h3 className={styles.title}> Chi tiết đơn hàng #{order.orderNo} </h3>
+            <h3 className={styles.title}> Chi tiết đơn hàng #{order.orderId} </h3>
           </Grid>
           <Grid item xs={12}>
             <OrderDetailStep status={order?.status} />
@@ -44,7 +44,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container direction="row">
           <Grid item xs={3}>
-            <PrintInvoiceButton orderID={order.orderNo} user={user} />
+            <PrintInvoiceButton orderNo={order.orderNo} user={user} />
           </Grid>
 
           <Grid item container direction="column" justify="center" xs={5}>

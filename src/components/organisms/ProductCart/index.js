@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Box, CardActionArea, CardMedia } from '@material-ui/core';
-import { Grade } from '@material-ui/icons';
+import { Card, IconButton, CardActionArea, CardMedia } from '@material-ui/core';
+import StarIcon from '@material-ui/icons/Star';
 import clsx from 'clsx';
 import { MISSING_IMAGE } from 'constants/Images';
 import useModal from 'hooks/useModal';
@@ -9,13 +9,13 @@ import { ProductCardContent, CustomModal } from 'components/mocules';
 import ProductCardBuy from '../ProductCardBuy';
 import styles from './styles.module.css';
 
-const ProductCart = ({ product, name }) => {
+const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
 
-  const { isImportant, imageUrls } = product;
+  const { imageUrls } = product;
 
   const handleSetImportant = () => {
     const importantList = cartItems.filter((item) => item.isImportant);
@@ -41,18 +41,16 @@ const ProductCart = ({ product, name }) => {
   };
 
   return (
-    <Box className={styles.button_container}>
-      <Box className={styles.root_card}>
-        <Box
+    <div className={styles.button_container}>
+      <div className={styles.root_card}>
+        <IconButton
           onClick={handleSetImportant}
           className={clsx(styles.important_item, product.important && styles.important_item_active)}
         >
-          <Grade
-            className={product.isImportant ? styles.important_item_active : styles.star_icon}
-          />
-        </Box>
+          <StarIcon style={{ color: isImportant ? '#f9b514' : '' }} />
+        </IconButton>
         <Card className={styles.product_card}>
-          <Box className={styles.product_image}>
+          <div className={styles.product_image}>
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -62,18 +60,27 @@ const ProductCart = ({ product, name }) => {
                 image={(imageUrls && imageUrls[0]) || MISSING_IMAGE}
               />
             </CardActionArea>
-          </Box>
-          <ProductCardContent className={styles.product_content} row {...product} />
-          <ProductCardBuy {...product} product={product} cart name={name} />
+          </div>
+          {isMobile ? (
+            <div className={styles.cart_content_mobile}>
+              <ProductCardContent className={styles.product_content} row {...product} />
+              <ProductCardBuy {...product} product={product} cart name={name} isMobile={isMobile} />
+            </div>
+          ) : (
+            <>
+              <ProductCardContent className={styles.product_content} row {...product} />
+              <ProductCardBuy {...product} product={product} cart name={name} isMobile={isMobile} />
+            </>
+          )}
         </Card>
-      </Box>
+      </div>
       <CustomModal
         onClickOk={handleConfirmImportantModal}
         visible={isShowModal}
         onClose={toggle}
         title="Xin xác nhận"
         content={`Bạn có chắc bạn muốn ${
-          unset && 'bỏ'
+          unset ? 'bỏ' : ''
         } đánh dấu sản phẩm này là quan trọng trong đơn hàng hiện tại?`}
       />
 
@@ -84,7 +91,7 @@ const ProductCart = ({ product, name }) => {
         content="Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm"
         btnOnClose="OK"
       />
-    </Box>
+    </div>
   );
 };
 export default ProductCart;

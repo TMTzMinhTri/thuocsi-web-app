@@ -2,15 +2,7 @@ import React, { useRef, memo } from 'react';
 import clsx from 'clsx';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import Slider from 'react-slick';
-import {
-  Card,
-  CardHeader,
-  Avatar,
-  CardContent,
-  Typography,
-  Box,
-  Container,
-} from '@material-ui/core';
+import { Card, CardHeader, Avatar, CardContent, Typography, Container } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { settingsCustomer, customerFeedbackData } from 'constants/data';
@@ -48,24 +40,16 @@ const SliderComp = () => {
     </div>
   ));
   return (
-    <Box className={styles.wrapper_media} component="div">
+    <div className={styles.wrapper_media}>
       <Container fixed>
-        <Box pt={5} pb={10}>
-          <Box
-            className={styles.center}
-            component="h2"
-            fontSize="32px"
-            color="#00b46e"
-            fontWeight="fontWeightMedium"
-          >
-            Khách hàng nói gì về thuocsi
-          </Box>
+        <div style={{ paddingTop: '40px', paddingBottom: '80px' }}>
+          <h2 className={styles.title}>Khách hàng nói gì về thuocsi</h2>
           <Slider ref={ref} {...settingsCustomer}>
             {sliderItem}
           </Slider>
-        </Box>
+        </div>
       </Container>
-    </Box>
+    </div>
   );
 };
 

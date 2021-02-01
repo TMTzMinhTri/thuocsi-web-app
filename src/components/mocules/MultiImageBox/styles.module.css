@@ -21,7 +21,7 @@
 .thumbnailImage {
   height: 80px !important;
   width: 80px !important;
-  border-radius: 20px;
+  border-radius: 6px;
 }
 
 .thumbnailSelected {
@@ -67,4 +67,11 @@
 
 .modalImage:focus {
   outline: none;
+}
+
+@media (max-width: 767px) {
+  .imgButtonBase{
+    margin-left: 0 !important;
+    margin-right: 10px !important;
+  }
 }
