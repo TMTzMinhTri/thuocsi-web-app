@@ -157,15 +157,12 @@
     background-color: transparent!important;
 }
 
-.minus {
-    padding: 20px!important;
-}
-
-.plus {
+.minus, .plus {
     min-width: 42px!important;
     max-width: 42px!important;
     height: 42px!important;
 }
+
 
 .subscribe_section {
     display: flex;
