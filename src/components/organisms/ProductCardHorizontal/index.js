@@ -17,7 +17,7 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
     searchInput.current.focus();
   };
   return (
-    <button onClick={handleFocus} className={styles.button_container}>
+    <div aria-hidden="true" onClick={handleFocus} className={styles.button_container}>
       <div className={styles.root_card}>
         <Card className={styles.product_card}>
           <div className={styles.product_image}>
@@ -45,7 +45,7 @@ const ProductCardHorizontal = ({ product, isMobile }) => {
           )}
         </Card>
       </div>
-    </button>
+    </div>
   );
 };
 
