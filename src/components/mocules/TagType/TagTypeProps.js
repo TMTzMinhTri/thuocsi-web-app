@@ -13,26 +13,26 @@ import styles from './style.module.css';
 
 const TagTypeProps = {
   default: {
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #f8f9fa',
     color: '#000',
   },
   BAN_CHAY: {
     text: 'Bán chạy',
-    backgroundColor: '#00b46e',
-    color: '#fff',
+    border: '1px solid #00b46e',
+    color: '#00b46e',
     icon: <ThumbUp className={styles.icon} />,
   },
 
   HOA_DON_NHANH: {
     text: 'Hóa đơn nhanh',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #00b46e',
     color: '#00b46e',
     icon: <Receipt className={styles.icon} />,
   },
 
   CLOSE_TO_EXPIRED_DATE: {
     text: 'Cận date',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #00b46e',
     color: '#00b46e',
     icon: <Receipt className={styles.icon} />,
   },
@@ -51,7 +51,7 @@ const TagTypeProps = {
 
   FLASH_SALE: {
     text: 'Flash Sale',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #f9b514',
     color: '#f9b514',
     icon: <FlashOn className={styles.icon} />,
   },
