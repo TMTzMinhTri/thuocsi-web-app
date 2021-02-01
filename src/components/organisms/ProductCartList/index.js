@@ -44,6 +44,7 @@ const ProductCartList = ({ products, isMobile }) => {
             <ProductCart
               key={`product-cart-${item.sku}`}
               product={item}
+              isImportant={item.isImportant}
               name={`cart-${item.sku}`}
               isMobile={isMobile}
             />
