@@ -25,7 +25,7 @@ export const PROMO_CODES = '/promo-codes';
 export const HOME_PAGE = '/';
 export const CATEGORIES = '/categories';
 
-export const getPathProductBySlug = (slug) => `${PRODUCT}/${encodeUrl(slug)}`;
+export const getPathProductBySlug = (slug) => `${PRODUCT.replace('[slug]', encodeUrl(slug))}`;
 
 // SUB DOMAIN
 export const PATH_NEWS = 'https://news.thuocsi.vn';
