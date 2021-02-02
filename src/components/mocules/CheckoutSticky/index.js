@@ -16,13 +16,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
   const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
   const { itemCount = 0, updateCart, total = 0 } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
-  const [totalVal, setTotalVal] = React.useState(totalPrice);
   const router = useRouter();
-
-  React.useEffect(() => {
-    const totalRes = Math.max(0, totalPrice - discount - transferValue);
-    setTotalVal(totalRes);
-  }, [discount, totalPrice, transferValue]);
 
   const [checkCondition, setCheckCondition] = React.useState({
     checked: false,
@@ -144,7 +138,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
       <Paper className={styles.root} elevation={4}>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Tạm tính</div>
-          <div className={styles.checkout_content}>{FormarCurrency(subTotalPrice)}</div>
+          <div className={styles.checkout_content}>{FormarCurrency(totalPrice)}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
@@ -156,7 +150,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
             {selectedValue === 'CK' ? `-${FormarCurrency(transferValue)}` : FormarCurrency(0)}
           </div>
         </div>
-        {redeemCode && (
+        {redeemCode && redeemCode.length > 0 && (
           <div className={clsx(styles.d_flex, styles.checkout_promo_code)}>
             <div>
               <FontAwesomeIcon className={styles.icon} icon={faTags} />
@@ -167,7 +161,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
         )}
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Thành tiền</div>
-          <div className={styles.total}>{FormarCurrency(totalVal)}</div>
+          <div className={styles.total}>{FormarCurrency(Math.max(0, subTotalPrice))}</div>
         </div>
       </Paper>
 
