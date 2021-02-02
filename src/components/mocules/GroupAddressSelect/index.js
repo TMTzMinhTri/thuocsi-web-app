@@ -132,7 +132,7 @@ const GroupAddressSelect = ({
   };
 
   return (
-    <Grid container spacing={3} style={{marginTop: '10px'}}>
+    <Grid className={styles.address_field} container spacing={3} style={{marginTop: '10px'}}>
       <AddressSelect
         label={<span className={styles.fw500}>Tỉnh/Thành phố</span>}
         id={uuidV4()}

@@ -17,8 +17,8 @@ import styles from './style.module.css';
 const PROMO_CODE_DEFAULT = '';
 
 const DeleteIconButton = (props) => (
-  <IconButton style={{ padding: 0 }}>
-    <DeleteIcon {...props} />
+  <IconButton {...props} style={{ padding: 0 }}>
+    <DeleteIcon />
   </IconButton>
 );
 const handleToCheckout = () => {};

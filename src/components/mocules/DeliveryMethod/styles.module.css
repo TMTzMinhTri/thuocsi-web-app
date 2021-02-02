@@ -17,8 +17,6 @@
   font-weight: 500!important;
 }
 
-
-
 .checkbox_color {
   color: #00b46e!important;
 }
@@ -49,3 +47,8 @@
   font-weight: 500!important;
 }
 
+@media (max-width: 767px) {
+  .root{
+    padding: 15px;
+  }
+}

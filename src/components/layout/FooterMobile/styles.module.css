@@ -4,7 +4,6 @@
     width: 100%;
     background: white;
     box-shadow: 0px -3px 20px rgba(0,0,0,0.08);
-    padding: 12px 10px;
     z-index: 99;
 }
 .bottom_bar .custombtn{
@@ -13,6 +12,7 @@
 }
 .div_buttons{
     text-align: center;
+    padding: 12px;
 }
 .appBar{
     top: auto !important;
@@ -83,7 +83,7 @@
     background: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
     width: 100%;
     height: 100%;
-    padding: 11px;
+    padding: 11px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
