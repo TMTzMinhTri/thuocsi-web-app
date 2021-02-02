@@ -48,11 +48,11 @@ const ProductCardBuy = ({
   const canDeleteProduct = () => {
     const quantityAfterDel = cartItems.length - 1;
     let importantQuantity = importantList.length;
-    if (product.isImportant) importantQuantity -= 1;
     const importantQuantityMax = Math.floor(quantityAfterDel * IMPORTANT_PERCENT_MAX);
-    if (importantQuantity > importantQuantityMax && quantityAfterDel < 5) return false;
 
-    return true;
+    if (product.isImportant) importantQuantity -= 1;
+
+    return !(importantQuantity > importantQuantityMax);
   };
   const handleRemove = () => {
     if (canDeleteProduct()) {

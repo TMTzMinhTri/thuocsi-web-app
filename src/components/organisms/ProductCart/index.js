@@ -21,11 +21,7 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
     if (isImportant) {
       setUnset(true);
     } else {
-      if (cartItems.length < 5) {
-        toggleWarning();
-        return;
-      }
-      if (importantList.length >= (Math.floor((cartItems.length * 20) / 100) || 1)) {
+      if (importantList.length >= Math.floor((cartItems.length * 20) / 100)) {
         toggleWarning();
         return;
       }
