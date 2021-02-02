@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Typography, Grid, Button } from '@material-ui/core';
 import { EditOrderButton } from 'components/mocules';
 import { DateTimeUtils } from 'utils';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import { MY_ORDER_URL } from 'constants/Paths';
 import styles from './styles.module.css';
 
@@ -15,9 +15,8 @@ const WatchOrderButton = ({ handleClick }) => (
 );
 
 const ThankYouContainer = ({ orderID = 0, deliveryDate = Date.now() }) => {
-  const router = useRouter();
   const handleWatchOrder = () => {
-    router.push(`${MY_ORDER_URL}/${orderID}`);
+    Router.push(`${MY_ORDER_URL}/${orderID}`);
   };
   return (
     <Grid container spacing={2} className={styles.container} direction="column">
@@ -29,7 +28,7 @@ const ThankYouContainer = ({ orderID = 0, deliveryDate = Date.now() }) => {
       </Typography>
       <Grid item>
         Dự kiến giao vào
-        <strong> {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate || Date.now()))} </strong>
+        <strong>{DateTimeUtils.getFormattedWithDate(new Date(deliveryDate))} </strong>
       </Grid>
 
       <Grid item>

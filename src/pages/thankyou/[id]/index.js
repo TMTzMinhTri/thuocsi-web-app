@@ -27,12 +27,12 @@ export async function getServerSideProps(ctx) {
 
 const ThankYou = ({ order = {}, isMobile }) => {
   const title = 'Cảm ơn bạn đã đặt hàng tại thuocsi.vn!';
-  const { orderNo, deliveryDate } = order;
+  const { orderId, deliveryDate } = order;
   return (
     <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <ThankYouContainer orderID={orderNo} deliveryDate={deliveryDate} />
+          <ThankYouContainer orderID={orderId} deliveryDate={deliveryDate} />
         </Container>
       </div>
     </Template>

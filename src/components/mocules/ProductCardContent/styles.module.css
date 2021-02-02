@@ -103,6 +103,12 @@
     .product_name{
         margin-bottom: 0 !important;
     }
+    .product_title {
+        height: auto;
+    }
+    .product_tags {
+        margin: 10px 0 8px !important;
+    }
 }
 @media (min-width: 768px) {
     .product_content_column {

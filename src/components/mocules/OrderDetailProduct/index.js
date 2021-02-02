@@ -29,6 +29,7 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
             <TableCell />
             <TableCell />
             <TableCell>Sản phẩm</TableCell>
+            <TableCell align="right">Số lượng</TableCell>
             <TableCell align="right">Giá (đ)</TableCell>
             <TableCell align="right">Tổng cộng (đ)</TableCell>
           </TableRow>
@@ -45,7 +46,9 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
                     <StarIcon style={{ color: isImportant ? '#f9b514' : '' }} />
                   </TableCell>
                   <TableCell>
-                    <img src={imageUrls ? imageUrls[0] : ''} alt={name} width={50} height={30} />
+                    <LinkComp href={getPathProductBySlug(slug)}>
+                      <img src={imageUrls ? imageUrls[0] : ''} alt={name} width={50} height={30} />
+                    </LinkComp>
                   </TableCell>
                   <TableCell align="left" className={styles.product_name}>
                     <LinkComp
@@ -58,7 +61,10 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
                     </LinkComp>
                   </TableCell>
                   <TableCell align="right" className={styles.product_price}>
-                    {`${quantity} x ${FormarCurrency(price, '.', ' ')}`}
+                    {quantity}
+                  </TableCell>
+                  <TableCell align="right" className={styles.product_price}>
+                    {FormarCurrency(price, '.', ' ')}
                   </TableCell>
                   <TableCell align="right">{FormarCurrency(totalPrice, '.', ' ')}</TableCell>
                 </TableRow>
@@ -67,11 +73,13 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
         </TableBody>
       </Table>
       {promoName && (
-      <Grid container justify="space-between" className={styles.promo}>
-        <Grid item>Mã giảm giá <strong>{promoName} </strong></Grid>
-        <Grid item>-&nbsp;{FormarCurrency(totalDiscount, '.', ' ')}</Grid>
-      </Grid>
-)}
+        <Grid container justify="space-between" className={styles.promo}>
+          <Grid item>
+            Mã giảm giá <strong>{promoName} </strong>
+          </Grid>
+          <Grid item>-&nbsp;{FormarCurrency(totalDiscount, '.', ' ')}</Grid>
+        </Grid>
+      )}
       <Grid container justify="flex-end" style={{ padding: ' 30px 45px' }} spacing={3}>
         <Grid item className={styles.price_label}>
           Tổng cộng

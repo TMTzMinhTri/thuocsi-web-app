@@ -6,11 +6,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
 import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
-import { CartClient,PromoClient, isValid } from 'clients';
+import { CartClient, PromoClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
 import { Button, LinkComp } from 'components/atoms';
-import { CART_URL, QUICK_ORDER } from 'constants/Paths';
-import { useRouter } from 'next/router';
+import { CART_URL, QUICK_ORDER, CHECKOUT_URL } from 'constants/Paths';
+import Router, { useRouter } from 'next/router';
 import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
 
@@ -21,7 +21,9 @@ const DeleteIconButton = (props) => (
     <DeleteIcon />
   </IconButton>
 );
-const handleToCheckout = () => {};
+const handleToCheckout = () => {
+  Router.push(CHECKOUT_URL);
+};
 
 const PaymentButton = ({ user }) => (
   <>
@@ -31,16 +33,14 @@ const PaymentButton = ({ user }) => (
         840 để kích hoạt
       </Alert>
     )}
-    <LinkComp href="/checkout" className={styles.width100}>
-      <Button
-        disabled={!user.isActive}
-        btnType="payment"
-        className="payment_button"
-        onClick={handleToCheckout}
-      >
-        Tiếp tục thanh toán
-      </Button>
-    </LinkComp>
+    <Button
+      disabled={!user.isActive}
+      btnType="payment"
+      className="payment_button"
+      onClick={handleToCheckout}
+    >
+      Tiếp tục thanh toán
+    </Button>
   </>
 );
 
@@ -66,7 +66,11 @@ const CardInfo = ({ cart, promo, className, user }) => {
   const handleChangePromo = async (code) => {
     setPromoVisible(false);
     try {
-      const checkRes = await PromoClient.checkPromoAvailableForCart({ cartItems, totalPrice:total, voucherCode: Number(code) });
+      const checkRes = await PromoClient.checkPromoAvailableForCart({
+        cartItems,
+        totalPrice: total,
+        voucherCode: Number(code),
+      });
       if (!isValid(checkRes)) throw new Error(checkRes.messsage);
       const updaterRes = await CartClient.updateRedeemCode(code);
       if (!isValid(updaterRes)) throw new Error(updaterRes.messsage);

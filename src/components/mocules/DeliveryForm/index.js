@@ -15,7 +15,7 @@ const DeliveryForm = ({
 }) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}> Thông tin giao hàng </h1>
-    <Grid container spacing={2}>
+    <Grid container spacing={2} className={styles.addressGrid}>
       <InfoFormControl xs={12} label="Địa chỉ giao hàng" htmlFor="address">
         <InfoInput id="address" placeholder="Địa chỉ giao hàng" />
         <FormHelperText>

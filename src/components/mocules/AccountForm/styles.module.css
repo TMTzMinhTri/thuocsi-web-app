@@ -13,3 +13,12 @@
   justify-content: center;
   margin: 0;
 }
+@media (max-width: 767px) {
+  .title{
+    font-size: 27px;
+    margin-bottom: 20px;
+  }
+  .root_mobile {
+    padding: 0 0 120px !important;
+  }
+}
