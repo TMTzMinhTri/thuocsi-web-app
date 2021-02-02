@@ -114,3 +114,7 @@ export const ButtonHeader = React.memo(styled(StyledButton)`
   margin-right: 10px !important;
   border-radius: 50px !important;
 `);
+
+export const ButtonDefault = styled(StyledButton)`
+  border-radius: 8px;
+`;

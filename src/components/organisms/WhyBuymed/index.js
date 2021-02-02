@@ -66,4 +66,4 @@ const WhyBuymed = () => (
   </div>
 );
 
-export default WhyBuymed;
+export default React.memo(WhyBuymed);

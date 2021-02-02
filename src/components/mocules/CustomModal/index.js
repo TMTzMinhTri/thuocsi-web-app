@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
-import { Modal } from 'components/atoms';
-import { Button, Typography } from '@material-ui/core';
-import clsx from 'clsx';
+import { Modal, ButtonDefault } from 'components/atoms';
+import { Typography } from '@material-ui/core';
 
 import styles from './style.module.css';
 
@@ -28,14 +27,14 @@ const CustomModal = memo(
         </div>
         <div style={{ textAlign: 'center', marginTop: '16px' }}>
           {onClose ? (
-            <Button className={clsx(styles.btn, styles.brown_btn)} onClick={onClose}>
+            <ButtonDefault btnType="warning" onClick={onClose}>
               {btnOnClose}
-            </Button>
+            </ButtonDefault>
           ) : null}
           {onClickOk ? (
-            <Button onClick={onClickOk} className={clsx(styles.btn, styles.fill_btn)}>
+            <ButtonDefault onClick={onClickOk} btnType="success" styles={{ marginLeft: '20px' }}>
               {btnOk}
-            </Button>
+            </ButtonDefault>
           ) : null}
         </div>
       </div>
