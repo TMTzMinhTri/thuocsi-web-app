@@ -22,6 +22,7 @@ export async function login(body) {
   const result = await POST({
     url: ACCOUNT_API.AUTHENTICATION,
     body: { ...body, type: 'CUSTOMER' },
+    isAuth: false,
   });
   return result;
 }
