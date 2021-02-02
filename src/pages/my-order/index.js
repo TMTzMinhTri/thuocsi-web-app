@@ -26,6 +26,7 @@ export async function getServerSideProps(ctx) {
       } else {
         orders = ods;
       }
+      console.log(orders)
       return {
         props: {
           orders,

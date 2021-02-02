@@ -5,24 +5,34 @@ import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
 
-const DeliveryForm = ({ province, district, ward, handleSetValue, handleChangeAddress }) => (
+const DeliveryForm = ({
+  deliveryProvinceCode,
+  deliveryDistrictCode,
+  deliveryWardCode,
+  handleSetValue,
+  handleChangeAddress,
+  error,
+}) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}> Thông tin giao hàng </h1>
     <Grid container spacing={2}>
       <InfoFormControl xs={12} label="Địa chỉ giao hàng" htmlFor="address">
         <InfoInput id="address" placeholder="Địa chỉ giao hàng" />
-        <FormHelperText>Nhập địa chỉ, đường phố. Rồi chọn tỉnh/thành phố, phường/xã, quận/huyện</FormHelperText>
+        <FormHelperText>
+          Nhập địa chỉ, đường phố. Rồi chọn tỉnh/thành phố, phường/xã, quận/huyện
+        </FormHelperText>
       </InfoFormControl>
     </Grid>
     <GroupAddressSelect
       idProvince="province"
-      province={province}
+      province={deliveryProvinceCode}
       idDistrict="district"
-      district={district}
+      district={deliveryDistrictCode}
       idWard="ward"
-      ward={ward}
+      ward={deliveryWardCode}
       handleSetValue={handleSetValue}
       handleChangeAddress={handleChangeAddress}
+      error={error}
     />
   </Paper>
 );

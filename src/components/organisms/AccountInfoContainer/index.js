@@ -34,12 +34,11 @@ const AccountInfoFormContainer = ({ user, t }) => {
     wardCode,
     mst,
     address,
-    province: provinceCode,
-    district: districtCode,
-    ward: wardCode,
+    deliveryProvinceCode: provinceCode,
+    deliveryDistrictCode: districtCode,
+    deliveryWardCode: wardCode,
     customerID,
   });
-
 
   const [err, setErr] = useState({});
   const handleSetValue = (key, val) => {
@@ -76,7 +75,11 @@ const AccountInfoFormContainer = ({ user, t }) => {
           {...value}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
-          err={err}
+          error={{
+            province: err.provinceCode,
+            district: err.districtCode,
+            ward: err.wardCode,
+          }}
         />
       </Grid>
       <Grid item xs={12}>
@@ -84,7 +87,11 @@ const AccountInfoFormContainer = ({ user, t }) => {
           {...value}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
-          err={err}
+          error={{
+            province: err.deliveryProvinceCode,
+            district: err.deliveryDistrictCode,
+            ward: err.deliveryWardCode,
+          }}
         />
       </Grid>
       <Grid item xs={12}>

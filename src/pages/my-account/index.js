@@ -8,6 +8,7 @@ export async function getServerSideProps(ctx) {
 }
 
 const MyAccount = ({ user, isMobile }) => {
+  console.log(user)
   const title = 'Cập nhật hồ sơ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
     <Template title={title} isMobile={isMobile}>

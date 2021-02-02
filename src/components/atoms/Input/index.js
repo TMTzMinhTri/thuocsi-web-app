@@ -32,7 +32,7 @@ const Input = styled(InputCustom)`
   }
 
   &.input__info {
-    height: 2.4em !important;
+    height: 2.24em !important;
     margin-bottom: 0!important;
 
     & .MuiInputBase-input {
