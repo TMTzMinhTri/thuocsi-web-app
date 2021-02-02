@@ -24,6 +24,7 @@ const GroupAddressSelect = ({
   idDistrict,
   idWard,
   handleChangeAddress,
+  error = {},
 }) => {
   const [address, setAddress] = useState({
     provinces: DEFAULT_PROVINCE_ARRAY,
@@ -142,6 +143,7 @@ const GroupAddressSelect = ({
         value={province}
         onChange={handleChangeProvince}
         options={address.provinces}
+        error={error.province}
       />
       <AddressSelect
         id={uuidV4()}
@@ -150,6 +152,7 @@ const GroupAddressSelect = ({
         options={address.districts}
         label={<span className={styles.fw500}>Quận/Huyện</span>}
         disabled={ADDRESS_POS.DISTRICT > address.position}
+        error={error.district}
       />
 
       <AddressSelect
@@ -159,6 +162,7 @@ const GroupAddressSelect = ({
         options={address.wards}
         label={<span className={styles.fw500}>Phường/Xã</span>}
         disabled={ADDRESS_POS.WARD > address.position}
+        error={error.ward}
       />
     </Grid>
   );

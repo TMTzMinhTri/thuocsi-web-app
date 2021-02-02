@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import InfoInput from '../InfoInput';
 
-const AddressSelect = ({ label, id, options = [], onChange, value, disabled, className }) => {
+const AddressSelect = ({ label, id, options = [], onChange, value, disabled, className, error }) => {
   const maxWidthAddressSelect = useMediaQuery('(max-width:720px)');
 
   return (
     <InfoFormControl xs={maxWidthAddressSelect ? 12 : 4} label={label} htmlFor={id} isRequired>
       <NativeSelect
         id={id}
-        input={<InfoInput />}
+        input={<InfoInput error={error} />}
         IconComponent={ExpandMoreIcon}
         value={value}
         onChange={onChange}
@@ -39,6 +39,9 @@ const StyledAddressSelect = styled(AddressSelect)`
   }
   &.MuiOutlinedInput-root {
     height: 2.4em !important;
+  }
+  & .MuiNativeSelect-select:focus {
+    background-color: transparent !important;
   }
 `;
 export default StyledAddressSelect;
