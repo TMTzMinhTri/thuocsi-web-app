@@ -61,7 +61,7 @@ async function request(props) {
     }
 
     let isUseBasic = false;
-    if (isAuth) {
+    if (!mock && isAuth) {
       if (ctx) {
         const AuthorizationValue = getSessionToken(ctx);
         if (AuthorizationValue) {

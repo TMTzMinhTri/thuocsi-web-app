@@ -48,13 +48,7 @@ const RemoveProductModal = memo((props) => {
             Không
           </ButtonDefault>
 
-          <ButtonDefault
-            btnType="success"
-            onClick={() => onRemove()}
-            style={{ marginLeft: '20px' }}
-          >
-            Có
-          </ButtonDefault>
+          <ButtonDefault onClick={() => onRemove()}>Có</ButtonDefault>
         </div>
       </div>
     </Modal>

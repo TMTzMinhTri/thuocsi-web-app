@@ -31,11 +31,7 @@ const CustomModal = memo(
               {btnOnClose}
             </ButtonDefault>
           ) : null}
-          {onClickOk ? (
-            <ButtonDefault onClick={onClickOk} btnType="success" styles={{ marginLeft: '20px' }}>
-              {btnOk}
-            </ButtonDefault>
-          ) : null}
+          {onClickOk ? <ButtonDefault onClick={onClickOk}>{btnOk}</ButtonDefault> : null}
         </div>
       </div>
     </Modal>
