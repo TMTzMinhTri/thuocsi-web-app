@@ -11,6 +11,7 @@ import { NotifyUtils } from 'utils';
 import { Button, LinkComp } from 'components/atoms';
 import { CART_URL, QUICK_ORDER, CHECKOUT_URL } from 'constants/Paths';
 import Router, { useRouter } from 'next/router';
+import { isEmpty } from 'utils/ValidateUtils';
 import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
 
@@ -112,9 +113,9 @@ const CardInfo = ({ cart, promo, className, user }) => {
           >
             <LocalOffer className={styles.icon_promo} />
             <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
-              {redeemCode || 'Dùng mã khuyến mãi'}
+              {!isEmpty(redeemCode) ? redeemCode[0] : 'Dùng mã khuyến mãi'}
             </Typography>
-            {redeemCode ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
+            {!isEmpty(redeemCode) ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
           </Grid>
         )}
         <Grid className={styles.wrapper} xs={12} container item>
