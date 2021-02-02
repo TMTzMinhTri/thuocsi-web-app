@@ -66,7 +66,6 @@ const CardInfo = ({ cart, promo, className, user }) => {
   const handleChangePromo = async (code) => {
     setPromoVisible(false);
     try {
-      console.log(code);
       // const checkRes = await PromoClient.checkPromoAvailableForCart({
       //   cartItems,
       //   totalPrice: total,
