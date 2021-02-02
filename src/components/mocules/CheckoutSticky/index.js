@@ -19,7 +19,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
   const router = useRouter();
 
   const [checkCondition, setCheckCondition] = React.useState({
-    checked: true,
+    checked: false,
   });
 
   const GreenCheckbox = React.memo((props) => (
