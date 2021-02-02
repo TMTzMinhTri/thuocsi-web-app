@@ -52,7 +52,6 @@ const StyledBadge = styled(Badge)`
 
     &--new {
       background: #f9b514;
-
       &::after {
         border-top: 0.1875rem solid #bc8505;
       }

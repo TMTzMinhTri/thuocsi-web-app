@@ -53,7 +53,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
 
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
-  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('NORMAL');
+  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('standard');
   const [note, setNote] = React.useState(noteValue);
   const [value, setValue] = useState({
     customerName: user.name || '',
@@ -88,7 +88,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   };
 
   const handleDeliveryChange = (event) => {
-    setSelectedDeliveryValue(event);
+    setSelectedDeliveryValue(event.target.value);
   };
 
   const handleSetValue = (key, val) => {
@@ -120,6 +120,9 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
 
   // TODO: cần kiểm tra lại
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
+    if (Number(province) !== 79) {
+      setSelectedDeliveryValue('standard');
+    }
     setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
   };
 
@@ -136,6 +139,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 handleChangeAddress={handleChangeAddress}
               />
               <DeliveryMethod
+                isHCM={Number(value.customerProvinceCode) === 79}
                 selectedValue={selectedDeliveryValue}
                 handleChange={handleDeliveryChange}
               />
