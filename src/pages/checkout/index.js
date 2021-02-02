@@ -47,7 +47,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     router.push(CART_URL);
     return <LoadingScreen />;
   }
-
+  // TODO: sử dụng
   const { note: noteValue } = (cart && cart[0]) || {};
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
@@ -99,7 +99,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     setError({ ...value, [key]: val });
   };
 
-  // TODO: gộp lại
+  // TODO: gộp lại tách ra ngoài
   const handleUpdateNote = useCallback(async (valNote) => {
     try {
       const res = await CartClient.updateNote(valNote);
@@ -118,6 +118,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     debounceFunc500(() => handleUpdateNote(valNote));
   };
 
+  // TODO: cần kiểm tra lại
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
     setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
   };
