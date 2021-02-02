@@ -14,7 +14,7 @@ import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
 import styles from './styles.module.css';
 
-const IMPORTANT_PERCENT_MAX = 20;
+const IMPORTANT_PERCENT_MAX = 20 / 100;
 
 const ProductCardBuy = ({
   maxQuantity,
@@ -49,7 +49,7 @@ const ProductCardBuy = ({
     const quantityAfterDel = cartItems.length - 1;
     let importantQuantity = importantList.length;
     if (product.isImportant) importantQuantity -= 1;
-    const importantQuantityMax = Math.floor((quantityAfterDel * IMPORTANT_PERCENT_MAX) / 100);
+    const importantQuantityMax = Math.floor(quantityAfterDel * IMPORTANT_PERCENT_MAX);
     if (importantQuantity > importantQuantityMax && quantityAfterDel < 5) return false;
 
     return true;
