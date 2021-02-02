@@ -41,9 +41,11 @@
 
 .price_wrapper_column {
     flex-direction: column!important;
-    align-items: center;
+    align-items: flex-end;
     flex: 15%;
     max-width: 15%;
+    text-align: right;
+    margin-right: 20px !important;
 }
 
 .deal_price {

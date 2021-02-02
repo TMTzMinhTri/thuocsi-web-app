@@ -82,8 +82,11 @@
 .product_title {
     flex: 70%;
     text-align: left;
+    padding-right: 10px !important;
 }
-
+.product_type{
+    text-align: left;
+}
 .h40 {
     height: 40px;
 }
@@ -112,7 +115,7 @@
 }
 @media (min-width: 768px) {
     .product_content_column {
-        min-width: 442px;
+        min-width: 410px;
     }
     .product_content {
         margin-bottom: 16px;
