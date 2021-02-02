@@ -30,6 +30,18 @@ function getFormattedWithDate(date, format = 'd (DD/MM/YYYY)') {
   return getFormattedDate(date, format).replace('d', getDayOfWeek(dayOfWeek));
 }
 
+
+// https://stackoverflow.com/questions/492994/compare-two-dates-with-javascript
+function compareTime(timeA, timeB) {
+  const dA = new Date(timeA);
+  const dB = new Date(timeB);
+  const tA = dA.getTime();
+  const tB = dB.getTime();
+  if(tA === tB) return 0;
+  if(dA > dB) return 1;
+  return -1;
+}
+
 //  Time ago func
 const SECOND = 1;
 const MINUTE = 60;
@@ -110,4 +122,5 @@ export default {
   getFormattedWithDate,
   getTimeAgo,
   DAY_SECONDS,
+  compareTime,
 };

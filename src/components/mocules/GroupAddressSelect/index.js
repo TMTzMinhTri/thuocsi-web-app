@@ -34,17 +34,20 @@ const GroupAddressSelect = ({
 
   async function getProvinces() {
     const res = await AddressClient.getProvinces();
-    return [...DEFAULT_PROVINCE_ARRAY, ...res];
+    const prvs = res.sort((a, b) => a.label.localeCompare(b.label));
+    return [...DEFAULT_PROVINCE_ARRAY, ...prvs];
   }
 
   async function getDistricts(prv) {
     const res = await AddressClient.getDistrictsByProvince(prv);
-    return [...DEFAULT_DISTRICT_ARRAY, ...res];
+    const dists = res.sort((a, b) => a.label.localeCompare(b.label));
+    return [...DEFAULT_DISTRICT_ARRAY, ...dists];
   }
 
   async function getWards(dist) {
     const res = await AddressClient.getWardsByDistrict(dist);
-    return [...DEFAULT_WARD_ARRAY, ...res];
+    const wads = res.sort((a, b) => a.label.localeCompare(b.label));
+    return [...DEFAULT_WARD_ARRAY, ...wads];
   }
 
   useEffect(() => {

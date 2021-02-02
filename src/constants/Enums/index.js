@@ -41,6 +41,26 @@ export const PROMOTION_STATUS = {
   DELETED: 'DELETED',
 };
 
+export const PROMOTION_SCOPE = {
+  GLOBAL: 'GLOBAL',
+  SELLER: 'SELLER',
+  CATEGORY: 'CATEGORY',
+  PRODUCT: 'PRODUCT',
+  SKU: 'SKU',
+};
+
+export const PROMO_RULE_FIELD_TYPE = {
+  MIN_QUANTITY: 'MIN_QUANTITY',
+  MIN_ORDER_VALUE: 'MIN_ORDER_VALUE',
+};
+
+export const PROMO_RULE_TYPE = {
+  VALUE: 'VALUE',
+  PERCENT: 'PERCENT',
+  GIFT: 'GIFT',
+  PRODUCT: 'PRODUCT',
+};
+
 export const HTTP_STATUS = {
   Ok: 'OK',
   Error: 'ERROR',
