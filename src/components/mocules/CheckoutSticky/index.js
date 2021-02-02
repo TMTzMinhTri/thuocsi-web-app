@@ -20,7 +20,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
   const router = useRouter();
 
   React.useEffect(() => {
-    const totalRes = totalPrice - discount - transferValue;
+    const totalRes = Math.max(0, totalPrice - discount - transferValue);
     setTotalVal(totalRes);
   }, [discount, totalPrice, transferValue]);
 
