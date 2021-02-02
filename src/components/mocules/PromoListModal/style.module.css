@@ -37,14 +37,18 @@
   cursor: pointer;
 }
 
+.not_yet {
+  text-align: center;
+  padding: 40%;
+}
+
 @media (max-width: 767px) {
   .confirm_modal_wrap {
-    max-height: 890px;
+    max-height: 700px;
   }
 }
 @media (min-width: 768px) {
   .confirm_modal_wrap {
-    min-height: 890px;
+    min-height: 700px;
   }
 }
-

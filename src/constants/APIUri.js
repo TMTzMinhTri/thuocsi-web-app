@@ -91,6 +91,7 @@ const PROMOTION_ALL = `${PROMOTION_API_PREFIX}/promotion`;
 
 export const PROMOTION_API = {
   PROMOTION_ALL,
+  PROMOTION_API_PREFIX,
 };
 
 const ORDER_API_PREFIX = '/marketplace/order/v1';
