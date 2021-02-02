@@ -38,10 +38,10 @@ const UsedButton = styled(Button)`
 `;
 
 const CartCounponCard = ({
-  promotionCode: code = '',
+  code = '',
   promotionName = '',
   promotionType: type = PROMO_TYPE.COMBO,
-  endTime,
+  expiredDate,
   rule = {},
   redeemCode = '',
   handleChangePromo,
@@ -115,7 +115,7 @@ const CartCounponCard = ({
 
           <Grid item>
             <div style={{ display: 'flex' }}>
-              {!endTime ? 'Không giới hạn' : <CountdownTimer prefix="Còn" dealEndDay={endTime} />}
+              {!expiredDate ? 'Không giới hạn' : <CountdownTimer prefix="Còn" dealEndDay={expiredDate} />}
             </div>
           </Grid>
           {type === PROMO_TYPE.VOUCHERCODE && (
@@ -125,7 +125,7 @@ const CartCounponCard = ({
           )}
         </Grid>
 
-        <Grid item xs={4} container direction="column" AlignItems="center">
+        <Grid item xs={4} container direction="column" alignItems="center">
           <Grid item className={styles.code}>
             {code}
           </Grid>

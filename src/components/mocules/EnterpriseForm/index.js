@@ -24,7 +24,7 @@ const EnterpriseForm = ({
   provinceCode,
   handleSetValue,
   handleChangeAddress,
-  err
+  error
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
   return (
@@ -76,13 +76,13 @@ const EnterpriseForm = ({
         </InfoFormControl>
       </Grid>
       <h1 className={styles.title}> Thông tin xuất hoá đơn </h1>
-      <Grid className={styles.clear} container spacing={2}>
-        <InfoFormControl xs={12} label="Mã số thuế" htmlFor="mst" error={err.mst} isRequired>
+      <Grid container spacing={2}>
+        <InfoFormControl xs={12} label="Mã số thuế" htmlFor="mst" error={error.mst} isRequired>
           <InfoInput
             id="mst"
             placeholder="Mã số thuế"
             value={mst}
-            error={err.mst}
+            error={error.mst}
             onChange={(e) => {
               handleSetValue('mst', e.target.value);
             }}
@@ -108,6 +108,7 @@ const EnterpriseForm = ({
         idWard="wardCode"
         ward={wardCode}
         handleChangeAddress={handleChangeAddress}
+        error={error}
       />
     </Paper>
   );

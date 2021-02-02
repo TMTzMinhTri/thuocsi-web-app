@@ -10,10 +10,10 @@ import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
 const CounponCard = ({
-  promotionCode: code = '',
+  code = '',
   promotionName = '',
   promotionType: type = PROMO_TYPE.COMBO,
-  endTime = new Date(Date.now()),
+  expiredDate = new Date(Date.now()),
   rule = {},
 }) => {
   const { type: ruleType = PROMO_RULE_TYPE.VALUE, conditions = [] } = rule;
@@ -71,7 +71,7 @@ const CounponCard = ({
             {type === PROMO_TYPE.VOUCHERCODE && 'Giảm giá'}
           </div>
           <div style={{ display: 'flex' }}>
-            <CountdownTimer prefix="Còn" dealEndDay={endTime} />
+            <CountdownTimer prefix="Còn" dealEndDay={expiredDate} />
           </div>
         </Grid>
         <Grid item container xs={8}>
