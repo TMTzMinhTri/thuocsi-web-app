@@ -2,10 +2,9 @@ import Link from 'next/link';
 import { Typography, Grid, Container, useMediaQuery } from '@material-ui/core';
 import { CouponCard } from 'components/mocules';
 import { v4 as uuidv4 } from 'uuid';
-
 import styles from './styles.module.css';
 
-const PromoCodesContainer = ({ promos }) => {
+const PromoCodesContainer = ({ promos = [] }) => {
   const maxWidth3Card = useMediaQuery('(max-width:873px)');
   return (
     <div className={styles.root}>
@@ -44,7 +43,7 @@ const PromoCodesContainer = ({ promos }) => {
             &nbsp;để nhận được code riêng
           </p>
 
-          {promos ? (
+          {promos.length !== 0 ? (
             <Grid container spacing={4}>
               {promos.map((promo) => (
                 <Grid key={uuidv4()} item xs={maxWidth3Card ? 6 : 4}>
@@ -53,7 +52,7 @@ const PromoCodesContainer = ({ promos }) => {
               ))}
             </Grid>
           ) : (
-            <p className={styles.promo_for_you}>Chưa có mã</p>
+            <p className={styles.promo_not_yet}>Chưa có mã</p>
           )}
         </div>
       </Container>
@@ -63,7 +62,7 @@ const PromoCodesContainer = ({ promos }) => {
       </div>
       <Container maxWidth="lg" className={styles.container}>
         <h1 className={styles.title}> Các mã khác </h1>
-        {promos ? (
+        {promos.length !== 0 ? (
           <Grid container spacing={4}>
             {promos.map((promo) => (
               <Grid key={uuidv4()} item xs={maxWidth3Card ? 6 : 4}>
@@ -72,7 +71,7 @@ const PromoCodesContainer = ({ promos }) => {
             ))}
           </Grid>
         ) : (
-          <p className={styles.promo_for_you}>Chưa có mã</p>
+          <p className={styles.promo_not_yet}>Chưa có mã</p>
         )}
       </Container>
     </div>

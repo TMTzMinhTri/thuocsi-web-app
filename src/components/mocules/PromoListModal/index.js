@@ -3,7 +3,8 @@ import { Modal } from 'components/atoms';
 import { Grid, Divider } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { PromoClient } from 'clients';
-import { PROMOTION_STATUS } from 'constants/Enums';
+import { PROMOTION_STATUS, PROMO_TYPE } from 'constants/Enums';
+import { DateTimeUtils } from 'utils';
 import CartCouponCard from '../CartCouponCard';
 import styles from './style.module.css';
 import Button from './Button';
@@ -17,7 +18,15 @@ const searchString = (arr, str) => {
 };
 
 const PromoListModal = memo((props) => {
-  const { onClose, visible, className, restProps, redeemCode, handleChangePromo, totalPrice } = props;
+  const {
+    onClose,
+    visible,
+    className,
+    restProps,
+    redeemCode,
+    handleChangePromo,
+    totalPrice,
+  } = props;
   const [text, setText] = useState(TEXT_DEFAULT);
   const [promoSearchs, setPromoSearchs] = useState([]);
   const [promos, setPromos] = useState([]);
@@ -30,12 +39,22 @@ const PromoListModal = memo((props) => {
   };
   useEffect(() => {
     async function fetchData() {
-      const data = await PromoClient.getPromosByStatus(null, PROMOTION_STATUS.ACTIVE);
+      let data = await PromoClient.getPromosByStatus({ status: PROMOTION_STATUS.ACTIVE });
+      // @TODO: datle
+      data = data.filter((promo) => {
+        let minOrderValue = 0;
+        const { rule, promotionType, endTime } = promo;
+        if (rule && rule.conditions && rule.conditions.length !== 0)
+          minOrderValue = rule.conditions[0]?.minOrderValue;
+        if (endTime && DateTimeUtils.compareTime(endTime, Date.now()) <= 0) return false;
+        if (promotionType === PROMO_TYPE.VOUCHERCODE) return totalPrice >= minOrderValue;
+        return true;
+      });
       const prs = searchString(data, '');
       setPromos(prs);
       setPromoSearchs(prs);
     }
-    if (visible)fetchData();
+    if (visible) fetchData();
   }, [visible]);
 
   useEffect(() => {
@@ -74,6 +93,9 @@ const PromoListModal = memo((props) => {
               </Grid>
             ))}
           </Grid>
+          <div className={styles.not_yet}> 
+            Chưa có mã
+          </div>
         </div>
       </div>
     </Modal>
