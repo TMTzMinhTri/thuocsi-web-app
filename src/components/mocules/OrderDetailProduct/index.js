@@ -14,6 +14,7 @@ import { FormarCurrency } from 'utils';
 import { getPathProductBySlug } from 'constants/Paths';
 import { v4 as uuidV4 } from 'uuid';
 import styles from './styles.module.css';
+import SellerInfo from '../SellerInfo';
 
 const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
   const getTotal = () => {
@@ -38,7 +39,8 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
           {products &&
             products.map((product) => {
               const { price, totalPrice, quantity, isImportant } = product;
-              const { imageUrls = [], name = '', slug = '' } = product?.productInfo || {};
+              const { imageUrls = [], name = '', slug = '', seller = null } =
+                product?.productInfo || {};
 
               return (
                 <TableRow key={uuidV4()} className={styles.product_row}>
@@ -59,6 +61,8 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
                     >
                       {name}
                     </LinkComp>
+
+                    <SellerInfo seller={seller} />
                   </TableCell>
                   <TableCell align="right" className={styles.product_price}>
                     {quantity}
