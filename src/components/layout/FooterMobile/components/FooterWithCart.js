@@ -52,30 +52,32 @@ const FooterWithCart = () => {
   };
   return (
     <>
-      <div className={styles.promo_wrapper}>
-        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-          <Grid
-            className={clsx(styles.wrapper, styles.promo_border)}
-            xs={12}
-            container
-            item
-            direction="row"
-          >
-            <LocalOffer className={styles.icon_promo} />
-            <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
-              {redeemCode || 'Dùng mã khuyến mãi'}
-            </Typography>
-            {redeemCode ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
-          </Grid>
-          <PromoListModal
-            visible={promoVisible}
-            onClose={handleSetPromoVisible}
-            handleChangePromo={handleChangePromo}
-            redeemCode={redeemCode}
-            totalPrice={total}
-          />
+      {router.pathname === CART_URL && (
+        <div className={styles.promo_wrapper}>
+          <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+            <Grid
+              className={clsx(styles.wrapper, styles.promo_border)}
+              xs={12}
+              container
+              item
+              direction="row"
+            >
+              <LocalOffer className={styles.icon_promo} />
+              <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
+                {redeemCode || 'Dùng mã khuyến mãi'}
+              </Typography>
+              {redeemCode ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
+            </Grid>
+            <PromoListModal
+              visible={promoVisible}
+              onClose={handleSetPromoVisible}
+              handleChangePromo={handleChangePromo}
+              redeemCode={redeemCode}
+              totalPrice={total}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.fwc_wrapper}>
         <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
           <div style={{ flexGrow: 1 }}>
@@ -97,7 +99,7 @@ const FooterWithCart = () => {
               </Link>
             )}
 
-            {router.pathname === CART_URL ? (
+            {router.pathname === CART_URL && (
               <Link href="/checkout">
                 <Button
                   classes={{
@@ -108,15 +110,6 @@ const FooterWithCart = () => {
                   variant="outlined"
                 >
                   Tiếp tục
-                </Button>
-              </Link>
-            ) : (
-              <Link href="/cart">
-                <Button
-                  classes={{ label: styles.label, outlined: styles.outlined, root: styles.root }}
-                  variant="outlined"
-                >
-                  Giỏ hàng ({itemCount})
                 </Button>
               </Link>
             )}

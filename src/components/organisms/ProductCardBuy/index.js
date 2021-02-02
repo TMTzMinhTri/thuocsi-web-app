@@ -140,7 +140,7 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
                 </div>
               )}
-              {maxQuantity && maxQuantity > 0 && (
+              {maxQuantity && maxQuantity > 0 && !isMobile &&(
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
@@ -180,6 +180,15 @@ const ProductCardBuy = ({
                   </IconButton>
                 )}
               </CardActions>
+              {maxQuantity && maxQuantity > 0 && isMobile && (
+                <Typography
+                  className={
+                    row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
+                  }
+                >
+                  Đặt tối đa {maxQuantity} sản phẩm
+                </Typography>
+              )}
             </>
           ) : (
             <div className={styles.view_signin_btn}>

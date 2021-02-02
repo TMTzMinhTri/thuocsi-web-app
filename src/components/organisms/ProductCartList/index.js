@@ -11,22 +11,26 @@ import ProductCart from '../ProductCart';
 import styles from './style.module.css';
 
 const ProductCartList = ({ products, isMobile }) => {
-  const { note: noteC } = useCart();
+  const { note: noteC, updateCart } = useCart();
   const [note, setNote] = useState(noteC);
 
-  const handleUpdateNote = useCallback(async () => {
+  // TODO:
+  const handleUpdateNote = useCallback(async (noteVal) => {
     try {
-      const res = await CartClient.updateNote(note);
+      const res = await CartClient.updateNote(noteVal);
       if (!isValid(res)) throw new Error(res.messsage);
+      updateCart();
       NotifyUtils.success('Cập nhật ghi chú thành công');
     } catch (error) {
       NotifyUtils.error(error?.message || 'Cập nhật ghi chú thất bại');
     }
   });
 
+  // TODO:
   const handleChangeNote = (e) => {
-    setNote(e.target.value);
-    debounceFunc500(handleUpdateNote);
+    const noteVal = e.target.value;
+    setNote(noteVal);
+    debounceFunc500(() => handleUpdateNote(noteVal));
   };
 
   return (

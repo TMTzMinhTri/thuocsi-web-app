@@ -13,7 +13,7 @@ import styles from './style.module.css';
 
 const TagTypeProps = {
   default: {
-    border: '1px solid #f8f9fa',
+    border: '1px solid #000',
     color: '#000',
   },
   BAN_CHAY: {
@@ -36,13 +36,11 @@ const TagTypeProps = {
     color: '#00b46e',
     icon: <Receipt className={styles.icon} />,
   },
-
   PROMOTION: {
     text: 'Khuyến mãi',
-    backgroundColor: '#dc3545',
-    color: '#fff',
+    color: '#dc3545',
+    border: '1px solid #dc3545',
   },
-
   'Hàng việt': {
     text: 'Hàng việt',
     backgroundColor: '#f8f9fa',

@@ -6,10 +6,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
 import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
-import { CartClient, isValid } from 'clients';
+import { CartClient,PromoClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
 import { Button, LinkComp } from 'components/atoms';
-import { CART_URL } from 'constants/Paths';
+import { CART_URL, QUICK_ORDER } from 'constants/Paths';
 import { useRouter } from 'next/router';
 import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
@@ -45,7 +45,7 @@ const PaymentButton = ({ user }) => (
 );
 
 const CardInfo = ({ cart, promo, className, user }) => {
-  const { itemCount, total, updateCart, redeemCode } = useCart();
+  const { itemCount, total, updateCart, redeemCode, cartItems } = useCart();
   const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
   const handleSetPromoVisible = () => {
@@ -66,8 +66,10 @@ const CardInfo = ({ cart, promo, className, user }) => {
   const handleChangePromo = async (code) => {
     setPromoVisible(false);
     try {
-      const res = await CartClient.updateRedeemCode(code);
-      if (!isValid(res)) throw new Error(res.messsage);
+      const checkRes = await PromoClient.checkPromoAvailableForCart({ cartItems, totalPrice:total, voucherCode: Number(code) });
+      if (!isValid(checkRes)) throw new Error(checkRes.messsage);
+      const updaterRes = await CartClient.updateRedeemCode(code);
+      if (!isValid(updaterRes)) throw new Error(updaterRes.messsage);
       updateCart();
       NotifyUtils.success('Thêm mã giảm giá thành công');
     } catch (error) {
@@ -87,7 +89,11 @@ const CardInfo = ({ cart, promo, className, user }) => {
             <Typography className={styles.text}>Số lượng</Typography>
             <Typography className={clsx(styles.number, styles.quantity)}>{itemCount}</Typography>
           </Grid>
-          <Grid xs={6} className={clsx(styles.wrapper, styles.text_right, styles.total_border)} item>
+          <Grid
+            xs={6}
+            className={clsx(styles.wrapper, styles.text_right, styles.total_border)}
+            item
+          >
             <Typography className={styles.text}>Tổng tiền</Typography>
             <Typography className={clsx(styles.number, styles.price)}>
               {formatCurrency(total || 0)}
@@ -127,15 +133,15 @@ const CardInfo = ({ cart, promo, className, user }) => {
         />
       </Grid>
       {router.pathname === CART_URL && (
-      <Grid className={styles.wrapper} xs={12} container item>
-        <LinkComp
-          className={clsx(styles.counpon_button, styles.quick_link)}
-          name="<< Tiếp tục đặt hàng"
-          href="/quick-order"
-          color="#00b46e"
-        />
-      </Grid>
-    )}
+        <Grid className={styles.wrapper} xs={12} container item>
+          <LinkComp
+            className={clsx(styles.counpon_button, styles.quick_link)}
+            name="< Tiếp tục đặt hàng"
+            href={QUICK_ORDER}
+            color="#00b46e"
+          />
+        </Grid>
+      )}
     </div>
   );
 };

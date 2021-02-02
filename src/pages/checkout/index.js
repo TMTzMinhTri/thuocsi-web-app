@@ -40,14 +40,14 @@ export async function getServerSideProps(ctx) {
 
 const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const router = useRouter();
-  const { itemCount = 0 } = useCart();
+  const { itemCount = 0, updateCart } = useCart();
   // validate user isActive
   if (!user.isActive) {
     NotifyUtils.info('Tài khoản chưa được kích hoạt');
     router.push(CART_URL);
     return <LoadingScreen />;
   }
-
+  // TODO: sử dụng
   const { note: noteValue } = (cart && cart[0]) || {};
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
@@ -99,22 +99,26 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     setError({ ...value, [key]: val });
   };
 
-  const handleUpdateNote = useCallback(async () => {
+  // TODO: gộp lại tách ra ngoài
+  const handleUpdateNote = useCallback(async (valNote) => {
     try {
-      const res = await CartClient.updateNote(note);
+      const res = await CartClient.updateNote(valNote);
       if (!isValid(res)) throw new Error(res.messsage);
+      updateCart();
       NotifyUtils.success('Cập nhật ghi chú thành công');
     } catch (err) {
       NotifyUtils.error(err?.message || 'Cập nhật ghi chú thất bại');
     }
   });
 
+  // TODO: gộp lại
   const handleSetNote = (e) => {
-    setNote(e.target.value);
-    // TODO update cart
-    debounceFunc500(handleUpdateNote);
+    const valNote = e.target.value;
+    setNote(valNote);
+    debounceFunc500(() => handleUpdateNote(valNote));
   };
 
+  // TODO: cần kiểm tra lại
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
     setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
   };

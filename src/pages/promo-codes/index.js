@@ -9,7 +9,7 @@ import { PROMOTION_STATUS } from 'constants/Enums';
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const [promos] = await Promise.all([
-      PromoClient.getPromosByStatus(ctx, PROMOTION_STATUS.ACTIVE),
+      PromoClient.getPromosByStatus({ ctx, status: PROMOTION_STATUS.ACTIVE }),
     ]);
     return {
       props: {
