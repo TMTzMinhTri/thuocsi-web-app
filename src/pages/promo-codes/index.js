@@ -2,15 +2,13 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import PromoCodesContainer from 'components/organisms/PromoCodesContainer';
-import { PromoClient, doWithServerSide } from 'clients';
+import { doWithServerSide } from 'clients';
+import { PromoService } from 'services';
 import { withLogin } from 'HOC';
-import { PROMOTION_STATUS } from 'constants/Enums';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [promos] = await Promise.all([
-      PromoClient.getPromosByStatus({ ctx, status: PROMOTION_STATUS.ACTIVE }),
-    ]);
+    const promos = await PromoService.getPromoActive({ ctx });
     return {
       props: {
         promos,

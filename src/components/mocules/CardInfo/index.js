@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
 import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
-import { CartClient, PromoClient, isValid } from 'clients';
+import { CartClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
 import { Button, LinkComp } from 'components/atoms';
 import { CART_URL, QUICK_ORDER, CHECKOUT_URL } from 'constants/Paths';
@@ -45,7 +45,7 @@ const PaymentButton = ({ user }) => (
 );
 
 const CardInfo = ({ cart, promo, className, user }) => {
-  const { itemCount, total, updateCart, redeemCode, cartItems } = useCart();
+  const { itemCount, total, updateCart, redeemCode } = useCart();
   const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
   const handleSetPromoVisible = () => {
@@ -66,13 +66,14 @@ const CardInfo = ({ cart, promo, className, user }) => {
   const handleChangePromo = async (code) => {
     setPromoVisible(false);
     try {
-      const checkRes = await PromoClient.checkPromoAvailableForCart({
-        cartItems,
-        totalPrice: total,
-        voucherCode: Number(code),
-      });
-      if (!isValid(checkRes)) throw new Error(checkRes.messsage);
-      const updaterRes = await CartClient.updateRedeemCode(code);
+      console.log(code);
+      // const checkRes = await PromoClient.checkPromoAvailableForCart({
+      //   cartItems,
+      //   totalPrice: total,
+      //   voucherCode: Number(code),
+      // });
+      // if (!isValid(checkRes)) throw new Error(checkRes.messsage);
+      const updaterRes = await CartClient.updateRedeemCode([code]);
       if (!isValid(updaterRes)) throw new Error(updaterRes.messsage);
       updateCart();
       NotifyUtils.success('Thêm mã giảm giá thành công');

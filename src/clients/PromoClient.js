@@ -19,6 +19,12 @@ async function getPromosByStatus({ ctx, status }) {
   }
   return res.data;
 }
+
+async function getPromosActive({ ctx }) {
+  const url = `${PROMOTION_API.PROMOTION_API_PREFIX}/promotion/active`;
+  const res = await GET({ url, ctx });
+  return res;
+}
 async function getOtherPromos() {
   const url = '/promo-codes/other';
   const result = await GET({ url, mock: true });
@@ -40,4 +46,5 @@ export default {
   getOtherPromos,
   getPromosByStatus,
   checkPromoAvailableForCart,
+  getPromosActive,
 };

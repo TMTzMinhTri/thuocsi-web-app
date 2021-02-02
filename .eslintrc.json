@@ -41,7 +41,8 @@
           ["context", "./src/context"],
           ["i18n-lib", "./src/i18n-lib"],
           ["sysconfig", "./src/sysconfig"],
-          ["HOC","./src/HOC"]
+          ["HOC","./src/HOC"],
+          ["services", "./src/services"]
         ]
       }
     }
