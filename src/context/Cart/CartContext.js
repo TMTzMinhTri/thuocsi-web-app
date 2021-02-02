@@ -9,19 +9,6 @@ export const CartContext = createContext();
 export const CartContextProvider = ({ children }) => {
   const initialState = { loading: true };
   const [state, dispatch] = useReducer(CartReducer, initialState);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const cart = await CartClient.loadDataCart();
-        const infoCart = await CartClient.getInfoCartItem(cart[0].cartItems);
-        cart[0].cartItems = infoCart;
-        dispatch({ type: 'FETCH_SUCCESS', payload: cart[0] || [] });
-      } catch (error) {
-        dispatch({ type: 'FETCH_ERROR' });
-      }
-    }
-    fetchData();
-  }, []);
 
   const updateCart = async () => {
     try {
@@ -33,6 +20,10 @@ export const CartContextProvider = ({ children }) => {
       dispatch({ type: 'FETCH_ERROR' });
     }
   };
+
+  useEffect(() => {
+    updateCart();
+  }, []);
 
   const updateCartItem = async (payload) => {
     const res = await CartClient.updateCartItem(payload);
@@ -51,7 +42,7 @@ export const CartContextProvider = ({ children }) => {
 
   const increase = async (payload) => {
     const res = await CartClient.updateCartItem(payload);
-    if (res.length > 0) {
+    if (isValid(res)) {
       dispatch({ type: 'INCREASE', payload: payload.product });
       NotifyUtils.success('Thêm sản phẩm thành công');
     } else {
@@ -65,7 +56,7 @@ export const CartContextProvider = ({ children }) => {
 
   const decrease = async (payload) => {
     const res = await CartClient.updateCartItem(payload);
-    if (res.length > 0) {
+    if (isValid(res)) {
       dispatch({ type: 'DECREASE', payload: payload.product });
       NotifyUtils.success('Đã cập nhật giỏ hàng');
       return true;

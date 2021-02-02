@@ -34,6 +34,10 @@ const buttonTypes = ({ theme, backgroundColor, color }) => ({
     background: '#f9b514',
     borderColor: '#f9b514',
   },
+  tags: {
+    color: color || '#000',
+    background: '#fff',
+  },
 });
 
 const StyledButton = styled(CustomButton)`
