@@ -97,6 +97,17 @@
         text-align: right;
         margin-top: 10px !important;
     }
+    .price_wrapper {
+        margin-bottom: 0 !important;
+        text-align: left;
+    }
+    .text_danger_column{
+        margin-top: 0 !important;
+        margin-right: 25px;
+    }
+    .deal_price {
+        text-align: left;
+    }
 }
 @media (min-width: 768px) {
     .price_wrapper {

@@ -75,6 +75,7 @@
     }
     .rightBox [class*='danger_column']{
         position: unset;
+        text-align: left;
     }
     .rightBox [class*='product_action_column']{
         position: absolute;

@@ -37,7 +37,7 @@ const QuickOrderPage = ({ products = [], isMobile, page = '', total = 0 }) => {
           </div>
         )}
         <Grid container spacing={3}>
-          <Grid sm={8} item>
+          <Grid sm={8} item className={styles.quick_order_wrapper}>
             {/* san pham  */}
             {products && products.length > 0 ? (
               <QuickOrderList products={products} isMobile={isMobile} page={page} total={total} />

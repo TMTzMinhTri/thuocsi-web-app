@@ -135,6 +135,7 @@
     }
     .product_title {
         height: auto;
+        padding-right: 40px !important;
     }
     .product_tags {
         margin: 10px 0 8px !important;
