@@ -6,8 +6,6 @@
   border-radius: 10px!important;
   margin-bottom: 24px;
 }
-
-
 .title {
   display: flex;
   justify-content: space-between;
@@ -40,4 +38,22 @@
   font-weight: 500!important;
   font-size: 16px!important;
   color: #212529!important;
+}
+@media (max-width: 767px) {
+  .root{
+    padding: 15px;
+  }
+  .title,
+  .text_muted{
+    display: block;
+  }
+  .text_muted .text{
+    padding-left: 5px;
+  }
+  .grid_fix [class*='info_form_grid']:last-child{
+    padding-top: 0 !important;
+  }
+  .save_info_cb{
+    margin-top: 20px;
+  }
 }

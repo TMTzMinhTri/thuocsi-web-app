@@ -59,3 +59,8 @@
   font-weight: 400!important;
   padding: 10px 0;
 }
+@media (max-width: 767px) {
+  .root{
+    padding: 15px;
+  }
+}

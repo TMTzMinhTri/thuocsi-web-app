@@ -117,3 +117,62 @@
 .check_agree_txt a:hover{
     color: #00683f;
 }
+@media (max-width: 767px) {
+    .checkout_title h1{
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .text_right{
+        margin-top: 20px;
+    }
+    .fwc_container{
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    .price{
+        flex-grow: 1;
+        text-align: left;
+        color: white;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .label {
+        color: #fff;
+        height: 24px!important;
+        font-weight: 500!important;
+        line-height: 2!important;
+        text-transform: none !important;
+        font-size: 16px !important;
+    }
+
+    .root_btn {
+        border-radius: 50px !important;
+        border-color: #f8f9fa !important;
+    }
+    .root_btn:focus,
+    .root_btn:visited {
+        background-color: #fff !important;
+        border-color: #f8f9fa !important;
+    }
+    .root_btn:focus .label,
+    .root_btn:visited .label{
+        color: #000 !important;
+    }
+}
+.sticky_checkout_bar_mobile{
+    background: linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%);
+    width: 100%;
+    height: 100%;
+    padding: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    right: 0;
+}

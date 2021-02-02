@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, AppBar } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useAuth } from 'context';
-import { QUICK_ORDER, CART_URL, PRODUCT } from 'constants/Paths';
+import { QUICK_ORDER, CART_URL, PRODUCT, CHECKOUT_URL } from 'constants/Paths';
 import { ButtonHeader } from 'components/atoms';
 import FooterWithToolBar from './components/FooterWithToolBar';
 import FooterWithCart from './components/FooterWithCart';
@@ -43,7 +43,8 @@ const FooterComp = ({ product }) => {
               {router.pathname === PRODUCT && <FooterWithAddToCart product={product} />}
               {router.pathname !== QUICK_ORDER &&
                 router.pathname !== CART_URL &&
-                router.pathname !== PRODUCT && <FooterWithToolBar />}
+                router.pathname !== PRODUCT && 
+                router.pathname !== CHECKOUT_URL && <FooterWithToolBar />}
             </AppBar>
           )}
         </Container>
