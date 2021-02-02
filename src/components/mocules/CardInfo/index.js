@@ -8,7 +8,7 @@ import { useCart } from 'context';
 import formatCurrency from 'utils/FormarCurrency';
 import { CartClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
-import { Button, LinkComp } from 'components/atoms';
+import { LinkComp, ButtonDefault } from 'components/atoms';
 import { CART_URL, QUICK_ORDER, CHECKOUT_URL } from 'constants/Paths';
 import Router, { useRouter } from 'next/router';
 import { isEmpty } from 'utils/ValidateUtils';
@@ -32,14 +32,14 @@ const PaymentButton = ({ user }) => (
         840 để kích hoạt
       </Alert>
     )}
-    <Button
+    <ButtonDefault
       disabled={!user.isActive}
-      btnType="payment"
+      btnType="warning"
       className="payment_button"
       onClick={handleToCheckout}
     >
       Tiếp tục thanh toán
-    </Button>
+    </ButtonDefault>
   </>
 );
 

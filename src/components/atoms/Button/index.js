@@ -22,7 +22,7 @@ const buttonTypes = ({ theme, backgroundColor, color }) => ({
     background: backgroundColor || theme.button.background.success,
   },
   warning: {
-    color: color || theme.button.color.primary,
+    color: color || theme.button.color.secondary,
     background: backgroundColor || theme.button.background.warning,
   },
   disabled: {
@@ -97,14 +97,13 @@ const StyledButton = styled(CustomButton)`
 
   &.payment_button {
     width: 100%;
-    border-color: #f9b514 !important;
     border-radius: 50px !important;
     text-transform: capitalize !important;
     font-size: 16px !important;
     justify-content: center;
     text-transform: unset !important;
     font-weight: 500;
-    margin-top: 5px;
+    margin: 10px;
   }
 `;
 
