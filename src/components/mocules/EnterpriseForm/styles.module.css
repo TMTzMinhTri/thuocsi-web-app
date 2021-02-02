@@ -43,3 +43,9 @@
 .upload_button:hover {
   box-shadow: none !important;
 }
+
+@media (max-width: 767px) {
+  .clear{
+    padding-bottom: 0 !important;
+  }
+}
