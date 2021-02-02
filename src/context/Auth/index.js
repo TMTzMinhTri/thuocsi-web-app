@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AuthClient, isValid } from 'clients';
+import { AuthClient, isValid, getSessionTokenClient } from 'clients';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cookies';
 import LoadingScreen from 'components/organisms/LoadingScreen';
@@ -53,6 +53,10 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
 
   const getUserInfo = useCallback(async () => {
     try {
+      const ss = getSessionTokenClient();
+      if (!ss || ss.length === 0) {
+        return null;
+      }
       const res = await AuthClient.getUser();
       if (isValid(res)) {
         return res;

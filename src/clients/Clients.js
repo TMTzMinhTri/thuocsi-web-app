@@ -79,6 +79,14 @@ async function request(props) {
         headers.Authorization = BASIC_AUTHEN;
         isUseBasic = true;
       }
+
+      if (!headers.Authorization || headers.Authorization.length === 0) {
+        return {
+          errorCode: 'MISSING_AUTHORIZATION',
+          status: HTTP_STATUS.Unauthorized,
+          message: 'Missing session',
+        };
+      }
     }
     // console.log(' fetch data ', link, method, headers, body);
     const res = await fetch(link, {
@@ -181,4 +189,5 @@ export default {
   isValidWithData,
   getSessionToken,
   isValidWithoutData,
+  getSessionTokenClient,
 };
