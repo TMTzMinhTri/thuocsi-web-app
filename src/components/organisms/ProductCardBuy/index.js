@@ -14,6 +14,8 @@ import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
 import styles from './styles.module.css';
 
+const IMPORTANT_PERCENT_MAX = 20;
+
 const ProductCardBuy = ({
   maxQuantity,
   not_support_delivery: noSupportDelivery,
@@ -39,20 +41,26 @@ const ProductCardBuy = ({
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { updateCartItem, removeCartItem } = useCart();
-
   const removeProductOutCart = () => {
     toggleRemove();
   };
+
+  const canDeleteProduct = () => {
+    const quantityAfterDel = cartItems.length - 1;
+    let importantQuantity = importantList.length;
+    if (product.isImportant) importantQuantity -= 1;
+    const importantQuantityMax = Math.floor((quantityAfterDel * IMPORTANT_PERCENT_MAX) / 100);
+    if (importantQuantity > importantQuantityMax && quantityAfterDel < 5) return false;
+
+    return true;
+  };
   const handleRemove = () => {
-    if (
-      importantList.length > Math.floor(((cartItems?.length - 1) * 20) / 100) ||
-      cartItems.length - 1 < 5
-    ) {
+    if (canDeleteProduct()) {
+      removeCartItem(product);
+    } else {
       toggleRemove();
       toggleWarning();
-      return;
     }
-    removeCartItem(product);
   };
 
   const updateCart = async (q) => {
