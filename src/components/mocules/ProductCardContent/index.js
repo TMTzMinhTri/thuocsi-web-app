@@ -3,6 +3,10 @@ import { Typography, CardContent } from '@material-ui/core';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
+import { LinkComp } from 'components/atoms';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStoreAlt } from '@fortawesome/free-solid-svg-icons';
+import { SUPPLIER } from 'constants/Paths';
 import TagType from '../TagType';
 import styles from './styles.module.css';
 
@@ -27,6 +31,7 @@ const ProductCardContent = ({
   // cart,
   className,
   isMobile,
+  seller = '',
 }) => (
   <CardContent
     className={`${className}
@@ -47,6 +52,19 @@ const ProductCardContent = ({
             {name}
           </Typography>
         </Link>
+        {seller && (
+          <div className={styles.supplierTitle}>
+            <div className={styles.icon}>
+              <FontAwesomeIcon icon={faStoreAlt} />
+            </div>
+            <LinkComp
+              className={styles.supplierName}
+              href={`${SUPPLIER}/${seller.slug}`}
+            >
+              {seller.name}
+            </LinkComp>
+          </div>
+        )}
         {isMobile && (
           <Typography
             className={clsx(styles.product_type, styles.muted)}
