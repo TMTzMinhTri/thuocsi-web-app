@@ -14,7 +14,6 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const [isShowModalWarning, toggleWarning] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
-
   const { imageUrls } = product;
 
   const handleSetImportant = () => {
@@ -22,7 +21,7 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
     if (isImportant) {
       setUnset(true);
     } else {
-      if (importantList.length >= (Math.floor((cartItems.length * 20) / 100) || 1)) {
+      if (importantList.length >= Math.floor((cartItems.length * 20) / 100)) {
         toggleWarning();
         return;
       }
@@ -69,7 +68,14 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
           ) : (
             <>
               <ProductCardContent className={styles.product_content} row {...product} />
-              <ProductCardBuy {...product} product={product} cart name={name} isMobile={isMobile} />
+              <ProductCardBuy
+                cartItems={cartItems}
+                {...product}
+                product={product}
+                cart
+                name={name}
+                isMobile={isMobile}
+              />
             </>
           )}
         </Card>
