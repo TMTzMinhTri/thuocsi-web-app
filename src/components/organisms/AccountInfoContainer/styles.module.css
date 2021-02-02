@@ -17,3 +17,17 @@
     text-transform: none!important;
     border-radius: 50px!important;
 }
+@media (max-width: 767px) {
+    .container [class*='title'] {
+        font-size: 24px;
+    }
+    
+    .container [class*='form_control'] label{
+        text-overflow: ellipsis;
+        overflow: visible;
+        white-space: nowrap;
+    }
+    .container [class*='MuiGrid-container']{
+        padding-bottom: 30px;
+    }
+}
