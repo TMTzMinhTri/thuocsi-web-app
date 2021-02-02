@@ -5,7 +5,7 @@ import { PROMO_TYPE, PROMO_RULE_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE } from 'constants/Images';
 import { QUICK_ORDER } from 'constants/Paths';
 import clsx from 'clsx';
-import { FormarCurrency } from 'utils';
+import { formatCurrency } from 'utils/FormatNumber';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
@@ -35,13 +35,13 @@ const CounponCard = ({
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
-          {FormarCurrency(String(discountValue))}
+          {formatCurrency(String(discountValue))}
         </div>
       );
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
-          {`Giảm ${percent}% Tối đa ${FormarCurrency(String(maxDiscountValue))}`}
+          {`Giảm ${percent}% Tối đa ${formatCurrency(String(maxDiscountValue))}`}
         </div>
       );
     return '';
@@ -50,9 +50,9 @@ const CounponCard = ({
   const getTitle = () => {
     if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT) return promotionName;
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE)
-      return `GIẢM ${FormarCurrency(discountValue)}`;
+      return `GIẢM ${formatCurrency(discountValue)}`;
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
-      return `GIẢM ${percent}% TỐI ĐA ${FormarCurrency(maxDiscountValue)}`;
+      return `GIẢM ${percent}% TỐI ĐA ${formatCurrency(maxDiscountValue)}`;
     return '';
   };
   return (
@@ -82,7 +82,7 @@ const CounponCard = ({
               </Typography>
               <div className={styles.coupon_discount}>
                 {type === PROMO_TYPE.VOUCHERCODE &&
-                  `cho đơn hàng tối thiểu ${FormarCurrency(String(minOrderValue))}`}
+                  `cho đơn hàng tối thiểu ${formatCurrency(String(minOrderValue))}`}
               </div>
             </div>
           </Grid>

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { CardActions, Typography, IconButton } from '@material-ui/core';
 import { Delete, Close } from '@material-ui/icons';
-import formatCurrency from 'utils/FormarCurrency';
+import { formatCurrency, formatNumber } from 'utils/FormatNumber';
 import clsx from 'clsx';
 import useModal from 'hooks/useModal';
 import { useCart, useAuth } from 'context';
@@ -160,13 +160,13 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
                 </div>
               )}
-              {maxQuantity && maxQuantity > 0 && !isMobile &&(
+              {maxQuantity && maxQuantity > 0 && !isMobile && (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
                   }
                 >
-                  Đặt tối đa {maxQuantity} sản phẩm
+                  Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
                 </Typography>
               )}
               <CardActions
@@ -206,7 +206,7 @@ const ProductCardBuy = ({
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
                   }
                 >
-                  Đặt tối đa {maxQuantity} sản phẩm
+                  Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
                 </Typography>
               )}
             </>

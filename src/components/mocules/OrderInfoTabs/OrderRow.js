@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Grid, Paper, useMediaQuery } from '@material-ui/core';
-import { DateTimeUtils, FormarCurrency, NotifyUtils } from 'utils';
+import { DateTimeUtils, NotifyUtils } from 'utils';
+import { formatCurrency } from 'utils/FormatNumber';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
@@ -93,7 +94,7 @@ const OrderRow = ({
             </Grid>
           ) : null}
           <Grid className={maxWidth ? styles.price_small_screen : styles.price} item>
-            {FormarCurrency(totalPrice)}
+            {formatCurrency(totalPrice)}
           </Grid>
         </Grid>
 

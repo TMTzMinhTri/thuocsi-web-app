@@ -3,7 +3,8 @@ import { Modal, InfoFormControl, InfoTable, Button, LinkComp } from 'components/
 import { Grid, TableRow, TableCell, Divider } from '@material-ui/core';
 import { OrderClient, isValid, isValidWithoutData } from 'clients';
 import styled from 'styled-components';
-import { FormarCurrency, NotifyUtils } from 'utils';
+import { NotifyUtils } from 'utils';
+import { formatNumber } from 'utils/FormatNumber';
 import { getPathProductBySlug } from 'constants/Paths';
 import GroupAddressSelect from '../GroupAddressSelect';
 import InfoInput from '../InfoInput';
@@ -151,9 +152,9 @@ const PrintInvoiceModal = memo((props) => {
                       {name}
                     </LinkComp>
                   </TableCell>
-                  <TableCell align="left">{FormarCurrency(price, '.', ' ')}</TableCell>
-                  <TableCell align="left">{quantity}</TableCell>
-                  <TableCell align="left">{FormarCurrency(totalPrice, '.', ' ')}</TableCell>
+                  <TableCell align="left">{formatNumber(price)}</TableCell>
+                  <TableCell align="left">{formatNumber(quantity)}</TableCell>
+                  <TableCell align="left">{formatNumber(totalPrice)}</TableCell>
                 </TableRow>
               );
             })}
