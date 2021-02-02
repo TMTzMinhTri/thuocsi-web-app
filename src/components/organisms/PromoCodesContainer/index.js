@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Typography, Grid, Container, useMediaQuery } from '@material-ui/core';
+import clsx from 'clsx';
 import { CouponCard } from 'components/mocules';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
@@ -61,7 +62,7 @@ const PromoCodesContainer = ({ promos = [] }) => {
         <div> Chưa có mã</div>
       </div>
       <Container maxWidth="lg" className={styles.container}>
-        <h1 className={styles.title}> Các mã khác </h1>
+        <h1 className={clsx(styles.title, styles.other)}> Các mã khác </h1>
         {promos.length !== 0 ? (
           <Grid container spacing={4}>
             {promos.map((promo) => (
