@@ -24,8 +24,8 @@ export const CartReducer = (state, action) => {
         ...state,
         ...sumItems([...data]),
         cartItems: [...data],
-        redeemCode: action.payload.redeemCode,
-        note: action.payload.note,
+        redeemCode: action.payload.redeemCode || [],
+        note: action.payload.note || '',
         loading: false,
       };
     case 'FETCH_ERROR':
@@ -33,6 +33,8 @@ export const CartReducer = (state, action) => {
         ...state,
         ...sumItems([]),
         cartItems: [],
+        redeemCode: [],
+        note: '',
         loading: false,
       };
     case 'ADD_ITEM':
@@ -130,6 +132,8 @@ export const CartReducer = (state, action) => {
       return {
         cartItems: [],
         ...sumItems([]),
+        note: '',
+        redeemCode: [],
       };
     default:
       return state;
