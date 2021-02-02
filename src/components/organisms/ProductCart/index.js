@@ -15,7 +15,7 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const [isShowModalAlert, toggleAlert] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
-
+  console.log(cartItems);
   const { imageUrls } = product;
 
   const handleSetImportant = () => {
@@ -74,7 +74,14 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
           ) : (
             <>
               <ProductCardContent className={styles.product_content} row {...product} />
-              <ProductCardBuy {...product} product={product} cart name={name} isMobile={isMobile} />
+              <ProductCardBuy
+                cartItems={cartItems}
+                {...product}
+                product={product}
+                cart
+                name={name}
+                isMobile={isMobile}
+              />
             </>
           )}
         </Card>

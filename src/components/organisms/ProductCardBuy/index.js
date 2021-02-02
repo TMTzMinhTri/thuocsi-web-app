@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import useModal from 'hooks/useModal';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
+import { CustomModal } from 'components/mocules';
 import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
 import DealSection from 'components/mocules/DealSection';
 import RemoveProductModal from '../RemoveProductModal';
@@ -28,9 +29,12 @@ const ProductCardBuy = ({
   name,
   product,
   isMobile,
+  cartItems,
 }) => {
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
+  const [isShowModalWarning, toggleWarning] = useModal();
+  const importantList = cartItems?.filter((item) => item.isImportant);
 
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
@@ -40,6 +44,14 @@ const ProductCardBuy = ({
     toggleRemove();
   };
   const handleRemove = () => {
+    if (
+      importantList.length > Math.floor(((cartItems?.length - 1) * 20) / 100) ||
+      cartItems.length - 1 < 5
+    ) {
+      toggleRemove();
+      toggleWarning();
+      return;
+    }
     removeCartItem(product);
   };
 
@@ -200,6 +212,13 @@ const ProductCardBuy = ({
         visible={isShowModalRemove}
         onClose={toggleRemove}
         onRemove={handleRemove}
+      />
+      <CustomModal
+        onClose={toggleWarning}
+        visible={isShowModalWarning}
+        title="Xin xác nhận"
+        content="Số lượng sản phẩm hiện không thỏa điều kiện để đánh dấu quan trọng. Vui lòng bỏ đánh dấu để tiếp tục xóa"
+        btnOnClose="OK"
       />
       <ErrorQuantityCartModal
         product={product}
