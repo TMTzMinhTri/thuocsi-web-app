@@ -54,7 +54,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
 
   const handleRemoveRedeemCode = async () => {
     try {
-      const res = await CartClient.updateRedeemCode(PROMO_CODE_DEFAULT);
+      const res = await CartClient.updateRedeemCode([PROMO_CODE_DEFAULT]);
       if (!isValid(res)) throw new Error(res.messsage);
       updateCart();
       NotifyUtils.success('Xoá mã giảm giá thành công');
