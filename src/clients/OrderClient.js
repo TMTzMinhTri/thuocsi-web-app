@@ -2,7 +2,7 @@ import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
 import { ENUM_ORDER_STATUS, HTTP_STATUS } from 'constants/Enums';
 import { GET, POST, isValid } from './Clients';
 
-async function getOrders(offset, limit, status, ctx) {
+async function getOrders({ offset, limit, status, ctx }) {
   const url = `${ORDER_API.MY_ORDER_LIST}`;
   const params = {
     offset,

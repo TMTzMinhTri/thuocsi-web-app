@@ -13,13 +13,19 @@ import { LinkComp } from 'components/atoms';
 import styles from './styles.module.css';
 
 const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError, isMobile }) => {
-  const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, totalDiscount = 0 } = cart[0];
+  const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
   const { itemCount = 0, updateCart, total = 0 } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
+  const [totalVal, setTotalVal] = React.useState(totalPrice);
   const router = useRouter();
 
+  React.useEffect(() => {
+    const totalRes = Math.max(0, totalPrice - discount - transferValue);
+    setTotalVal(totalRes);
+  }, [discount, totalPrice, transferValue]);
+
   const [checkCondition, setCheckCondition] = React.useState({
-    checked: true,
+    checked: false,
   });
 
   const GreenCheckbox = React.memo((props) => (
@@ -156,12 +162,12 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
               <FontAwesomeIcon className={styles.icon} icon={faTags} />
               <span>{redeemCode}</span>
             </div>
-            <div className={styles.bank_info_content}>{`-${FormarCurrency(totalDiscount)}`}</div>
+            <div className={styles.bank_info_content}>{`-${FormarCurrency(discount)}`}</div>
           </div>
         )}
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Thành tiền</div>
-          <div className={styles.total}>{FormarCurrency(totalPrice)}</div>
+          <div className={styles.total}>{FormarCurrency(totalVal)}</div>
         </div>
       </Paper>
 

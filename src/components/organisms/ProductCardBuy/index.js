@@ -6,12 +6,15 @@ import clsx from 'clsx';
 import useModal from 'hooks/useModal';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
+import { CustomModal } from 'components/mocules';
 import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
 import DealSection from 'components/mocules/DealSection';
 import RemoveProductModal from '../RemoveProductModal';
 import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
 import styles from './styles.module.css';
+
+const IMPORTANT_PERCENT_MAX = 20 / 100;
 
 const ProductCardBuy = ({
   maxQuantity,
@@ -28,19 +31,36 @@ const ProductCardBuy = ({
   name,
   product,
   isMobile,
+  cartItems,
 }) => {
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
+  const [isShowModalWarning, toggleWarning] = useModal();
+  const importantList = cartItems?.filter((item) => item.isImportant);
 
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { updateCartItem, removeCartItem } = useCart();
-
   const removeProductOutCart = () => {
     toggleRemove();
   };
+
+  const canDeleteProduct = () => {
+    const quantityAfterDel = cartItems.length - 1;
+    let importantQuantity = importantList.length;
+    const importantQuantityMax = Math.floor(quantityAfterDel * IMPORTANT_PERCENT_MAX);
+
+    if (product.isImportant) importantQuantity -= 1;
+
+    return !(importantQuantity > importantQuantityMax);
+  };
   const handleRemove = () => {
-    removeCartItem(product);
+    if (canDeleteProduct()) {
+      removeCartItem(product);
+    } else {
+      toggleRemove();
+      toggleWarning();
+    }
   };
 
   const updateCart = async (q) => {
@@ -209,6 +229,13 @@ const ProductCardBuy = ({
         visible={isShowModalRemove}
         onClose={toggleRemove}
         onRemove={handleRemove}
+      />
+      <CustomModal
+        onClose={toggleWarning}
+        visible={isShowModalWarning}
+        title="Xin xác nhận"
+        content="Số lượng sản phẩm hiện không thỏa điều kiện để đánh dấu quan trọng. Vui lòng bỏ đánh dấu để tiếp tục xóa"
+        btnOnClose="OK"
       />
       <ErrorQuantityCartModal
         product={product}

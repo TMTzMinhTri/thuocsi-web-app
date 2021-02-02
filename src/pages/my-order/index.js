@@ -12,12 +12,12 @@ export async function getServerSideProps(ctx) {
     try {
       if (!status) status = ENUM_ORDER_STATUS.ALL;
       let [orders] = await Promise.all([
-        OrderClient.getOrders(
-          DEFAULT_PAGINATION.OFFSET,
-          DEFAULT_PAGINATION.LIMIT,
-          ENUM_ORDER_STATUS.ALL,
+        OrderClient.getOrders({
+          offset: DEFAULT_PAGINATION.OFFSET,
+          limit: DEFAULT_PAGINATION.LIMIT,
+          status: ENUM_ORDER_STATUS.ALL,
           ctx,
-        ),
+        }),
       ]);
       if (!isValidWithoutData(orders)) throw Error(orders?.message);
       const ods = orders?.data || [];

@@ -38,7 +38,8 @@ async function getInfoCartItem(data) {
   const mapProducts = convertArrayToMap(res.data, 'sku');
 
   return data.map((item) => {
-    const { imageUrls, unit, volume, name, maxQuantity, slug } = mapProducts.get(item.sku) || {};
+    const { imageUrls, unit, volume, name, maxQuantity, slug, seller } =
+      mapProducts.get(item.sku) || {};
     return {
       ...item,
       imageUrls,
@@ -47,6 +48,7 @@ async function getInfoCartItem(data) {
       name,
       maxQuantity,
       slug,
+      seller,
     };
   });
 }

@@ -7,7 +7,7 @@ export default (req, res) => {
       {
         createdBy: 120,
         createdTime: '2021-01-14T09:30:51.359Z',
-        endTime: '2021-01-21T16:28:00Z',
+        expiredDate: '2021-01-21T16:28:00Z',
         promotionId: 2,
         promotionName: 'KM tesst',
         promotionType: 'COMBO',

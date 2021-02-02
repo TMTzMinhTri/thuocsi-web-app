@@ -133,7 +133,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                 <Image src={LOGO_THUOCSI_SHORTENED} width={38} height={38} />
               </LinkComp>
             </div>
-            <div className={classes.link_wrap}>
+            <div className={isAuthenticated ? styles.link_wrap : clsx(styles.link_wrap, styles.jc)}>
               <LinkComp
                 className={clsx(
                   classes.link,

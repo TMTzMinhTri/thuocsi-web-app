@@ -1,12 +1,14 @@
 import React, { createContext, useReducer, useContext, useEffect } from 'react';
 import CartClient from 'clients/CartClient';
 import { NotifyUtils } from 'utils';
+import { i18n } from 'i18n-lib';
 import { isValid } from '../../clients/Clients';
 import { CartReducer } from './CartReducer';
 
 export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
+  const { t } = i18n.useTranslation('apiErrors');
   const initialState = { loading: true };
   const [state, dispatch] = useReducer(CartReducer, initialState);
 
@@ -30,6 +32,8 @@ export const CartContextProvider = ({ children }) => {
     if (isValid(res)) {
       dispatch({ type: 'INCREASE_BY', payload });
       NotifyUtils.success('Đã cập nhật giỏ hàng');
+    } else {
+      NotifyUtils.error(t(res.errorCode));
     }
     if (res.errorCode === 'CART_MAXQUANTITY') {
       const revertPayload = payload;

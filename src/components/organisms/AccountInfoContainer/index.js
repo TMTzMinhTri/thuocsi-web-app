@@ -6,6 +6,7 @@ import { NotifyUtils } from 'utils';
 import { i18n } from 'i18n-lib';
 import UpdateButton from './UpdateButton';
 import validateForm from './validateForm';
+import styles from './styles.module.css';
 
 const AccountInfoFormContainer = ({ user, t }) => {
   const {
@@ -34,12 +35,11 @@ const AccountInfoFormContainer = ({ user, t }) => {
     wardCode,
     mst,
     address,
-    province: provinceCode,
-    district: districtCode,
-    ward: wardCode,
+    deliveryProvinceCode: provinceCode,
+    deliveryDistrictCode: districtCode,
+    deliveryWardCode: wardCode,
     customerID,
   });
-
 
   const [err, setErr] = useState({});
   const handleSetValue = (key, val) => {
@@ -67,7 +67,7 @@ const AccountInfoFormContainer = ({ user, t }) => {
   };
 
   return (
-    <Grid item container spacing={3}>
+    <Grid className={styles.container} item container spacing={3}>
       <Grid item xs={12}>
         <AccountForm {...value} handleSetValue={handleSetValue} err={err} />
       </Grid>
@@ -76,7 +76,11 @@ const AccountInfoFormContainer = ({ user, t }) => {
           {...value}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
-          err={err}
+          error={{
+            province: err.provinceCode,
+            district: err.districtCode,
+            ward: err.wardCode,
+          }}
         />
       </Grid>
       <Grid item xs={12}>
@@ -84,7 +88,11 @@ const AccountInfoFormContainer = ({ user, t }) => {
           {...value}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
-          err={err}
+          error={{
+            province: err.deliveryProvinceCode,
+            district: err.deliveryDistrictCode,
+            ward: err.deliveryWardCode,
+          }}
         />
       </Grid>
       <Grid item xs={12}>

@@ -44,7 +44,7 @@ const PromoCodesContainer = ({ promos = [] }) => {
             &nbsp;để nhận được code riêng
           </p>
 
-          {promos.length !== 0 ? (
+          {/* {promos.length !== 0 ? (
             <Grid container spacing={4}>
               {promos.map((promo) => (
                 <Grid key={uuidv4()} item xs={maxWidth3Card ? 6 : 4}>
@@ -52,9 +52,9 @@ const PromoCodesContainer = ({ promos = [] }) => {
                 </Grid>
               ))}
             </Grid>
-          ) : (
-            <p className={styles.promo_not_yet}>Chưa có mã</p>
-          )}
+          ) : ( */}
+          <p className={styles.promo_not_yet}>Chưa có mã</p>
+          {/* )} */}
         </div>
       </Container>
       <div className={styles.promo_special}>

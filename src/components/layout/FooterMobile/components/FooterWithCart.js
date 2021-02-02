@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Button, Grid, Typography, IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Link from 'next/link';
 import { LocalOffer } from '@material-ui/icons';
-import { FormarCurrency, NotifyUtils} from 'utils';
+import { FormarCurrency, NotifyUtils } from 'utils';
 import { useCart } from 'context';
 import { useRouter } from 'next/router';
 import { CART_URL, CHECKOUT_URL } from 'constants/Paths';
@@ -11,8 +11,6 @@ import clsx from 'clsx';
 import PromoListModal from 'components/mocules/PromoListModal';
 import { CartClient, isValid } from 'clients';
 import styles from '../styles.module.css';
-
-const PROMO_CODE_DEFAULT = '';
 
 const DeleteIconButton = (props) => (
   <IconButton style={{ padding: 0 }}>
@@ -30,7 +28,7 @@ const FooterWithCart = () => {
 
   const handleRemoveRedeemCode = async () => {
     try {
-      const res = await CartClient.updateRedeemCode(PROMO_CODE_DEFAULT);
+      const res = await CartClient.updateRedeemCode([]);
       if (!isValid(res)) throw new Error(res.messsage);
       updateCart();
       NotifyUtils.success('Xoá mã giảm giá thành công');
@@ -42,7 +40,7 @@ const FooterWithCart = () => {
   const handleChangePromo = async (code) => {
     setPromoVisible(false);
     try {
-      const res = await CartClient.updateRedeemCode(code);
+      const res = await CartClient.updateRedeemCode([code]);
       if (!isValid(res)) throw new Error(res.messsage);
       updateCart();
       NotifyUtils.success('Thêm mã giảm giá thành công');

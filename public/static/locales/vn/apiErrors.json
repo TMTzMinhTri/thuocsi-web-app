@@ -8,5 +8,7 @@
     "WRONG_PASSWORD": "Bạn đã nhập sai thông tin người dùng.",
     "Not found any matched account.": "Không tìm thấy thông tin người dùng"
   },
-  "loginNotFound": "Không tìm thấy thông tin người dùng"
+  "loginNotFound": "Không tìm thấy thông tin người dùng",
+  "INVALID_SESSION_TOKEN": "Tài khoản đã bị đăng xuất, xin vui lòng đăng nhập lại.",
+  "AUTHORIZATION_MISSING": "Bạn cần đăng nhập để thực hiện thao tác này "
 }
