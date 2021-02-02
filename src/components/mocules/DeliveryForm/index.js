@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 const DeliveryForm = ({ province, district, ward, handleSetValue, handleChangeAddress }) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}> Thông tin giao hàng </h1>
-    <Grid container spacing={2}>
+    <Grid container spacing={2} className={styles.addressGrid}>
       <InfoFormControl xs={12} label="Địa chỉ giao hàng" htmlFor="address">
         <InfoInput id="address" placeholder="Địa chỉ giao hàng" />
         <FormHelperText>Nhập địa chỉ, đường phố. Rồi chọn tỉnh/thành phố, phường/xã, quận/huyện</FormHelperText>

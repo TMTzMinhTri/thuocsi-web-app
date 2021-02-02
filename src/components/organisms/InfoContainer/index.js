@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, Grid } from '@material-ui/core';
 import { InfoTabs } from 'components/mocules';
+import clsx from 'clsx';
 import styles from './styles.module.css';
 
 const useStyles = makeStyles(() => ({
@@ -43,7 +44,7 @@ const useStyles = makeStyles(() => ({
 export default function InfoContainer({ children, value, title, balance, name }) {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, styles.root_mobile)}>
       <InfoTabs value={value} balance={balance} name={name} />
 
       <div>

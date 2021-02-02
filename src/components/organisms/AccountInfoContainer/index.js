@@ -6,6 +6,7 @@ import { NotifyUtils } from 'utils';
 import { i18n } from 'i18n-lib';
 import UpdateButton from './UpdateButton';
 import validateForm from './validateForm';
+import styles from './styles.module.css';
 
 const AccountInfoFormContainer = ({ user, t }) => {
   const {
@@ -67,7 +68,7 @@ const AccountInfoFormContainer = ({ user, t }) => {
   };
 
   return (
-    <Grid item container spacing={3}>
+    <Grid className={styles.container} item container spacing={3}>
       <Grid item xs={12}>
         <AccountForm {...value} handleSetValue={handleSetValue} err={err} />
       </Grid>
