@@ -12,9 +12,9 @@ import { LinkComp } from 'components/atoms';
 
 import styles from './styles.module.css';
 
-const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError }) => {
+const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError, isMobile }) => {
   const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, totalDiscount = 0 } = cart[0];
-  const { itemCount = 0, updateCart } = useCart();
+  const { itemCount = 0, updateCart, total = 0 } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
   const router = useRouter();
 
@@ -166,10 +166,13 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
       </Paper>
 
       <div className={styles.text_right}>
-        <p>
-          Vui lòng kiểm tra kỹ thông tin giao hàng, hình thức thanh toán và nhấn nút "Thanh Toán" để
-          hoàn tất đặt hàng.
-        </p>
+        {!isMobile && (
+          <p>
+            Vui lòng kiểm tra kỹ thông tin giao hàng, hình thức thanh toán và nhấn nút "Thanh Toán"
+            để hoàn tất đặt hàng.
+          </p>
+        )}
+
         <div className={styles.condition}>
           <FormControlLabel control={GreenCheckBoxElement} label={LabelConfirm} />
           <div className={styles.list_note}>
@@ -180,9 +183,30 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
             </p>
           </div>
         </div>
-        <Button onClick={handleSubmit} className={styles.checkout_btn}>
-          Thanh toán
-        </Button>
+        {!isMobile ? (
+          <Button onClick={handleSubmit} className={styles.checkout_btn}>
+            Thanh toán
+          </Button>
+        ) : (
+          <div className={styles.sticky_checkout_bar_mobile}>
+            <div className={styles.fwc_container}>
+              <div className={styles.price}>{FormarCurrency(total)}</div>
+              <div>
+                <Button
+                  classes={{
+                    label: styles.label,
+                    outlined: styles.outlined,
+                    root: styles.root_btn,
+                  }}
+                  variant="outlined"
+                  onClick={handleSubmit}
+                >
+                  Thanh toán
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

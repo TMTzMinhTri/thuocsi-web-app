@@ -33,12 +33,12 @@ const DeliveryInfoForm = ({
     setSavedInfo({ ...savedInfo, [event.target.name]: event.target.checked });
   };
   return (
-    <Paper className={styles.root} elevation={4}>
+    <Paper className={styles.root} elevation={2}>
       <h1 className={styles.title}>
         Thông tin giao hàng
         <small className={styles.text_muted}>
           <FontAwesomeIcon icon={faInfoCircle} />
-          Lưu ý: những ô có dấu <span className={styles.required}>*</span> là thông tin bắt buộc
+          <span className={styles.text}>Lưu ý: những ô có dấu </span><span className={styles.required}>*</span> là thông tin bắt buộc
         </small>
       </h1>
       <Grid container>
@@ -56,7 +56,7 @@ const DeliveryInfoForm = ({
             onChange={(e) => handleSetValue('customerName', e.target.value)}
           />
         </InfoFormControl>
-        <Grid container spacing={2}>
+        <Grid className={styles.grid_fix} container spacing={2}>
           <InfoFormControl
             xs={maxWidthScope ? 12 : 3}
             isRequired
@@ -117,6 +117,7 @@ const DeliveryInfoForm = ({
           control={
             <GreenCheckbox checked={savedInfo.checked} onChange={handleChange} name="checked" />
           }
+          className={styles.save_info_cb}
           label={<span className={styles.fw500}>Lưu lại thông tin</span>}
         />
       </Grid>
