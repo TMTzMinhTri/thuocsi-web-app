@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import { LinkComp } from 'components/atoms';
-import { FormarCurrency } from 'utils';
+import { formatCurrency, formatNumber } from 'utils/FormatNumber';
 import { getPathProductBySlug } from 'constants/Paths';
 import { v4 as uuidV4 } from 'uuid';
 import styles from './styles.module.css';
@@ -68,9 +68,9 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
                     {quantity}
                   </TableCell>
                   <TableCell align="right" className={styles.product_price}>
-                    {FormarCurrency(price, '.', ' ')}
+                    {formatNumber(price)}
                   </TableCell>
-                  <TableCell align="right">{FormarCurrency(totalPrice, '.', ' ')}</TableCell>
+                  <TableCell align="right">{formatNumber(totalPrice)}</TableCell>
                 </TableRow>
               );
             })}
@@ -81,7 +81,7 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
           <Grid item>
             Mã giảm giá <strong>{promoName} </strong>
           </Grid>
-          <Grid item>-&nbsp;{FormarCurrency(totalDiscount, '.', ' ')}</Grid>
+          <Grid item>-&nbsp;{formatNumber(totalDiscount)}</Grid>
         </Grid>
       )}
       <Grid container justify="flex-end" style={{ padding: ' 30px 45px' }} spacing={3}>
@@ -89,7 +89,7 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
           Tổng cộng
         </Grid>
         <Grid item className={styles.price}>
-          {FormarCurrency(getTotal())}
+          {formatCurrency(getTotal())}
         </Grid>
       </Grid>
     </TableContainer>

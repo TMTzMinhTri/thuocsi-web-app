@@ -7,7 +7,7 @@ import {
   MonetizationOn as MonetizationOnIcon,
 } from '@material-ui/icons';
 import Link from 'next/link';
-import { FormarCurrency } from 'utils';
+import { formatCurrency } from 'utils/FormatNumber';
 import styles from './styles.module.css';
 
 const tabs = [
@@ -44,7 +44,7 @@ const InfoTabs = ({ value, name, balance = 0 }) => (
         </Link>
       ))}
     </MenuList>
-    <Typography>Ví - &nbsp; {FormarCurrency(balance)}</Typography>
+    <Typography>Ví - &nbsp; {formatCurrency(balance)}</Typography>
   </div>
 );
 

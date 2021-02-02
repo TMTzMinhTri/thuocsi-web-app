@@ -5,7 +5,7 @@ import { PROMO_TYPE, PROMO_RULE_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE } from 'constants/Images';
 import clsx from 'clsx';
 import { Button } from 'components/atoms';
-import { FormarCurrency } from 'utils';
+import { formatCurrency } from 'utils/FormatNumber';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
@@ -64,13 +64,13 @@ const CartCounponCard = ({
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
-          {FormarCurrency(String(discountValue))}
+          {formatCurrency(String(discountValue))}
         </div>
       );
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
-          {`Giảm ${percent}% Tối đa ${FormarCurrency(String(maxDiscountValue))}`}
+          {`Giảm ${percent}% Tối đa ${formatCurrency(String(maxDiscountValue))}`}
         </div>
       );
     return '';
@@ -79,9 +79,9 @@ const CartCounponCard = ({
   const getTitle = () => {
     if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT) return promotionName;
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE)
-      return `GIẢM ${FormarCurrency(discountValue)}`;
+      return `GIẢM ${formatCurrency(discountValue)}`;
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
-      return `GIẢM ${percent}% TỐI ĐA ${FormarCurrency(maxDiscountValue)}`;
+      return `GIẢM ${percent}% TỐI ĐA ${formatCurrency(maxDiscountValue)}`;
     return '';
   };
   const caculatePrice = () => {
@@ -124,7 +124,7 @@ const CartCounponCard = ({
           </Grid>
           {type === PROMO_TYPE.VOUCHERCODE && (
             <Grid item className={styles.text_danger}>
-              Đơn hàng sau khi áp dụng <strong> {FormarCurrency(String(caculatePrice()))} </strong>
+              Đơn hàng sau khi áp dụng <strong> {formatCurrency(String(caculatePrice()))} </strong>
             </Grid>
           )}
         </Grid>

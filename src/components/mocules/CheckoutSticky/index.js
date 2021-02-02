@@ -5,7 +5,8 @@ import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { useCart } from 'context';
 import clsx from 'clsx';
-import { NotifyUtils, ValidateUtils, FormarCurrency } from 'utils';
+import { NotifyUtils, ValidateUtils } from 'utils';
+import { formatCurrency } from 'utils/FormatNumber';
 import { CheckoutClient, isValid } from 'clients';
 import { THANKYOU_URL } from 'constants/Paths';
 import { LinkComp } from 'components/atoms';
@@ -138,16 +139,16 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
       <Paper className={styles.root} elevation={4}>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Tạm tính</div>
-          <div className={styles.checkout_content}>{FormarCurrency(totalPrice)}</div>
+          <div className={styles.checkout_content}>{formatCurrency(totalPrice)}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
-          <div className={styles.checkout_content}>{FormarCurrency(shippingFee)}</div>
+          <div className={styles.checkout_content}>{formatCurrency(shippingFee)}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước</div>
           <div className={styles.checkout_content}>
-            {selectedValue === 'CK' ? `-${FormarCurrency(transferValue)}` : FormarCurrency(0)}
+            {selectedValue === 'CK' ? `-${formatCurrency(transferValue)}` : formatCurrency(0)}
           </div>
         </div>
         {redeemCode && redeemCode.length > 0 && (
@@ -156,12 +157,12 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
               <FontAwesomeIcon className={styles.icon} icon={faTags} />
               <span>{redeemCode}</span>
             </div>
-            <div className={styles.bank_info_content}>{`-${FormarCurrency(discount)}`}</div>
+            <div className={styles.bank_info_content}>{`-${formatCurrency(discount)}`}</div>
           </div>
         )}
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Thành tiền</div>
-          <div className={styles.total}>{FormarCurrency(Math.max(0, subTotalPrice))}</div>
+          <div className={styles.total}>{formatCurrency(Math.max(0, subTotalPrice))}</div>
         </div>
       </Paper>
 
@@ -190,7 +191,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
         ) : (
           <div className={styles.sticky_checkout_bar_mobile}>
             <div className={styles.fwc_container}>
-              <div className={styles.price}>{FormarCurrency(total)}</div>
+              <div className={styles.price}>{formatCurrency(total)}</div>
               <div>
                 <Button
                   classes={{

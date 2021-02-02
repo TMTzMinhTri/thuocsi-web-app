@@ -13,7 +13,7 @@ import { useAuth, useCart } from 'context';
 import { useRouter } from 'next/router';
 import { MenuDropDown, MenuDropDownItem } from 'components/atoms';
 import { useModal } from 'hooks';
-import { FormarCurrency } from 'utils';
+import { formatCurrency } from 'utils/FormatNumber';
 
 import CustomModal from '../CustomModal';
 import styles from './styles.module.css';
@@ -61,7 +61,7 @@ export default function Toggle({ point, balance }) {
           </div>
           <div className={styles.top_menu}>
             <Typography className={styles.top_text} variant="h5" color="primary">
-              {FormarCurrency(balance)}
+              {formatCurrency(balance)}
             </Typography>
             <Typography className={styles.top_text} variant="h5" color="secondary">
               {point}

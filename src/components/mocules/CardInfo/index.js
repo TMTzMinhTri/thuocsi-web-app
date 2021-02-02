@@ -5,7 +5,7 @@ import { LocalOffer } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
 import { useCart } from 'context';
-import formatCurrency from 'utils/FormarCurrency';
+import { formatCurrency } from 'utils/FormatNumber';
 import { CartClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
 import { LinkComp, ButtonDefault } from 'components/atoms';

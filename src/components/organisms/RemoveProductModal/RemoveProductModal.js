@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Image from 'next/image';
 import { MISSING_IMAGE } from 'constants/Images';
-import FormatCurrency from 'utils/FormarCurrency';
+import { formatCurrency } from 'utils/FormatNumber';
 import styles from './style.module.css';
 
 const RemoveProductModal = memo((props) => {
@@ -37,7 +37,7 @@ const RemoveProductModal = memo((props) => {
             <div className={styles.remove_item_content}>
               <div className={styles.remove_item_cart_name}>{product.name && product.name}</div>
               <div className={styles.remove_item_cart_price}>
-                {product.price && FormatCurrency(product.price)}
+                {product.price && formatCurrency(product.price)}
               </div>
             </div>
           </Card>

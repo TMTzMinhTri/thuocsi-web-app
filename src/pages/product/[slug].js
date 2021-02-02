@@ -13,22 +13,20 @@ import {
   Popover,
   Typography,
 } from '@material-ui/core';
-import FormarCurrency from 'utils/FormarCurrency';
+import { formatCurrency, formatNumber } from 'utils/FormatNumber';
 import { tabsProductData } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchDollar, faStoreAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import {
-  MultiImageBox,
   InputProduct,
   MinusButton,
   PlusButton,
-  TagType,
-  ProductDetailTabs,
   Button as CustomButton,
-  Template,
   LinkComp,
-} from 'components';
+} from 'components/atoms';
+import { MultiImageBox, TagType, ProductDetailTabs } from 'components/mocules';
+import Template from 'components/layout/Template';
 import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide, SupplierClient } from 'clients';
 import { useCart, useAuth } from 'context';
@@ -204,7 +202,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       <div className={styles.price_info}>
                         <div className={styles.product_price_group}>
                           <span className={styles.product_price}>
-                            {price && FormarCurrency(price)}
+                            {price && formatCurrency(price)}
                           </span>
                         </div>
                         <IconButton onClick={handleClick} aria-label="close">
@@ -240,7 +238,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       </div>
                       {maxQuantity && maxQuantity > 0 && (
                         <Typography className={styles.text_danger}>
-                          Đặt tối đa {maxQuantity} sản phẩm
+                          Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
                         </Typography>
                       )}
                       {!isMobile && (
