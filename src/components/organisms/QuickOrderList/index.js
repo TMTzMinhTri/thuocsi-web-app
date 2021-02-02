@@ -50,11 +50,9 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
 
   return (
     <>
-      {!isMobile && (
-        <div className={styles.search_input}>
-          <SearchOrder onSearch={handleSearchbox} />
-        </div>
-      )}
+      <div className={styles.search_input}>
+        <SearchOrder onSearch={handleSearchbox} isMobile={isMobile} />
+      </div>
       {searchProduct ? (
         <>
           {searchProduct.map(

@@ -1,29 +1,59 @@
-const backgroundColorSecondary = '#CCD3DA';
-const backgroundButtonSecondary = '#E6EAED';
-const primaryColor = '#EB6D2F';
-const backgroundPrimaryColor = '#FEF1EB';
-const borderPrimaryColor = '#EF8A59';
-const secondaryColor = '#002448';
-const inputBorder = '#99A7B6';
-const selectText = '#747D88';
-const inputValidBorder = '#6BB88D';
-const transparent = 'transparent';
-const backgroundColorPackEvents = '#667C91';
-const backgroundColorErecorders = '#33506D';
-const backgroundColorNavbar = 'linear-gradient(102.04deg, #00b46e 0%, #9ac100 100%)';
-
-export default {
-  backgroundPrimaryColor,
-  backgroundColorSecondary,
-  primaryColor,
-  secondaryColor,
-  backgroundButtonSecondary,
-  backgroundColorPackEvents,
-  backgroundColorErecorders,
-  backgroundColorNavbar,
-  inputBorder,
-  inputValidBorder,
-  selectText,
-  transparent,
-  borderPrimaryColor,
+export const palette = {
+  primary: {
+    lighter: '#C8FACD',
+    light: '#5BE584',
+    main: '#00AB55',
+    dark: '#007B55',
+    darker: '#005249',
+  },
+  info: {
+    lighter: '##D0F2FF',
+    light: '#74CAFF',
+    main: '#1890FF',
+    dark: '#0C53B7',
+    darker: '#04297A',
+  },
+  secondary: {
+    main: '#ff4fae',
+  },
+  thirdly: {
+    main: '#00814f',
+  },
+  error: {
+    lighter: '#FFE7D9',
+    light: '#FFA48D',
+    main: '#FF4842  ',
+    dark: '#B72136',
+    darker: '#7A0C2E',
+  },
+  grey: {
+    100: '#F9FAFB',
+    200: '#F4F6F8',
+    300: '#DFE3E8  ',
+    400: '#C4CDD5',
+    500: '#919EAB',
+    600: '#637381',
+    700: '#454F5B',
+    800: '#212B36',
+    900: '#161C24',
+  },
+  background: {
+    default: '#fff',
+  },
+  warning: {
+    lighter: '#FFF7CD',
+    light: '#FFE16A',
+    main: '#FFC107  ',
+    dark: '#B78103',
+    darker: '#7A4F01',
+  },
+  success: {
+    lighter: '#E9FCD4',
+    light: '#AAF27F',
+    main: '#54D62C',
+    dark: '#229A16',
+    darker: '#08660D',
+  },
 };
+
+export default { palette };

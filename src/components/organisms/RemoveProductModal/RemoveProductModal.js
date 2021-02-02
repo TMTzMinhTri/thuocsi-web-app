@@ -1,10 +1,9 @@
 import React, { memo } from 'react';
-import { Modal } from 'components/atoms';
-import { Button, Typography } from '@material-ui/core';
+import { Modal, ButtonDefault } from 'components/atoms';
+import { Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Image from 'next/image';
 import { MISSING_IMAGE } from 'constants/Images';
-import clsx from 'clsx';
 import FormatCurrency from 'utils/FormarCurrency';
 import styles from './style.module.css';
 
@@ -45,12 +44,11 @@ const RemoveProductModal = memo((props) => {
         )}
 
         <div style={{ marginTop: '16px', textAlign: 'center' }}>
-          <Button className={clsx(styles.btn, styles.outlined_btn)} onClick={onClose}>
+          <ButtonDefault btnType="warning" onClick={onClose}>
             Không
-          </Button>
-          <Button onClick={() => onRemove()} className={clsx(styles.btn, styles.fill_btn)}>
-            Có
-          </Button>
+          </ButtonDefault>
+
+          <ButtonDefault onClick={() => onRemove()}>Có</ButtonDefault>
         </div>
       </div>
     </Modal>

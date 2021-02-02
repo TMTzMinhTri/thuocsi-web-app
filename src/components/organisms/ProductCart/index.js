@@ -95,7 +95,7 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
         visible={isShowModalWarning}
         title="Xin xác nhận"
         content="Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm"
-        btnOnClose="OK"
+        btnOnClose="Đóng"
       />
     </div>
   );
