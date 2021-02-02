@@ -12,8 +12,6 @@ import PromoListModal from 'components/mocules/PromoListModal';
 import { CartClient, isValid } from 'clients';
 import styles from '../styles.module.css';
 
-const PROMO_CODE_DEFAULT = '';
-
 const DeleteIconButton = (props) => (
   <IconButton style={{ padding: 0 }}>
     <DeleteIcon {...props} />
@@ -30,7 +28,7 @@ const FooterWithCart = () => {
 
   const handleRemoveRedeemCode = async () => {
     try {
-      const res = await CartClient.updateRedeemCode([PROMO_CODE_DEFAULT]);
+      const res = await CartClient.updateRedeemCode([]);
       if (!isValid(res)) throw new Error(res.messsage);
       updateCart();
       NotifyUtils.success('Xoá mã giảm giá thành công');
