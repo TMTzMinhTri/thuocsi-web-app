@@ -29,7 +29,7 @@ export async function login(body) {
 
 // {username password }
 export async function signUp(body) {
-  const result = await POST({ url: CUSTOMER_API.REGISTER, body });
+  const result = await POST({ url: CUSTOMER_API.REGISTER, body, isAuth: false });
   return result;
 }
 

@@ -62,6 +62,11 @@ const StyledButton = styled(CustomButton)`
       &:hover {
         background: #fff !important;
       }
+
+      &.Mui-disabled {
+        color: #212529 !important;
+        opacity: 0.65 !important;
+      }
     }
 
     &--blue {

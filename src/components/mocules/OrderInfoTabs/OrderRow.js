@@ -106,7 +106,7 @@ const OrderRow = ({
           justify="center"
         >
           <Grid item>
-            <PrintInvoiceButton orderNo={orderNo} user={user} />
+            <PrintInvoiceButton orderNo={orderNo} user={user} disabled={status !== ENUM_ORDER_STATUS.PENDING} />
           </Grid>
           {status === ENUM_ORDER_STATUS.PENDING && (
             <Grid item>
