@@ -27,6 +27,8 @@ export const CartReducer = (state, action) => {
         redeemCode: action.payload.redeemCode || [],
         note: action.payload.note || '',
         loading: false,
+        subTotalPrice: action.payload.subTotalPrice,
+        discount: action.payload.discount,
       };
     case 'FETCH_ERROR':
       return {
