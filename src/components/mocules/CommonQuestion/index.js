@@ -1,7 +1,7 @@
 import React from 'react';
-import { Grid, Button, Container } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import { linkQuestionItemRight, linkQuestionItemLeft, LINK_ALL_QUESTION } from 'constants/data';
-import { LinkComp } from 'components/atoms';
+import { LinkComp, ButtonDefault } from 'components/atoms';
 import styles from './styles.module.css';
 
 const renderLinkItem = (data) =>
@@ -26,14 +26,14 @@ const CommonQuestion = () => (
       </Grid>
 
       <div style={{ display: 'flex', marginTop: '16px', justifyContent: 'center' }}>
-        <Button
+        <ButtonDefault
           classes={{ label: styles.label, outlined: styles.outlined, root: styles.root }}
           href={LINK_ALL_QUESTION}
           variant="outlined"
           target="_blank"
         >
           Xem tất cả câu hỏi
-        </Button>
+        </ButtonDefault>
       </div>
     </Container>
   </div>
