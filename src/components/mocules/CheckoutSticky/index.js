@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Button, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
+import { Paper, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
@@ -131,9 +131,9 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
         <h1>
           Đơn Hàng <small>({itemCount} sản phẩm)</small>
         </h1>
-        <Button onClick={() => router.push('/cart')} className={styles.btn}>
+        <ButtonDefault onClick={() => router.push('/cart')} className={styles.btn}>
           Sửa
-        </Button>
+        </ButtonDefault>
       </div>
       <Paper className={styles.root} elevation={4}>
         <div className={styles.d_flex}>
@@ -186,7 +186,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
         {!isMobile ? (
           <Tooltip
             title={
-              checkCondition.checked === true
+              checkCondition.checked
                 ? ''
                 : 'Vui lòng đồng ý với điều khoản sử dụng trước khi thanh toán'
             }
