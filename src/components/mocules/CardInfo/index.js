@@ -44,7 +44,7 @@ const PaymentButton = ({ user }) => (
 );
 
 const CardInfo = ({ cart, promo, className, user }) => {
-  const { itemCount, total, updateCart, redeemCode } = useCart();
+  const { itemCount, total, subTotalPrice, updateCart, redeemCode } = useCart();
   const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
   const handleSetPromoVisible = () => {
@@ -99,8 +99,13 @@ const CardInfo = ({ cart, promo, className, user }) => {
           >
             <Typography className={styles.text}>Tổng tiền</Typography>
             <Typography className={clsx(styles.number, styles.price)}>
-              {formatCurrency(total || 0)}
+              {formatCurrency(subTotalPrice || 0)}
             </Typography>
+            {!isEmpty(redeemCode) && (
+              <Typography className={clsx(styles.total)}>
+                {formatCurrency(total)}
+              </Typography>
+            )}
           </Grid>
         </Grid>
         {promo && (
@@ -111,10 +116,12 @@ const CardInfo = ({ cart, promo, className, user }) => {
             item
             direction="row"
           >
-            <LocalOffer className={styles.icon_promo} />
-            <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
-              {!isEmpty(redeemCode) ? redeemCode[0] : 'Dùng mã khuyến mãi'}
-            </Typography>
+            <div className={styles.promo_left}>
+              <LocalOffer className={styles.icon_promo} />
+              <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
+                {!isEmpty(redeemCode) ? redeemCode[0] : 'Dùng mã khuyến mãi'}
+              </Typography>
+            </div>
             {!isEmpty(redeemCode) ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
           </Grid>
         )}
