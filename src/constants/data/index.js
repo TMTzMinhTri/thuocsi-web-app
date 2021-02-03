@@ -380,3 +380,5 @@ export const customerFeedbackData = [
 ];
 
 export const PAGE_SIZE = 20;
+
+export const HOLIDAYS = ['0209', '3004', '0105', '0204', '0101'];

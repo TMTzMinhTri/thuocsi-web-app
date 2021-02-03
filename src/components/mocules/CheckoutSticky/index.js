@@ -14,8 +14,8 @@ import { LinkComp } from 'components/atoms';
 import styles from './styles.module.css';
 
 const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError, isMobile }) => {
-  const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
-  const { itemCount = 0, updateCart, total = 0 } = useCart();
+  const { redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
+  const { shippingFee = 0, itemCount = 0, updateCart, total = 0 } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
   const router = useRouter();
 
@@ -143,7 +143,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
-          <div className={styles.checkout_content}>{formatCurrency(shippingFee)}</div>
+          <div className={styles.checkout_content}>{`-${formatCurrency(shippingFee)}`}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước</div>

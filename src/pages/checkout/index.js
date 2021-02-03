@@ -15,9 +15,10 @@ import { doWithServerSide, CartClient, isValid } from 'clients';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
-import { NotifyUtils } from 'utils';
+import { NotifyUtils, DateTimeUtils } from 'utils';
 import { debounceFunc500 } from 'utils/debounce';
 import { CART_URL } from 'constants/Paths';
+import { HOLIDAYS } from 'constants/data';
 
 import styles from './styles.module.css';
 
@@ -38,6 +39,8 @@ export async function getServerSideProps(ctx) {
   }
 }
 
+const MIMIMUM_PRICE = 5000000;
+
 const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const router = useRouter();
   const { itemCount = 0, updateCart } = useCart();
@@ -49,9 +52,13 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   }
   // TODO: sử dụng
   const { note: noteValue } = (cart && cart[0]) || {};
+  const { totalPrice = 0 } = cart[0];
+  // Xử lý ngày tháng
+  const date = new Date();
+  const day = date.getDay();
+  const today = DateTimeUtils.getFormattedDate(date, 'DDMM');
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
-
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
   const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('standard');
   const [note, setNote] = React.useState(noteValue);
@@ -64,6 +71,13 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     customerProvinceCode: user.provinceCode || '0',
     customerWardCode: user.wardCode || '0',
   });
+  const condition =
+    Number(value.customerProvinceCode) === 79 &&
+    !(Number(value.customerDistrictCode) === 787 || Number(value.customerDistrictCode) === 783) &&
+    totalPrice <= MIMIMUM_PRICE &&
+    !(day === 6 || day === 0) &&
+    !HOLIDAYS.includes(today);
+  // day: 0 -> CN day: 6 -> T7
 
   const [error, setError] = useState({
     name: false,
@@ -139,7 +153,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 handleChangeAddress={handleChangeAddress}
               />
               <DeliveryMethod
-                isHCM={Number(value.customerProvinceCode) === 79}
+                isValidCondition={condition}
                 selectedValue={selectedDeliveryValue}
                 handleChange={handleDeliveryChange}
               />
