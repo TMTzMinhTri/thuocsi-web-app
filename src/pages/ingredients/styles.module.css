@@ -1,0 +1,10 @@
+.ingredients{
+    background-color: #f4f7fc;
+    padding-bottom: 120px;
+}
+@media (min-width: 768px) {
+    .ingredients{
+        padding: 45px;
+        min-height: 80vh;
+    }
+}
