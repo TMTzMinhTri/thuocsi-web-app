@@ -9,15 +9,17 @@ import styles from './styles.module.css';
 
 const FastDelivery = (
   <>
-    <b className={styles.fw500}>Giao hàng nhanh</b> (Tính thêm{' '}
-    <b className={styles.fw500}>30.000đ</b>)
+    <b className={styles.fw500}>Giao hàng nhanh</b>
+    {/* (Tính thêm{' '}
+    <b className={styles.fw500}>30.000đ</b>) */}
   </>
 );
 
 const FastMovingDelivery = (
   <>
-    <b className={styles.fw500}>Giao hàng siêu tốc</b> (Tính thêm{' '}
-    <b className={styles.fw500}>30.000đ</b>)
+    <b className={styles.fw500}>Giao hàng siêu tốc</b>
+    {/* (Tính thêm{' '}
+    <b className={styles.fw500}>30.000đ</b>) */}
   </>
 );
 

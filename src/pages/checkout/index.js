@@ -38,6 +38,8 @@ export async function getServerSideProps(ctx) {
   }
 }
 
+const MIMIMUM_PRICE = 5000000;
+
 const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const router = useRouter();
   const { itemCount = 0, updateCart } = useCart();
@@ -49,7 +51,9 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   }
   // TODO: sử dụng
   const { note: noteValue } = (cart && cart[0]) || {};
-
+  const { totalPrice = 0 } = cart[0];
+  const date = new Date();
+  const day = date.getDay();
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
 
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
@@ -139,7 +143,16 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 handleChangeAddress={handleChangeAddress}
               />
               <DeliveryMethod
-                isHCM={Number(value.customerProvinceCode) === 79}
+                isHCM={
+                  Number(value.customerProvinceCode) === 79 &&
+                  !(
+                    Number(value.customerDistrictCode) === 787 ||
+                    Number(value.customerDistrictCode) === 783
+                  ) &&
+                  totalPrice <= MIMIMUM_PRICE &&
+                  !(day === 6 || day === 0)
+                }
+                // day: 0 -> CN day: 6 -> T7
                 selectedValue={selectedDeliveryValue}
                 handleChange={handleDeliveryChange}
               />
@@ -172,6 +185,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 data={value}
                 dataCustomer={dataCustomer}
                 selectedValue={selectedPaymentValue}
+                selectedDeliveryValue={selectedDeliveryValue}
                 isMobile={isMobile}
               />
             </Grid>
