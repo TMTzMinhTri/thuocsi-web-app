@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Paper, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
@@ -9,7 +9,7 @@ import { NotifyUtils, ValidateUtils } from 'utils';
 import { formatCurrency } from 'utils/FormatNumber';
 import { CheckoutClient, isValid } from 'clients';
 import { THANKYOU_URL } from 'constants/Paths';
-import { LinkComp } from 'components/atoms';
+import { LinkComp, ButtonDefault } from 'components/atoms';
 
 import styles from './styles.module.css';
 
@@ -22,7 +22,6 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
   const [checkCondition, setCheckCondition] = React.useState({
     checked: false,
   });
-
   const GreenCheckbox = React.memo((props) => (
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   ));
@@ -132,9 +131,9 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
         <h1>
           Đơn Hàng <small>({itemCount} sản phẩm)</small>
         </h1>
-        <Button onClick={() => router.push('/cart')} className={styles.btn}>
+        <ButtonDefault onClick={() => router.push('/cart')} className={styles.btn}>
           Sửa
-        </Button>
+        </ButtonDefault>
       </div>
       <Paper className={styles.root} elevation={4}>
         <div className={styles.d_flex}>
@@ -185,25 +184,41 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
           </div>
         </div>
         {!isMobile ? (
-          <Button onClick={handleSubmit} className={styles.checkout_btn}>
-            Thanh toán
-          </Button>
+          <Tooltip
+            title={
+              checkCondition.checked
+                ? ''
+                : 'Vui lòng đồng ý với điều khoản sử dụng trước khi thanh toán'
+            }
+          >
+            <span>
+              <ButtonDefault
+                disabled={!checkCondition.checked}
+                btnType="warning"
+                className={styles.checkout_btn}
+                onClick={handleSubmit}
+              >
+                Thanh toán
+              </ButtonDefault>
+            </span>
+          </Tooltip>
         ) : (
           <div className={styles.sticky_checkout_bar_mobile}>
             <div className={styles.fwc_container}>
               <div className={styles.price}>{formatCurrency(total)}</div>
               <div>
-                <Button
+                <ButtonDefault
+                  disabled={!checkCondition.checked}
+                  btnType="warning"
+                  onClick={handleSubmit}
                   classes={{
                     label: styles.label,
                     outlined: styles.outlined,
                     root: styles.root_btn,
                   }}
-                  variant="outlined"
-                  onClick={handleSubmit}
                 >
                   Thanh toán
-                </Button>
+                </ButtonDefault>
               </div>
             </div>
           </div>

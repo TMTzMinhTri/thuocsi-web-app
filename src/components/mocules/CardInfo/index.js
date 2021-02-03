@@ -102,9 +102,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
               {formatCurrency(subTotalPrice || 0)}
             </Typography>
             {!isEmpty(redeemCode) && (
-              <Typography className={clsx(styles.total)}>
-                {formatCurrency(total)}
-              </Typography>
+              <Typography className={clsx(styles.total)}>{formatCurrency(total)}</Typography>
             )}
           </Grid>
         </Grid>
