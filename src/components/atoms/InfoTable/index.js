@@ -17,8 +17,8 @@ const InfoTable = ({ heads, children, className, stickyHeader }) => (
       <TableHead>
         <TableRow>
           {heads.map((head) => (
-            <TableCell key={uuidv4()} classes={{ root: styles.table_head }} align="left">
-              {head}
+            <TableCell key={uuidv4()} classes={{ root: styles.table_head }} align={head.align}>
+              {head.text}
             </TableCell>
           ))}
         </TableRow>

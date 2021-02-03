@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { hashCode } from './StringUtils';
 
-const show = (text, type) => {
+const show = (text, type, options) => {
   // create toastId
   const toastId = hashCode(text);
 
@@ -12,6 +12,7 @@ const show = (text, type) => {
     toast(text, {
       toastId,
       type,
+      ...options
     });
   }
 };
@@ -28,8 +29,8 @@ const dark = (text) => {
   show(text, 'dark');
 };
 
-const error = (text) => {
-  show(text, 'error');
+const error = (text, options) => {
+  show(text, 'error', options);
 };
 
 const warn = (text) => {

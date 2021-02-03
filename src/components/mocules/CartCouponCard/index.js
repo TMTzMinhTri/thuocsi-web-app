@@ -61,7 +61,7 @@ const CartCounponCard = ({
   const getBenefitAvatar = () => {
     if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT)
       return <Image width={60} height={60} src={GIFT_IMAGE} />;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE || ruleType === PROMO_RULE_TYPE.ABSOLUTE)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
           {formatCurrency(String(discountValue))}
@@ -78,14 +78,14 @@ const CartCounponCard = ({
 
   const getTitle = () => {
     if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT) return promotionName;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE || type === PROMO_RULE_TYPE.ABSOLUTE)
       return `GIẢM ${formatCurrency(discountValue)}`;
     if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
       return `GIẢM ${percent}% TỐI ĐA ${formatCurrency(maxDiscountValue)}`;
     return '';
   };
   const caculatePrice = () => {
-    if (ruleType === PROMO_RULE_TYPE.VALUE) return totalPrice - discountValue;
+    if (ruleType === PROMO_RULE_TYPE.VALUE || ruleType === PROMO_RULE_TYPE.ABSOLUTE) return totalPrice - discountValue;
     if (ruleType === PROMO_RULE_TYPE.PERCENT)
       return Math.max(totalPrice - (totalPrice * percent) / 100, totalPrice - maxDiscountValue);
     return totalPrice;
