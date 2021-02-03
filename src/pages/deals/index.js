@@ -18,9 +18,9 @@ export async function getServerSideProps(ctx) {
 
 const DealsPage = ({ products = [], isMobile }) => {
   const title = 'Khuyến mãi – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-
+  const name = 'deals';
   return (
-    <Template title={title} isMobile={isMobile}>
+    <Template title={title} isMobile={isMobile} pageName={name}>
       <div className={styles.promo_wrapper}>
         <div className={styles.container}>
           <div className={styles.text_white}>
