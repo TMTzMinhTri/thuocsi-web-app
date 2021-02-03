@@ -52,10 +52,22 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   // TODO: sử dụng
   const { note: noteValue } = (cart && cart[0]) || {};
   const { totalPrice = 0 } = cart[0];
+  // Xử lý ngày tháng
   const date = new Date();
   const day = date.getDay();
-  const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
+  let dd = date.getDate();
+  let mm = date.getMonth() + 1;
+  if (dd < 10) {
+    dd = `0${dd}`;
+  }
 
+  if (mm < 10) {
+    mm = `0${mm}`;
+  }
+  const holiday = ['0209', '0302'];
+  const today = dd + mm;
+
+  const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
   const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('standard');
   const [note, setNote] = React.useState(noteValue);
@@ -68,6 +80,13 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     customerProvinceCode: user.provinceCode || '0',
     customerWardCode: user.wardCode || '0',
   });
+  const condition =
+    Number(value.customerProvinceCode) === 79 &&
+    !(Number(value.customerDistrictCode) === 787 || Number(value.customerDistrictCode) === 783) &&
+    totalPrice <= MIMIMUM_PRICE &&
+    !(day === 6 || day === 0) &&
+    !holiday.includes(today);
+  // day: 0 -> CN day: 6 -> T7
 
   const [error, setError] = useState({
     name: false,
@@ -143,16 +162,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 handleChangeAddress={handleChangeAddress}
               />
               <DeliveryMethod
-                isHCM={
-                  Number(value.customerProvinceCode) === 79 &&
-                  !(
-                    Number(value.customerDistrictCode) === 787 ||
-                    Number(value.customerDistrictCode) === 783
-                  ) &&
-                  totalPrice <= MIMIMUM_PRICE &&
-                  !(day === 6 || day === 0)
-                }
-                // day: 0 -> CN day: 6 -> T7
+                isValid={condition}
                 selectedValue={selectedDeliveryValue}
                 handleChange={handleDeliveryChange}
               />
