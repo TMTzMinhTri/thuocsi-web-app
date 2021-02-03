@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 const PromoCodesContainer = ({ promos = [] }) => {
-  const maxWidth3Card = useMediaQuery('(max-width:873px)');
+  const maxWidth3Card = useMediaQuery('(max-width:767px)');
   return (
     <div className={styles.root}>
       <Container maxWidth="lg" className={styles.container}>
@@ -66,7 +66,7 @@ const PromoCodesContainer = ({ promos = [] }) => {
         {promos.length !== 0 ? (
           <Grid container spacing={4}>
             {promos.map((promo) => (
-              <Grid key={uuidv4()} item xs={maxWidth3Card ? 6 : 4}>
+              <Grid key={uuidv4()} item xs={maxWidth3Card ? 12 : 4}>
                 <CouponCard {...promo} />
               </Grid>
             ))}
