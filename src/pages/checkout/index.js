@@ -15,9 +15,10 @@ import { doWithServerSide, CartClient, isValid } from 'clients';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
-import { NotifyUtils } from 'utils';
+import { NotifyUtils, DateTimeUtils } from 'utils';
 import { debounceFunc500 } from 'utils/debounce';
 import { CART_URL } from 'constants/Paths';
+import { HOLIDAYS } from 'constants/data';
 
 import styles from './styles.module.css';
 
@@ -55,17 +56,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   // Xử lý ngày tháng
   const date = new Date();
   const day = date.getDay();
-  let dd = date.getDate();
-  let mm = date.getMonth() + 1;
-  if (dd < 10) {
-    dd = `0${dd}`;
-  }
-
-  if (mm < 10) {
-    mm = `0${mm}`;
-  }
-  const holiday = ['0209', '0302'];
-  const today = dd + mm;
+  const today = DateTimeUtils.getFormattedDate(date, 'DDMM');
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
@@ -85,7 +76,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     !(Number(value.customerDistrictCode) === 787 || Number(value.customerDistrictCode) === 783) &&
     totalPrice <= MIMIMUM_PRICE &&
     !(day === 6 || day === 0) &&
-    !holiday.includes(today);
+    !HOLIDAYS.includes(today);
   // day: 0 -> CN day: 6 -> T7
 
   const [error, setError] = useState({
@@ -162,7 +153,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 handleChangeAddress={handleChangeAddress}
               />
               <DeliveryMethod
-                isValid={condition}
+                isValidCondition={condition}
                 selectedValue={selectedDeliveryValue}
                 handleChange={handleDeliveryChange}
               />
