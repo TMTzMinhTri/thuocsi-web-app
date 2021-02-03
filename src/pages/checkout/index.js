@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable camelcase */
 
-import React, { useCallback, useState } from 'react';
-import { Grid, TextareaAutosize, Paper } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, Paper } from '@material-ui/core';
 import {
   Template,
   DeliveryInfoForm,
@@ -11,14 +11,14 @@ import {
   CheckoutSticky,
   LoadingScreen,
 } from 'components';
-import { doWithServerSide, CartClient, isValid } from 'clients';
+import { doWithServerSide, CartClient } from 'clients';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
 import { NotifyUtils, DateTimeUtils } from 'utils';
-import { debounceFunc500 } from 'utils/debounce';
 import { CART_URL } from 'constants/Paths';
 import { HOLIDAYS } from 'constants/data';
+import CartNote  from 'components/mocules/CartNote';
 
 import styles from './styles.module.css';
 
@@ -43,15 +43,14 @@ const MIMIMUM_PRICE = 5000000;
 
 const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const router = useRouter();
-  const { itemCount = 0, updateCart } = useCart();
+  const { itemCount = 0 } = useCart();
   // validate user isActive
   if (!user.isActive) {
     NotifyUtils.info('Tài khoản chưa được kích hoạt');
     router.push(CART_URL);
     return <LoadingScreen />;
   }
-  // TODO: sử dụng
-  const { note: noteValue } = (cart && cart[0]) || {};
+
   const { totalPrice = 0 } = cart[0];
   // Xử lý ngày tháng
   const date = new Date();
@@ -61,7 +60,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
   const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('standard');
-  const [note, setNote] = React.useState(noteValue);
   const [value, setValue] = useState({
     customerName: user.name || '',
     customerPhone: user.phone || '',
@@ -88,7 +86,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const dataCustomer = {
     paymentMethod: selectedPaymentValue,
     shippingType: selectedDeliveryValue,
-    note,
   };
 
   if (!cart || cart?.length === 0) {
@@ -111,25 +108,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
 
   const handleSetError = (key, val) => {
     setError({ ...value, [key]: val });
-  };
-
-  // TODO: gộp lại tách ra ngoài
-  const handleUpdateNote = useCallback(async (valNote) => {
-    try {
-      const res = await CartClient.updateNote(valNote);
-      if (!isValid(res)) throw new Error(res.messsage);
-      updateCart();
-      NotifyUtils.success('Cập nhật ghi chú thành công');
-    } catch (err) {
-      NotifyUtils.error(err?.message || 'Cập nhật ghi chú thất bại');
-    }
-  });
-
-  // TODO: gộp lại
-  const handleSetNote = (e) => {
-    const valNote = e.target.value;
-    setNote(valNote);
-    debounceFunc500(() => handleUpdateNote(valNote));
   };
 
   // TODO: cần kiểm tra lại
@@ -168,15 +146,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                   Trường hợp không tìm được thuốc mong muốn, Quý khách vui lòng điền yêu cầu bên
                   dưới. Chúng tôi sẽ liên hệ mua thuốc và báo giá sớm nhất có thể
                 </p>
-                <TextareaAutosize
-                  name="note"
-                  value={note}
-                  onChange={handleSetNote}
-                  className={styles.text_area}
-                  aria-label="Ghi chú của khách hàng"
-                  placeholder="Ghi chú của khách hàng"
-                  rowsMax={4}
-                />
+                <CartNote />
               </Paper>
             </Grid>
             <Grid item xs={12} md={4}>
