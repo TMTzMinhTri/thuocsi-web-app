@@ -17,10 +17,11 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-const PromoCodes = ({ promos = [] }) => {
+const PromoCodes = ({ promos = [], isMobile }) => {
   const title = 'Mã giảm giá – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+  const pageTitle = 'Mã giảm giá';
   return (
-    <Template title={title}>
+    <Template title={title} isMobile={isMobile} pageTitle={pageTitle}>
       <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh' }}>
         <PromoCodesContainer promos={promos} />
       </div>
