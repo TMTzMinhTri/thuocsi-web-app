@@ -186,7 +186,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 data={value}
                 dataCustomer={dataCustomer}
                 selectedValue={selectedPaymentValue}
-                selectedDeliveryValue={selectedDeliveryValue}
                 isMobile={isMobile}
               />
             </Grid>
