@@ -6,7 +6,14 @@ import HeaderMobile from '../HeaderMobile';
 import Footer from '../Footer';
 import FooterMobile from '../FooterMobile';
 
-export default function Template({ title, children, isMobile, pageName, pageTitle = '', product = '' }) {
+export default function Template({
+  title,
+  children,
+  isMobile,
+  pageName,
+  pageTitle = '',
+  product = '',
+}) {
   return (
     <div>
       <Head>
