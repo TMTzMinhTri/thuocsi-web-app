@@ -4,6 +4,7 @@ import { Input } from 'components/atoms';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 import styled from 'styled-components';
+import styles from './styles.module.css';
 
 const IngredientInput = ({ className, ...rest }) => <Input className={className} {...rest} />;
 
@@ -39,13 +40,14 @@ const StyledFab = styled(Fab)`
 
 const CloseButton = ({ handleClose }) => <CloseIcon onClick={handleClose} />;
 const FloatSearch = ({ value, handleChangeValue, handleClose, placeholder }) => (
-  <Grid container spacing={0} alignItems="baseline" justify="center">
+  <Grid className={styles.searchBox} container spacing={0} alignItems="baseline" justify="center">
     <Grid item>
       <StyledIngredientInput
         placeholder={placeholder}
         value={value}
         onChange={handleChangeValue}
         endAdornment={value ? <CloseButton handleClose={handleClose} /> : null}
+        className={styles.searchInput}
       />
     </Grid>
     <Grid item>

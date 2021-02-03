@@ -6,6 +6,7 @@ import { IngredientCLient } from 'clients';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
 import { useIsMobile } from 'hooks';
+import styles from './styles.module.css';
 
 // export async function getStaticProps(ctx) {
 //   const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
@@ -48,7 +49,7 @@ const Ingredients = ({ ingredients = [] }) => {
   const { isMobile } = useIsMobile();
   return (
     <Template title={title} isMobile={isMobile()} pageName={pageName}>
-      <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
+      <div className={styles.ingredients}>
         <Container maxWidth="lg">
           <IngredientContainer ingredients={ingredients} />
         </Container>
