@@ -56,68 +56,68 @@ const TagTypeProps = {
 
   OUT_OF_STOCKS: {
     text: 'Tạm hết hàng',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #f9b514',
     color: '#f9b514',
     icon: <HighlightOff className={styles.icon} />,
   },
 
   DROP_SHIP: {
     text: 'Dropship',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #f9b514',
     color: '#f9b514',
   },
 
   GIAO_NHANH: {
     text: 'Giao nhanh',
-    backgroundColor: '#00b46e',
-    color: '#fff',
+    border: '1px solid #00b46e',
+    color: '#00b46e',
     icon: <ThumbUp className={styles.icon} />,
   },
 
   CHANGE_STYLE: {
     text: 'Đổi mẫu',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #f9b514',
     color: '#f9b514',
     icon: <FlashOn className={styles.icon} />,
   },
 
   STOP_PRODUCING: {
     text: 'Ngừng sản xuất',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #f9b514',
     color: '#f9b514',
     icon: <Stop className={styles.icon} />,
   },
 
   ONLY_THUOCSI: {
     text: 'Chỉ có tại thuocsi',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #00b46e',
     color: '#00b46e',
     icon: <PriorityHigh className={styles.icon} />,
   },
 
   HARD_TO_BUY: {
     text: 'Khó mua',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #00b46e',
     color: '#00b46e',
     icon: <PriorityHigh className={styles.icon} />,
   },
 
   NEW: {
     text: 'Mới',
-    backgroundColor: '#f9b514',
+    border: '1px solid #212529',
     color: '#212529',
   },
 
   PRICE_DOWN: {
     text: 'Giảm Giá',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #00b46e',
     color: '#00b46e',
     icon: <ArrowDownward className={styles.icon} />,
   },
 
   PRICE_UP: {
     text: 'Tăng Giá',
-    backgroundColor: '#f8f9fa',
+    border: '1px solid #dc3545',
     color: '#dc3545',
     icon: <ArrowUpward className={styles.icon} />,
   },
