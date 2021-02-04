@@ -73,3 +73,22 @@
   text-align: center;
   margin: 1rem 0;
 }
+
+@media screen and (max-width: 767px) {
+  .order_id {
+    font-size: 22px;
+  }
+  .order_status{
+    padding-top: 0 !important;
+  }
+  .order_status button{
+    font-size: 12px !important;
+    font-weight: 400 !important;
+  }
+  .grid{
+    padding: 8px !important;
+  }
+  .grid [class*='my-order__button']{
+    padding: 2px 0.5rem !important;
+  }
+}
