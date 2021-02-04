@@ -24,7 +24,7 @@ const PromoCodes = ({ promos = [], isMobile }) => {
   return (
     <Template title={title} isMobile={isMobile} pageTitle={pageTitle} pageName={name}>
       <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh' }}>
-        <PromoCodesContainer promos={promos} />
+        <PromoCodesContainer promos={promos} pageName={name} />
       </div>
     </Template>
   );
