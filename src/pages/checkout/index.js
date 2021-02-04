@@ -56,8 +56,8 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const date = new Date();
   const day = date.getDay();
   const today = DateTimeUtils.getFormattedDate(date, 'DDMM');
-  const [savedInfo, setSavedInfo] = React.useState({
-    checked: true,
+  const [state, setState] = React.useState({
+    saveInfoShipping: true,
   });
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
@@ -114,7 +114,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   };
 
   const handleChangeCheckbox = (event) => {
-    setSavedInfo({ ...savedInfo, [event.target.name]: event.target.checked });
+    setState({ [event.target.name]: event.target.checked });
   };
 
   // TODO: cần kiểm tra lại
@@ -134,7 +134,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
               <DeliveryInfoForm
                 {...error}
                 {...value}
-                savedInfo={savedInfo}
+                isChecked={state?.saveInfoShipping}
                 handleSetValue={handleSetValue}
                 handleChangeAddress={handleChangeAddress}
                 handleChangeCheckbox={handleChangeCheckbox}
@@ -166,7 +166,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 dataCustomer={dataCustomer}
                 selectedValue={selectedPaymentValue}
                 isMobile={isMobile}
-                savedInfo={savedInfo}
+                state={state}
               />
             </Grid>
           </Grid>
