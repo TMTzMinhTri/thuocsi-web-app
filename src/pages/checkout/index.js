@@ -59,7 +59,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const [savedInfo, setSavedInfo] = React.useState({
     checked: true,
   });
-  console.log(savedInfo);
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
@@ -115,7 +114,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   };
 
   const handleChangeCheckbox = (event) => {
-    console.log(event);
     setSavedInfo({ ...savedInfo, [event.target.name]: event.target.checked });
   };
 
