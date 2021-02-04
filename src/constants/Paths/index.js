@@ -47,4 +47,6 @@ export const LEGAL_IMAGE =
   'https://assets.thuocsi.vn/assets/bct-150ac1809a7ae41e0a4b21f1e1e21a26a2f93ee0c79e5c99cc197dd2fdc988c8.png';
 export const FEEDBACK = 'https://cs.stg.thuocsi.vn/feedback';
 
+export const NEW_PRODUCT = 'https://try.thuocsi.vn/daitiechangmoi';
+
 export const WEB = {};
