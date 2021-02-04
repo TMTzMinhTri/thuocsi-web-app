@@ -21,7 +21,7 @@ const heads = [
 function PromoTable({ promos }) {
   const router = useRouter();
   return (
-    <div>
+    <div className={styles.root}>
       <InfoTable heads={heads}>
         {promos.length !== 0 &&
           promos.map((row) => (
