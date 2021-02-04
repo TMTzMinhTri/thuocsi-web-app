@@ -25,7 +25,7 @@ const DeliveryInfoForm = ({
   address,
   handleChangeAddress,
   handleChangeCheckbox,
-  savedInfo,
+  isChecked = true,
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
 
@@ -114,9 +114,9 @@ const DeliveryInfoForm = ({
         <FormControlLabel
           control={(
             <GreenCheckbox
-              checked={savedInfo?.checked}
+              checked={isChecked}
               onChange={(e) => handleChangeCheckbox(e)}
-              name="checked"
+              name="saveInfoShipping"
             />
           )}
           className={styles.save_info_cb}
