@@ -95,31 +95,6 @@
 .product_content {
     padding: 0!important;
 }
-.supplierTitle{
-    display: flex !important;
-    margin-bottom: 8px;
-    align-items: center
-}
-.icon {
-    background-color: #f9b514;
-    color: white;
-    min-width: 20px;
-    min-height: 20px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 1px;
-    font-size: 10px;
-}
-.supplierName {
-    color: #919aa3 !important;
-    font-size: 12px!important;
-    padding: 0 5px !important;
-}
-.supplierName:hover {
-    color: #00b46e!important;
-}
 @media (max-width: 767px) {
     .product_title_wrap {
         margin-bottom: 0 !important;
