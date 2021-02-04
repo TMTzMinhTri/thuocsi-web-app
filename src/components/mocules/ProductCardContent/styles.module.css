@@ -110,7 +110,7 @@
     }
     .product_title {
         height: auto;
-        padding-right: 40px !important;
+        padding-right: 0 !important;
     }
     .product_tags {
         margin: 10px 0 8px !important;
