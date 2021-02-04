@@ -24,21 +24,19 @@ const DeliveryInfoForm = ({
   phone,
   address,
   handleChangeAddress,
+  handleChangeCheckbox,
+  savedInfo,
 }) => {
-  const [savedInfo, setSavedInfo] = React.useState({
-    checked: true,
-  });
   const maxWidthScope = useMediaQuery('(max-width:600px)');
-  const handleChange = (event) => {
-    setSavedInfo({ ...savedInfo, [event.target.name]: event.target.checked });
-  };
+
   return (
     <Paper className={styles.root} elevation={2}>
       <h1 className={styles.title}>
         Thông tin giao hàng
         <small className={styles.text_muted}>
           <FontAwesomeIcon icon={faInfoCircle} />
-          <span className={styles.text}>Lưu ý: những ô có dấu </span><span className={styles.required}>*</span> là thông tin bắt buộc
+          <span className={styles.text}>Lưu ý: những ô có dấu </span>
+          <span className={styles.required}>*</span> là thông tin bắt buộc
         </small>
       </h1>
       <Grid container>
@@ -114,9 +112,13 @@ const DeliveryInfoForm = ({
           handleChangeAddress={handleChangeAddress}
         />
         <FormControlLabel
-          control={
-            <GreenCheckbox checked={savedInfo.checked} onChange={handleChange} name="checked" />
-          }
+          control={(
+            <GreenCheckbox
+              checked={savedInfo?.checked}
+              onChange={(e) => handleChangeCheckbox(e)}
+              name="checked"
+            />
+          )}
           className={styles.save_info_cb}
           label={<span className={styles.fw500}>Lưu lại thông tin</span>}
         />
