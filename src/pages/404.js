@@ -49,11 +49,11 @@ const Error404 = ({ className }) => (
 );
 
 const StyledError404 = styled(Error404)`
-  body {
-    background-color: #f4f7fc !important;
-  }
-  padding: 100px 150px 0 150px !important;
-  background-color: #f4f7fc !important;
+  background-color: transparent !important;
+  padding: 15px !important;
+  top: calc(50% - 170px);
+  bottom: calc(50% - 170px);
+  position: absolute;
   max-width: 100%;
 
   .boldText {
