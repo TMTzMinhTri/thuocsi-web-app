@@ -202,11 +202,13 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <SearchInput classCustom={styles.customWidth} className={styles.searchInput} />
               <div className={styles.navBarRight}>
                 <LinkComp className={styles.navBarRightLink} href={CART_URL}>
-                  <IconButton aria-label="cart">
-                    <Badge badgeContent={itemCount} invisible={itemCount === 0} color="secondary">
-                      <LocalMallOutlined className={styles.rIcon} />
-                    </Badge>
-                  </IconButton>
+                  <Tooltip title="Giỏ hàng" arrow>
+                    <IconButton aria-label="cart">
+                      <Badge badgeContent={itemCount} invisible={itemCount === 0} color="secondary">
+                        <LocalMallOutlined className={styles.rIcon} />
+                      </Badge>
+                    </IconButton>
+                  </Tooltip>
                 </LinkComp>
                 <Toggle balance={balance} point={point} />
               </div>

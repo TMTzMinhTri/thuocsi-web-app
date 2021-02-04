@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { DateTimeUtils } from 'utils';
-import { IconButton, Menu, Fade, Badge } from '@material-ui/core';
+import { IconButton, Menu, Fade, Badge, Tooltip } from '@material-ui/core';
 import { CardTravel, House, NewReleases, NotificationsNoneOutlined } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
 import { LOGO_THUOCSI } from 'constants/Images';
@@ -135,15 +135,17 @@ const InfoHeader = memo(({ t }) => {
                   </LinkComp>
                 ))}
               </Menu>
-              <IconButton className={styles.notiIcon} onClick={handleClick}>
-                <Badge
-                  badgeContent={totalNotification}
-                  invisible={totalNotification === 0}
-                  color="secondary"
-                >
-                  <NotificationsNoneOutlined />
-                </Badge>
-              </IconButton>
+              <Tooltip title="Thông báo" arrow>
+                <IconButton className={styles.notiIcon} onClick={handleClick}>
+                  <Badge
+                    badgeContent={totalNotification}
+                    invisible={totalNotification === 0}
+                    color="secondary"
+                  >
+                    <NotificationsNoneOutlined />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
               <HeaderUser user={user} />
             </div>
           </>

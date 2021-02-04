@@ -7,18 +7,29 @@ import { useCart } from 'context';
 import clsx from 'clsx';
 import { NotifyUtils, ValidateUtils } from 'utils';
 import { formatCurrency } from 'utils/FormatNumber';
-import { CheckoutClient, isValid } from 'clients';
+import {
+  // CustomerClient,
+  CheckoutClient,
+  isValid,
+} from 'clients';
 import { THANKYOU_URL } from 'constants/Paths';
 import { LinkComp, ButtonDefault } from 'components/atoms';
 
 import styles from './styles.module.css';
 
-const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError, isMobile }) => {
+const CheckoutSticky = ({
+  selectedValue = '',
+  data,
+  cart,
+  dataCustomer,
+  onSetError,
+  isMobile,
+  // savedInfo,
+}) => {
   const { redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
   const { shippingFee = 0, itemCount = 0, updateCart, total = 0 } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
   const router = useRouter();
-
   const [checkCondition, setCheckCondition] = React.useState({
     checked: false,
   });
@@ -99,6 +110,15 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
     }
   }, [selectedValue, totalPrice]);
 
+  // const handleUpdateProfile = async () => {
+  //   try {
+  //     const res = await CustomerClient.updateProfile(data);
+  //     if (!isValid(res)) throw Error(res?.message);
+  //   } catch (error) {
+  //     NotifyUtils.error(error?.message || 'Cập nhật thông tin thất bại');
+  //   }
+  // };
+
   const handleSubmit = async () => {
     const formValue = {
       ...data,
@@ -115,6 +135,9 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
     const response = await CheckoutClient.Checkout(formValue);
     if (isValid(response)) {
       const { orderId } = response.data[0];
+      // if (savedInfo?.checked) {
+      //   handleUpdateProfile();
+      // }
       // update
       updateCart();
       router.push(`${THANKYOU_URL}/${orderId}`);

@@ -18,7 +18,7 @@ import { useRouter } from 'next/router';
 import { NotifyUtils, DateTimeUtils } from 'utils';
 import { CART_URL } from 'constants/Paths';
 import { HOLIDAYS } from 'constants/data';
-import CartNote  from 'components/mocules/CartNote';
+import CartNote from 'components/mocules/CartNote';
 
 import styles from './styles.module.css';
 
@@ -56,6 +56,9 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   const date = new Date();
   const day = date.getDay();
   const today = DateTimeUtils.getFormattedDate(date, 'DDMM');
+  const [state, setState] = React.useState({
+    saveInfoShipping: true,
+  });
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
   const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
@@ -110,6 +113,10 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     setError({ ...value, [key]: val });
   };
 
+  const handleChangeCheckbox = (event) => {
+    setState({ [event.target.name]: event.target.checked });
+  };
+
   // TODO: cần kiểm tra lại
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
     if (Number(province) !== 79) {
@@ -127,8 +134,10 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
               <DeliveryInfoForm
                 {...error}
                 {...value}
+                isChecked={state?.saveInfoShipping}
                 handleSetValue={handleSetValue}
                 handleChangeAddress={handleChangeAddress}
+                handleChangeCheckbox={handleChangeCheckbox}
               />
               <DeliveryMethod
                 isValidCondition={condition}
@@ -157,6 +166,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 dataCustomer={dataCustomer}
                 selectedValue={selectedPaymentValue}
                 isMobile={isMobile}
+                state={state}
               />
             </Grid>
           </Grid>
