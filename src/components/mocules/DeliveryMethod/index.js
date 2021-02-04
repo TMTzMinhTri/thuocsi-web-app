@@ -23,7 +23,7 @@ const FastMovingDelivery = (
   </>
 );
 
-const DeliveryMethod = ({ handleChange, selectedValue, isValid = false }) => (
+const DeliveryMethod = ({ handleChange, selectedValue, isValidCondition = false }) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}>Hình thức giao hàng</h1>
 
@@ -36,7 +36,7 @@ const DeliveryMethod = ({ handleChange, selectedValue, isValid = false }) => (
         />
         <FormControlLabel
           value="quick"
-          disabled={!isValid}
+          disabled={!isValidCondition}
           control={<Radio classes={{ root: styles.checkbox }} />}
           label={FastDelivery}
         />
@@ -62,7 +62,7 @@ const DeliveryMethod = ({ handleChange, selectedValue, isValid = false }) => (
 
         <FormControlLabel
           value="fast_moving"
-          disabled={!isValid}
+          disabled={!isValidCondition}
           control={<Radio classes={{ root: styles.checkbox }} />}
           label={FastMovingDelivery}
         />
