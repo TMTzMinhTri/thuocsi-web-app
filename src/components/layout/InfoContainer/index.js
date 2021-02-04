@@ -46,7 +46,7 @@ export default function InfoContainer({ children, value, title, balance, name, i
     <div className={classes.root}>
       <InfoTabs value={value} balance={balance} name={name} />
 
-      <div>
+      <div className={styles.grid_wapper}>
         {!isMobile && (
           <Grid item xs={12}>
             <div className={styles.title}>{title}</div>
