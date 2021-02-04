@@ -17,7 +17,7 @@ import { formatCurrency, formatNumber } from 'utils/FormatNumber';
 import { tabsProductData } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchDollar, faStoreAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faSearchDollar, faStar } from '@fortawesome/free-solid-svg-icons';
 import {
   InputProduct,
   MinusButton,
@@ -31,10 +31,10 @@ import useModal from 'hooks/useModal';
 import { ProductClient, doWithServerSide, SupplierClient } from 'clients';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
-import { TERMS_URL, SUPPLIER, INGREDIENT, MANUFACTURERS, CATEGORIES } from 'constants/Paths';
+import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES } from 'constants/Paths';
 import { DOMAIN_SELLER_CENTER } from 'sysconfig';
 import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
-
+import SellerInfo from 'components/mocules/SellerInfo';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -203,6 +203,11 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                         <div className={styles.product_price_group}>
                           <span className={styles.product_price}>
                             {price && formatCurrency(price)}
+                            {isMobile && maxQuantity && (
+                              <Typography className={styles.text_danger}>
+                                Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
+                              </Typography>
+                            )}
                           </span>
                         </div>
                         <IconButton onClick={handleClick} aria-label="close">
@@ -236,7 +241,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                           </TableContainer>
                         </Popover>
                       </div>
-                      {maxQuantity && maxQuantity > 0 && (
+                      {maxQuantity && (
                         <Typography className={styles.text_danger}>
                           Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
                         </Typography>
@@ -279,18 +284,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                     </p>
                     {seller && (
                       <>
-                        <div className={styles.supplierTitle}>
-                          <div className={styles.icon}>
-                            <FontAwesomeIcon icon={faStoreAlt} />
-                          </div>
-
-                          <LinkComp
-                            className={styles.supplierName}
-                            href={`${SUPPLIER}/${supplier.slug}`}
-                          >
-                            {seller.name}
-                          </LinkComp>
-                        </div>
+                        <SellerInfo seller={seller} />
                         <div className={styles.supplierInfo}>
                           <div className={styles.supplierYearWrap}>
                             <div className={styles.supplierYear}>

@@ -46,10 +46,10 @@ export async function getServerSideProps(ctx) {
 const MyOrder = ({ user, isMobile, orders, status }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
-    <Template title={title} isMobile={isMobile}>
+    <Template title={title} isMobile={isMobile} pageTitle="Đơn hàng của tôi">
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={2} title="Đơn hàng của tôi" name={user?.name}>
+          <InfoContainer isMobile={isMobile} value={2} title="Đơn hàng của tôi" name={user?.name}>
             <OrderInfoContainer user={user} orders={orders} status={status} />
           </InfoContainer>
         </Container>
