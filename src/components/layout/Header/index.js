@@ -10,7 +10,8 @@ import { HeaderUser, SearchInput } from 'components/mocules';
 import { LinkComp, ButtonHeader } from 'components/atoms';
 import { useAuth, useNotify } from 'context';
 import { i18n } from 'i18n-lib';
-
+import WatchLaterIcon from '@material-ui/icons/WatchLater';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
 import styles from './styles.module.css';
 
 const LinkLogo = memo(() => (
@@ -105,35 +106,61 @@ const InfoHeader = memo(({ t }) => {
                 getContentAnchorEl={null}
                 anchorOrigin={{
                   vertical: 'bottom',
-                  horizontal: 'center',
+                  horizontal: 'right',
                 }}
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'center',
+                  horizontal: 'right',
                 }}
                 classes={{ paper: styles.notify_wrap }}
               >
-                {notification.map((item) => (
-                  <LinkComp
-                    key={item.id}
-                    className={
-                      item.read
-                        ? clsx(styles.notificationsItem, styles.read)
-                        : clsx(styles.notificationsItem, styles.unRead)
-                    }
-                    href={item.slug}
-                  >
-                    <div className={styles.notifyIcon}>
-                      <i className={`icomoon icon-loyalty + ${styles.icon}`} />
+                <span className={styles.arrow} />
+                <div className={styles.notifyBox}>
+                  <div className={styles.title_wrap}>
+                    <div style={{ flexGrow: 1 }}>
+                      <h6 className={styles.title}>Thông báo</h6>
+                      {notification.length === 0 && (
+                        <p className={styles.description}>Bạn không có thông báo mới</p>
+                      )}
                     </div>
-                    <div className={styles.notifyContent}>
-                      <div className={styles.notifyContentTitle}>{item.title}</div>
-                      <small className={styles.createdAt}>
-                        {DateTimeUtils.getTimeAgo(item.create_at)}
-                      </small>
-                    </div>
-                  </LinkComp>
-                ))}
+                    {notification.length !== 0 && (
+                      <div>
+                        <IconButton className={styles.markAll}>
+                          <DoneAllIcon />
+                        </IconButton>
+                      </div>
+                    )}
+                  </div>
+                  <hr className={styles.divider} />
+                  {notification.length > 0 &&
+                    notification.map((item) => (
+                      <LinkComp
+                        key={item.id}
+                        className={
+                          item.read
+                            ? clsx(styles.notificationsItem, styles.read)
+                            : clsx(styles.notificationsItem, styles.unRead)
+                        }
+                        href={item.slug}
+                      >
+                        <div className={styles.notifyIcon}>
+                          <i className={`icomoon icon-loyalty + ${styles.icon}`} />
+                        </div>
+                        <div className={styles.notifyContent}>
+                          <div className={styles.notifyContentTitle}>{item.title}</div>
+                          <small className={styles.createdAt}>
+                            <WatchLaterIcon style={{ marginRight: '4px' }} />
+                            {DateTimeUtils.getTimeAgo(item.create_at)}
+                          </small>
+                        </div>
+                      </LinkComp>
+                    ))}
+                  <div style={{ padding: '8px' }}>
+                    <LinkComp className={styles.viewAll} href="/notifications">
+                      <span>Xem tất cả</span>
+                    </LinkComp>
+                  </div>
+                </div>
               </Menu>
               <IconButton className={styles.notiIcon} onClick={handleClick}>
                 <Badge
