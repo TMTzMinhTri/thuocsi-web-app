@@ -83,21 +83,25 @@ export default function Supplier({
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
                 </div>
-                <div
-                  className={styles.ratingStars}
-                  style={{ width: `${(supplier.rating / 5) * 100}%` }}
-                >
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                </div>
+                {supplier.rating && (
+                  <div
+                    className={styles.ratingStars}
+                    style={{ width: `${(supplier.rating / 5) * 100}%` }}
+                  >
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                  </div>
+                )}
               </div>
             </div>
-            <span className={styles.supplierYear}>
-              Thành viên từ: {new Date(supplier.createdTime).getFullYear()}
-            </span>
+            {supplier.createdTime && (
+              <span className={styles.supplierYear}>
+                Thành viên từ: {new Date(supplier.createdTime).getFullYear()}
+              </span>
+            )}
           </div>
         </Grid>
       </Grid>
