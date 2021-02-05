@@ -182,3 +182,14 @@
     font-weight: 700;
     padding-left: 10px;
 }
+.promo_box{
+    display: flex;
+    justify-content: space-between;
+}
+.left_c{
+    display: flex;
+    align-items: center;
+}
+.left_c p{
+    color: #00b46e;
+}

@@ -98,38 +98,41 @@ const CartCounponCard = ({
       )}
     >
       <Grid container direction="row" spacing={3} styles={{ width: '100%' }}>
-        <Grid item xs={4}>
-          <div className={styles.benefit}>
-            {getBenefitAvatar()}
-            {type === PROMO_TYPE.COMBO && 'COMBO'}
-            {type === PROMO_TYPE.GIFT && 'Quà Tặng'}
-            {type === PROMO_TYPE.VOUCHERCODE && 'Giảm giá'}
-          </div>
-        </Grid>
-        <Grid item xs={4} container direction="column">
-          {type !== PROMO_TYPE.COMBO && (
-            <Grid item className={styles.coupon_description}>
-              {getTitle()}
+        <Grid className={styles.col_left} item container xs={12} md={8}>
+          <Grid className={styles.col_left_inner} container>
+            <Grid item xs={6}>
+              <div className={styles.benefit}>
+                {getBenefitAvatar()}
+                {type === PROMO_TYPE.COMBO && 'COMBO'}
+                {type === PROMO_TYPE.GIFT && 'Quà Tặng'}
+                {type === PROMO_TYPE.VOUCHERCODE && 'Giảm giá'}
+              </div>
             </Grid>
-          )}
+            <Grid item xs={6} container direction="column">
+              {type !== PROMO_TYPE.COMBO && (
+              <Grid item className={styles.coupon_description}>
+                {getTitle()}
+              </Grid>
+            )}
 
-          <Grid item>
-            <div style={{ display: 'flex' }}>
-              {!expiredDate ? (
-                'Không giới hạn'
-              ) : (
-                <CountdownTimer prefix="Còn" dealEndDay={expiredDate} />
-              )}
-            </div>
+              <Grid item>
+                <div style={{ display: 'flex' }}>
+                  {!expiredDate ? (
+                  'Không giới hạn'
+                ) : (
+                  <CountdownTimer prefix="Còn" dealEndDay={expiredDate} />
+                )}
+                </div>
+              </Grid>
+              {type === PROMO_TYPE.VOUCHERCODE && (
+              <Grid item className={styles.text_danger}>
+                Đơn hàng sau khi áp dụng <strong> {formatCurrency(String(caculatePrice()))} </strong>
+              </Grid>
+            )}
+            </Grid>
           </Grid>
-          {type === PROMO_TYPE.VOUCHERCODE && (
-            <Grid item className={styles.text_danger}>
-              Đơn hàng sau khi áp dụng <strong> {formatCurrency(String(caculatePrice()))} </strong>
-            </Grid>
-          )}
         </Grid>
-
-        <Grid item xs={4} container direction="column" alignItems="center">
+        <Grid className={styles.col_right} item xs={12} md={4} container direction="column" alignItems="center">
           <Grid item className={styles.code}>
             {code}
           </Grid>

@@ -43,8 +43,31 @@
 }
 
 @media (max-width: 767px) {
+  .counpon_list_wapper{
+    max-height: 450px;
+    overflow: hidden;
+  }
   .confirm_modal_wrap {
-    max-height: 700px;
+    max-height: 600px;
+    overflow: hidden;
+    padding: 15px;
+  }
+  .confirm_modal_wrap h2{
+    margin: 10px 0;
+    font-size: 20px;
+  }
+  .confirm_modal_wrap .button{
+    width: 100%;
+  }
+  .counpon_list{
+    width: 100%;
+    margin-top: 0;
+  }
+  .counpon_list>div{
+    margin: 0;
+  }
+  .coupon_card_grid{
+    padding: 0 !important;
   }
 }
 @media (min-width: 768px) {

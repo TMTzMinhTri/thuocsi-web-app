@@ -10,11 +10,12 @@ import { CART_URL, CHECKOUT_URL } from 'constants/Paths';
 import clsx from 'clsx';
 import PromoListModal from 'components/mocules/PromoListModal';
 import { CartClient, isValid } from 'clients';
+import { isEmpty } from 'utils/ValidateUtils';
 import styles from '../styles.module.css';
 
 const DeleteIconButton = (props) => (
-  <IconButton style={{ padding: 0 }}>
-    <DeleteIcon {...props} />
+  <IconButton {...props} style={{ padding: 0 }}>
+    <DeleteIcon />
   </IconButton>
 );
 const FooterWithCart = () => {
@@ -50,21 +51,24 @@ const FooterWithCart = () => {
   };
   return (
     <>
+      {console.log('redeemCode', redeemCode)}
       {router.pathname === CART_URL && (
         <div className={styles.promo_wrapper}>
           <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
             <Grid
-              className={clsx(styles.wrapper, styles.promo_border)}
+              className={clsx(styles.wrapper, styles.promo_border, styles.promo_box)}
               xs={12}
               container
               item
               direction="row"
             >
-              <LocalOffer className={styles.icon_promo} />
-              <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
-                {redeemCode || 'Dùng mã khuyến mãi'}
-              </Typography>
-              {redeemCode ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
+              <div className={styles.left_c}>
+                <LocalOffer className={styles.icon_promo} />
+                <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
+                  {!isEmpty(redeemCode) ? redeemCode[0] : 'Dùng mã khuyến mãi'}
+                </Typography>
+              </div>
+              {!isEmpty(redeemCode) ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
             </Grid>
             <PromoListModal
               visible={promoVisible}
