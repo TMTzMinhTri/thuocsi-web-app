@@ -3,11 +3,11 @@ import React from 'react';
 
 import styles from './style.module.css';
 
-const Tag = ({ border, text, color, icon, date = null }) => (
+const Tag = ({ border, name, color, icon, date = null }) => (
   <div className={styles.tag_root} style={{ color, border }}>
     {icon}
     <Typography className={styles.text}>
-      {text}
+      {name}
       {date && `: ${date}`}
     </Typography>
   </div>

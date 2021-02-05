@@ -46,3 +46,24 @@
   color: #dc3545;
   margin-top: 12px !important;
 }
+@media (max-width: 767px) {
+  .col_left_inner{
+    flex-wrap: unset !important;
+  }
+  .col_left_inner>div:first-child{
+    flex-wrap: unset !important;
+  }
+  .col_right{
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0 !important;
+  }
+  .col_right button{
+    margin: 0 !important;
+  }
+  .benefit{
+    margin-bottom: 0 !important;
+    margin-right: 10px !important;
+  }
+}

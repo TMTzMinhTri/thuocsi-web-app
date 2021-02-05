@@ -13,7 +13,7 @@ const FooterWithAddToCart = ({product}) => (
       <div>
         <Link href="/cart">
           <Button
-            classes={{ label: styles.label, outlined: styles.outlined, root: styles.root }}
+            classes={{ label: styles.label, outlined: styles.outlined }}
             variant="outlined"
           >
             Xem giỏ hàng

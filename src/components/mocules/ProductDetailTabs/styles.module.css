@@ -10,3 +10,12 @@
 .content {
     padding-left: 30px;
 }
+
+@media (max-width: 767px) {
+    .tab_panel{
+        padding: 15px !important;
+    }
+    .content{
+        padding-left: 0;
+    }
+}
