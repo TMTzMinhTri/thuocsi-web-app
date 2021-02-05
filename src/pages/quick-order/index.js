@@ -4,15 +4,18 @@ import QuickOrderList from 'components/organisms/QuickOrderList';
 import CardInfo from 'components/mocules/CardInfo';
 
 import { Container, Typography, Grid } from '@material-ui/core';
-import { ProductClient, doWithServerSide } from 'clients';
+import { doWithServerSide } from 'clients';
+import { ProductService } from 'services';
 import { withLogin } from 'HOC';
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+    const [productRes] = await Promise.all([
+      ProductService.loadDataProduct({ ctx, isTotal: true }),
+    ]);
     const page = Number(ctx.query.page) || 1;
-    const { data = [], total = 0 } = products;
+    const { data = [], total = 0 } = productRes;
     return {
       props: {
         products: data,

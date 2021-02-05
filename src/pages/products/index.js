@@ -2,13 +2,13 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
-import ProductClient from 'clients/ProductClient';
 import CatClient from 'clients/CatClient';
 import { TAB_LIST } from 'constants/data';
+import { ProductService } from 'services';
 
 export async function getServerSideProps(ctx) {
-  const [products, brand, group, tags] = await Promise.all([
-    ProductClient.loadDataProduct(ctx),
+  const [productsRes, brand, group, tags] = await Promise.all([
+    ProductService.loadDataProduct({ ctx }),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
     CatClient.loadTags(ctx),
@@ -17,7 +17,7 @@ export async function getServerSideProps(ctx) {
   const sortBy = ctx.query.sortBy || '';
   const page = Number(ctx.query.page) || 1;
   const slug = ctx.query.slug || '';
-  const { data = [], total = 0 } = products;
+  const { data = [], total = 0 } = productsRes;
   return {
     props: {
       products: data,
