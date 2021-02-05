@@ -17,7 +17,6 @@ const InputProduct = memo(({ className, name, searchInput, key, onChange, value,
     placeholder="0"
     onChange={(e) => onChange(e, product)}
     value={value}
-    type="number"
   />
 ));
 

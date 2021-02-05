@@ -51,7 +51,6 @@ const FooterWithCart = () => {
   };
   return (
     <>
-      {console.log('redeemCode', redeemCode)}
       {router.pathname === CART_URL && (
         <div className={styles.promo_wrapper}>
           <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
