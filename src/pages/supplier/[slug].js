@@ -2,7 +2,8 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
-import { CatClient, SupplierClient, ProductClient, isValid } from 'clients';
+import { CatClient, isValid, SupplierClient } from 'clients';
+import { ProductService } from 'services';
 import Image from 'next/image';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
@@ -14,18 +15,13 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [products, brand, group, tags, supplierRes] = await Promise.all([
-    ProductClient.loadDataProduct(ctx),
+  const [productsRes, brand, group, tags, supplierRes] = await Promise.all([
+    ProductService.loadDataProduct({ ctx }),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
     CatClient.loadTags(ctx),
     SupplierClient.getInfoSupplier(ctx),
   ]);
-  const current_tab = ctx.query.current_tab || '';
-  const sortBy = ctx.query.sortBy || '';
-  const page = Number(ctx.query.page) || 1;
-  const slug = ctx.query.slug || '';
-  const { data = [], total = 0 } = products;
   if (!isValid(supplierRes)) {
     return {
       redirect: {
@@ -33,6 +29,14 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
+
+  const current_tab = ctx.query.current_tab || '';
+  const sortBy = ctx.query.sortBy || '';
+  const page = Number(ctx.query.page) || 1;
+  const slug = ctx.query.slug || '';
+
+  const { data = [], total = 0 } = productsRes;
+
   return {
     props: {
       products: data,

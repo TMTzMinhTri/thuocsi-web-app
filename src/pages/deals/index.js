@@ -1,17 +1,16 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import PromotionProduct from 'components/organisms/PromotionProduct';
-
-import ProductClient from 'clients/ProductClient';
-
+import { getFirst } from 'clients';
+import { ProductService } from 'services';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+  const [productsRes] = await Promise.all([ProductService.loadDataProduct({ ctx })]);
 
   return {
     props: {
-      products,
+      products: getFirst(productsRes, []),
     },
   };
 }
