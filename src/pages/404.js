@@ -3,6 +3,7 @@ import { Typography, Grid, Container } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from 'components/atoms/Button';
+import { i18n } from 'i18n-lib';
 import styled from 'styled-components';
 
 const Error404 = ({ className }) => (
@@ -78,4 +79,4 @@ const StyledError404 = styled(Error404)`
   }
 `;
 
-export default StyledError404;
+export default i18n.withTranslation()(StyledError404);
