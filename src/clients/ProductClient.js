@@ -110,6 +110,7 @@ async function loadDataProduct(ctx, isTotal) {
     sortBy: ctx.query.sortBy ? ctx.query.sortBy : '',
     page: ctx.query.page || 0,
     q: ctx.query.q ? ctx.query.q : '',
+    seller: ctx.query.slug ? ctx.query.slug : '',
     limit: PAGE_SIZE,
     getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
   };
