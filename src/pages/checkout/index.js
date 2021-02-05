@@ -11,7 +11,7 @@ import {
   CheckoutSticky,
   LoadingScreen,
 } from 'components';
-import { doWithServerSide, CartClient } from 'clients';
+import { doWithServerSide, CartClient, getData } from 'clients';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
@@ -25,10 +25,10 @@ import styles from './styles.module.css';
 export async function getServerSideProps(ctx) {
   try {
     return doWithServerSide(ctx, async () => {
-      const [cart] = await Promise.all([CartClient.loadDataCart(ctx)]);
+      const [cartRes] = await Promise.all([CartClient.loadDataCart(ctx)]);
       return {
         props: {
-          cart,
+          cart: getData(cartRes),
         },
       };
     });

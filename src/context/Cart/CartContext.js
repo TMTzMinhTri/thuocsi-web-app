@@ -1,8 +1,6 @@
-import React, { createContext, useReducer, useContext, useEffect } from 'react';
-import CartClient from 'clients/CartClient';
+import React, { createContext, useReducer, useContext, useEffect, useCallback } from 'react';
 import { NotifyUtils } from 'utils';
-import { i18n } from 'i18n-lib';
-import { isValid } from '../../clients/Clients';
+import { isValid, CartClient } from 'clients';
 import { CartReducer } from './CartReducer';
 import {
   FETCH_SUCCESS,
@@ -16,55 +14,60 @@ import {
 export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
-  const { t } = i18n.useTranslation('apiErrors');
   const initialState = { loading: true };
   const [state, dispatch] = useReducer(CartReducer, initialState);
 
-  const updateCart = async () => {
+  const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
     try {
-      const cart = await CartClient.loadDataCart();
-      const infoCart = await CartClient.getInfoCartItem(cart[0].cartItems);
-      cart[0].cartItems = infoCart;
-      dispatch({ type: FETCH_SUCCESS, payload: cart[0] || [] });
+      if (!isValid(cartRes)) {
+        if (errorMessage) {
+          NotifyUtils.error(errorMessage);
+        }
+        return;
+      }
+      const cartData = cartRes.data[0];
+      cartData.cartItems = await CartClient.getInfoCartItem(cartData.cartItems);
+      dispatch({ type: FETCH_SUCCESS, payload: cartData || [] });
+      if (successMessage) NotifyUtils.success(successMessage);
     } catch (error) {
+      NotifyUtils.error(error.message || 'Tải giỏ hàng thất bại');
       dispatch({ type: FETCH_ERROR });
     }
   };
 
-  useEffect(() => {
-    updateCart();
+  const updateCart = useCallback(async () => {
+    const cartRes = await CartClient.loadDataCart();
+    if (!isValid(cartRes)) {
+      dispatch({ type: FETCH_ERROR });
+      return;
+    }
+    await reloadDataCart({ cartRes });
   }, []);
 
-  const updateCartItem = async (payload) => {
-    const res = await CartClient.updateCartItem(payload);
-    updateCart();
-    if (isValid(res)) {
-      // TODO @dat.le backup_code
-      // dispatch({ type: INCREASE_BY, payload });
-      NotifyUtils.success('Đã cập nhật giỏ hàng');
-    } else {
-      NotifyUtils.error(t(res.errorCode));
+  useEffect(() => {
+    async function fetchData() {
+      await updateCart();
     }
-    // TODO @dat.le backup_code
-    // if (res.errorCode === 'CART_MAXQUANTITY') {
-    //   const revertPayload = payload;
-    //   revertPayload.q = payload.product.maxQuantity;
-    //   CartClient.updateCartItem(revertPayload);
-    //   dispatch({ type: INCREASE_BY, payload: revertPayload });
-    // }
-    return res;
+    fetchData();
+  }, [updateCart]);
+
+  const updateCartItem = async (payload) => {
+    const cartRes = await CartClient.updateCartItem(payload);
+    if (!isValid(cartRes) && cartRes.errorCode === 'CART_MAX_QUANTITY') {
+      const revertPayload = payload;
+      revertPayload.q = payload.product.maxQuantity;
+      const res = await CartClient.updateCartItem(revertPayload);
+      dispatch({ type: INCREASE_BY, payload: revertPayload });
+      await reloadDataCart({ res });
+    }
+    await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
+
+    return cartRes;
   };
 
   const increase = async (payload) => {
-    const res = await CartClient.updateCartItem(payload);
-    updateCart();
-    if (isValid(res)) {
-      // TODO @dat.le backup_code
-      // dispatch({ type: INCREASE, payload: payload.product });
-      NotifyUtils.success('Thêm sản phẩm thành công');
-    } else {
-      NotifyUtils.error(res.message);
-    }
+    const cartRes = await CartClient.updateCartItem(payload);
+    reloadDataCart({ cartRes, successMessage: 'Thêm sản phẩm thành công' });
   };
 
   const increaseBy = (payload) => {
@@ -72,16 +75,8 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const decrease = async (payload) => {
-    const res = await CartClient.updateCartItem(payload);
-    updateCart();
-    if (isValid(res)) {
-      // TODO @dat.le backup_code
-      // dispatch({ type: DECREASE, payload: payload.product });
-      NotifyUtils.success('Đã cập nhật giỏ hàng');
-      return true;
-    }
-    NotifyUtils.error(res.message);
-    return false;
+    const cartRes = await CartClient.updateCartItem(payload);
+    await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
   };
 
   const addProduct = (payload) => {
@@ -89,16 +84,8 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const removeCartItem = async (payload) => {
-    const res = await CartClient.removeCartItem(payload);
-    updateCart();
-    if (isValid(res)) {
-      // TODO @dat.le backup_code
-      // dispatch({ type: REMOVE_ITEM, payload });
-      NotifyUtils.success('Xoá sản phẩm thành công');
-      return true;
-    }
-    NotifyUtils.error(res.message);
-    return false;
+    const cartRes = await CartClient.removeCartItem(payload);
+    await reloadDataCart({ cartRes, successMessage: 'Xoá sản phẩm thành công' });
   };
 
   const clearCart = () => {
@@ -110,35 +97,21 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const addImportant = async (payload) => {
-    const res = await CartClient.updateCartItemImportant({
+    const cartRes = await CartClient.updateCartItemImportant({
       sku: payload.sku,
       isImportant: true,
       quantity: payload.quantity,
     });
-    updateCart();
-    if (!isValid(res)) {
-      NotifyUtils.error('Không thể đánh dấu quan trọng');
-    } else {
-      // TODO @dat.le backup_code
-      // dispatch({ type: ADD_IMPORTANT, payload });
-      NotifyUtils.success('Đánh dấu quan trọng thành công ');
-    }
+    await updateCart({ cartRes, successMessage: 'Đánh dấu quan trọng thành công ' });
   };
 
   const removeImportant = async (payload) => {
-    const res = await CartClient.updateCartItemImportant({
+    const cartRes = await CartClient.updateCartItemImportant({
       sku: payload.sku,
       isImportant: false,
       quantity: payload.quantity,
     });
-    updateCart();
-    if (!isValid(res)) {
-      NotifyUtils.error('Không thể xoá đánh dấu quan trọng');
-    } else {
-      // TODO @dat.le backup_code
-      // dispatch({ type: REMOVE_IMPORTANT, payload });
-      NotifyUtils.success('Xoá đánh dấu quan trọng thành công ');
-    }
+    await updateCart({ cartRes, successMessage: 'Xoá đánh dấu quan trọng thành công' });
   };
 
   const contextValues = {

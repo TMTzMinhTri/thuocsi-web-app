@@ -1,15 +1,15 @@
 import {
   FETCH_SUCCESS,
-   FETCH_ERROR,
-   ADD_ITEM,
-   INCREASE_BY,
-   CLEAR,
-   CHECKOUT,
-   REMOVE_ITEM,
-   INCREASE,
-   DECREASE,
-   ADD_IMPORTANT,
-   REMOVE_IMPORTANT
+  FETCH_ERROR,
+  ADD_ITEM,
+  INCREASE_BY,
+  CLEAR,
+  CHECKOUT,
+  REMOVE_ITEM,
+  INCREASE,
+  DECREASE,
+  ADD_IMPORTANT,
+  REMOVE_IMPORTANT,
 } from './CartType';
 
 const Storage = (cartItems) => {
@@ -21,11 +21,7 @@ const Storage = (cartItems) => {
 export const sumItems = (cartItems) => {
   Storage(cartItems);
   const itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
-  const total = cartItems.reduce(
-    (totalItem, product) => totalItem + product.price * product.quantity,
-    0,
-  );
-  return { itemCount, total };
+  return { itemCount };
 };
 
 export const CartReducer = (state, action) => {
@@ -41,6 +37,7 @@ export const CartReducer = (state, action) => {
         redeemCode: action.payload.redeemCode || [],
         note: action.payload.note || '',
         loading: false,
+        totalPrice: action.payload.totalPrice,
         subTotalPrice: action.payload.subTotalPrice,
         discount: action.payload.discount,
       };

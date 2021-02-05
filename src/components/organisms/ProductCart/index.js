@@ -63,7 +63,14 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
           {isMobile ? (
             <div className={styles.cart_content_mobile}>
               <ProductCardContent className={styles.product_content} row {...product} />
-              <ProductCardBuy {...product} product={product} cart name={name} isMobile={isMobile} />
+              <ProductCardBuy
+                cartItems={cartItems}
+                {...product}
+                product={product}
+                cart
+                name={name}
+                isMobile={isMobile}
+              />
             </div>
           ) : (
             <>
