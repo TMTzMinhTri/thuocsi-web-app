@@ -70,7 +70,7 @@ const PromoListModal = memo((props) => {
         <h2> Mã khuyến mãi </h2>
         <Divider />
         <Grid container>
-          <Grid item xs={10}>
+          <Grid item xs={9} md={10}>
             <Input
               endAdornment={text === '' ? null : <CloseIcon onClick={handleRemoveText} />}
               placeholder="Nhập mã cần tìm"
@@ -79,27 +79,29 @@ const PromoListModal = memo((props) => {
             />
           </Grid>
 
-          <Grid item xs={2}>
-            <Button />
+          <Grid item xs={3} md={2}>
+            <Button className={styles.button} />
           </Grid>
         </Grid>
-        <div className={styles.counpon_list}>
-          {promoSearchs.length !== 0 ? (
-            <Grid container spacing={1}>
-              {promoSearchs.map((pro) => (
-                <Grid item key={pro.code}>
-                  <CartCouponCard
-                    {...pro}
-                    redeemCode={redeemCode}
-                    handleChangePromo={handleChangePromo}
-                    totalPrice={totalPrice}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          ) : (
-            <div className={styles.not_yet}>Chưa có mã</div>
-          )}
+        <div className={styles.counpon_list_wapper}>
+          <div className={styles.counpon_list}>
+            {promoSearchs.length !== 0 ? (
+              <Grid container spacing={1}>
+                {promoSearchs.map((pro) => (
+                  <Grid className={styles.coupon_card_grid} item key={pro.code}>
+                    <CartCouponCard
+                      {...pro}
+                      redeemCode={redeemCode}
+                      handleChangePromo={handleChangePromo}
+                      totalPrice={totalPrice}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            ) : (
+              <div className={styles.not_yet}>Chưa có mã</div>
+            )}
+          </div>
         </div>
       </div>
     </Modal>
