@@ -286,16 +286,18 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       <>
                         <SellerInfo seller={seller} />
                         <div className={styles.supplierInfo}>
-                          <div className={styles.supplierYearWrap}>
-                            <div className={styles.supplierYear}>
-                              <span className={styles.activePeriodYear}>
-                                {yearNumber > 1 ? `${yearNumber}+` : yearNumber}
-                              </span>
-                              <br />
-                              năm
+                          {!Number.isNaN(yearNumber) && (
+                            <div className={styles.supplierYearWrap}>
+                              <div className={styles.supplierYear}>
+                                <span className={styles.activePeriodYear}>
+                                  {yearNumber > 1 ? `${yearNumber}+` : yearNumber}
+                                </span>
+                                <br />
+                                năm
+                              </div>
+                              <span>Hợp tác cùng thuocsi.vn</span>
                             </div>
-                            <span>Hợp tác cùng thuocsi.vn</span>
-                          </div>
+                          )}
 
                           <div className={styles.supplierRating}>
                             <div className={styles.rating}>

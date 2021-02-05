@@ -31,7 +31,7 @@ export default function ProductDetailTabs({ data, product, handleChange, value }
         {data.map((item) => {
           if (item.value === '1') {
             return (
-              <TabPanel value={item.value} key={uuidv4()}>
+              <TabPanel className={styles.tab_panel} value={item.value} key={uuidv4()}>
                 <div
                   className={styles.content}
                   dangerouslySetInnerHTML={{

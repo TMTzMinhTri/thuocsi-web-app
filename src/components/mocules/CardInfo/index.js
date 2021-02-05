@@ -44,7 +44,7 @@ const PaymentButton = ({ user }) => (
 );
 
 const CardInfo = ({ cart, promo, className, user }) => {
-  const { itemCount, total, subTotalPrice, updateCart, redeemCode } = useCart();
+  const { itemCount, total, updateCart, redeemCode, subTotalPrice } = useCart();
   const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
   const handleSetPromoVisible = () => {

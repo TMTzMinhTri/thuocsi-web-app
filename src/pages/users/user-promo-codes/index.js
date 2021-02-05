@@ -18,11 +18,12 @@ export async function getServerSideProps(ctx) {
 
 const MyReferral = ({ user, promos = [], isMobile }) => {
   const title = 'Mã giảm giá của tôi – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+  const name="Mã giảm giá của tôi"
   return (
-    <Template title={title} isMobile={isMobile}>
+    <Template title={title} isMobile={isMobile} pageTitle={name}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={4} title="Mã giảm giá của tôi" name={user?.name}>
+          <InfoContainer isMobile={isMobile} value={4} title="Mã giảm giá của tôi" name={user?.name}>
             <PromoList promos={promos} />
           </InfoContainer>
         </Container>
