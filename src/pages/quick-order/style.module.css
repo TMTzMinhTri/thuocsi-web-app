@@ -30,4 +30,7 @@
   .quick_order_wrapper{
     width: 100%;
   }
+  .quick_order_wrapper [class*='product_title_wrap']{
+    padding-right: 30px !important;
+  }
 }
