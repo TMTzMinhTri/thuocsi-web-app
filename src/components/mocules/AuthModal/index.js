@@ -46,6 +46,19 @@ const AuthModal = styled(AuthModalCustom)`
         line-height: 32px;
       }
     }
+    .auth-modal-title{
+      padding-left: 5px;
+    }
+    .auth-modal-content {
+      padding: 15px;
+      width: 100%;
+    }
+    .auth-modal-body{
+      padding: 0;
+    }
+    .auth-modal-body .form-control{
+      width: 100%;
+    }
   }
 `;
 
