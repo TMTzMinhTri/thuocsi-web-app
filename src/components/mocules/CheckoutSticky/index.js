@@ -27,7 +27,7 @@ const CheckoutSticky = ({
   // savedInfo,
 }) => {
   const { redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
-  const { shippingFee = 0, itemCount = 0, updateCart, total = 0 } = useCart();
+  const { shippingFee = 0, itemCount = 0, updateCart } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
   const router = useRouter();
   const [checkCondition, setCheckCondition] = React.useState({
@@ -228,7 +228,7 @@ const CheckoutSticky = ({
         ) : (
           <div className={styles.sticky_checkout_bar_mobile}>
             <div className={styles.fwc_container}>
-              <div className={styles.price}>{formatCurrency(total)}</div>
+              <div className={styles.price}>{formatCurrency(subTotalPrice)}</div>
               <div>
                 <ButtonDefault
                   disabled={!checkCondition.checked}
