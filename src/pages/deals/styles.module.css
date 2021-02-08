@@ -18,3 +18,15 @@
 .title {
     font-size: 40px
 }
+
+@media (max-width: 767px) {
+    .promo_wrapper {
+      padding-top: 0 !important;
+      padding-bottom: 120px !important;
+    }
+    .title{
+        margin: 0;
+        font-size: 28px;
+        padding-top: 20px;
+    }
+}

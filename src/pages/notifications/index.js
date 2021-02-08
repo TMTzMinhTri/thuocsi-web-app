@@ -18,13 +18,13 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-const Notifications = (props) => {
+const Notifications = ({props, isMobile}) => {
   const { read = true, notify = [] } = props;
   const title = 'Trang thông báo';
   const pageName = 'notification';
 
   return (
-    <Template title={title} pageName={pageName}>
+    <Template title={title} pageName={pageName} isMobile={isMobile}>
       <div className={styles.notifyWrap}>
         <Container className={styles.wrapper} maxWidth="lg">
           <Grid className={styles.notifyTitle} container>

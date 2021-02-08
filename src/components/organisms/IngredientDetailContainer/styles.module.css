@@ -8,3 +8,16 @@
   text-align: center;
   width: 100%
 }
+
+@media screen and (max-width: 767px) {
+  .container{
+    padding: 0 !important;
+  }
+  .detail_tab{
+    padding-left: 0 !important;
+  }
+  .title{
+    text-align: left !important;
+    margin-top: 0;
+  }
+}

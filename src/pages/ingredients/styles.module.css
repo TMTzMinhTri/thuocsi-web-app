@@ -8,3 +8,14 @@
         min-height: 80vh;
     }
 }
+@media (max-width: 767px) {
+    .wapper{
+        padding: 15px !important;
+        overflow: hidden;
+        min-height: auto !important;
+        margin-bottom: 80px !important;
+    }
+    .lg{
+        padding: 0 !important;
+    }
+}

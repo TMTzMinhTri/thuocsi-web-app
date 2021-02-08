@@ -5,6 +5,7 @@ import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { doWithServerSide } from 'clients';
 import { QUICK_ORDER } from 'constants/Paths';
+import { Alert } from '@material-ui/lab';
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -21,6 +22,12 @@ function Cart({ isMobile, user }) {
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName} pageTitle={pageTitle}>
       <Container className={styles.wrapper} maxWidth="lg">
+        {user?.isActive || isMobile === false ? null : (
+          <Alert className={styles.alert} severity="error">
+            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ 02 873 008
+            840 để kích hoạt
+          </Alert>
+        )}
         {cartItems && cartItems.length > 0 ? (
           <>
             {!isMobile && (
