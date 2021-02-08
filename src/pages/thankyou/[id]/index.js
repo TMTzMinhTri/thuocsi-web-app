@@ -29,7 +29,7 @@ const ThankYou = ({ order = {}, isMobile }) => {
   const title = 'Cảm ơn bạn đã đặt hàng tại thuocsi.vn!';
   const { orderId, deliveryDate } = order;
   return (
-    <Template title={title} isMobile={isMobile}>
+    <Template title={title} isMobile={isMobile} pageTitle="Đặt hàng thành công">
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <ThankYouContainer orderID={orderId} deliveryDate={deliveryDate} />
