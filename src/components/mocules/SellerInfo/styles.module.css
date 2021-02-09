@@ -1,17 +1,21 @@
 .supplierTitle{
-    display: flex !important;
     margin-bottom: 8px;
-    align-items: center
+    align-items: center;
+    line-height: 1;
+    font-size: initial;
 }
 .name {
     font-size: 12px!important;
     color: #676f77 !important;
     font-weight: 600;
+    display: inline-block;
+    padding-right: 5px;
 }
 .supplierName {
     color: #919aa3 !important;
     font-size: 12px!important;
-    padding: 0 5px !important;
+    padding: 0 !important;
+    display: inline-block !important;
 }
 .supplierName:hover {
     color: #00b46e!important;
