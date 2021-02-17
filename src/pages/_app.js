@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import App from 'next/app';
@@ -24,6 +24,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { MOBILE } from 'constants/Device';
 
+import { pageview } from 'utils/gtag';
+
 const NAMESPACE_REQUIRED_DEFAULT = 'common';
 
 const MyApp = (props) => {
@@ -32,13 +34,23 @@ const MyApp = (props) => {
   const isShowingLogin = router?.query?.login === 'true';
 
   // config https://material-ui.com/guides/server-rendering/
-  React.useEffect(() => {
+  useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <>
