@@ -133,4 +133,17 @@
         margin-bottom: 10px !important;
     }
 }
-
+@media (min-width: 768px) and (max-width: 1199px) {
+    .product_title {
+        flex: 40%;
+    }
+    .product_content_column{
+        max-width: 280px;
+    }
+    .product_type{
+        max-width: 90px;
+    }
+    .product_action{
+        width: 90px;
+    }
+}
