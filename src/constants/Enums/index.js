@@ -59,6 +59,7 @@ export const PROMO_RULE_TYPE = {
   PERCENT: 'PERCENT',
   GIFT: 'GIFT',
   PRODUCT: 'PRODUCT',
+  ABSOLUTE: 'ABSOLUTE',
 };
 
 export const HTTP_STATUS = {
@@ -79,6 +80,12 @@ export const DEFAULT_PAGINATION = {
   OFFSET: 0,
   LIMIT: 20,
   TOTAL: 0,
+};
+
+export const ALIGN = {
+  LEFT: 'left',
+  RIGHT: 'right',
+  CENTER: 'center',
 };
 
 export default {

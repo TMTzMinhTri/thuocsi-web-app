@@ -275,3 +275,8 @@
 .icon{
   font-size: 20px !important;
 }
+@media (min-width: 768px) and (max-width: 1199px) {
+  .product_listing [class*='product_type']{
+    max-width: 100%;
+  }
+}

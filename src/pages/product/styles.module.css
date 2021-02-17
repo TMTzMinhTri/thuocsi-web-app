@@ -209,37 +209,6 @@
     line-height: 2!important;
 }
 
-.supplierTitle {
-    display: flex !important;
-    margin-bottom: 8px;
-    align-items: center
-}
-
-.icon {
-    background-color: #f9b514;
-    color: white;
-    min-width: 40px;
-    min-height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 8px;
-}
-
-.supplierName {
-    color: #00b46e!important;
-    font-weight: bold!important;
-    font-size: 14px!important;
-}
-
-.supplierInfo {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
 .supplierYearWrap {
     display: flex !important;
     align-items: center !important;

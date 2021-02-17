@@ -70,7 +70,7 @@ const CounponCard = ({
             {type === PROMO_TYPE.GIFT && 'Quà Tặng'}
             {type === PROMO_TYPE.VOUCHERCODE && 'Giảm giá'}
           </div>
-          <div style={{ display: 'flex' }}>
+          <div className={styles.coundown} style={{ display: 'flex' }}>
             <CountdownTimer prefix="Còn" dealEndDay={expiredDate} />
           </div>
         </Grid>

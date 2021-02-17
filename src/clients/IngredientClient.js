@@ -15,19 +15,13 @@ async function getIngredientBySlug(ctx, slug) {
     q: slug,
   };
   const res = await GET({ url, params, ctx, isBasic: true });
-  if (!isValid(res)) {
-    return [];
-  }
-  return res.data;
+  return res;
 }
 
 async function getProductsBySlug(ctx, slug) {
   const url = PRODUCT_API.PRODUCT_LIST;
   const res = await GET({ url, ctx, isBasic: true, params: { ingredient: slug } });
-  if (!isValid(res)) {
-    return [];
-  }
-  return res.data;
+  return res;
 }
 
 export default {

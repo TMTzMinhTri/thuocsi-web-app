@@ -2,15 +2,16 @@ import { TableRow, TableCell, Button, Grid, Paper } from '@material-ui/core';
 import { InfoTable } from 'components/atoms';
 import { DateTimeUtils, NotifyUtils } from 'utils';
 import { v4 as uuidv4 } from 'uuid';
+import { ALIGN } from 'constants/Enums';
 import styles from './styles.module.css';
 
 const heads = [
-  'Số điện thoại',
-  'Mã giới thiệu',
-  'Thời gian hết hạn',
-  'Người được giới thiệu',
-  'Số đơn hàng đã thanh toán',
-  'Gửi lại SMS',
+  {text:'Số điện thoại', align: ALIGN.LEFT},
+  {text: 'Mã giới thiệu', align: ALIGN.LEFT },
+  {text: 'Thời gian hết hạn', align: ALIGN.LEFT },
+  {text:'Người được giới thiệu', align: ALIGN.LEFT},
+  {text:'Số đơn hàng đã thanh toán', align: ALIGN.LEFT },
+  {text:'Gửi lại SMS', align: ALIGN.LEFT },
 ];
 
 const SendSMSButton = () => {

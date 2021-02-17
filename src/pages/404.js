@@ -3,6 +3,7 @@ import { Typography, Grid, Container } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from 'components/atoms/Button';
+import { i18n } from 'i18n-lib';
 import styled from 'styled-components';
 
 const Error404 = ({ className }) => (
@@ -49,11 +50,11 @@ const Error404 = ({ className }) => (
 );
 
 const StyledError404 = styled(Error404)`
-  body {
-    background-color: #f4f7fc !important;
-  }
-  padding: 100px 150px 0 150px !important;
-  background-color: #f4f7fc !important;
+  background-color: transparent !important;
+  padding: 15px !important;
+  top: calc(50% - 170px);
+  bottom: calc(50% - 170px);
+  position: absolute;
   max-width: 100%;
 
   .boldText {
@@ -78,4 +79,4 @@ const StyledError404 = styled(Error404)`
   }
 `;
 
-export default StyledError404;
+export default i18n.withTranslation()(StyledError404);

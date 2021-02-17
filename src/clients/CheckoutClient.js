@@ -1,8 +1,7 @@
 import { PUT } from './Clients';
 
 async function Checkout(body) {
-  const result = await PUT({ url: '/marketplace/order/v1/cart/checkout', body });
-  return result;
+  return PUT({ url: '/marketplace/order/v1/cart/checkout', body });
 }
 
 export default {

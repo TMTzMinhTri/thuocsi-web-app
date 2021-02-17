@@ -31,7 +31,7 @@ export default function ProductDetailTabs({ data, product, handleChange, value }
         {data.map((item) => {
           if (item.value === '1') {
             return (
-              <TabPanel value={item.value} key={uuidv4()}>
+              <TabPanel className={styles.tab_panel} value={item.value} key={uuidv4()}>
                 <div
                   className={styles.content}
                   dangerouslySetInnerHTML={{
@@ -43,7 +43,7 @@ export default function ProductDetailTabs({ data, product, handleChange, value }
           }
 
           return (
-            <TabPanel key={uuidv4()} value={item.value}>
+            <TabPanel className={styles.tab_panel} key={uuidv4()} value={item.value}>
               <div className={styles.content}>
                 <p>Đang cập nhật ...</p>
               </div>

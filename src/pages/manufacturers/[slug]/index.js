@@ -3,10 +3,11 @@ import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
 import CatClient from 'clients/CatClient';
+import { ProductService } from 'services';
 
 export async function getServerSideProps(ctx) {
-  const [products, catInfo, brand, group, tags] = await Promise.all([
-    CatClient.loadProductWithManufacturer(ctx),
+  const [productsRes, catInfo, brand, group, tags] = await Promise.all([
+    ProductService.loadProductWithManufacturer({ ctx }),
     CatClient.loadManufacturerInfoBySlug(ctx),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
@@ -16,7 +17,7 @@ export async function getServerSideProps(ctx) {
   const sortBy = ctx.query.sortBy || '';
   const page = Number(ctx.query.page) || 1;
   const slug = ctx.query.slug || '';
-  const { data = [], total = 0 } = products;
+  const { data = [], total = 0 } = productsRes;
   return {
     props: {
       products: data,

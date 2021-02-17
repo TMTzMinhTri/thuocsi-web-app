@@ -17,7 +17,7 @@ import { formatCurrency, formatNumber } from 'utils/FormatNumber';
 import { tabsProductData } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchDollar, faStoreAlt, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faSearchDollar, faStar } from '@fortawesome/free-solid-svg-icons';
 import {
   InputProduct,
   MinusButton,
@@ -25,27 +25,30 @@ import {
   Button as CustomButton,
   LinkComp,
 } from 'components/atoms';
-import { MultiImageBox, TagType, ProductDetailTabs } from 'components/mocules';
+import { MultiImageBox, TagType, ProductDetailTabs, SellerInfo } from 'components/mocules';
+import { LoadingScreen, ErrorQuantityCartModal } from 'components/organisms';
 import Template from 'components/layout/Template';
 import useModal from 'hooks/useModal';
-import { ProductClient, doWithServerSide, SupplierClient } from 'clients';
+import { doWithServerSide, getFirst, SupplierClient } from 'clients';
+import { ProductService } from 'services';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
-import { TERMS_URL, SUPPLIER, INGREDIENT, MANUFACTURERS, CATEGORIES } from 'constants/Paths';
+import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from 'constants/Paths';
 import { DOMAIN_SELLER_CENTER } from 'sysconfig';
-import ErrorQuantityCartModal from 'components/organisms/ErrorQuantityCartModal';
+import { NotifyUtils } from 'utils';
+import Router from 'next/router';
 
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [product, supplier] = await Promise.all([
-      ProductClient.loadDataProductDetail(ctx),
+    const [productRes, supplier] = await Promise.all([
+      ProductService.loadDataProductDetail({ ctx }),
       SupplierClient.getInfoSupplier(ctx),
     ]);
     return {
       props: {
-        product: product.data && product.data[0] ? product.data[0] : [],
+        product: getFirst(productRes),
         supplier,
       },
     };
@@ -53,47 +56,27 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function ProductDetail({ product, supplier = [], isMobile }) {
-  const title = `${product.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const [anchorEl, setAnchorEl] = useState(null);
-  const {
-    name,
-    price,
-    unit,
-    volume,
-    ingredient = [],
-    category,
-    tags,
-    maxQuantity,
-    seller,
-    manufacturer,
-    countryOfManufacture,
-  } = product;
   const [value, setValue] = React.useState('1');
-  const [quantity, setQuantity] = useState(product.quantity || 0);
+
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { toggleLogin, isAuthenticated } = useAuth();
 
-  const yearNumber = new Date().getFullYear() - supplier.yearFounded;
+  if (!product) {
+    NotifyUtils.error('Không tìm thấy sản phẩm. Gọi 02 873 008 840 để hỏi thêm về sản phẩm này.');
+    Router.push(PRODUCTS_URL);
+    return <LoadingScreen />;
+  }
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [quantity, setQuantity] = useState(product.quantity || 0);
   const updateCart = async (q) => {
     const response = await updateCartItem({ product, q });
     if (response.status === 'OK') {
       setQuantity(q);
     }
-    if (response.errorCode === 'CART_MAXQUANTITY') {
+    if (response.errorCode === 'CART_MAX_QUANTITY') {
       setQuantity(product.maxQuantity);
     }
   };
@@ -108,10 +91,41 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     }
   };
 
+  // TODO:
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const handler = useCallback(
     debounce((val, updateType) => handleCart(val, updateType), 500),
     [],
   );
+  const {
+    name,
+    price,
+    unit,
+    volume,
+    ingredient = [],
+    category,
+    tags,
+    maxQuantity,
+    seller,
+    manufacturer,
+    countryOfManufacture,
+  } = product;
+
+  const title = `${name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
+
+  const yearNumber = new Date().getFullYear() - supplier.yearFounded;
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDecrease = () => {
     const q = quantity - 1;
@@ -203,6 +217,11 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                         <div className={styles.product_price_group}>
                           <span className={styles.product_price}>
                             {price && formatCurrency(price)}
+                            {isMobile && maxQuantity && (
+                              <Typography className={styles.text_danger}>
+                                Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
+                              </Typography>
+                            )}
                           </span>
                         </div>
                         <IconButton onClick={handleClick} aria-label="close">
@@ -236,7 +255,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                           </TableContainer>
                         </Popover>
                       </div>
-                      {maxQuantity && maxQuantity > 0 && (
+                      {maxQuantity && (
                         <Typography className={styles.text_danger}>
                           Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
                         </Typography>
@@ -279,29 +298,20 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                     </p>
                     {seller && (
                       <>
-                        <div className={styles.supplierTitle}>
-                          <div className={styles.icon}>
-                            <FontAwesomeIcon icon={faStoreAlt} />
-                          </div>
-
-                          <LinkComp
-                            className={styles.supplierName}
-                            href={`${SUPPLIER}/${supplier.slug}`}
-                          >
-                            {seller.name}
-                          </LinkComp>
-                        </div>
+                        <SellerInfo seller={seller} />
                         <div className={styles.supplierInfo}>
-                          <div className={styles.supplierYearWrap}>
-                            <div className={styles.supplierYear}>
-                              <span className={styles.activePeriodYear}>
-                                {yearNumber > 1 ? `${yearNumber}+` : yearNumber}
-                              </span>
-                              <br />
-                              năm
+                          {!Number.isNaN(yearNumber) && (
+                            <div className={styles.supplierYearWrap}>
+                              <div className={styles.supplierYear}>
+                                <span className={styles.activePeriodYear}>
+                                  {yearNumber > 1 ? `${yearNumber}+` : yearNumber}
+                                </span>
+                                <br />
+                                năm
+                              </div>
+                              <span>Hợp tác cùng thuocsi.vn</span>
                             </div>
-                            <span>Hợp tác cùng thuocsi.vn</span>
-                          </div>
+                          )}
 
                           <div className={styles.supplierRating}>
                             <div className={styles.rating}>

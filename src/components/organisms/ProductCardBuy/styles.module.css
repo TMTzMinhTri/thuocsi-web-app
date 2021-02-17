@@ -108,6 +108,9 @@
     .deal_price {
         text-align: left;
     }
+    .has_item input{
+        color: #343a40;
+    }
 }
 @media (min-width: 768px) {
     .price_wrapper {

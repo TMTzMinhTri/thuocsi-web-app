@@ -66,13 +66,14 @@ const OrderRow = ({
           container
           direction="row"
           justify={maxWidth ? 'space-between' : 'flex-start'}
+          className={styles.grid}
         >
           <Grid item>
             <Link href={`${MY_ORDER_URL}/${orderID}`} key={`order-row-${orderID}`}>
               <h4 className={styles.order_id}>#{orderID} &nbsp;</h4>
             </Link>
           </Grid>
-          <Grid item style={{ paddingTop: '5px' }}>
+          <Grid className={styles.order_status} item style={{ paddingTop: '5px' }}>
             <OrderStatusButton status={status} handleSetOrderStatus={handleSetOrderStatus} />
           </Grid>
           {maxWidth ? null : (
@@ -104,9 +105,10 @@ const OrderRow = ({
           container
           direction={maxWidth ? 'row' : 'column'}
           justify="center"
+          className={styles.grid}
         >
           <Grid item>
-            <PrintInvoiceButton orderNo={orderNo} user={user} />
+            <PrintInvoiceButton orderNo={orderNo} user={user} disabled={status !== ENUM_ORDER_STATUS.PENDING} />
           </Grid>
           {status === ENUM_ORDER_STATUS.PENDING && (
             <Grid item>

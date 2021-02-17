@@ -6,12 +6,18 @@ import styled from 'styled-components';
 import { NotifyUtils } from 'utils';
 import { formatNumber } from 'utils/FormatNumber';
 import { getPathProductBySlug } from 'constants/Paths';
+import { ALIGN } from 'constants/Enums';
 import GroupAddressSelect from '../GroupAddressSelect';
 import InfoInput from '../InfoInput';
 import styles from './style.module.css';
 import validateForm from './validateForm';
 
-const heads = ['Sản phẩm hóa đơn nhanh', 'Giá (đ)', 'Số lượng', 'Tổng cộng (đ)'];
+const heads = [
+  { text: 'Sản phẩm hóa đơn nhanh', align: ALIGN.LEFT },
+  { text: 'Giá (đ)', align: ALIGN.RIGHT },
+  { text: 'Số lượng', align: ALIGN.RIGHT },
+  { text: 'Tổng cộng (đ)', align: ALIGN.RIGHT },
+];
 
 const StyledCompleteButton = styled(Button)`
   color: #fff !important;
@@ -143,7 +149,7 @@ const PrintInvoiceModal = memo((props) => {
               const { name = '', slug = '' } = product.productInfo || {};
               return (
                 <TableRow key={name} hover>
-                  <TableCell align="left" className={styles.product_name}>
+                  <TableCell align={ALIGN.LEFT} className={styles.product_name}>
                     <LinkComp
                       variant="h5"
                       href={getPathProductBySlug(slug)}
@@ -152,9 +158,9 @@ const PrintInvoiceModal = memo((props) => {
                       {name}
                     </LinkComp>
                   </TableCell>
-                  <TableCell align="left">{formatNumber(price)}</TableCell>
-                  <TableCell align="left">{formatNumber(quantity)}</TableCell>
-                  <TableCell align="left">{formatNumber(totalPrice)}</TableCell>
+                  <TableCell align={ALIGN.RIGHT}>{formatNumber(price)}</TableCell>
+                  <TableCell align={ALIGN.RIGHT}>{formatNumber(quantity)}</TableCell>
+                  <TableCell align={ALIGN.RIGHT}>{formatNumber(totalPrice)}</TableCell>
                 </TableRow>
               );
             })}

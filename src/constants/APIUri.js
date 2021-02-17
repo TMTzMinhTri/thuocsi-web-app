@@ -104,3 +104,13 @@ export const ORDER_API = {
   ORDER_INFO,
   MY_ORDER_LIST,
 };
+
+// Supplier API
+
+const SUPPLIER_API_PREFIX = '/seller/profiler/v1';
+const SUPPLIER_INFO = `${SUPPLIER_API_PREFIX}/seller/info`;
+
+export const SUPPLIER_API = {
+  SUPPLIER_INFO,
+  SUPPLIER_API_PREFIX,
+};

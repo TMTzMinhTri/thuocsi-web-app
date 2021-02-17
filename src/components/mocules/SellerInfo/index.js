@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStoreAlt } from '@fortawesome/free-solid-svg-icons';
 import { SUPPLIER } from 'constants/Paths';
 import { LinkComp } from 'components/atoms';
 import styles from './styles.module.css';
@@ -7,8 +5,8 @@ import styles from './styles.module.css';
 const SellerInfo = ({ seller }) =>
   seller && (
     <div className={styles.supplierTitle}>
-      <div className={styles.icon}>
-        <FontAwesomeIcon icon={faStoreAlt} />
+      <div className={styles.name}>
+        <strong>Nhà cung cấp:</strong>
       </div>
       <LinkComp className={styles.supplierName} href={`${SUPPLIER}/${seller.slug}`}>
         {seller.name}

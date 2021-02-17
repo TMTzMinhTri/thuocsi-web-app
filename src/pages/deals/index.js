@@ -1,26 +1,25 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import PromotionProduct from 'components/organisms/PromotionProduct';
-
-import ProductClient from 'clients/ProductClient';
-
+import { getFirst } from 'clients';
+import { ProductService } from 'services';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [products] = await Promise.all([ProductClient.loadDataProduct(ctx)]);
+  const [productsRes] = await Promise.all([ProductService.loadDataProduct({ ctx })]);
 
   return {
     props: {
-      products,
+      products: getFirst(productsRes, []),
     },
   };
 }
 
 const DealsPage = ({ products = [], isMobile }) => {
   const title = 'Khuyến mãi – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-
+  const name = 'deals';
   return (
-    <Template title={title} isMobile={isMobile}>
+    <Template title={title} isMobile={isMobile} pageName={name}>
       <div className={styles.promo_wrapper}>
         <div className={styles.container}>
           <div className={styles.text_white}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Paper, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
@@ -7,22 +7,32 @@ import { useCart } from 'context';
 import clsx from 'clsx';
 import { NotifyUtils, ValidateUtils } from 'utils';
 import { formatCurrency } from 'utils/FormatNumber';
-import { CheckoutClient, isValid } from 'clients';
+import {
+  // CustomerClient,
+  CheckoutClient,
+  isValid,
+} from 'clients';
 import { THANKYOU_URL } from 'constants/Paths';
-import { LinkComp } from 'components/atoms';
+import { LinkComp, ButtonDefault } from 'components/atoms';
 
 import styles from './styles.module.css';
 
-const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetError, isMobile }) => {
-  const { shippingFee = 0, redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
-  const { itemCount = 0, updateCart, total = 0 } = useCart();
+const CheckoutSticky = ({
+  selectedValue = '',
+  data,
+  cart,
+  dataCustomer,
+  onSetError,
+  isMobile,
+  // savedInfo,
+}) => {
+  const { redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
+  const { shippingFee = 0, itemCount = 0, updateCart } = useCart();
   const [transferValue, setTransferValue] = React.useState(0);
   const router = useRouter();
-
   const [checkCondition, setCheckCondition] = React.useState({
     checked: false,
   });
-
   const GreenCheckbox = React.memo((props) => (
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   ));
@@ -100,6 +110,15 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
     }
   }, [selectedValue, totalPrice]);
 
+  // const handleUpdateProfile = async () => {
+  //   try {
+  //     const res = await CustomerClient.updateProfile(data);
+  //     if (!isValid(res)) throw Error(res?.message);
+  //   } catch (error) {
+  //     NotifyUtils.error(error?.message || 'Cập nhật thông tin thất bại');
+  //   }
+  // };
+
   const handleSubmit = async () => {
     const formValue = {
       ...data,
@@ -116,6 +135,9 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
     const response = await CheckoutClient.Checkout(formValue);
     if (isValid(response)) {
       const { orderId } = response.data[0];
+      // if (savedInfo?.checked) {
+      //   handleUpdateProfile();
+      // }
       // update
       updateCart();
       router.push(`${THANKYOU_URL}/${orderId}`);
@@ -132,9 +154,9 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
         <h1>
           Đơn Hàng <small>({itemCount} sản phẩm)</small>
         </h1>
-        <Button onClick={() => router.push('/cart')} className={styles.btn}>
+        <ButtonDefault onClick={() => router.push('/cart')} className={styles.btn}>
           Sửa
-        </Button>
+        </ButtonDefault>
       </div>
       <Paper className={styles.root} elevation={4}>
         <div className={styles.d_flex}>
@@ -143,7 +165,7 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
-          <div className={styles.checkout_content}>{formatCurrency(shippingFee)}</div>
+          <div className={styles.checkout_content}>{`-${formatCurrency(shippingFee)}`}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước</div>
@@ -185,25 +207,41 @@ const CheckoutSticky = ({ selectedValue = '', data, cart, dataCustomer, onSetErr
           </div>
         </div>
         {!isMobile ? (
-          <Button onClick={handleSubmit} className={styles.checkout_btn}>
-            Thanh toán
-          </Button>
+          <Tooltip
+            title={
+              checkCondition.checked
+                ? ''
+                : 'Vui lòng đồng ý với điều khoản sử dụng trước khi thanh toán'
+            }
+          >
+            <span>
+              <ButtonDefault
+                disabled={!checkCondition.checked}
+                btnType="warning"
+                className={styles.checkout_btn}
+                onClick={handleSubmit}
+              >
+                Thanh toán
+              </ButtonDefault>
+            </span>
+          </Tooltip>
         ) : (
           <div className={styles.sticky_checkout_bar_mobile}>
             <div className={styles.fwc_container}>
-              <div className={styles.price}>{formatCurrency(total)}</div>
+              <div className={styles.price}>{formatCurrency(subTotalPrice)}</div>
               <div>
-                <Button
+                <ButtonDefault
+                  disabled={!checkCondition.checked}
+                  btnType="warning"
+                  onClick={handleSubmit}
                   classes={{
                     label: styles.label,
                     outlined: styles.outlined,
                     root: styles.root_btn,
                   }}
-                  variant="outlined"
-                  onClick={handleSubmit}
                 >
                   Thanh toán
-                </Button>
+                </ButtonDefault>
               </div>
             </div>
           </div>

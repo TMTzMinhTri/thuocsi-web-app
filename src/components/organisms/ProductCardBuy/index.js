@@ -68,7 +68,7 @@ const ProductCardBuy = ({
     if (response.status === 'OK') {
       setValue(q);
     }
-    if (response.errorCode === 'CART_MAXQUANTITY') {
+    if (response.errorCode === 'CART_MAX_QUANTITY') {
       setValue(maxQuantity);
     }
   };
@@ -185,6 +185,7 @@ const ProductCardBuy = ({
                   type={type}
                   value={value}
                   name={name}
+                  className={value > 0 && styles.has_item}
                 />
                 <PlusButton
                   disabled={maxQuantity && value >= maxQuantity}

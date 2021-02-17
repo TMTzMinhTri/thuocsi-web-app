@@ -1,3 +1,17 @@
+import {
+  FETCH_SUCCESS,
+  FETCH_ERROR,
+  ADD_ITEM,
+  INCREASE_BY,
+  CLEAR,
+  CHECKOUT,
+  REMOVE_ITEM,
+  INCREASE,
+  DECREASE,
+  ADD_IMPORTANT,
+  REMOVE_IMPORTANT,
+} from './CartType';
+
 const Storage = (cartItems) => {
   // eslint-disable-next-line no-unused-expressions
   typeof localStorage !== 'undefined' &&
@@ -7,11 +21,7 @@ const Storage = (cartItems) => {
 export const sumItems = (cartItems) => {
   Storage(cartItems);
   const itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
-  const total = cartItems.reduce(
-    (totalItem, product) => totalItem + product.price * product.quantity,
-    0,
-  );
-  return { itemCount, total };
+  return { itemCount };
 };
 
 export const CartReducer = (state, action) => {
@@ -19,7 +29,7 @@ export const CartReducer = (state, action) => {
 
   const data = action.payload && action.payload.cartItems ? action.payload.cartItems : [];
   switch (action.type) {
-    case 'FETCH_SUCCESS':
+    case FETCH_SUCCESS:
       return {
         ...state,
         ...sumItems([...data]),
@@ -27,8 +37,11 @@ export const CartReducer = (state, action) => {
         redeemCode: action.payload.redeemCode || [],
         note: action.payload.note || '',
         loading: false,
+        totalPrice: action.payload.totalPrice,
+        subTotalPrice: action.payload.subTotalPrice,
+        discount: action.payload.discount,
       };
-    case 'FETCH_ERROR':
+    case FETCH_ERROR:
       return {
         ...state,
         ...sumItems([]),
@@ -37,7 +50,7 @@ export const CartReducer = (state, action) => {
         note: '',
         loading: false,
       };
-    case 'ADD_ITEM':
+    case ADD_ITEM:
       if (!cartItems.find((item) => item.sku === action.payload.sku)) {
         cartItems.push({
           ...action.payload,
@@ -50,13 +63,13 @@ export const CartReducer = (state, action) => {
         ...sumItems(cartItems),
         cartItems: [...cartItems],
       };
-    case 'REMOVE_ITEM':
+    case REMOVE_ITEM:
       return {
         ...state,
         ...sumItems(cartItems.filter((item) => item.sku !== action.payload.sku)),
         cartItems: [...cartItems.filter((item) => item.sku !== action.payload.sku)],
       };
-    case 'INCREASE':
+    case INCREASE:
       if (!cartItems.find((item) => item.sku === action.payload.sku)) {
         cartItems.push({
           ...action.payload,
@@ -70,7 +83,7 @@ export const CartReducer = (state, action) => {
         ...sumItems(cartItems),
         cartItems: [...cartItems],
       };
-    case 'INCREASE_BY':
+    case INCREASE_BY:
       if (!cartItems.find((item) => item.sku === action.payload.product.sku)) {
         cartItems.push({
           ...action.payload.product,
@@ -85,7 +98,7 @@ export const CartReducer = (state, action) => {
         ...sumItems(cartItems),
         cartItems: [...cartItems],
       };
-    case 'DECREASE':
+    case DECREASE:
       // eslint-disable-next-line no-case-declarations
       const currentItem = cartItems[cartItems.findIndex((item) => item.sku === action.payload.sku)];
       if (currentItem && currentItem.quantity !== 0) {
@@ -103,13 +116,13 @@ export const CartReducer = (state, action) => {
             ? [...cartItems]
             : [...cartItems.filter((item) => item.sku !== action.payload.sku)],
       };
-    case 'CHECKOUT':
+    case CHECKOUT:
       return {
         cartItems: [],
         checkout: true,
         ...sumItems([]),
       };
-    case 'ADD_IMPORTANT':
+    case ADD_IMPORTANT:
       // eslint-disable-next-line no-param-reassign
       state.cartItems[
         state.cartItems.findIndex((item) => item.sku === action.payload.sku)
@@ -119,7 +132,7 @@ export const CartReducer = (state, action) => {
         ...sumItems(state.cartItems),
         cartItems: [...state.cartItems],
       };
-    case 'REMOVE_IMPORTANT':
+    case REMOVE_IMPORTANT:
       // eslint-disable-next-line no-param-reassign
       delete state.cartItems[state.cartItems.findIndex((item) => item.sku === action.payload.sku)]
         .isImportant;
@@ -128,7 +141,7 @@ export const CartReducer = (state, action) => {
         ...sumItems(state.cartItems),
         cartItems: [...state.cartItems],
       };
-    case 'CLEAR':
+    case CLEAR:
       return {
         cartItems: [],
         ...sumItems([]),

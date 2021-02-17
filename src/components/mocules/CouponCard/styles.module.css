@@ -33,7 +33,6 @@
 .coupon_description {
   /* height: 46px; */
   text-align: center;
-  min-height: 100px;
 }
 
 .benefit {
@@ -42,7 +41,6 @@
   border: 1px dashed #e9ecef;
   padding: 0.5em;
   color: #dc3545;
-  height: 100px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -51,6 +49,23 @@
   width: 100px;
 }
 
-.coupon_discount {
-  line-height: 3;
+@media (max-width: 767px) {
+  .coundown>div{
+    text-align: center;
+    width: 100%;
+  }
+  .coupon_discount {
+    margin-bottom: 5px;
+  }
+}
+@media (min-width: 768px) {
+  .coupon_discount {
+    line-height: 3;
+  }
+  .coupon_description{
+    min-height: 100px;
+  }
+  .benefit {
+    height: 100px;
+  }
 }

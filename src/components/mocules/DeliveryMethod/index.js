@@ -9,19 +9,21 @@ import styles from './styles.module.css';
 
 const FastDelivery = (
   <>
-    <b className={styles.fw500}>Giao hàng nhanh</b> (Tính thêm{' '}
-    <b className={styles.fw500}>30.000đ</b>)
+    <b className={styles.fw500}>Giao hàng nhanh</b>
+    {/* (Tính thêm{' '}
+    <b className={styles.fw500}>30.000đ</b>) */}
   </>
 );
 
 const FastMovingDelivery = (
   <>
-    <b className={styles.fw500}>Giao hàng siêu tốc</b> (Tính thêm{' '}
-    <b className={styles.fw500}>30.000đ</b>)
+    <b className={styles.fw500}>Giao hàng siêu tốc</b>
+    {/* (Tính thêm{' '}
+    <b className={styles.fw500}>30.000đ</b>) */}
   </>
 );
 
-const DeliveryMethod = ({ handleChange, selectedValue, isHCM = false }) => (
+const DeliveryMethod = ({ handleChange, selectedValue, isValidCondition = false }) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}>Hình thức giao hàng</h1>
 
@@ -34,7 +36,7 @@ const DeliveryMethod = ({ handleChange, selectedValue, isHCM = false }) => (
         />
         <FormControlLabel
           value="quick"
-          disabled={!isHCM}
+          disabled={!isValidCondition}
           control={<Radio classes={{ root: styles.checkbox }} />}
           label={FastDelivery}
         />
@@ -60,7 +62,7 @@ const DeliveryMethod = ({ handleChange, selectedValue, isHCM = false }) => (
 
         <FormControlLabel
           value="fast_moving"
-          disabled={!isHCM}
+          disabled={!isValidCondition}
           control={<Radio classes={{ root: styles.checkbox }} />}
           label={FastMovingDelivery}
         />

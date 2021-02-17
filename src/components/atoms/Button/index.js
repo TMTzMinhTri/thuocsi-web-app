@@ -48,7 +48,7 @@ const StyledButton = styled(CustomButton)`
 
   &.my-order__button {
     border-radius: 20px !important;
-    padding: 0.25rem 0.5rem !important;
+    padding: 0.25rem 0.5rem;
     font-size: 0.875rem !important;
     width: 9rem !important;
     margin: 0.25em !important;
@@ -61,6 +61,11 @@ const StyledButton = styled(CustomButton)`
       background-color: #f9b514 !important;
       &:hover {
         background: #fff !important;
+      }
+
+      &.Mui-disabled {
+        color: #212529 !important;
+        opacity: 0.65 !important;
       }
     }
 

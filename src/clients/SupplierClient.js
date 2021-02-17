@@ -1,9 +1,13 @@
-import { GET, isValid } from './Clients';
+import { SUPPLIER_API } from 'constants/APIUri';
+import { GET } from './Clients';
 
 async function getInfoSupplier(ctx) {
-  const result = await GET({ url: '/supplier', mock: true, ctx });
-  if (!isValid(result)) return [];
-  return result.data[0];
+  const url = SUPPLIER_API.SUPPLIER_INFO;
+  const params = {
+    q: ctx.query.slug || null,
+  };
+  const result = await GET({ url, isBasic: true, ctx, params });
+  return result;
 }
 
 export default {

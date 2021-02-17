@@ -4,23 +4,24 @@ import { formatCurrency } from 'utils/FormatNumber';
 import InfoIcon from '@material-ui/icons/Info';
 import { InfoTable } from 'components/atoms';
 import { useRouter } from 'next/router';
+import { ALIGN } from 'constants/Enums';
 import styles from './styles.module.css';
 
 const heads = [
-  'Mã',
-  'Ngày nhập',
-  'Số lần sử dụng',
-  'Đã dùng (/lần)',
-  'Hạn dùng',
-  'Giá trị đơn hàng tối thiểu',
-  'Đã hết hạn',
-  'Đơn hàng liên quan',
+  { text: 'Mã', align: ALIGN.LEFT },
+  { text: 'Ngày nhập', align: ALIGN.LEFT },
+  { text: 'Số lần sử dụng', align: ALIGN.LEFT },
+  { text: 'Đã dùng (/lần)', align: ALIGN.LEFT },
+  { text: 'Hạn dùng', align: ALIGN.LEFT },
+  { text: 'Giá trị đơn hàng tối thiểu', align: ALIGN.LEFT },
+  { text: 'Đã hết hạn', align: ALIGN.LEFT },
+  { text: 'Đơn hàng liên quan', align: ALIGN.LEFT },
 ];
 
 function PromoTable({ promos }) {
   const router = useRouter();
   return (
-    <div>
+    <div className={styles.root}>
       <InfoTable heads={heads}>
         {promos.length !== 0 &&
           promos.map((row) => (

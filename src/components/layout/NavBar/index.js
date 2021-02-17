@@ -25,6 +25,7 @@ import {
   DEALS,
   QUICK_ORDER,
   PROMO_CODES,
+  NEW_PRODUCT,
 } from 'constants/Paths';
 
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
@@ -50,7 +51,7 @@ const useStyle = makeStyles({
   link: {
     position: 'relative',
     alignItems: 'center',
-    padding: 12,
+    padding: 9,
     borderBottomWidth: 3,
     borderBottomColor: 'transparent',
     borderBottomStyle: 'solid',
@@ -182,6 +183,17 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
                 <span className={styles.badge}>Mới</span>
                 <LocalOffer className={styles.navIcon} />
               </LinkComp>
+
+              <LinkComp
+                className={classes.link}
+                name="Hàng Mới"
+                href={NEW_PRODUCT}
+                color="white"
+                target
+              >
+                <span className={styles.badge}>Mới</span>
+                <Whatshot className={styles.navIcon} />
+              </LinkComp>
             </div>
           </div>
 
@@ -190,11 +202,13 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               <SearchInput classCustom={styles.customWidth} className={styles.searchInput} />
               <div className={styles.navBarRight}>
                 <LinkComp className={styles.navBarRightLink} href={CART_URL}>
-                  <IconButton aria-label="cart">
-                    <Badge badgeContent={itemCount} invisible={itemCount === 0} color="secondary">
-                      <LocalMallOutlined className={styles.rIcon} />
-                    </Badge>
-                  </IconButton>
+                  <Tooltip title="Giỏ hàng" arrow>
+                    <IconButton aria-label="cart">
+                      <Badge badgeContent={itemCount} invisible={itemCount === 0} color="secondary">
+                        <LocalMallOutlined className={styles.rIcon} />
+                      </Badge>
+                    </IconButton>
+                  </Tooltip>
                 </LinkComp>
                 <Toggle balance={balance} point={point} />
               </div>

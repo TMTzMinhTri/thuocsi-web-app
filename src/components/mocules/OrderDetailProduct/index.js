@@ -11,7 +11,9 @@ import {
 import StarIcon from '@material-ui/icons/Star';
 import { LinkComp } from 'components/atoms';
 import { formatCurrency, formatNumber } from 'utils/FormatNumber';
+import { isEmpty } from 'utils/ValidateUtils';
 import { getPathProductBySlug } from 'constants/Paths';
+import { MISSING_IMAGE } from 'constants/Images';
 import { v4 as uuidV4 } from 'uuid';
 import styles from './styles.module.css';
 import SellerInfo from '../SellerInfo';
@@ -49,7 +51,7 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
                   </TableCell>
                   <TableCell>
                     <LinkComp href={getPathProductBySlug(slug)}>
-                      <img src={imageUrls ? imageUrls[0] : ''} alt={name} width={50} height={30} />
+                      <img src={!isEmpty(imageUrls) ? imageUrls[0] : MISSING_IMAGE} alt={name} width={50} height={30} />
                     </LinkComp>
                   </TableCell>
                   <TableCell align="left" className={styles.product_name}>
@@ -76,7 +78,7 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
             })}
         </TableBody>
       </Table>
-      {promoName && (
+      {!isEmpty(promoName) && (
         <Grid container justify="space-between" className={styles.promo}>
           <Grid item>
             Mã giảm giá <strong>{promoName} </strong>

@@ -5,9 +5,8 @@ import { LocalOffer } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import clsx from 'clsx';
 import { useCart } from 'context';
-import { formatCurrency } from 'utils/FormatNumber';
-import { CartClient, isValid } from 'clients';
-import { NotifyUtils } from 'utils';
+import { formatCurrency, formatNumber } from 'utils/FormatNumber';
+import { CartClient } from 'clients';
 import { LinkComp, ButtonDefault } from 'components/atoms';
 import { CART_URL, QUICK_ORDER, CHECKOUT_URL } from 'constants/Paths';
 import Router, { useRouter } from 'next/router';
@@ -44,7 +43,7 @@ const PaymentButton = ({ user }) => (
 );
 
 const CardInfo = ({ cart, promo, className, user }) => {
-  const { itemCount, total, updateCart, redeemCode } = useCart();
+  const { itemCount, totalPrice, subTotalPrice, updateCart, redeemCode } = useCart();
   const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
   const handleSetPromoVisible = () => {
@@ -52,32 +51,22 @@ const CardInfo = ({ cart, promo, className, user }) => {
   };
 
   const handleRemoveRedeemCode = async () => {
-    try {
-      const res = await CartClient.updateRedeemCode([]);
-      if (!isValid(res)) throw new Error(res.messsage);
-      updateCart();
-      NotifyUtils.success('Xoá mã giảm giá thành công');
-    } catch (error) {
-      NotifyUtils.error(error?.message || 'Xoá mã giảm giá không thành công');
-    }
+    const res = await CartClient.updateRedeemCode([]);
+    updateCart({
+      cartRes: res,
+      successMessage: 'Xoá mã giảm giá thành công',
+      errorMessage: 'Xoá mã giảm giá thất bại',
+    });
   };
 
   const handleChangePromo = async (code) => {
     setPromoVisible(false);
-    try {
-      // const checkRes = await PromoClient.checkPromoAvailableForCart({
-      //   cartItems,
-      //   totalPrice: total,
-      //   voucherCode: Number(code),
-      // });
-      // if (!isValid(checkRes)) throw new Error(checkRes.messsage);
-      const updaterRes = await CartClient.updateRedeemCode([code]);
-      if (!isValid(updaterRes)) throw new Error(updaterRes.messsage);
-      updateCart();
-      NotifyUtils.success('Thêm mã giảm giá thành công');
-    } catch (error) {
-      NotifyUtils.error(error?.message || 'Thêm mã giảm giá không thành công');
-    }
+    const res = await CartClient.updateRedeemCode([code]);
+    updateCart({
+      cartRes: res,
+      successMessage: 'Thêm mã giảm giá thành công',
+      errorMessage: 'Thêm mã giảm giá thất bại',
+    });
   };
 
   return (
@@ -90,7 +79,9 @@ const CardInfo = ({ cart, promo, className, user }) => {
             item
           >
             <Typography className={styles.text}>Số lượng</Typography>
-            <Typography className={clsx(styles.number, styles.quantity)}>{itemCount}</Typography>
+            <Typography className={clsx(styles.number, styles.quantity)}>
+              {formatNumber(itemCount)}
+            </Typography>
           </Grid>
           <Grid
             xs={6}
@@ -99,8 +90,11 @@ const CardInfo = ({ cart, promo, className, user }) => {
           >
             <Typography className={styles.text}>Tổng tiền</Typography>
             <Typography className={clsx(styles.number, styles.price)}>
-              {formatCurrency(total || 0)}
+              {formatCurrency(subTotalPrice || 0)}
             </Typography>
+            {!isEmpty(redeemCode) && (
+              <Typography className={clsx(styles.total)}>{formatCurrency(totalPrice)}</Typography>
+            )}
           </Grid>
         </Grid>
         {promo && (
@@ -111,10 +105,12 @@ const CardInfo = ({ cart, promo, className, user }) => {
             item
             direction="row"
           >
-            <LocalOffer className={styles.icon_promo} />
-            <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
-              {!isEmpty(redeemCode) ? redeemCode[0] : 'Dùng mã khuyến mãi'}
-            </Typography>
+            <div className={styles.promo_left}>
+              <LocalOffer className={styles.icon_promo} />
+              <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
+                {!isEmpty(redeemCode) ? redeemCode[0] : 'Dùng mã khuyến mãi'}
+              </Typography>
+            </div>
             {!isEmpty(redeemCode) ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
           </Grid>
         )}
@@ -132,7 +128,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
           onClose={handleSetPromoVisible}
           handleChangePromo={handleChangePromo}
           redeemCode={redeemCode}
-          totalPrice={total}
+          totalPrice={totalPrice}
         />
       </Grid>
       {router.pathname === CART_URL && (

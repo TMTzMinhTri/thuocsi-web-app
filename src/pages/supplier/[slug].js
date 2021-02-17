@@ -2,8 +2,11 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
-import { CatClient, SupplierClient, ProductClient } from 'clients';
+import { CatClient, isValid, SupplierClient } from 'clients';
+import { ProductService } from 'services';
 import Image from 'next/image';
+import { NOT_FOUND_URL } from 'constants/Paths';
+
 import { Grid } from '@material-ui/core';
 import { LOGO_PHARMACY } from 'constants/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,18 +15,28 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [products, brand, group, tags, supplier] = await Promise.all([
-    ProductClient.loadDataProduct(ctx),
+  const [productsRes, brand, group, tags, supplierRes] = await Promise.all([
+    ProductService.loadDataProduct({ ctx }),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
     CatClient.loadTags(ctx),
     SupplierClient.getInfoSupplier(ctx),
   ]);
+  if (!isValid(supplierRes)) {
+    return {
+      redirect: {
+        destination: NOT_FOUND_URL,
+      },
+    };
+  }
+
   const current_tab = ctx.query.current_tab || '';
   const sortBy = ctx.query.sortBy || '';
   const page = Number(ctx.query.page) || 1;
   const slug = ctx.query.slug || '';
-  const { data = [], total = 0 } = products;
+
+  const { data = [], total = 0 } = productsRes;
+
   return {
     props: {
       products: data,
@@ -35,7 +48,7 @@ export async function getServerSideProps(ctx) {
       group,
       slug,
       tags,
-      supplier,
+      supplier: supplierRes.data[0],
     },
   };
 }
@@ -52,11 +65,10 @@ export default function Supplier({
   slug = '',
   isMobile,
   isAuthenticated,
-  supplier = [],
+  supplier,
 }) {
   const title = `${supplier.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const cat = 'supplier';
-
   return (
     <Template title={title} isMobile={isMobile}>
       <Grid className={styles.supplierWrapper} container>
@@ -75,19 +87,25 @@ export default function Supplier({
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
                   <FontAwesomeIcon className={styles.star} icon={faStar} />
                 </div>
-                <div
-                  className={styles.ratingStars}
-                  style={{ width: `${(supplier?.rating / 5) * 100}%` }}
-                >
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                  <FontAwesomeIcon className={styles.star} icon={faStar} />
-                </div>
+                {supplier.rating && (
+                  <div
+                    className={styles.ratingStars}
+                    style={{ width: `${(supplier.rating / 5) * 100}%` }}
+                  >
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                    <FontAwesomeIcon className={styles.star} icon={faStar} />
+                  </div>
+                )}
               </div>
             </div>
-            <span className={styles.supplierYear}>Thành viên từ: {supplier.yearFounded}</span>
+            {supplier.createdTime && (
+              <span className={styles.supplierYear}>
+                Thành viên từ: {new Date(supplier.createdTime).getFullYear()}
+              </span>
+            )}
           </div>
         </Grid>
       </Grid>

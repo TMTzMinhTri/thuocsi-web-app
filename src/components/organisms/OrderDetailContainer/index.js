@@ -44,7 +44,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container direction="row">
           <Grid item xs={3}>
-            <PrintInvoiceButton orderNo={order.orderNo} user={user} />
+            <PrintInvoiceButton orderNo={order.orderNo} user={user} disabled={order.status !== ENUM_ORDER_STATUS.PENDING} />
           </Grid>
 
           <Grid item container direction="column" justify="center" xs={5}>

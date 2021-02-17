@@ -41,16 +41,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function InfoContainer({ children, value, title, balance, name }) {
+export default function InfoContainer({ children, value, title, balance, name, isMobile }) {
   const classes = useStyles();
   return (
     <div className={clsx(classes.root, styles.root_mobile)}>
       <InfoTabs value={value} balance={balance} name={name} />
 
-      <div>
-        <Grid item xs={12}>
-          <div className={styles.title}>{title}</div>
-        </Grid>
+      <div className={styles.full_width}>
+        {!isMobile && (
+          <Grid item xs={12}>
+            <div className={styles.title}>{title}</div>
+          </Grid>
+        )}
         <Grid container direction="column" value={value} spacing={1}>
           {children}
         </Grid>

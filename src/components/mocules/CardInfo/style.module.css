@@ -84,7 +84,7 @@
 
 .counpon_button {
   color: #00b46e;
-  font-weight: 500;
+  font-weight: 600 !important;
   cursor: pointer;
 }
 
@@ -93,4 +93,12 @@
 }
 .quick_link p{
   font-size: 16px;
+}
+.promo_left{
+  display: flex;
+}
+.total{
+  text-decoration: line-through;
+  color: #919aa3;
+  font-size: small !important;
 }
