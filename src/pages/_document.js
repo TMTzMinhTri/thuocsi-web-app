@@ -3,6 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles';
 import { ServerStyleSheet as StyledComponentSheets } from 'styled-components';
 import Theme from 'components/layout/Theme';
+import { GA_TRACKING_ID } from 'utils/gtag';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -42,6 +43,21 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+          <script
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{
+              __html: `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${GA_TRACKING_ID}',{
+    page_path: window.location.pathname,
+  });
+  `,
+            }}
           />
         </Head>
         <body>
