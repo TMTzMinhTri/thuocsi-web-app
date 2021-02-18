@@ -17,6 +17,8 @@ import { useRouter } from 'next/router';
 import { useAuth, useCart } from 'context';
 import { ProductClient } from 'clients';
 import { PRODUCTS_URL } from 'constants/Paths';
+import CustomModal from 'components/mocules/CustomModal';
+import { useModal } from 'hooks';
 import { LinkComp } from '../../atoms';
 
 import styles from './styles.module.css';
@@ -26,6 +28,7 @@ const SideBar = () => {
   const { user, logout } = useAuth();
   const { clearCart } = useCart();
   const [menu, setMenu] = useState([]);
+  const [showPoupLogout, toggleLogout] = useModal(false);
   const handleLogout = () => {
     logout();
     clearCart();
@@ -167,7 +170,7 @@ const SideBar = () => {
           </LinkComp>
         </li>
         <li>
-          <div onClick={handleLogout} role="presentation" className={styles.sidebar__item_link}>
+          <div onClick={toggleLogout} role="presentation" className={styles.sidebar__item_link}>
             <FontAwesomeIcon className={styles.navIcon} icon={faSignOutAlt} />
             <p className="MuiTypography-root MuiTypography-body2">Đăng xuất</p>
           </div>
@@ -242,6 +245,15 @@ const SideBar = () => {
           </div>
         </a>
       </div>
+      <CustomModal
+        visible={showPoupLogout}
+        onClose={toggleLogout}
+        title="Xin xác nhận"
+        content="Bạn có chắc muốn đăng xuất?"
+        btnOk="Có"
+        onClickOk={handleLogout}
+        btnOnClose="Không"
+      />
     </nav>
   );
 };
