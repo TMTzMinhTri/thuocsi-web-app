@@ -8,6 +8,8 @@
 }
 .bottom_bar input{
     color: #fff;
+    padding: 0;
+    height: 100%;
 }
 .bottom_bar .custombtn{
     color: #fff !important; 
@@ -147,7 +149,9 @@
 
 .addtocartmb [class*='button_root_minus'],
 .addtocartmb [class*='plus']{
-    padding: 16px !important;
+    height: 34px;
+    max-width: 34px !important;
+    width: 100%;
 }
 .addtocartmb [class*='icon']{
     font-size: 26px !important;
