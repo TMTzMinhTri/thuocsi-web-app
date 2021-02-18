@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import {
   makeStyles,
@@ -9,24 +9,21 @@ import {
   Container,
   Tooltip,
 } from '@material-ui/core';
-import { LocalOffer, Whatshot, LocalMallOutlined } from '@material-ui/icons';
+import { LocalMallOutlined } from '@material-ui/icons';
 import LinkStyledClass from 'constants/Styled/Link/index';
 import { useCart, useAuth } from 'context';
 import { LOGO_THUOCSI_SHORTENED } from 'constants/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 import clsx from 'clsx';
 
 import {
-  INGREDIENT,
   CART_URL,
   HOME_PAGE,
-  PRODUCTS_URL,
-  DEALS,
-  QUICK_ORDER,
-  PROMO_CODES,
-  NEW_PRODUCT,
+  PRODUCTS_URL
 } from 'constants/Paths';
+import { ProductClient } from 'clients';
 
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
 import { Toggle, SearchInput } from 'components/mocules';
@@ -84,9 +81,11 @@ function renderMostSearched(data, classes) {
   );
 }
 
-export default function NavBar({ mostResearched, point = 0, balance = 0, pageName = [] }) {
+export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
   const { itemCount } = useCart();
   const classes = useStyle();
+  const [menu, setMenu] = useState([]);
+  const router = useRouter();
 
   const {
     isAuthenticated,
@@ -120,9 +119,27 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
     };
   }, []);
 
-  const isPageProduct = pageName === 'products';
-  const isPageManufacturers = pageName === 'manufacturers';
-  const isPageCategiries = pageName === 'categories';
+  useEffect(() => {
+    async function loadMenu() {
+      const data = await ProductClient.getMenu();
+      setMenu(data);
+    }
+    loadMenu();
+  }, []);
+
+  const getActivePage = () => {
+    if (router.pathname === '/products' || router.pathname === '/categories/[slug]' || router.pathname === '/manufacturers/[slug]') {
+      return PRODUCTS_URL;
+    } 
+      return router.pathname;
+  }
+
+  const getUrl = (url, redirectUrl) => {
+    if (redirectUrl) {
+      return redirectUrl;
+    } 
+      return url;
+  }
 
   return (
     <div ref={nav} className={styles.navBar}>
@@ -135,65 +152,22 @@ export default function NavBar({ mostResearched, point = 0, balance = 0, pageNam
               </LinkComp>
             </div>
             <div className={isAuthenticated ? styles.link_wrap : clsx(styles.link_wrap, styles.jc)}>
-              <LinkComp
-                className={clsx(
-                  classes.link,
-                  (isPageProduct || isPageManufacturers || isPageCategiries) && styles.active,
-                )}
-                name="Sản phẩm"
-                href={PRODUCTS_URL}
-                color="white"
-              >
-                <Icon className={`icon-product ${styles.navIcon}`} />
-              </LinkComp>
-
-              <LinkComp
-                className={clsx(classes.link, pageName === 'ingredients' && styles.active)}
-                name="Hoạt Chất"
-                href={INGREDIENT}
-                color="white"
-              >
-                <Icon className={`icon-ingredients ${styles.navIcon}`} />
-              </LinkComp>
-
-              <LinkComp
-                className={clsx(classes.link, pageName === 'quick-order' && styles.active)}
-                name="Đặt Hàng Nhanh"
-                href={QUICK_ORDER}
-                color="white"
-              >
-                <Icon className={`icon-quick-order ${styles.navIcon}`} />
-              </LinkComp>
-
-              <LinkComp
-                className={clsx(classes.link, pageName === 'deals' && styles.active)}
-                name="Khuyến Mãi"
-                href={DEALS}
-                color="white"
-              >
-                <Whatshot className={styles.navIcon} />
-              </LinkComp>
-
-              <LinkComp
-                className={clsx(classes.link, pageName === 'promo-codes' && styles.active)}
-                name="Mã Giảm Giá"
-                href={PROMO_CODES}
-                color="white"
-              >
-                <span className={styles.badge}>Mới</span>
-                <LocalOffer className={styles.navIcon} />
-              </LinkComp>
-
-              <LinkComp
-                className={classes.link}
-                name="Hàng Mới"
-                href={NEW_PRODUCT}
-                color="white"
-                target
-              >
-                <span className={styles.badge}>Mới</span>
-                <Whatshot className={styles.navIcon} />
-              </LinkComp>
+              {menu.map((item) => (
+                <LinkComp
+                  className={clsx(
+                    classes.link,
+                    item.url === getActivePage(item.url) && styles.active,
+                  )}
+                  name={item.name}
+                  href={getUrl(item.url, item.redirectUrl)}
+                  color="white"
+                  target={item.redirectUrl && "_blank"}
+                  key={item.id}
+                >
+                  {item.isNew && <span className={styles.badge}>Mới</span>}
+                  <Icon className={`${item.icon} ${styles.navIcon}`} />
+                </LinkComp>
+              ))}
             </div>
           </div>
 

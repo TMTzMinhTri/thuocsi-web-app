@@ -21,6 +21,7 @@ import { i18n } from 'i18n-lib';
 import '../styles/globals.css';
 import '../styles/icomoon.css';
 import 'react-toastify/dist/ReactToastify.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { MOBILE } from 'constants/Device';
 
