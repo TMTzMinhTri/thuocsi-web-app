@@ -6,8 +6,8 @@ async function getPromoActive({ ctx }) {
     return [];
   }
   const promos = promoRes.data.reduce((acc, current) => {
-    const { rule, promotionName, promotionType } = current;
-    const pros = current.voucherCodes.map((vc) => ({ ...vc, rule, promotionName, promotionType }));
+    const { rewards, conditions, endTime, promotionName, promotionType } = current;
+    const pros = current.voucherCodes.map((vc) => ({ ...vc, rewards, conditions, promotionName, promotionType, endTime }));
     return [...acc, ...pros];
   }, []);
   return promos;

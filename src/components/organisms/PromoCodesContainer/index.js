@@ -3,6 +3,7 @@ import { Typography, Grid, Container, useMediaQuery } from '@material-ui/core';
 import clsx from 'clsx';
 import { CouponCard } from 'components/mocules';
 import { v4 as uuidv4 } from 'uuid';
+import { QUICK_ORDER, PRODUCTS_URL, CART_URL } from 'constants/Paths';
 import styles from './styles.module.css';
 
 const PromoCodesContainer = ({ promos = [] }) => {
@@ -17,14 +18,14 @@ const PromoCodesContainer = ({ promos = [] }) => {
         <ol>
           <li>
             <strong>Đặt hàng </strong>: Vào trang&nbsp;
-            <Link href="/quick-order">Đặt hàng nhanh </Link>
+            <Link href={QUICK_ORDER}>Đặt hàng nhanh </Link>
             &nbsp;hoặc&nbsp;
-            <Link href="/products"> Sản phẩm</Link>
+            <Link href={PRODUCTS_URL}> Sản phẩm</Link>
             &nbsp;để đặt hàng
           </li>
           <li>
             <strong>Vào giỏ hàng</strong>: Vào trang&nbsp;
-            <Link href="/cart">Giỏ hàng </Link>. Nhấn vào chữ "Dùng mã khuyến mãi"
+            <Link href={CART_URL}>Giỏ hàng </Link>. Nhấn vào chữ "Dùng mã khuyến mãi"
           </li>
           <li>
             <strong>Dùng mã</strong>: Nhập mã muốn dùng vào ô tìm kiếm, hoặc, chọn trong danh sách

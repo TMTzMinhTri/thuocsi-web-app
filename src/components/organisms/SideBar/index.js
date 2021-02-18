@@ -1,10 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { Icon } from '@material-ui/core';
 import {
   LocalOffer,
-  Whatshot,
   AccountCircle,
   AssignmentTurnedIn,
   Share,
@@ -16,6 +15,10 @@ import { faSignOutAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { LINK_REGISTER, LOGO_FOOTER_REGISTER } from 'constants/Images';
 import { useRouter } from 'next/router';
 import { useAuth, useCart } from 'context';
+import { ProductClient } from 'clients';
+import { PRODUCTS_URL } from 'constants/Paths';
+import CustomModal from 'components/mocules/CustomModal';
+import { useModal } from 'hooks';
 import { LinkComp } from '../../atoms';
 
 import styles from './styles.module.css';
@@ -24,10 +27,31 @@ const SideBar = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
   const { clearCart } = useCart();
+  const [menu, setMenu] = useState([]);
+  const [showPoupLogout, toggleLogout] = useModal(false);
   const handleLogout = () => {
     logout();
     clearCart();
   };
+  const getActivePage = () => {
+    if (router.pathname === '/products' || router.pathname === '/categories/[slug]' || router.pathname === '/manufacturers/[slug]') {
+      return PRODUCTS_URL;
+    } 
+      return router.pathname;
+  }
+  const getUrl = (url, redirectUrl) => {
+    if (redirectUrl) {
+      return redirectUrl;
+    } 
+      return url;
+  }
+  useEffect(() => {
+    async function loadMenu() {
+      const data = await ProductClient.getMenu();
+      setMenu(data);
+    }
+    loadMenu();
+  }, []);
   return (
     <nav className={styles.sidebar_content}>
       <div className={styles.sidebar__user}>
@@ -58,85 +82,25 @@ const SideBar = () => {
       </div>
       <hr className={styles.hr} />
       <ul className={styles.items}>
-        <li>
-          <LinkComp
-            className={clsx(styles.sidebar__item_link, router.pathname === '/' && styles.active)}
-            name="Trang chủ"
-            href="/"
-            color="white"
+        {menu.map((item) => (
+          <li
+            key={item.id}
           >
-            <Icon className={`icon-home ${styles.navIcon}`} />
-          </LinkComp>
-        </li>
-        <li>
-          <LinkComp
-            className={clsx(
-              styles.sidebar__item_link,
-              (router.pathname === '/products'
-                || router.pathname === '/manufacturers'
-                || router.pathname === '/categories')
-                && styles.active,
-            )}
-            name="Sản phẩm"
-            href="/products"
-            color="white"
-          >
-            <Icon className={`icon-product ${styles.navIcon}`} />
-          </LinkComp>
-        </li>
-        <li>
-          <LinkComp
-            className={clsx(
-              styles.sidebar__item_link,
-              router.pathname === '/ingredients' && styles.active,
-            )}
-            name="Hoạt Chất"
-            href="/ingredients"
-            color="white"
-          >
-            <Icon className={`icon-ingredients ${styles.navIcon}`} />
-          </LinkComp>
-        </li>
-        <li>
-          <LinkComp
-            className={clsx(
-              styles.sidebar__item_link,
-              router.pathname === '/quick-order' && styles.active,
-            )}
-            name="Đặt Hàng Nhanh"
-            href="/quick-order"
-            color="white"
-          >
-            <Icon className={`icon-quick-order ${styles.navIcon}`} />
-          </LinkComp>
-        </li>
-        <li>
-          <LinkComp
-            className={clsx(
-              styles.sidebar__item_link,
-              router.pathname === '/deals' && styles.active,
-            )}
-            name="Khuyến Mãi"
-            href="/deals"
-            color="white"
-          >
-            <Whatshot className={styles.navIcon} />
-          </LinkComp>
-        </li>
-        <li>
-          <LinkComp
-            className={clsx(
-              styles.sidebar__item_link,
-              router.pathname === '/promo-codes' && styles.active,
-            )}
-            name="Mã Giảm Giá"
-            href="/promo-codes"
-            color="white"
-          >
-            <LocalOffer className={styles.navIcon} />
-            <span className={styles.badge}>Mới</span>
-          </LinkComp>
-        </li>
+            <LinkComp
+              className={clsx(
+                styles.sidebar__item_link,
+                item.url === getActivePage(item.url) && styles.active,
+              )}
+              name={item.name}
+              href={getUrl(item.url, item.redirectUrl)}
+              color="white"
+              target={item.redirectUrl && "_blank"}
+            >
+              <Icon className={`${item.icon} ${styles.navIcon}`} />
+              {item.isNew && <span className={styles.badge}>Mới</span>}
+            </LinkComp>
+          </li>
+        ))}
       </ul>
       <hr className={styles.hr} />
       <ul className={styles.items}>
@@ -206,7 +170,7 @@ const SideBar = () => {
           </LinkComp>
         </li>
         <li>
-          <div onClick={handleLogout} role="presentation" className={styles.sidebar__item_link}>
+          <div onClick={toggleLogout} role="presentation" className={styles.sidebar__item_link}>
             <FontAwesomeIcon className={styles.navIcon} icon={faSignOutAlt} />
             <p className="MuiTypography-root MuiTypography-body2">Đăng xuất</p>
           </div>
@@ -281,6 +245,15 @@ const SideBar = () => {
           </div>
         </a>
       </div>
+      <CustomModal
+        visible={showPoupLogout}
+        onClose={toggleLogout}
+        title="Xin xác nhận"
+        content="Bạn có chắc muốn đăng xuất?"
+        btnOk="Có"
+        onClickOk={handleLogout}
+        btnOnClose="Không"
+      />
     </nav>
   );
 };
