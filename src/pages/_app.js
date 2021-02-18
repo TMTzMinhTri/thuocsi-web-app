@@ -25,7 +25,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { MOBILE } from 'constants/Device';
 
-import { fbpixel, gtag } from 'utils';
+import * as fbpixel from 'utils/fbpixel';
+import * as gtag from 'utils/gtag';
 
 const NAMESPACE_REQUIRED_DEFAULT = 'common';
 
