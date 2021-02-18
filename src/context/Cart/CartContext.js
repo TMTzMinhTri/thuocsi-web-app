@@ -2,7 +2,14 @@ import React, { createContext, useReducer, useContext, useEffect, useCallback } 
 import { NotifyUtils } from 'utils';
 import { isValid, CartClient } from 'clients';
 import { CartReducer } from './CartReducer';
-import { FETCH_SUCCESS, FETCH_ERROR, ADD_ITEM, INCREASE_BY, CLEAR, CHECKOUT } from './CartType';
+import {
+  FETCH_SUCCESS,
+   FETCH_ERROR,
+   ADD_ITEM,
+   INCREASE_BY,
+   CLEAR,
+   CHECKOUT,
+} from './CartType';
 
 export const CartContext = createContext();
 
