@@ -1,7 +1,6 @@
 export const FACEBOOK_PIXEL_CODE = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_CODE;
 
 export const pageview = () => {
-  console.log('fb pixel: page view ');
   window.fbq('track', 'PageView');
 };
 
