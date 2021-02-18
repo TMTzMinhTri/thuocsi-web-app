@@ -199,3 +199,6 @@
 .left_c p{
     color: #00b46e;
 }
+.btn_mb{
+    border-radius: 50px !important;
+}
