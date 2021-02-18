@@ -255,7 +255,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                           </TableContainer>
                         </Popover>
                       </div>
-                      {maxQuantity && (
+                      {!isMobile && maxQuantity && (
                         <Typography className={styles.text_danger}>
                           Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
                         </Typography>

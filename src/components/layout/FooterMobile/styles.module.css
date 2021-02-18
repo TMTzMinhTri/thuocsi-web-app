@@ -107,7 +107,6 @@
 
 .root {
     border-radius: 50px!important;
-    background-color: #fff;
 }
 .root:focus,
 .root:visited {
