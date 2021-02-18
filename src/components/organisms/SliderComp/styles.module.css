@@ -74,4 +74,32 @@
     .center{
         font-size: 24px !important;
     }
+    .card_header{
+        display: block !important;
+    }
+    .card_header>div{
+        margin-right: 0 !important;
+        text-align: center;
+    }
+    .card_header [class*='avatar']{
+        margin-right: 0 !important;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+    .card_header [class*='header_customer'],
+    .card_header [class*='header_title']{
+        top: 0 !important;
+        text-align: center !important;
+    }
+    .card_content{
+        padding-top: 20px !important;
+        padding-left: 20px !important;
+        top: 0 !important;
+    }
+
+    .root {
+        height: 320px;
+    }
 }

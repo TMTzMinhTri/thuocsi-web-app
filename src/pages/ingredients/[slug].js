@@ -8,6 +8,7 @@ import { IngredientCLient, doWithServerSide, isValid } from 'clients';
 import { INGREDIENT } from 'constants/Paths';
 import { Container } from '@material-ui/core';
 import Router from 'next/router';
+import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   const { slug } = ctx.query;
@@ -26,7 +27,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-const Ingredient = ({ ingredientRes = {}, products = [] }) => {
+const Ingredient = ({ ingredientRes = {}, products = [], isMobile }) => {
   if (!isValid(ingredientRes)) {
     NotifyUtils.error('Không tìm thấy hoạt chất. Gọi 02 873 008 840 để hỏi thêm về hoạt chất này.');
     Router.push(INGREDIENT);
@@ -35,9 +36,9 @@ const Ingredient = ({ ingredientRes = {}, products = [] }) => {
   const ingredient = ingredientRes.data[0];
   const title = `${ingredient?.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   return (
-    <Template title={title}>
-      <div style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
-        <Container maxWidth="lg">
+    <Template title={title} isMobile={isMobile} pageTitle={ingredient.name}>
+      <div className={styles.wapper} style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
+        <Container className={styles.lg} maxWidth="lg">
           <IngredientDetailContainer ingredient={ingredient} products={products} />
         </Container>
       </div>

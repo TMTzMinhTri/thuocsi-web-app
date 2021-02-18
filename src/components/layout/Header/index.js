@@ -131,35 +131,37 @@ const InfoHeader = memo(({ t }) => {
                       </div>
                     )}
                   </div>
-                  <hr className={styles.divider} />
                   {notification.length > 0 &&
                     notification.map((item) => (
-                      <LinkComp
-                        key={item.id}
-                        className={
+                      <>
+                        <hr className={styles.divider} />
+                        <LinkComp
+                          key={item.id}
+                          className={
                           item.read
                             ? clsx(styles.notificationsItem, styles.read)
                             : clsx(styles.notificationsItem, styles.unRead)
                         }
-                        href={item.slug}
-                      >
-                        <div className={styles.notifyIcon}>
-                          <i className={`icomoon icon-loyalty + ${styles.icon}`} />
+                          href={item.slug}
+                        >
+                          <div className={styles.notifyIcon}>
+                            <i className={`icomoon icon-loyalty + ${styles.icon}`} />
+                          </div>
+                          <div className={styles.notifyContent}>
+                            <div className={styles.notifyContentTitle}>{item.title}</div>
+                            <small className={styles.createdAt}>
+                              <WatchLaterIcon style={{ marginRight: '4px' }} />
+                              {DateTimeUtils.getTimeAgo(item.create_at)}
+                            </small>
+                          </div>
+                        </LinkComp>
+                        <div style={{ padding: '8px' }}>
+                          <LinkComp className={styles.viewAll} href="/notifications">
+                            <span>Xem tất cả</span>
+                          </LinkComp>
                         </div>
-                        <div className={styles.notifyContent}>
-                          <div className={styles.notifyContentTitle}>{item.title}</div>
-                          <small className={styles.createdAt}>
-                            <WatchLaterIcon style={{ marginRight: '4px' }} />
-                            {DateTimeUtils.getTimeAgo(item.create_at)}
-                          </small>
-                        </div>
-                      </LinkComp>
+                      </>
                     ))}
-                  <div style={{ padding: '8px' }}>
-                    <LinkComp className={styles.viewAll} href="/notifications">
-                      <span>Xem tất cả</span>
-                    </LinkComp>
-                  </div>
                 </div>
               </Menu>
               <Tooltip title="Thông báo" arrow>
