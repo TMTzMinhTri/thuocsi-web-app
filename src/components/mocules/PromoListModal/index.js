@@ -3,7 +3,7 @@ import { Modal } from 'components/atoms';
 import { Grid, Divider } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { PromoService } from 'services';
-import { PROMO_TYPE } from 'constants/Enums';
+import {  PROMO_REWARD_TYPE } from 'constants/Enums';
 import { DateTimeUtils } from 'utils';
 import CartCouponCard from '../CartCouponCard';
 import styles from './style.module.css';
@@ -40,17 +40,19 @@ const PromoListModal = memo((props) => {
   useEffect(() => {
     async function fetchData() {
       const res = await PromoService.getPromoActive({});
-      // @TODO: datle
+      // @TODO: datle rewards is only 1 now
       const promotions = res.filter((promo) => {
         let minOrderValue = 0;
-        const { rule, expiredDate } = promo;
-        const {type} = rule;
-        if (rule && rule.conditions && rule.conditions.length !== 0) {
-          minOrderValue = rule.conditions[0]?.minOrderValue;
+        let rewardType  = PROMO_REWARD_TYPE.ABSOLUTE;
+        const { conditions, endTime, rewards } = promo;
+        if (conditions && conditions.length !== 0) {
+          minOrderValue = conditions[0]?.minOrderValue;
         }
-          
-        if (expiredDate && DateTimeUtils.compareTime(expiredDate, Date.now()) <= 0) return false;
-        if (type === PROMO_TYPE.VOUCHERCODE) return totalPrice >= minOrderValue;
+        if(rewards && rewards.length !== 0) {
+          rewardType = rewards[0]?.type || PROMO_REWARD_TYPE.ABSOLUTE;
+        }
+        if (endTime && DateTimeUtils.compareTime(endTime, Date.now()) <= 0) return false;
+        if ( rewardType === PROMO_REWARD_TYPE.ABSOLUTE) return totalPrice >= minOrderValue;
         return true;
       });
       const prs = searchString(promotions, '');

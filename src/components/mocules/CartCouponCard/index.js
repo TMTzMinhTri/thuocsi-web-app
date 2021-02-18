@@ -1,7 +1,7 @@
 import { Card, Grid } from '@material-ui/core';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { PROMO_TYPE, PROMO_RULE_TYPE } from 'constants/Enums';
+import { PROMO_TYPE, PROMO_REWARD_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE } from 'constants/Images';
 import clsx from 'clsx';
 import { Button } from 'components/atoms';
@@ -41,33 +41,34 @@ const CartCounponCard = ({
   code = '',
   promotionName = '',
   promotionType: type = PROMO_TYPE.COMBO,
-  expiredDate,
-  rule = {},
+  endTime: expiredDate,
+  rewards = [],
   redeemCode = [],
   handleChangePromo,
   totalPrice = 0,
 }) => {
-  const { type: ruleType = PROMO_RULE_TYPE.VALUE, conditions = [] } = rule;
   let maxDiscountValue = 0;
   let discountValue = 0;
   let percent = 0;
-  // @TODO: datle
-  if (conditions.length !== 0) {
-    maxDiscountValue = conditions[0]?.maxDiscountValue || 0;
-    discountValue = conditions[0]?.discountValue || 0;
-    percent = conditions[0]?.percent || 0;
+  let ruleType = PROMO_REWARD_TYPE.ABSOLUTE;
+  // @TODO: datle rewards is only 1 now
+  if (rewards.length !== 0) {
+    maxDiscountValue = rewards[0]?.maxDiscount || 0;
+    discountValue = rewards[0]?.absoluteDiscount || 0;
+    percent = rewards[0]?.percentageDiscount || 0;
+    ruleType = rewards[0]?.type || PROMO_REWARD_TYPE.ABSOLUTE;
   }
 
   const getBenefitAvatar = () => {
     if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT)
       return <Image width={60} height={60} src={GIFT_IMAGE} />;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE || ruleType === PROMO_RULE_TYPE.ABSOLUTE)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_REWARD_TYPE.ABSOLUTE)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
           {formatCurrency(String(discountValue))}
         </div>
       );
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_REWARD_TYPE.PERCENTAGE)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
           {`Giảm ${percent}% Tối đa ${formatCurrency(String(maxDiscountValue))}`}
@@ -78,15 +79,15 @@ const CartCounponCard = ({
 
   const getTitle = () => {
     if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT) return promotionName;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE || type === PROMO_RULE_TYPE.ABSOLUTE)
+    if (type === PROMO_TYPE.VOUCHERCODE && type === PROMO_REWARD_TYPE.ABSOLUTE)
       return `GIẢM ${formatCurrency(discountValue)}`;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_REWARD_TYPE.PERCENTAGE)
       return `GIẢM ${percent}% TỐI ĐA ${formatCurrency(maxDiscountValue)}`;
     return '';
   };
   const caculatePrice = () => {
-    if (ruleType === PROMO_RULE_TYPE.VALUE || ruleType === PROMO_RULE_TYPE.ABSOLUTE) return totalPrice - discountValue;
-    if (ruleType === PROMO_RULE_TYPE.PERCENT)
+    if ( ruleType === PROMO_REWARD_TYPE.ABSOLUTE) return totalPrice - discountValue;
+    if (ruleType === PROMO_REWARD_TYPE.PERCENTAGE)
       return Math.max(totalPrice - (totalPrice * percent) / 100, totalPrice - maxDiscountValue);
     return totalPrice;
   };
