@@ -93,8 +93,7 @@
     width: 2em;
 }
 .sidebar__item_link [class*='MuiSvgIcon-root']+p,
-.sidebar__item_link [class*='svg-inline--fa']+p,
-.sidebar__item_link .badge+p{
+.sidebar__item_link [class*='svg-inline--fa']+p{
     margin-left: 25px !important;  
 }
 .sidebar__item_link.active{

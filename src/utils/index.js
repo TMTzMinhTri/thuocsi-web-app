@@ -9,3 +9,5 @@ export { default as ValidateUtils } from './ValidateUtils';
 export { default as RequestUtils } from './RequestUtils';
 export { default as StringUtils } from './StringUtils';
 export { default as debounce } from './debounce';
+export { default as fbpixel } from './fbpixel';
+export { default as gtag } from './gtag';

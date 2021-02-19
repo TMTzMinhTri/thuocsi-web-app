@@ -1,7 +1,7 @@
 import { Card, Grid, Typography } from '@material-ui/core';
 import { Button, LinkComp } from 'components/atoms';
 import Image from 'next/image';
-import { PROMO_TYPE, PROMO_RULE_TYPE } from 'constants/Enums';
+import { PROMO_TYPE, PROMO_REWARD_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE } from 'constants/Images';
 import { QUICK_ORDER } from 'constants/Paths';
 import clsx from 'clsx';
@@ -13,32 +13,37 @@ const CounponCard = ({
   code = '',
   promotionName = '',
   promotionType: type = PROMO_TYPE.COMBO,
-  expiredDate = new Date(Date.now()),
-  rule = {},
+  endTime:expiredDate = new Date(Date.now()),
+  rewards = [],
+  conditions = [],
 }) => {
-  const { type: ruleType = PROMO_RULE_TYPE.VALUE, conditions = [] } = rule;
   let maxDiscountValue = 0;
   let discountValue = 0;
   let percent = 0;
   let minOrderValue = 0;
-  // @TODO: datle
-  if (conditions.length !== 0) {
-    maxDiscountValue = conditions[0]?.maxDiscountValue || 0;
-    discountValue = conditions[0]?.discountValue || 0;
-    percent = conditions[0]?.percent || 0;
+  let ruleType = type === PROMO_REWARD_TYPE.ABSOLUTE;
+  // @TODO: datle rewards is only 1 now
+  if (rewards.length !== 0) {
+    maxDiscountValue = rewards[0]?.maxDiscount || 0;
+    discountValue = rewards[0]?.absoluteDiscount || 0;
+    percent = rewards[0]?.percentageDiscount || 0;
+    ruleType = rewards[0]?.type || PROMO_REWARD_TYPE.ABSOLUTE;
+  }
+  // @TODO: datle conditions is only 1 now
+  if(conditions.length !== 0) {
     minOrderValue = conditions[0]?.minOrderValue || 0;
   }
 
   const getBenefitAvatar = () => {
     if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT)
       return <Image width={60} height={60} src={GIFT_IMAGE} />;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_REWARD_TYPE.ABSOLUTE)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
           {formatCurrency(String(discountValue))}
         </div>
       );
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_REWARD_TYPE.PERCENTAGE)
       return (
         <div style={{ fontWeight: 'bold', textAlign: 'center' }}>
           {`Giảm ${percent}% Tối đa ${formatCurrency(String(maxDiscountValue))}`}
@@ -49,9 +54,9 @@ const CounponCard = ({
 
   const getTitle = () => {
     if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT) return promotionName;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.VALUE)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_REWARD_TYPE.ABSOLUTE)
       return `GIẢM ${formatCurrency(discountValue)}`;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_RULE_TYPE.PERCENT)
+    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_REWARD_TYPE.PERCENTAGE)
       return `GIẢM ${percent}% TỐI ĐA ${formatCurrency(maxDiscountValue)}`;
     return '';
   };

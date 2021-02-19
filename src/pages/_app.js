@@ -21,10 +21,11 @@ import { i18n } from 'i18n-lib';
 import '../styles/globals.css';
 import '../styles/icomoon.css';
 import 'react-toastify/dist/ReactToastify.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { MOBILE } from 'constants/Device';
 
-import { pageview } from 'utils/gtag';
+import { fbpixel, gtag } from 'utils';
 
 const NAMESPACE_REQUIRED_DEFAULT = 'common';
 
@@ -44,7 +45,8 @@ const MyApp = (props) => {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      pageview(url);
+      gtag.pageview(url);
+      fbpixel.pageview();
     };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {

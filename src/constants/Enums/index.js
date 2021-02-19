@@ -62,6 +62,13 @@ export const PROMO_RULE_TYPE = {
   ABSOLUTE: 'ABSOLUTE',
 };
 
+export const PROMO_REWARD_TYPE = {
+  PERCENTAGE: 'PERCENTAGE',
+  GIFT: 'GIFT',
+  POINT: 'POINT',
+  ABSOLUTE: 'ABSOLUTE',
+}
+
 export const HTTP_STATUS = {
   Ok: 'OK',
   Error: 'ERROR',
