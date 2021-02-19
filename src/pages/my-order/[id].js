@@ -19,7 +19,6 @@ export async function getServerSideProps(ctx) {
     const order = orderRes.data[0] || {};
     const { orderNo = '' } = order;
     const productsRes = await OrderClient.getProductByOrderNo({ orderNo, ctx });
-
     if (!isValidWithoutData(productsRes)) {
       return {
         props: {
