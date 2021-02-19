@@ -1,5 +1,8 @@
 import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
-import { ENUM_ORDER_STATUS, HTTP_STATUS } from 'constants/Enums';
+import { 
+  ENUM_ORDER_STATUS,
+  HTTP_STATUS,
+} from 'constants/Enums';
 import { GET, POST, isValid } from './Clients';
 
 async function getOrders({ offset, limit, status, ctx }) {
@@ -36,33 +39,33 @@ async function getProductByOrderNo({ orderNo = '', ctx }) {
 
 async function getInfoOrderItem({ orderItems = [], ctx }) {
   const obj = {};
-  const set = new Set();
-  const arraySku = orderItems.map((item) => {
-    set.add(item?.productSku);
-    return item?.productSku;
-  });
+  const arraySku = orderItems
+  .reduce((accumulator, item) => {
+     if (item?.productSku) return [...accumulator, item.productSku];
+     return accumulator;
+  }, []);
 
+  if(arraySku.length === 0) {
+    obj.status = HTTP_STATUS.Forbidden;
+    obj.message = 'Dữ liệu không đủ';
+    return obj;
+  }
   const body = {
     codes: arraySku,
   };
   const res = await POST({ url: PRODUCT_API.PRODUCT_LIST, body, ctx });
+
   if (!isValid(res)) {
-    return obj;
+    return res;
   }
+
+  obj.status = res.status;
+  obj.message = res.message;
 
   const products = res?.data || [];
   products.forEach((product) => {
     obj[product?.sku] = product;
   });
-
-  const sizeOfobj = Object.keys(obj).length;
-  if (sizeOfobj !== set.size) {
-    obj.status = HTTP_STATUS.Forbidden;
-    obj.message = 'Dữ liệu trả về không đủ';
-  } else {
-    obj.status = res.status;
-    obj.message = res.message;
-  }
 
   return obj;
 }
