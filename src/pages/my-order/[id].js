@@ -1,6 +1,7 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { OrderClient, doWithServerSide, isValid, isValidWithoutData } from 'clients';
+import { OrderClient, isValid, isValidWithoutData } from 'clients';
+import { doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
 

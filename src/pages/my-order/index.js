@@ -3,7 +3,9 @@ import OrderInfoContainer from 'components/organisms/OrderInfoContainer';
 import InfoContainer from 'components/organisms/InfoContainer';
 import { ENUM_ORDER_STATUS, DEFAULT_PAGINATION } from 'constants/Enums';
 import { Container } from '@material-ui/core';
-import { doWithServerSide, OrderClient, isValidWithoutData } from 'clients';
+import { OrderClient, isValidWithoutData } from 'clients';
+import { doWithServerSide } from 'services';
+
 import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {

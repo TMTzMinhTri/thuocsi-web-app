@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AuthClient, isValid, getSessionTokenClient } from 'clients';
+import { AuthClient, isValid, getSessionTokenClient, getFirst } from 'clients';
+import { UserService } from 'services';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cookies';
 import LoadingScreen from 'components/organisms/LoadingScreen';
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
       if (!ss || ss.length === 0) {
         return null;
       }
-      const res = await AuthClient.getUser();
+      const res = await UserService.getAccount();
       if (isValid(res)) {
         return res;
       }
@@ -71,12 +72,10 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
 
   const loadUserFromCookies = useCallback(async () => {
     const res = await getUserInfo();
-    if (res) {
-      const userInfo = res.data[0];
-      setUser({
-        isActive: userInfo && userInfo.status === 'ACTIVE',
-        ...userInfo,
-      });
+
+    if (isValid(res)) {
+      const userInfo = getFirst(res);
+      setUser(userInfo);
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
