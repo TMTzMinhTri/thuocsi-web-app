@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AuthClient, isValid, getSessionTokenClient, getFirst } from 'clients';
-import { UserService } from 'services';
+import { isValid, getSessionTokenClient, getFirst } from 'clients';
+import { UserService, AuthService } from 'services';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cookies';
 import LoadingScreen from 'components/organisms/LoadingScreen';
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const { pathname, push } = router;
+  const { pathname } = router;
   const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
   const [isShowSignUp, toggleSignUp] = useModal();
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   };
 
   const handleLogin = ({ username, password, rememberMe, success }) => {
-    AuthClient.login({ username, password })
+    AuthService.login({ username, password })
       .then((result) => {
         if (!isValid(result)) {
           const errorCode = `login.${result.errorCode}`;
@@ -121,7 +121,8 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
     setUser(null);
     setIsAuthenticated(false);
     setCookies({}, true);
-    push('/');
+    window.location.href = '/';
+    // push('/');
   };
 
   useEffect(() => {
