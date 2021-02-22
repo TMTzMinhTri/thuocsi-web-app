@@ -24,4 +24,4 @@ export const getWardsByDistrict = async (districtCode) => {
   return res.data.map(({ name: label, code: value }) => ({ label, value }));
 };
 
-export default { getProvinces, getDistrictsByProvince };
+export default { getProvinces, getDistrictsByProvince, getWardsByDistrict };
