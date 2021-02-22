@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { useState, useEffect } from 'react';
-import { AddressClient } from 'clients';
+import { AddressService } from 'services';
 import { v4 as uuidV4 } from 'uuid';
 import AddressSelect from '../AddressSelect';
 
@@ -34,19 +34,19 @@ const GroupAddressSelect = ({
   });
 
   async function getProvinces() {
-    const res = await AddressClient.getProvinces();
+    const res = await AddressService.getProvinces();
     const prvs = res.sort((a, b) => a.label.localeCompare(b.label));
     return [...DEFAULT_PROVINCE_ARRAY, ...prvs];
   }
 
   async function getDistricts(prv) {
-    const res = await AddressClient.getDistrictsByProvince(prv);
+    const res = await AddressService.getDistrictsByProvince(prv);
     const dists = res.sort((a, b) => a.label.localeCompare(b.label));
     return [...DEFAULT_DISTRICT_ARRAY, ...dists];
   }
 
   async function getWards(dist) {
-    const res = await AddressClient.getWardsByDistrict(dist);
+    const res = await AddressService.getWardsByDistrict(dist);
     const wads = res.sort((a, b) => a.label.localeCompare(b.label));
     return [...DEFAULT_WARD_ARRAY, ...wads];
   }
@@ -136,7 +136,7 @@ const GroupAddressSelect = ({
   };
 
   return (
-    <Grid className={styles.address_field} container spacing={3} style={{marginTop: '10px'}}>
+    <Grid className={styles.address_field} container spacing={3} style={{ marginTop: '10px' }}>
       <AddressSelect
         label={<span className={styles.fw500}>Tỉnh/Thành phố</span>}
         id={uuidV4()}

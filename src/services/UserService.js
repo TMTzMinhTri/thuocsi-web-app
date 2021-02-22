@@ -21,7 +21,6 @@ export const getAccount = async (ctx) => {
   const info = getFirst(userRes);
 
   const wrapData = wrapInfo(info);
-  console.log('wraper info ', wrapData);
   // change data
   return {
     status: userRes.status,
