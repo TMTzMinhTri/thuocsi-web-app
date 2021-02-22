@@ -38,7 +38,6 @@ async function getProductByOrderNo({ orderNo = '', ctx }) {
 }
 
 async function getInfoOrderItem({ orderItems = [], ctx }) {
-  const obj = {};
   const arraySku = orderItems
   .reduce((accumulator, item) => {
      if (item?.productSku) return [...accumulator, item.productSku];
@@ -46,9 +45,10 @@ async function getInfoOrderItem({ orderItems = [], ctx }) {
   }, []);
 
   if(arraySku.length === 0) {
-    obj.status = HTTP_STATUS.Forbidden;
-    obj.message = 'Dữ liệu không đủ';
-    return obj;
+    return {
+      status: HTTP_STATUS.Forbidden,
+      message: 'Dữ liệu không đủ',
+    };
   }
   const body = {
     codes: arraySku,
@@ -59,15 +59,17 @@ async function getInfoOrderItem({ orderItems = [], ctx }) {
     return res;
   }
 
-  obj.status = res.status;
-  obj.message = res.message;
-
-  const products = res?.data || [];
+  const obj = {};
+  const products = res.data;
   products.forEach((product) => {
     obj[product?.sku] = product;
   });
 
-  return obj;
+  return {
+    status : res.status,
+    message : res.message,
+    data: [obj]
+  };
 }
 export default {
   getOrders,
