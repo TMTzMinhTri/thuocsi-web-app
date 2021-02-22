@@ -43,7 +43,7 @@ export default function ProductDetailTabs({ data, product, handleChange, value }
           }
 
           return (
-            <TabPanel key={uuidv4()} value={item.value}>
+            <TabPanel className={styles.tab_panel} key={uuidv4()} value={item.value}>
               <div className={styles.content}>
                 <p>Đang cập nhật ...</p>
               </div>

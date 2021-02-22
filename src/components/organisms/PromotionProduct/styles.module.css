@@ -26,3 +26,8 @@
     flex-basis: 20% !important;
   }
 }
+@media (max-width: 767px) {
+  .noData{
+      font-size: 18px;
+  }
+}

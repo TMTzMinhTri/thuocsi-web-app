@@ -3,6 +3,6 @@
     width: 200px !important;
   }
   .searchBox [class*='Mui-focused']{
-    width: 270px !important;
+    width: 250px !important;
   }
 }  

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import App from 'next/app';
@@ -21,8 +21,11 @@ import { i18n } from 'i18n-lib';
 import '../styles/globals.css';
 import '../styles/icomoon.css';
 import 'react-toastify/dist/ReactToastify.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { MOBILE } from 'constants/Device';
+
+import { fbpixel, gtag } from 'utils';
 
 const NAMESPACE_REQUIRED_DEFAULT = 'common';
 
@@ -32,13 +35,24 @@ const MyApp = (props) => {
   const isShowingLogin = router?.query?.login === 'true';
 
   // config https://material-ui.com/guides/server-rendering/
-  React.useEffect(() => {
+  useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url);
+      fbpixel.pageview();
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <>

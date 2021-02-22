@@ -8,13 +8,13 @@ export async function getServerSideProps(ctx) {
     const [mostResearched, infoBanner, blocks] = await Promise.all([
       ProductClient.loadDataMostSearch(ctx),
       ProductClient.getInfoBanner(),
-      ProductClient.loadDataProductCollection(ctx, isTotal),
+      ProductClient.loadDataProductCollection(ctx, isTotal)
     ]);
     return {
       props: {
         mostResearched,
         infoBanner,
-        blocks,
+        blocks
       },
     };
   });
