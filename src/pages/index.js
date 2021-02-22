@@ -1,5 +1,6 @@
 import React from 'react';
-import { ProductClient, doWithServerSide } from 'clients';
+import { ProductClient } from 'clients';
+import { doWithServerSide } from 'services';
 import dynamic from 'next/dynamic';
 
 export async function getServerSideProps(ctx) {
@@ -8,13 +9,13 @@ export async function getServerSideProps(ctx) {
     const [mostResearched, infoBanner, blocks] = await Promise.all([
       ProductClient.loadDataMostSearch(ctx),
       ProductClient.getInfoBanner(),
-      ProductClient.loadDataProductCollection(ctx, isTotal)
+      ProductClient.loadDataProductCollection(ctx, isTotal),
     ]);
     return {
       props: {
         mostResearched,
         infoBanner,
-        blocks
+        blocks,
       },
     };
   });

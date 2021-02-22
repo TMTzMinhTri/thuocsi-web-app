@@ -41,6 +41,11 @@
   text-align: center;
 }
 
+.not_friend[class*='MuiPaper-rounded'] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .bottom_square {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;

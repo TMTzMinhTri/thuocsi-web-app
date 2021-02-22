@@ -1,5 +1,5 @@
 import { ACCOUNT_API, CUSTOMER_API } from 'constants/APIUri';
-import { GET, POST, getSessionToken, isValid } from './Clients';
+import { GET, POST, getSessionToken } from './Clients';
 
 export async function getUserWithContext(ctx) {
   const ss = getSessionToken(ctx);
@@ -7,15 +7,7 @@ export async function getUserWithContext(ctx) {
     return { isAuthenticated: false };
   }
   const result = await GET({ url: CUSTOMER_API.INFO, ctx });
-  if (!isValid(result)) {
-    return { isAuthenticated: false };
-  }
-  const userInfo = result.data[0];
-
-  return {
-    isAuthenticated: true,
-    user: { isActive: userInfo && userInfo.status === 'ACTIVE', ...userInfo },
-  };
+  return result;
 }
 
 export async function login(body) {

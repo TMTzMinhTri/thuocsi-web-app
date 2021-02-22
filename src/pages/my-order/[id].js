@@ -1,6 +1,7 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { OrderClient, doWithServerSide, isValid, isValidWithoutData } from 'clients';
+import { OrderClient, isValid, isValidWithoutData } from 'clients';
+import { doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
@@ -19,7 +20,6 @@ export async function getServerSideProps(ctx) {
     const order = orderRes.data[0] || {};
     const { orderNo = '' } = order;
     const productsRes = await OrderClient.getProductByOrderNo({ orderNo, ctx });
-
     if (!isValidWithoutData(productsRes)) {
       return {
         props: {
@@ -31,8 +31,8 @@ export async function getServerSideProps(ctx) {
 
     const products = productsRes.data || [];
 
-    const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems: products, ctx });
-    if (!isValidWithoutData(mapProductInfo)) {
+    const orderItemInfoRes = await OrderClient.getInfoOrderItem({ orderItems: products, ctx });
+    if (!isValid(orderItemInfoRes)) {
       return {
         props: {
           order,
@@ -40,9 +40,9 @@ export async function getServerSideProps(ctx) {
         },
       };
     }
-
+    const orderItemInfoMap = orderItemInfoRes.data[0];
     const productDetails = products.map((product) => ({
-      productInfo: mapProductInfo[product?.productSku] || {},
+      productInfo: orderItemInfoMap[product?.productSku] || {},
       ...product,
     }));
     return {

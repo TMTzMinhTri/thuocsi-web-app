@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { AuthClient, isValid } from 'clients';
+import { isValid } from 'clients';
+import { AuthService } from 'services';
 import { NotifyUtils } from 'utils';
 import { useAuth } from 'context';
 import { i18n } from 'i18n-lib';
@@ -18,7 +19,7 @@ const SignUpModal = React.memo((props) => {
   const handleSignUp = (data) => {
     setIsLoading(true);
 
-    AuthClient.signUp(data)
+    AuthService.signUp(data)
       .then((result) => {
         if (!isValid(result)) {
           NotifyUtils.error(result.message);
@@ -28,7 +29,7 @@ const SignUpModal = React.memo((props) => {
         // notification
         NotifyUtils.success('Bạn đã đăng ký tài khoản thuocsi thành công');
         // register success -> login and redirect
-        AuthClient.login({
+        AuthService.login({
           username: data.phone,
           password: data.password,
         })

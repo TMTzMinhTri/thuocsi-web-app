@@ -29,8 +29,8 @@ import { MultiImageBox, TagType, ProductDetailTabs, SellerInfo } from 'component
 import { LoadingScreen, ErrorQuantityCartModal } from 'components/organisms';
 import Template from 'components/layout/Template';
 import useModal from 'hooks/useModal';
-import { doWithServerSide, getFirst, SupplierClient } from 'clients';
-import { ProductService } from 'services';
+import { getFirst, SupplierClient } from 'clients';
+import { ProductService, doWithServerSide } from 'services';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from 'constants/Paths';

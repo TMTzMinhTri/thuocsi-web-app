@@ -2,8 +2,7 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import PromoCodesContainer from 'components/organisms/PromoCodesContainer';
-import { doWithServerSide } from 'clients';
-import { PromoService } from 'services';
+import { PromoService, doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
