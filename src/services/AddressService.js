@@ -5,7 +5,11 @@ const getProvinces = async (ctx) => {
   if (!isValid(provincesRes)) {
     return [];
   }
-  return provincesRes.data.map(({ name, code }) => ({ label: name, value: code }));
+  const provinces = provincesRes.data
+    .map(({ name: label, code: value }) => ({ label, value }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+
+  return provinces;
 };
 
 const getDistrictsByProvince = async (provinceCode) => {
@@ -13,7 +17,9 @@ const getDistrictsByProvince = async (provinceCode) => {
   if (!isValid(res)) {
     return [];
   }
-  return res.data.map(({ name: label, code: value }) => ({ label, value }));
+  return res.data
+    .map(({ name: label, code: value }) => ({ label, value }))
+    .sort((a, b) => a.label.localeCompare(b.label));
 };
 
 export const getWardsByDistrict = async (districtCode) => {
@@ -21,7 +27,9 @@ export const getWardsByDistrict = async (districtCode) => {
   if (!isValid(res)) {
     return [];
   }
-  return res.data.map(({ name: label, code: value }) => ({ label, value }));
+  return res.data
+    .map(({ name: label, code: value }) => ({ label, value }))
+    .sort((a, b) => a.label.localeCompare(b.label));
 };
 
 export default { getProvinces, getDistrictsByProvince, getWardsByDistrict };

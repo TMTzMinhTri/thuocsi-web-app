@@ -1,9 +1,11 @@
 import { CORE_API } from 'constants/APIUri';
+import { invalid } from 'utils/ResponseUtils';
+import { isEmpty } from 'utils/ValidateUtils';
 import { GET } from './Clients';
 
-const getProvinces = async (ctx) => GET({ url: CORE_API.PROVINCE_LIST, ctx });
+const getProvinces = (ctx) => GET({ url: CORE_API.PROVINCE_LIST, ctx });
 
-const getDistrictsByProvince = async (provinceCode) =>
+const getDistrictsByProvince = (provinceCode) =>
   GET({
     url: CORE_API.DISTRICT,
     params: {
@@ -11,8 +13,12 @@ const getDistrictsByProvince = async (provinceCode) =>
     },
   });
 
-const getWardsByDistrict = async (districtCode) =>
-  GET({ url: CORE_API.ADMINISTRATIVE, params: { districtCode } });
+const getWardsByDistrict = (districtCode = '') => {
+  if (isEmpty(districtCode)) {
+    return invalid('DistrictCode not found');
+  }
+  return GET({ url: CORE_API.ADMINISTRATIVE, params: { districtCode } });
+};
 
 export default {
   getProvinces,
