@@ -19,6 +19,7 @@ export const mapDataProduct = async ({ ctx, result }) => {
       quantity: cartObject.get(item.sku)?.quantity || 0,
     }));
   }
+  // console.log('mapDataProduct result ', result);
   return result;
 };
 
