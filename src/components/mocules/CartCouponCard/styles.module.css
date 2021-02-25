@@ -5,6 +5,7 @@
   border-radius: 10px !important;
   box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.08) !important;
   text-align: left !important;
+  width: 100% !important;
 }
 
 .coupon_yellow {
@@ -18,7 +19,9 @@
 .code {
   color: #f9b514;
   font-weight: 500;
+  font-size: 15px;
   text-align: center;
+  padding-top: 15px;
   /* padding: 0 30px; */
 }
 
@@ -41,28 +44,37 @@
   box-sizing: border-box;
   width: 100px;
 }
+.text_info {
+  color: #1890ff;
+  margin-top: 10px !important;
+}
 
+.text_warning {
+  color: #ffc107;
+  margin-top: 10px !important;
+}
 .text_danger {
   color: #dc3545;
   margin-top: 12px !important;
 }
+
 @media (max-width: 767px) {
-  .col_left_inner{
+  .col_left_inner {
     flex-wrap: unset !important;
   }
-  .col_left_inner>div:first-child{
+  .col_left_inner > div:first-child {
     flex-wrap: unset !important;
   }
-  .col_right{
-    flex-direction: row !important;
-    justify-content: space-between;
-    align-items: center;
+  .col_right {
+    /* flex-direction: row !important; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
     padding-top: 0 !important;
   }
-  .col_right button{
+  .col_right button {
     margin: 0 !important;
   }
-  .benefit{
+  .benefit {
     margin-bottom: 0 !important;
     margin-right: 10px !important;
   }

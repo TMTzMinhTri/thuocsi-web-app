@@ -46,6 +46,11 @@ const CardInfo = ({ cart, promo, className, user }) => {
   const { itemCount, totalPrice, subTotalPrice, updateCart, redeemCode } = useCart();
   const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
+
+  // TODO get detail
+  // const [redeemInfo, setRedeemInfo] = useState(null);
+  // useEffect(async () => {});
+
   const handleSetPromoVisible = () => {
     setPromoVisible(!promoVisible);
   };
