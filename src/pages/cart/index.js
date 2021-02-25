@@ -24,8 +24,8 @@ function Cart({ isMobile, user }) {
       <Container className={styles.wrapper} maxWidth="lg">
         {user?.isActive || isMobile === false ? null : (
           <Alert className={styles.alert} severity="error">
-            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ 02 873
-            008 840 để kích hoạt
+            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ
+            02873008840 để kích hoạt
           </Alert>
         )}
         {cartItems && cartItems.length > 0 ? (

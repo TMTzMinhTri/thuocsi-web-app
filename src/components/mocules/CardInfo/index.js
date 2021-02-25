@@ -43,14 +43,10 @@ const PaymentButton = ({ user }) => (
 );
 
 const CardInfo = ({ cart, promo, className, user }) => {
-  const { itemCount, totalPrice, subTotalPrice, updateCart, redeemCode } = useCart();
+  const cartInfo = useCart();
+  const { itemCount, totalPrice, subTotalPrice, updateCart, redeemCode, promoInfo } = cartInfo;
   const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
-
-  // TODO get detail
-  // const [redeemInfo, setRedeemInfo] = useState(null);
-  // useEffect(async () => {});
-
   const handleSetPromoVisible = () => {
     setPromoVisible(!promoVisible);
   };
@@ -73,6 +69,9 @@ const CardInfo = ({ cart, promo, className, user }) => {
       errorMessage: 'Thêm mã giảm giá thất bại',
     });
   };
+
+  const descriptionRewards = promoInfo?.rewardsVi.map((reward) => reward.message);
+  const redeemText = promoInfo ? promoInfo.code : '';
 
   return (
     <div className={className}>
@@ -113,8 +112,9 @@ const CardInfo = ({ cart, promo, className, user }) => {
             <div className={styles.promo_left}>
               <LocalOffer className={styles.icon_promo} />
               <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
-                {!isEmpty(redeemCode) ? redeemCode[0] : 'Dùng mã khuyến mãi'}
+                {!isEmpty(redeemCode) ? redeemText : 'Dùng mã khuyến mãi'}
               </Typography>
+              {descriptionRewards && <i>( {descriptionRewards} )</i>}
             </div>
             {!isEmpty(redeemCode) ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
           </Grid>

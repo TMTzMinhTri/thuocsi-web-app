@@ -95,12 +95,13 @@ const CartCounponCard = ({
     return totalPrice;
   };
 
-  const ButtonEle =
+  const ButtonEle = () =>
     String(code) === redeemCode[0] ? (
       <UsedButton> Đang dùng </UsedButton>
     ) : (
       <UseButton onClick={() => handleChangePromo(String(code))}>Dùng ngay</UseButton>
     );
+
   return (
     <Card
       className={clsx(
