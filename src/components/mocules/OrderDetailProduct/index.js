@@ -86,7 +86,7 @@ const OrderDetailProduct = ({ products, promoName, totalDiscount }) => {
           <Grid item>-&nbsp;{formatNumber(totalDiscount)}</Grid>
         </Grid>
       )}
-      <Grid container justify="flex-end" style={{ padding: ' 30px 45px' }} spacing={3}>
+      <Grid className={styles.total_price} container justify="flex-end" style={{ padding: ' 30px 45px' }} spacing={3}>
         <Grid item className={styles.price_label}>
           Tổng cộng
         </Grid>

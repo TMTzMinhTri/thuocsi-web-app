@@ -13,14 +13,16 @@ import { DateTimeUtils } from 'utils';
 import Link from 'next/link';
 import styles from './styles.module.css';
 
-const OrderDetailContainer = ({ order, products, user }) => (
+const OrderDetailContainer = ({ order, products, user, isMobile }) => (
   <Grid container>
     <Grid item xs={12}>
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container>
+          {!isMobile && (
           <Grid item xs={12}>
             <h3 className={styles.title}> Chi tiết đơn hàng #{order.orderId} </h3>
           </Grid>
+          )}
           <Grid item xs={12}>
             <OrderDetailStep status={order?.status} />
           </Grid>
@@ -31,7 +33,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
                 <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate || Date.now()))}</span>
               </div>
             </Grid>
-            <Grid item container direction="row" justify="flex-end">
+            <Grid className={styles.order_button} item container direction="row" justify="flex-end">
               <EditOrderButton />
               <ResponseButton orderID={order.orderNo} name={order?.customerName} phone={order?.customerPhone} />
             </Grid>
@@ -42,7 +44,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
 
     <Grid item className={styles.print_invoice}>
       <Paper classes={{ root: styles.container }} elevation={3}>
-        <Grid container direction="row">
+        <Grid className={styles.print_invoice_button} container direction="row">
           <Grid item xs={3}>
             <PrintInvoiceButton orderNo={order.orderNo} user={user} disabled={order.status !== ENUM_ORDER_STATUS.PENDING} />
           </Grid>
@@ -73,7 +75,7 @@ const OrderDetailContainer = ({ order, products, user }) => (
       />
     </Grid>
 
-    <Grid item xs={12}>
+    <Grid className={styles.table_wrapper} item xs={12}>
       <OrderDetailProduct
         products={products}
         promoName={order?.redeemCode}
