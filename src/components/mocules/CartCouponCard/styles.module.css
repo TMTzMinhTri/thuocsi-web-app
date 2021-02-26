@@ -36,7 +36,7 @@
   border: 1px dashed #e9ecef;
   padding: 0.5em;
   color: #dc3545;
-  height: 100px;
+  /* height: 100px; */
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
