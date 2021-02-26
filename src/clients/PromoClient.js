@@ -41,10 +41,16 @@ async function checkPromoAvailableForCart({ voucherCode, cartItems, totalPrice, 
   return result;
 }
 
+async function getPromoDetailByVoucherCode({ voucherCode }) {
+  const url = PROMOTION_API.PROMOTION_DETAI_VOUCHER_CODE;
+  return GET({ url, params: { voucherCode } });
+}
+
 export default {
   getPromos,
   getOtherPromos,
   getPromosByStatus,
   checkPromoAvailableForCart,
   getPromosActive,
+  getPromoDetailByVoucherCode,
 };

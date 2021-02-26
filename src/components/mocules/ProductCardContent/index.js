@@ -18,7 +18,7 @@ const ProductCardContent = ({
   unit,
   volume,
   cate,
-  category,
+  category = [],
   // price,
   // status,
   // price_percent,
@@ -85,7 +85,7 @@ const ProductCardContent = ({
         </Typography>
       )}
     </div>
-    {row === cate && (
+    {row === cate && category &&(
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"

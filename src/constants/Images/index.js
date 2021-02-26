@@ -27,6 +27,10 @@ export const LINK_GOOGLEPLAY = `${DOMAIN_GOOGLE_PLAY}/store/apps/details?id=com.
 export const DOMAIN_STORAGE = 'https://buymed-storage.s3-ap-southeast-1.amazonaws.com';
 export const LINK_LICENSE = `${DOMAIN_STORAGE}/trading_license/1.+Trading+License+-+Buymed+(GC+20+June+2019)+(VN).pdf`;
 
+// promotion
+
+export const LOGO_NOT_MATCH_CONDITIONS = '/images/chua_thoa_dk.svg';
+
 // OTHER
 export const LOGO_THUOCSI = '/images/logo_thuocsi.svg';
 export const LOGO_THUOCSI_SHORTENED = '/images/logo_icon_thuocsi.svg';

@@ -1,8 +1,5 @@
 import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
-import { 
-  ENUM_ORDER_STATUS,
-  HTTP_STATUS,
-} from 'constants/Enums';
+import { ENUM_ORDER_STATUS, HTTP_STATUS } from 'constants/Enums';
 import { GET, POST, isValid } from './Clients';
 
 async function getOrders({ offset, limit, status, ctx }) {
@@ -38,13 +35,12 @@ async function getProductByOrderNo({ orderNo = '', ctx }) {
 }
 
 async function getInfoOrderItem({ orderItems = [], ctx }) {
-  const arraySku = orderItems
-  .reduce((accumulator, item) => {
-     if (item?.productSku) return [...accumulator, item.productSku];
-     return accumulator;
+  const arraySku = orderItems.reduce((accumulator, item) => {
+    if (item?.productSku) return [...accumulator, item.productSku];
+    return accumulator;
   }, []);
 
-  if(arraySku.length === 0) {
+  if (arraySku.length === 0) {
     return {
       status: HTTP_STATUS.Forbidden,
       message: 'Dữ liệu không đủ',
@@ -60,15 +56,14 @@ async function getInfoOrderItem({ orderItems = [], ctx }) {
   }
 
   const obj = {};
-  const products = res.data;
-  products.forEach((product) => {
+  res.data.forEach((product) => {
     obj[product?.sku] = product;
   });
 
   return {
-    status : res.status,
-    message : res.message,
-    data: [obj]
+    status: res.status,
+    message: res.message,
+    data: [obj],
   };
 }
 export default {

@@ -55,13 +55,13 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   const getUserInfo = useCallback(async () => {
     try {
       const ss = getSessionTokenClient();
-      if (!ss || ss.length === 0) {
-        return null;
-      }
+      if (!ss || ss.length === 0) return null;
+
       const res = await UserService.getAccount();
       if (isValid(res)) {
         return res;
       }
+
       Cookies.remove(ACCESS_TOKEN);
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -70,19 +70,17 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
     return null;
   }, []);
 
+  const setInfoUser = (userInfo) => {
+    setUser(userInfo);
+    setIsAuthenticated(!!userInfo);
+  };
+
   const loadUserFromCookies = useCallback(async () => {
     const res = await getUserInfo();
-
-    if (isValid(res)) {
-      const userInfo = getFirst(res);
-      setUser(userInfo);
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-      setUser(null);
-    }
+    const userInfo = getFirst(res, null);
+    setInfoUser(userInfo);
     setIsLoading(false);
-  }, [setUser, setIsLoading, getUserInfo]);
+  }, [getUserInfo, setIsLoading]);
 
   const login = (info, rememberMe) => {
     setCookies(info, rememberMe);
@@ -99,8 +97,10 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
         }
 
         NotifyUtils.success(t('login.success'));
-        const userInfo = result?.data[0];
+
+        const userInfo = getFirst(result);
         login(userInfo, rememberMe === '');
+
         // callback
         if (success) {
           success();
@@ -118,11 +118,9 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   };
 
   const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
+    setInfoUser(null);
     setCookies({}, true);
     window.location.href = '/';
-    // push('/');
   };
 
   useEffect(() => {
@@ -134,8 +132,6 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
       value={{
         user,
         isAuthenticated,
-        getUserInfo,
-        loadUserFromCookies,
         login,
         handleLogin,
         logout,

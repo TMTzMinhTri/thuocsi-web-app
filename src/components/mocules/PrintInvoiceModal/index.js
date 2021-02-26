@@ -3,6 +3,7 @@ import { Modal, InfoFormControl, InfoTable, Button, LinkComp } from 'components/
 import { Grid, TableRow, TableCell, Divider } from '@material-ui/core';
 import { OrderClient, isValid } from 'clients';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 import { NotifyUtils } from 'utils';
 import { formatNumber } from 'utils/FormatNumber';
 import { getPathProductBySlug } from 'constants/Paths';
@@ -85,12 +86,12 @@ const PrintInvoiceModal = memo((props) => {
         const orderItemInfoMap = orderItemInfoRes.data[0];
         orderItems = orderItems.map((product) => {
           const sku = product?.productSku;
-          
-          return ({
-          productInfo: orderItemInfoMap[sku] || {},
-          ...product,
-        })
-      });
+
+          return {
+            productInfo: orderItemInfoMap[sku] || {},
+            ...product,
+          };
+        });
         setProducts(orderItems);
       } catch (error) {
         setProducts([]);
@@ -139,6 +140,7 @@ const PrintInvoiceModal = memo((props) => {
             </InfoFormControl>
           </Grid>
           <GroupAddressSelect
+            id={uuidv4()}
             handleSetValue={handleSetAddress}
             province={address.province}
             district={address.district}

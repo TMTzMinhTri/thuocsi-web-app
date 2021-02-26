@@ -1,21 +1,24 @@
 import React, { createContext, useReducer, useContext, useEffect, useCallback } from 'react';
 import { NotifyUtils } from 'utils';
-import { isValid, CartClient } from 'clients';
+import { PromoService } from 'services';
+import { isValid, CartClient, getFirst } from 'clients';
 import { CartReducer } from './CartReducer';
-import {
-  FETCH_SUCCESS,
-   FETCH_ERROR,
-   ADD_ITEM,
-   INCREASE_BY,
-   CLEAR,
-   CHECKOUT,
-} from './CartType';
+
+import { FETCH_SUCCESS, FETCH_ERROR, ADD_ITEM, INCREASE_BY, CLEAR, CHECKOUT } from './CartType';
 
 export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const initialState = { loading: true };
   const [state, dispatch] = useReducer(CartReducer, initialState);
+
+  const getPromoInfo = useCallback(async ({ voucherCode }) => {
+    if (!voucherCode) {
+      return null;
+    }
+    const promoData = await PromoService.getPromotionDetailByVoucherCode({ voucherCode });
+    return promoData;
+  });
 
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
     try {
@@ -25,8 +28,18 @@ export const CartContextProvider = ({ children }) => {
         }
         return;
       }
-      const cartData = cartRes.data[0];
-      cartData.cartItems = await CartClient.getInfoCartItem(cartData.cartItems);
+      const cartData = getFirst(cartRes);
+
+      const { cartItems, redeemCode = [] } = cartData;
+
+      const [cartItemsInfo, promoInfo] = await Promise.all([
+        CartClient.getInfoCartItem(cartItems),
+        getPromoInfo({ voucherCode: redeemCode[0] }),
+      ]);
+
+      cartData.cartItems = cartItemsInfo;
+      cartData.promoInfo = promoInfo;
+
       dispatch({ type: FETCH_SUCCESS, payload: cartData || [] });
       if (successMessage) NotifyUtils.success(successMessage);
     } catch (error) {

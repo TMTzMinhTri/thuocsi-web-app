@@ -88,10 +88,12 @@ export const CART_API = {
 // /marketplace/promotion/v1/promotion
 const PROMOTION_API_PREFIX = '/marketplace/promotion/v1';
 const PROMOTION_ALL = `${PROMOTION_API_PREFIX}/promotion`;
+const PROMOTION_DETAI_VOUCHER_CODE = `${PROMOTION_API_PREFIX}/voucher`;
 
 export const PROMOTION_API = {
   PROMOTION_ALL,
   PROMOTION_API_PREFIX,
+  PROMOTION_DETAI_VOUCHER_CODE,
 };
 
 const ORDER_API_PREFIX = '/marketplace/order/v1';

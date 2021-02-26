@@ -29,9 +29,9 @@ const OrderDetailInfo = ({
   const classes = useStyles();
   const paymentMethodTrans = `payment.method.${paymentMethod}`;
   return (
-    <div>
-      <Grid container spacing={2}>
-        <Grid item xs={5}>
+    <div className={styles.info}>
+      <Grid container spacing={2} className={styles.info_inner_grid}>
+        <Grid item xs={5} className={styles.info_adress}>
           <Paper className={classes.paper} elevation={3} classes={{ root: styles.info_left_paper }}>
             <Typography variant="h5" className={styles.info_label}>
               Tên người nhận

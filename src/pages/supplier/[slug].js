@@ -2,8 +2,8 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
-import { CatClient, isValid, SupplierClient } from 'clients';
-import { ProductService } from 'services';
+import { CatClient, isValid } from 'clients';
+import { ProductService, SupplierService } from 'services';
 import Image from 'next/image';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
@@ -20,7 +20,7 @@ export async function getServerSideProps(ctx) {
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
     CatClient.loadTags(ctx),
-    SupplierClient.getInfoSupplier(ctx),
+    SupplierService.getInfoSupplier({ ctx }),
   ]);
   if (!isValid(supplierRes)) {
     return {

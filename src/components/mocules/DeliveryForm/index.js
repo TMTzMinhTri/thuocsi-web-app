@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Grid, FormHelperText } from '@material-ui/core';
 import { InfoFormControl } from 'components/atoms';
+import { v4 as uuidv4 } from 'uuid';
 import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
@@ -24,6 +25,7 @@ const DeliveryForm = ({
       </InfoFormControl>
     </Grid>
     <GroupAddressSelect
+      id={uuidv4()}
       idProvince="province"
       province={deliveryProvinceCode}
       idDistrict="district"

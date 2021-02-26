@@ -46,3 +46,24 @@
   font-size: 1rem !important;
   font-weight: 400 !important;
 }
+
+@media screen and (max-width: 767px) {
+  .container {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 100%;
+  }
+  .print_invoice_button{
+    justify-content: space-between;
+  }
+  .order_status_bottom{
+    display: block;
+  }
+  .order_button{
+    justify-content: center !important;
+  }
+  .table_wrapper{
+    width: 100%;
+    overflow: auto;
+  }
+}
