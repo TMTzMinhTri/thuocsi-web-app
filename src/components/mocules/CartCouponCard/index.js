@@ -1,11 +1,25 @@
-import { Card, Grid, Typography } from '@material-ui/core';
+import React from 'react';
+import { useModal } from 'hooks';
+
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Card,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { PROMO_TYPE, PROMO_REWARD_TYPE } from 'constants/Enums';
 import { GIFT_IMAGE, LOGO_NOT_MATCH_CONDITIONS } from 'constants/Images';
 import clsx from 'clsx';
+import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'components/atoms';
 import { formatCurrency } from 'utils/FormatNumber';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import { palette } from 'constants/Colors';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
@@ -16,6 +30,7 @@ const UseButton = styled(Button)`
   color: #fff !important;
   background-color: #00b46e !important;
   border: 1px solid #00b46e !important;
+  border-radius: 8px;
   padding: 4px 10px !important;
   transition: 0.5s;
   &:hover {
@@ -29,31 +44,35 @@ const UsedButton = styled(Button)`
   margin-top: 20px !important;
   margin-left: 22px !important;
   text-transform: none !important;
-  color: #fff !important;
-  background-color: #1890ff !important;
-  border: 1px solid #1890ff !important;
+  color: #00b46e !important;
+  background-color: #fff !important;
+  border: 1px solid #00b46e !important;
+  border-radius: 8px;
   padding: 4px 10px !important;
   transition: 0.5s;
   opacity: 0.65;
 `;
 
-const CartCounponCard = ({
-  code = '',
-  promotionName = '',
-  promotionType: type = PROMO_TYPE.COMBO,
-  endTime: expiredDate,
-  rewards = [],
-  redeemCode = [],
-  handleChangePromo,
-  totalPrice = 0,
-  isDisable,
-  className,
-  message,
-}) => {
+const CartCounponCard = (props) => {
+  const {
+    code = '',
+    promotionName = '',
+    promotionType: type = PROMO_TYPE.COMBO,
+    endTime: expiredDate,
+    rewards = [],
+    redeemCode = [],
+    handleChangePromo,
+    totalPrice = 0,
+    isDisable,
+    className,
+    conditionsVi = [],
+  } = props;
   let maxDiscountValue = 0;
   let discountValue = 0;
   let percent = 0;
   let ruleType = PROMO_REWARD_TYPE.ABSOLUTE;
+
+  const [expanded, toggleExpanded] = useModal(false);
 
   // @TODO: datle rewards is only 1 now
   if (rewards.length !== 0) {
@@ -116,19 +135,12 @@ const CartCounponCard = ({
             <Grid item xs={8} container direction="column">
               {type !== PROMO_TYPE.COMBO && (
                 <Grid item className={styles.coupon_description}>
-                  <Typography>{promotionName}</Typography>
-                </Grid>
-              )}
-
-              {type === PROMO_TYPE.VOUCHERCODE && (
-                <Grid item className={styles.text_info}>
-                  Đơn hàng sau khi áp dụng :{' '}
-                  <strong> {formatCurrency(String(caculatePrice()))} </strong>
+                  <Typography style={{ fontWeight: 600 }}>{promotionName}</Typography>
                 </Grid>
               )}
 
               <Grid item>
-                <div style={{ display: 'flex', paddingTop: '5px' }}>
+                <div style={{ display: 'flex' }}>
                   {!expiredDate ? (
                     'Không giới hạn'
                   ) : (
@@ -137,11 +149,64 @@ const CartCounponCard = ({
                 </div>
               </Grid>
 
-              {message ? (
-                <Grid item className={styles.text_danger}>
-                  <strong>{message}</strong>
+              {type === PROMO_TYPE.VOUCHERCODE && (
+                <Grid item style={{ paddingTop: '5px' }}>
+                  Đơn hàng sau khi áp dụng :{' '}
+                  <strong style={{ color: 'red' }}>
+                    {formatCurrency(String(caculatePrice()))}{' '}
+                  </strong>
                 </Grid>
-              ) : null}
+              )}
+              <Grid item>
+                <Accordion
+                  expanded={expanded}
+                  onChange={toggleExpanded}
+                  style={{
+                    backgroundColor: '#fff',
+                    boxShadow: 'none',
+                    border: 'none',
+                    padding: '0px',
+                    margin: '0px',
+                    '&$expanded': {
+                      margin: '0px',
+                      padding: '0px',
+                    },
+                  }}
+                >
+                  <AccordionSummary
+                    style={{
+                      padding: '0px',
+                      textDecoration: 'underline',
+                      color: palette.grey[700],
+                      fontSize: '10px',
+                      minHeight: '25px',
+                      margin: '-5px',
+                    }}
+                  >
+                    {!expanded ? (
+                      <>
+                        <ExpandMoreIcon fontSize="small" />
+                        <Typography style={{ fontSize: 'small' }}>Xem thêm điều kiện</Typography>
+                      </>
+                    ) : (
+                      <>
+                        <ExpandLessIcon fontSize="small" />
+                        <Typography style={{ fontSize: 'small' }}>Thu gọn điều kiện</Typography>
+                      </>
+                    )}
+                  </AccordionSummary>
+                  <AccordionDetails style={{ padding: 0 }}>
+                    {conditionsVi.map(({ message: conditionMsg }) => (
+                      <Typography
+                        key={uuidv4()}
+                        style={{ fontSize: 'small', color: palette.grey[700] }}
+                      >
+                        * {conditionMsg}
+                      </Typography>
+                    ))}
+                  </AccordionDetails>
+                </Accordion>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -152,6 +217,7 @@ const CartCounponCard = ({
           md={3}
           container
           direction="column"
+          justify="space-between"
           alignItems="flex-end"
         >
           <Grid item className={styles.code}>

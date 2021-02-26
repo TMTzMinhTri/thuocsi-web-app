@@ -38,15 +38,14 @@ const PromoListModal = memo((props) => {
   };
   useEffect(() => {
     async function fetchData() {
-      const res = await PromoService.getPromoActive({});
+      const voucherList = await PromoService.getVoucherCodesActive({});
 
       // @TODO: datle rewards is only 1 now
-      const promotions = res
-        .map((promo) => {
+      const voucherListParsed = voucherList
+        .map((voucher) => {
           let isDisable = false;
           let message = '';
-          const { conditions } = promo;
-
+          const { conditions = [] } = voucher;
           conditions.forEach((condition) => {
             const { type, minOrderValue } = condition;
             switch (type) {
@@ -59,12 +58,11 @@ const PromoListModal = memo((props) => {
               default:
             }
           });
-
-          return { ...promo, isDisable, message };
+          return { ...voucher, isDisable, message };
         })
         .sort((a, b) => a.isDisable - b.isDisable);
 
-      const prs = searchString(promotions, '');
+      const prs = searchString(voucherListParsed, '');
       setPromos(prs);
       setPromoSearchs(prs);
     }
@@ -101,15 +99,15 @@ const PromoListModal = memo((props) => {
           <div className={styles.counpon_list}>
             {promoSearchs.length !== 0 ? (
               <Grid container spacing={1}>
-                {promoSearchs.map((pro) => (
+                {promoSearchs.map((voucher) => (
                   <Grid
                     className={styles.coupon_card_grid}
                     item
-                    key={pro.code}
+                    key={voucher.code}
                     style={{ width: '100%' }}
                   >
                     <CartCouponCard
-                      {...pro}
+                      {...voucher}
                       redeemCode={redeemCode}
                       handleChangePromo={handleChangePromo}
                       totalPrice={totalPrice}

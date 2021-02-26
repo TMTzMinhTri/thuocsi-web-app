@@ -38,6 +38,7 @@ export const CartReducer = (state, action) => {
         subTotalPrice,
         discount,
         promoInfo,
+        redeemApplyResult,
       } = payload;
 
       return {
@@ -50,6 +51,7 @@ export const CartReducer = (state, action) => {
         subTotalPrice,
         discount,
         promoInfo,
+        redeemApplyResult,
         loading: false,
       };
     }

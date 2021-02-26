@@ -67,6 +67,9 @@
 .width100 {
   width: 100%;
 }
+.textLineThrought {
+  text-decoration-line: line-through;
+}
 
 .btn {
   width: 100%;
@@ -91,13 +94,13 @@
 .counpon_button:hover {
   color: #00683f;
 }
-.quick_link p{
+.quick_link p {
   font-size: 16px;
 }
-.promo_left{
+.promo_left {
   display: flex;
 }
-.total{
+.total {
   text-decoration: line-through;
   color: #919aa3;
   font-size: small !important;

@@ -44,7 +44,16 @@ const PaymentButton = ({ user }) => (
 
 const CardInfo = ({ cart, promo, className, user }) => {
   const cartInfo = useCart();
-  const { itemCount, totalPrice, subTotalPrice, updateCart, redeemCode, promoInfo } = cartInfo;
+  const {
+    itemCount,
+    totalPrice,
+    subTotalPrice,
+    updateCart,
+    redeemCode,
+    promoInfo,
+    redeemApplyResult,
+  } = cartInfo;
+
   const router = useRouter();
   const [promoVisible, setPromoVisible] = useState(false);
   const handleSetPromoVisible = () => {
@@ -70,7 +79,12 @@ const CardInfo = ({ cart, promo, className, user }) => {
     });
   };
 
+  const redeemRs = redeemApplyResult && redeemApplyResult[0];
+  const { canUse: isCanApplyVoucherCode = false, message: messageApplyVoucherCode = '' } =
+    redeemRs || {};
+
   const descriptionRewards = promoInfo?.rewardsVi.map((reward) => reward.message);
+
   const redeemText = promoInfo ? promoInfo.code : '';
 
   return (
@@ -111,10 +125,20 @@ const CardInfo = ({ cart, promo, className, user }) => {
           >
             <div className={styles.promo_left}>
               <LocalOffer className={styles.icon_promo} />
-              <Typography onClick={handleSetPromoVisible} className={styles.counpon_button}>
+              <Typography
+                onClick={handleSetPromoVisible}
+                className={clsx(
+                  styles.counpon_button,
+                  !isCanApplyVoucherCode ? styles.textLineThrought : '',
+                )}
+              >
                 {!isEmpty(redeemCode) ? redeemText : 'Dùng mã khuyến mãi'}
               </Typography>
-              {descriptionRewards && <i>( {descriptionRewards} )</i>}
+              {!isCanApplyVoucherCode ? (
+                <i>( {messageApplyVoucherCode} )</i>
+              ) : (
+                descriptionRewards && <i>( {descriptionRewards} )</i>
+              )}
             </div>
             {!isEmpty(redeemCode) ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
           </Grid>
