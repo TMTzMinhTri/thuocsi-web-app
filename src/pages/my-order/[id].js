@@ -54,10 +54,10 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-const MyOrder = ({ user, order, products = [] }) => {
+const MyOrder = ({ user, order, products = [], isMobile }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   return (
-    <Template title={title}>
+    <Template title={title} isMobile={isMobile}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={2} name={user?.name}>
