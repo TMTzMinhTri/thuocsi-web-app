@@ -3,6 +3,7 @@ import { Modal } from 'components/atoms';
 import { Grid, Divider } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { PromoService } from 'services';
+import { formatCurrency } from 'utils/FormatNumber';
 import CartCouponCard from '../CartCouponCard';
 import styles from './style.module.css';
 import Button from './Button';
@@ -40,25 +41,28 @@ const PromoListModal = memo((props) => {
       const res = await PromoService.getPromoActive({});
 
       // @TODO: datle rewards is only 1 now
-      const promotions = res.map((promo) => {
-        let isDisable = false;
-        let message = '';
-        const { conditions } = promo;
+      const promotions = res
+        .map((promo) => {
+          let isDisable = false;
+          let message = '';
+          const { conditions } = promo;
 
-        conditions.forEach((condition) => {
-          const { type, minOrderValue } = condition;
-          switch (type) {
-            case 'ORDER_VALUE':
-              if (minOrderValue && totalPrice <= minOrderValue) {
-                isDisable = true;
-                message = `Giá trị giỏ hàng cần lớn hơn ${minOrderValue}`;
-              }
-              break;
-            default:
-          }
-        });
-        return { ...promo, isDisable, message };
-      });
+          conditions.forEach((condition) => {
+            const { type, minOrderValue } = condition;
+            switch (type) {
+              case 'ORDER_VALUE':
+                if (minOrderValue && totalPrice <= minOrderValue) {
+                  isDisable = true;
+                  message = `Giá trị giỏ hàng cần lớn hơn ${formatCurrency(minOrderValue)}`;
+                }
+                break;
+              default:
+            }
+          });
+
+          return { ...promo, isDisable, message };
+        })
+        .sort((a, b) => a.isDisable - b.isDisable);
 
       const prs = searchString(promotions, '');
       setPromos(prs);

@@ -21,7 +21,7 @@
   font-weight: 500;
   font-size: 15px;
   text-align: center;
-  padding-top: 15px;
+  padding-top: 10px;
   /* padding: 0 30px; */
 }
 
@@ -46,7 +46,6 @@
 }
 .text_info {
   color: #1890ff;
-  margin-top: 10px !important;
 }
 
 .text_warning {

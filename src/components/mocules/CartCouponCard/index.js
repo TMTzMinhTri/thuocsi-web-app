@@ -1,4 +1,4 @@
-import { Card, Grid } from '@material-ui/core';
+import { Card, Grid, Typography } from '@material-ui/core';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { PROMO_TYPE, PROMO_REWARD_TYPE } from 'constants/Enums';
@@ -54,6 +54,7 @@ const CartCounponCard = ({
   let discountValue = 0;
   let percent = 0;
   let ruleType = PROMO_REWARD_TYPE.ABSOLUTE;
+
   // @TODO: datle rewards is only 1 now
   if (rewards.length !== 0) {
     maxDiscountValue = rewards[0]?.maxDiscount || 0;
@@ -80,16 +81,8 @@ const CartCounponCard = ({
     return '';
   };
 
-  const getTitle = () => {
-    if (type === PROMO_TYPE.COMBO || type === PROMO_TYPE.GIFT) return promotionName;
-    if (type === PROMO_TYPE.VOUCHERCODE && type === PROMO_REWARD_TYPE.ABSOLUTE)
-      return `GIẢM ${formatCurrency(discountValue)}`;
-    if (type === PROMO_TYPE.VOUCHERCODE && ruleType === PROMO_REWARD_TYPE.PERCENTAGE)
-      return `GIẢM ${percent}% TỐI ĐA ${formatCurrency(maxDiscountValue)}`;
-    return '';
-  };
   const caculatePrice = () => {
-    if (ruleType === PROMO_REWARD_TYPE.ABSOLUTE) return totalPrice - discountValue;
+    if (ruleType === PROMO_REWARD_TYPE.ABSOLUTE) return Math.max(totalPrice - discountValue, 0);
     if (ruleType === PROMO_REWARD_TYPE.PERCENTAGE)
       return Math.max(totalPrice - (totalPrice * percent) / 100, totalPrice - maxDiscountValue);
     return totalPrice;
@@ -123,29 +116,30 @@ const CartCounponCard = ({
             <Grid item xs={8} container direction="column">
               {type !== PROMO_TYPE.COMBO && (
                 <Grid item className={styles.coupon_description}>
-                  {getTitle()}
+                  <Typography>{promotionName}</Typography>
                 </Grid>
               )}
 
-              <Grid item>
-                <div style={{ display: 'flex' }}>
-                  {!expiredDate ? (
-                    'Không giới hạn'
-                  ) : (
-                    <CountdownTimer prefix="Còn" dealEndDay={expiredDate} />
-                  )}
-                </div>
-              </Grid>
               {type === PROMO_TYPE.VOUCHERCODE && (
                 <Grid item className={styles.text_info}>
-                  Đơn hàng sau khi áp dụng{' '}
+                  Đơn hàng sau khi áp dụng :{' '}
                   <strong> {formatCurrency(String(caculatePrice()))} </strong>
                 </Grid>
               )}
 
+              <Grid item>
+                <div style={{ display: 'flex', paddingTop: '5px' }}>
+                  {!expiredDate ? (
+                    'Không giới hạn'
+                  ) : (
+                    <CountdownTimer prefix="Thời hạn: " dealEndDay={expiredDate} />
+                  )}
+                </div>
+              </Grid>
+
               {message ? (
                 <Grid item className={styles.text_danger}>
-                  <strong> Điều kiện : {message}</strong>
+                  <strong>{message}</strong>
                 </Grid>
               ) : null}
             </Grid>
