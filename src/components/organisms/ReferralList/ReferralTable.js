@@ -33,8 +33,8 @@ function ReferralTable({ referrals, handleRetrySms }) {
               </TableCell>
               {/* <TableCell align="left">{row.paid}</TableCell> */}
               <TableCell align="left" className={styles.text_danger}>
-                {row.code ? (
-                  <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+                {row.canResendSMS ? (
+                  <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-start' }}>
                     <Button
                       classes={{ root: styles.button_send_sms }}
                       onClick={() => handleRetrySms({ code: row.code })}
