@@ -11,7 +11,8 @@ import {
   CheckoutSticky,
   LoadingScreen,
 } from 'components';
-import { doWithServerSide, CartClient, getData } from 'clients';
+import { CartClient, getData } from 'clients';
+import { doWithServerSide } from 'services';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';

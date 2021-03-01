@@ -9,14 +9,15 @@ import { formatCurrency } from 'utils/FormatNumber';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
-const CounponCard = ({
-  code = '',
-  promotionName = '',
-  promotionType: type = PROMO_TYPE.COMBO,
-  endTime:expiredDate = new Date(Date.now()),
-  rewards = [],
-  conditions = [],
-}) => {
+const CounponCard = (props) => {
+  const {
+    code = '',
+    promotionName = '',
+    promotionType: type = PROMO_TYPE.COMBO,
+    endTime: expiredDate = new Date(Date.now()),
+    rewards = [],
+    conditions = [],
+  } = props;
   let maxDiscountValue = 0;
   let discountValue = 0;
   let percent = 0;
@@ -30,7 +31,7 @@ const CounponCard = ({
     ruleType = rewards[0]?.type || PROMO_REWARD_TYPE.ABSOLUTE;
   }
   // @TODO: datle conditions is only 1 now
-  if(conditions.length !== 0) {
+  if (conditions.length !== 0) {
     minOrderValue = conditions[0]?.minOrderValue || 0;
   }
 

@@ -3,24 +3,20 @@ import { convertArrayToMap } from 'utils/ArrUtils';
 import { isEmpty } from 'utils/ValidateUtils';
 import { GET, POST, PUT, isValidWithData } from './Clients';
 
-async function loadDataCart(ctx) {
-  return GET({ url: CART_API.CART_INFO, ctx });
-}
+const loadDataCart = async (ctx) => GET({ url: CART_API.CART_INFO, ctx });
 
-async function updateCartItem(data) {
+const updateCartItem = async (data) => {
   const body = {
     sku: data.product.sku,
     quantity: data.q,
   };
   return POST({ url: CART_API.CART_ADD, body });
-}
+};
 
 // { sku, quantity, isImportant }
-async function updateCartItemImportant(body) {
-  return POST({ url: CART_API.CART_ADD, body });
-}
+const updateCartItemImportant = async (body) => POST({ url: CART_API.CART_ADD, body });
 
-async function getInfoCartItem(data) {
+const getInfoCartItem = async (data) => {
   if (isEmpty(data)) {
     return [];
   }
@@ -46,22 +42,22 @@ async function getInfoCartItem(data) {
       seller,
     };
   });
-}
+};
 
-async function removeCartItem(data) {
-  const body = { sku: data.sku };
+const removeCartItem = ({ sku }) => {
+  const body = { sku };
   return PUT({ url: CART_API.CART_REMOVE, body });
-}
+};
 
-async function updateRedeemCode(code) {
-  const body = { redeemCode: code };
+const updateRedeemCode = (redeemCode) => {
+  const body = { redeemCode };
   return PUT({ url: CART_API.CART_INFO, body });
-}
+};
 
-async function updateNote(note) {
+const updateNote = (note) => {
   const body = { note };
   return PUT({ url: CART_API.CART_INFO, body });
-}
+};
 
 export default {
   loadDataCart,

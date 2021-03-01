@@ -29,8 +29,8 @@ import { MultiImageBox, TagType, ProductDetailTabs, SellerInfo } from 'component
 import { LoadingScreen, ErrorQuantityCartModal } from 'components/organisms';
 import Template from 'components/layout/Template';
 import useModal from 'hooks/useModal';
-import { doWithServerSide, getFirst, SupplierClient } from 'clients';
-import { ProductService } from 'services';
+import { getFirst } from 'clients';
+import { ProductService, doWithServerSide, SupplierService } from 'services';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from 'constants/Paths';
@@ -44,7 +44,7 @@ export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const [productRes, supplier] = await Promise.all([
       ProductService.loadDataProductDetail({ ctx }),
-      SupplierClient.getInfoSupplier(ctx),
+      SupplierService.getInfoSupplier({ ctx }),
     ]);
     return {
       props: {

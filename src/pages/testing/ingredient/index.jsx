@@ -1,6 +1,8 @@
 import IngredientContainer from 'components/organisms/IngredientContainer';
 import { Container } from '@material-ui/core';
-import { IngredientCLient, doWithServerSide } from 'clients';
+import { IngredientCLient } from 'clients';
+import { doWithServerSide } from 'services';
+
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {

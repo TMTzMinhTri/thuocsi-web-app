@@ -3,8 +3,7 @@ import { Modal } from 'components/atoms';
 import { Grid, Divider } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { PromoService } from 'services';
-import {  PROMO_REWARD_TYPE } from 'constants/Enums';
-import { DateTimeUtils } from 'utils';
+import { formatCurrency } from 'utils/FormatNumber';
 import CartCouponCard from '../CartCouponCard';
 import styles from './style.module.css';
 import Button from './Button';
@@ -39,23 +38,31 @@ const PromoListModal = memo((props) => {
   };
   useEffect(() => {
     async function fetchData() {
-      const res = await PromoService.getPromoActive({});
+      const voucherList = await PromoService.getVoucherCodesActive({});
+
       // @TODO: datle rewards is only 1 now
-      const promotions = res.filter((promo) => {
-        let minOrderValue = 0;
-        let rewardType  = PROMO_REWARD_TYPE.ABSOLUTE;
-        const { conditions, endTime, rewards } = promo;
-        if (conditions && conditions.length !== 0) {
-          minOrderValue = conditions[0]?.minOrderValue;
-        }
-        if(rewards && rewards.length !== 0) {
-          rewardType = rewards[0]?.type || PROMO_REWARD_TYPE.ABSOLUTE;
-        }
-        if (endTime && DateTimeUtils.compareTime(endTime, Date.now()) <= 0) return false;
-        if ( rewardType === PROMO_REWARD_TYPE.ABSOLUTE) return totalPrice >= minOrderValue;
-        return true;
-      });
-      const prs = searchString(promotions, '');
+      const voucherListParsed = voucherList
+        .map((voucher) => {
+          let isDisable = false;
+          let message = '';
+          const { conditions = [] } = voucher;
+          conditions.forEach((condition) => {
+            const { type, minOrderValue } = condition;
+            switch (type) {
+              case 'ORDER_VALUE':
+                if (minOrderValue && totalPrice <= minOrderValue) {
+                  isDisable = true;
+                  message = `Giá trị giỏ hàng cần lớn hơn ${formatCurrency(minOrderValue)}`;
+                }
+                break;
+              default:
+            }
+          });
+          return { ...voucher, isDisable, message };
+        })
+        .sort((a, b) => a.isDisable - b.isDisable);
+
+      const prs = searchString(voucherListParsed, '');
       setPromos(prs);
       setPromoSearchs(prs);
     }
@@ -66,6 +73,9 @@ const PromoListModal = memo((props) => {
     const prms = searchString(promos, text);
     setPromoSearchs(prms);
   }, [text]);
+
+  // TODO:
+
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
@@ -89,10 +99,15 @@ const PromoListModal = memo((props) => {
           <div className={styles.counpon_list}>
             {promoSearchs.length !== 0 ? (
               <Grid container spacing={1}>
-                {promoSearchs.map((pro) => (
-                  <Grid className={styles.coupon_card_grid} item key={pro.code}>
+                {promoSearchs.map((voucher) => (
+                  <Grid
+                    className={styles.coupon_card_grid}
+                    item
+                    key={voucher.code}
+                    style={{ width: '100%' }}
+                  >
                     <CartCouponCard
-                      {...pro}
+                      {...voucher}
                       redeemCode={redeemCode}
                       handleChangePromo={handleChangePromo}
                       totalPrice={totalPrice}

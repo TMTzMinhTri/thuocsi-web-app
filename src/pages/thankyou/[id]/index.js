@@ -1,7 +1,9 @@
 import Template from 'components/layout/Template';
 import ThankYouContainer from 'components/organisms/ThankYouContainer';
 import { Container } from '@material-ui/core';
-import { OrderClient, doWithServerSide, isValid } from 'clients';
+import { OrderClient, isValid } from 'clients';
+import { doWithServerSide } from 'services';
+
 import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
 

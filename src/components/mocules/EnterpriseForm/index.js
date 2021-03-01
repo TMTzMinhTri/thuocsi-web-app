@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Grid, Button, InputAdornment, useMediaQuery } from '@material-ui/core';
 import { InfoFormControl } from 'components/atoms';
+import { v4 as uuidV4 } from 'uuid';
 import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
@@ -24,7 +25,7 @@ const EnterpriseForm = ({
   provinceCode,
   handleSetValue,
   handleChangeAddress,
-  error
+  error,
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
   return (
@@ -35,7 +36,11 @@ const EnterpriseForm = ({
           <InfoInput id="scope" value={scope} disabled />
         </InfoFormControl>
 
-        <InfoFormControl xs={maxWidthScope ? 12 : 9} label="Tên nhà thuốc/phòng khám" htmlFor="bussinessName">
+        <InfoFormControl
+          xs={maxWidthScope ? 12 : 9}
+          label="Tên nhà thuốc/phòng khám"
+          htmlFor="bussinessName"
+        >
           <InfoInput
             id="bussinessName"
             placeholder="Tên nhà thuốc/phòng khám"
@@ -50,7 +55,6 @@ const EnterpriseForm = ({
             placeholder="Tên người đại diện pháp luật"
             value={legalRepresentative}
             onChange={(e) => handleSetValue('legalRepresentative', e.target.value)}
-
           />
         </InfoFormControl>
         <input type="file" hidden id="input-file" />
@@ -59,7 +63,6 @@ const EnterpriseForm = ({
           label="Giấy phép kinh doanh phòng khám/nhà thuốc"
           htmlFor="license"
           variant="contained"
-
         >
           <InfoInput
             id="license"
@@ -101,6 +104,7 @@ const EnterpriseForm = ({
       </Grid>
 
       <GroupAddressSelect
+        id={uuidV4()}
         idProvince="provinceCode"
         province={provinceCode}
         idDistrict="districtCode"

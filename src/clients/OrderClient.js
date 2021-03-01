@@ -1,8 +1,5 @@
 import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
-import { 
-  ENUM_ORDER_STATUS,
-  HTTP_STATUS,
-} from 'constants/Enums';
+import { ENUM_ORDER_STATUS, HTTP_STATUS } from 'constants/Enums';
 import { GET, POST, isValid } from './Clients';
 
 async function getOrders({ offset, limit, status, ctx }) {
@@ -38,17 +35,16 @@ async function getProductByOrderNo({ orderNo = '', ctx }) {
 }
 
 async function getInfoOrderItem({ orderItems = [], ctx }) {
-  const obj = {};
-  const arraySku = orderItems
-  .reduce((accumulator, item) => {
-     if (item?.productSku) return [...accumulator, item.productSku];
-     return accumulator;
+  const arraySku = orderItems.reduce((accumulator, item) => {
+    if (item?.productSku) return [...accumulator, item.productSku];
+    return accumulator;
   }, []);
 
-  if(arraySku.length === 0) {
-    obj.status = HTTP_STATUS.Forbidden;
-    obj.message = 'Dữ liệu không đủ';
-    return obj;
+  if (arraySku.length === 0) {
+    return {
+      status: HTTP_STATUS.Forbidden,
+      message: 'Dữ liệu không đủ',
+    };
   }
   const body = {
     codes: arraySku,
@@ -59,15 +55,16 @@ async function getInfoOrderItem({ orderItems = [], ctx }) {
     return res;
   }
 
-  obj.status = res.status;
-  obj.message = res.message;
-
-  const products = res?.data || [];
-  products.forEach((product) => {
+  const obj = {};
+  res.data.forEach((product) => {
     obj[product?.sku] = product;
   });
 
-  return obj;
+  return {
+    status: res.status,
+    message: res.message,
+    data: [obj],
+  };
 }
 export default {
   getOrders,

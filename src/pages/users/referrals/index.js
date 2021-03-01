@@ -2,7 +2,9 @@ import Template from 'components/layout/Template';
 import InfoContainer from 'components/organisms/InfoContainer';
 import ReferralList from 'components/organisms/ReferralList';
 import { Container } from '@material-ui/core';
-import { CustomerClient, doWithServerSide } from 'clients';
+import { CustomerClient } from 'clients';
+import { doWithServerSide } from 'services';
+
 import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
