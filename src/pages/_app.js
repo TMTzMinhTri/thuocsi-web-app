@@ -33,6 +33,7 @@ const MyApp = (props) => {
   const { Component, pageProps } = props;
   const router = useRouter();
   const isShowingLogin = router?.query?.login === 'true';
+  const { referralCode } = router?.query;
 
   // config https://material-ui.com/guides/server-rendering/
   useEffect(() => {
@@ -68,7 +69,7 @@ const MyApp = (props) => {
         <MuiThemeProvider theme={Theme}>
           <CssBaseline />
           {/* Authen */}
-          <AuthProvider isShowingLogin={isShowingLogin}>
+          <AuthProvider isShowingLogin={isShowingLogin} referralCode={referralCode}>
             {/* Protect route */}
             <LoadingRoute>
               {/* Cart context provider */}

@@ -13,14 +13,14 @@ import { i18n } from 'i18n-lib';
 
 const AuthContext = createContext({});
 
-export const AuthProvider = ({ children, isShowingLogin }) => {
+export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { pathname } = router;
   const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
-  const [isShowSignUp, toggleSignUp] = useModal();
+  const [isShowSignUp, toggleSignUp] = useModal(!!referralCode);
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
 
   const { t } = i18n.useTranslation(['apiErrors']);
