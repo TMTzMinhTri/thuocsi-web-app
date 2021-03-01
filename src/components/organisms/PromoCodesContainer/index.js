@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { QUICK_ORDER, PRODUCTS_URL, CART_URL } from 'constants/Paths';
 import styles from './styles.module.css';
 
-const PromoCodesContainer = ({ promos = [] }) => {
+const PromoCodesContainer = ({ voucherCodes = [] }) => {
   const maxWidth3Card = useMediaQuery('(max-width:767px)');
   return (
     <div className={styles.root}>
@@ -64,11 +64,11 @@ const PromoCodesContainer = ({ promos = [] }) => {
       </div>
       <Container maxWidth="lg" className={styles.container}>
         <h1 className={clsx(styles.title, styles.other)}> Các mã khác </h1>
-        {promos.length !== 0 ? (
+        {voucherCodes.length !== 0 ? (
           <Grid container spacing={4}>
-            {promos.map((promo) => (
+            {voucherCodes.map((voucher) => (
               <Grid key={uuidv4()} item xs={maxWidth3Card ? 12 : 4}>
-                <CouponCard {...promo} />
+                <CouponCard {...voucher} />
               </Grid>
             ))}
           </Grid>
