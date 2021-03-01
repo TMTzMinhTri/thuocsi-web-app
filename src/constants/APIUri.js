@@ -10,7 +10,8 @@ const REGISTER = `${CUSTOMER_API_PREFIX}/register`;
 const INFO = `${CUSTOMER_API_PREFIX}/me`;
 const WALLET = `${CUSTOMER_API_PREFIX}/wallets`;
 const ORDER = `${CUSTOMER_API_PREFIX}/orders`;
-const REFERRAL = `${CUSTOMER_API_PREFIX}/referrals`;
+const REFERRAL = `${CUSTOMER_API_PREFIX}/me/reference/list`;
+const SEND_SMS = `${CUSTOMER_API_PREFIX}/me/reference`;
 const PROMO = `${CUSTOMER_API_PREFIX}/promos`;
 
 export const CUSTOMER_API = {
@@ -20,6 +21,7 @@ export const CUSTOMER_API = {
   ORDER,
   REFERRAL,
   PROMO,
+  SEND_SMS,
 };
 
 const CATEGORY_API_PREFIX = '/marketplace/product/v1';

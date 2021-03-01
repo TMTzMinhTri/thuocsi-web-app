@@ -1,0 +1,33 @@
+import { CustomerClient, isValid, LIMIT_DEFAULT, OFFSET_DEFAULT } from 'clients';
+import { invalid } from 'utils/ResponseUtils';
+import { isEmpty } from 'utils/ValidateUtils';
+
+export const getReferralList = async ({ offset = OFFSET_DEFAULT, limit = LIMIT_DEFAULT }) => {
+  const params = { offset, limit };
+  const res = await CustomerClient.getReferral({ params });
+  return res;
+};
+
+export const sendSms = async ({ phoneNumber }) => {
+  if (isEmpty(phoneNumber)) {
+    return invalid('Số điện thoại không đúng định dạng');
+  }
+  const res = await CustomerClient.sendSms({ phoneNumber });
+
+  if (!isValid(res)) {
+    return res;
+  }
+  res.data = res.data.map((referral) => {
+    const { createdTime, status } = referral;
+    const dateCreated = new Date(createdTime).getTime();
+    const curTime = new Date().getTime();
+
+    // check > 3h
+    const canResendSMS = status === 'NEW' && curTime - dateCreated > 10800000;
+    return { ...referral, canResendSMS };
+  });
+
+  return res;
+};
+
+export default { getReferralList, sendSms };

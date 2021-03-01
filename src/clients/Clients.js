@@ -4,7 +4,9 @@ import { HTTP_STATUS } from 'constants/Enums';
 import { CookiesParser, RequestUtils } from 'utils';
 import { API_HOST, MOCK_API_HOST, BASIC_AUTHEN } from 'sysconfig';
 
-const MAX_LIMIT = 1000;
+export const MAX_LIMIT = 1000;
+export const OFFSET_DEFAULT = 0;
+export const LIMIT_DEFAULT = 20;
 
 export function isValid(resp) {
   return resp && resp.status && resp.status === HTTP_STATUS.Ok && resp.data && resp.data[0];
@@ -198,4 +200,7 @@ export default {
   getSessionToken,
   isValidWithoutData,
   getSessionTokenClient,
+  LIMIT_DEFAULT,
+  MAX_LIMIT,
+  OFFSET_DEFAULT,
 };
