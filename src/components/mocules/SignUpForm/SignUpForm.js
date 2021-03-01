@@ -42,7 +42,8 @@ const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCall
 
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickSignIn, onClickSignUp } = props;
+  const { className, onClickSignIn, onClickSignUp, referralCode } = props;
+  console.log('referralCode >> ', referralCode);
   const [errors, setErrors] = useState({});
 
   const handleSubmitSignUp = useCallback(
@@ -171,8 +172,10 @@ const SignUpForm = React.memo((props) => {
             id="inviter"
             name="referCode"
             startAdornment={IconInviter}
+            value={referralCode}
             placeholder="Nhập số điện thoại người giới thiệu hoặc mã nhóm."
             variant="outlined"
+            disabled={!!referralCode}
           />
         </FormControl>
         <div className="agree-term">
