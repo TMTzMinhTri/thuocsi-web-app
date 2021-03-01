@@ -83,7 +83,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
   const { canUse: isCanApplyVoucherCode = false, message: messageApplyVoucherCode = '' } =
     redeemRs || {};
 
-  const descriptionRewards = promoInfo?.rewardsVi.map((reward) => reward.message);
+  const descriptionRewards = promoInfo?.rewardsVi.map((reward) => reward?.message || '');
 
   const redeemText = promoInfo ? promoInfo.code : '';
 
