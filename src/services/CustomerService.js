@@ -30,4 +30,9 @@ export const sendSms = async ({ phoneNumber }) => {
   return res;
 };
 
-export default { getReferralList, sendSms };
+export const retrySendSMS = async ({ code }) => {
+  const res = await CustomerClient.retrySendSms({ code });
+  return res;
+};
+
+export default { getReferralList, sendSms, retrySendSMS };

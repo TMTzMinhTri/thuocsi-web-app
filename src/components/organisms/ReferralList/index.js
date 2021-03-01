@@ -44,6 +44,15 @@ const ReferralList = () => {
       NotifyUtils.error(error?.message || 'Gửi SMS không thành công');
     }
   };
+
+  const handleRetrySms = async ({ code }) => {
+    const res = await CustomerService.retrySendSMS({ code });
+    if (!isValid) {
+      NotifyUtils.error(`Gửi sms không thành công: ${res.message}`);
+    } else {
+      NotifyUtils.success('Gửi SMS giới thiệu thành công');
+    }
+  };
   return (
     <Grid item container spacing={3}>
       <Grid item xs={12}>
@@ -65,7 +74,7 @@ const ReferralList = () => {
         </Grid>
         <Grid container>
           <Grid item xs={12}>
-            <ReferralTable referrals={referrals} handleSendSMS={handleSendSMS} />
+            <ReferralTable referrals={referrals} handleRetrySms={handleRetrySms} />
           </Grid>
         </Grid>
       </Grid>

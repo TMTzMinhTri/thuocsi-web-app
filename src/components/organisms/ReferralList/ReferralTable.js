@@ -14,14 +14,7 @@ const heads = [
   { text: 'Gửi lại SMS', align: ALIGN.LEFT },
 ];
 
-function ReferralTable({ referrals, handleSendSMS }) {
-  const SendSMSButton = () => {
-    <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
-      <Button classes={{ root: styles.button_send_sms }} onClick={handleSendSMS}>
-        Gửi SMS
-      </Button>
-    </div>;
-  };
+function ReferralTable({ referrals, handleRetrySms }) {
   return (
     <div style={{ overflowX: 'auto' }}>
       {referrals.length > 0 ? (
@@ -40,8 +33,15 @@ function ReferralTable({ referrals, handleSendSMS }) {
               </TableCell>
               {/* <TableCell align="left">{row.paid}</TableCell> */}
               <TableCell align="left" className={styles.text_danger}>
-                {row.canResendSMS ? (
-                  <SendSMSButton />
+                {row.code ? (
+                  <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+                    <Button
+                      classes={{ root: styles.button_send_sms }}
+                      onClick={() => handleRetrySms({ code: row.code })}
+                    >
+                      Gửi SMS
+                    </Button>
+                  </div>
                 ) : (
                   <span className={styles.text_danger}>
                     Chưa thể gửi lại. Trong vòng 3 giờ, bạn chỉ có thể gửi 1 tin SMS!

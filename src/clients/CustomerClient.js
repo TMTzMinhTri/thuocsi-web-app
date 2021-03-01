@@ -1,6 +1,10 @@
 import { CUSTOMER_API } from 'constants/APIUri';
 import { GET, PUT, isValid, POST } from './Clients';
 
+const retrySendSms = ({ code }) => {
+  const url = CUSTOMER_API.RETRY_SEND_SMS;
+  return POST({ url, body: { code } });
+};
 const sendSms = ({ phoneNumber }) => {
   const url = CUSTOMER_API.SEND_SMS;
   return POST({ url, body: { phone: phoneNumber } });
@@ -45,4 +49,5 @@ export default {
   getPromo,
   updateProfile,
   sendSms,
+  retrySendSms,
 };
