@@ -34,7 +34,6 @@ const MyApp = (props) => {
   const router = useRouter();
   const isShowingLogin = router?.query?.login === 'true';
   const { referralCode } = router?.query;
-  console.log(referralCode);
 
   // config https://material-ui.com/guides/server-rendering/
   useEffect(() => {

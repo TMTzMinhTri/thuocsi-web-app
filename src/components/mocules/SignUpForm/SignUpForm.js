@@ -43,7 +43,6 @@ const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCall
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
   const { className, onClickSignIn, onClickSignUp, referralCode } = props;
-  console.log('referralCode >> ', referralCode);
   const [errors, setErrors] = useState({});
 
   const handleSubmitSignUp = useCallback(
