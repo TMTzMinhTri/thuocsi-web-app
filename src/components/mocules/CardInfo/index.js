@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Typography, IconButton } from '@material-ui/core';
+import { Grid, Typography, IconButton, Tooltip } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { LocalOffer } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -15,9 +15,11 @@ import PromoListModal from '../PromoListModal';
 import styles from './style.module.css';
 
 const DeleteIconButton = (props) => (
-  <IconButton {...props} style={{ padding: 0 }}>
-    <DeleteIcon />
-  </IconButton>
+  <Tooltip title="Xoá mã khuyến mãi">
+    <IconButton {...props} style={{ padding: 0 }}>
+      <DeleteIcon />
+    </IconButton>
+  </Tooltip>
 );
 const handleToCheckout = () => {
   Router.push(CHECKOUT_URL);
@@ -83,7 +85,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
   const { canUse: isCanApplyVoucherCode = false, message: messageApplyVoucherCode = '' } =
     redeemRs || {};
 
-  const descriptionRewards = promoInfo?.rewardsVi.map((reward) => reward.message);
+  const descriptionRewards = promoInfo?.rewardsVi.map((reward) => reward?.message || '');
 
   const redeemText = promoInfo ? promoInfo.code : '';
 
@@ -116,38 +118,58 @@ const CardInfo = ({ cart, promo, className, user }) => {
           </Grid>
         </Grid>
         {promo && (
-          <Grid
-            className={clsx(styles.wrapper, styles.promo_border)}
-            xs={12}
-            container
-            item
-            direction="row"
-          >
-            <div className={styles.promo_left}>
-              <LocalOffer className={styles.icon_promo} />
-              <Typography
-                onClick={handleSetPromoVisible}
-                className={clsx(
-                  styles.counpon_button,
-                  !isCanApplyVoucherCode ? styles.textLineThrought : '',
-                )}
-              >
-                {!isEmpty(redeemCode) ? redeemText : 'Dùng mã khuyến mãi'}
-              </Typography>
-              {!isCanApplyVoucherCode ? (
-                <i>( {messageApplyVoucherCode} )</i>
+          <>
+            <Grid
+              className={clsx(styles.wrapper, styles.promo_border)}
+              xs={12}
+              container
+              item
+              direction="row"
+            >
+              <div className={styles.promo_left}>
+                <LocalOffer className={styles.icon_promo} />
+                <Tooltip title="Thay đổi mã khuyến mãi">
+                  <Typography
+                    onClick={handleSetPromoVisible}
+                    className={clsx(
+                      styles.counpon_button,
+                      !isCanApplyVoucherCode && !isEmpty(redeemCode) ? styles.textLineThrought : '',
+                    )}
+                  >
+                    {!isEmpty(redeemCode) ? redeemText : 'Dùng mã khuyến mãi'}
+                  </Typography>
+                </Tooltip>
+              </div>
+              {!isEmpty(redeemCode) && <DeleteIconButton onClick={handleRemoveRedeemCode} />}
+            </Grid>
+            <Grid
+              className={clsx(styles.wrapper)}
+              container
+              justify="center"
+              style={{
+                padding: '0px 10px 10px 10px',
+                borderBottom: '1px solid rgba(195, 204, 220, 0.4)',
+              }}
+            >
+              {!isCanApplyVoucherCode && !isEmpty(redeemCode) ? (
+                <Typography style={{ fontSize: 'small' }}>
+                  <i>( {messageApplyVoucherCode} )</i>
+                </Typography>
               ) : (
-                descriptionRewards && <i>( {descriptionRewards} )</i>
+                descriptionRewards && (
+                  <Typography style={{ fontSize: 'small' }}>
+                    <i>( {descriptionRewards} )</i>
+                  </Typography>
+                )
               )}
-            </div>
-            {!isEmpty(redeemCode) ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
-          </Grid>
+            </Grid>
+          </>
         )}
         <Grid className={styles.wrapper} xs={12} container item>
           {cart ? (
             <PaymentButton user={user} />
           ) : (
-            <LinkComp href="/cart" className={styles.btn}>
+            <LinkComp href="/cart" className={styles.btn} title="Qua lại trang giỏ hàng">
               Xem giỏ hàng
             </LinkComp>
           )}

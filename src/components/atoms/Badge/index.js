@@ -19,7 +19,7 @@ const StyledBadge = styled(Badge)`
   &.badge {
     position: absolute;
     left: -0.25em;
-    top: 1rem;
+    top: 1px;
     color: white;
     padding: 3.3px 6.67px;
     border-top-right-radius: 0.25rem;

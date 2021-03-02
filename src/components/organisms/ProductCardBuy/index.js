@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { CardActions, Typography, IconButton } from '@material-ui/core';
+import { CardActions, Typography, IconButton, Tooltip } from '@material-ui/core';
 import { Delete, Close } from '@material-ui/icons';
 import { formatCurrency, formatNumber } from 'utils/FormatNumber';
 import clsx from 'clsx';
@@ -192,13 +192,15 @@ const ProductCardBuy = ({
                   onClick={() => handleIncrease()}
                 />
                 {cart && (
-                  <IconButton className={styles.remove_icon} onClick={removeProductOutCart}>
-                    {isMobile ? (
-                      <Close className={styles.icon} />
-                    ) : (
-                      <Delete className={styles.icon} />
-                    )}
-                  </IconButton>
+                  <Tooltip title="Xoá sản phẩm">
+                    <IconButton className={styles.remove_icon} onClick={removeProductOutCart}>
+                      {isMobile ? (
+                        <Close className={styles.icon} />
+                      ) : (
+                        <Delete className={styles.icon} />
+                      )}
+                    </IconButton>
+                  </Tooltip>
                 )}
               </CardActions>
               {maxQuantity && maxQuantity > 0 && isMobile && (
