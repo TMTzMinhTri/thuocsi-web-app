@@ -129,18 +129,24 @@ const CardInfo = ({ cart, promo, className, user }) => {
                 onClick={handleSetPromoVisible}
                 className={clsx(
                   styles.counpon_button,
-                  !isCanApplyVoucherCode ? styles.textLineThrought : '',
+                  !isCanApplyVoucherCode && !isEmpty(redeemCode) ? styles.textLineThrought : '',
                 )}
               >
                 {!isEmpty(redeemCode) ? redeemText : 'Dùng mã khuyến mãi'}
               </Typography>
-              {!isCanApplyVoucherCode ? (
-                <i>( {messageApplyVoucherCode} )</i>
-              ) : (
-                descriptionRewards && <i>( {descriptionRewards} )</i>
-              )}
             </div>
             {!isEmpty(redeemCode) ? <DeleteIconButton onClick={handleRemoveRedeemCode} /> : <div />}
+            {!isCanApplyVoucherCode && !isEmpty(redeemCode) ? (
+              <Typography style={{ fontSize: 'small' }}>
+                <i>( {messageApplyVoucherCode} )</i>
+              </Typography>
+            ) : (
+              descriptionRewards && (
+                <Typography style={{ fontSize: 'small' }}>
+                  <i>( {descriptionRewards} )</i>
+                </Typography>
+              )
+            )}
           </Grid>
         )}
         <Grid className={styles.wrapper} xs={12} container item>
