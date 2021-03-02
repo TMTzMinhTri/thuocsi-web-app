@@ -213,9 +213,8 @@ const CheckoutSticky = ({
         {!isMobile ? (
           <Tooltip
             title={
-              checkCondition.checked
-                ? ''
-                : 'Vui lòng đồng ý với điều khoản sử dụng trước khi thanh toán'
+              checkCondition.checked &&
+              'Vui lòng đồng ý với điều khoản sử dụng trước khi thanh toán'
             }
           >
             <span>

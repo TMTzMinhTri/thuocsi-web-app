@@ -90,7 +90,7 @@
 .badge {
   position: absolute;
   right: -1.25em;
-  top: -2px;
+  top: 0px;
   border-radius: 10rem;
   display: inline-block;
   padding: 0.25em 0.5rem;

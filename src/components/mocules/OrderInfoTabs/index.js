@@ -75,7 +75,7 @@ export default function OrderInfoTabs({ user, orders, status }) {
       {orders.length === 0 ? (
         <Grid item xs={12} container justify="center">
           <div className={styles.not_order_container}>
-            <div className={styles.not_order_title}>Chưa có đơn hàng</div>
+            <div className={styles.not_order_title}>Không có đơn hàng</div>
             <div>
               <ComeHomeButton onClick={handleComehome}> Về trang đặt hàng nhanh </ComeHomeButton>
             </div>

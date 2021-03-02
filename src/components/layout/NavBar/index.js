@@ -97,6 +97,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
   } = useAuth();
 
   renderMostSearched(mostResearched, classes);
+
   const nav = useRef();
 
   useEffect(() => {
