@@ -18,11 +18,7 @@ import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 
-import {
-  CART_URL,
-  HOME_PAGE,
-  PRODUCTS_URL
-} from 'constants/Paths';
+import { CART_URL, HOME_PAGE, PRODUCTS_URL } from 'constants/Paths';
 import { ProductClient } from 'clients';
 
 import { SignUpModal, SignInModal, ForgetPasswordModal } from 'components/organisms';
@@ -128,18 +124,22 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
   }, []);
 
   const getActivePage = () => {
-    if (router.pathname === '/products' || router.pathname === '/categories/[slug]' || router.pathname === '/manufacturers/[slug]') {
+    if (
+      router.pathname === '/products' ||
+      router.pathname === '/categories/[slug]' ||
+      router.pathname === '/manufacturers/[slug]'
+    ) {
       return PRODUCTS_URL;
-    } 
-      return router.pathname;
-  }
+    }
+    return router.pathname;
+  };
 
   const getUrl = (url, redirectUrl) => {
     if (redirectUrl) {
       return redirectUrl;
-    } 
-      return url;
-  }
+    }
+    return url;
+  };
 
   return (
     <div ref={nav} className={styles.navBar}>
@@ -161,7 +161,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
                   name={item.name}
                   href={getUrl(item.url, item.redirectUrl)}
                   color="white"
-                  target={item.redirectUrl && "_blank"}
+                  target={item.redirectUrl && '_blank'}
                   key={item.id}
                 >
                   {item.isNew && <span className={styles.badge}>Mới</span>}

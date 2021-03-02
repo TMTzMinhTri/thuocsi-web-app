@@ -67,12 +67,12 @@ const PromoListModal = memo((props) => {
       setPromoSearchs(prs);
     }
     if (visible) fetchData();
-  }, [visible]);
+  }, [totalPrice, visible]);
 
   useEffect(() => {
     const prms = searchString(promos, text);
     setPromoSearchs(prms);
-  }, [text]);
+  }, [promos, text]);
 
   // TODO:
 
