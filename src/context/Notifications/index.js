@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useContext, useEffect } from 'react';
-import { NotifyClient, isValid } from 'clients';
+import { isValid } from 'clients';
+import { NotifyService } from 'services';
 import NotiReducer from './NotiReducer';
 
 export const NotiContext = createContext();
@@ -10,9 +11,17 @@ export const NotiContextProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await NotifyClient.getNotify();
-        if (isValid) {
-          dispatch({ type: 'FETCH_SUCCESS', payload: response });
+        const totalNotification = await NotifyService.getTotalNotification({});
+        if (!totalNotification) {
+          return;
+        }
+        const { unread, total, read } = totalNotification;
+        const notificationRes = await NotifyService.getNotifications({});
+        if (isValid(notificationRes)) {
+          dispatch({
+            type: 'FETCH_SUCCESS',
+            payload: { notification: notificationRes.data, unread, total, read },
+          });
         } else {
           dispatch({ type: 'FETCH_ERROR' });
         }

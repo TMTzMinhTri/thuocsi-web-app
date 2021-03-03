@@ -10,7 +10,7 @@ import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [listNotify] = await Promise.all([NotifyService.getListNotify({ ctx })]);
+  const [listNotify] = await Promise.all([NotifyService.getNotifications({ ctx })]);
   return {
     props: {
       listNotify,

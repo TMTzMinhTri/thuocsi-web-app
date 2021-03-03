@@ -1,10 +1,17 @@
+import { NOTIFICATION_API } from 'constants/APIUri';
 import { GET } from './Clients';
 
-async function getNotify({ ctx }) {
-  const res = await GET({ url: '/mock/notifications', mock: true, ctx });
-  return res;
-}
+export const getNotify = async ({ ctx }) => {
+  const url = NOTIFICATION_API.NOTIFICATION_LIST;
+  return GET({ url, ctx });
+};
+
+export const getTotalNotification = async ({ ctx }) => {
+  const url = NOTIFICATION_API.NOTIFICATION_COUNTER;
+  return GET({ url, ctx });
+};
 
 export default {
   getNotify,
+  getTotalNotification,
 };

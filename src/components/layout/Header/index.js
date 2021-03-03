@@ -53,7 +53,12 @@ const InfoHeader = memo(({ t }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { user, isAuthenticated, toggleLogin, toggleSignUp } = useAuth();
-  const { getNotifcations, notification, totalNotification } = useNotify();
+  const {
+    getNotifcations,
+    notification,
+    total: totalNotification,
+    unread: unreadNotification,
+  } = useNotify();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -119,7 +124,7 @@ const InfoHeader = memo(({ t }) => {
                   <div className={styles.title_wrap}>
                     <div style={{ flexGrow: 1 }}>
                       <h6 className={styles.title}>Thông báo</h6>
-                      {notification.length === 0 && (
+                      {unreadNotification === 0 && (
                         <p className={styles.description}>Bạn không có thông báo mới</p>
                       )}
                     </div>
@@ -138,10 +143,10 @@ const InfoHeader = memo(({ t }) => {
                         <LinkComp
                           key={item.id}
                           className={
-                          item.read
-                            ? clsx(styles.notificationsItem, styles.read)
-                            : clsx(styles.notificationsItem, styles.unRead)
-                        }
+                            item.read
+                              ? clsx(styles.notificationsItem, styles.read)
+                              : clsx(styles.notificationsItem, styles.unRead)
+                          }
                           href={item.slug}
                         >
                           <div className={styles.notifyIcon}>
