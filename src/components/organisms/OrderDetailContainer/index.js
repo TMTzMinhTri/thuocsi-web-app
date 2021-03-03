@@ -5,7 +5,7 @@ import {
   OrderDetailProduct,
   ResponseButton,
   PrintInvoiceButton,
-  EditOrderButton
+  EditOrderButton,
 } from 'components/mocules';
 import { PATH_INFO_BILL, MY_ORDER_URL } from 'constants/Paths';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
@@ -19,9 +19,9 @@ const OrderDetailContainer = ({ order, products, user, isMobile }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid container>
           {!isMobile && (
-          <Grid item xs={12}>
-            <h3 className={styles.title}> Chi tiết đơn hàng #{order.orderId} </h3>
-          </Grid>
+            <Grid item xs={12}>
+              <h3 className={styles.title}> Chi tiết đơn hàng #{order.orderId} </h3>
+            </Grid>
           )}
           <Grid item xs={12}>
             <OrderDetailStep status={order?.status} />
@@ -30,12 +30,18 @@ const OrderDetailContainer = ({ order, products, user, isMobile }) => (
             <Grid container justify="center" direction="column">
               <div className={styles.order_status_bottom_text}>
                 Dự kiến giao vào &nbsp;
-                <span>{DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate || Date.now()))}</span>
+                <span>
+                  {DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate || Date.now()))}
+                </span>
               </div>
             </Grid>
             <Grid className={styles.order_button} item container direction="row" justify="flex-end">
-              <EditOrderButton />
-              <ResponseButton orderID={order.orderNo} name={order?.customerName} phone={order?.customerPhone} />
+              <EditOrderButton orderNo={order.orderNo} />
+              <ResponseButton
+                orderID={order.orderNo}
+                name={order?.customerName}
+                phone={order?.customerPhone}
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -46,33 +52,34 @@ const OrderDetailContainer = ({ order, products, user, isMobile }) => (
       <Paper classes={{ root: styles.container }} elevation={3}>
         <Grid className={styles.print_invoice_button} container direction="row">
           <Grid item xs={3}>
-            <PrintInvoiceButton orderNo={order.orderNo} user={user} disabled={order.status !== ENUM_ORDER_STATUS.PENDING} />
+            <PrintInvoiceButton
+              orderNo={order.orderNo}
+              user={user}
+              disabled={order.status !== ENUM_ORDER_STATUS.PENDING}
+            />
           </Grid>
 
           <Grid item container direction="column" justify="center" xs={5}>
-            {order.status === ENUM_ORDER_STATUS.CANCEL
-            || order.status === ENUM_ORDER_STATUS.COMPLETED ? (
+            {order.status === ENUM_ORDER_STATUS.CANCEL ||
+            order.status === ENUM_ORDER_STATUS.COMPLETED ? (
               <div className={styles.text_danger}>
                 Đơn hàng của bạn đã quá thời gian để xuất hóa đơn
               </div>
-              ) : (
-                <div className={styles.text_bill}>
-                  Xem thông tin xuất hoá đơn đỏ&nbsp;
-                  <a href={PATH_INFO_BILL} target="_blank" rel="noreferrer">
-                    tại đây
-                  </a>
-                </div>
-              )}
+            ) : (
+              <div className={styles.text_bill}>
+                Xem thông tin xuất hoá đơn đỏ&nbsp;
+                <a href={PATH_INFO_BILL} target="_blank" rel="noreferrer">
+                  tại đây
+                </a>
+              </div>
+            )}
           </Grid>
         </Grid>
       </Paper>
     </Grid>
 
     <Grid item xs={12}>
-      <OrderDetailInfo
-        {...order}
-        
-      />
+      <OrderDetailInfo {...order} />
     </Grid>
 
     <Grid className={styles.table_wrapper} item xs={12}>
@@ -82,7 +89,7 @@ const OrderDetailContainer = ({ order, products, user, isMobile }) => (
         totalDiscount={order?.totalDiscount}
       />
     </Grid>
-    <Grid item xs={12} className={styles.comeback}> 
+    <Grid item xs={12} className={styles.comeback}>
       <Link href={MY_ORDER_URL}> &lt;&lt; Quay lại đơn hàng của tôi </Link>
     </Grid>
   </Grid>

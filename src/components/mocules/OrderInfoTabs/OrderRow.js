@@ -112,7 +112,7 @@ const OrderRow = ({
           </Grid> */}
           {status === ENUM_ORDER_STATUS.PENDING && (
             <Grid item>
-              <EditOrderButton />
+              <EditOrderButton orderNo={orderNo} />
             </Grid>
           )}
           <Grid item>

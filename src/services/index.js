@@ -7,4 +7,5 @@ export { default as AddressService } from './AddressService';
 export { default as SupplierService } from './SupplierService';
 export { default as NotifyService } from './NofifyService';
 export { default as CustomerService } from './CustomerService';
+export { default as OrderService } from './OrderService';
 export * from './SsrService';
