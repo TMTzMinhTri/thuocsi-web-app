@@ -3,12 +3,14 @@ import { Button } from 'components/atoms';
 import { OrderService } from 'services';
 import { isValidWithoutData } from 'clients';
 import { useRouter } from 'next/router';
+import { useCart } from 'context';
 import { CART_URL } from 'constants/Paths';
 import EditOrderModal from '../EditOrderModal';
 
 const EditOrderButton = ({ orderNo }) => {
   const [val, setVal] = useState(false);
   const router = useRouter();
+  const { updateCart } = useCart();
   const handleChangeVal = () => {
     setVal(!val);
   };
@@ -17,6 +19,7 @@ const EditOrderButton = ({ orderNo }) => {
     if (!isValidWithoutData(res)) {
       return;
     }
+    updateCart();
     router.push(CART_URL);
   };
   return (
