@@ -26,7 +26,7 @@ const DeliveryInfoForm = ({
   address,
   handleChangeAddress,
   handleChangeCheckbox,
-  isChecked = true,
+  isChecked = false,
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
 
