@@ -72,6 +72,7 @@ async function getInfoOrderItem({ orderItems = [], ctx }) {
     data: [obj],
   };
 }
+
 export default {
   getOrders,
   getOrderById,

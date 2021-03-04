@@ -15,11 +15,11 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [productsRes, brand, group, tags, supplierRes] = await Promise.all([
+  const [productsRes, brand, group, tabs, supplierRes] = await Promise.all([
     ProductService.loadDataProduct({ ctx }),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
-    CatClient.loadTags(ctx),
+    ProductService.getListTabs({ ctx }),
     SupplierService.getInfoSupplier({ ctx }),
   ]);
   if (!isValid(supplierRes)) {
@@ -47,7 +47,7 @@ export async function getServerSideProps(ctx) {
       brand,
       group,
       slug,
-      tags,
+      tabs,
       supplier: supplierRes.data[0],
     },
   };
@@ -58,7 +58,7 @@ export default function Supplier({
   total,
   brand = [],
   group = [],
-  tags = [],
+  tabs = [],
   current_tab = '',
   page = '',
   sortBy = '',
@@ -119,7 +119,7 @@ export default function Supplier({
         sortBy={sortBy}
         catName={cat}
         slug={slug}
-        tags={tags}
+        tabs={tabs}
         isAuthenticated={isAuthenticated}
       />
     </Template>

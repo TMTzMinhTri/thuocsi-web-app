@@ -6,12 +6,12 @@ import CatClient from 'clients/CatClient';
 import { ProductService } from 'services';
 
 export async function getServerSideProps(ctx) {
-  const [productsRes, catInfo, brand, group, tags] = await Promise.all([
+  const [productsRes, catInfo, brand, group, tabs] = await Promise.all([
     ProductService.loadProductWithManufacturer({ ctx }),
     CatClient.loadManufacturerInfoBySlug(ctx),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
-    CatClient.loadTags(ctx),
+    ProductService.getListTabs({ ctx }),
   ]);
   const current_tab = ctx.query.current_tab || '';
   const sortBy = ctx.query.sortBy || '';
@@ -29,7 +29,7 @@ export async function getServerSideProps(ctx) {
       brand,
       group,
       slug,
-      tags,
+      tabs,
     },
   };
 }
@@ -40,13 +40,13 @@ export default function Products({
   total,
   brand = [],
   group = [],
-  tags = [],
   current_tab = '',
   page = '',
   sortBy = '',
   slug = '',
   isMobile,
   isAuthenticated,
+  tabs = [],
 }) {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'manufacturers';
@@ -63,7 +63,7 @@ export default function Products({
         sortBy={sortBy}
         catName={cat}
         slug={slug}
-        tags={tags}
+        tabs={tabs}
         name={catInfo && catInfo[0] && catInfo[0].name}
         isAuthenticated={isAuthenticated}
         isMobile={isMobile}

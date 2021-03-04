@@ -1,4 +1,4 @@
-import { CartClient, GET, isValid } from 'clients';
+import { CartClient, GET, isValid, ProductClient } from 'clients';
 import { PRODUCT_API } from 'constants/APIUri';
 import { PAGE_SIZE } from 'constants/data';
 import { convertArrayToMap } from 'utils/ArrUtils';
@@ -85,10 +85,19 @@ async function loadProductWithManufacturer({ ctx, isTotal }) {
   return mapDataProduct({ ctx, result });
 }
 
+export const getListTabs = async ({ ctx }) => {
+  const res = await ProductClient.getTabs({ ctx });
+  if (!isValid(res)) {
+    return [];
+  }
+  return res.data;
+};
+
 export default {
   loadDataProduct,
   mapDataProduct,
   loadDataProductDetail,
   loadProductWithCategory,
   loadProductWithManufacturer,
+  getListTabs,
 };
