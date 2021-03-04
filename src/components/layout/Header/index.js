@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { DateTimeUtils } from 'utils';
+import { v4 as uuidv4 } from 'uuid';
 import { IconButton, Menu, Fade, Badge, Tooltip } from '@material-ui/core';
 import { CardTravel, House, NewReleases, NotificationsNoneOutlined } from '@material-ui/icons';
 import { PATH_NEWS, PATH_CAREER, PATH_SUPPLIER } from 'constants/Paths';
@@ -53,16 +54,10 @@ const InfoHeader = memo(({ t }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { user, isAuthenticated, toggleLogin, toggleSignUp } = useAuth();
-  const {
-    getNotifcations,
-    notification,
-    total: totalNotification,
-    unread: unreadNotification,
-  } = useNotify();
+  const { notification, total: totalNotification, unread: unreadNotification } = useNotify();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    getNotifcations();
   };
 
   const handleClose = () => {
@@ -139,15 +134,15 @@ const InfoHeader = memo(({ t }) => {
                   {notification.length > 0 &&
                     notification.map((item) => (
                       <>
-                        <hr className={styles.divider} />
+                        <hr key={uuidv4()} className={styles.divider} />
                         <LinkComp
                           key={item.id}
                           className={
-                            item.read
+                            item.isRead
                               ? clsx(styles.notificationsItem, styles.read)
                               : clsx(styles.notificationsItem, styles.unRead)
                           }
-                          href={item.slug}
+                          href={item.link}
                         >
                           <div className={styles.notifyIcon}>
                             <i className={`icomoon icon-loyalty + ${styles.icon}`} />
@@ -156,17 +151,19 @@ const InfoHeader = memo(({ t }) => {
                             <div className={styles.notifyContentTitle}>{item.title}</div>
                             <small className={styles.createdAt}>
                               <WatchLaterIcon style={{ marginRight: '4px' }} />
-                              {DateTimeUtils.getTimeAgo(item.create_at)}
+                              {DateTimeUtils.getTimeAgo(item.createdTime)}
                             </small>
                           </div>
                         </LinkComp>
-                        <div style={{ padding: '8px' }}>
-                          <LinkComp className={styles.viewAll} href="/notifications">
-                            <span>Xem tất cả</span>
-                          </LinkComp>
-                        </div>
                       </>
                     ))}
+                  {notification.length > 0 && (
+                    <div style={{ padding: '8px' }}>
+                      <LinkComp className={styles.viewAll} href="/notifications">
+                        <span>Xem tất cả</span>
+                      </LinkComp>
+                    </div>
+                  )}
                 </div>
               </Menu>
               <Tooltip title="Thông báo" arrow>

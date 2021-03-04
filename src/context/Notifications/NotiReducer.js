@@ -4,17 +4,17 @@ const NotiReducer = (state, action) => {
     case 'FETCH_SUCCESS':
       return {
         ...state,
-        notification: [...action.payload],
-        unread: action.unread,
-        total: action.total,
+        notification: [...action.payload.notification],
+        unread: action.payload.unread,
+        total: action.payload.total,
         loading: false,
       };
     case 'FETCH_ERROR':
       return {
         ...state,
         notification: [],
-        unread: action.unread,
-        total: action.total,
+        unread: 0,
+        total: 0,
         loading: false,
       };
     case 'GET_NOTIFICATIONS':
