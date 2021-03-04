@@ -145,20 +145,20 @@ const CardInfo = ({ cart, promo, className, user }) => {
             <Grid
               className={clsx(styles.wrapper)}
               container
-              justify="center"
+              justify="flex-start"
               style={{
-                padding: '0px 10px 10px 10px',
+                padding: '0px 10px 10px 15px',
                 borderBottom: '1px solid rgba(195, 204, 220, 0.4)',
               }}
             >
               {!isCanApplyVoucherCode && !isEmpty(redeemCode) ? (
                 <Typography style={{ fontSize: 'small' }}>
-                  <i>( {messageApplyVoucherCode} )</i>
+                  <i>{messageApplyVoucherCode}</i>
                 </Typography>
               ) : (
                 descriptionRewards && (
                   <Typography style={{ fontSize: 'small' }}>
-                    <i>( {descriptionRewards} )</i>
+                    <i>{descriptionRewards}</i>
                   </Typography>
                 )
               )}
