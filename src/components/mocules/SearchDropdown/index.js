@@ -21,7 +21,7 @@ const SearchDropdown = (props) => {
               item={item}
               href={getPathProductBySlug(item.slug)}
             >
-              {item.name}
+              {item.name} {item.seller && item.seller.name ? `- ${item.seller.name}` : ''}
             </LinkComp>
           ))}
         </>
