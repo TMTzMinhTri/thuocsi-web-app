@@ -16,6 +16,7 @@ export const PRICING_API = { PAYMENT_METHOD, DELIVERY_METHOD };
 
 const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
 const REGISTER = `${CUSTOMER_API_PREFIX}/register`;
+const REGISTER_GUEST = `${CUSTOMER_API_PREFIX}/guest`;
 const INFO = `${CUSTOMER_API_PREFIX}/me`;
 const WALLET = `${CUSTOMER_API_PREFIX}/wallets`;
 const ORDER = `${CUSTOMER_API_PREFIX}/orders`;
@@ -33,6 +34,7 @@ export const CUSTOMER_API = {
   PROMO,
   SEND_SMS,
   RETRY_SEND_SMS,
+  REGISTER_GUEST,
 };
 
 const CATEGORY_API_PREFIX = '/marketplace/product/v1';

@@ -22,6 +22,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
   const [isShowSignUp, toggleSignUp] = useModal(!!referralCode);
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
+  const [isShowRegisterGuest, toggleRegisterGuest] = useModal();
 
   const { t } = i18n.useTranslation(['apiErrors']);
 
@@ -39,6 +40,10 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     toggleLogin();
     toggleSignUp();
   }, [toggleLogin, toggleSignUp]);
+
+  const handleChangeRegisterGuest = useCallback(() => {
+    toggleLogin();
+  }, [toggleLogin, toggleRegisterGuest]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
     const { expiredTime = new Date(), bearerToken = null } = info;
@@ -120,6 +125,23 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       });
   };
 
+  const handleRegisterGuest = (phone) => {
+    AuthService.registerGuest(phone).then((result) => {
+      if (!isValid(result)) {
+        const errorCode = `login.${result.message}`;
+        NotifyUtils.error(t(errorCode));
+        return;
+      }
+      const {username} = getFirst(result);
+      handleLogin({username, password:username.toUpperCase()})
+    }).catch(() => {
+      NotifyUtils.error(t('error'));
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+  };
+
   const logout = () => {
     setInfoUser(null);
     setCookies({}, true);
@@ -137,6 +159,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         isAuthenticated,
         login,
         handleLogin,
+        handleRegisterGuest,
         logout,
         isLoading,
         isShowLogin,
@@ -145,9 +168,12 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         toggleSignUp,
         isShowForgetPassword,
         toggleForgetPassword,
+        isShowRegisterGuest,
+        toggleRegisterGuest,
         handleChangeForget,
         handleChangeSignIn,
         handleChangeSignUp,
+        handleChangeRegisterGuest
       }}
     >
       {children}

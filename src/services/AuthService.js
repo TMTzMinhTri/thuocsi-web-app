@@ -18,4 +18,9 @@ export const signUp = async (data) => {
   return signUpRes;
 };
 
-export default { login, signUp, loginLocal };
+export const registerGuest = async (data) => {
+  const registerGuestRes = await AuthClient.registerGuest(data);
+  return registerGuestRes;
+};
+
+export default { login, signUp, registerGuest, loginLocal};
