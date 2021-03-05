@@ -1,9 +1,18 @@
 const ACCOUNT_API_PREFIX = '/core/account/v1';
 
 const AUTHENTICATION = `${ACCOUNT_API_PREFIX}/authentication`;
+const GET_ACCOUNT_INFO = `${ACCOUNT_API_PREFIX}/me`;
 export const ACCOUNT_API = {
   AUTHENTICATION,
+  GET_ACCOUNT_INFO,
 };
+
+// MARKETPLACE
+
+const PRICING_API_PREFIX = '/marketplace/pricing/v1';
+const DELIVERY_METHOD = `${PRICING_API_PREFIX}/delivery-platform/list`;
+const PAYMENT_METHOD = `${PRICING_API_PREFIX}/payment-method/list`;
+export const PRICING_API = { PAYMENT_METHOD, DELIVERY_METHOD };
 
 const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
 const REGISTER = `${CUSTOMER_API_PREFIX}/register`;
@@ -45,9 +54,11 @@ export const CONTENT_API = {
 };
 
 const PRODUCT_API_PREFIX = '/marketplace/product/v1';
+
 const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredients`;
 const INGREDIENT_LIST = `${INGREDIENT}/list`;
 const INGREDIENT_PRODUCT_LIST = `${INGREDIENT}/list`;
+
 const MANUFACTURER = `${PRODUCT_API_PREFIX}/manufacturers`;
 const MANUFACTURER_LIST = `${MANUFACTURER}/list`;
 

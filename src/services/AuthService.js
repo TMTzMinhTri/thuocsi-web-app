@@ -1,5 +1,10 @@
 import { AuthClient, isValid } from 'clients';
 
+export const loginLocal = async (body) => {
+  await AuthClient.loginLocal(body);
+  return {};
+};
+
 export const login = async ({ username, password }) => {
   const authRes = await AuthClient.login({ username, password });
   if (!isValid(authRes)) {
@@ -13,4 +18,4 @@ export const signUp = async (data) => {
   return signUpRes;
 };
 
-export default { login, signUp };
+export default { login, signUp, loginLocal };

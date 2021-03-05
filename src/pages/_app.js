@@ -111,6 +111,9 @@ MyApp.getInitialProps = async (appContext) => {
     isMobile = `can not detect device - ${error}`;
   }
 
+  // check is client
+  // init web socket
+
   return {
     ...appProps,
     pageProps: {

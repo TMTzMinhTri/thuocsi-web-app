@@ -12,7 +12,7 @@ import {
   LoadingScreen,
 } from 'components';
 import { CartClient, getData } from 'clients';
-import { doWithServerSide } from 'services';
+import { doWithServerSide, PricingService } from 'services';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
@@ -26,10 +26,16 @@ import styles from './styles.module.css';
 export async function getServerSideProps(ctx) {
   try {
     return doWithServerSide(ctx, async () => {
-      const [cartRes] = await Promise.all([CartClient.loadDataCart(ctx)]);
+      const [cartRes, paymentMethods, deliveryMethods] = await Promise.all([
+        CartClient.loadDataCart(ctx),
+        PricingService.getListPaymentMethod({ ctx }),
+        PricingService.getListDeliveryMethod({ ctx }),
+      ]);
       return {
         props: {
           cart: getData(cartRes),
+          paymentMethods,
+          deliveryMethods,
         },
       };
     });
@@ -42,7 +48,7 @@ export async function getServerSideProps(ctx) {
 
 const MIMIMUM_PRICE = 5000000;
 
-const CheckoutPage = ({ user = {}, isMobile, cart }) => {
+const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMethods }) => {
   const router = useRouter();
   const { itemCount = 0 } = useCart();
   // validate user isActive
@@ -89,7 +95,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
 
   const dataCustomer = {
     paymentMethod: selectedPaymentValue,
-    shippingType: selectedDeliveryValue,
+    deliveryPlatform: selectedDeliveryValue,
   };
 
   if (!cart || cart?.length === 0) {
@@ -141,11 +147,13 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 handleChangeCheckbox={handleChangeCheckbox}
               />
               <DeliveryMethod
+                deliveryMethods={deliveryMethods}
                 isValidCondition={condition}
                 selectedValue={selectedDeliveryValue}
                 handleChange={handleDeliveryChange}
               />
               <PaymentMethod
+                paymentMethods={paymentMethods}
                 selectedValue={selectedPaymentValue}
                 handleChange={handlePaymentChange}
               />

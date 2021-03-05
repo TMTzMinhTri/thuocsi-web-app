@@ -16,6 +16,9 @@ export const login = async (body) =>
     isAuth: false,
   });
 
+export const loginLocal = async (body) =>
+  POST({ url: '/login', body, page: true, mock: true, isAuth: false });
+
 // {username password }
 export const signUp = async (body) => POST({ url: CUSTOMER_API.REGISTER, body, isAuth: false });
 
@@ -24,4 +27,4 @@ export const getUser = async () => {
   return result;
 };
 
-export default { login, getUser, signUp, getUserWithContext };
+export default { login, getUser, signUp, getUserWithContext, loginLocal };

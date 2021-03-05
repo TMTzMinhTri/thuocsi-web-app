@@ -88,7 +88,10 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   };
 
   const handleLogin = ({ username, password, rememberMe, success }) => {
-    AuthService.login({ username, password })
+    AuthService
+      // .loginLocal({ username, password, remember: rememberMe });
+      .login({ username, password, remember: rememberMe })
+
       .then((result) => {
         if (!isValid(result)) {
           const errorCode = `login.${result.errorCode}`;

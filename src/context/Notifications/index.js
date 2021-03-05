@@ -32,12 +32,7 @@ export const NotiContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  const getNotifcations = () => {
-    dispatch({ type: 'GET_NOTIFICATIONS' });
-  };
-
   const contextValues = {
-    getNotifcations,
     ...state,
   };
 
