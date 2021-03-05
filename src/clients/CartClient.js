@@ -51,7 +51,7 @@ const removeCartItem = ({ sku }) => {
 
 const updateRedeemCode = (redeemCode) => {
   const body = { redeemCode };
-  return PUT({ url: CART_API.CART_INFO, body });
+  return PUT({ url: CART_API.CART_UPDATE_REDEEM_CODE, body });
 };
 
 const updateNote = (note) => {

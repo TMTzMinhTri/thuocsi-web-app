@@ -10,6 +10,7 @@ import {
   PaymentMethod,
   CheckoutSticky,
   LoadingScreen,
+  CartNote,
 } from 'components';
 import { CartClient, getData } from 'clients';
 import { doWithServerSide, PricingService } from 'services';
@@ -18,7 +19,6 @@ import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
 import { CART_URL } from 'constants/Paths';
-import CartNote from 'components/mocules/CartNote';
 
 import styles from './styles.module.css';
 
@@ -55,17 +55,20 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     return <LoadingScreen />;
   }
 
-  const { totalPrice = 0 } = cart[0];
+  const {
+    totalPrice = 0,
+    paymentMethod = 'PAYMENT_METHOD_NORMAL',
+    deliveryPlatform = 'DELIVERY_PLATFORM_NORMAL',
+  } = cart[0];
   // Xử lý ngày tháng
   const [state, setState] = React.useState({
     saveInfoShipping: true,
   });
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
-  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('PAYMENT_METHOD_NORMAL');
-  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState(
-    'DELIVERY_PLATFORM_NORMAL',
-  );
+  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState(paymentMethod);
+  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState(deliveryPlatform);
+
   const [value, setValue] = useState({
     customerName: user.name || '',
     customerPhone: user.phone || '',

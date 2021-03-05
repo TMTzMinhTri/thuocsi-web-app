@@ -94,11 +94,13 @@ const CART_API_PREFIX = '/marketplace/order/v1';
 const CART_INFO = `${CART_API_PREFIX}/cart`;
 const CART_ADD = `${CART_API_PREFIX}/cart/add`;
 const CART_REMOVE = `${CART_API_PREFIX}/cart/remove`;
+const CART_UPDATE_REDEEM_CODE = `${CART_API_PREFIX}/cart/promotion`;
 
 export const CART_API = {
   CART_INFO,
   CART_ADD,
   CART_REMOVE,
+  CART_UPDATE_REDEEM_CODE,
 };
 
 // promotion
