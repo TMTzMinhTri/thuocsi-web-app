@@ -2,8 +2,8 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
-import { CatClient, isValid, SupplierClient } from 'clients';
-import { ProductService } from 'services';
+import { CatClient, isValid } from 'clients';
+import { ProductService, SupplierService } from 'services';
 import Image from 'next/image';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
@@ -15,12 +15,12 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [productsRes, brand, group, tags, supplierRes] = await Promise.all([
+  const [productsRes, brand, group, tabs, supplierRes] = await Promise.all([
     ProductService.loadDataProduct({ ctx }),
     CatClient.loadBrand(ctx),
     CatClient.loadGroup(ctx),
-    CatClient.loadTags(ctx),
-    SupplierClient.getInfoSupplier(ctx),
+    ProductService.getListTabs({ ctx }),
+    SupplierService.getInfoSupplier({ ctx }),
   ]);
   if (!isValid(supplierRes)) {
     return {
@@ -47,7 +47,7 @@ export async function getServerSideProps(ctx) {
       brand,
       group,
       slug,
-      tags,
+      tabs,
       supplier: supplierRes.data[0],
     },
   };
@@ -58,7 +58,7 @@ export default function Supplier({
   total,
   brand = [],
   group = [],
-  tags = [],
+  tabs = [],
   current_tab = '',
   page = '',
   sortBy = '',
@@ -119,7 +119,7 @@ export default function Supplier({
         sortBy={sortBy}
         catName={cat}
         slug={slug}
-        tags={tags}
+        tabs={tabs}
         isAuthenticated={isAuthenticated}
       />
     </Template>

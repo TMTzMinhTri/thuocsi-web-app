@@ -20,7 +20,11 @@
   width: 100%;
   text-align: center;
 }
-.root{
+.not_use[class*='MuiPaper-rounded'] {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+.root {
   width: 100%;
   overflow: auto;
 }

@@ -25,4 +25,8 @@
     overflow-y: hidden;
     overflow-x: auto;
   }
+  .full_width_mb{
+    width: 100% !important;
+    margin: 0 !important;
+  }
 }

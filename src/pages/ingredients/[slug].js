@@ -4,7 +4,8 @@ import Template from 'components/layout/Template';
 import IngredientDetailContainer from 'components/organisms/IngredientDetailContainer';
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
-import { IngredientCLient, doWithServerSide, isValid } from 'clients';
+import { IngredientCLient, isValid } from 'clients';
+import { doWithServerSide } from 'services';
 import { INGREDIENT } from 'constants/Paths';
 import { Container } from '@material-ui/core';
 import Router from 'next/router';
@@ -37,7 +38,10 @@ const Ingredient = ({ ingredientRes = {}, products = [], isMobile }) => {
   const title = `${ingredient?.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   return (
     <Template title={title} isMobile={isMobile} pageTitle={ingredient.name}>
-      <div className={styles.wapper} style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}>
+      <div
+        className={styles.wapper}
+        style={{ backgroundColor: '#f4f7fc', minHeight: '80vh', padding: '45px' }}
+      >
         <Container className={styles.lg} maxWidth="lg">
           <IngredientDetailContainer ingredient={ingredient} products={products} />
         </Container>

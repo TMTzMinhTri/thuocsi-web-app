@@ -1,7 +1,7 @@
 import Template from 'components/layout/Template';
 import InfoContainer from 'components/organisms/InfoContainer';
 import { Container, Grid } from '@material-ui/core';
-import { doWithServerSide } from 'clients';
+import { doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
@@ -11,7 +11,7 @@ export async function getServerSideProps(ctx) {
 
 const MyLoyaltyPoint = ({ user, isMobile }) => {
   const title = 'Điểm tích luỹ – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
-  const name="Điểm tích luỹ"
+  const name = 'Điểm tích luỹ';
   return (
     <Template title={title} isMobile={isMobile} pageTitle={name}>
       <div style={{ backgroundColor: '#f4f7fc' }}>

@@ -53,7 +53,7 @@ export default function InfoContainer({ children, value, title, balance, name, i
             <div className={styles.title}>{title}</div>
           </Grid>
         )}
-        <Grid container direction="column" value={value} spacing={1}>
+        <Grid className={styles.full_width_mb} container direction="column" value={value} spacing={1}>
           {children}
         </Grid>
       </div>

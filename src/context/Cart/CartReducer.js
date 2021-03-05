@@ -26,21 +26,35 @@ export const sumItems = (cartItems) => {
 
 export const CartReducer = (state, action) => {
   const { cartItems } = state;
+  const { payload } = action;
 
-  const data = action.payload && action.payload.cartItems ? action.payload.cartItems : [];
+  const data = payload && payload.cartItems ? payload.cartItems : [];
   switch (action.type) {
-    case FETCH_SUCCESS:
+    case FETCH_SUCCESS: {
+      const {
+        redeemCode = [],
+        note = '',
+        totalPrice,
+        subTotalPrice,
+        discount,
+        promoInfo,
+        redeemApplyResult,
+      } = payload;
+
       return {
         ...state,
         ...sumItems([...data]),
         cartItems: [...data],
-        redeemCode: action.payload.redeemCode || [],
-        note: action.payload.note || '',
+        redeemCode,
+        note,
+        totalPrice,
+        subTotalPrice,
+        discount,
+        promoInfo,
+        redeemApplyResult,
         loading: false,
-        totalPrice: action.payload.totalPrice,
-        subTotalPrice: action.payload.subTotalPrice,
-        discount: action.payload.discount,
       };
+    }
     case FETCH_ERROR:
       return {
         ...state,

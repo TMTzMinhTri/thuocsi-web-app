@@ -1,5 +1,14 @@
 import { CUSTOMER_API } from 'constants/APIUri';
-import { GET, PUT, isValid } from './Clients';
+import { GET, PUT, isValid, POST } from './Clients';
+
+const retrySendSms = ({ code }) => {
+  const url = CUSTOMER_API.RETRY_SEND_SMS;
+  return POST({ url, body: { code } });
+};
+const sendSms = ({ phoneNumber }) => {
+  const url = CUSTOMER_API.SEND_SMS;
+  return POST({ url, body: { phone: phoneNumber } });
+};
 
 async function getOrder({ status }) {
   const url = CUSTOMER_API.ORDER + (status && status.length > 0 ? `?status=${status}` : '');
@@ -7,12 +16,8 @@ async function getOrder({ status }) {
   return result;
 }
 
-async function getReferral() {
-  const result = await GET({ url: CUSTOMER_API.REFERRAL, mock: true });
-  if (!isValid(result)) {
-    return [];
-  }
-  return result.data;
+async function getReferral({ params }) {
+  return GET({ url: CUSTOMER_API.REFERRAL, params });
 }
 
 export async function getWallet() {
@@ -43,4 +48,6 @@ export default {
   getWallet,
   getPromo,
   updateProfile,
+  sendSms,
+  retrySendSms,
 };

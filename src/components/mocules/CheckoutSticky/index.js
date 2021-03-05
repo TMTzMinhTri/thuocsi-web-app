@@ -154,7 +154,11 @@ const CheckoutSticky = ({
         <h1>
           Đơn Hàng <small>({itemCount} sản phẩm)</small>
         </h1>
-        <ButtonDefault onClick={() => router.push('/cart')} className={styles.btn}>
+        <ButtonDefault
+          onClick={() => router.push('/cart')}
+          className={styles.btn}
+          title="Sửa đơn hàng"
+        >
           Sửa
         </ButtonDefault>
       </div>
@@ -209,9 +213,8 @@ const CheckoutSticky = ({
         {!isMobile ? (
           <Tooltip
             title={
-              checkCondition.checked
-                ? ''
-                : 'Vui lòng đồng ý với điều khoản sử dụng trước khi thanh toán'
+              checkCondition.checked &&
+              'Vui lòng đồng ý với điều khoản sử dụng trước khi thanh toán'
             }
           >
             <span>

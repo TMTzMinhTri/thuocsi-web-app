@@ -1,90 +1,83 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import { Paper, FormControlLabel, RadioGroup, Radio, FormControl } from '@material-ui/core';
+import { v4 as uuidv4 } from 'uuid';
+import { formatCurrency } from 'utils/FormatNumber';
 import { Alert } from '@material-ui/lab';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';
 
 import styles from './styles.module.css';
 
-const FastDelivery = (
-  <>
-    <b className={styles.fw500}>Giao hàng nhanh</b>
-    {/* (Tính thêm{' '}
-    <b className={styles.fw500}>30.000đ</b>) */}
-  </>
-);
+const renderDeliveryMethod = ({ item, addressSelect, totalPrice = 0 }) => {
+  const { description, code, name, feeValue, condition = {} } = item;
+  const { customerProvinceCode = '0' } = addressSelect;
+  const label = (
+    <>
+      <b className={styles.fw500}>{name}</b>
+      {feeValue && (
+        <>
+          {' '}
+          Phí vận chuyện <i className={styles.fw500}>({formatCurrency(feeValue)})</i>
+        </>
+      )}
+    </>
+  );
 
-const FastMovingDelivery = (
-  <>
-    <b className={styles.fw500}>Giao hàng siêu tốc</b>
-    {/* (Tính thêm{' '}
-    <b className={styles.fw500}>30.000đ</b>) */}
-  </>
-);
+  let disable = false;
+  const { maxPrice, minPrice, provinceCodes = null } = condition;
 
-const DeliveryMethod = ({ handleChange, selectedValue, isValidCondition = false }) => (
+  if (!disable && maxPrice && maxPrice > 0 && totalPrice > maxPrice) {
+    disable = true;
+  }
+
+  if (!disable && minPrice && minPrice > 0 && totalPrice < minPrice) {
+    disable = true;
+  }
+
+  if (
+    !disable &&
+    customerProvinceCode &&
+    provinceCodes &&
+    provinceCodes.length > 0 &&
+    provinceCodes.indexOf(customerProvinceCode) === -1
+  ) {
+    disable = true;
+  }
+  return (
+    <React.Fragment key={uuidv4()}>
+      <FormControlLabel
+        value={code}
+        control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
+        label={label}
+        disabled={disable}
+      />
+      {description && (
+        <Alert className={styles.checkout_description} icon={false} severity="info">
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{
+              __html: description,
+            }}
+          />
+        </Alert>
+      )}
+    </React.Fragment>
+  );
+};
+
+const DeliveryMethod = ({
+  handleChange,
+  selectedValue,
+  deliveryMethods,
+  addressSelect,
+  totalPrice,
+}) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}>Hình thức giao hàng</h1>
-
     <FormControl component="fieldset">
-      <RadioGroup aria-label="gender" name="gender1" value={selectedValue} onChange={handleChange}>
-        <FormControlLabel
-          value="standard"
-          control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
-          label={<b className={styles.fw500}>Giao hàng tiêu chuẩn</b>}
-        />
-        <FormControlLabel
-          value="quick"
-          disabled={!isValidCondition}
-          control={<Radio classes={{ root: styles.checkbox }} />}
-          label={FastDelivery}
-        />
-        <Alert className={styles.checkout_description} icon={false} severity="info">
-          <p>
-            <FontAwesomeIcon className={styles.icon} icon={faInfoCircle} />
-            Cam kết giao hàng <b>trong 24 giờ</b>
-          </p>
-          <p>
-            <FontAwesomeIcon className={styles.icon} icon={faInfoCircle} />
-            Chỉ áp dụng cho đơn hàng <b>tại TP.HCM</b> , không áp dụng cho <b>huyện Củ Chi</b> và{' '}
-            <b>huyện Cần Giờ</b>
-          </p>
-          <p>
-            <FontAwesomeIcon className={styles.icon} icon={faInfoCircle} />
-            Chỉ áp dụng cho giá trị đơn hàng dưới <b>5 triệu đồng</b>
-          </p>
-          <p>
-            <FontAwesomeIcon className={styles.icon} icon={faInfoCircle} />
-            Không áp dụng giao hàng nhanh <b>ngày thứ bảy, chủ nhật</b> và các ngày <b>lễ tết</b>.
-          </p>
-        </Alert>
-
-        <FormControlLabel
-          value="fast_moving"
-          disabled={!isValidCondition}
-          control={<Radio classes={{ root: styles.checkbox }} />}
-          label={FastMovingDelivery}
-        />
-        <Alert className={styles.checkout_description} icon={false} severity="info">
-          <p>
-            <FontAwesomeIcon className={styles.icon} icon={faInfoCircle} />
-            Nếu đặt hàng <b>trong 12 giờ</b>, cam kết giao trong ngày
-          </p>
-          <p>
-            <FontAwesomeIcon className={styles.icon} icon={faInfoCircle} />
-            Nếu đặt hàng <b>sau 12 giờ</b>, cam kết giao <b> trước 12h ngày hôm sau </b>
-          </p>
-          <p>
-            <FontAwesomeIcon className={styles.icon} icon={faInfoCircle} />
-            Chỉ áp dụng cho đơn hàng <b>tại TP.HCM</b> , không áp dụng cho <b>huyện Củ Chi</b> và{' '}
-            <b>huyện Cần Giờ</b>
-          </p>
-          <p>
-            <FontAwesomeIcon className={styles.icon} icon={faInfoCircle} />
-            Không áp dụng giao hàng nhanh <b>ngày thứ bảy, chủ nhật</b> và các ngày <b>lễ tết</b>.
-          </p>
-        </Alert>
+      <RadioGroup value={selectedValue} onChange={handleChange}>
+        {deliveryMethods &&
+          deliveryMethods.map((item) => renderDeliveryMethod({ item, addressSelect, totalPrice }))}
       </RadioGroup>
     </FormControl>
   </Paper>

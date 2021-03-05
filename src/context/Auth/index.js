@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AuthClient, isValid, getSessionTokenClient } from 'clients';
+import { isValid, getSessionTokenClient, getFirst } from 'clients';
+import { UserService, AuthService } from 'services';
 import Cookies from 'js-cookie';
 import { ACCESS_TOKEN, ACCESS_TOKEN_LONGLIVE, REMEMBER_ME } from 'constants/Cookies';
 import LoadingScreen from 'components/organisms/LoadingScreen';
@@ -12,14 +13,14 @@ import { i18n } from 'i18n-lib';
 
 const AuthContext = createContext({});
 
-export const AuthProvider = ({ children, isShowingLogin }) => {
+export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const { pathname, push } = router;
+  const { pathname } = router;
   const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
-  const [isShowSignUp, toggleSignUp] = useModal();
+  const [isShowSignUp, toggleSignUp] = useModal(!!referralCode);
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
 
   const { t } = i18n.useTranslation(['apiErrors']);
@@ -54,13 +55,13 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   const getUserInfo = useCallback(async () => {
     try {
       const ss = getSessionTokenClient();
-      if (!ss || ss.length === 0) {
-        return null;
-      }
-      const res = await AuthClient.getUser();
+      if (!ss || ss.length === 0) return null;
+
+      const res = await UserService.getAccount();
       if (isValid(res)) {
         return res;
       }
+
       Cookies.remove(ACCESS_TOKEN);
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -69,21 +70,17 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
     return null;
   }, []);
 
+  const setInfoUser = (userInfo) => {
+    setUser(userInfo);
+    setIsAuthenticated(!!userInfo);
+  };
+
   const loadUserFromCookies = useCallback(async () => {
     const res = await getUserInfo();
-    if (res) {
-      const userInfo = res.data[0];
-      setUser({
-        isActive: userInfo && userInfo.status === 'ACTIVE',
-        ...userInfo,
-      });
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-      setUser(null);
-    }
+    const userInfo = getFirst(res, null);
+    setInfoUser(userInfo);
     setIsLoading(false);
-  }, [setUser, setIsLoading, getUserInfo]);
+  }, [getUserInfo, setIsLoading]);
 
   const login = (info, rememberMe) => {
     setCookies(info, rememberMe);
@@ -91,7 +88,10 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   };
 
   const handleLogin = ({ username, password, rememberMe, success }) => {
-    AuthClient.login({ username, password })
+    AuthService
+      // .loginLocal({ username, password, remember: rememberMe });
+      .login({ username, password, remember: rememberMe })
+
       .then((result) => {
         if (!isValid(result)) {
           const errorCode = `login.${result.errorCode}`;
@@ -100,8 +100,10 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
         }
 
         NotifyUtils.success(t('login.success'));
-        const userInfo = result?.data[0];
+
+        const userInfo = getFirst(result);
         login(userInfo, rememberMe === '');
+
         // callback
         if (success) {
           success();
@@ -119,10 +121,9 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
   };
 
   const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
+    setInfoUser(null);
     setCookies({}, true);
-    push('/');
+    window.location.href = '/';
   };
 
   useEffect(() => {
@@ -134,8 +135,6 @@ export const AuthProvider = ({ children, isShowingLogin }) => {
       value={{
         user,
         isAuthenticated,
-        getUserInfo,
-        loadUserFromCookies,
         login,
         handleLogin,
         logout,

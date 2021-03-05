@@ -60,12 +60,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(195, 204, 220, 0.4);
-  font-weight: 500;
   color: #919aa3;
 }
 .width100 {
   width: 100%;
+}
+.textLineThrought {
+  text-decoration-line: line-through;
 }
 
 .btn {
@@ -91,13 +92,13 @@
 .counpon_button:hover {
   color: #00683f;
 }
-.quick_link p{
+.quick_link p {
   font-size: 16px;
 }
-.promo_left{
+.promo_left {
   display: flex;
 }
-.total{
+.total {
   text-decoration: line-through;
   color: #919aa3;
   font-size: small !important;

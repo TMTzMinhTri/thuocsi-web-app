@@ -4,33 +4,35 @@ import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
 import CatClient from 'clients/CatClient';
 import { TAB_LIST } from 'constants/data';
-import { ProductService } from 'services';
+import { doWithServerSide, ProductService } from 'services';
 
 export async function getServerSideProps(ctx) {
-  const [productsRes, brand, group, tags] = await Promise.all([
-    ProductService.loadDataProduct({ ctx }),
-    CatClient.loadBrand(ctx),
-    CatClient.loadGroup(ctx),
-    CatClient.loadTags(ctx),
-  ]);
-  const current_tab = ctx.query.current_tab || '';
-  const sortBy = ctx.query.sortBy || '';
-  const page = Number(ctx.query.page) || 1;
-  const slug = ctx.query.slug || '';
-  const { data = [], total = 0 } = productsRes;
-  return {
-    props: {
-      products: data,
-      total,
-      current_tab,
-      page,
-      sortBy,
-      brand,
-      group,
-      slug,
-      tags,
-    },
-  };
+  return doWithServerSide(ctx, async () => {
+    const [productsRes, brand, group, tabs] = await Promise.all([
+      ProductService.loadDataProduct({ ctx }),
+      CatClient.loadBrand(ctx),
+      CatClient.loadGroup(ctx),
+      ProductService.getListTabs({ ctx }),
+    ]);
+    const current_tab = ctx.query.current_tab || '';
+    const sortBy = ctx.query.sortBy || '';
+    const page = Number(ctx.query.page) || 1;
+    const slug = ctx.query.slug || '';
+    const { data = [], total = 0 } = productsRes;
+    return {
+      props: {
+        products: data,
+        total,
+        current_tab,
+        page,
+        sortBy,
+        brand,
+        group,
+        slug,
+        tabs,
+      },
+    };
+  });
 }
 
 export default function Products({
@@ -38,7 +40,7 @@ export default function Products({
   total,
   brand = [],
   group = [],
-  tags = [],
+  tabs = [],
   current_tab = '',
   page = '',
   sortBy = '',
@@ -69,7 +71,7 @@ export default function Products({
         sortBy={sortBy}
         catName={cat}
         slug={slug}
-        tags={tags}
+        tabs={tabs}
         name={namePage(current_tab)}
         isAuthenticated={isAuthenticated}
         isMobile={isMobile}

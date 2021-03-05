@@ -1,11 +1,17 @@
-import { getUserWithContext } from './AuthClient';
+import { getFirst, isValid } from 'clients';
+import { getAccount } from './UserService';
 
-/*
-  redirect = { url , notify}
-*/
 export const doWithServerSide = async (ctx, callback, redirect = null) => {
   try {
-    const { user, isAuthenticated } = await getUserWithContext(ctx);
+    let isAuthenticated = false;
+    let user = null;
+    // const sessionToken = getSessionToken(ctx);
+    const accRes = await getAccount(ctx);
+
+    if (isValid(accRes)) {
+      isAuthenticated = true;
+      user = getFirst(accRes);
+    }
     if (!isAuthenticated && redirect) {
       const redirectUrl = redirect.url || '/';
       return {
@@ -24,6 +30,7 @@ export const doWithServerSide = async (ctx, callback, redirect = null) => {
     result = result || {};
     result.props = result.props || {};
     result.props.user = user || null;
+    // result.props.sessionToken = sessionToken;
     result.props.isAuthenticated = isAuthenticated;
     return result;
   } catch (err) {

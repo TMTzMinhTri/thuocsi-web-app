@@ -1,8 +1,9 @@
 import React, { memo, useState, useEffect } from 'react';
 import { Modal, InfoFormControl, InfoTable, Button, LinkComp } from 'components/atoms';
 import { Grid, TableRow, TableCell, Divider } from '@material-ui/core';
-import { OrderClient, isValid, isValidWithoutData } from 'clients';
+import { OrderClient, isValid } from 'clients';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 import { NotifyUtils } from 'utils';
 import { formatNumber } from 'utils/FormatNumber';
 import { getPathProductBySlug } from 'constants/Paths';
@@ -80,12 +81,17 @@ const PrintInvoiceModal = memo((props) => {
         const res = await OrderClient.getProductByOrderNo({ orderNo });
         if (!isValid(res)) throw Error();
         let orderItems = res?.data || [];
-        const mapProductInfo = await OrderClient.getInfoOrderItem({ orderItems });
-        if (!isValidWithoutData(mapProductInfo)) throw Error();
-        orderItems = orderItems.map((product) => ({
-          productInfo: mapProductInfo[product?.productSku],
-          ...product,
-        }));
+        const orderItemInfoRes = await OrderClient.getInfoOrderItem({ orderItems });
+        if (!isValid(orderItemInfoRes)) throw Error('Load thông tin sản phẩm thất bại');
+        const orderItemInfoMap = orderItemInfoRes.data[0];
+        orderItems = orderItems.map((product) => {
+          const sku = product?.productSku;
+
+          return {
+            productInfo: orderItemInfoMap[sku] || {},
+            ...product,
+          };
+        });
         setProducts(orderItems);
       } catch (error) {
         setProducts([]);
@@ -134,6 +140,7 @@ const PrintInvoiceModal = memo((props) => {
             </InfoFormControl>
           </Grid>
           <GroupAddressSelect
+            id={uuidv4()}
             handleSetValue={handleSetAddress}
             province={address.province}
             district={address.district}

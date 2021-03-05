@@ -3,7 +3,7 @@ import { Container, Typography, Grid } from '@material-ui/core';
 import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen, Button } from 'components';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
-import { doWithServerSide } from 'clients';
+import { doWithServerSide } from 'services';
 import { QUICK_ORDER } from 'constants/Paths';
 import { Alert } from '@material-ui/lab';
 import styles from './style.module.css';
@@ -14,6 +14,7 @@ export async function getServerSideProps(ctx) {
 
 function Cart({ isMobile, user }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+
   const [, setCartList] = useState();
   const { cartItems, loading, itemCount } = useCart();
   const pageTitle = `Giỏ hàng (${itemCount})`;
@@ -24,8 +25,8 @@ function Cart({ isMobile, user }) {
       <Container className={styles.wrapper} maxWidth="lg">
         {user?.isActive || isMobile === false ? null : (
           <Alert className={styles.alert} severity="error">
-            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ 02 873 008
-            840 để kích hoạt
+            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ
+            02873008840 để kích hoạt
           </Alert>
         )}
         {cartItems && cartItems.length > 0 ? (

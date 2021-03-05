@@ -4,22 +4,22 @@ import LinkComp from 'components/atoms/LinkComp';
 
 import { Container, Grid, Button } from '@material-ui/core';
 import clsx from 'clsx';
-import { NotifyClient } from 'clients';
+import { NotifyService } from 'services';
 import { DateTimeUtils } from 'utils';
 import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [notify] = await Promise.all([NotifyClient.getNotify(ctx)]);
+  const [listNotify] = await Promise.all([NotifyService.getNotifications({ ctx })]);
   return {
     props: {
-      notify,
+      listNotify,
     },
   };
 }
 
-const Notifications = ({props, isMobile}) => {
-  const { read = true, notify = [] } = props;
+const Notifications = ({ props, isMobile }) => {
+  const { read = true, listNotify = [] } = props;
   const title = 'Trang thông báo';
   const pageName = 'notification';
 
@@ -32,7 +32,7 @@ const Notifications = ({props, isMobile}) => {
             <Button className={styles.btn}>Đánh dấu đọc tất cả</Button>
           </Grid>
           <div className={styles.notificationsList}>
-            {notify.map((item) => (
+            {listNotify.map((item) => (
               <LinkComp
                 key={item.id}
                 className={

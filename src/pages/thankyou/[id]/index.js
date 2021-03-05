@@ -1,7 +1,9 @@
 import Template from 'components/layout/Template';
 import ThankYouContainer from 'components/organisms/ThankYouContainer';
 import { Container } from '@material-ui/core';
-import { OrderClient, doWithServerSide, isValid } from 'clients';
+import { OrderClient, isValid } from 'clients';
+import { doWithServerSide } from 'services';
+
 import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
 
@@ -27,12 +29,12 @@ export async function getServerSideProps(ctx) {
 
 const ThankYou = ({ order = {}, isMobile }) => {
   const title = 'Cảm ơn bạn đã đặt hàng tại thuocsi.vn!';
-  const { orderId, deliveryDate } = order;
+  const { orderId, deliveryDate, orderNo } = order;
   return (
     <Template title={title} isMobile={isMobile} pageTitle="Đặt hàng thành công">
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <ThankYouContainer orderID={orderId} deliveryDate={deliveryDate} />
+          <ThankYouContainer orderID={orderId} orderNo={orderNo} deliveryDate={deliveryDate} />
         </Container>
       </div>
     </Template>

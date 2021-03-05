@@ -84,6 +84,10 @@ async function loadDataManufacturer(ctx) {
   return res.data;
 }
 
+// fix limit 20 of tabs
+export const getTabs = async ({ ctx }) =>
+  GET({ url: PRODUCT_API.TABS_ACTIVE, params: { limit: 20 }, ctx });
+
 export default {
   loadDataMostSearch,
   loadFeedback,
@@ -92,4 +96,5 @@ export default {
   loadDataPormotion,
   loadDataProductCollection,
   loadDataManufacturer,
+  getTabs,
 };

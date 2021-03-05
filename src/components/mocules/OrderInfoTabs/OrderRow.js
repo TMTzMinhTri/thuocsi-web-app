@@ -6,7 +6,7 @@ import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
 import { MY_ORDER_URL } from 'constants/Paths';
-import PrintInvoiceButton from '../PrintInvoiceButton';
+// import PrintInvoiceButton from '../PrintInvoiceButton';
 import EditOrderButton from '../EditOrderButton';
 import ResponseButton from '../ResponseButton';
 import styles from './styles.module.css';
@@ -107,12 +107,12 @@ const OrderRow = ({
           justify="center"
           className={styles.grid}
         >
-          <Grid item>
+          {/* <Grid item>
             <PrintInvoiceButton orderNo={orderNo} user={user} disabled={status !== ENUM_ORDER_STATUS.PENDING} />
-          </Grid>
+          </Grid> */}
           {status === ENUM_ORDER_STATUS.PENDING && (
             <Grid item>
-              <EditOrderButton />
+              <EditOrderButton orderNo={orderNo} />
             </Grid>
           )}
           <Grid item>

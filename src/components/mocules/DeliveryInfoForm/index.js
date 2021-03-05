@@ -3,6 +3,7 @@ import { Paper, Grid, useMediaQuery, FormControlLabel, Checkbox } from '@materia
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoFormControl from 'components/atoms/InfoFormControl';
+import { v4 as uuidv4 } from 'uuid';
 import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
@@ -25,10 +26,17 @@ const DeliveryInfoForm = ({
   address,
   handleChangeAddress,
   handleChangeCheckbox,
-  isChecked = true,
+  isChecked = false,
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
 
+  const checkBox = (
+    <GreenCheckbox
+      checked={isChecked}
+      onChange={(e) => handleChangeCheckbox(e)}
+      name="saveInfoShipping"
+    />
+  );
   return (
     <Paper className={styles.root} elevation={2}>
       <h1 className={styles.title}>
@@ -102,6 +110,7 @@ const DeliveryInfoForm = ({
         </InfoFormControl>
 
         <GroupAddressSelect
+          id={uuidv4()}
           idProvince="customerProvinceCode"
           province={customerProvinceCode}
           idDistrict="customerDistrictCode"
@@ -112,13 +121,7 @@ const DeliveryInfoForm = ({
           handleChangeAddress={handleChangeAddress}
         />
         <FormControlLabel
-          control={(
-            <GreenCheckbox
-              checked={isChecked}
-              onChange={(e) => handleChangeCheckbox(e)}
-              name="saveInfoShipping"
-            />
-          )}
+          control={checkBox}
           className={styles.save_info_cb}
           label={<span className={styles.fw500}>Lưu lại thông tin</span>}
         />

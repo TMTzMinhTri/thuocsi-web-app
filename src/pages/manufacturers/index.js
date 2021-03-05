@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { Template, ManufacturerContainer } from 'components';
-import { ProductClient, doWithServerSide } from 'clients';
+import { ProductClient } from 'clients';
+import { doWithServerSide } from 'services';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
 
@@ -9,13 +10,13 @@ export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const [manufacturers] = await Promise.all([ProductClient.loadDataManufacturer(ctx)]);
     const convertManufacturers = (manu = []) =>
-    manu
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .map(({ name, slug }) => ({
-        unsignedKey: changeAlias(name),
-        name,
-        slug,
-      }));
+      manu
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(({ name, slug }) => ({
+          unsignedKey: changeAlias(name),
+          name,
+          slug,
+        }));
     return {
       props: {
         manufacturers: convertManufacturers(manufacturers),

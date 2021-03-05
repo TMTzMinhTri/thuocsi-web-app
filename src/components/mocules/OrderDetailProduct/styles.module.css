@@ -44,3 +44,15 @@
 
 .table [class*='MuiTableContainer-root'] {
 }
+
+@media screen and (max-width: 767px) {
+  .table {
+    min-width: 650px;
+    margin-top: 15px !important;
+    overflow: hidden !important;
+  }
+  .total_price{
+    padding: 10px 15px !important;
+    justify-content: flex-start;
+  }
+}

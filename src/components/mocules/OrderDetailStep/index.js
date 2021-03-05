@@ -8,6 +8,7 @@ import {
 } from '@material-ui/icons';
 import clsx from 'clsx';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
+import styles from './styles.module.css';
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -90,7 +91,7 @@ const MappingStep = {
 };
 
 const OrderDetailStep = ({ status = 1 }) => (
-  <Stepper alternativeLabel activeStep={MappingStep[status]} connector={<ColorlibConnector />}>
+  <Stepper className={styles.step} alternativeLabel activeStep={MappingStep[status]} connector={<ColorlibConnector />}>
     {steps.map((label) => (
       <Step key={label}>
         <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>

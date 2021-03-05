@@ -1,25 +1,34 @@
 import { Grid } from '@material-ui/core';
 import { useState, useEffect } from 'react';
-import { AddressClient } from 'clients';
+import { AddressService } from 'services';
 import { v4 as uuidV4 } from 'uuid';
 import AddressSelect from '../AddressSelect';
 
 import styles from './styles.module.css';
 
-const DEFAULT_PROVINCE_ARRAY = [{ label: 'Chọn Tinh/Thành phố ...', value: '0' }];
-const DEFAULT_DISTRICT_ARRAY = [{ label: 'Chọn Quận/Huyện ...', value: '0' }];
-const DEFAULT_WARD_ARRAY = [{ label: 'Chọn Phường/Xã ...', value: '0' }];
+const DEFAULT_PROVINCE = { label: 'Chọn Tinh/Thành phố ...', value: '0' };
+const DEFAULT_DISTRICT = { label: 'Chọn Quận/Huyện ...', value: '0' };
+const DEFAULT_WARD = { label: 'Chọn Phường/Xã ...', value: '0' };
 
-const ADDRESS_POS = {
-  PROVINCE: 0,
-  DISTRICT: 1,
-  WARD: 2,
+const getProvinces = async () => {
+  const provinces = await AddressService.getProvinces();
+  return [DEFAULT_PROVINCE, ...provinces];
+};
+
+const getDistricts = async (prv) => {
+  const dists = await AddressService.getDistrictsByProvince(prv);
+  return [DEFAULT_DISTRICT, ...dists];
+};
+
+const getWards = async (dist) => {
+  const wards = await AddressService.getWardsByDistrict(dist);
+  return [DEFAULT_WARD, ...wards];
 };
 
 const GroupAddressSelect = ({
-  province = DEFAULT_PROVINCE_ARRAY[0].value,
-  district = DEFAULT_DISTRICT_ARRAY[0].value,
-  ward = DEFAULT_WARD_ARRAY[0].value,
+  province = DEFAULT_PROVINCE.value,
+  district = DEFAULT_DISTRICT.value,
+  ward = DEFAULT_WARD.value,
   idProvince,
   idDistrict,
   idWard,
@@ -27,51 +36,32 @@ const GroupAddressSelect = ({
   error = {},
 }) => {
   const [address, setAddress] = useState({
-    provinces: DEFAULT_PROVINCE_ARRAY,
-    districts: DEFAULT_DISTRICT_ARRAY,
-    wards: DEFAULT_WARD_ARRAY,
-    position: ADDRESS_POS.PROVINCE,
+    provinces: [DEFAULT_PROVINCE],
+    districts: [DEFAULT_DISTRICT],
+    wards: [DEFAULT_WARD],
   });
 
-  async function getProvinces() {
-    const res = await AddressClient.getProvinces();
-    const prvs = res.sort((a, b) => a.label.localeCompare(b.label));
-    return [...DEFAULT_PROVINCE_ARRAY, ...prvs];
-  }
-
-  async function getDistricts(prv) {
-    const res = await AddressClient.getDistrictsByProvince(prv);
-    const dists = res.sort((a, b) => a.label.localeCompare(b.label));
-    return [...DEFAULT_DISTRICT_ARRAY, ...dists];
-  }
-
-  async function getWards(dist) {
-    const res = await AddressClient.getWardsByDistrict(dist);
-    const wads = res.sort((a, b) => a.label.localeCompare(b.label));
-    return [...DEFAULT_WARD_ARRAY, ...wads];
-  }
-
   useEffect(() => {
-    async function loadData() {
+    const loadData = async () => {
       const provinces = await getProvinces();
-      let districts = DEFAULT_DISTRICT_ARRAY;
-      let wards = DEFAULT_WARD_ARRAY;
-      let position = ADDRESS_POS.PROVINCE;
-      if (province !== DEFAULT_PROVINCE_ARRAY[0].value) {
-        position = ADDRESS_POS.DISTRICT;
-        districts = await getDistricts(province);
-      }
-      if (district !== DEFAULT_DISTRICT_ARRAY[0].value) {
-        position = ADDRESS_POS.WARD;
-        wards = await getWards(district);
-      }
-      setAddress({
+
+      const addressinfo = {
         provinces,
-        districts,
-        wards,
-        position,
-      });
-    }
+        districts: [DEFAULT_DISTRICT],
+        wards: [DEFAULT_WARD],
+      };
+
+      if (province !== DEFAULT_PROVINCE.value) {
+        addressinfo.districts = await getDistricts(province);
+      }
+
+      if (district !== DEFAULT_DISTRICT.value) {
+        addressinfo.wards = await getWards(district);
+      }
+
+      setAddress(addressinfo);
+    };
+
     loadData();
   }, []);
 
@@ -82,86 +72,58 @@ const GroupAddressSelect = ({
       idDistrict,
       idWard,
       prv,
-      DEFAULT_DISTRICT_ARRAY[0].value,
-      DEFAULT_WARD_ARRAY[0].value,
+      DEFAULT_DISTRICT.value,
+      DEFAULT_WARD.value,
     );
 
-    if (prv === DEFAULT_PROVINCE_ARRAY[0].value) {
-      setAddress({
-        ...address,
-        position: ADDRESS_POS.PROVINCE,
-        districts: DEFAULT_DISTRICT_ARRAY,
-        wards: DEFAULT_WARD_ARRAY,
-      });
-    } else {
-      const districts = await getDistricts(prv);
-      setAddress({
-        ...address,
-        position: ADDRESS_POS.DISTRICT,
-        districts,
-        wards: DEFAULT_WARD_ARRAY,
-      });
-    }
+    setAddress({
+      ...address,
+      wards: [DEFAULT_WARD],
+      districts: prv !== DEFAULT_PROVINCE.value ? await getDistricts(prv) : [DEFAULT_DISTRICT],
+    });
   };
 
   const handleChangeDistrict = async (e) => {
-    const dist = e.target.value;
-    handleChangeAddress(
-      idProvince,
-      idDistrict,
-      idWard,
-      province,
-      dist,
-      DEFAULT_WARD_ARRAY[0].value,
-    );
+    const districtCode = e.target.value;
+    handleChangeAddress(idProvince, idDistrict, idWard, province, districtCode, DEFAULT_WARD.value);
 
-    if (dist === DEFAULT_DISTRICT_ARRAY[0].value) {
-      setAddress({
-        ...address,
-        position: ADDRESS_POS.DISTRICT,
-        wards: DEFAULT_WARD_ARRAY,
-      });
-    } else {
-      const wards = await getWards(dist);
-      setAddress({
-        ...address,
-        position: ADDRESS_POS.WARD,
-        wards,
-      });
-    }
+    setAddress({
+      ...address,
+      wards:
+        districtCode !== DEFAULT_DISTRICT.value ? await getWards(districtCode) : [DEFAULT_WARD],
+    });
   };
 
   const handleChangeWard = async (e) => {
     handleChangeAddress(idProvince, idDistrict, idWard, province, district, e.target.value);
   };
-
   return (
-    <Grid className={styles.address_field} container spacing={3} style={{marginTop: '10px'}}>
+    <Grid className={styles.address_field} container spacing={3} style={{ marginTop: '10px' }}>
       <AddressSelect
         label={<span className={styles.fw500}>Tỉnh/Thành phố</span>}
         id={uuidV4()}
-        value={province}
+        value={province || 0}
         onChange={handleChangeProvince}
         options={address.provinces}
         error={error.province}
       />
       <AddressSelect
         id={uuidV4()}
-        value={district}
+        value={district || 0}
         onChange={handleChangeDistrict}
         options={address.districts}
         label={<span className={styles.fw500}>Quận/Huyện</span>}
-        disabled={ADDRESS_POS.DISTRICT > address.position}
+        disabled={address.districts.length === 1}
         error={error.district}
       />
 
       <AddressSelect
         id={uuidV4()}
-        value={ward}
+        value={ward || 0}
         onChange={handleChangeWard}
         options={address.wards}
         label={<span className={styles.fw500}>Phường/Xã</span>}
-        disabled={ADDRESS_POS.WARD > address.position}
+        disabled={address.wards.length === 1}
         error={error.ward}
       />
     </Grid>

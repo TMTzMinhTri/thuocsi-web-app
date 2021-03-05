@@ -33,7 +33,6 @@ export default function ProductListing({
   products = [],
   brand = [],
   group = [],
-  tags = [],
   current_tab = '',
   page = '',
   sortBy = '',
@@ -43,6 +42,7 @@ export default function ProductListing({
   total,
   isAuthenticated = false,
   isMobile,
+  tabs = [],
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
@@ -102,7 +102,7 @@ export default function ProductListing({
   };
 
   const SelectedTagMobile = () => {
-    const tabName = tags.filter((item) => item.slug === current_tab);
+    const tabName = tabs.filter((item) => item.slug === current_tab);
     return (
       <div className={styles.tagsMobile}>
         <div className={styles.badgeGray}>
@@ -164,7 +164,8 @@ export default function ProductListing({
             pathName={pathName}
             currentTab={current_tab}
             sortBy={sortBy}
-            tags={tags}
+            // tags={tags}
+            tabs={tabs}
             brand={brand}
           />
         </div>
@@ -282,7 +283,7 @@ export default function ProductListing({
             {!isMobile && (
               <div>
                 <div className={styles.filters}>
-                  {(total > 0 || tags.length > 0) && (
+                  {(total > 0 || tabs.length > 0) && (
                     <Link
                       href={{
                         pathname: pathName,
@@ -298,19 +299,19 @@ export default function ProductListing({
                       </Fab>
                     </Link>
                   )}
-                  {tags.map((item) => (
+                  {tabs.map((item) => (
                     <Link
-                      key={`tags-${item.slug}`}
+                      key={`tabs-${item.code}`}
                       href={{
                         pathname: pathName,
-                        query: { ...getTabQuery(), current_tab: item.slug },
+                        query: { ...getTabQuery(), current_tab: item.value },
                       }}
                     >
                       <Fab
                         variant="extended"
                         aria-label="all"
                         className={clsx(
-                          current_tab === item.slug && styles.active,
+                          current_tab === item.value && styles.active,
                           styles.filter_btn,
                         )}
                       >

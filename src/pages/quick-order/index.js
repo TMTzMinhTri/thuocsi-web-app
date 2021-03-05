@@ -4,8 +4,7 @@ import QuickOrderList from 'components/organisms/QuickOrderList';
 import CardInfo from 'components/mocules/CardInfo';
 
 import { Container, Typography, Grid } from '@material-ui/core';
-import { doWithServerSide } from 'clients';
-import { ProductService } from 'services';
+import { ProductService, doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 import styles from './style.module.css';
 
