@@ -14,6 +14,7 @@ export async function getServerSideProps(ctx) {
 
 function Cart({ isMobile, user }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
+
   const [, setCartList] = useState();
   const { cartItems, loading, itemCount } = useCart();
   const pageTitle = `Giỏ hàng (${itemCount})`;

@@ -16,9 +16,8 @@ import { doWithServerSide, PricingService } from 'services';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
-import { NotifyUtils, DateTimeUtils } from 'utils';
+import { NotifyUtils } from 'utils';
 import { CART_URL } from 'constants/Paths';
-import { HOLIDAYS } from 'constants/data';
 import CartNote from 'components/mocules/CartNote';
 
 import styles from './styles.module.css';
@@ -46,8 +45,6 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-const MIMIMUM_PRICE = 5000000;
-
 const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMethods }) => {
   const router = useRouter();
   const { itemCount = 0 } = useCart();
@@ -60,16 +57,15 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
 
   const { totalPrice = 0 } = cart[0];
   // Xử lý ngày tháng
-  const date = new Date();
-  const day = date.getDay();
-  const today = DateTimeUtils.getFormattedDate(date, 'DDMM');
   const [state, setState] = React.useState({
     saveInfoShipping: true,
   });
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
-  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
-  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('standard');
+  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('PAYMENT_METHOD_NORMAL');
+  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState(
+    'DELIVERY_PLATFORM_NORMAL',
+  );
   const [value, setValue] = useState({
     customerName: user.name || '',
     customerPhone: user.phone || '',
@@ -79,13 +75,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     customerProvinceCode: user.provinceCode || '0',
     customerWardCode: user.wardCode || '0',
   });
-  const condition =
-    Number(value.customerProvinceCode) === 79 &&
-    !(Number(value.customerDistrictCode) === 787 || Number(value.customerDistrictCode) === 783) &&
-    totalPrice <= MIMIMUM_PRICE &&
-    !(day === 6 || day === 0) &&
-    !HOLIDAYS.includes(today);
-  // day: 0 -> CN day: 6 -> T7
 
   const [error, setError] = useState({
     name: false,
@@ -126,9 +115,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
 
   // TODO: cần kiểm tra lại
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
-    if (Number(province) !== 79) {
-      setSelectedDeliveryValue('standard');
-    }
     setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
   };
 
@@ -147,8 +133,9 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
                 handleChangeCheckbox={handleChangeCheckbox}
               />
               <DeliveryMethod
+                totalPrice={totalPrice}
                 deliveryMethods={deliveryMethods}
-                isValidCondition={condition}
+                addressSelect={value}
                 selectedValue={selectedDeliveryValue}
                 handleChange={handleDeliveryChange}
               />

@@ -8,7 +8,6 @@ const getProvinces = async (ctx) => {
   const provinces = provincesRes.data
     .map(({ name: label, code: value }) => ({ label, value }))
     .sort((a, b) => a.label.localeCompare(b.label));
-
   return provinces;
 };
 
