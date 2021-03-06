@@ -22,4 +22,6 @@ export const markReadAllNoti = async ({ ctx }) =>
 export default {
   getNotify,
   getTotalNotification,
+  markReadAllNoti,
+  markReadNotiByCode,
 };
