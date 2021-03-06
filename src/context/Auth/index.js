@@ -80,9 +80,23 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     setIsAuthenticated(!!userInfo);
   };
 
+  const logout = () => {
+    setInfoUser(null);
+    setCookies({}, true);
+    window.location.href = '/';
+  };
+
   const loadUserFromCookies = useCallback(async () => {
     const res = await getUserInfo();
     const userInfo = getFirst(res, null);
+    // check guest user expireAt
+    if(userInfo && userInfo.level === "LEVEL_GUEST") {
+      const lastMiliSecond = new Date(userInfo.expireAt).getTime() - new Date().getTime();
+      // time remaining 
+      // console.log("last minute: ", Math.floor(lastMiliSecond/1000/60));
+      setTimeout(()=> logout(), lastMiliSecond);
+    }
+    
     setInfoUser(userInfo);
     setIsLoading(false);
   }, [getUserInfo, setIsLoading]);
@@ -142,35 +156,9 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     });
   };
 
-  const logout = () => {
-    setInfoUser(null);
-    setCookies({}, true);
-    window.location.href = '/';
-  };
-
   useEffect(() => {
     loadUserFromCookies();
   }, [pathname, loadUserFromCookies]);
-
-  useEffect(() => {
-    (async () => {
-      const userInfo = await getUserInfo();
-      const userLogged = userInfo && userInfo.data[0];
-      console.log('sss', userInfo);
-      if(userInfo){
-        const interval = setInterval(() => {
-          const checkGuestExpireAt = !!userLogged && userLogged.level === "LEVEL_GUEST" && new Date().getTime() >=  new Date(userLogged.expireAt).getTime();
-          console.log('tt');
-          if(checkGuestExpireAt) {
-            logout();
-            console.log('234');
-          }
-        }, 1000);
-        return () => clearInterval(interval);
-      } 
-       return true      
-    })(); 
-  }, []);
 
   return (
     <AuthContext.Provider
