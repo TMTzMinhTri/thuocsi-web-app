@@ -3,7 +3,7 @@ import { Paper, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
-import { useCart } from 'context';
+import { useCart, useAuth } from 'context';
 import clsx from 'clsx';
 import { NotifyUtils, ValidateUtils } from 'utils';
 import { formatCurrency } from 'utils/FormatNumber';
@@ -28,6 +28,7 @@ const CheckoutSticky = ({
 }) => {
   const { redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
   const { shippingFee = 0, itemCount = 0, updateCart } = useCart();
+  const { user } = useAuth();
   const [transferValue, setTransferValue] = React.useState(0);
   const router = useRouter();
   const [checkCondition, setCheckCondition] = React.useState({
@@ -234,7 +235,7 @@ const CheckoutSticky = ({
               <div className={styles.price}>{formatCurrency(subTotalPrice)}</div>
               <div>
                 <ButtonDefault
-                  disabled={!checkCondition.checked}
+                  disabled={!checkCondition.checked || user.level === "LEVEL_GUEST"}
                   btnType="warning"
                   onClick={handleSubmit}
                   classes={{

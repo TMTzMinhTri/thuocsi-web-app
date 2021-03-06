@@ -128,7 +128,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const handleRegisterGuest = (phone) => {
     AuthService.registerGuest(phone).then((result) => {
       if (!isValid(result)) {
-        const errorCode = `login.${result.message}`;
+        const errorCode = `login.${result.errorCode}`;
         NotifyUtils.error(t(errorCode));
         return;
       }
