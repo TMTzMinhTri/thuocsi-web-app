@@ -20,18 +20,20 @@ import styles from './styles.module.css';
 
 const CheckoutSticky = ({
   data,
-  cart,
   dataCustomer,
   onSetError,
   isMobile,
   // savedInfo,
 }) => {
-  const { redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
   const {
+    redeemCode = [],
+    subTotalPrice = 0,
+    totalPrice = 0,
     deliveryPlatformFee = 0,
     paymentMethod,
     paymentMethodFee = 0,
     itemCount = 0,
+    discount = 0,
     updateCart,
   } = useCart();
   const router = useRouter();
