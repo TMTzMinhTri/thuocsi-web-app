@@ -53,7 +53,7 @@ const HeaderInfoEle = memo(() => (
 const InfoHeader = memo(({ t }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const { user, isAuthenticated, toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();
+  const { user, isAuthenticated, toggleLogin, toggleSignUp } = useAuth();
   const { notification, unread: unreadNotification, markAll, markReadByCode } = useNotify();
 
   const handleClick = (event) => {
@@ -92,7 +92,6 @@ const InfoHeader = memo(({ t }) => {
                 variant="outlined"
                 btnType="primary"
                 color="white"
-                onClick={toggleRegisterGuest}
                 className="custombtn"
               >
                 {t('tester.test')}
