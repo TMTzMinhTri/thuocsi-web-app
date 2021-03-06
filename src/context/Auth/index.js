@@ -91,10 +91,10 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     const userInfo = getFirst(res, null);
     // check guest user expireAt
     if(userInfo && userInfo.level === "LEVEL_GUEST") {
-      const lastMiliSecond = new Date(userInfo.expireAt).getTime() - new Date().getTime();
+      const timeRemaining  = new Date(userInfo.expireAt).getTime() - new Date().getTime();
       // time remaining 
-      // console.log("last minute: ", Math.floor(lastMiliSecond/1000/60));
-      setTimeout(()=> logout(), lastMiliSecond);
+      // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
+      setTimeout(()=> logout(), timeRemaining);
     }
     
     setInfoUser(userInfo);
