@@ -3,6 +3,7 @@
   "error": "Đã xảy ra lỗi",
   "500": "Đã xảy ra lỗi",
   "login": {
+    "undefined": "Đăng nhập thất bại",
     "success": "Đăng nhập thành công .",
     "NOT_FOUND": "Không tìm thấy thông tin người dùng",
     "WRONG_PASSWORD": "Bạn đã nhập sai thông tin người dùng.",

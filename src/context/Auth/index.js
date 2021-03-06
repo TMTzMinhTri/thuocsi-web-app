@@ -133,7 +133,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         return;
       }
       const {username} = getFirst(result);
-      handleLogin({username, password:username.toUpperCase()})
+      handleLogin({username, password:username.toUpperCase()});
     }).catch(() => {
       NotifyUtils.error(t('error'));
     })
@@ -151,6 +151,26 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   useEffect(() => {
     loadUserFromCookies();
   }, [pathname, loadUserFromCookies]);
+
+  useEffect(() => {
+    (async () => {
+      const userInfo = await getUserInfo();
+      const userLogged = userInfo && userInfo.data[0];
+      console.log('sss', userInfo);
+      if(userInfo){
+        const interval = setInterval(() => {
+          const checkGuestExpireAt = !!userLogged && userLogged.level === "LEVEL_GUEST" && new Date().getTime() >=  new Date(userLogged.expireAt).getTime();
+          console.log('tt');
+          if(checkGuestExpireAt) {
+            logout();
+            console.log('234');
+          }
+        }, 1000);
+        return () => clearInterval(interval);
+      } 
+       return true      
+    })(); 
+  }, []);
 
   return (
     <AuthContext.Provider
