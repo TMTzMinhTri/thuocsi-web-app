@@ -37,6 +37,7 @@ const DeliveryInfoForm = ({
       name="saveInfoShipping"
     />
   );
+
   return (
     <Paper className={styles.root} elevation={2}>
       <h1 className={styles.title}>
@@ -58,7 +59,7 @@ const DeliveryInfoForm = ({
             error={name}
             id="customerName"
             placeholder="Họ và tên"
-            value={customerName}
+            value={customerName || ''}
             onChange={(e) => handleSetValue('customerName', e.target.value)}
           />
         </InfoFormControl>
@@ -73,7 +74,7 @@ const DeliveryInfoForm = ({
               error={phone}
               id="customerPhone"
               placeholder="số điện thoại"
-              value={customerPhone}
+              value={customerPhone || ''}
               onChange={(e) => handleSetValue('customerPhone', e.target.value)}
             />
           </InfoFormControl>
@@ -86,7 +87,7 @@ const DeliveryInfoForm = ({
             <InfoInput
               id="customerEmail"
               placeholder="email "
-              value={customerEmail}
+              value={customerEmail || ''}
               onChange={(e) => handleSetValue('customerEmail', e.target.value)}
             />
           </InfoFormControl>
@@ -102,7 +103,7 @@ const DeliveryInfoForm = ({
             error={address}
             id="customerShippingAddress"
             placeholder="Địa chỉ nhà thuốc"
-            value={customerShippingAddress}
+            value={customerShippingAddress || ''}
             onChange={(e) => {
               handleSetValue('customerShippingAddress', e.target.value);
             }}

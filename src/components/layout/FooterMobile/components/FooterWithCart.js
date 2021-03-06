@@ -19,7 +19,7 @@ const DeleteIconButton = (props) => (
   </IconButton>
 );
 const FooterWithCart = () => {
-  const { itemCount, subTotalPrice = 0, updateCart, redeemCode } = useCart();
+  const { itemCount, updateCart, redeemCode, totalPrice } = useCart();
   const router = useRouter();
 
   const [promoVisible, setPromoVisible] = useState(false);
@@ -66,7 +66,7 @@ const FooterWithCart = () => {
               onClose={handleSetPromoVisible}
               handleChangePromo={handleChangePromo}
               redeemCode={redeemCode}
-              totalPrice={subTotalPrice}
+              totalPrice={totalPrice}
             />
           </div>
         </div>
@@ -74,7 +74,7 @@ const FooterWithCart = () => {
       <div className={styles.fwc_wrapper}>
         <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
           <div style={{ flexGrow: 1 }}>
-            <div className={styles.total}>{FormatNumber.formatCurrency(subTotalPrice)}</div>
+            <div className={styles.total}>{FormatNumber.formatCurrency(totalPrice)}</div>
           </div>
           <div>
             {router.pathname === CHECKOUT_URL && (

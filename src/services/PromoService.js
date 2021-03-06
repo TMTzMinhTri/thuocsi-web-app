@@ -45,6 +45,7 @@ export const parseCondition = (condition) => {
 };
 
 export const parseListReward = (rewards) => rewards.map((reward) => parseReward(reward));
+
 export const parseListCondition = (conditions) => conditions.map((cond) => parseCondition(cond));
 
 export const parseVoucherDetail = (voucherInfo) => {

@@ -13,12 +13,12 @@ import {
   isValid,
 } from 'clients';
 import { THANKYOU_URL } from 'constants/Paths';
+import { PAYMENT_METHOD } from 'constants/Enums';
 import { LinkComp, ButtonDefault } from 'components/atoms';
 
 import styles from './styles.module.css';
 
 const CheckoutSticky = ({
-  selectedValue = '',
   data,
   cart,
   dataCustomer,
@@ -27,8 +27,13 @@ const CheckoutSticky = ({
   // savedInfo,
 }) => {
   const { redeemCode, subTotalPrice, totalPrice, discount = 0 } = cart[0];
-  const { shippingFee = 0, itemCount = 0, updateCart } = useCart();
-  const [transferValue, setTransferValue] = React.useState(0);
+  const {
+    deliveryPlatformFee = 0,
+    paymentMethod,
+    paymentMethodFee = 0,
+    itemCount = 0,
+    updateCart,
+  } = useCart();
   const router = useRouter();
   const [checkCondition, setCheckCondition] = React.useState({
     checked: false,
@@ -101,24 +106,6 @@ const CheckoutSticky = ({
     return true;
   };
 
-  React.useEffect(() => {
-    if (selectedValue === 'CK') {
-      const transferFee = (totalPrice * 0.5) / 100;
-      setTransferValue(Math.round(transferFee));
-    } else {
-      setTransferValue(0);
-    }
-  }, [selectedValue, totalPrice]);
-
-  // const handleUpdateProfile = async () => {
-  //   try {
-  //     const res = await CustomerClient.updateProfile(data);
-  //     if (!isValid(res)) throw Error(res?.message);
-  //   } catch (error) {
-  //     NotifyUtils.error(error?.message || 'Cập nhật thông tin thất bại');
-  //   }
-  // };
-
   const handleSubmit = async () => {
     const formValue = {
       ...data,
@@ -165,17 +152,16 @@ const CheckoutSticky = ({
       <Paper className={styles.root} elevation={4}>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Tạm tính</div>
-          <div className={styles.checkout_content}>{formatCurrency(totalPrice)}</div>
+          <div className={styles.checkout_content}>{formatCurrency(subTotalPrice)}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
-          <div className={styles.checkout_content}>{`-${formatCurrency(shippingFee)}`}</div>
+          <div className={styles.checkout_content}>{`-${formatCurrency(deliveryPlatformFee)}`}</div>
         </div>
+        {PAYMENT_METHOD === paymentMethod}
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước</div>
-          <div className={styles.checkout_content}>
-            {selectedValue === 'CK' ? `-${formatCurrency(transferValue)}` : formatCurrency(0)}
-          </div>
+          <div className={styles.checkout_content}>{formatCurrency(paymentMethodFee)}</div>
         </div>
         {redeemCode && redeemCode.length > 0 && (
           <div className={clsx(styles.d_flex, styles.checkout_promo_code)}>
@@ -188,7 +174,7 @@ const CheckoutSticky = ({
         )}
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Thành tiền</div>
-          <div className={styles.total}>{formatCurrency(Math.max(0, subTotalPrice))}</div>
+          <div className={styles.total}>{formatCurrency(Math.max(0, totalPrice))}</div>
         </div>
       </Paper>
 

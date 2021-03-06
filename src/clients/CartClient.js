@@ -54,6 +54,10 @@ const updateRedeemCode = (redeemCode) => {
   return PUT({ url: CART_API.CART_UPDATE_REDEEM_CODE, body });
 };
 
+const updateDeliveryMethod = (body) => PUT({ url: CART_API.CART_INFO, body });
+
+const updatePaymentMethod = (body) => PUT({ url: CART_API.CART_INFO, body });
+
 const updateNote = (note) => {
   const body = { note };
   return PUT({ url: CART_API.CART_INFO, body });
@@ -67,4 +71,6 @@ export default {
   updateNote,
   getInfoCartItem,
   updateCartItemImportant,
+  updateDeliveryMethod,
+  updatePaymentMethod,
 };

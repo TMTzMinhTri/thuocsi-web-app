@@ -14,8 +14,8 @@ export const ENUM_ORDER_STATUS = {
 };
 
 export const PAYMENT_METHOD = {
-  COD: 'COD',
-  ChuyenKhoan: 'CK',
+  COD: 'PAYMENT_METHOD_NORMAL',
+  TRANSFER: 'PAYMENT_METHOD_BANK',
 };
 
 export const ENUM_TYPE = {};
@@ -67,7 +67,7 @@ export const PROMO_REWARD_TYPE = {
   GIFT: 'GIFT',
   POINT: 'POINT',
   ABSOLUTE: 'ABSOLUTE',
-}
+};
 
 export const HTTP_STATUS = {
   Ok: 'OK',

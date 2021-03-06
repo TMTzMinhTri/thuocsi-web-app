@@ -47,7 +47,7 @@ export async function getServerSideProps(ctx) {
 
 const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMethods }) => {
   const router = useRouter();
-  const { itemCount = 0 } = useCart();
+
   // validate user isActive
   if (!user.isActive) {
     NotifyUtils.info('Tài khoản chưa được kích hoạt');
@@ -56,27 +56,36 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   }
 
   const {
+    itemCount = 0,
     totalPrice = 0,
+    updateDeliveryMethod,
+    updatePaymentMethod,
     paymentMethod = 'PAYMENT_METHOD_NORMAL',
     deliveryPlatform = 'DELIVERY_PLATFORM_NORMAL',
+  } = useCart();
+
+  const {
+    customerShippingAddress = '',
+    customerDistrictCode = '0',
+    customerProvinceCode = '0',
+    customerWardCode = '0',
   } = cart[0];
+
   // Xử lý ngày tháng
   const [state, setState] = React.useState({
     saveInfoShipping: true,
   });
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
-  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState(paymentMethod);
-  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState(deliveryPlatform);
 
   const [value, setValue] = useState({
     customerName: user.name || '',
     customerPhone: user.phone || '',
     customerEmail: user.email || '',
-    customerShippingAddress: user.address || '',
-    customerDistrictCode: user.districtCode || '0',
-    customerProvinceCode: user.provinceCode || '0',
-    customerWardCode: user.wardCode || '0',
+    customerShippingAddress,
+    customerDistrictCode,
+    customerProvinceCode,
+    customerWardCode,
   });
 
   const [error, setError] = useState({
@@ -86,8 +95,8 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   });
 
   const dataCustomer = {
-    paymentMethod: selectedPaymentValue,
-    deliveryPlatform: selectedDeliveryValue,
+    paymentMethod,
+    deliveryPlatform,
   };
 
   if (!cart || cart?.length === 0) {
@@ -97,11 +106,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   }
 
   const handlePaymentChange = (event) => {
-    setSelectedPaymentValue(event);
+    updatePaymentMethod({ paymentMethod: event.target.value, ...value });
   };
 
   const handleDeliveryChange = (event) => {
-    setSelectedDeliveryValue(event.target.value);
+    const deliveryMethod = event.target.value;
+    updateDeliveryMethod({ deliveryMethod, ...value });
   };
 
   const handleSetValue = (key, val) => {
@@ -139,12 +149,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
                 totalPrice={totalPrice}
                 deliveryMethods={deliveryMethods}
                 addressSelect={value}
-                selectedValue={selectedDeliveryValue}
+                selectedValue={deliveryPlatform}
                 handleChange={handleDeliveryChange}
               />
               <PaymentMethod
                 paymentMethods={paymentMethods}
-                selectedValue={selectedPaymentValue}
+                selectedValue={paymentMethod}
                 handleChange={handlePaymentChange}
               />
 
@@ -163,7 +173,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
                 cart={cart}
                 data={value}
                 dataCustomer={dataCustomer}
-                selectedValue={selectedPaymentValue}
+                selectedValue={paymentMethod}
                 isMobile={isMobile}
                 state={state}
               />
