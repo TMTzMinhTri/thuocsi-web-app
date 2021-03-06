@@ -38,7 +38,7 @@ const PaymentMethod = ({ handleChange, selectedValue, paymentMethods }) => (
     <h1 className={styles.title}>Hình thức thanh toán</h1>
 
     <FormControl component="fieldset">
-      <RadioGroup value={selectedValue} onChange={(e) => handleChange(e.target.value)}>
+      <RadioGroup value={selectedValue} onChange={(e) => handleChange(e)}>
         {paymentMethods && paymentMethods.map((item) => renderPaymentMethod({ item }))}
       </RadioGroup>
     </FormControl>

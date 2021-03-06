@@ -8,6 +8,7 @@ export const NotiContext = createContext();
 export const NotiContextProvider = ({ children }) => {
   const initialState = { loading: true, notification: [], totalNotification: 0 };
   const [state, dispatch] = useReducer(NotiReducer, initialState);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -32,8 +33,18 @@ export const NotiContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  const markAll = async () => {
+    await NotifyService.markReadAll({});
+  };
+
+  const markReadByCode = async (code) => {
+    await NotifyService.markReadByCode({ code });
+  };
+
   const contextValues = {
     ...state,
+    markAll,
+    markReadByCode,
   };
 
   return <NotiContext.Provider value={contextValues}>{children}</NotiContext.Provider>;

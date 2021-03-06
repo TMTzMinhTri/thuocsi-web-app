@@ -19,7 +19,6 @@
   "forget_password": "Quên mật khẩu",
   "news": "Tin Tức",
   "recruitment": "Tuyển dụng",
-
   "api.login.NOT_FOUND": "Không tìm thấy thông tin người dùng",
   "api": {
     "login": {
@@ -31,7 +30,16 @@
   "payment": {
     "method": {
       "COD": "Thanh toán tiền mặt khi nhận hàng",
-      "CK": "Chuyển Khoản"
+      "CK": "Chuyển Khoản",
+      "PAYMENT_METHOD_NORMAL": "Thanh toán tiền mặt khi nhận hàng",
+      "PAYMENT_METHOD_BANK": "Chuyển khoản"
+    }
+  },
+  "delivery": {
+    "method": {
+      "DELIVERY_PLATFORM_SUPER": "Giao hàng siêu cấp",
+      "DELIVERY_PLATFORM_NORMAL": "Giao hàng tiêu chuẩn",
+      "DELIVERY_PLATFORM_FAST": "Giao hàng nhanh"
     }
   },
   "scope": {
