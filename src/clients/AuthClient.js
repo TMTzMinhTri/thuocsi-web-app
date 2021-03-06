@@ -22,7 +22,7 @@ export const loginLocal = async (body) =>
 // {username password }
 export const signUp = async (body) => POST({ url: CUSTOMER_API.REGISTER, body, isAuth: false });
 
-export const registerGuest = async (body) => POST({ url: CUSTOMER_API.REGISTER_GUEST, body, isAuth: true, isBasic: true });
+export const registerGuest = async (body) => POST({ url: CUSTOMER_API.REGISTER_GUEST, body, isBasic: true });
 
 export const getUser = async () => {
   const result = await GET({ url: CUSTOMER_API.INFO });

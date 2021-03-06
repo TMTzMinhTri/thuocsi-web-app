@@ -139,8 +139,8 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       });
   };
 
-  const handleRegisterGuest = (phone) => {
-    AuthService.registerGuest(phone).then((result) => {
+  const handleRegisterGuest = (data, success) => {
+    AuthService.registerGuest(data).then((result) => {
       if (!isValid(result)) {
         const errorCode = `login.${result.errorCode}`;
         NotifyUtils.error(t(errorCode));
@@ -148,6 +148,13 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       }
       const {username} = getFirst(result);
       handleLogin({username, password:username.toUpperCase()});
+      // callback
+      if (success) {
+        success();
+        if (router.pathname === '/') {
+          router.push(QUICK_ORDER);
+        }
+      }
     }).catch(() => {
       NotifyUtils.error(t('error'));
     })
