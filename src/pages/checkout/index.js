@@ -49,7 +49,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   const router = useRouter();
 
   // validate user isActive
-  if (!user.isActive || (user.guestId && user.guestId > 0)) {
+  if (!user.isActive) {
     NotifyUtils.info('Tài khoản chưa được kích hoạt');
     router.push(CART_URL);
     return <LoadingScreen />;
