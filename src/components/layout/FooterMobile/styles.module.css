@@ -14,6 +14,8 @@
 .bottom_bar .custombtn{
     color: #fff !important; 
     margin-right: 0 !important;
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
 }
 .div_buttons{
     text-align: center;
@@ -133,6 +135,9 @@
     text-transform: capitalize!important;
     padding: 6px 15px!important;
 }
+.btn_checkout[class*='disabled']{
+    opacity: .3;
+}
 .btn_checkout span{
     color: #212529!important;
 }
@@ -201,4 +206,7 @@
 }
 .btn_mb{
     border-radius: 50px !important;
+}
+.root_btn{
+    background-color: red;
 }

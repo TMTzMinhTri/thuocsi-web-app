@@ -11,6 +11,7 @@ export { default as SignInModal } from './SignInModal';
 export { default as ForgetPasswordModal } from './ForgetPasswordModal';
 export { default as QuickOrderList } from './QuickOrderList';
 export { default as SignUpModal } from './SignUpModal';
+export { default as RegisterGuestModal } from './RegisterGuestModal';
 export { default as ProductCartList } from './ProductCartList';
 export { default as ErrorModal } from './ErrorModal';
 export { default as ErrorQuantityCartModal } from './ErrorQuantityCartModal';

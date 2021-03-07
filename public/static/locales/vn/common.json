@@ -11,6 +11,11 @@
   "login": "Đăng nhập",
   "logout": "Đăng xuất",
   "register": "Tạo tài khoản",
+  "tester": {
+    "test" : "Dùng thử",
+    "register": "Đăng ký",
+    "success": "Đăng ký dùng thử thành công"
+  },
   "forget_password": "Quên mật khẩu",
   "news": "Tin Tức",
   "recruitment": "Tuyển dụng",
@@ -18,7 +23,8 @@
   "api": {
     "login": {
       "SUCCESS": "Đăng nhập thành công",
-      "NOT_FOUND": "Không tìm thấy thông tin người dùng"
+      "NOT_FOUND": "Không tìm thấy thông tin người dùng",
+      "CUSTOMER_EXISTED": "Người dùng này đã đăng ký"
     }
   },
   "payment": {
