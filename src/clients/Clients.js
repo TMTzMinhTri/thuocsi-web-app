@@ -103,7 +103,7 @@ async function request({
         };
       }
     }
-    console.log(' fetch data ', link, method, headers, body);
+    // console.log(' fetch data ', link, method, headers, body);
     const res = await fetch(link, {
       method,
       credentials: 'same-origin',
@@ -119,7 +119,7 @@ async function request({
       result.isBasic = true;
     }
 
-    console.log('result : ', result);
+    // console.log('result : ', result);
     return result;
   } catch (err) {
     // console.log('err ', err);
