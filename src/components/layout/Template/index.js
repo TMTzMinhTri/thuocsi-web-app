@@ -81,7 +81,9 @@ export default function Template({
               visible={isShowGuestExpiredTime}
               onClose={toggleShowGuestExpiredTime}
               content="Thời gian dùng thử đã hết. Mời bạn vui lòng tạo tài khoản để sử dụng hoặc gọi chúng tôi để được hỗ trợ tốt nhất!"
-              customBtnOk={(
+              btnOkRender={false}
+              btnCloseRender={false}
+              customBtnRender={(
                 <div className={styles.btngroup}>
                   <ButtonHeader
                     className={styles.custombtn}
