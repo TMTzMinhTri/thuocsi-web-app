@@ -21,8 +21,8 @@ const ProductCardBuy = ({
   not_support_delivery: noSupportDelivery,
   price,
   // dealPrice,
-  hasEvent,
-  deal_end_day: dealEndDay,
+  isDeal = false,
+  deal = {},
   row,
   type,
   searchInput,
@@ -54,6 +54,7 @@ const ProductCardBuy = ({
 
     return !(importantQuantity > importantQuantityMax);
   };
+
   const handleRemove = () => {
     if (canDeleteProduct()) {
       removeCartItem(product);
@@ -119,7 +120,7 @@ const ProductCardBuy = ({
   };
   return (
     <>
-      {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
+      {isDeal && row && <DealSection dealEndDay={deal?.endTime} />}
       {noSupportDelivery && row ? (
         <div style={{ marginBottom: '16px' }}>
           <div
@@ -138,7 +139,7 @@ const ProductCardBuy = ({
         <>
           {isAuthenticated ? (
             <>
-              {hasEvent ? (
+              {isDeal ? (
                 <div
                   className={
                     row
@@ -146,7 +147,9 @@ const ProductCardBuy = ({
                       : clsx(styles.price_wrapper, styles.price_wrapper_column)
                   }
                 >
-                  <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
+                  <Typography className={styles.deal_price}>
+                    {formatCurrency(deal?.discount?.absoluteDiscount)}
+                  </Typography>
                   <Typography className={styles.old_price}>{formatCurrency(price)}</Typography>
                 </div>
               ) : (

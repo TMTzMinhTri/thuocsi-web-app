@@ -1,16 +1,17 @@
 import React from 'react';
 import Template from 'components/layout/Template';
 import PromotionProduct from 'components/organisms/PromotionProduct';
-import { getFirst } from 'clients';
+import { getData } from 'clients';
 import { ProductService } from 'services';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [productsRes] = await Promise.all([ProductService.loadDataProduct({ ctx })]);
-
+  const [dealRes] = await Promise.all([
+    ProductService.getDeals({ ctx, params: { offset: 0, limit: 1000, isGetTotal: true } }),
+  ]);
   return {
     props: {
-      products: getFirst(productsRes, []),
+      products: getData(dealRes, []),
     },
   };
 }
