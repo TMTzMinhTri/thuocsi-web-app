@@ -25,9 +25,19 @@ export const signUp = async (body) => POST({ url: CUSTOMER_API.REGISTER, body, i
 export const registerGuest = async (body) =>
   POST({ url: CUSTOMER_API.REGISTER_GUEST, body, isBasic: true });
 
+export const getAccountInfo = async ({ ctx }) => GET({ url: ACCOUNT_API.GET_ACCOUNT_INFO, ctx });
+
 export const getUser = async () => {
   const result = await GET({ url: CUSTOMER_API.INFO });
   return result;
 };
 
-export default { login, getUser, signUp, registerGuest, getUserWithContext, loginLocal };
+export default {
+  login,
+  getUser,
+  signUp,
+  registerGuest,
+  getUserWithContext,
+  loginLocal,
+  getAccountInfo,
+};
