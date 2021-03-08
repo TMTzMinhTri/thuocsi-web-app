@@ -13,7 +13,14 @@ export const getNotifications = async ({ ctx }) => {
   return res;
 };
 
+export const markReadAll = async ({ ctx }) => NotifyClient.markReadAllNoti({ ctx });
+
+export const markReadByCode = async ({ ctx, code }) =>
+  NotifyClient.markReadNotiByCode({ ctx, code });
+
 export default {
   getTotalNotification,
   getNotifications,
+  markReadAll,
+  markReadByCode,
 };

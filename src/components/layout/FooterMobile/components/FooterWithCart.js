@@ -4,7 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Link from 'next/link';
 import { LocalOffer } from '@material-ui/icons';
 import { FormatNumber } from 'utils';
-import { useCart } from 'context';
+import { useCart , useAuth } from 'context';
 import { useRouter } from 'next/router';
 import { CART_URL, CHECKOUT_URL } from 'constants/Paths';
 import clsx from 'clsx';
@@ -13,13 +13,15 @@ import { CartClient } from 'clients';
 import { isEmpty } from 'utils/ValidateUtils';
 import styles from '../styles.module.css';
 
+
 const DeleteIconButton = (props) => (
   <IconButton {...props} style={{ padding: 0 }}>
     <DeleteIcon />
   </IconButton>
 );
 const FooterWithCart = () => {
-  const { itemCount, subTotalPrice = 0, updateCart, redeemCode } = useCart();
+  const { itemCount, updateCart, redeemCode, totalPrice } = useCart();
+  const { user } = useAuth();
   const router = useRouter();
 
   const [promoVisible, setPromoVisible] = useState(false);
@@ -66,7 +68,7 @@ const FooterWithCart = () => {
               onClose={handleSetPromoVisible}
               handleChangePromo={handleChangePromo}
               redeemCode={redeemCode}
-              totalPrice={subTotalPrice}
+              totalPrice={totalPrice}
             />
           </div>
         </div>
@@ -74,7 +76,7 @@ const FooterWithCart = () => {
       <div className={styles.fwc_wrapper}>
         <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
           <div style={{ flexGrow: 1 }}>
-            <div className={styles.total}>{FormatNumber.formatCurrency(subTotalPrice)}</div>
+            <div className={styles.total}>{FormatNumber.formatCurrency(totalPrice)}</div>
           </div>
           <div>
             {router.pathname === CHECKOUT_URL && (
@@ -85,7 +87,9 @@ const FooterWithCart = () => {
                     outlined: styles.outlined,
                     root: styles.btn_checkout,
                   }}
+                  className={styles.disabled}
                   variant="outlined"
+                  disabled={user.level === "LEVEL_GUEST"}
                 >
                   Thanh toán
                 </Button>
@@ -101,6 +105,7 @@ const FooterWithCart = () => {
                     root: styles.btn_checkout,
                   }}
                   variant="outlined"
+                  disabled={user.level === "LEVEL_GUEST"}
                 >
                   Tiếp tục
                 </Button>

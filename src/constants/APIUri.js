@@ -16,6 +16,7 @@ export const PRICING_API = { PAYMENT_METHOD, DELIVERY_METHOD };
 
 const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
 const REGISTER = `${CUSTOMER_API_PREFIX}/register`;
+const REGISTER_GUEST = `${CUSTOMER_API_PREFIX}/guest`;
 const INFO = `${CUSTOMER_API_PREFIX}/me`;
 const WALLET = `${CUSTOMER_API_PREFIX}/wallets`;
 const ORDER = `${CUSTOMER_API_PREFIX}/orders`;
@@ -33,6 +34,7 @@ export const CUSTOMER_API = {
   PROMO,
   SEND_SMS,
   RETRY_SEND_SMS,
+  REGISTER_GUEST,
 };
 
 const CATEGORY_API_PREFIX = '/marketplace/product/v1';
@@ -66,6 +68,7 @@ const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
 const PRODUCT_LIST_COLLECTION = `${PRODUCT_API_PREFIX}/collection/page`;
 const TAGS = `${PRODUCT_API_PREFIX}/tags/list`;
 const TABS_ACTIVE = `${PRODUCT_API_PREFIX}/tabs/active`;
+const DEALS = `${PRODUCT_API_PREFIX}/products/deal/list`;
 
 export const PRODUCT_API = {
   INGREDIENT,
@@ -77,6 +80,7 @@ export const PRODUCT_API = {
   PRODUCT_LIST_COLLECTION,
   TAGS,
   TABS_ACTIVE,
+  DEALS,
 };
 
 const CORE_MASTER_DATA_PREFIX = '/core/master-data/v1';
@@ -94,11 +98,13 @@ const CART_API_PREFIX = '/marketplace/order/v1';
 const CART_INFO = `${CART_API_PREFIX}/cart`;
 const CART_ADD = `${CART_API_PREFIX}/cart/add`;
 const CART_REMOVE = `${CART_API_PREFIX}/cart/remove`;
+const CART_UPDATE_REDEEM_CODE = `${CART_API_PREFIX}/cart/promotion`;
 
 export const CART_API = {
   CART_INFO,
   CART_ADD,
   CART_REMOVE,
+  CART_UPDATE_REDEEM_CODE,
 };
 
 // promotion
@@ -138,9 +144,20 @@ const NOTIFICATION_API_PREFIX = '/integration/notification/v1';
 const NOTIFICATION_LIST = `${NOTIFICATION_API_PREFIX}/notification/me`;
 const NOTIFICATION_COUNTER = `${NOTIFICATION_API_PREFIX}/notification/me/counter`;
 const NOTIFICATION_WSS = `${NOTIFICATION_API_PREFIX}/web-socket`;
+const NOTIFICATION = `${NOTIFICATION_API_PREFIX}/notification`;
+const NOTIFICATION_ALL = `${NOTIFICATION_API_PREFIX}/notification/all`;
 
 export const NOTIFICATION_API = {
   NOTIFICATION_COUNTER,
   NOTIFICATION_LIST,
   NOTIFICATION_WSS,
+  NOTIFICATION_ALL,
+  NOTIFICATION,
+};
+
+const SETTING_API_PREFIX = '/marketplace/marketing/v1';
+const SETTING_LIST = `${SETTING_API_PREFIX}/settings/all`;
+
+export const SETTING_API = {
+  SETTING_LIST,
 };

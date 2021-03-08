@@ -7,7 +7,7 @@ import { Menu, Close } from '@material-ui/icons';
 import { useAuth } from 'context';
 import { LOGO_THUOCSI } from 'constants/Images';
 import { QUICK_ORDER, CART_URL, PRODUCT } from 'constants/Paths';
-import { SignUpModal, SignInModal, ForgetPasswordModal, SideBar } from 'components/organisms';
+import { SideBar } from 'components/organisms';
 import { LinkComp, ButtonHeader } from 'components/atoms';
 
 import HeaderWithSearchTool from './components/HeaderWithSearchTool';
@@ -24,15 +24,7 @@ const LinkLogo = memo(() => (
 const HeaderMobile = memo(({ title = '' }) => {
   const {
     isAuthenticated,
-    toggleLogin,
-    isShowLogin,
-    handleChangeForget,
-    isShowForgetPassword,
-    toggleForgetPassword,
-    isShowSignUp,
-    toggleSignUp,
-    handleChangeSignIn,
-    handleChangeSignUp,
+    toggleLogin
   } = useAuth();
   const [openDrawer, setOpenDrawer] = useState(false);
   const router = useRouter();
@@ -59,19 +51,6 @@ const HeaderMobile = memo(({ title = '' }) => {
         {!isAuthenticated ? (
           <>
             <LinkLogo />
-            <SignInModal
-              visible={isShowLogin}
-              onClose={toggleLogin}
-              onChangeForget={handleChangeForget}
-              onChangeSignUp={handleChangeSignUp}
-            />
-            <ForgetPasswordModal visible={isShowForgetPassword} onClose={toggleForgetPassword} />
-            <SignUpModal
-              visible={isShowSignUp}
-              onClose={toggleSignUp}
-              onChangeSignIn={handleChangeSignIn}
-            />
-
             <div className={styles.div_buttons}>
               <ButtonHeader
                 id="loginMobile"

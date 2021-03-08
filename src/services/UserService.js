@@ -29,6 +29,15 @@ export const getAccount = async (ctx) => {
   };
 };
 
-export const login = async () => {};
+export const getAccountInfo = async ({ ctx }) => AuthClient.getAccountInfo({ ctx });
 
-export default { getAccount };
+export const getAccountSessionToken = async ({ ctx }) => {
+  const rest = await getAccountInfo({ ctx });
+  if (!isValid(rest)) {
+    return null;
+  }
+  const data = getFirst(rest);
+  return data.session?.token || null;
+};
+
+export default { getAccount, getAccountSessionToken, getAccountInfo };

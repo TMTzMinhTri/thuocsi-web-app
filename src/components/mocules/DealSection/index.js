@@ -4,7 +4,7 @@ import CountdownTimer from '../CountdownTimer';
 
 import styles from './styles.module.css';
 
-const DealSection = ({ dealEndDay }) => (
+const DealSection = ({ dealEndDay, totalSold = 0, total = 0 }) => (
   <div className={styles.deal_section}>
     <div className={styles.process_wrapper}>
       <LinearProgress
@@ -14,9 +14,9 @@ const DealSection = ({ dealEndDay }) => (
           colorPrimary: styles.blur_background,
         }}
         variant="determinate"
-        value={50}
+        value={totalSold / total}
       />
-      <Typography className={styles.process_content}>Đã bán 0</Typography>
+      <Typography className={styles.process_content}>Đã bán {totalSold}</Typography>
     </div>
     <CountdownTimer className={styles.count_down} dealEndDay={dealEndDay} />
   </div>

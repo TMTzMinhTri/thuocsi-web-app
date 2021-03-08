@@ -6,6 +6,7 @@ export { default as StatusProduct } from './StatusProduct';
 export { default as DealSection } from './DealSection';
 export { default as AuthModal } from './AuthModal';
 export { default as SignInForm } from './SignInForm';
+export { default as RegisterGuestForm } from './RegisterGuestForm';
 export { default as ForgetPasswordForm } from './ForgetPasswordForm';
 export { default as SignUpForm } from './SignUpForm';
 export { default as CountdownTimer } from './CountdownTimer';

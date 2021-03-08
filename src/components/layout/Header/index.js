@@ -53,8 +53,8 @@ const HeaderInfoEle = memo(() => (
 const InfoHeader = memo(({ t }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const { user, isAuthenticated, toggleLogin, toggleSignUp } = useAuth();
-  const { notification, total: totalNotification, unread: unreadNotification } = useNotify();
+  const { user, isAuthenticated, toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();
+  const { notification, unread: unreadNotification, markAll, markReadByCode } = useNotify();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -87,6 +87,15 @@ const InfoHeader = memo(({ t }) => {
                 onClick={toggleSignUp}
               >
                 {t('register')}
+              </ButtonHeader>
+              <ButtonHeader
+                variant="outlined"
+                btnType="primary"
+                color="white"
+                onClick={toggleRegisterGuest}
+                className="custombtn"
+              >
+                {t('tester.test')}
               </ButtonHeader>
             </div>
           </>
@@ -125,7 +134,7 @@ const InfoHeader = memo(({ t }) => {
                     </div>
                     {notification.length !== 0 && (
                       <div>
-                        <IconButton className={styles.markAll}>
+                        <IconButton className={styles.markAll} onClick={() => markAll()}>
                           <DoneAllIcon />
                         </IconButton>
                       </div>
@@ -142,6 +151,7 @@ const InfoHeader = memo(({ t }) => {
                             : clsx(styles.notificationsItem, styles.unRead)
                         }
                         href={item.link}
+                        onClick={() => markReadByCode(item.code)}
                       >
                         <div className={styles.notifyIcon}>
                           <i className={`icomoon icon-loyalty + ${styles.icon}`} />
@@ -168,8 +178,8 @@ const InfoHeader = memo(({ t }) => {
               <Tooltip title="Thông báo" arrow>
                 <IconButton className={styles.notiIcon} onClick={handleClick}>
                   <Badge
-                    badgeContent={totalNotification}
-                    invisible={totalNotification === 0}
+                    badgeContent={unreadNotification}
+                    invisible={unreadNotification === 0}
                     color="secondary"
                   >
                     <NotificationsNoneOutlined />

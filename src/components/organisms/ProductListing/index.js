@@ -164,7 +164,6 @@ export default function ProductListing({
             pathName={pathName}
             currentTab={current_tab}
             sortBy={sortBy}
-            // tags={tags}
             tabs={tabs}
             brand={brand}
           />

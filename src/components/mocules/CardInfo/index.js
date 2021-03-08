@@ -33,8 +33,14 @@ const PaymentButton = ({ user }) => (
         840 để kích hoạt
       </Alert>
     )}
+    {user.level === 'LEVEL_GUEST' && (
+      <Alert severity="error" style={{ margin: '5px' }}>
+        Đây là tài khoản dùng thử. Giỏ hàng sẽ không thể lưu và thanh toán được. Xin bạn vui lòng
+        tạo tài khoản cá nhân để sử dụng tính năng này! Cảm ơn!
+      </Alert>
+    )}
     <ButtonDefault
-      disabled={!user.isActive}
+      disabled={!user.isActive || (user.guestId && user.guestId > 0)}
       btnType="warning"
       className="payment_button"
       onClick={handleToCheckout}
