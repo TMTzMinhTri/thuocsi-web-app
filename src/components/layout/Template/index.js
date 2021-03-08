@@ -81,7 +81,7 @@ export default function Template({
               visible={isShowGuestExpiredTime}
               onClose={toggleShowGuestExpiredTime}
               content="Thời gian dùng thử đã hết. Mời bạn vui lòng tạo tài khoản để sử dụng hoặc gọi chúng tôi để được hỗ trợ tốt nhất!"
-              isShowButton={false}
+              customBtnOk={false}
             >
               <div className={styles.btngroup}>
                 <ButtonHeader

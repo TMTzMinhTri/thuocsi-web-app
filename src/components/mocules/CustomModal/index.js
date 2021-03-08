@@ -17,7 +17,7 @@ const CustomModal = memo(
     content,
     btnOk = 'Có',
     btnOnClose = 'Không',
-    isShowButton = true
+    customBtnOk = <ButtonDefaultLogin btnType="warning" onClick={onClose}>{btnOnClose}</ButtonDefaultLogin>
   }) => (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
@@ -29,11 +29,7 @@ const CustomModal = memo(
           {content && <Typography className={styles.modal_content}>{content}</Typography>}
         </div>
         <div style={{ textAlign: 'center', marginTop: '16px' }}>
-          {onClose && isShowButton ? (
-            <ButtonDefaultLogin btnType="warning" onClick={onClose}>
-              {btnOnClose}
-            </ButtonDefaultLogin>
-          ) : null}
+          {customBtnOk && customBtnOk}
           {onClickOk && <ButtonDefaultLogin onClick={onClickOk}>{btnOk}</ButtonDefaultLogin>}
         </div>
         {children}

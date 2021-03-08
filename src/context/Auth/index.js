@@ -85,8 +85,10 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const logout = (callback) => {
     setInfoUser(null);
     setCookies({}, true);
-    window.location.href = '/';
-    callback();
+    if(typeof callback !== 'undefined' && typeof callback === 'function'){
+      return callback();
+    };
+    return window.location.assign('/');
   };
 
   const loadUserFromCookies = useCallback(async () => {
