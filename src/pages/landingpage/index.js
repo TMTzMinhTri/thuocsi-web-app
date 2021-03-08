@@ -15,7 +15,7 @@ const DynamicProductSlider = dynamic(() => import('components/organisms/ProductS
 
 export default function LandingPage(props) {
   const { settings } = props;
-  const bannerStatus = settings.filter((setting) => setting.type === 'banner')[0].status ?? true;
+  const bannerStatus = settings.filter((setting) => setting.type === 'banner')[0].status ?? 'ON';
 
   const { isAuthenticated } = useAuth();
   const { infoBanner = [], isMobile, blocks = [] } = props;
@@ -25,7 +25,7 @@ export default function LandingPage(props) {
 
   return (
     <Template title={title} isMobile={isMobile} pageName={pageName} pageTitle={pageTitle}>
-      {bannerStatus && <DynamicBannerSlider infoBanner={infoBanner} />}
+      {bannerStatus === 'ON' && <DynamicBannerSlider infoBanner={infoBanner} />}
       {!isAuthenticated ? (
         <>
           <DynamicWhyBuymed />
