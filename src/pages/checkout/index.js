@@ -10,26 +10,31 @@ import {
   PaymentMethod,
   CheckoutSticky,
   LoadingScreen,
+  CartNote,
 } from 'components';
 import { CartClient, getData } from 'clients';
-import { doWithServerSide } from 'services';
+import { doWithServerSide, PricingService } from 'services';
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
 import { useRouter } from 'next/router';
-import { NotifyUtils, DateTimeUtils } from 'utils';
+import { NotifyUtils } from 'utils';
 import { CART_URL } from 'constants/Paths';
-import { HOLIDAYS } from 'constants/data';
-import CartNote from 'components/mocules/CartNote';
 
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   try {
     return doWithServerSide(ctx, async () => {
-      const [cartRes] = await Promise.all([CartClient.loadDataCart(ctx)]);
+      const [cartRes, paymentMethods, deliveryMethods] = await Promise.all([
+        CartClient.loadDataCart(ctx),
+        PricingService.getListPaymentMethod({ ctx }),
+        PricingService.getListDeliveryMethod({ ctx }),
+      ]);
       return {
         props: {
           cart: getData(cartRes),
+          paymentMethods,
+          deliveryMethods,
         },
       };
     });
@@ -40,11 +45,9 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-const MIMIMUM_PRICE = 5000000;
-
-const CheckoutPage = ({ user = {}, isMobile, cart }) => {
+const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMethods }) => {
   const router = useRouter();
-  const { itemCount = 0 } = useCart();
+
   // validate user isActive
   if (!user.isActive) {
     NotifyUtils.info('Tài khoản chưa được kích hoạt');
@@ -52,34 +55,46 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
     return <LoadingScreen />;
   }
 
-  const { totalPrice = 0 } = cart[0];
+  if (user.guestId && user.guestId > 0) {
+    NotifyUtils.info(
+      'Bạn đang sử dụng tài khoản dùng thử, vui lòng tạo tài khoản để có thể thanh toán đơn hàng.',
+    );
+    router.push(CART_URL);
+    return <LoadingScreen />;
+  }
+
+  const {
+    itemCount = 0,
+    totalPrice = 0,
+    updateDeliveryMethod,
+    updatePaymentMethod,
+    paymentMethod = 'PAYMENT_METHOD_NORMAL',
+    deliveryPlatform = 'DELIVERY_PLATFORM_NORMAL',
+  } = useCart();
+
+  const {
+    customerShippingAddress = '',
+    customerDistrictCode = '0',
+    customerProvinceCode = '0',
+    customerWardCode = '0',
+  } = cart[0];
+
   // Xử lý ngày tháng
-  const date = new Date();
-  const day = date.getDay();
-  const today = DateTimeUtils.getFormattedDate(date, 'DDMM');
   const [state, setState] = React.useState({
     saveInfoShipping: true,
   });
 
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
-  const [selectedPaymentValue, setSelectedPaymentValue] = React.useState('COD');
-  const [selectedDeliveryValue, setSelectedDeliveryValue] = React.useState('standard');
+
   const [value, setValue] = useState({
     customerName: user.name || '',
     customerPhone: user.phone || '',
     customerEmail: user.email || '',
-    customerShippingAddress: user.address || '',
-    customerDistrictCode: user.districtCode || '0',
-    customerProvinceCode: user.provinceCode || '0',
-    customerWardCode: user.wardCode || '0',
+    customerShippingAddress,
+    customerDistrictCode,
+    customerProvinceCode,
+    customerWardCode,
   });
-  const condition =
-    Number(value.customerProvinceCode) === 79 &&
-    !(Number(value.customerDistrictCode) === 787 || Number(value.customerDistrictCode) === 783) &&
-    totalPrice <= MIMIMUM_PRICE &&
-    !(day === 6 || day === 0) &&
-    !HOLIDAYS.includes(today);
-  // day: 0 -> CN day: 6 -> T7
 
   const [error, setError] = useState({
     name: false,
@@ -88,8 +103,8 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   });
 
   const dataCustomer = {
-    paymentMethod: selectedPaymentValue,
-    shippingType: selectedDeliveryValue,
+    paymentMethod,
+    deliveryPlatform,
   };
 
   if (!cart || cart?.length === 0) {
@@ -99,11 +114,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
   }
 
   const handlePaymentChange = (event) => {
-    setSelectedPaymentValue(event);
+    updatePaymentMethod({ paymentMethod: event.target.value, ...value });
   };
 
   const handleDeliveryChange = (event) => {
-    setSelectedDeliveryValue(event.target.value);
+    const deliveryMethod = event.target.value;
+    updateDeliveryMethod({ deliveryMethod, ...value });
   };
 
   const handleSetValue = (key, val) => {
@@ -120,9 +136,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
 
   // TODO: cần kiểm tra lại
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
-    if (Number(province) !== 79) {
-      setSelectedDeliveryValue('standard');
-    }
     setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
   };
 
@@ -141,12 +154,15 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 handleChangeCheckbox={handleChangeCheckbox}
               />
               <DeliveryMethod
-                isValidCondition={condition}
-                selectedValue={selectedDeliveryValue}
+                totalPrice={totalPrice}
+                deliveryMethods={deliveryMethods}
+                addressSelect={value}
+                selectedValue={deliveryPlatform}
                 handleChange={handleDeliveryChange}
               />
               <PaymentMethod
-                selectedValue={selectedPaymentValue}
+                paymentMethods={paymentMethods}
+                selectedValue={paymentMethod}
                 handleChange={handlePaymentChange}
               />
 
@@ -165,7 +181,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart }) => {
                 cart={cart}
                 data={value}
                 dataCustomer={dataCustomer}
-                selectedValue={selectedPaymentValue}
+                selectedValue={paymentMethod}
                 isMobile={isMobile}
                 state={state}
               />

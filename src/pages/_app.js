@@ -32,8 +32,9 @@ const NAMESPACE_REQUIRED_DEFAULT = 'common';
 const MyApp = (props) => {
   const { Component, pageProps } = props;
   const router = useRouter();
-  const isShowingLogin = router?.query?.login === 'true';
-  const { referralCode } = router?.query;
+
+  const { referralCode, action, login, forgetpasscode } = router?.query || {};
+  const isShowingLogin = login === 'true';
 
   // config https://material-ui.com/guides/server-rendering/
   useEffect(() => {
@@ -69,7 +70,12 @@ const MyApp = (props) => {
         <MuiThemeProvider theme={Theme}>
           <CssBaseline />
           {/* Authen */}
-          <AuthProvider isShowingLogin={isShowingLogin} referralCode={referralCode}>
+          <AuthProvider
+            isShowingLogin={isShowingLogin}
+            referralCode={referralCode}
+            forgetpasscode={forgetpasscode}
+            action={action}
+          >
             {/* Protect route */}
             <LoadingRoute>
               {/* Cart context provider */}
@@ -104,6 +110,9 @@ MyApp.getInitialProps = async (appContext) => {
   } catch (error) {
     isMobile = `can not detect device - ${error}`;
   }
+
+  // check is client
+  // init web socket
 
   return {
     ...appProps,

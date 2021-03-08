@@ -20,6 +20,7 @@ export const CartContextProvider = ({ children }) => {
     return promoData;
   });
 
+  // reload cart
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
     try {
       if (!isValid(cartRes)) {
@@ -127,6 +128,48 @@ export const CartContextProvider = ({ children }) => {
     await updateCart({ cartRes, successMessage: 'Xoá đánh dấu quan trọng thành công' });
   };
 
+  const updateDeliveryMethod = async ({
+    deliveryMethod,
+    customerDistrictCode,
+    customerProvinceCode,
+    customerWardCode,
+    customerShippingAddress,
+  }) => {
+    const res = await CartClient.updateDeliveryMethod({
+      deliveryPlatform: deliveryMethod,
+      customerDistrictCode,
+      customerProvinceCode,
+      customerWardCode,
+      customerShippingAddress,
+    });
+    if (!isValid(res)) {
+      NotifyUtils.error('Cập nhập phương thức giao hàng thất bại ');
+      return;
+    }
+    NotifyUtils.success('Cập nhập phương thức giao hàng thành công');
+    updateCart();
+  };
+
+  const updatePaymentMethod = async ({
+    paymentMethod,
+    customerDistrictCode,
+    customerProvinceCode,
+    customerWardCode,
+  }) => {
+    const res = await CartClient.updatePaymentMethod({
+      paymentMethod,
+      customerDistrictCode,
+      customerProvinceCode,
+      customerWardCode,
+    });
+    if (!isValid(res)) {
+      NotifyUtils.error('Cập nhập phương thức thanh toán thất bại ');
+      return;
+    }
+    NotifyUtils.success('Cập nhập phương thức thanh toán thành công');
+    updateCart();
+  };
+
   const contextValues = {
     removeCartItem,
     addProduct,
@@ -139,6 +182,8 @@ export const CartContextProvider = ({ children }) => {
     addImportant,
     removeImportant,
     updateCart,
+    updateDeliveryMethod,
+    updatePaymentMethod,
     ...state,
   };
 

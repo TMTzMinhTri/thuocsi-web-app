@@ -8,11 +8,11 @@ import { doWithServerSide, ProductService } from 'services';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [productsRes, brand, group, tags] = await Promise.all([
+    const [productsRes, brand, group, tabs] = await Promise.all([
       ProductService.loadDataProduct({ ctx }),
       CatClient.loadBrand(ctx),
       CatClient.loadGroup(ctx),
-      CatClient.loadTags(ctx),
+      ProductService.getListTabs({ ctx }),
     ]);
     const current_tab = ctx.query.current_tab || '';
     const sortBy = ctx.query.sortBy || '';
@@ -29,7 +29,7 @@ export async function getServerSideProps(ctx) {
         brand,
         group,
         slug,
-        tags,
+        tabs,
       },
     };
   });
@@ -40,7 +40,7 @@ export default function Products({
   total,
   brand = [],
   group = [],
-  tags = [],
+  tabs = [],
   current_tab = '',
   page = '',
   sortBy = '',
@@ -71,7 +71,7 @@ export default function Products({
         sortBy={sortBy}
         catName={cat}
         slug={slug}
-        tags={tags}
+        tabs={tabs}
         name={namePage(current_tab)}
         isAuthenticated={isAuthenticated}
         isMobile={isMobile}

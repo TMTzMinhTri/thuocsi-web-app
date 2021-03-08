@@ -27,7 +27,7 @@ const OrderDetailInfo = ({
   deliveryPlatform,
 }) => {
   const classes = useStyles();
-  const paymentMethodTrans = `payment.method.${paymentMethod}`;
+
   return (
     <div className={styles.info}>
       <Grid container spacing={2} className={styles.info_inner_grid}>
@@ -74,14 +74,15 @@ const OrderDetailInfo = ({
                 Hình thức thanh toán:
               </Typography>
               <Typography variant="h6" className={styles.info_value}>
-                {t(paymentMethodTrans) || NOT_YET}
+                {t(`payment.method.${paymentMethod}`) || NOT_YET}
               </Typography>
             </Paper>
           </Grid>
           <Grid item className={styles.info_container}>
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
-                Đơn vị vận chuyển:&nbsp; <span>{deliveryPlatform || NOT_YET} </span>
+                Đơn vị vận chuyển:&nbsp;
+                <span>{t(`delivery.method.${deliveryPlatform}`) || NOT_YET} </span>
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
                 Ngày giao:&nbsp; <span>{deliveryDate || NOT_YET} </span>

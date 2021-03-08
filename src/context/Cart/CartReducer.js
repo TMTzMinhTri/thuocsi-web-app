@@ -25,44 +25,37 @@ export const sumItems = (cartItems) => {
 };
 
 export const CartReducer = (state, action) => {
+  const initState = {
+    itemCount: 0,
+    cartItems: [],
+    redeemCode: [],
+    note: '',
+    totalPrice: 0,
+    subTotalPrice: 0,
+    paymentMethod: '',
+    paymentMethodFee: 0,
+    deliveryPlatform: '',
+    deliveryPlatformFee: 0,
+    loading: false,
+  };
   const { cartItems } = state;
   const { payload } = action;
 
   const data = payload && payload.cartItems ? payload.cartItems : [];
   switch (action.type) {
     case FETCH_SUCCESS: {
-      const {
-        redeemCode = [],
-        note = '',
-        totalPrice,
-        subTotalPrice,
-        discount,
-        promoInfo,
-        redeemApplyResult,
-      } = payload;
-
       return {
         ...state,
         ...sumItems([...data]),
         cartItems: [...data],
-        redeemCode,
-        note,
-        totalPrice,
-        subTotalPrice,
-        discount,
-        promoInfo,
-        redeemApplyResult,
+        ...payload,
         loading: false,
       };
     }
     case FETCH_ERROR:
       return {
         ...state,
-        ...sumItems([]),
-        cartItems: [],
-        redeemCode: [],
-        note: '',
-        loading: false,
+        ...initState,
       };
     case ADD_ITEM:
       if (!cartItems.find((item) => item.sku === action.payload.sku)) {
@@ -132,9 +125,8 @@ export const CartReducer = (state, action) => {
       };
     case CHECKOUT:
       return {
-        cartItems: [],
         checkout: true,
-        ...sumItems([]),
+        ...initState,
       };
     case ADD_IMPORTANT:
       // eslint-disable-next-line no-param-reassign

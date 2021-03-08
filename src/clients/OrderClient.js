@@ -1,6 +1,6 @@
 import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
 import { ENUM_ORDER_STATUS, HTTP_STATUS } from 'constants/Enums';
-import { GET, POST, isValid, OFFSET_DEFAULT, LIMIT_DEFAULT } from './Clients';
+import { GET, POST, isValid, OFFSET_DEFAULT, LIMIT_DEFAULT, DELETE } from './Clients';
 
 async function getOrders({ offset = OFFSET_DEFAULT, limit = LIMIT_DEFAULT, status, ctx }) {
   const url = `${ORDER_API.MY_ORDER_LIST}`;
@@ -13,6 +13,12 @@ async function getOrders({ offset = OFFSET_DEFAULT, limit = LIMIT_DEFAULT, statu
   const result = await GET({ url, ctx });
   return result;
 }
+
+export const deleteOrder = async ({ orderNo }) => {
+  const url = ORDER_API.ORDER_INFO;
+  const params = { orderNo };
+  return DELETE({ url, params });
+};
 
 async function getOrderById({ ctx, id = 0 }) {
   const url = ORDER_API.ORDER_INFO;
@@ -66,9 +72,11 @@ async function getInfoOrderItem({ orderItems = [], ctx }) {
     data: [obj],
   };
 }
+
 export default {
   getOrders,
   getOrderById,
   getProductByOrderNo,
   getInfoOrderItem,
+  deleteOrder,
 };

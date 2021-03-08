@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useContext, useEffect } from 'react';
-import { NotifyClient, isValid } from 'clients';
+import { isValid } from 'clients';
+import { NotifyService } from 'services';
 import NotiReducer from './NotiReducer';
 
 export const NotiContext = createContext();
@@ -7,12 +8,21 @@ export const NotiContext = createContext();
 export const NotiContextProvider = ({ children }) => {
   const initialState = { loading: true, notification: [], totalNotification: 0 };
   const [state, dispatch] = useReducer(NotiReducer, initialState);
+
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await NotifyClient.getNotify();
-        if (isValid) {
-          dispatch({ type: 'FETCH_SUCCESS', payload: response });
+        const totalNotification = await NotifyService.getTotalNotification({});
+        if (!totalNotification) {
+          return;
+        }
+        const { unread, total, read } = totalNotification;
+        const notificationRes = await NotifyService.getNotifications({});
+        if (isValid(notificationRes)) {
+          dispatch({
+            type: 'FETCH_SUCCESS',
+            payload: { notification: notificationRes.data, unread, total, read },
+          });
         } else {
           dispatch({ type: 'FETCH_ERROR' });
         }
@@ -23,13 +33,18 @@ export const NotiContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  const getNotifcations = () => {
-    dispatch({ type: 'GET_NOTIFICATIONS' });
+  const markAll = async () => {
+    await NotifyService.markReadAll({});
+  };
+
+  const markReadByCode = async (code) => {
+    await NotifyService.markReadByCode({ code });
   };
 
   const contextValues = {
-    getNotifcations,
     ...state,
+    markAll,
+    markReadByCode,
   };
 
   return <NotiContext.Provider value={contextValues}>{children}</NotiContext.Provider>;

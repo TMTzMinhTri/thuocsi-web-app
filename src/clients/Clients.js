@@ -45,26 +45,30 @@ export function getSessionTokenClient() {
   return Cookies.get(ACCESS_TOKEN_LONGLIVE);
 }
 
-async function request(props) {
+async function request({
+  url,
+  params,
+  method,
+  body,
+  mock = false,
+  page = false,
+  isAuth = true,
+  ctx = null,
+  isBasic = false,
+}) {
   try {
-    const {
-      url,
-      headers = {},
-      params,
-      method,
-      body,
-      mock = false,
-      isAuth = true,
-      ctx = null,
-      isBasic = false,
-    } = props;
     /*
+    page = /pages
     mock api : folder:  /api
     dev / production : /backend
    */
+    const headers = {};
+    let link = url;
+    if (!page) {
+      link = (mock ? MOCK_API_HOST : API_HOST) + url;
+    }
 
-    let link = mock ? `${MOCK_API_HOST}${url}` : `${API_HOST}${url}`;
-
+    // console.log('link : ', link);
     if (params) {
       const parameter = RequestUtils.convertObjectToParameter(params);
       link += (link.indexOf('?') >= 0 ? '' : '?') + parameter;
@@ -74,6 +78,7 @@ async function request(props) {
     if (!mock && isAuth) {
       if (ctx) {
         const AuthorizationValue = getSessionToken(ctx);
+
         if (AuthorizationValue) {
           headers['user-agent'] = ctx.req.headers['user-agent'];
           headers.Authorization = `Bearer ${AuthorizationValue}`;
@@ -117,6 +122,7 @@ async function request(props) {
     // console.log('result : ', result);
     return result;
   } catch (err) {
+    // console.log('err ', err);
     return {
       error: err,
       status: HTTP_STATUS.Error,

@@ -10,7 +10,7 @@ import FooterWithAddToCart from './components/FooterWithAddToCart';
 import styles from './styles.module.css';
 
 const FooterComp = ({ product }) => {
-  const { isAuthenticated, toggleLogin, toggleSignUp } = useAuth();
+  const { isAuthenticated, toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();
   const router = useRouter();
   return (
     <footer className={styles.bottom_bar}>
@@ -27,12 +27,19 @@ const FooterComp = ({ product }) => {
                 Đăng nhập
               </ButtonHeader>
               <ButtonHeader
-                className={styles.custombtn}
                 variant="contained"
                 btnType="primary"
                 onClick={toggleSignUp}
               >
                 Đăng ký
+              </ButtonHeader>
+              <ButtonHeader
+                className={styles.custombtn}
+                variant="contained"
+                btnType="primary"
+                onClick={toggleRegisterGuest}
+              >
+                Dùng thử
               </ButtonHeader>
             </div>
           ) : (

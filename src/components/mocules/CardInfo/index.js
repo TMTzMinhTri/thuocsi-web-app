@@ -33,8 +33,14 @@ const PaymentButton = ({ user }) => (
         840 để kích hoạt
       </Alert>
     )}
+    {user.level === 'LEVEL_GUEST' && (
+      <Alert severity="error" style={{ margin: '5px' }}>
+        Đây là tài khoản dùng thử. Giỏ hàng sẽ không thể lưu và thanh toán được. Xin bạn vui lòng
+        tạo tài khoản cá nhân để sử dụng tính năng này! Cảm ơn!
+      </Alert>
+    )}
     <ButtonDefault
-      disabled={!user.isActive}
+      disabled={!user.isActive || (user.guestId && user.guestId > 0)}
       btnType="warning"
       className="payment_button"
       onClick={handleToCheckout}
@@ -145,20 +151,20 @@ const CardInfo = ({ cart, promo, className, user }) => {
             <Grid
               className={clsx(styles.wrapper)}
               container
-              justify="center"
+              justify="flex-start"
               style={{
-                padding: '0px 10px 10px 10px',
+                padding: '0px 10px 10px 15px',
                 borderBottom: '1px solid rgba(195, 204, 220, 0.4)',
               }}
             >
               {!isCanApplyVoucherCode && !isEmpty(redeemCode) ? (
                 <Typography style={{ fontSize: 'small' }}>
-                  <i>( {messageApplyVoucherCode} )</i>
+                  <i>{messageApplyVoucherCode}</i>
                 </Typography>
               ) : (
                 descriptionRewards && (
                   <Typography style={{ fontSize: 'small' }}>
-                    <i>( {descriptionRewards} )</i>
+                    <i>{descriptionRewards}</i>
                   </Typography>
                 )
               )}

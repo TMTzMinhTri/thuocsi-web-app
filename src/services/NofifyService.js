@@ -1,13 +1,26 @@
-import { isValid, NotifyClient } from 'clients';
+import { getFirst, isValid, NotifyClient } from 'clients';
 
-export const getListNotify = async ({ ctx }) => {
-  const res = await NotifyClient.getNotify({ ctx });
-  if (isValid(res)) {
-    return [];
+export const getTotalNotification = async ({ ctx }) => {
+  const res = await NotifyClient.getTotalNotification({ ctx });
+  if (!isValid(res)) {
+    return {};
   }
-  return res.data;
+  return getFirst(res);
 };
 
+export const getNotifications = async ({ ctx }) => {
+  const res = await NotifyClient.getNotify({ ctx });
+  return res;
+};
+
+export const markReadAll = async ({ ctx }) => NotifyClient.markReadAllNoti({ ctx });
+
+export const markReadByCode = async ({ ctx, code }) =>
+  NotifyClient.markReadNotiByCode({ ctx, code });
+
 export default {
-  getListNotify,
+  getTotalNotification,
+  getNotifications,
+  markReadAll,
+  markReadByCode,
 };
