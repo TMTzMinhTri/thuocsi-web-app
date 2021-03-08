@@ -23,6 +23,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const [isShowSignUp, toggleSignUp] = useModal(!!referralCode);
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
   const [isShowRegisterGuest, toggleRegisterGuest] = useModal(false);
+  const [isShowGuestExpiredTime, toggleShowGuestExpiredTime] = useModal();
 
   const { t } = i18n.useTranslation(['apiErrors']);
 
@@ -81,10 +82,14 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     setIsAuthenticated(!!userInfo);
   };
 
-  const logout = () => {
+  const logout = (callback) => {
     setInfoUser(null);
     setCookies({}, true);
+    if(typeof callback === 'function'){
+      return callback();
+    };
     window.location.href = '/';
+    return false
   };
 
   const loadUserFromCookies = useCallback(async () => {
@@ -95,7 +100,9 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       const timeRemaining = new Date(userInfo.expireAt).getTime() - new Date().getTime();
       // time remaining
       // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
-      setTimeout(() => logout(), timeRemaining);
+      setTimeout(
+        () => logout(() => toggleShowGuestExpiredTime()), timeRemaining
+      );
     }
 
     setInfoUser(userInfo);
@@ -188,6 +195,8 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         toggleForgetPassword,
         isShowRegisterGuest,
         toggleRegisterGuest,
+        isShowGuestExpiredTime,
+        toggleShowGuestExpiredTime,
         handleChangeForget,
         handleChangeSignIn,
         handleChangeSignUp,

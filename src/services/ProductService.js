@@ -93,6 +93,8 @@ export const getListTabs = async ({ ctx }) => {
   return res.data;
 };
 
+export const getDeals = async ({ ctx, params }) => ProductClient.getDeals({ ctx, params });
+
 export default {
   loadDataProduct,
   mapDataProduct,
@@ -100,4 +102,5 @@ export default {
   loadProductWithCategory,
   loadProductWithManufacturer,
   getListTabs,
+  getDeals,
 };

@@ -4,6 +4,7 @@ import { Typography } from '@material-ui/core';
 
 import styles from './style.module.css';
 
+
 const CustomModal = memo(
   ({
     onClose,
@@ -15,6 +16,9 @@ const CustomModal = memo(
     content,
     btnOk = 'Có',
     btnOnClose = 'Không',
+    btnCloseRender = <ButtonDefaultLogin btnType="warning" onClick={onClose}>{btnOnClose}</ButtonDefaultLogin>,
+    btnOkRender = <ButtonDefaultLogin onClick={onClickOk}>{btnOk}</ButtonDefaultLogin>,
+    customBtnRender
   }) => (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
@@ -22,16 +26,13 @@ const CustomModal = memo(
           <div className={styles.warning_icon}>
             <Typography className={styles.text_icon}>!</Typography>
           </div>
-          <Typography className={styles.modal_title}>{title}</Typography>
-          <Typography className={styles.modal_content}>{content}</Typography>
+          {title && <Typography className={styles.modal_title}>{title}</Typography>}
+          {content && <Typography className={styles.modal_content}>{content}</Typography>}
         </div>
         <div style={{ textAlign: 'center', marginTop: '16px' }}>
-          {onClose ? (
-            <ButtonDefaultLogin btnType="warning" onClick={onClose}>
-              {btnOnClose}
-            </ButtonDefaultLogin>
-          ) : null}
-          {onClickOk && <ButtonDefaultLogin onClick={onClickOk}>{btnOk}</ButtonDefaultLogin>}
+          {btnCloseRender && btnCloseRender}
+          {btnOkRender && btnOkRender}
+          {customBtnRender && customBtnRender}
         </div>
       </div>
     </Modal>
