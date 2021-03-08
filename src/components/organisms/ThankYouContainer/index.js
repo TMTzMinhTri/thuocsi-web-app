@@ -14,7 +14,7 @@ const WatchOrderButton = ({ handleClick }) => (
   </Button>
 );
 
-const ThankYouContainer = ({ orderID = 0, deliveryDate }) => {
+const ThankYouContainer = ({ orderID = 0, orderNo, deliveryDate }) => {
   const handleWatchOrder = () => {
     Router.push(`${MY_ORDER_URL}/${orderID}`);
   };
@@ -44,7 +44,7 @@ const ThankYouContainer = ({ orderID = 0, deliveryDate }) => {
         vòng 2 tiếng và được hỗ trợ huỷ đơn hàng trong vòng 12 tiếng sau khi đặt hàng
       </Grid>
       <Grid item container justify="center">
-        <EditOrderButton />
+        <EditOrderButton orderNo={orderNo} />
         <WatchOrderButton handleClick={handleWatchOrder} />
       </Grid>
     </Grid>

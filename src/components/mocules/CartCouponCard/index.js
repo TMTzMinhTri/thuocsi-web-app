@@ -153,7 +153,7 @@ const CartCounponCard = (props) => {
                 <Grid item style={{ paddingTop: '5px' }}>
                   Đơn hàng sau khi áp dụng :{' '}
                   <strong style={{ color: 'red' }}>
-                    {formatCurrency(String(caculatePrice()))}{' '}
+                    {formatCurrency(String(caculatePrice()))}
                   </strong>
                 </Grid>
               )}
@@ -180,7 +180,7 @@ const CartCounponCard = (props) => {
                       color: palette.grey[700],
                       fontSize: '10px',
                       minHeight: '25px',
-                      margin: '-5px',
+                      margin: '0 0 -10px -5px',
                     }}
                   >
                     {!expanded ? (

@@ -22,6 +22,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
   const [isShowSignUp, toggleSignUp] = useModal(!!referralCode);
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
+  const [isShowRegisterGuest, toggleRegisterGuest] = useModal(false);
 
   const { t } = i18n.useTranslation(['apiErrors']);
 
@@ -39,6 +40,11 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     toggleLogin();
     toggleSignUp();
   }, [toggleLogin, toggleSignUp]);
+
+  const handleChangeRegisterGuest = useCallback(() => {
+    toggleLogin();
+    toggleRegisterGuest();
+  }, [toggleLogin, toggleRegisterGuest]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
     const { expiredTime = new Date(), bearerToken = null } = info;
@@ -75,9 +81,23 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     setIsAuthenticated(!!userInfo);
   };
 
+  const logout = () => {
+    setInfoUser(null);
+    setCookies({}, true);
+    window.location.href = '/';
+  };
+
   const loadUserFromCookies = useCallback(async () => {
     const res = await getUserInfo();
     const userInfo = getFirst(res, null);
+    // check guest user expireAt
+    if (userInfo && userInfo.level === 'LEVEL_GUEST') {
+      const timeRemaining = new Date(userInfo.expireAt).getTime() - new Date().getTime();
+      // time remaining
+      // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
+      setTimeout(() => logout(), timeRemaining);
+    }
+
     setInfoUser(userInfo);
     setIsLoading(false);
   }, [getUserInfo, setIsLoading]);
@@ -88,7 +108,10 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   };
 
   const handleLogin = ({ username, password, rememberMe, success }) => {
-    AuthService.login({ username, password })
+    AuthService
+      // .loginLocal({ username, password, remember: rememberMe });
+      .login({ username, password, remember: rememberMe })
+
       .then((result) => {
         if (!isValid(result)) {
           const errorCode = `login.${result.errorCode}`;
@@ -117,10 +140,30 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       });
   };
 
-  const logout = () => {
-    setInfoUser(null);
-    setCookies({}, true);
-    window.location.href = '/';
+  const handleRegisterGuest = (data, success) => {
+    AuthService.registerGuest(data)
+      .then((result) => {
+        if (!isValid(result)) {
+          const errorCode = `login.${result.errorCode}`;
+          NotifyUtils.error(t(errorCode));
+          return;
+        }
+        const { username } = getFirst(result);
+        handleLogin({ username, password: username.toUpperCase() });
+        // callback
+        if (success) {
+          success();
+          if (router.pathname === '/') {
+            router.push(QUICK_ORDER);
+          }
+        }
+      })
+      .catch(() => {
+        NotifyUtils.error(t('error'));
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -134,6 +177,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         isAuthenticated,
         login,
         handleLogin,
+        handleRegisterGuest,
         logout,
         isLoading,
         isShowLogin,
@@ -142,9 +186,12 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         toggleSignUp,
         isShowForgetPassword,
         toggleForgetPassword,
+        isShowRegisterGuest,
+        toggleRegisterGuest,
         handleChangeForget,
         handleChangeSignIn,
         handleChangeSignUp,
+        handleChangeRegisterGuest,
       }}
     >
       {children}

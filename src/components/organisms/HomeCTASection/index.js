@@ -2,13 +2,13 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { ButtonHeader } from 'components/atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faUser, faEye, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from 'context';
 
 import styles from './styles.module.css';
 
 const HomeCTASection = () => {
-  const { toggleLogin, toggleSignUp } = useAuth();
+  const { toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();
   return (
     <div className={styles.homeCTA}>
       <Grid className={styles.homeCTAOverlay} container>
@@ -28,6 +28,14 @@ const HomeCTASection = () => {
           <ButtonHeader onClick={toggleSignUp} btnType="primary" className={styles.customBtn}>
             <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
             Tạo tài khoản
+          </ButtonHeader>
+          <ButtonHeader onClick={toggleRegisterGuest} btnType="primary" className={[styles.customBtn, styles.customGuest]}>
+            <FontAwesomeIcon className={styles.noAuthIcon} icon={faEye} />
+            Dùng thử
+          </ButtonHeader>
+          <ButtonHeader btnType="primary" className={[styles.customPhone]}>
+            <FontAwesomeIcon className={styles.noAuthIcon} icon={faPhone} />
+            <a href="tel:02873008840">02 873 008 840</a>
           </ButtonHeader>
         </Grid>
       </Grid>

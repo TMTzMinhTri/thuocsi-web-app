@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Modal, ButtonDefault } from 'components/atoms';
+import { Modal, ButtonDefaultLogin } from 'components/atoms';
 import { Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Image from 'next/image';
@@ -44,11 +44,11 @@ const RemoveProductModal = memo((props) => {
         )}
 
         <div style={{ marginTop: '16px', textAlign: 'center' }}>
-          <ButtonDefault btnType="warning" onClick={onClose}>
+          <ButtonDefaultLogin btnType="warning" onClick={onClose}>
             Không
-          </ButtonDefault>
+          </ButtonDefaultLogin>
 
-          <ButtonDefault onClick={() => onRemove()}>Có</ButtonDefault>
+          <ButtonDefaultLogin onClick={() => onRemove()}>Có</ButtonDefaultLogin>
         </div>
       </div>
     </Modal>

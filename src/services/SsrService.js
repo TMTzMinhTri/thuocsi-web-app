@@ -5,7 +5,9 @@ export const doWithServerSide = async (ctx, callback, redirect = null) => {
   try {
     let isAuthenticated = false;
     let user = null;
+    // const sessionToken = getSessionToken(ctx);
     const accRes = await getAccount(ctx);
+
     if (isValid(accRes)) {
       isAuthenticated = true;
       user = getFirst(accRes);
@@ -28,6 +30,7 @@ export const doWithServerSide = async (ctx, callback, redirect = null) => {
     result = result || {};
     result.props = result.props || {};
     result.props.user = user || null;
+    // result.props.sessionToken = sessionToken;
     result.props.isAuthenticated = isAuthenticated;
     return result;
   } catch (err) {

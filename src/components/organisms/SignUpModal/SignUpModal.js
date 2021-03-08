@@ -29,10 +29,12 @@ const SignUpModal = React.memo((props) => {
         // notification
         NotifyUtils.success('Bạn đã đăng ký tài khoản thuocsi thành công');
         // register success -> login and redirect
-        AuthService.login({
-          username: data.phone,
-          password: data.password,
-        })
+        AuthService
+          // .loginLocal({
+          //   username: data.phone,
+          //   password: data.password,
+          // })
+          .login({ username: data.phone, password: data.password })
           .then((resultlogin) => {
             if (!isValid(resultlogin)) {
               const errorCode = `login.${resultlogin.errorCode}`;

@@ -61,6 +61,8 @@ const CounponCard = (props) => {
       return `GIẢM ${percent}% TỐI ĐA ${formatCurrency(maxDiscountValue)}`;
     return '';
   };
+
+  // TODO: đặt hàng ngay chưa chạy
   return (
     <Card
       className={clsx(

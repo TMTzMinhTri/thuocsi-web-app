@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Button, Grid, Paper } from '@material-ui/core';
+import { TableRow, TableCell, Button } from '@material-ui/core';
 import { InfoTable } from 'components/atoms';
 import { DateTimeUtils } from 'utils';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,9 +17,9 @@ const heads = [
 function ReferralTable({ referrals, handleRetrySms }) {
   return (
     <div style={{ overflowX: 'auto' }}>
-      {referrals.length > 0 ? (
-        <InfoTable heads={heads} className={styles.bottom_square}>
-          {referrals.map((row) => (
+      <InfoTable heads={heads} className={styles.bottom_square}>
+        {referrals.length > 0 ? (
+          referrals.map((row) => (
             <TableRow hover key={uuidv4()}>
               <TableCell component="th" scope="row">
                 {row.phone}
@@ -49,13 +49,15 @@ function ReferralTable({ referrals, handleRetrySms }) {
                 )}
               </TableCell>
             </TableRow>
-          ))}
-        </InfoTable>
-      ) : (
-        <Grid container justify="center">
-          <Paper className={styles.not_friend}>Bạn chưa giới thiệu bạn bè</Paper>
-        </Grid>
-      )}
+          ))
+        ) : (
+          <TableRow hover key={uuidv4()}>
+            <TableCell component="th" scope="row" colSpan={5} align="center">
+              Bạn chưa giới thiệu bạn bè
+            </TableCell>
+          </TableRow>
+        )}
+      </InfoTable>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Modal, ButtonDefault } from 'components/atoms';
+import { Modal, ButtonDefaultLogin } from 'components/atoms';
 import { Typography } from '@material-ui/core';
 
 import styles from './style.module.css';
@@ -27,11 +27,11 @@ const CustomModal = memo(
         </div>
         <div style={{ textAlign: 'center', marginTop: '16px' }}>
           {onClose ? (
-            <ButtonDefault btnType="warning" onClick={onClose}>
+            <ButtonDefaultLogin btnType="warning" onClick={onClose}>
               {btnOnClose}
-            </ButtonDefault>
+            </ButtonDefaultLogin>
           ) : null}
-          {onClickOk ? <ButtonDefault onClick={onClickOk}>{btnOk}</ButtonDefault> : null}
+          {onClickOk && <ButtonDefaultLogin onClick={onClickOk}>{btnOk}</ButtonDefaultLogin>}
         </div>
       </div>
     </Modal>
