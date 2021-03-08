@@ -69,6 +69,26 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     return <LoadingScreen />;
   }
 
+  const {
+    name,
+    price,
+    unit,
+    volume,
+    ingredient = [],
+    category,
+    tags,
+    maxQuantity: prdMaxQuantity,
+    seller,
+    manufacturer,
+    countryOfManufacture,
+    isDeal,
+    deal,
+  } = product;
+
+  const maxQuantity = isDeal ? deal.maxQuantity : prdMaxQuantity;
+
+  // const { quantity } = product;
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [quantity, setQuantity] = useState(product.quantity || 0);
   const updateCart = async (q) => {
@@ -77,7 +97,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
       setQuantity(q);
     }
     if (response.errorCode === 'CART_MAX_QUANTITY') {
-      setQuantity(product.maxQuantity);
+      setQuantity(maxQuantity);
     }
   };
 
@@ -97,19 +117,6 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     debounce((val, updateType) => handleCart(val, updateType), 500),
     [],
   );
-  const {
-    name,
-    price,
-    unit,
-    volume,
-    ingredient = [],
-    category,
-    tags,
-    maxQuantity,
-    seller,
-    manufacturer,
-    countryOfManufacture,
-  } = product;
 
   const title = `${name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
 
@@ -187,7 +194,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
             <Grid sm={12} md={8} item>
               <Grid container>
                 <Grid xs={12} item>
-                  <h1 className={styles.product_name}>{name}</h1>
+                  <h1 className={styles.product_name}>{isDeal ? deal.name : name}</h1>
                   <div className={styles.product_tags}>
                     {tags && tags.map((item) => <TagType key={uuidv4()} item={item} />)}
                   </div>
