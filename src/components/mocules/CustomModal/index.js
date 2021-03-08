@@ -7,7 +7,6 @@ import styles from './style.module.css';
 
 const CustomModal = memo(
   ({
-    children,
     onClose,
     onClickOk,
     visible,
@@ -32,7 +31,6 @@ const CustomModal = memo(
           {customBtnOk && customBtnOk}
           {onClickOk && <ButtonDefaultLogin onClick={onClickOk}>{btnOk}</ButtonDefaultLogin>}
         </div>
-        {children}
       </div>
     </Modal>
   ),
