@@ -6,18 +6,18 @@ import dynamic from 'next/dynamic';
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const isTotal = false;
-    const [mostResearched, infoBanner, blocks, settings] = await Promise.all([
+    const [settingsResult, mostResearched, infoBanner, blocks] = await Promise.all([
+      SettingService.getListSetting({ ctx }),
       ProductClient.loadDataMostSearch(ctx),
       ProductClient.getInfoBanner(),
       ProductClient.loadDataProductCollection(ctx, isTotal),
-      SettingService.getListSetting(ctx),
     ]);
     return {
       props: {
         mostResearched,
         infoBanner,
         blocks,
-        settings: settings.data ? settings.data : [],
+        settings: settingsResult.data ? settingsResult.data : [],
       },
     };
   });
