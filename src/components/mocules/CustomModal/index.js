@@ -4,8 +4,10 @@ import { Typography } from '@material-ui/core';
 
 import styles from './style.module.css';
 
+
 const CustomModal = memo(
   ({
+    children,
     onClose,
     onClickOk,
     visible,
@@ -15,6 +17,7 @@ const CustomModal = memo(
     content,
     btnOk = 'Có',
     btnOnClose = 'Không',
+    isShowButton = true
   }) => (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
@@ -22,17 +25,18 @@ const CustomModal = memo(
           <div className={styles.warning_icon}>
             <Typography className={styles.text_icon}>!</Typography>
           </div>
-          <Typography className={styles.modal_title}>{title}</Typography>
-          <Typography className={styles.modal_content}>{content}</Typography>
+          {title && <Typography className={styles.modal_title}>{title}</Typography>}
+          {content && <Typography className={styles.modal_content}>{content}</Typography>}
         </div>
         <div style={{ textAlign: 'center', marginTop: '16px' }}>
-          {onClose ? (
+          {onClose && isShowButton ? (
             <ButtonDefaultLogin btnType="warning" onClick={onClose}>
               {btnOnClose}
             </ButtonDefaultLogin>
           ) : null}
           {onClickOk && <ButtonDefaultLogin onClick={onClickOk}>{btnOk}</ButtonDefaultLogin>}
         </div>
+        {children}
       </div>
     </Modal>
   ),

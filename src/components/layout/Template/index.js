@@ -1,10 +1,15 @@
 import React from 'react';
 import Head from 'next/head';
+import { useAuth } from 'context';
+import { SignUpModal, SignInModal, ForgetPasswordModal, RegisterGuestModal } from 'components/organisms';
+import { CustomModal } from 'components/mocules';
+import { ButtonHeader } from 'components/atoms';
 import NavBar from '../NavBar';
 import Header from '../Header';
 import HeaderMobile from '../HeaderMobile';
 import Footer from '../Footer';
 import FooterMobile from '../FooterMobile';
+import styles from './styles.module.css';
 
 export default function Template({
   title,
@@ -14,6 +19,23 @@ export default function Template({
   pageTitle = '',
   product = '',
 }) {
+  const {
+    isAuthenticated,
+    toggleLogin,
+    isShowLogin,
+    handleChangeForget,
+    isShowForgetPassword,
+    toggleForgetPassword,
+    isShowSignUp,
+    toggleSignUp,
+    handleChangeSignIn,
+    handleChangeSignUp,
+    registerGuest,
+    isShowRegisterGuest,
+    toggleRegisterGuest,
+    toggleShowGuestExpiredTime,
+    isShowGuestExpiredTime
+  } = useAuth();
   return (
     <div>
       <Head>
@@ -36,6 +58,51 @@ export default function Template({
         {!isMobile && <NavBar pageName={pageName} />}
         {children}
         {isMobile ? <FooterMobile product={product} /> : <Footer />}
+        {!isAuthenticated && (
+          <>
+            <SignInModal
+              visible={isShowLogin}
+              onClose={toggleLogin}
+              onChangeForget={handleChangeForget}
+              onChangeSignUp={handleChangeSignUp}
+            />
+            <ForgetPasswordModal visible={isShowForgetPassword} onClose={toggleForgetPassword} />
+            <SignUpModal
+              visible={isShowSignUp}
+              onClose={toggleSignUp}
+              onChangeSignIn={handleChangeSignIn}
+            />
+            <RegisterGuestModal
+              visible={isShowRegisterGuest}
+              onClose={toggleRegisterGuest}
+              onChangeRegisterGuest={registerGuest}
+            />
+            <CustomModal
+              visible={isShowGuestExpiredTime}
+              onClose={toggleShowGuestExpiredTime}
+              content="Thời gian dùng thử đã hết. Mời bạn vui lòng tạo tài khoản để sử dụng hoặc gọi chúng tôi để được hỗ trợ tốt nhất!"
+              isShowButton={false}
+            >
+              <div className={styles.btngroup}>
+                <ButtonHeader
+                  className={styles.custombtn}
+                  variant="contained"
+                  btnType="primary"
+                  onClick={toggleRegisterGuest}
+                >
+                  Gọi nhận viên hỗ trợ
+                </ButtonHeader>
+                <ButtonHeader
+                  variant="contained"
+                  btnType="primary"
+                  onClick={toggleSignUp}
+                >
+                  Tạo tài khoản
+                </ButtonHeader>
+              </div>
+            </CustomModal>
+          </>
+        )}
       </div>
     </div>
   );

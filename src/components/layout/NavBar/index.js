@@ -21,7 +21,6 @@ import clsx from 'clsx';
 import { CART_URL, HOME_PAGE, PRODUCTS_URL } from 'constants/Paths';
 import { ProductClient } from 'clients';
 
-import { SignUpModal, SignInModal, ForgetPasswordModal, RegisterGuestModal } from 'components/organisms';
 import { Toggle, SearchInput } from 'components/mocules';
 
 // comp
@@ -85,17 +84,8 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
 
   const {
     isAuthenticated,
-    isShowLogin,
     toggleLogin,
     toggleSignUp,
-    isShowSignUp,
-    isShowForgetPassword,
-    toggleForgetPassword,
-    handleChangeForget,
-    handleChangeSignIn,
-    handleChangeSignUp,
-    registerGuest,
-    isShowRegisterGuest,
     toggleRegisterGuest
   } = useAuth();
 
@@ -192,44 +182,25 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
               </div>
             </>
           ) : (
-            <>
-              <SignInModal
-                visible={isShowLogin}
-                onClose={toggleLogin}
-                onChangeForget={handleChangeForget}
-                onChangeSignUp={handleChangeSignUp}
-              />
-              <ForgetPasswordModal visible={isShowForgetPassword} onClose={toggleForgetPassword} />
-              <SignUpModal
-                visible={isShowSignUp}
-                onClose={toggleSignUp}
-                onChangeSignIn={handleChangeSignIn}
-              />
-              <RegisterGuestModal
-                visible={isShowRegisterGuest}
-                onClose={toggleRegisterGuest}
-                onChangeRegisterGuest={registerGuest}
-              />
-              <div className={styles.btn_no_auth_section}>
-                <Tooltip title="Đăng nhập" arrow>
-                  <IconButton onClick={toggleLogin} className={classes.link}>
-                    <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
-                  </IconButton>
-                </Tooltip>
+            <div className={styles.btn_no_auth_section}>
+              <Tooltip title="Đăng nhập" arrow>
+                <IconButton onClick={toggleLogin} className={classes.link}>
+                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faSignInAlt} />
+                </IconButton>
+              </Tooltip>
 
-                <Tooltip title="Tạo tài khoản" arrow>
-                  <IconButton onClick={toggleSignUp} className={classes.link}>
-                    <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
-                  </IconButton>
-                </Tooltip>
+              <Tooltip title="Tạo tài khoản" arrow>
+                <IconButton onClick={toggleSignUp} className={classes.link}>
+                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faUser} />
+                </IconButton>
+              </Tooltip>
 
-                <Tooltip title="Đăng ký dùng thử" arrow>
-                  <IconButton onClick={toggleRegisterGuest} className={classes.link}>
-                    <FontAwesomeIcon className={styles.noAuthIcon} icon={faEye} />
-                  </IconButton>
-                </Tooltip>
-              </div>
-            </>
+              <Tooltip title="Đăng ký dùng thử" arrow>
+                <IconButton onClick={toggleRegisterGuest} className={classes.link}>
+                  <FontAwesomeIcon className={styles.noAuthIcon} icon={faEye} />
+                </IconButton>
+              </Tooltip>
+            </div>
           )}
         </div>
       </Container>
