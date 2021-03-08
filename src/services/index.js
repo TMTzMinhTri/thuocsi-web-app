@@ -9,4 +9,5 @@ export { default as NotifyService } from './NofifyService';
 export { default as CustomerService } from './CustomerService';
 export { default as OrderService } from './OrderService';
 export { default as PricingService } from './PricingService';
+export { default as SettingService } from './SettingService';
 export * from './SsrService';

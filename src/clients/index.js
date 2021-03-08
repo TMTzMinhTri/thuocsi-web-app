@@ -13,4 +13,5 @@ export { default as CheckoutClient } from './CheckoutClient';
 export { default as IngredientCLient } from './IngredientClient';
 export { default as SupplierClient } from './SupplierClient';
 export { default as PricingClients } from './PricingClients';
+export { default as SettingClient } from './SettingClient';
 export * from './Clients';

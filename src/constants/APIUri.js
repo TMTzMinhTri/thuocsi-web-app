@@ -154,3 +154,10 @@ export const NOTIFICATION_API = {
   NOTIFICATION_ALL,
   NOTIFICATION,
 };
+
+const SETTING_API_PREFIX = '/marketplace/marketing/v1';
+const SETTING_LIST = `${SETTING_API_PREFIX}/settings/all`;
+
+export const SETTING_API = {
+  SETTING_LIST,
+};
