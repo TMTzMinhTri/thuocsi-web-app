@@ -17,7 +17,7 @@ import styles from './styles.module.css';
 const IMPORTANT_PERCENT_MAX = 20 / 100;
 
 const ProductCardBuy = ({
-  maxQuantity,
+  maxQuantity: productMaxQuantity,
   not_support_delivery: noSupportDelivery,
   price,
   // dealPrice,
@@ -33,6 +33,7 @@ const ProductCardBuy = ({
   isMobile,
   cartItems,
 }) => {
+  const maxQuantity = isDeal ? deal.maxQuantity : productMaxQuantity;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
@@ -118,9 +119,16 @@ const ProductCardBuy = ({
       }
     }
   };
+
   return (
     <>
-      {isDeal && row && <DealSection dealEndDay={deal?.endTime} />}
+      {isDeal && row && (
+        <DealSection
+          dealEndDay={deal?.endTime}
+          totalSold={deal.quantity}
+          total={deal.maxQuantity}
+        />
+      )}
       {noSupportDelivery && row ? (
         <div style={{ marginBottom: '16px' }}>
           <div
