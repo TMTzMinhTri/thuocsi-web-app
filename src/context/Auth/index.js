@@ -88,7 +88,8 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     if(typeof callback !== 'undefined' && typeof callback === 'function'){
       return callback();
     };
-    return window.location.assign('/');
+    window.location.href = '/';
+    return false
   };
 
   const loadUserFromCookies = useCallback(async () => {

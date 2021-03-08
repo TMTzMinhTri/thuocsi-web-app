@@ -81,26 +81,26 @@ export default function Template({
               visible={isShowGuestExpiredTime}
               onClose={toggleShowGuestExpiredTime}
               content="Thời gian dùng thử đã hết. Mời bạn vui lòng tạo tài khoản để sử dụng hoặc gọi chúng tôi để được hỗ trợ tốt nhất!"
-              customBtnOk={false}
-            >
-              <div className={styles.btngroup}>
-                <ButtonHeader
-                  className={styles.custombtn}
-                  variant="contained"
-                  btnType="primary"
-                  href="tel:02873008840"
-                >
-                  Gọi nhận viên hỗ trợ
-                </ButtonHeader>
-                <ButtonHeader
-                  variant="contained"
-                  btnType="primary"
-                  onClick={toggleSignUp}
-                >
-                  Tạo tài khoản
-                </ButtonHeader>
-              </div>
-            </CustomModal>
+              customBtnOk={(
+                <div className={styles.btngroup}>
+                  <ButtonHeader
+                    className={styles.custombtn}
+                    variant="contained"
+                    btnType="primary"
+                    href="tel:02873008840"
+                  >
+                    Gọi nhận viên hỗ trợ
+                  </ButtonHeader>
+                  <ButtonHeader
+                    variant="contained"
+                    btnType="primary"
+                    onClick={toggleSignUp}
+                  >
+                    Tạo tài khoản
+                  </ButtonHeader>
+                </div>
+              )}
+            />
           </>
         )}
       </div>
