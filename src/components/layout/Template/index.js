@@ -88,7 +88,7 @@ export default function Template({
                   className={styles.custombtn}
                   variant="contained"
                   btnType="primary"
-                  onClick={toggleRegisterGuest}
+                  href="tel:02873008840"
                 >
                   Gọi nhận viên hỗ trợ
                 </ButtonHeader>
