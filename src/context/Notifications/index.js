@@ -25,7 +25,7 @@ export const NotiContextProvider = ({ children }) => {
 
     const { account, session } = accData;
     const { token, type } = session;
-    const url = `wss://${window.location.hostname}/backend/integration/notification/v1/web-socket`;
+    const url = `wss://${window.location.hostname}/integration/notification/v1/web-socket`;
     const ws = new WebSocket(url);
 
     ws.onopen = function () {
