@@ -29,8 +29,7 @@ const PaymentButton = ({ user }) => (
   <>
     {user?.isActive ? null : (
       <Alert severity="error" style={{ margin: '5px' }}>
-        Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ 02 873 008
-        840 để kích hoạt
+        Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
       </Alert>
     )}
     {user.level === 'LEVEL_GUEST' && (
