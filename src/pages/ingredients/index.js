@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React from 'react';
+import React, { memo } from 'react';
 import Template from 'components/layout/Template';
 import IngredientContainer from 'components/organisms/IngredientContainer';
 import { IngredientCLient } from 'clients';
@@ -8,25 +8,9 @@ import { changeAlias } from 'utils/StringUtils';
 import { useIsMobile } from 'hooks';
 import styles from './styles.module.css';
 
-// export async function getStaticProps(ctx) {
-//   const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
-//   const convertIngredients = (ingre = []) =>
-//     ingre
-//       .sort((a, b) => a.name.localeCompare(b.name))
-//       .map(({ name, slug }) => ({
-//         unsignedKey: changeAlias(name),
-//         name,
-//         slug,
-//       }));
-//   return {
-//     props: {
-//       ingredients: convertIngredients(ingredients),
-//     },
-//     revalidate: DAY_SECONDS,
-//   };
-// }
+// const ONE_HOUR_SECONDS =
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps(ctx) {
   const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
   const convertIngredients = (ingre = []) =>
     ingre
@@ -40,8 +24,26 @@ export async function getServerSideProps(ctx) {
     props: {
       ingredients: convertIngredients(ingredients),
     },
+    revalidate: 300,
   };
 }
+
+// export async function getServerSideProps(ctx) {
+//   const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
+//   const convertIngredients = (ingre = []) =>
+//     ingre
+//       .sort((a, b) => a.name.localeCompare(b.name))
+//       .map(({ name, slug }) => ({
+//         unsignedKey: changeAlias(name),
+//         name,
+//         slug,
+//       }));
+//   return {
+//     props: {
+//       ingredients: convertIngredients(ingredients),
+//     },
+//   };
+// }
 
 const Ingredients = ({ ingredients = [] }) => {
   const title = 'Tất cả hoạt chất – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
@@ -58,4 +60,4 @@ const Ingredients = ({ ingredients = [] }) => {
   );
 };
 
-export default Ingredients;
+export default memo(Ingredients);
