@@ -28,7 +28,7 @@ const GroupAddressSelect = ({
   idDistrict,
   idWard,
   handleChangeAddress,
-  setTotalWard,
+  setTotalWard = null,
   error = {},
 }) => {
   const [address, setAddress] = useState({
@@ -39,8 +39,9 @@ const GroupAddressSelect = ({
 
   const getWards = async (dist) => {
     const wards = await AddressService.getWardsByDistrict(dist);
-
-    setTotalWard(wards.length);
+    if (setTotalWard) {
+      setTotalWard(wards.length);
+    }
 
     return [DEFAULT_WARD, ...wards];
   };
