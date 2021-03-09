@@ -14,7 +14,7 @@ export async function getServerSideProps(ctx) {
       CatClient.loadGroup(ctx),
       ProductService.getListTabs({ ctx }),
     ]);
-    const current_tab = ctx.query.current_tab || '';
+    const currentTab = ctx.query.currentTab || '';
     const sortBy = ctx.query.sortBy || '';
     const page = Number(ctx.query.page) || 1;
     const slug = ctx.query.slug || '';
@@ -23,7 +23,7 @@ export async function getServerSideProps(ctx) {
       props: {
         products: data,
         total,
-        current_tab,
+        currentTab,
         page,
         sortBy,
         brand,
@@ -41,7 +41,7 @@ export default function Products({
   brand = [],
   group = [],
   tabs = [],
-  current_tab = '',
+  currentTab = '',
   page = '',
   sortBy = '',
   slug = '',
@@ -54,8 +54,8 @@ export default function Products({
   const namePage = (val) => {
     let name = 'Tất cả sản phẩm';
     if (val) {
-      const currentTab = TAB_LIST.filter((tab) => tab.value === val);
-      name = currentTab[0] ? currentTab[0].label : name;
+      const currentTabs = TAB_LIST.filter((tab) => tab.value === val);
+      name = currentTabs[0] ? currentTabs[0].label : name;
     }
     return name;
   };
@@ -66,13 +66,13 @@ export default function Products({
         total={total}
         brand={brand}
         group={group}
-        current_tab={current_tab}
+        currentTab={currentTab}
         page={page}
         sortBy={sortBy}
         catName={cat}
         slug={slug}
         tabs={tabs}
-        name={namePage(current_tab)}
+        name={namePage(currentTab)}
         isAuthenticated={isAuthenticated}
         isMobile={isMobile}
       />

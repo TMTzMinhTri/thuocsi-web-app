@@ -53,7 +53,7 @@ async function loadProductWithCategory({ ctx, isTotal }) {
 
   const { currentTab = '', sortBy = '', page = 0, q = '', slug: category } = query;
   const params = {
-    current_tab: currentTab,
+    currentTab,
     sortBy,
     page,
     q,
@@ -73,7 +73,7 @@ async function loadProductWithManufacturer({ ctx, isTotal }) {
   const { currentTab = '', sortBy = '', page = 0, q = '', slug: manufacturers } = query;
   const params = {
     manufacturers,
-    current_tab: currentTab,
+    currentTab,
     sortBy,
     page,
     q,

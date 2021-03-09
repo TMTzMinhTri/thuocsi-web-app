@@ -29,8 +29,7 @@ const PaymentButton = ({ user }) => (
   <>
     {user?.isActive ? null : (
       <Alert severity="error" style={{ margin: '5px' }}>
-        Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ 02 873 008
-        840 để kích hoạt
+        Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
       </Alert>
     )}
     {user.level === 'LEVEL_GUEST' && (
@@ -60,6 +59,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
     redeemCode,
     promoInfo,
     redeemApplyResult,
+    discount,
   } = cartInfo;
 
   const router = useRouter();
@@ -118,8 +118,10 @@ const CardInfo = ({ cart, promo, className, user }) => {
             <Typography className={clsx(styles.number, styles.price)}>
               {formatCurrency(subTotalPrice || 0)}
             </Typography>
-            {!isEmpty(redeemCode) && (
-              <Typography className={clsx(styles.total)}>{formatCurrency(totalPrice)}</Typography>
+            {!isEmpty(redeemCode) && isCanApplyVoucherCode && (
+              <Typography className={clsx(styles.total)}>
+                {formatCurrency(Math.max(subTotalPrice - discount, 0))}
+              </Typography>
             )}
           </Grid>
         </Grid>

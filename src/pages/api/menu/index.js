@@ -38,15 +38,15 @@ export default (req, res) => {
         name: 'Mã Giảm Giá',
         icon: 'fas fa-tag',
         url: '/promo-codes',
-        isNew: true
+        isNew: true,
       },
-      {
-        id: '6',
-        name: 'Hàng Mới',
-        icon: 'fab fa-hotjar',
-        redirectUrl: 'https://try.thuocsi.vn/daitiechangmoi',
-        isNew: true
-      }
+      // {
+      //   id: '6',
+      //   name: 'Hàng Mới',
+      //   icon: 'fab fa-hotjar',
+      //   redirectUrl: 'https://try.thuocsi.vn/daitiechangmoi',
+      //   isNew: true
+      // }
     ],
   });
 };
