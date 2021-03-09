@@ -66,7 +66,7 @@ const ProductCardBuy = ({
   };
 
   const updateCart = async (q) => {
-    const response = await updateCartItem({ product, q });
+    const response = await updateCartItem({ product, q: parseInt(q, 10) });
     if (response.status === 'OK') {
       setValue(q);
     }
@@ -92,7 +92,8 @@ const ProductCardBuy = ({
 
   const handleDecrease = () => {
     if (value < 1) return;
-    const q = value - 1;
+
+    const q = parseInt(value, 10) - 1;
     setValue(q);
     if (q < 1) {
       handler(product, 'remove');
@@ -102,14 +103,14 @@ const ProductCardBuy = ({
   };
 
   const handleIncrease = () => {
-    const q = value + 1;
+    const q = parseInt(value, 10) + 1;
     setValue(q);
     handler(q, 'update');
   };
 
   const handleInputChange = (e) => {
     if (/^\d+$/.test(e.currentTarget.value) || !e.currentTarget.value) {
-      const curValue = e.currentTarget.value;
+      const curValue = parseInt(e.currentTarget.value || 0, 10);
       setValue(curValue);
       if (!curValue || curValue === 0) {
         if (value === 0) return;
