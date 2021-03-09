@@ -96,6 +96,8 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     customerWardCode,
   });
 
+  const [totalWard, setTotalWard] = useState();
+
   const [error, setError] = useState({
     name: false,
     phone: false,
@@ -105,6 +107,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   const dataCustomer = {
     paymentMethod,
     deliveryPlatform,
+    totalWard,
   };
 
   if (!cart || cart?.length === 0) {
@@ -136,7 +139,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
 
   // TODO: cần kiểm tra lại
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
-    setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
+    setValue({
+      ...value,
+      [idProvince]: province,
+      [idDistrict]: district,
+      [idWard]: ward,
+    });
   };
 
   return (
@@ -148,10 +156,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
               <DeliveryInfoForm
                 {...error}
                 {...value}
+                setError={setError}
                 isChecked={state?.saveInfoShipping}
                 handleSetValue={handleSetValue}
                 handleChangeAddress={handleChangeAddress}
                 handleChangeCheckbox={handleChangeCheckbox}
+                setTotalWard={setTotalWard}
               />
               <DeliveryMethod
                 totalPrice={totalPrice}

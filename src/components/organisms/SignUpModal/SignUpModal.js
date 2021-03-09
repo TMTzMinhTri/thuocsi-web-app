@@ -34,7 +34,7 @@ const SignUpModal = React.memo((props) => {
           //   username: data.phone,
           //   password: data.password,
           // })
-          .login({ username: data.phone, password: data.password })
+          .login({ username: data.phone, password: data.password, type: 'CUSTOMER' })
           .then((resultlogin) => {
             if (!isValid(resultlogin)) {
               const errorCode = `login.${resultlogin.errorCode}`;

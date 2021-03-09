@@ -63,15 +63,10 @@ async function request({
     dev / production : /backend
    */
     const headers = {};
+    const parameters = { ...params };
     let link = url;
     if (!page) {
       link = (mock ? MOCK_API_HOST : API_HOST) + url;
-    }
-
-    // console.log('link : ', link);
-    if (params) {
-      const parameter = RequestUtils.convertObjectToParameter(params);
-      link += (link.indexOf('?') >= 0 ? '' : '?') + parameter;
     }
 
     let isUseBasic = false;
@@ -93,6 +88,7 @@ async function request({
       if (isBasic && (!headers.Authorization || headers.Authorization.length === 0)) {
         headers.Authorization = BASIC_AUTHEN;
         isUseBasic = true;
+        parameters.isBasic = true;
       }
 
       if (!headers.Authorization || headers.Authorization.length === 0) {
@@ -103,6 +99,13 @@ async function request({
         };
       }
     }
+    // console.log('link : ', link);
+
+    if (parameters) {
+      const parameterStr = RequestUtils.convertObjectToParameter(parameters);
+      if (parameterStr.length > 0) link += (link.indexOf('?') >= 0 ? '' : '?') + parameterStr;
+    }
+
     // console.log(' fetch data ', link, method, headers, body);
     const res = await fetch(link, {
       method,

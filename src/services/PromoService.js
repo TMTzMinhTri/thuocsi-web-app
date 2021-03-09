@@ -21,7 +21,7 @@ export const parseCondition = (condition) => {
   if (!condition) return null;
 
   const { type, minOrderValue, productConditions } = condition;
-  let message = '';
+  let message = null;
   switch (type) {
     case 'ORDER_VALUE':
       if (minOrderValue) {
@@ -37,7 +37,7 @@ export const parseCondition = (condition) => {
       }
       break;
     case 'NO_RULE':
-      message = 'Không cần điều kiện';
+      // message = 'Không cần điều kiện';
       break;
     default:
   }

@@ -5,8 +5,8 @@ export const loginLocal = async (body) => {
   return {};
 };
 
-export const login = async ({ username, password }) => {
-  const authRes = await AuthClient.login({ username, password });
+export const login = async ({ username, password, type = 'CUSTOMER' }) => {
+  const authRes = await AuthClient.login({ username, password, type });
   if (!isValid(authRes)) {
     return authRes;
   }
@@ -23,4 +23,4 @@ export const registerGuest = async (data) => {
   return registerGuestRes;
 };
 
-export default { login, signUp, registerGuest, loginLocal};
+export default { login, signUp, registerGuest, loginLocal };

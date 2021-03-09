@@ -85,11 +85,11 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const logout = (callback) => {
     setInfoUser(null);
     setCookies({}, true);
-    if(typeof callback === 'function'){
+    if (typeof callback === 'function') {
       return callback();
-    };
+    }
     window.location.href = '/';
-    return false
+    return false;
   };
 
   const loadUserFromCookies = useCallback(async () => {
@@ -100,9 +100,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       const timeRemaining = new Date(userInfo.expireAt).getTime() - new Date().getTime();
       // time remaining
       // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
-      setTimeout(
-        () => logout(() => toggleShowGuestExpiredTime()), timeRemaining
-      );
+      setTimeout(() => logout(() => toggleShowGuestExpiredTime()), timeRemaining);
     }
 
     setInfoUser(userInfo);
@@ -114,10 +112,10 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     loadUserFromCookies();
   };
 
-  const handleLogin = ({ username, password, rememberMe, success }) => {
+  const handleLogin = ({ username, password, rememberMe, success, type = 'CUSTOMER' }) => {
     AuthService
       // .loginLocal({ username, password, remember: rememberMe });
-      .login({ username, password, remember: rememberMe })
+      .login({ username, password, type, remember: rememberMe })
 
       .then((result) => {
         if (!isValid(result)) {
@@ -156,7 +154,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
           return;
         }
         const { username } = getFirst(result);
-        handleLogin({ username, password: username.toUpperCase() });
+        handleLogin({ username, password: username.toUpperCase(), type: 'GUEST' });
         // callback
         if (success) {
           success();
