@@ -23,4 +23,14 @@ export const registerGuest = async (data) => {
   return registerGuestRes;
 };
 
-export default { login, signUp, registerGuest, loginLocal};
+export const passwordRecovery = async (data) => {
+  const passwordRecoveryRes = await AuthClient.passwordRecovery(data);
+  return passwordRecoveryRes;
+};
+
+export const passwordUpdate = async (data) => {
+  const passwordUpdateRes = await AuthClient.passwordUpdate(data);
+  return passwordUpdateRes;
+};
+
+export default { login, signUp, registerGuest, loginLocal, passwordRecovery, passwordUpdate};

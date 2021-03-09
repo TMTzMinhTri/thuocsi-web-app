@@ -104,7 +104,6 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         () => logout(() => toggleShowGuestExpiredTime()), timeRemaining
       );
     }
-
     setInfoUser(userInfo);
     setIsLoading(false);
   }, [getUserInfo, setIsLoading]);
@@ -173,6 +172,16 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       });
   };
 
+  const handleResetPassword = useCallback(async (data) => {
+    const result = await AuthService.resetPassword(data);
+    if (isValid(result)) {
+      NotifyUtils.info(result.message);
+    } else {
+      const errorCode = `login.${result.errorCode}`;
+      NotifyUtils.error(t(errorCode));
+    }
+  }, []);
+
   useEffect(() => {
     loadUserFromCookies();
   }, [pathname, loadUserFromCookies]);
@@ -201,6 +210,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         handleChangeSignIn,
         handleChangeSignUp,
         handleChangeRegisterGuest,
+        handleResetPassword
       }}
     >
       {children}

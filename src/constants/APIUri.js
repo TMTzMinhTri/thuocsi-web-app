@@ -2,9 +2,11 @@ const ACCOUNT_API_PREFIX = '/core/account/v1';
 
 const AUTHENTICATION = `${ACCOUNT_API_PREFIX}/authentication`;
 const GET_ACCOUNT_INFO = `${ACCOUNT_API_PREFIX}/me`;
+const PASSWORD_RECOVERY = `${ACCOUNT_API_PREFIX}/password-recovery`;
 export const ACCOUNT_API = {
   AUTHENTICATION,
   GET_ACCOUNT_INFO,
+  PASSWORD_RECOVERY
 };
 
 // MARKETPLACE
