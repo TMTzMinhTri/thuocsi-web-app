@@ -60,6 +60,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
     redeemCode,
     promoInfo,
     redeemApplyResult,
+    discount,
   } = cartInfo;
 
   const router = useRouter();
@@ -118,8 +119,10 @@ const CardInfo = ({ cart, promo, className, user }) => {
             <Typography className={clsx(styles.number, styles.price)}>
               {formatCurrency(subTotalPrice || 0)}
             </Typography>
-            {!isEmpty(redeemCode) && (
-              <Typography className={clsx(styles.total)}>{formatCurrency(totalPrice)}</Typography>
+            {!isEmpty(redeemCode) && isCanApplyVoucherCode && (
+              <Typography className={clsx(styles.total)}>
+                {formatCurrency(Math.max(subTotalPrice - discount, 0))}
+              </Typography>
             )}
           </Grid>
         </Grid>
