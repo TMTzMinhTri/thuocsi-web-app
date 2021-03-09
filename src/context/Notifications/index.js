@@ -96,11 +96,13 @@ export const NotiContextProvider = ({ children }) => {
 
   const markAll = async () => {
     const rest = await NotifyService.markReadAll({});
+    fetchData();
     return rest;
   };
 
   const markReadByCode = async (code) => {
     const res = await NotifyService.markReadByCode({ code });
+    fetchData();
     return res;
   };
 
