@@ -68,6 +68,7 @@ const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
 const PRODUCT_LIST_COLLECTION = `${PRODUCT_API_PREFIX}/collection/page`;
 const TAGS = `${PRODUCT_API_PREFIX}/tags/list`;
 const TABS_ACTIVE = `${PRODUCT_API_PREFIX}/tabs/active`;
+const DEALS = `${PRODUCT_API_PREFIX}/products/deal/list`;
 
 export const PRODUCT_API = {
   INGREDIENT,
@@ -79,6 +80,7 @@ export const PRODUCT_API = {
   PRODUCT_LIST_COLLECTION,
   TAGS,
   TABS_ACTIVE,
+  DEALS,
 };
 
 const CORE_MASTER_DATA_PREFIX = '/core/master-data/v1';

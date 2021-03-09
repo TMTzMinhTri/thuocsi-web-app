@@ -7,19 +7,19 @@ export default (req, res) => {
       {
         code: 'DET61PGE',
         name: 'Ảnh bìa',
-        status: false,
+        status: 'ON',
         type: 'banner',
       },
       {
         code: 'FTHR2AXH',
         name: 'Tìm kiếm nhiều nhất',
-        status: true,
+        status: 'ON',
         type: 'most-search',
       },
       {
         code: 'GYCV84FW',
         name: 'Popup',
-        status: true,
+        status: 'ON',
         type: 'popup',
       },
     ],

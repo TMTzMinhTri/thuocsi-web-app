@@ -1,5 +1,11 @@
 import React from 'react';
-import { Paper, Grid, useMediaQuery, FormControlLabel, Checkbox } from '@material-ui/core';
+import {
+  Paper,
+  Grid,
+  useMediaQuery,
+  // FormControlLabel,
+  // Checkbox,
+} from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoFormControl from 'components/atoms/InfoFormControl';
@@ -8,9 +14,9 @@ import InfoInput from '../InfoInput';
 import GroupAddressSelect from '../GroupAddressSelect';
 import styles from './styles.module.css';
 
-const GreenCheckbox = (props) => (
-  <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
-);
+// const GreenCheckbox = (props) => (
+//   <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
+// );
 
 const DeliveryInfoForm = ({
   customerName,
@@ -25,18 +31,21 @@ const DeliveryInfoForm = ({
   phone,
   address,
   handleChangeAddress,
-  handleChangeCheckbox,
-  isChecked = false,
+  setAddress,
+  // handleChangeCheckbox,
+  setError,
+  // isChecked = false,
 }) => {
   const maxWidthScope = useMediaQuery('(max-width:600px)');
 
-  const checkBox = (
-    <GreenCheckbox
-      checked={isChecked}
-      onChange={(e) => handleChangeCheckbox(e)}
-      name="saveInfoShipping"
-    />
-  );
+  // STATUS: PENDING
+  // const checkBox = (
+  //   <GreenCheckbox
+  //     checked={isChecked}
+  //     onChange={(e) => handleChangeCheckbox(e)}
+  //     name="saveInfoShipping"
+  //   />
+  // );
 
   return (
     <Paper className={styles.root} elevation={2}>
@@ -60,7 +69,12 @@ const DeliveryInfoForm = ({
             id="customerName"
             placeholder="Họ và tên"
             value={customerName || ''}
-            onChange={(e) => handleSetValue('customerName', e.target.value)}
+            onChange={(e) => {
+              if (e.target.value !== '') {
+                setError(true);
+              }
+              handleSetValue('customerName', e.target.value);
+            }}
           />
         </InfoFormControl>
         <Grid className={styles.grid_fix} container spacing={2}>
@@ -105,6 +119,9 @@ const DeliveryInfoForm = ({
             placeholder="Địa chỉ nhà thuốc"
             value={customerShippingAddress || ''}
             onChange={(e) => {
+              if (e.target.value !== '') {
+                setError(true);
+              }
               handleSetValue('customerShippingAddress', e.target.value);
             }}
           />
@@ -120,12 +137,15 @@ const DeliveryInfoForm = ({
           ward={customerWardCode}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
+          setAddress={setAddress}
         />
+        {/* STATUS: PENDING
         <FormControlLabel
           control={checkBox}
           className={styles.save_info_cb}
           label={<span className={styles.fw500}>Lưu lại thông tin</span>}
-        />
+        /> 
+        */}
       </Grid>
     </Paper>
   );

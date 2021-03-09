@@ -96,6 +96,8 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     customerWardCode,
   });
 
+  const [address, setAddress] = useState();
+
   const [error, setError] = useState({
     name: false,
     phone: false,
@@ -148,10 +150,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
               <DeliveryInfoForm
                 {...error}
                 {...value}
+                setError={setError}
                 isChecked={state?.saveInfoShipping}
                 handleSetValue={handleSetValue}
                 handleChangeAddress={handleChangeAddress}
                 handleChangeCheckbox={handleChangeCheckbox}
+                setAddress={setAddress}
               />
               <DeliveryMethod
                 totalPrice={totalPrice}
@@ -184,6 +188,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
                 selectedValue={paymentMethod}
                 isMobile={isMobile}
                 state={state}
+                address={address}
               />
             </Grid>
           </Grid>

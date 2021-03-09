@@ -23,6 +23,7 @@ const CheckoutSticky = ({
   dataCustomer,
   onSetError,
   isMobile,
+  address,
   // savedInfo,
 }) => {
   const {
@@ -101,6 +102,9 @@ const CheckoutSticky = ({
       NotifyUtils.error('Bạn chưa chọn Quận.');
       return false;
     }
+    if (address.wards[0].value === null) {
+      return true;
+    }
 
     if (res.customerWardCode === '0') {
       NotifyUtils.error('Bạn chưa chọn phường/xã.');
@@ -159,7 +163,7 @@ const CheckoutSticky = ({
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
-          <div className={styles.checkout_content}>{`-${formatCurrency(deliveryPlatformFee)}`}</div>
+          <div className={styles.checkout_content}>{formatCurrency(deliveryPlatformFee)}</div>
         </div>
         {PAYMENT_METHOD === paymentMethod}
         <div className={styles.d_flex}>
@@ -223,7 +227,7 @@ const CheckoutSticky = ({
               <div className={styles.price}>{formatCurrency(subTotalPrice)}</div>
               <div>
                 <ButtonDefault
-                  disabled={!checkCondition.checked || user.level === "LEVEL_GUEST"}
+                  disabled={!checkCondition.checked || user.level === 'LEVEL_GUEST'}
                   btnType="warning"
                   onClick={handleSubmit}
                   classes={{

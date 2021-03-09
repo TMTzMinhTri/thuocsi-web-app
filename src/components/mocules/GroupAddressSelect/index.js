@@ -9,6 +9,7 @@ import styles from './styles.module.css';
 const DEFAULT_PROVINCE = { label: 'Chọn Tinh/Thành phố ...', value: '0' };
 const DEFAULT_DISTRICT = { label: 'Chọn Quận/Huyện ...', value: '0' };
 const DEFAULT_WARD = { label: 'Chọn Phường/Xã ...', value: '0' };
+const UNFIND_WARD = { value: null };
 
 const getProvinces = async () => {
   const provinces = await AddressService.getProvinces();
@@ -22,6 +23,9 @@ const getDistricts = async (prv) => {
 
 const getWards = async (dist) => {
   const wards = await AddressService.getWardsByDistrict(dist);
+  if (wards.length === 0) {
+    return [UNFIND_WARD];
+  }
   return [DEFAULT_WARD, ...wards];
 };
 
@@ -33,6 +37,7 @@ const GroupAddressSelect = ({
   idDistrict,
   idWard,
   handleChangeAddress,
+  setAddress: handleSetAdress,
   error = {},
 }) => {
   const [address, setAddress] = useState({
@@ -40,6 +45,10 @@ const GroupAddressSelect = ({
     districts: [DEFAULT_DISTRICT],
     wards: [DEFAULT_WARD],
   });
+
+  useEffect(() => {
+    handleSetAdress(address);
+  }, [address]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -56,7 +65,7 @@ const GroupAddressSelect = ({
       }
 
       if (district !== DEFAULT_DISTRICT.value) {
-        addressinfo.wards = await getWards(district);
+        addressinfo.wards = (await getWards(district)) || null;
       }
 
       setAddress(addressinfo);
@@ -85,6 +94,7 @@ const GroupAddressSelect = ({
 
   const handleChangeDistrict = async (e) => {
     const districtCode = e.target.value;
+
     handleChangeAddress(idProvince, idDistrict, idWard, province, districtCode, DEFAULT_WARD.value);
 
     setAddress({
@@ -125,6 +135,7 @@ const GroupAddressSelect = ({
         label={<span className={styles.fw500}>Phường/Xã</span>}
         disabled={address.wards.length === 1}
         error={error.ward}
+        isRequired={ward !== null}
       />
     </Grid>
   );
