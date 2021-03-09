@@ -129,7 +129,6 @@ const GroupAddressSelect = ({
         label={<span className={styles.fw500}>Phường/Xã</span>}
         disabled={address.wards.length === 1}
         error={error.ward}
-        isRequired={ward !== null}
       />
     </Grid>
   );

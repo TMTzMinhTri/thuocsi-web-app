@@ -14,17 +14,11 @@ const AddressSelect = ({
   disabled,
   className,
   error,
-  isRequired,
 }) => {
   const maxWidthAddressSelect = useMediaQuery('(max-width:720px)');
 
   return (
-    <InfoFormControl
-      xs={maxWidthAddressSelect ? 12 : 4}
-      label={label}
-      htmlFor={id}
-      isRequired={isRequired}
-    >
+    <InfoFormControl xs={maxWidthAddressSelect ? 12 : 4} label={label} htmlFor={id} isRequired>
       <NativeSelect
         id={id}
         input={<InfoInput error={error} />}

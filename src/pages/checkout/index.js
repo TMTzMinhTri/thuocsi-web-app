@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable camelcase */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import {
   Template,
@@ -125,12 +125,9 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     updateDeliveryMethod({ deliveryMethod, ...value });
   };
 
-  const handleSetValue = useCallback(
-    (key, val) => {
-      setValue({ ...value, [key]: val });
-    },
-    [value],
-  );
+  const handleSetValue = (key, val) => {
+    setValue({ ...value, [key]: val });
+  };
 
   const handleSetError = (key, val) => {
     setError({ ...value, [key]: val });

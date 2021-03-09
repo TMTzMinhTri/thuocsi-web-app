@@ -134,7 +134,6 @@ const DeliveryInfoForm = ({
           idDistrict="customerDistrictCode"
           district={customerDistrictCode}
           idWard="customerWardCode"
-          idTotalWard="totalWard"
           ward={customerWardCode}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
