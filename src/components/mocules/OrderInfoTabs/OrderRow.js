@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { MY_ORDER_URL } from 'constants/Paths';
 // import PrintInvoiceButton from '../PrintInvoiceButton';
 import EditOrderButton from '../EditOrderButton';
-import ResponseButton from '../ResponseButton';
+import TicketButton from '../TicketButton';
 import styles from './styles.module.css';
 import OrderStatusButton from './OrderStatusButton';
 
@@ -116,7 +116,13 @@ const OrderRow = ({
             </Grid>
           )}
           <Grid item>
-            <ResponseButton orderID={orderID} name={name} phone={phone} />
+            <TicketButton
+              orderID={orderID}
+              name={name}
+              phone={phone}
+              orderNo={orderNo}
+              orderTime={createdTime}
+            />
           </Grid>
         </Grid>
       </Grid>

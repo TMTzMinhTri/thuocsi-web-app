@@ -161,3 +161,19 @@ const SETTING_LIST = `${SETTING_API_PREFIX}/settings/all`;
 export const SETTING_API = {
   SETTING_LIST,
 };
+
+const MARKETING_API_PREFIX = '/marketplace/marketing/v1';
+const BANNER = `${MARKETING_API_PREFIX}/banners/available`;
+
+export const MARKETING_API = {
+  MARKETING_API_PREFIX,
+  BANNER,
+};
+
+const TICKET_API_PREFIX = '/marketplace/ticket/v1';
+const TASK = `${TICKET_API_PREFIX}/me/task`;
+
+export const TICKET_API = {
+  TICKET_API_PREFIX,
+  TASK,
+};
