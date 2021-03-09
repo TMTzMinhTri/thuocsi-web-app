@@ -102,11 +102,7 @@ const CheckoutSticky = ({
       return false;
     }
 
-    if (res.totalWard === 0) {
-      return true;
-    }
-
-    if (res.customerWardCode === '0') {
+    if (res.customerWardCode === '0' && res.totalWard > 0) {
       NotifyUtils.error('Bạn chưa chọn phường/xã.');
       return false;
     }
