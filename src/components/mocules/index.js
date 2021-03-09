@@ -32,7 +32,7 @@ export { default as PaymentMethod } from './PaymentMethod';
 export { default as CheckoutSticky } from './CheckoutSticky';
 export { default as PrintInvoiceButton } from './PrintInvoiceButton';
 export { default as EditOrderButton } from './EditOrderButton';
-export { default as ResponseButton } from './ResponseButton';
+export { default as TicketButton } from './TicketButton';
 export { default as EventBadge } from './EventBadge';
 export { default as NewBadge } from './NewBadge';
 export { default as RibbonPriceUp } from './RibbonPriceUp';

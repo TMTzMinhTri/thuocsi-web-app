@@ -110,6 +110,23 @@ const StyledButton = styled(CustomButton)`
     font-weight: 500;
     margin: 10px;
   }
+
+  &.response__button--upload {
+    margin: 15px 0 !important;
+    padding: 30px !important;
+    width: 100%;
+    background: #fff !important;
+    color: rgba(0, 0, 0, 0.23) !important;
+    border: 1px solid rgba(0, 0, 0, 0.23) !important;
+  }
+
+  &.response__button--send {
+    padding: 10px 30px !important;
+    color: #fff !important;
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+  }
 `;
 
 export default React.memo(StyledButton);

@@ -3,7 +3,7 @@ import {
   OrderDetailStep,
   OrderDetailInfo,
   OrderDetailProduct,
-  ResponseButton,
+  TicketButton,
   PrintInvoiceButton,
   EditOrderButton,
 } from 'components/mocules';
@@ -37,8 +37,10 @@ const OrderDetailContainer = ({ order, products, user, isMobile }) => (
             </Grid>
             <Grid className={styles.order_button} item container direction="row" justify="flex-end">
               <EditOrderButton orderNo={order.orderNo} />
-              <ResponseButton
-                orderID={order.orderNo}
+              <TicketButton
+                orderID={order.orderID}
+                orderNo={order.orderNo}
+                orderTime={order.createdTime}
                 name={order?.customerName}
                 phone={order?.customerPhone}
               />
