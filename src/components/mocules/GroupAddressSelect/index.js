@@ -20,11 +20,6 @@ const getDistricts = async (prv) => {
   return [DEFAULT_DISTRICT, ...dists];
 };
 
-const getWards = async (dist) => {
-  const wards = await AddressService.getWardsByDistrict(dist);
-  return [DEFAULT_WARD, ...wards];
-};
-
 const GroupAddressSelect = ({
   province = DEFAULT_PROVINCE.value,
   district = DEFAULT_DISTRICT.value,
@@ -33,6 +28,7 @@ const GroupAddressSelect = ({
   idDistrict,
   idWard,
   handleChangeAddress,
+  setTotalWard,
   error = {},
 }) => {
   const [address, setAddress] = useState({
@@ -40,6 +36,14 @@ const GroupAddressSelect = ({
     districts: [DEFAULT_DISTRICT],
     wards: [DEFAULT_WARD],
   });
+
+  const getWards = async (dist) => {
+    const wards = await AddressService.getWardsByDistrict(dist);
+
+    setTotalWard(wards.length);
+
+    return [DEFAULT_WARD, ...wards];
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -85,8 +89,8 @@ const GroupAddressSelect = ({
 
   const handleChangeDistrict = async (e) => {
     const districtCode = e.target.value;
-    handleChangeAddress(idProvince, idDistrict, idWard, province, districtCode, DEFAULT_WARD.value);
 
+    handleChangeAddress(idProvince, idDistrict, idWard, province, districtCode, DEFAULT_WARD.value);
     setAddress({
       ...address,
       wards:

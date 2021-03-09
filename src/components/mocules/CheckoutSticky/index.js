@@ -102,7 +102,7 @@ const CheckoutSticky = ({
       return false;
     }
 
-    if (res.customerWardCode === '0') {
+    if (res.customerWardCode === '0' && res.totalWard > 0) {
       NotifyUtils.error('Bạn chưa chọn phường/xã.');
       return false;
     }
@@ -159,7 +159,7 @@ const CheckoutSticky = ({
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>Phí vận chuyển</div>
-          <div className={styles.checkout_content}>{`-${formatCurrency(deliveryPlatformFee)}`}</div>
+          <div className={styles.checkout_content}>{formatCurrency(deliveryPlatformFee)}</div>
         </div>
         {PAYMENT_METHOD === paymentMethod}
         <div className={styles.d_flex}>
@@ -223,7 +223,7 @@ const CheckoutSticky = ({
               <div className={styles.price}>{formatCurrency(subTotalPrice)}</div>
               <div>
                 <ButtonDefault
-                  disabled={!checkCondition.checked || user.level === "LEVEL_GUEST"}
+                  disabled={!checkCondition.checked || user.level === 'LEVEL_GUEST'}
                   btnType="warning"
                   onClick={handleSubmit}
                   classes={{
