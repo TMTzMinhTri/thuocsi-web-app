@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable camelcase */
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import {
   Template,
@@ -96,7 +96,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     customerWardCode,
   });
 
-  const [address, setAddress] = useState();
+  const [totalWard, setTotalWard] = useState();
 
   const [error, setError] = useState({
     name: false,
@@ -107,6 +107,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   const dataCustomer = {
     paymentMethod,
     deliveryPlatform,
+    totalWard,
   };
 
   if (!cart || cart?.length === 0) {
@@ -124,9 +125,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     updateDeliveryMethod({ deliveryMethod, ...value });
   };
 
-  const handleSetValue = (key, val) => {
-    setValue({ ...value, [key]: val });
-  };
+  const handleSetValue = useCallback(
+    (key, val) => {
+      setValue({ ...value, [key]: val });
+    },
+    [value],
+  );
 
   const handleSetError = (key, val) => {
     setError({ ...value, [key]: val });
@@ -138,7 +142,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
 
   // TODO: cần kiểm tra lại
   const handleChangeAddress = (idProvince, idDistrict, idWard, province, district, ward) => {
-    setValue({ ...value, [idProvince]: province, [idDistrict]: district, [idWard]: ward });
+    setValue({
+      ...value,
+      [idProvince]: province,
+      [idDistrict]: district,
+      [idWard]: ward,
+    });
   };
 
   return (
@@ -155,7 +164,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
                 handleSetValue={handleSetValue}
                 handleChangeAddress={handleChangeAddress}
                 handleChangeCheckbox={handleChangeCheckbox}
-                setAddress={setAddress}
+                setTotalWard={setTotalWard}
               />
               <DeliveryMethod
                 totalPrice={totalPrice}
@@ -188,7 +197,6 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
                 selectedValue={paymentMethod}
                 isMobile={isMobile}
                 state={state}
-                address={address}
               />
             </Grid>
           </Grid>

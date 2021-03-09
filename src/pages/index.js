@@ -11,7 +11,6 @@ export async function getServerSideProps(ctx) {
       ProductClient.loadDataMostSearch(ctx),
       ProductClient.getInfoBanner(),
       ProductClient.loadDataProductCollection(ctx, isTotal),
-      SettingService.getListSetting(ctx),
     ]);
     return {
       props: {

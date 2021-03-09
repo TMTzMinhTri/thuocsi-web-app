@@ -23,7 +23,6 @@ const CheckoutSticky = ({
   dataCustomer,
   onSetError,
   isMobile,
-  address,
   // savedInfo,
 }) => {
   const {
@@ -102,7 +101,8 @@ const CheckoutSticky = ({
       NotifyUtils.error('Bạn chưa chọn Quận.');
       return false;
     }
-    if (address.wards[0].value === null) {
+
+    if (res.totalWard === 0) {
       return true;
     }
 

@@ -14,13 +14,12 @@ const renderDeliveryMethod = ({ item, addressSelect, totalPrice = 0 }) => {
   const label = (
     <>
       <b className={styles.fw500}>{name}</b>
-      {(feeValue && (
+      {feeValue > 0 && (
         <>
           {' '}
           Phí vận chuyện <i className={styles.fw500}>({formatCurrency(feeValue)})</i>
         </>
-      )) ||
-        null}
+      )}
     </>
   );
 

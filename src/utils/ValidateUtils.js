@@ -86,8 +86,6 @@ const validateData = {
   phoneNumber: funcValidatePhoneNumber,
 };
 
-const hasWhiteSpace = (s) => /\s/g.test(s);
-
 export default {
   validateEmail,
   isEmpty,
@@ -98,5 +96,4 @@ export default {
   Error,
   Success,
   validateData,
-  hasWhiteSpace,
 };

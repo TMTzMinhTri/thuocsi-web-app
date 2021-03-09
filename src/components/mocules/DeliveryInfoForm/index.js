@@ -31,7 +31,7 @@ const DeliveryInfoForm = ({
   phone,
   address,
   handleChangeAddress,
-  setAddress,
+  setTotalWard,
   // handleChangeCheckbox,
   setError,
   // isChecked = false,
@@ -134,10 +134,11 @@ const DeliveryInfoForm = ({
           idDistrict="customerDistrictCode"
           district={customerDistrictCode}
           idWard="customerWardCode"
+          idTotalWard="totalWard"
           ward={customerWardCode}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
-          setAddress={setAddress}
+          setTotalWard={setTotalWard}
         />
         {/* STATUS: PENDING
         <FormControlLabel
