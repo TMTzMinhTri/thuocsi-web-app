@@ -31,6 +31,10 @@ const styledForgetPasswordForm = styled(ForgetPasswordForm)`
   }
   .desc{
     font-size: 16px;
+    margin: 15px 0;
+  }
+  .forget-password{
+    width: 100%;
   }
 `;
 

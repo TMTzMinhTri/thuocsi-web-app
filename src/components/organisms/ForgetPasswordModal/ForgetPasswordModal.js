@@ -50,6 +50,7 @@ const ForgetPasswordModal = React.memo((props) => {
     if (isValidWithoutData(result)) {
       setStep(3);
       setIsLoading(false);
+      NotifyUtils.success("Mật khẩu mới đã được cập nhật");
     } else {
       const errorCode = `login.${result.errorCode}`;
       NotifyUtils.error(t(errorCode));
@@ -57,11 +58,15 @@ const ForgetPasswordModal = React.memo((props) => {
     }
   };
 
-  const handleClose = () => {
+  const clearState = () => {
     setStep(1);
-    onClose();
     setIsTimeOut(false);
     setIsLoading(false);
+  }
+
+  const handleClose = () => {
+    clearState();
+    onClose();
   };
 
   const timeOut = () => {

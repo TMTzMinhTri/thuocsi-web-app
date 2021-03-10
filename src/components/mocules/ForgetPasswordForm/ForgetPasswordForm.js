@@ -21,7 +21,7 @@ const ForgetPasswordForm = React.memo(
     const regExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
     const regExpOpt = /^.{6,6}$/;
     const regExpPw = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(^.{8,20}$)/;
-    const SECOND_TIMEOUT = 10;
+    const SECOND_TIMEOUT = 180;
 
     const [phoneValue, setPhoneValue] = useState(false);
     const [errorPhone, setErrorPhone] = useState(false);
@@ -110,18 +110,23 @@ const ForgetPasswordForm = React.memo(
       if (!validatePhone(data.phoneNumber)) {
         return;
       }
+      // data type is customer on web
+      data.type = "CUSTOMER";
       onClickPhoneForm(data);
     };
 
     const onSubmitNewPasswordForm = (e) => {
       e.preventDefault();
       const data = FormDataUtils.convert(e);
-      if (!validatePw(data.newPassword) || !validatePwConfirm(data.confirmPassword)) {
-        return;
-      }
       if (!validateOtp(data.token)) {
         return;
       }
+      if (!validatePw(data.newPassword) || !validatePwConfirm(data.confirmPassword)) {
+        return;
+      }
+      delete data.confirmPassword;
+      // data type is customer on web
+      data.type = "CUSTOMER";
       onClickNewPasswordForm(data);
     };
 
@@ -238,7 +243,6 @@ const ForgetPasswordForm = React.memo(
                     onChange={handleOnChangeOpt}
                   />
                   <div className={styles.right_c}>
-                    {console.log('isTimeOut', isTimeOut)}
                     {!isTimeOut ? (
                       <div className={styles.remaining}>{second}</div>
                     ) : (

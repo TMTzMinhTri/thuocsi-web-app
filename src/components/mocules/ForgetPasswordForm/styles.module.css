@@ -35,6 +35,9 @@
 }
 .right_c{
   padding-left: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .remaining{
   border: 3px solid #3cb56b;
@@ -42,7 +45,12 @@
   padding: 8px;
   width: 42px;
   height: 42px;
-  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 .custom_field .input{
   width: 200px !important;
