@@ -23,6 +23,7 @@ const styledForgetPasswordForm = styled(ForgetPasswordForm)`
     bow-shadow: 0px 3px 20px rgba(0, 0, 0, 0.08);
     width: 100%;
     padding: 1.5rem;
+    border-radius: 50px;
   }
   .action{
     margin-top: 10px;
@@ -31,7 +32,8 @@ const styledForgetPasswordForm = styled(ForgetPasswordForm)`
   }
   .desc{
     font-size: 16px;
-    margin: 15px 0;
+    margin: 15px auto;
+    max-width: 450px;
   }
   .forget-password{
     width: 100%;
