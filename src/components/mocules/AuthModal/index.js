@@ -12,6 +12,7 @@ const AuthModal = styled(AuthModalCustom)`
       box-shadow: theme.shadows[5];
       border-radius: 1.25em;
       outline: 0;
+      overflow: hidden;
     }
     &-header {
       display: flex;
