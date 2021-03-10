@@ -1,0 +1,44 @@
+.container {
+  width: 70%;
+  height: 80%;
+  background: #f4f7fc;
+  padding: 15px;
+}
+
+.title {
+  background: rgba(0, 175, 107, 0.8784313725490196);
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.text_body {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 5px !important;
+}
+
+.button_find {
+  padding: 3px !important;
+}
+
+.text_red {
+  display: block;
+  color: red;
+}
+
+.button_upload {
+}
+
+.button_send {
+  /* color: ; */
+  background: #f4f7fc !important;
+  padding: 25px;
+}
+
+.reason_select [class*='MuiInputBase-input'] {
+  height: 2.4em !important;
+  padding: 0 0 0 15px !important;
+}

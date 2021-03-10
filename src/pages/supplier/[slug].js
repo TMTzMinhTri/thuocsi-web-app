@@ -30,7 +30,7 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const current_tab = ctx.query.current_tab || '';
+  const currentTab = ctx.query.currentTab || '';
   const sortBy = ctx.query.sortBy || '';
   const page = Number(ctx.query.page) || 1;
   const slug = ctx.query.slug || '';
@@ -41,7 +41,7 @@ export async function getServerSideProps(ctx) {
     props: {
       products: data,
       total,
-      current_tab,
+      currentTab,
       page,
       sortBy,
       brand,
@@ -59,7 +59,7 @@ export default function Supplier({
   brand = [],
   group = [],
   tabs = [],
-  current_tab = '',
+  currentTab = '',
   page = '',
   sortBy = '',
   slug = '',
@@ -114,7 +114,7 @@ export default function Supplier({
         total={total}
         brand={brand}
         group={group}
-        current_tab={current_tab}
+        currentTab={currentTab}
         page={page}
         sortBy={sortBy}
         catName={cat}

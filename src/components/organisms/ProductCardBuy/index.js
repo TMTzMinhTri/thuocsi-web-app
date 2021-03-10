@@ -17,12 +17,12 @@ import styles from './styles.module.css';
 const IMPORTANT_PERCENT_MAX = 20 / 100;
 
 const ProductCardBuy = ({
-  maxQuantity,
+  maxQuantity: productMaxQuantity,
   not_support_delivery: noSupportDelivery,
   price,
   // dealPrice,
-  hasEvent,
-  deal_end_day: dealEndDay,
+  isDeal = false,
+  deal = {},
   row,
   type,
   searchInput,
@@ -33,6 +33,7 @@ const ProductCardBuy = ({
   isMobile,
   cartItems,
 }) => {
+  const maxQuantity = isDeal ? deal.maxQuantity : productMaxQuantity;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
@@ -54,6 +55,7 @@ const ProductCardBuy = ({
 
     return !(importantQuantity > importantQuantityMax);
   };
+
   const handleRemove = () => {
     if (canDeleteProduct()) {
       removeCartItem(product);
@@ -64,7 +66,7 @@ const ProductCardBuy = ({
   };
 
   const updateCart = async (q) => {
-    const response = await updateCartItem({ product, q });
+    const response = await updateCartItem({ product, q: parseInt(q, 10) });
     if (response.status === 'OK') {
       setValue(q);
     }
@@ -90,7 +92,8 @@ const ProductCardBuy = ({
 
   const handleDecrease = () => {
     if (value < 1) return;
-    const q = value - 1;
+
+    const q = parseInt(value, 10) - 1;
     setValue(q);
     if (q < 1) {
       handler(product, 'remove');
@@ -100,14 +103,14 @@ const ProductCardBuy = ({
   };
 
   const handleIncrease = () => {
-    const q = value + 1;
+    const q = parseInt(value, 10) + 1;
     setValue(q);
     handler(q, 'update');
   };
 
   const handleInputChange = (e) => {
     if (/^\d+$/.test(e.currentTarget.value) || !e.currentTarget.value) {
-      const curValue = e.currentTarget.value;
+      const curValue = parseInt(e.currentTarget.value || 0, 10);
       setValue(curValue);
       if (!curValue || curValue === 0) {
         if (value === 0) return;
@@ -117,9 +120,16 @@ const ProductCardBuy = ({
       }
     }
   };
+
   return (
     <>
-      {hasEvent && row && <DealSection dealEndDay={dealEndDay} />}
+      {isDeal && row && (
+        <DealSection
+          dealEndDay={deal?.endTime}
+          totalSold={deal.quantity}
+          total={deal.maxQuantity}
+        />
+      )}
       {noSupportDelivery && row ? (
         <div style={{ marginBottom: '16px' }}>
           <div
@@ -138,7 +148,7 @@ const ProductCardBuy = ({
         <>
           {isAuthenticated ? (
             <>
-              {hasEvent ? (
+              {isDeal ? (
                 <div
                   className={
                     row
@@ -146,7 +156,9 @@ const ProductCardBuy = ({
                       : clsx(styles.price_wrapper, styles.price_wrapper_column)
                   }
                 >
-                  <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
+                  <Typography className={styles.deal_price}>
+                    {formatCurrency(deal?.discount?.absoluteDiscount)}
+                  </Typography>
                   <Typography className={styles.old_price}>{formatCurrency(price)}</Typography>
                 </div>
               ) : (

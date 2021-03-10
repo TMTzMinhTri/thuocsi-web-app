@@ -53,7 +53,7 @@ async function loadProductWithCategory({ ctx, isTotal }) {
 
   const { currentTab = '', sortBy = '', page = 0, q = '', slug: category } = query;
   const params = {
-    current_tab: currentTab,
+    currentTab,
     sortBy,
     page,
     q,
@@ -73,7 +73,7 @@ async function loadProductWithManufacturer({ ctx, isTotal }) {
   const { currentTab = '', sortBy = '', page = 0, q = '', slug: manufacturers } = query;
   const params = {
     manufacturers,
-    current_tab: currentTab,
+    currentTab,
     sortBy,
     page,
     q,
@@ -93,6 +93,8 @@ export const getListTabs = async ({ ctx }) => {
   return res.data;
 };
 
+export const getDeals = async ({ ctx, params }) => ProductClient.getDeals({ ctx, params });
+
 export default {
   loadDataProduct,
   mapDataProduct,
@@ -100,4 +102,5 @@ export default {
   loadProductWithCategory,
   loadProductWithManufacturer,
   getListTabs,
+  getDeals,
 };

@@ -88,6 +88,9 @@ async function loadDataManufacturer(ctx) {
 export const getTabs = async ({ ctx }) =>
   GET({ url: PRODUCT_API.TABS_ACTIVE, params: { limit: 20 }, ctx });
 
+export const getDeals = async ({ ctx, params }) =>
+  GET({ url: PRODUCT_API.DEALS, params, ctx, isBasic: true });
+
 export default {
   loadDataMostSearch,
   loadFeedback,
@@ -97,4 +100,5 @@ export default {
   loadDataProductCollection,
   loadDataManufacturer,
   getTabs,
+  getDeals,
 };

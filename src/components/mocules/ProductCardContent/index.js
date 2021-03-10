@@ -9,26 +9,19 @@ import styles from './styles.module.css';
 
 const ProductCardContent = ({
   name,
-  // image,
-  // deal,
-  // deal_price,
-  // deal_start_day,
-  // deal_end_day,
   tags,
   unit,
   volume,
   cate,
   category = [],
-  // price,
-  // status,
-  // price_percent,
   row,
   slug,
   tag,
-  // cart,
   className,
   isMobile,
   seller = '',
+  isDeal,
+  deal,
 }) => (
   <CardContent
     className={`${className}
@@ -46,7 +39,7 @@ const ProductCardContent = ({
       <div className={row ? clsx(styles.product_title, styles.h40) : styles.product_title}>
         <Link href={`/product/${slug}`}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
-            {name}
+            {isDeal ? deal.name : name}
           </Typography>
         </Link>
 
@@ -85,7 +78,7 @@ const ProductCardContent = ({
         </Typography>
       )}
     </div>
-    {row === cate && category &&(
+    {row === cate && category && (
       <Typography
         className={clsx(styles.product_category, styles.muted)}
         variant="body2"

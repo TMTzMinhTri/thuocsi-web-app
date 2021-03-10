@@ -12,7 +12,7 @@ export const getUserWithContext = async (ctx) => {
 export const login = async (body) =>
   POST({
     url: ACCOUNT_API.AUTHENTICATION,
-    body: { ...body, type: 'CUSTOMER' },
+    body,
     isAuth: false,
   });
 export const passwordRecovery = async (body) => POST({ url: ACCOUNT_API.PASSWORD_RECOVERY, body, isBasic: true });

@@ -70,6 +70,7 @@ const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
 const PRODUCT_LIST_COLLECTION = `${PRODUCT_API_PREFIX}/collection/page`;
 const TAGS = `${PRODUCT_API_PREFIX}/tags/list`;
 const TABS_ACTIVE = `${PRODUCT_API_PREFIX}/tabs/active`;
+const DEALS = `${PRODUCT_API_PREFIX}/products/deal/list`;
 
 export const PRODUCT_API = {
   INGREDIENT,
@@ -81,6 +82,7 @@ export const PRODUCT_API = {
   PRODUCT_LIST_COLLECTION,
   TAGS,
   TABS_ACTIVE,
+  DEALS,
 };
 
 const CORE_MASTER_DATA_PREFIX = '/core/master-data/v1';
@@ -153,4 +155,27 @@ export const NOTIFICATION_API = {
   NOTIFICATION_WSS,
   NOTIFICATION_ALL,
   NOTIFICATION,
+};
+
+const SETTING_API_PREFIX = '/marketplace/marketing/v1';
+const SETTING_LIST = `${SETTING_API_PREFIX}/settings/all`;
+
+export const SETTING_API = {
+  SETTING_LIST,
+};
+
+const MARKETING_API_PREFIX = '/marketplace/marketing/v1';
+const BANNER = `${MARKETING_API_PREFIX}/banners/available`;
+
+export const MARKETING_API = {
+  MARKETING_API_PREFIX,
+  BANNER,
+};
+
+const TICKET_API_PREFIX = '/marketplace/ticket/v1';
+const TASK = `${TICKET_API_PREFIX}/me/task`;
+
+export const TICKET_API = {
+  TICKET_API_PREFIX,
+  TASK,
 };

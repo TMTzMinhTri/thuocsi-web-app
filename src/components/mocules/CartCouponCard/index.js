@@ -20,6 +20,7 @@ import { formatCurrency } from 'utils/FormatNumber';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { palette } from 'constants/Colors';
+import { isEmpty } from 'utils/ValidateUtils';
 import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
@@ -67,6 +68,9 @@ const CartCounponCard = (props) => {
     className,
     conditionsVi = [],
   } = props;
+
+  const listCondition = conditionsVi.filter((item) => item && item.message);
+
   let maxDiscountValue = 0;
   let discountValue = 0;
   let percent = 0;
@@ -183,27 +187,34 @@ const CartCounponCard = (props) => {
                       margin: '0 0 -10px -5px',
                     }}
                   >
-                    {!expanded ? (
+                    {!isEmpty(listCondition) && (
                       <>
-                        <ExpandMoreIcon fontSize="small" />
-                        <Typography style={{ fontSize: 'small' }}>Xem thêm điều kiện</Typography>
-                      </>
-                    ) : (
-                      <>
-                        <ExpandLessIcon fontSize="small" />
-                        <Typography style={{ fontSize: 'small' }}>Thu gọn điều kiện</Typography>
+                        {!expanded ? (
+                          <>
+                            <ExpandMoreIcon fontSize="small" />
+                            <Typography style={{ fontSize: 'small' }}>
+                              Xem thêm điều kiện
+                            </Typography>
+                          </>
+                        ) : (
+                          <>
+                            <ExpandLessIcon fontSize="small" />
+                            <Typography style={{ fontSize: 'small' }}>Thu gọn điều kiện</Typography>
+                          </>
+                        )}
                       </>
                     )}
                   </AccordionSummary>
                   <AccordionDetails style={{ padding: 0 }}>
-                    {conditionsVi.map(({ message: conditionMsg }) => (
-                      <Typography
-                        key={uuidv4()}
-                        style={{ fontSize: 'small', color: palette.grey[700] }}
-                      >
-                        * {conditionMsg}
-                      </Typography>
-                    ))}
+                    {!isEmpty(listCondition) &&
+                      listCondition.map(({ message: conditionMsg }) => (
+                        <Typography
+                          key={uuidv4()}
+                          style={{ fontSize: 'small', color: palette.grey[700] }}
+                        >
+                          * {conditionMsg}
+                        </Typography>
+                      ))}
                   </AccordionDetails>
                 </Accordion>
               </Grid>

@@ -33,7 +33,7 @@ export default function ProductListing({
   products = [],
   brand = [],
   group = [],
-  current_tab = '',
+  currentTab = '',
   page = '',
   sortBy = '',
   slug = '',
@@ -59,8 +59,8 @@ export default function ProductListing({
 
   const getQueryObject = () => {
     const query = {};
-    if (current_tab) {
-      query.current_tab = current_tab;
+    if (currentTab) {
+      query.currentTab = currentTab;
     }
     if (sortBy) {
       query.sortBy = sortBy;
@@ -68,10 +68,10 @@ export default function ProductListing({
     return query;
   };
 
-  const getTabQuery = (currentTab) => {
+  const getTabQuery = (tab) => {
     const query = getQueryObject();
-    if (!currentTab) {
-      delete query.current_tab;
+    if (!tab) {
+      delete query.currentTab;
     }
     if (!sortBy) {
       delete query.sortBy;
@@ -102,7 +102,7 @@ export default function ProductListing({
   };
 
   const SelectedTagMobile = () => {
-    const tabName = tabs.filter((item) => item.slug === current_tab);
+    const tabName = tabs.filter((item) => item.slug === currentTab);
     return (
       <div className={styles.tagsMobile}>
         <div className={styles.badgeGray}>
@@ -162,9 +162,8 @@ export default function ProductListing({
             group={group}
             slug={slug}
             pathName={pathName}
-            currentTab={current_tab}
+            currentTab={currentTab}
             sortBy={sortBy}
-            // tags={tags}
             tabs={tabs}
             brand={brand}
           />
@@ -293,7 +292,7 @@ export default function ProductListing({
                       <Fab
                         variant="extended"
                         aria-label="all"
-                        className={clsx(current_tab === '' && styles.active, styles.filter_btn)}
+                        className={clsx(currentTab === '' && styles.active, styles.filter_btn)}
                       >
                         Tất cả sản phẩm
                       </Fab>
@@ -304,14 +303,14 @@ export default function ProductListing({
                       key={`tabs-${item.code}`}
                       href={{
                         pathname: pathName,
-                        query: { ...getTabQuery(), current_tab: item.value },
+                        query: { ...getTabQuery(), currentTab: item.value },
                       }}
                     >
                       <Fab
                         variant="extended"
                         aria-label="all"
                         className={clsx(
-                          current_tab === item.value && styles.active,
+                          currentTab === item.value && styles.active,
                           styles.filter_btn,
                         )}
                       >
