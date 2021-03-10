@@ -25,7 +25,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { MOBILE } from 'constants/Device';
 
-import { fbpixel, gtag } from 'utils';
+import { fbpixel, gtag, ScrollToTop } from 'utils';
 import MessengerChat from 'utils/MessengerChat';
 
 const NAMESPACE_REQUIRED_DEFAULT = 'common';
@@ -86,6 +86,7 @@ const MyApp = (props) => {
                 <NotiContextProvider>
                   <Component {...pageProps} />
                   <MessengerChat pageId="548944538816598" ref={refContainer} />
+                  <ScrollToTop />
                 </NotiContextProvider>
                 <ToastContainer limit={6} />
               </CartContextProvider>
