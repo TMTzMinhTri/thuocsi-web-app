@@ -4,22 +4,24 @@ import LinkComp from 'components/atoms/LinkComp';
 
 import { Container, Grid, Button } from '@material-ui/core';
 import clsx from 'clsx';
-import { NotifyService } from 'services';
+import { doWithServerSide, NotifyService } from 'services';
 import { DateTimeUtils } from 'utils';
 import { withLogin } from 'HOC';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [listNotify] = await Promise.all([NotifyService.getNotifications({ ctx })]);
-  return {
-    props: {
-      listNotify,
-    },
-  };
+  return doWithServerSide(ctx, async () => {
+    const [listNotifyRes] = await Promise.all([NotifyService.getNotifications({ ctx })]);
+    return {
+      props: {
+        listNotify: listNotifyRes?.data || [],
+      },
+    };
+  });
 }
 
-const Notifications = ({ props, isMobile }) => {
-  const { read = true, listNotify = [] } = props;
+const Notifications = ({ listNotify, isMobile }) => {
   const title = 'Trang thông báo';
   const pageName = 'notification';
 
@@ -32,27 +34,32 @@ const Notifications = ({ props, isMobile }) => {
             <Button className={styles.btn}>Đánh dấu đọc tất cả</Button>
           </Grid>
           <div className={styles.notificationsList}>
-            {listNotify.map((item) => (
-              <LinkComp
-                key={item.id}
-                className={
-                  read
-                    ? clsx(styles.notificationsItem, styles.read)
-                    : clsx(styles.notificationsItem, styles.unRead)
-                }
-                href={item.slug}
-              >
-                <div className={styles.notifyIcon}>
-                  <i className={`icomoon icon-loyalty + ${styles.icon}`} />
-                </div>
-                <div className={styles.notifyContent}>
-                  <div className={styles.notifyContentTitle}>{item.title}</div>
-                  <small className={styles.createdAt}>
-                    {DateTimeUtils.getTimeAgo(item.create_at)}
-                  </small>
-                </div>
-              </LinkComp>
-            ))}
+            {listNotify &&
+              listNotify.map(
+                (item) =>
+                  item && (
+                    <LinkComp
+                      key={uuidv4()}
+                      className={
+                        item.isRead
+                          ? clsx(styles.notificationsItem, styles.read)
+                          : clsx(styles.notificationsItem, styles.unRead)
+                      }
+                      href={item.link}
+                    >
+                      <div className={styles.notifyIcon}>
+                        <i className={`icomoon icon-loyalty + ${styles.icon}`} />
+                      </div>
+                      <div className={styles.notifyContent}>
+                        <div className={styles.notifyContentTitle}>{item.title}</div>
+                        <div className={styles.notifyContentDescription}>{item.description}</div>
+                        <small className={styles.createdAt}>
+                          {DateTimeUtils.getTimeAgo(item.createdTime)}
+                        </small>
+                      </div>
+                    </LinkComp>
+                  ),
+              )}
           </div>
         </Container>
       </div>

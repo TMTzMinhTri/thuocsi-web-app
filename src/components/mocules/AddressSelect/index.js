@@ -5,7 +5,16 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import InfoInput from '../InfoInput';
 
-const AddressSelect = ({ label, id, options = [], onChange, value = '0', disabled, className, error }) => {
+const AddressSelect = ({
+  label,
+  id,
+  options = [],
+  onChange,
+  value = '0',
+  disabled,
+  className,
+  error,
+}) => {
   const maxWidthAddressSelect = useMediaQuery('(max-width:720px)');
 
   return (
@@ -20,7 +29,9 @@ const AddressSelect = ({ label, id, options = [], onChange, value = '0', disable
         disabled={disabled}
       >
         {options.map((option) => (
-          <option value={option.value} key={uuidv4()}>{option.label}</option>
+          <option value={option.value} key={uuidv4()}>
+            {option.label}
+          </option>
         ))}
       </NativeSelect>
     </InfoFormControl>
@@ -28,7 +39,6 @@ const AddressSelect = ({ label, id, options = [], onChange, value = '0', disable
 };
 
 const StyledAddressSelect = styled(AddressSelect)`
-
   & .MuiNativeSelect-select {
     padding-top: 0 !important;
     padding-bottom: 0 !important;

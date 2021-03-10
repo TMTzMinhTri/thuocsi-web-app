@@ -95,6 +95,17 @@ export const ALIGN = {
   CENTER: 'center',
 };
 
+export const FEEDBACK_REASON = {
+  DONG_THIEU_HANG: {
+    code: 'DONG_THIEU_HANG',
+    name: 'Đóng thiếu hàng',
+  },
+  DONG_DU_HANG: {
+    code: 'DONG_DU_HANG',
+    name: 'Đóng dư hàng',
+  },
+};
+
 export default {
   ENUM_SCOPE,
   ENUM_TYPE,

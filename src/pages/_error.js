@@ -27,10 +27,10 @@ const Error500 = () => (
             Có vẻ như đã có lỗi xảy ra.
           </Typography>
           <br />
-          <Typography align="center" variant="subtitle2" className="weightLow">
+          {/* <Typography align="center" variant="subtitle2" className="weightLow">
             Liên hệ ngay với chúng tôi thông qua số điện thoại: 02 873 008 840 nếu bạn cần trợ giúp
             ngay lập tức
-          </Typography>
+          </Typography> */}
         </Grid>
         <Grid align="center" item xs={12}>
           Hoặc quay lại trang chủ:

@@ -158,6 +158,7 @@ const InfoHeader = memo(({ t }) => {
                         </div>
                         <div className={styles.notifyContent}>
                           <div className={styles.notifyContentTitle}>{item.title}</div>
+                          <div className={styles.notifyContentDescription}>{item.description}</div>
                           <small className={styles.createdAt}>
                             <WatchLaterIcon style={{ marginRight: '4px' }} />
                             {DateTimeUtils.getTimeAgo(item.createdTime)}

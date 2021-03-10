@@ -25,14 +25,12 @@ function Cart({ isMobile, user }) {
       <Container className={styles.wrapper} maxWidth="lg">
         {user?.isActive || isMobile === false ? null : (
           <Alert className={styles.alert} severity="error">
-            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ
-            02873008840 để kích hoạt
+            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
           </Alert>
         )}
-        {user.level !== "LEVEL_GUEST" || isMobile === false ? null : (
+        {user.level !== 'LEVEL_GUEST' || isMobile === false ? null : (
           <Alert className={styles.alert} severity="error">
-            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt. Vui lòng liên hệ
-            02873008840 để kích hoạt
+            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
           </Alert>
         )}
         {cartItems && cartItems.length > 0 ? (
