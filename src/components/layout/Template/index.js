@@ -1,7 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
 import { useAuth } from 'context';
-import { SignUpModal, SignInModal, ForgetPasswordModal, RegisterGuestModal } from 'components/organisms';
+import {
+  SignUpModal,
+  SignInModal,
+  ForgetPasswordModal,
+  RegisterGuestModal,
+} from 'components/organisms';
 import { CustomModal } from 'components/mocules';
 import { ButtonHeader } from 'components/atoms';
 import NavBar from '../NavBar';
@@ -18,6 +23,8 @@ export default function Template({
   pageName,
   pageTitle = '',
   product = '',
+  point = 0,
+  balance = 0,
 }) {
   const {
     isAuthenticated,
@@ -34,7 +41,7 @@ export default function Template({
     isShowRegisterGuest,
     toggleRegisterGuest,
     toggleShowGuestExpiredTime,
-    isShowGuestExpiredTime
+    isShowGuestExpiredTime,
   } = useAuth();
   return (
     <div>
@@ -55,7 +62,7 @@ export default function Template({
       </Head>
       <div id="main">
         {isMobile ? <HeaderMobile title={pageTitle} /> : <Header />}
-        {!isMobile && <NavBar pageName={pageName} />}
+        {!isMobile && <NavBar pageName={pageName} point={point} balance={balance} />}
         {children}
         {isMobile ? <FooterMobile product={product} /> : <Footer />}
         {!isAuthenticated && (
@@ -93,11 +100,7 @@ export default function Template({
                   >
                     Gọi nhận viên hỗ trợ
                   </ButtonHeader>
-                  <ButtonHeader
-                    variant="contained"
-                    btnType="primary"
-                    onClick={toggleSignUp}
-                  >
+                  <ButtonHeader variant="contained" btnType="primary" onClick={toggleSignUp}>
                     Tạo tài khoản
                   </ButtonHeader>
                 </div>

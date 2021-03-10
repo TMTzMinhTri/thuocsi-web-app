@@ -7,7 +7,7 @@ import { useDragDetection } from 'hooks';
 import { settingsSliderBanner } from 'constants/data';
 import styles from './styles.module.css';
 
-const checkCondition = ({ link, image, alt }) => {
+const checkCondition = ({ targetURL: link, imgURL: image, name: alt }) => {
   const urlImage = `url(${image})`;
   const ItemBox = (
     <div className={styles.banner_bg_img}>
