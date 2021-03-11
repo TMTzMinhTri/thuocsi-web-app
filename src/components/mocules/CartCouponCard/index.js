@@ -68,7 +68,6 @@ const CartCounponCard = (props) => {
     className,
     conditionsVi = [],
   } = props;
-
   const listCondition = conditionsVi.filter((item) => item && item.message);
 
   let maxDiscountValue = 0;
@@ -205,12 +204,18 @@ const CartCounponCard = (props) => {
                       </>
                     )}
                   </AccordionSummary>
-                  <AccordionDetails style={{ padding: 0 }}>
+                  <AccordionDetails
+                    style={{ padding: 0, display: 'flex', flexDirection: 'column' }}
+                  >
                     {!isEmpty(listCondition) &&
                       listCondition.map(({ message: conditionMsg }) => (
                         <Typography
                           key={uuidv4()}
-                          style={{ fontSize: 'small', color: palette.grey[700] }}
+                          style={{
+                            fontSize: 'small',
+                            color: palette.grey[700],
+                            marginBottom: '10px',
+                          }}
                         >
                           * {conditionMsg}
                         </Typography>

@@ -21,6 +21,8 @@ export const parseCondition = (condition) => {
   if (!condition) return null;
 
   const { type, minOrderValue, productConditions } = condition;
+  let temp = [];
+
   let message = null;
   switch (type) {
     case 'ORDER_VALUE':
@@ -28,12 +30,23 @@ export const parseCondition = (condition) => {
         message = `Giá trị đơn hàng lơn hơn ${formatCurrency(minOrderValue)}`;
       }
       break;
+    case 'PRODUCT_TAG':
+      if (productConditions) {
+        temp = productConditions.map(({ minQuantity, productTag, sellerCodes }) => {
+          message = `Cần mua ít nhất ${formatNumber(
+            minQuantity,
+          )} sản phẩm có mã ${productTag} của người bán ${sellerCodes.join(',')}
+          `;
+          return { ...condition, message };
+        });
+      }
+      break;
     case 'PRODUCER':
       if (productConditions) {
         const { minQuantity, producerCode, sellerCodes } = productConditions[0];
         message = `Cần mua ít nhất ${formatNumber(
           minQuantity,
-        )} của nhà sản xuất ${producerCode} của người bán ${sellerCodes.join(',')}`;
+        )} sản phẩm của nhà sản xuất ${producerCode} của người bán ${sellerCodes.join(',')}`;
       }
       break;
     case 'NO_RULE':
@@ -41,7 +54,10 @@ export const parseCondition = (condition) => {
       break;
     default:
   }
-  return { ...condition, message };
+  if (type === 'PRODUCT_TAG') {
+    return temp;
+  }
+  return [{ ...condition, message }];
 };
 
 export const parseListReward = (rewards) => rewards.map((reward) => parseReward(reward));
@@ -54,7 +70,7 @@ export const parseVoucherDetail = (voucherInfo) => {
   const { rewards, conditions } = voucherInfo;
 
   const rewardsVi = parseListReward(rewards);
-  const conditionsVi = parseListCondition(conditions);
+  const conditionsVi = parseListCondition(conditions)[0];
 
   return { ...voucherInfo, rewardsVi, conditionsVi };
 };
