@@ -218,3 +218,11 @@ a {
   font-size: 10px;
   font-weight: 500;
 }
+
+@media (max-width: 767px) {
+  .fb_dialog iframe{
+    right: -15px !important;
+    transform: scale(.55);
+    bottom: 110px !important;
+  }
+}
