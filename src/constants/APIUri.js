@@ -6,7 +6,7 @@ const PASSWORD_RECOVERY = `${ACCOUNT_API_PREFIX}/password-recovery`;
 export const ACCOUNT_API = {
   AUTHENTICATION,
   GET_ACCOUNT_INFO,
-  PASSWORD_RECOVERY
+  PASSWORD_RECOVERY,
 };
 
 // MARKETPLACE
@@ -174,8 +174,10 @@ export const MARKETING_API = {
 
 const TICKET_API_PREFIX = '/marketplace/ticket/v1';
 const TASK = `${TICKET_API_PREFIX}/me/task`;
+const TASK_REASONS = `${TICKET_API_PREFIX}/tasks/reasons/list`;
 
 export const TICKET_API = {
   TICKET_API_PREFIX,
   TASK,
+  TASK_REASONS,
 };
