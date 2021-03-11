@@ -36,7 +36,7 @@ const MyApp = (props) => {
 
   const router = useRouter();
 
-  const { referralCode, action, login, forgetpasscode } = router?.query || {};
+  const { refer, action, login, forgetpasscode } = router?.query || {};
   const isShowingLogin = login === 'true';
 
   // config https://material-ui.com/guides/server-rendering/
@@ -75,7 +75,7 @@ const MyApp = (props) => {
           {/* Authen */}
           <AuthProvider
             isShowingLogin={isShowingLogin}
-            referralCode={referralCode}
+            refer={refer}
             forgetpasscode={forgetpasscode}
             action={action}
           >

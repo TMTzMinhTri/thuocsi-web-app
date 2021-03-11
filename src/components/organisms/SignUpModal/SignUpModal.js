@@ -12,7 +12,7 @@ const SignUpModal = React.memo((props) => {
   const { className, visible, onClose, onChangeSignIn, t } = props;
   const { login } = useAuth();
   const router = useRouter();
-  const { referralCode } = router.query;
+  const { refer } = router.query;
   const [isLoading, setIsLoading] = useState(false);
   const [hasAlert, setHasAlert] = useState('');
 
@@ -78,7 +78,7 @@ const SignUpModal = React.memo((props) => {
         hasAlert={hasAlert}
         onClickSignIn={onChangeSignIn}
         isLoading={isLoading}
-        referralCode={referralCode}
+        refer={refer}
         onClickSignUp={handleSignUp}
       />
     </AuthModal>
