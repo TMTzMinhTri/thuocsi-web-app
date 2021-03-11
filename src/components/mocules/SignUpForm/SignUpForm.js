@@ -42,7 +42,7 @@ const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCall
 
 const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { className, onClickSignIn, onClickSignUp, referralCode } = props;
+  const { className, onClickSignIn, onClickSignUp, refer } = props;
   const [errors, setErrors] = useState({});
 
   const handleSubmitSignUp = useCallback(
@@ -114,7 +114,7 @@ const SignUpForm = React.memo((props) => {
 
   const labelAgree = (
     <div>
-      Tôi đã đọc và đồng ý với{' '}
+      Tôi đã đọc và đồng ý với
       <a href="/terms-and-condition" target="_blank" rel="noreferrer" style={{ color: 'green' }}>
         Điều khoản sử dụng *
       </a>
@@ -169,12 +169,12 @@ const SignUpForm = React.memo((props) => {
         <FormControl className="form-control">
           <Input
             id="inviter"
-            name="referCode"
+            name="refer"
             startAdornment={IconInviter}
-            value={referralCode}
+            value={refer}
             placeholder="Nhập số điện thoại người giới thiệu hoặc mã nhóm."
             variant="outlined"
-            disabled={!!referralCode}
+            disabled={!!refer}
           />
         </FormControl>
         <div className="agree-term">
