@@ -82,6 +82,21 @@ const SideBar = () => {
       </div>
       <hr className={styles.hr} />
       <ul className={styles.items}>
+        <li
+          key="home"
+        >
+          <LinkComp
+            className={clsx(
+              styles.sidebar__item_link,
+              getActivePage() === "/" && styles.active,
+            )}
+            name="Trang chủ"
+            href="/"
+            color="white"
+          >
+            <Icon className="icon-home" />
+          </LinkComp>
+        </li>
         {menu.map((item) => (
           <li
             key={item.id}
@@ -89,14 +104,14 @@ const SideBar = () => {
             <LinkComp
               className={clsx(
                 styles.sidebar__item_link,
-                item.url === getActivePage(item.url) && styles.active,
+                item.url === getActivePage() && styles.active,
               )}
               name={item.name}
               href={getUrl(item.url, item.redirectUrl)}
               color="white"
               target={item.redirectUrl && "_blank"}
             >
-              <Icon className={`${item.icon} ${styles.navIcon}`} />
+              <Icon className={item.icon} />
               {item.isNew && <span className={styles.badge}>Mới</span>}
             </LinkComp>
           </li>

@@ -145,6 +145,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   };
 
   const handleRegisterGuest = (data, success) => {
+    setIsLoading(true);
     AuthService.registerGuest(data)
       .then((result) => {
         if (!isValid(result)) {
@@ -152,8 +153,10 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
           NotifyUtils.error(t(errorCode));
           return;
         }
-        const { username } = getFirst(result);
-        handleLogin({ username, password: username.toUpperCase(), type: 'GUEST' });
+        const { phone } = getFirst(result);
+        const userName = `guest${phone}`;
+        handleLogin({ username: userName, password: `Guest${phone}`, type: 'GUEST' });
+        setIsLoading(false);
         // callback
         if (success) {
           success();
