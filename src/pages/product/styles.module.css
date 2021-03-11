@@ -314,3 +314,52 @@
         padding-bottom: 80px;
     }
 }
+
+
+.deal_section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.root_process {
+    width: 50%;
+    height: 16px!important;
+    border-radius: 9px;
+}
+
+.count_down {
+    flex: 70%;
+    font-size: 12px;
+}
+
+.process_wrapper {
+    margin-top: 20px;
+    display: flex;
+    position: relative;
+    flex: 1!important;
+    align-items: center;
+}
+
+.process_content {
+    width: 20%!important;
+    font-size: 14px!important;
+    width: 100%;
+    text-align: left;
+    color: #000;
+    opacity: .8;
+}
+
+.bar_background {
+    background-image: linear-gradient(to right, #f9b514 0%, #dc3545 70%)!important
+}
+
+.blur_background {
+    background-color: #e9ecef!important;
+}
+
+.out_stock {
+    color: #dc3545;
+    font-size: 14px
+}

@@ -172,7 +172,7 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
                 </div>
               )}
-              {maxQuantity && maxQuantity > 0 && !isMobile && (
+              {!isMobile && maxQuantity > 0 && maxQuantity && (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
@@ -215,7 +215,7 @@ const ProductCardBuy = ({
                   </Tooltip>
                 )}
               </CardActions>
-              {maxQuantity && maxQuantity > 0 && isMobile && (
+              {isMobile && maxQuantity > 0 && maxQuantity && (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
