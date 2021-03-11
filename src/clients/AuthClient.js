@@ -1,5 +1,5 @@
 import { ACCOUNT_API, CUSTOMER_API } from 'constants/APIUri';
-import { GET, POST, getSessionToken } from './Clients';
+import { GET, POST, PUT, getSessionToken } from './Clients';
 
 export const getUserWithContext = async (ctx) => {
   const ss = getSessionToken(ctx);
@@ -15,6 +15,8 @@ export const login = async (body) =>
     body,
     isAuth: false,
   });
+export const passwordRecovery = async (body) => POST({ url: ACCOUNT_API.PASSWORD_RECOVERY, body, isBasic: true });
+export const passwordUpdate = async (body) => PUT({ url: ACCOUNT_API.PASSWORD_RECOVERY, body, isBasic: true });
 
 export const loginLocal = async (body) =>
   POST({ url: '/login', body, page: true, mock: true, isAuth: false });
@@ -40,4 +42,6 @@ export default {
   getUserWithContext,
   loginLocal,
   getAccountInfo,
+  passwordRecovery,
+  passwordUpdate
 };

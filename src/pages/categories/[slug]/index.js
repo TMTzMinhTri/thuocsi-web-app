@@ -35,6 +35,7 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Products({
+  user,
   products,
   catInfo = '',
   total,
@@ -52,7 +53,14 @@ export default function Products({
   const cat = 'categories';
   const pageTitle = 'Sản phẩm';
   return (
-    <Template title={title} isMobile={isMobile} pageName={cat} pageTitle={pageTitle}>
+    <Template
+      title={title}
+      isMobile={isMobile}
+      pageName={cat}
+      pageTitle={pageTitle}
+      point={user.point}
+      balance={user.balance}
+    >
       <ProductListing
         products={products}
         total={total}
