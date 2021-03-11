@@ -12,6 +12,7 @@ import {
   IconButton,
   Popover,
   Typography,
+  LinearProgress,
 } from '@material-ui/core';
 import { formatCurrency, formatNumber } from 'utils/FormatNumber';
 import { tabsProductData } from 'constants/data';
@@ -25,7 +26,13 @@ import {
   Button as CustomButton,
   LinkComp,
 } from 'components/atoms';
-import { MultiImageBox, TagType, ProductDetailTabs, SellerInfo } from 'components/mocules';
+import {
+  MultiImageBox,
+  TagType,
+  ProductDetailTabs,
+  SellerInfo,
+  CountdownTimerDetail,
+} from 'components/mocules';
 import { LoadingScreen, ErrorQuantityCartModal } from 'components/organisms';
 import Template from 'components/layout/Template';
 import useModal from 'hooks/useModal';
@@ -84,6 +91,9 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     isDeal,
     deal,
   } = product;
+
+  const percentDealSold = (deal.quantity / deal.maxQuantity) * 100;
+  const soldOutCondition = deal.maxQuantity - deal.quantity === 0;
 
   const maxQuantity = isDeal ? deal.maxQuantity : prdMaxQuantity;
 
@@ -164,6 +174,16 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     }
   };
 
+  const renderCondition = () => {
+    if (percentDealSold < 50) {
+      return `Đã bán ${deal.quantity}`;
+    }
+    if (soldOutCondition) {
+      return <span className={styles.out_stock}>Đã hết hàng</span>;
+    }
+    return <span className={styles.out_stock}>Sắp hết hàng</span>;
+  };
+
   const open = Boolean(anchorEl);
   const id = open ? 'detail-product-popover' : undefined;
 
@@ -224,11 +244,11 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                         <div className={styles.product_price_group}>
                           <span className={styles.product_price}>
                             {price && formatCurrency(price)}
-                            {isMobile && maxQuantity && (
+                            {isMobile && maxQuantity ? (
                               <Typography className={styles.text_danger}>
                                 Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
                               </Typography>
-                            )}
+                            ) : null}
                           </span>
                         </div>
                         <IconButton onClick={handleClick} aria-label="close">
@@ -262,27 +282,53 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                           </TableContainer>
                         </Popover>
                       </div>
-                      {!isMobile && maxQuantity && (
-                        <Typography className={styles.text_danger}>
-                          Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
-                        </Typography>
-                      )}
-                      {!isMobile && (
-                        <div className={styles.product_action}>
-                          <MinusButton className={styles.minus} onClick={handleDecrease} />
-                          <InputProduct
-                            product={product}
-                            id={product.sku}
-                            className={styles.input_product}
-                            onChange={handleInputChange}
-                            value={quantity}
+                      {isDeal && (
+                        <div className={styles.deal_section}>
+                          <CountdownTimerDetail
+                            className={styles.count_down}
+                            dealEndDay={deal.endTime}
                           />
-                          <PlusButton
-                            disabled={maxQuantity && quantity >= maxQuantity}
-                            className={styles.plus}
-                            onClick={() => handleIncrease()}
-                          />
+                          <div className={styles.process_wrapper}>
+                            <Typography className={styles.process_content}>
+                              {renderCondition()}
+                            </Typography>
+                            <LinearProgress
+                              classes={{
+                                root: styles.root_process,
+                                barColorPrimary: styles.bar_background,
+                                colorPrimary: styles.blur_background,
+                              }}
+                              variant="determinate"
+                              value={deal.quantity / deal.maxQuantity}
+                            />
+                          </div>
                         </div>
+                      )}
+                      <>
+                        {!isMobile && maxQuantity ? (
+                          <Typography className={styles.text_danger}>
+                            Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
+                          </Typography>
+                        ) : null}
+                      </>
+                      {!isMobile && (
+                        <>
+                          <div className={styles.product_action}>
+                            <MinusButton className={styles.minus} onClick={handleDecrease} />
+                            <InputProduct
+                              product={product}
+                              id={product.sku}
+                              className={styles.input_product}
+                              onChange={handleInputChange}
+                              value={quantity}
+                            />
+                            <PlusButton
+                              disabled={maxQuantity && quantity >= maxQuantity}
+                              className={styles.plus}
+                              onClick={() => handleIncrease()}
+                            />
+                          </div>
+                        </>
                       )}
                     </>
                   ) : (

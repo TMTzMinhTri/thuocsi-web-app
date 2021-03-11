@@ -51,3 +51,4 @@ export { default as ManufacturerList } from './ManufacturerList';
 export { default as CustomModal } from './CustomModal';
 export { default as SellerInfo } from './SellerInfo';
 export { default as CartNote } from './CartNote';
+export { default as CountdownTimerDetail } from './CountdownTimerDetail';

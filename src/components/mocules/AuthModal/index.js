@@ -47,8 +47,14 @@ const AuthModal = styled(AuthModalCustom)`
         line-height: 32px;
       }
     }
+    .auth-modal-content {
+      height: 100%;
+      overflow: hidden;
+    }
     .auth-modal-body{
       padding: 0;
+      height: calc(100% - 60px);
+      overflow: auto;
     }
     .auth-modal-body .form-control{
       width: 100%;

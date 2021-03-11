@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductClient } from 'clients';
+import { ProductClient, MarketingClient } from 'clients';
 import { doWithServerSide, SettingService } from 'services';
 import dynamic from 'next/dynamic';
 
@@ -9,13 +9,13 @@ export async function getServerSideProps(ctx) {
     const [settingsResult, mostResearched, infoBanner, blocks] = await Promise.all([
       SettingService.getListSetting({ ctx }),
       ProductClient.loadDataMostSearch(ctx),
-      ProductClient.getInfoBanner(),
+      MarketingClient.getListBanner(ctx),
       ProductClient.loadDataProductCollection(ctx, isTotal),
     ]);
     return {
       props: {
         mostResearched,
-        infoBanner,
+        infoBanner: infoBanner?.data || [],
         blocks,
         settings: settingsResult.data ? settingsResult.data : [],
       },

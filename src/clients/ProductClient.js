@@ -86,7 +86,7 @@ async function loadDataManufacturer(ctx) {
 
 // fix limit 20 of tabs
 export const getTabs = async ({ ctx }) =>
-  GET({ url: PRODUCT_API.TABS_ACTIVE, params: { limit: 20 }, ctx });
+  GET({ url: PRODUCT_API.TABS_ACTIVE, params: { limit: 20 }, ctx, isBasic: true });
 
 export const getDeals = async ({ ctx, params }) =>
   GET({ url: PRODUCT_API.DEALS, params, ctx, isBasic: true });

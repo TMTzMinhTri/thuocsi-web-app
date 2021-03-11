@@ -21,7 +21,14 @@ function Cart({ isMobile, user }) {
   const pageName = 'cart';
   if (loading) return <LoadingScreen />;
   return (
-    <Template title={title} isMobile={isMobile} pageName={pageName} pageTitle={pageTitle}>
+    <Template
+      title={title}
+      isMobile={isMobile}
+      pageName={pageName}
+      pageTitle={pageTitle}
+      point={user.point}
+      balance={user.balance}
+    >
       <Container className={styles.wrapper} maxWidth="lg">
         {user?.isActive || isMobile === false ? null : (
           <Alert className={styles.alert} severity="error">
