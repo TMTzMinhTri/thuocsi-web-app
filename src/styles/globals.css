@@ -222,7 +222,7 @@ a {
 
 @media (max-width: 767px) {
   .back-to-top{
-    bottom: 4em;
+    bottom: 5em;
     width: 2.4em;
     height: 2.4em;
   }
