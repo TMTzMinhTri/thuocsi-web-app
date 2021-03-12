@@ -37,7 +37,8 @@ function Cart({ isMobile, user }) {
         )}
         {user.level !== 'LEVEL_GUEST' || isMobile === false ? null : (
           <Alert className={styles.alert} severity="error">
-            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
+            Đây là tài khoản dùng thử. Giỏ hàng sẽ không thể lưu và thanh toán được. Xin bạn vui lòng
+            tạo tài khoản cá nhân để sử dụng tính năng này! Cảm ơn!
           </Alert>
         )}
         {cartItems && cartItems.length > 0 ? (
