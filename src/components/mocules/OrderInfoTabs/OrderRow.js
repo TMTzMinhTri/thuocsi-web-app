@@ -6,9 +6,10 @@ import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
 import { MY_ORDER_URL } from 'constants/Paths';
-// import PrintInvoiceButton from '../PrintInvoiceButton';
+import { useModal } from 'hooks';
 import EditOrderButton from '../EditOrderButton';
 import TicketButton from '../TicketButton';
+import TicketFormModal from '../TicketFormModal';
 import styles from './styles.module.css';
 import OrderStatusButton from './OrderStatusButton';
 
@@ -32,12 +33,19 @@ const OrderRow = ({
   orderNo,
   createdTime,
   deliveryDate,
+  customerName,
+  customerPhone,
   status,
   totalPrice,
-  user,
   handleSetOrderStatus,
 }) => {
   const [amount, setAmount] = useState(0);
+  const [orderTicket, setOrderTicket] = useState({});
+  const [open, toggleOpen] = useModal();
+
+  const handleChangeOrderTicket = (value) => {
+    setOrderTicket(value);
+  };
   useEffect(() => {
     async function fetchData() {
       try {
@@ -55,7 +63,6 @@ const OrderRow = ({
     }
     fetchData();
   }, []);
-  const { name, phone } = user;
   const maxWidth = useMediaQuery('(max-width:715px)');
   return (
     <Paper square={!maxWidth} className={styles.paper} elevation={0}>
@@ -117,15 +124,21 @@ const OrderRow = ({
           )}
           <Grid item>
             <TicketButton
-              orderID={orderID}
-              name={name}
-              phone={phone}
-              orderNo={orderNo}
-              orderTime={createdTime}
+              order={{
+                orderID,
+                orderNo,
+                orderTime: createdTime,
+                deliveryDate,
+                name: customerName,
+                phone: customerPhone,
+              }}
+              handleChangeOrderTicket={handleChangeOrderTicket}
+              handleOpenModal={toggleOpen}
             />
           </Grid>
         </Grid>
       </Grid>
+      <TicketFormModal {...orderTicket} visible={open} onClose={toggleOpen} />
     </Paper>
   );
 };
