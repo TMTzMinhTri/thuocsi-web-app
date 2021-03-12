@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   AccountCircle as AccountIcon,
   Visibility,
@@ -6,6 +6,8 @@ import {
   EmailOutlined as EmailIcon,
   PhoneOutlined as PhoneIcon,
   PeopleOutlined as PeopleIcon,
+  ExpandMore as ExpandMoreIcon,
+  LocationOn as LocationOnIcon,
 } from '@material-ui/icons';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
@@ -14,15 +16,21 @@ import {
   IconButton,
   InputAdornment,
   RadioGroup,
+  NativeSelect,
 } from '@material-ui/core';
 import { Button, Input, CheckBox, Radio } from 'components/atoms';
 
 import { FormDataUtils, ValidateUtils, NotifyUtils } from 'utils';
 import { ENUM_SCOPE } from 'constants/Enums';
+import { AddressService } from 'services';
+import styles from './styles.module.css';
 
 const { validateData, Error, isEmpty } = ValidateUtils;
 
-const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCallback) => {
+const validateSignUp = (
+  { isCheckAgree, name, email, password, phone, provinceCode },
+  failCallback,
+) => {
   try {
     validateData.name(name);
     validateData.phoneNumber(phone);
@@ -31,6 +39,7 @@ const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCall
     }
 
     validateData.password(password);
+    if (!isEmpty(provinceCode)) throw new Error('Vui lòng chọn Tỉnh/Thành phố');
     if (isCheckAgree !== '') throw new Error('Vui lòng chọn Đồng ý với Điều khoản sử dụng.');
     return true;
   } catch (error) {
@@ -44,7 +53,15 @@ const SignUpForm = React.memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
   const { className, onClickSignIn, onClickSignUp, refer } = props;
   const [errors, setErrors] = useState({});
+  const [provinces, setProvinces] = useState([]);
 
+  useEffect(() => {
+    const getListProvince = async () => {
+      const provinceResult = await AddressService.getProvinces();
+      setProvinces(provinceResult);
+    };
+    getListProvince();
+  }, []);
   const handleSubmitSignUp = useCallback(
     (e) => {
       const data = FormDataUtils.convert(e);
@@ -94,6 +111,11 @@ const SignUpForm = React.memo((props) => {
     </InputAdornment>
   );
 
+  const IconLocation = (
+    <InputAdornment position="start">
+      <LocationOnIcon />
+    </InputAdornment>
+  );
   const IconEndPassword = (
     <InputAdornment>
       <IconButton onClick={handleClickShowPassword}>
@@ -165,6 +187,19 @@ const SignUpForm = React.memo((props) => {
             variant="outlined"
             error={errors.password || false}
           />
+        </FormControl>
+        <FormControl className="form-control">
+          <NativeSelect
+            id="provinceCode"
+            name="provinceCode"
+            IconComponent={ExpandMoreIcon}
+            input={<Input startAdornment={IconLocation} />}
+            className={styles.province}
+          >
+            {provinces.map((province) => (
+              <option value={province.value}> {province.label}</option>
+            ))}
+          </NativeSelect>
         </FormControl>
         <FormControl className="form-control">
           <Input
