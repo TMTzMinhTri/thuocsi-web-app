@@ -68,8 +68,11 @@ const CartCounponCard = (props) => {
     className,
     conditionsVi = [],
   } = props;
-  const listCondition = conditionsVi.filter((item) => item && item.message);
-
+  const conditionsViMap = conditionsVi.map((item) =>
+    item.productConditions ? item.productConditions.map((cond) => cond) : item,
+  );
+  const conditionsViFlatMap = conditionsViMap.flat();
+  const listCondition = conditionsViFlatMap.filter((item) => item && item.message);
   let maxDiscountValue = 0;
   let discountValue = 0;
   let percent = 0;
