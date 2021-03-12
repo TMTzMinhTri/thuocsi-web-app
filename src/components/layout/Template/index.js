@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
-import { useAuth } from 'context';
+import { useCart, useAuth } from 'context';
 import {
   SignUpModal,
   SignInModal,
@@ -43,6 +43,12 @@ export default function Template({
     toggleShowGuestExpiredTime,
     isShowGuestExpiredTime,
   } = useAuth();
+  const { clearCart } = useCart();
+  useEffect(() => {
+    if(!isAuthenticated && isShowGuestExpiredTime) {
+      clearCart();
+    }
+  }, [isShowGuestExpiredTime])
   return (
     <div>
       <Head>

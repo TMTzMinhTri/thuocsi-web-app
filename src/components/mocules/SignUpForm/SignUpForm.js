@@ -28,7 +28,7 @@ import styles from './styles.module.css';
 const { validateData, Error, isEmpty } = ValidateUtils;
 
 const validateSignUp = (
-  { isCheckAgree, name, email, password, phone, provinceCode },
+  { isCheckAgree, name, email, password, phone },
   failCallback,
 ) => {
   try {
@@ -39,7 +39,6 @@ const validateSignUp = (
     }
 
     validateData.password(password);
-    if (!isEmpty(provinceCode)) throw new Error('Vui lòng chọn Tỉnh/Thành phố');
     if (isCheckAgree !== '') throw new Error('Vui lòng chọn Đồng ý với Điều khoản sử dụng.');
     return true;
   } catch (error) {
