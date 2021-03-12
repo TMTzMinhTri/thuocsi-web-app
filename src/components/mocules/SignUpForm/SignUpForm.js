@@ -27,10 +27,7 @@ import styles from './styles.module.css';
 
 const { validateData, Error, isEmpty } = ValidateUtils;
 
-const validateSignUp = (
-  { isCheckAgree, name, email, password, phone },
-  failCallback,
-) => {
+const validateSignUp = ({ isCheckAgree, name, email, password, phone }, failCallback) => {
   try {
     validateData.name(name);
     validateData.phoneNumber(phone);

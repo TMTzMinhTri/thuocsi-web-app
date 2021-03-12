@@ -103,7 +103,7 @@ async function request({
 
     if (parameters) {
       const parameterStr = RequestUtils.convertObjectToParameter(parameters);
-      if (parameterStr.length > 0) link += (link.indexOf('?') >= 0 ? '' : '?') + parameterStr;
+      if (parameterStr.length > 0) link += (link.indexOf('?') >= 0 ? '&' : '?') + parameterStr;
     }
 
     // console.log(' fetch data ', link, method, headers, body);
@@ -123,6 +123,8 @@ async function request({
     }
 
     // console.log('result : ', result);
+
+    // console.log(` fetch data ${link}`, result);
     return result;
   } catch (err) {
     // console.log('err ', err);

@@ -1,35 +1,21 @@
 import React from 'react';
 import { Button } from 'components/atoms';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
-import { useModal } from 'hooks';
-import TicketFormModal from './TicketFormModal';
 
-const TicketButton = ({
-  orderID = '',
-  name = '',
-  phone = '',
-  orderNo = '',
-  orderTime = Date.now(),
-}) => {
-  const [open, toggleOpen] = useModal();
+const TicketButton = ({ order, handleChangeOrderTicket, handleOpenModal }) => {
+  const handleOnClick = () => {
+    handleChangeOrderTicket(order);
+    handleOpenModal();
+  };
   return (
     <div>
       <Button
         startIcon={<InsertCommentIcon />}
         className="my-order__button my-order__button--blue"
-        onClick={toggleOpen}
+        onClick={handleOnClick}
       >
         Gửi phản hồi
       </Button>
-      <TicketFormModal
-        visible={open}
-        orderID={orderID}
-        name={name}
-        phone={phone}
-        orderNo={orderNo}
-        orderTime={orderTime}
-        onClose={toggleOpen}
-      />
     </div>
   );
 };
