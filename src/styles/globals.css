@@ -219,10 +219,24 @@ a {
   font-weight: 500;
 }
 
+
+@media (max-width: 767px) {
+  .back-to-top{
+    bottom: 5em;
+    width: 2.4em;
+    height: 2.4em;
+  }
+
+  .back-to-top-text {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
 @media (max-width: 767px) {
   .fb_dialog iframe{
     right: -15px !important;
-    transform: scale(.55);
+    transform: scale(0.8);
     bottom: 110px !important;
   }
 }

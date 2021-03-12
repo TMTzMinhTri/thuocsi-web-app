@@ -55,7 +55,6 @@ export const parseVoucherDetail = (voucherInfo) => {
 
   const rewardsVi = parseListReward(rewards);
   const conditionsVi = parseListCondition(conditions);
-
   return { ...voucherInfo, rewardsVi, conditionsVi };
 };
 
