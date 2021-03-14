@@ -1,6 +1,6 @@
 import { GetQuantityProductFromCart } from 'utils';
 import { PRODUCT_API } from 'constants/APIUri';
-import { GET, isValid } from './Clients';
+import { GET, getFirst, isValid } from './Clients';
 import CartClient from './CartClient';
 
 async function loadDataMostSearch(ctx) {
@@ -46,7 +46,6 @@ async function loadDataPormotion(ctx) {
 
 async function loadDataProductCollection(ctx) {
   const url = `${PRODUCT_API.PRODUCT_LIST_COLLECTION}?q=MAIN_PAGE`;
-
   const result = await GET({ url, ctx, isBasic: true });
   if (!isValid(result)) {
     return [];
@@ -59,11 +58,13 @@ async function loadDataProductCollection(ctx) {
   } catch (error) {
     cart.status = 'ERROR';
   }
+  const dataCart = getFirst(cart);
   const cartObject = {};
+  // console.log('dataCart ', dataCart);
   // eslint-disable-next-line no-restricted-syntax
-  if (cart && cart[0] && cart[0].cartItems && cart[0].cartItems.length > 0) {
+  if (dataCart && dataCart.cartItems.length > 0) {
     // eslint-disable-next-line no-restricted-syntax
-    for (const item of cart[0].cartItems) {
+    for (const item of dataCart.cartItems) {
       cartObject[item.sku] = item;
     }
 
