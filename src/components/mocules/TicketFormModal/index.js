@@ -2,17 +2,20 @@ import { useState } from 'react';
 import { Modal, InfoFormControl, Button } from 'components/atoms';
 import { Grid, TextField, NativeSelect } from '@material-ui/core';
 import { FEEDBACK_REASON } from 'constants/Enums';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { ExpandMore, CloudUpload } from '@material-ui/icons';
 import { TicketClient, isValid } from 'clients';
 import NotifyUtils from 'utils/NotifyUtils';
 import DateTimeUtils from 'utils/DateTimeUtils';
+import RUG, { DropArea } from 'react-upload-gallery';
+import { UploadImageService } from 'services';
 import styles from './style.module.css';
 import InfoInput from '../InfoInput';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, orderID, name, phone, orderTime, orderNo } = props;
+  const { visible, onClose, orderID, name, phone, orderTime, orderNo, images = [] } = props;
 
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
+  const [imgUrls, setImgUrls] = useState([]);
 
   const [val, setVal] = useState({
     bankCode: '',
@@ -37,6 +40,7 @@ const TicketFormModal = (props) => {
       saleOrderCode: orderNo,
       saleOrderID: orderID,
       reasons: [FEEDBACK_REASON[reason].code],
+      imgUrls
     };
     try {
       const feedbackResult = await TicketClient.createFeedback(data);
@@ -48,6 +52,40 @@ const TicketFormModal = (props) => {
 
     NotifyUtils.success('Gửi phản hồi thành công');
   };
+
+  const customRequest = ({ uid, file, action, onSuccess, onError }) => {
+    const image = file;
+    const copyImgUrls = imgUrls;
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = () => {
+      UploadImageService.upload({ data: reader.result })
+        .then((result) => {
+          if (!isValid(result)) {
+            NotifyUtils.error(result.message);
+          }
+          onSuccess(uid, result);
+          copyImgUrls.push(result.data[0]);
+          setImgUrls(copyImgUrls)
+        })
+        .catch((error) => {
+          onError(uid, {
+            action,
+            status: error.request,
+            response: error.response,
+          });
+        });
+    };
+
+    return {
+      abort() {},
+    };
+  };
+  const handleDelete = (image) => {
+    let arr = imgUrls;
+    arr = arr.filter((item) => item !== image.source)
+    setImgUrls(arr);
+  }
   return (
     <Modal open={visible} onClose={onClose}>
       <div className={styles.feedback_order}>
@@ -55,26 +93,33 @@ const TicketFormModal = (props) => {
         <Grid container className={styles.container}>
           <div className={styles.info_group}>
             <Grid item xs={12} className={styles.text_body}>
-              <span className={styles.label}>Phản hồi về đơn hàng #</span><span className={styles.value}>{orderID}</span>:
+              <span className={styles.label}>Phản hồi về đơn hàng #</span>
+              <span className={styles.value}>{orderID}</span>:
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
-              <span className={styles.label}>Mã đơn hàng: </span><span className={styles.value}>{orderID}</span>
+              <span className={styles.label}>Mã đơn hàng: </span>
+              <span className={styles.value}>{orderID}</span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
-              <span className={styles.label}>Tên khách hàng: </span><span className={styles.value}>{name}</span>
+              <span className={styles.label}>Tên khách hàng: </span>
+              <span className={styles.value}>{name}</span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
-              <span className={styles.label}>Ngày đặt hàng: </span><span className={styles.value}>{DateTimeUtils.getFormattedWithDate(new Date(orderTime))}</span>
+              <span className={styles.label}>Ngày đặt hàng: </span>
+              <span className={styles.value}>
+                {DateTimeUtils.getFormattedWithDate(new Date(orderTime))}
+              </span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
-              <span className={styles.label}>Số điện thoại: </span><span className={styles.value}>{phone}</span>
+              <span className={styles.label}>Số điện thoại: </span>
+              <span className={styles.value}>{phone}</span>
             </Grid>
           </div>
           <Grid item xs={12} container justify="flex-start" spacing={1}>
             <InfoFormControl xs={12} md={6} label="Lý do phản hồi" isRequired>
               <NativeSelect
                 input={<InfoInput />}
-                IconComponent={ExpandMoreIcon}
+                IconComponent={ExpandMore}
                 value={reason}
                 onChange={handleOnChangeReason}
                 className={styles.reason_select}
@@ -86,12 +131,18 @@ const TicketFormModal = (props) => {
                   >
                     {FEEDBACK_REASON[reasonE].name}
                   </option>
-              ))}
+                ))}
               </NativeSelect>
             </InfoFormControl>
           </Grid>
           <Grid item xs={12} container justify="space-evenly" spacing={1}>
-            <InfoFormControl xs={12} md={6} isRequired label="Tên chủ tài khoản" htmlFor="accountName">
+            <InfoFormControl
+              xs={12}
+              md={6}
+              isRequired
+              label="Tên chủ tài khoản"
+              htmlFor="accountName"
+            >
               <InfoInput
                 id="accountName"
                 placeholder="Nhập tên chủ tài khoản"
@@ -124,7 +175,14 @@ const TicketFormModal = (props) => {
               />
             </InfoFormControl>
           </Grid>
-          <Grid className={styles.textarea} item xs={12} container justify="space-evenly" spacing={1}>
+          <Grid
+            className={styles.textarea}
+            item
+            xs={12}
+            container
+            justify="space-evenly"
+            spacing={1}
+          >
             <InfoFormControl label="Nội dung phản hồi" xs={12} isRequired htmlFor="description">
               <br />
               <TextField
@@ -139,10 +197,63 @@ const TicketFormModal = (props) => {
               />
             </InfoFormControl>
           </Grid>
-          <Grid className={styles.textarea} item xs={12} container justify="space-evenly" spacing={1}>
-            <InfoFormControl label="Hình ảnh minh hoạ lỗi" xs={12} isRequired htmlFor="name">
-              <Button className="response__button--upload">Bạn có thể upload tối đa 6 hình</Button>
-            </InfoFormControl>
+          <RUG
+            action="/api/upload"
+            header={({ openDialogue }) => (
+              <DropArea>
+                {(isDrag) => (
+                  <div
+                    style={{
+                      background: isDrag ? 'lightblue' : 'white',
+                      width: '100%',
+                      height: 250,
+                    }}
+                  >
+                    <div style={{ padding: 30 }}>
+                      <h1 style={{ textAlign: 'center' }}>Custom Handle</h1>
+
+                      <div style={{ textAlign: 'center' }}>
+                        <button onClick={openDialogue}>Open Dialogue</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </DropArea>
+            )}
+          />
+          <Grid
+            className={styles.textarea}
+            item
+            xs={12}
+            container
+            justify="space-evenly"
+            spacing={1}
+          >
+            <RUG
+              accept={['jpg', 'jpeg', 'png']}
+              action="/marketplace/product/v1/upload"
+              source={(response) => response.data[0]}
+              onDeleted={(image)=> handleDelete(image)}
+              initialState={images}
+              header={({ openDialogue }) => (
+                <DropArea>
+                  {(isDrag) => (
+                    <div
+                      className={`rug-handle ${isDrag ? '__dragging' : ''}`}
+                      onClick={openDialogue}
+                      onKeyDown={openDialogue}
+                      aria-hidden="true"
+                    >
+                      <CloudUpload className={`rug-handle-icon ${isDrag ? '__arrow' : ''}`} />
+                      <div className="rug-handle-info">
+                        <div className="rug-handle-drop-text">Kéo thả để tải ảnh</div>
+                      </div>
+                    </div>
+                  )}
+                </DropArea>
+              )}
+              customRequest={customRequest}
+            />
           </Grid>
           <Grid className={styles.textarea} item container justify="center" xs={12} spacing={1}>
             <Button className="payment_button" onClick={onSubmit}>
