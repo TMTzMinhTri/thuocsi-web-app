@@ -30,16 +30,22 @@ function getFormattedWithDate(date, format = 'd (DD/MM/YYYY)') {
   return getFormattedDate(date, format).replace('d', getDayOfWeek(dayOfWeek));
 }
 
-
 // https://stackoverflow.com/questions/492994/compare-two-dates-with-javascript
 function compareTime(timeA, timeB) {
   const dA = new Date(timeA);
   const dB = new Date(timeB);
   const tA = dA.getTime();
   const tB = dB.getTime();
-  if(tA === tB) return 0;
-  if(dA > dB) return 1;
+  if (tA === tB) return 0;
+  if (dA > dB) return 1;
   return -1;
+}
+
+function addHours(time, hours = 0) {
+  const t = new Date(time);
+  if (hours === 0) return t;
+  t.setHours(t.getHours() + hours);
+  return t;
 }
 
 //  Time ago func
@@ -123,4 +129,5 @@ export default {
   getTimeAgo,
   DAY_SECONDS,
   compareTime,
+  addHours,
 };
