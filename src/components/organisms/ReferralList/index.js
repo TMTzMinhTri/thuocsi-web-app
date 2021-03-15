@@ -17,7 +17,6 @@ const ReferralList = () => {
     const [referralsRes] = await Promise.all([
       CustomerService.getReferralList({ offset: (page - 1) * size, limit: size }),
     ]);
-
     if (isValid(referralsRes)) {
       setReferrals(referralsRes.data);
     } else {

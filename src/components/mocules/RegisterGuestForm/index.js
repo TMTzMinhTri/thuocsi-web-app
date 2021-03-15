@@ -25,7 +25,7 @@ const RegisterGuestForm = styled(RegisterGuestFormCustom)`
     height: 50px;
     box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.08);
     width: 100%;
-    margin: 1rem;
+    margin: 1rem 0;
     border-radius: 50px;
   }
   .register {

@@ -1,0 +1,8 @@
+.province [class*='MuiInputBase-input'] {
+  height: auto !important;
+}
+
+.province [class*='MuiNativeSelect-icon'] {
+  padding: 0;
+  right: 14px;
+}

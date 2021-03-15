@@ -92,9 +92,6 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     deal,
   } = product;
 
-  const percentDealSold = (deal.quantity / deal.maxQuantity) * 100;
-  const soldOutCondition = deal.maxQuantity - deal.quantity === 0;
-
   const maxQuantity = isDeal ? deal.maxQuantity : prdMaxQuantity;
 
   // const { quantity } = product;
@@ -175,6 +172,8 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   };
 
   const renderCondition = () => {
+    const percentDealSold = (deal.quantity / deal.maxQuantity) * 100;
+    const soldOutCondition = deal.maxQuantity - deal.quantity === 0;
     if (percentDealSold < 50) {
       return `Đã bán ${deal.quantity}`;
     }

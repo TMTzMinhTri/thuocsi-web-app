@@ -3,7 +3,7 @@ import { invalid } from 'utils/ResponseUtils';
 import { isEmpty } from 'utils/ValidateUtils';
 import { GET } from './Clients';
 
-const getProvinces = async (ctx) => GET({ url: CORE_API.PROVINCE_LIST, ctx });
+const getProvinces = async (ctx) => GET({ url: CORE_API.PROVINCE_LIST, ctx, isBasic: true });
 
 const getDistrictsByProvince = async (provinceCode) =>
   GET({

@@ -98,10 +98,17 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     // check guest user expireAt
     if (userInfo && userInfo.level === 'LEVEL_GUEST') {
       const timeRemaining = new Date(userInfo.expireAt).getTime() - new Date().getTime();
+
       // time remaining
       // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
-      setTimeout(() => logout(() => toggleShowGuestExpiredTime()), timeRemaining);
+      setTimeout(() => logout(() => {
+        if (router.pathname !== '/') {
+          router.push('/');
+        }
+        toggleShowGuestExpiredTime();
+      }), timeRemaining);
     }
+
     setInfoUser(userInfo);
     setIsLoading(false);
   }, [getUserInfo, setIsLoading]);
@@ -157,6 +164,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         const userName = `guest${phone}`;
         handleLogin({ username: userName, password: `Guest${phone}`, type: 'GUEST' });
         setIsLoading(false);
+        toggleRegisterGuest(false);
         // callback
         if (success) {
           success();
