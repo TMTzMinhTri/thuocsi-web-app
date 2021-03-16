@@ -19,6 +19,10 @@ const UploadImages = (props) => {
       const limitSize = blob.size / 1024 / 1024;
       if (limitSize > 2) {
         NotifyUtils.error('Kích thước quá lớn');
+        onError(uid, {
+          action,
+          response: reader.result,
+        });
       } else {
         UploadImageService.upload({ data: reader.result })
           .then((result) => {
