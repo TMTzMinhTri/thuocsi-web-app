@@ -16,10 +16,7 @@ const DynamicProductSlider = dynamic(() => import('components/organisms/ProductS
 export default function LandingPage(props) {
   const { settings } = props;
 
-  const bannerStatus =
-    settings && settings.length > 0
-      ? settings.filter((setting) => setting.type === 'banner')[0]?.status
-      : 'ON';
+  const bannerStatus = settings && settings.banner ? settings.banner.status : 'ON';
 
   const { isAuthenticated } = useAuth();
   const { infoBanner = [], isMobile, blocks = [] } = props;

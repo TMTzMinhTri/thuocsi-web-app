@@ -64,6 +64,7 @@ const INGREDIENT_LIST = `${INGREDIENT}/list`;
 const INGREDIENT_PRODUCT_LIST = `${INGREDIENT}/list`;
 
 const MANUFACTURER = `${PRODUCT_API_PREFIX}/manufacturers`;
+const MANUFACTURER_DETAIL = `${PRODUCT_API_PREFIX}/manufacturer`;
 const MANUFACTURER_LIST = `${MANUFACTURER}/list`;
 
 const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
@@ -78,6 +79,7 @@ export const PRODUCT_API = {
   INGREDIENT_PRODUCT_LIST,
   MANUFACTURER,
   MANUFACTURER_LIST,
+  MANUFACTURER_DETAIL,
   PRODUCT_LIST,
   PRODUCT_LIST_COLLECTION,
   TAGS,
@@ -134,7 +136,7 @@ export const ORDER_API = {
 
 // Supplier API
 
-const SUPPLIER_API_PREFIX = '/seller/profiler/v1';
+const SUPPLIER_API_PREFIX = '/seller/core/v1';
 const SUPPLIER_INFO = `${SUPPLIER_API_PREFIX}/seller/info`;
 
 export const SUPPLIER_API = {

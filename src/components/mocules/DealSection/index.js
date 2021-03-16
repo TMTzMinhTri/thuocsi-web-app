@@ -14,7 +14,7 @@ const DealSection = ({ dealEndDay, totalSold = 0, total = 0 }) => (
           colorPrimary: styles.blur_background,
         }}
         variant="determinate"
-        value={totalSold / total}
+        value={(totalSold / total) * 100}
       />
       <Typography className={styles.process_content}>Đã bán {totalSold}</Typography>
     </div>

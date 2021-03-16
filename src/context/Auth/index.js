@@ -156,9 +156,15 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     AuthService.registerGuest(data)
       .then((result) => {
         if (!isValid(result)) {
-          const errorCode = `login.${result.errorCode}`;
-          NotifyUtils.error(t(errorCode));
-          return;
+          if(result.errorCode === "CUSTOMER_EXISTED"){
+            NotifyUtils.error(result.message);
+            toggleRegisterGuest(false);
+            toggleLogin();
+          } else{
+            const errorCode = `login.${result.errorCode}`;
+            NotifyUtils.error(t(errorCode));
+          }
+          return
         }
         const { phone } = getFirst(result);
         const userName = `guest${phone}`;
