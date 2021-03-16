@@ -15,7 +15,7 @@ const TicketFormModal = (props) => {
   const { visible, onClose, orderID, name, phone, orderTime, orderNo, images = [] } = props;
 
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
-  const [imgUrls, setImgUrls] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
 
   const [val, setVal] = useState({
     bankCode: '',
@@ -40,7 +40,7 @@ const TicketFormModal = (props) => {
       saleOrderCode: orderNo,
       saleOrderID: orderID,
       reasons: [FEEDBACK_REASON[reason].code],
-      imgUrls
+      imageUrls
     };
     try {
       const feedbackResult = await TicketClient.createFeedback(data);
@@ -49,13 +49,13 @@ const TicketFormModal = (props) => {
     } catch (error) {
       NotifyUtils.error(error.message);
     }
-
+    onClose()
     NotifyUtils.success('Gửi phản hồi thành công');
   };
 
   const customRequest = ({ uid, file, action, onSuccess, onError }) => {
     const image = file;
-    const copyImgUrls = imgUrls;
+    const copyImageUrls = imageUrls;
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = () => {
@@ -65,8 +65,8 @@ const TicketFormModal = (props) => {
             NotifyUtils.error(result.message);
           }
           onSuccess(uid, result);
-          copyImgUrls.push(result.data[0]);
-          setImgUrls(copyImgUrls)
+          copyImageUrls.push(result.data[0]);
+          setImageUrls(copyImageUrls)
         })
         .catch((error) => {
           onError(uid, {
@@ -82,9 +82,9 @@ const TicketFormModal = (props) => {
     };
   };
   const handleDelete = (image) => {
-    let arr = imgUrls;
+    let arr = imageUrls;
     arr = arr.filter((item) => item !== image.source)
-    setImgUrls(arr);
+    setImageUrls(arr);
   }
   return (
     <Modal open={visible} onClose={onClose}>
@@ -197,30 +197,6 @@ const TicketFormModal = (props) => {
               />
             </InfoFormControl>
           </Grid>
-          <RUG
-            action="/api/upload"
-            header={({ openDialogue }) => (
-              <DropArea>
-                {(isDrag) => (
-                  <div
-                    style={{
-                      background: isDrag ? 'lightblue' : 'white',
-                      width: '100%',
-                      height: 250,
-                    }}
-                  >
-                    <div style={{ padding: 30 }}>
-                      <h1 style={{ textAlign: 'center' }}>Custom Handle</h1>
-
-                      <div style={{ textAlign: 'center' }}>
-                        <button onClick={openDialogue}>Open Dialogue</button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </DropArea>
-            )}
-          />
           <Grid
             className={styles.textarea}
             item
@@ -231,7 +207,6 @@ const TicketFormModal = (props) => {
           >
             <RUG
               accept={['jpg', 'jpeg', 'png']}
-              action="/marketplace/product/v1/upload"
               source={(response) => response.data[0]}
               onDeleted={(image)=> handleDelete(image)}
               initialState={images}
