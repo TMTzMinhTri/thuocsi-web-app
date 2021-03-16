@@ -14,7 +14,7 @@ const TicketFormModal = (props) => {
   const { visible, onClose, orderID, name, phone, orderTime, orderNo} = props;
 
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
-  const [imageUrls, setImageUrls] = useState([]);
+  // const [imageUrls, setImageUrls] = useState([]);
 
   const [val, setVal] = useState({
     bankCode: '',
@@ -22,6 +22,7 @@ const TicketFormModal = (props) => {
     bankBranch: '',
     accountName: '',
     note: '',
+    imageUrls: []
   });
 
   const handleChangeValue = (key, value) => {
@@ -39,7 +40,6 @@ const TicketFormModal = (props) => {
       saleOrderCode: orderNo,
       saleOrderID: orderID,
       reasons: [FEEDBACK_REASON[reason].code],
-      imageUrls
     };
     try {
       const feedbackResult = await TicketClient.createFeedback(data);
@@ -55,7 +55,7 @@ const TicketFormModal = (props) => {
   };
 
   const handleOnChangeImages = (imgs) => {
-    setImageUrls(imgs);
+    setVal({ ...val, "imageUrls": imgs });
   }
   return (
     <Modal open={visible} onClose={onClose}>
