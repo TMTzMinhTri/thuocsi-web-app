@@ -21,78 +21,68 @@ export const parseCondition = (condition) => {
   if (!condition) return null;
 
   const { type, minOrderValue, productConditions } = condition;
-  let msg = null;
   const message = [];
 
   switch (type) {
     case 'ORDER_VALUE':
       if (minOrderValue) {
-        msg = `Giá trị đơn hàng lơn hơn ${formatCurrency(minOrderValue)}`;
-        message.push(msg);
+        message.push(`Giá trị đơn hàng lơn hơn ${formatCurrency(minOrderValue)}`);
       }
 
       break;
     case 'PRODUCT_TAG':
       if (productConditions) {
-        productConditions.map((_item) => {
+        productConditions.forEach((_item) => {
           const { productTag, sellerCodes, minQuantity } = _item;
-          msg = `Cần mua ít nhất ${formatNumber(
+          message.push(`Cần mua ít nhất ${formatNumber(
             minQuantity,
           )} sản phẩm có mã ${productTag} của người bán ${sellerCodes.join(',')}
-          `;
-          message.push(msg);
-          return message;
+          `);
         });
       }
       break;
     case 'PRODUCT':
       if (productConditions) {
-        productConditions.map((_item) => {
+        productConditions.forEach((_item) => {
           const { productId, sellerCodes, minQuantity } = _item;
-          msg = `Cần mua ít nhất ${formatNumber(
+          message.push(`Cần mua ít nhất ${formatNumber(
             minQuantity,
           )} sản phẩm có mã ${productId} của người bán ${sellerCodes.join(',')}
-          `;
-          message.push(msg);
-          return message;
+          `);
         });
       }
       break;
     case 'PRODUCT_CATEGORY':
       if (productConditions) {
-        productConditions.map((_item) => {
+        productConditions.forEach((_item) => {
           const { productId, sellerCodes, minQuantity } = _item;
-          msg = `Cần mua ít nhất ${formatNumber(
+          message.push(`Cần mua ít nhất ${formatNumber(
             minQuantity,
           )} sản phẩm có hoạt chất ${productId} của người bán ${sellerCodes.join(',')}
-          `;
-          message.push(msg);
-          return message;
+          `);
         });
       }
       break;
     case 'PRODUCER':
       if (productConditions) {
-        const { minQuantity, producerCode, sellerCodes } = productConditions[0];
-
-        msg = `Cần mua ít nhất ${formatNumber(
-          minQuantity,
-        )} sản phẩm của nhà sản xuất ${producerCode} của người bán ${sellerCodes.join(',')}`;
-        message.push(msg);
-        return message;
+        productConditions.forEach((_item) => {
+          const { producerCode, sellerCodes, minQuantity } = _item;
+          message.push(
+            `Cần mua ít nhất ${formatNumber(
+              minQuantity,
+            )} sản phẩm của nhà sản xuất ${producerCode} của người bán ${sellerCodes.join(',')}`,
+          );
+        });
       }
       break;
     case 'INGREDIENT':
       if (productConditions) {
-        productConditions.map((_item) => {
+        productConditions.forEach((_item) => {
           const { ingredientCode, sellerCodes, minQuantity } = _item;
-
-          msg = `Cần mua ít nhất ${formatNumber(
+          message.push(`Cần mua ít nhất ${formatNumber(
             minQuantity,
           )} sản phẩm có hoạt chất ${ingredientCode} của người bán ${sellerCodes.join(',')}
-          `;
-          message.push(msg);
-          return message;
+          `);
         });
       }
 
