@@ -21,45 +21,73 @@ export const parseCondition = (condition) => {
   if (!condition) return null;
 
   const { type, minOrderValue, productConditions } = condition;
+
   let message = null;
   switch (type) {
     case 'ORDER_VALUE':
       if (minOrderValue) {
         message = `Giá trị đơn hàng lơn hơn ${formatCurrency(minOrderValue)}`;
-        return { message };
       }
 
       break;
     case 'PRODUCT_TAG':
       if (productConditions) {
-        productConditions.map((_item, i) => {
+        const productConditionsVi = productConditions.map((_item, i) => {
           const { productTag, sellerCodes, minQuantity } = _item;
           message = `Cần mua ít nhất ${formatNumber(
             minQuantity,
           )} sản phẩm có mã ${productTag} của người bán ${sellerCodes.join(',')}
           `;
           productConditions[i].message = message;
-          return { productConditions };
+          return { ...condition, message, productConditionsVi };
+        });
+      }
+      break;
+    case 'PRODUCT':
+      if (productConditions) {
+        const productConditionsVi = productConditions.map((_item, i) => {
+          const { productId, sellerCodes, minQuantity } = _item;
+          message = `Cần mua ít nhất ${formatNumber(
+            minQuantity,
+          )} sản phẩm có mã ${productId} của người bán ${sellerCodes.join(',')}
+          `;
+          productConditions[i].message = message;
+          return { ...condition, message, productConditionsVi };
         });
       }
       break;
     case 'PRODUCER':
       if (productConditions) {
         const { minQuantity, producerCode, sellerCodes } = productConditions[0];
+
         message = `Cần mua ít nhất ${formatNumber(
           minQuantity,
         )} sản phẩm của nhà sản xuất ${producerCode} của người bán ${sellerCodes.join(',')}`;
       }
       break;
-    case 'NO_RULE':
-      if (!productConditions) {
-        return { message };
+    case 'INGREDIENT':
+      if (productConditions) {
+        const productConditionsVi = productConditions.map((_item, i) => {
+          const { ingredientCode, sellerCodes, minQuantity } = _item;
+          message = `Cần mua ít nhất ${formatNumber(
+            minQuantity,
+          )} sản phẩm có hoạt chất ${ingredientCode} của người bán ${sellerCodes.join(',')}
+          `;
+          productConditions[i].message = message;
+          return { ...condition, message, productConditionsVi };
+        });
       }
+
+      break;
+    case 'NO_RULE':
+      // if (!productConditions) {
+      //   return { message };
+      // }
 
       break;
     default:
   }
-  return { message, productConditions };
+  return { ...condition, message };
 };
 
 export const parseListReward = (rewards) => rewards.map((reward) => parseReward(reward));
