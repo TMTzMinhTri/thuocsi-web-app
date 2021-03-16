@@ -45,7 +45,6 @@ const ProductCardBuy = ({
   const removeProductOutCart = () => {
     toggleRemove();
   };
-
   const canDeleteProduct = () => {
     const quantityAfterDel = cartItems.length - 1;
     let importantQuantity = importantList.length;
