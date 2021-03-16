@@ -134,7 +134,7 @@ export const ORDER_API = {
 
 // Supplier API
 
-const SUPPLIER_API_PREFIX = '/seller/profiler/v1';
+const SUPPLIER_API_PREFIX = '/seller/core/v1';
 const SUPPLIER_INFO = `${SUPPLIER_API_PREFIX}/seller/info`;
 
 export const SUPPLIER_API = {
