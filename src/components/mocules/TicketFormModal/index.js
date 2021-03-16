@@ -55,7 +55,7 @@ const TicketFormModal = (props) => {
     
   };
 
-  const getImages = (imgs) => {
+  const handleOnChangeImages = (imgs) => {
     setImageUrls(imgs);
   }
   return (
@@ -177,7 +177,7 @@ const TicketFormModal = (props) => {
             justify="space-evenly"
             spacing={1}
           >
-            <UploadImages onChange={getImages} />
+            <UploadImages onChange={handleOnChangeImages} />
           </Grid>
           <Grid className={styles.textarea} item container justify="center" xs={12} spacing={1}>
             <Button className="payment_button" onClick={onSubmit}>
