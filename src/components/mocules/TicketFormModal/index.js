@@ -45,10 +45,10 @@ const TicketFormModal = (props) => {
       const feedbackResult = await TicketClient.createFeedback(data);
       if (!isValid(feedbackResult))
         throw new Error(feedbackResult.message || 'Gửi phản hồi thất bại');
+        NotifyUtils.success('Gửi phản hồi thành công');
     } catch (error) {
       NotifyUtils.error(error.message);
     }
-    NotifyUtils.success('Gửi phản hồi thành công');
     // clear
     onClose();
     setVal({});
