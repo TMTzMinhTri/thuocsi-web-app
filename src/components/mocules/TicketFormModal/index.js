@@ -14,7 +14,6 @@ const TicketFormModal = (props) => {
   const { visible, onClose, orderID, name, phone, orderTime, orderNo} = props;
 
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
-  // const [imageUrls, setImageUrls] = useState([]);
 
   const [val, setVal] = useState({
     bankCode: '',
