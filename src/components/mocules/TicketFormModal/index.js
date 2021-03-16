@@ -46,13 +46,12 @@ const TicketFormModal = (props) => {
       if (!isValid(feedbackResult))
         throw new Error(feedbackResult.message || 'Gửi phản hồi thất bại');
         NotifyUtils.success('Gửi phản hồi thành công');
+        // clear
+        onClose();
+        setVal({}); 
     } catch (error) {
       NotifyUtils.error(error.message);
     }
-    // clear
-    onClose();
-    setVal({});
-    
   };
 
   const handleOnChangeImages = (imgs) => {
