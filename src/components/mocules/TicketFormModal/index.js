@@ -2,17 +2,16 @@ import { useState } from 'react';
 import { Modal, InfoFormControl, Button } from 'components/atoms';
 import { Grid, TextField, NativeSelect } from '@material-ui/core';
 import { FEEDBACK_REASON } from 'constants/Enums';
-import { ExpandMore, CloudUpload } from '@material-ui/icons';
+import { ExpandMore } from '@material-ui/icons';
 import { TicketClient, isValid } from 'clients';
 import NotifyUtils from 'utils/NotifyUtils';
 import DateTimeUtils from 'utils/DateTimeUtils';
-import RUG, { DropArea } from 'react-upload-gallery';
-import { UploadImageService } from 'services';
+import UploadImages from '../UploadImages';
 import styles from './style.module.css';
 import InfoInput from '../InfoInput';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, orderID, name, phone, orderTime, orderNo, images = [] } = props;
+  const { visible, onClose, orderID, name, phone, orderTime, orderNo} = props;
 
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
   const [imageUrls, setImageUrls] = useState([]);
@@ -49,42 +48,15 @@ const TicketFormModal = (props) => {
     } catch (error) {
       NotifyUtils.error(error.message);
     }
-    onClose()
     NotifyUtils.success('Gửi phản hồi thành công');
+    // clear
+    onClose();
+    setVal({});
+    
   };
 
-  const customRequest = ({ uid, file, action, onSuccess, onError }) => {
-    const image = file;
-    const copyImageUrls = imageUrls;
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = () => {
-      UploadImageService.upload({ data: reader.result })
-        .then((result) => {
-          if (!isValid(result)) {
-            NotifyUtils.error(result.message);
-          }
-          onSuccess(uid, result);
-          copyImageUrls.push(result.data[0]);
-          setImageUrls(copyImageUrls)
-        })
-        .catch((error) => {
-          onError(uid, {
-            action,
-            status: error.request,
-            response: error.response,
-          });
-        });
-    };
-
-    return {
-      abort() {},
-    };
-  };
-  const handleDelete = (image) => {
-    let arr = imageUrls;
-    arr = arr.filter((item) => item !== image.source)
-    setImageUrls(arr);
+  const getImages = (imgs) => {
+    setImageUrls(imgs);
   }
   return (
     <Modal open={visible} onClose={onClose}>
@@ -205,30 +177,7 @@ const TicketFormModal = (props) => {
             justify="space-evenly"
             spacing={1}
           >
-            <RUG
-              accept={['jpg', 'jpeg', 'png']}
-              source={(response) => response.data[0]}
-              onDeleted={(image)=> handleDelete(image)}
-              initialState={images}
-              header={({ openDialogue }) => (
-                <DropArea>
-                  {(isDrag) => (
-                    <div
-                      className={`rug-handle ${isDrag ? '__dragging' : ''}`}
-                      onClick={openDialogue}
-                      onKeyDown={openDialogue}
-                      aria-hidden="true"
-                    >
-                      <CloudUpload className={`rug-handle-icon ${isDrag ? '__arrow' : ''}`} />
-                      <div className="rug-handle-info">
-                        <div className="rug-handle-drop-text">Kéo thả để tải ảnh</div>
-                      </div>
-                    </div>
-                  )}
-                </DropArea>
-              )}
-              customRequest={customRequest}
-            />
+            <UploadImages onChange={getImages} />
           </Grid>
           <Grid className={styles.textarea} item container justify="center" xs={12} spacing={1}>
             <Button className="payment_button" onClick={onSubmit}>
