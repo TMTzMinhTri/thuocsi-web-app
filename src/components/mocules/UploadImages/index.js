@@ -15,23 +15,34 @@ const UploadImages = (props) => {
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = () => {
-      UploadImageService.upload({ data: reader.result })
-        .then((result) => {
-          if (!isValid(result)) {
-            NotifyUtils.error(result.message);
-          }
-          onSuccess(uid, result);
-          copyImageUrls.push(result.data[0]);
-          setImageUrls(copyImageUrls);
-          onChange(copyImageUrls)
-        })
-        .catch((error) => {
-          onError(uid, {
-            action,
-            status: error.request,
-            response: error.response,
+      const blob = new Blob([reader.result]);
+      const limitSize = blob.size / 1024 / 1024;
+      if (limitSize > 2) {
+        NotifyUtils.error('Kích thước quá lớn');
+      } else {
+        UploadImageService.upload({ data: reader.result })
+          .then((result) => {
+            if (!isValid(result)) {
+              NotifyUtils.error(result.message);
+              onError(uid, {
+                action,
+                status: result.message,
+                response: reader.result,
+              });
+            }
+            onSuccess(uid, result);
+            copyImageUrls.push(result.data[0]);
+            setImageUrls(copyImageUrls);
+            onChange(copyImageUrls);
+          })
+          .catch((error) => {
+            onError(uid, {
+              action,
+              status: error.request,
+              response: error.response,
+            });
           });
-        });
+      }
     };
 
     return {
@@ -46,10 +57,27 @@ const UploadImages = (props) => {
   };
   return (
     <RUG
+      rules={{
+        limit: 6,
+      }}
       accept={['jpg', 'jpeg', 'png']}
       source={(response) => response.data[0]}
       onDeleted={(image) => handleDelete(image)}
       initialState={images}
+      onWarning={(type, rules) => {
+        switch (type) {
+          case 'accept':
+            NotifyUtils.error(`Chỉ chấp nhận định dạng ${rules.accept.join(', ')}`);
+            break;
+          case 'limit':
+            NotifyUtils.error(`Cho phép tối đa ${rules.limit} ảnh`);
+            break;
+          case 'size':
+            NotifyUtils.error(`Cho phép kích thước tối đa ${rules.size}Kb`);
+            break;
+          default:
+        }
+      }}
       header={({ openDialogue }) => (
         <DropArea>
           {(isDrag) => (
