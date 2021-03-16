@@ -68,11 +68,9 @@ const CartCounponCard = (props) => {
     className,
     conditionsVi = [],
   } = props;
-  const conditionsViMap = conditionsVi.map((item) =>
-    item.productConditions ? item.productConditions.map((cond) => cond) : item,
-  );
-  const conditionsViFlatMap = conditionsViMap.flat();
-  const listCondition = conditionsViFlatMap.filter((item) => item && item.message);
+
+  const listCondition = conditionsVi.filter((item) => item && !isEmpty(item.message));
+
   let maxDiscountValue = 0;
   let discountValue = 0;
   let percent = 0;
@@ -211,18 +209,21 @@ const CartCounponCard = (props) => {
                     style={{ padding: 0, display: 'flex', flexDirection: 'column' }}
                   >
                     {!isEmpty(listCondition) &&
-                      listCondition.map(({ message: conditionMsg }) => (
-                        <Typography
-                          key={uuidv4()}
-                          style={{
-                            fontSize: 'small',
-                            color: palette.grey[700],
-                            marginBottom: '10px',
-                          }}
-                        >
-                          * {conditionMsg}
-                        </Typography>
-                      ))}
+                      listCondition.map(({ message: conditionMsg }) =>
+                        conditionMsg.map((item) => (
+                          <div key={uuidv4()}>
+                            <Typography
+                              style={{
+                                fontSize: 'small',
+                                color: palette.grey[700],
+                                marginBottom: '10px',
+                              }}
+                            >
+                              * {item}
+                            </Typography>
+                          </div>
+                        )),
+                      )}
                   </AccordionDetails>
                 </Accordion>
               </Grid>

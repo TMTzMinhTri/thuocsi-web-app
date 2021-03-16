@@ -21,38 +21,53 @@ export const parseCondition = (condition) => {
   if (!condition) return null;
 
   const { type, minOrderValue, productConditions } = condition;
+  let msg = null;
+  const message = [];
 
-  let message = null;
   switch (type) {
     case 'ORDER_VALUE':
       if (minOrderValue) {
-        message = `Giá trị đơn hàng lơn hơn ${formatCurrency(minOrderValue)}`;
+        msg = `Giá trị đơn hàng lơn hơn ${formatCurrency(minOrderValue)}`;
+        message.push(msg);
       }
 
       break;
     case 'PRODUCT_TAG':
       if (productConditions) {
-        const productConditionsVi = productConditions.map((_item, i) => {
+        productConditions.map((_item) => {
           const { productTag, sellerCodes, minQuantity } = _item;
-          message = `Cần mua ít nhất ${formatNumber(
+          msg = `Cần mua ít nhất ${formatNumber(
             minQuantity,
           )} sản phẩm có mã ${productTag} của người bán ${sellerCodes.join(',')}
           `;
-          productConditions[i].message = message;
-          return { ...condition, message, productConditionsVi };
+          message.push(msg);
+          return message;
         });
       }
       break;
     case 'PRODUCT':
       if (productConditions) {
-        const productConditionsVi = productConditions.map((_item, i) => {
+        productConditions.map((_item) => {
           const { productId, sellerCodes, minQuantity } = _item;
-          message = `Cần mua ít nhất ${formatNumber(
+          msg = `Cần mua ít nhất ${formatNumber(
             minQuantity,
           )} sản phẩm có mã ${productId} của người bán ${sellerCodes.join(',')}
           `;
-          productConditions[i].message = message;
-          return { ...condition, message, productConditionsVi };
+          message.push(msg);
+          return message;
+        });
+      }
+      break;
+    case 'PRODUCT_CATEGORY':
+      if (productConditions) {
+        productConditions.map((_item) => {
+          const { productId, sellerCodes, minQuantity } = _item;
+          msg = `Cần mua ít nhất ${formatNumber(
+            minQuantity,
+          )} sản phẩm có hoạt chất ${productId} của người bán ${sellerCodes.join(',')}
+          `;
+          message.push(msg);
+          return message;
         });
       }
       break;
@@ -60,21 +75,24 @@ export const parseCondition = (condition) => {
       if (productConditions) {
         const { minQuantity, producerCode, sellerCodes } = productConditions[0];
 
-        message = `Cần mua ít nhất ${formatNumber(
+        msg = `Cần mua ít nhất ${formatNumber(
           minQuantity,
         )} sản phẩm của nhà sản xuất ${producerCode} của người bán ${sellerCodes.join(',')}`;
+        message.push(msg);
+        return message;
       }
       break;
     case 'INGREDIENT':
       if (productConditions) {
-        const productConditionsVi = productConditions.map((_item, i) => {
+        productConditions.map((_item) => {
           const { ingredientCode, sellerCodes, minQuantity } = _item;
-          message = `Cần mua ít nhất ${formatNumber(
+
+          msg = `Cần mua ít nhất ${formatNumber(
             minQuantity,
           )} sản phẩm có hoạt chất ${ingredientCode} của người bán ${sellerCodes.join(',')}
           `;
-          productConditions[i].message = message;
-          return { ...condition, message, productConditionsVi };
+          message.push(msg);
+          return message;
         });
       }
 
@@ -98,7 +116,6 @@ export const parseVoucherDetail = (voucherInfo) => {
   if (!voucherInfo) return null;
 
   const { rewards, conditions } = voucherInfo;
-
   const rewardsVi = parseListReward(rewards);
   const conditionsVi = parseListCondition(conditions);
   return { ...voucherInfo, rewardsVi, conditionsVi };
