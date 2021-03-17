@@ -6,12 +6,13 @@ import { ExpandMore } from '@material-ui/icons';
 import { TicketClient, isValid } from 'clients';
 import NotifyUtils from 'utils/NotifyUtils';
 import DateTimeUtils from 'utils/DateTimeUtils';
+import { v4 as uuidv4 } from 'uuid';
 import UploadImages from '../UploadImages';
 import styles from './style.module.css';
 import InfoInput from '../InfoInput';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, orderID, name, phone, orderTime, orderNo} = props;
+  const { visible, onClose, orderID, name, phone, orderTime, orderNo } = props;
 
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
 
@@ -21,7 +22,7 @@ const TicketFormModal = (props) => {
     bankBranch: '',
     accountName: '',
     note: '',
-    imageUrls: []
+    imageUrls: [],
   });
 
   const handleChangeValue = (key, value) => {
@@ -44,18 +45,18 @@ const TicketFormModal = (props) => {
       const feedbackResult = await TicketClient.createFeedback(data);
       if (!isValid(feedbackResult))
         throw new Error(feedbackResult.message || 'Gửi phản hồi thất bại');
-        NotifyUtils.success('Gửi phản hồi thành công');
-        // clear
-        onClose();
-        setVal({}); 
+      NotifyUtils.success('Gửi phản hồi thành công');
+      // clear
+      onClose();
+      setVal({});
     } catch (error) {
       NotifyUtils.error(error.message);
     }
   };
 
   const handleOnChangeImages = (imgs) => {
-    setVal({ ...val, "imageUrls": imgs });
-  }
+    setVal({ ...val, imageUrls: imgs });
+  };
   return (
     <Modal open={visible} onClose={onClose}>
       <div className={styles.feedback_order}>
@@ -95,10 +96,7 @@ const TicketFormModal = (props) => {
                 className={styles.reason_select}
               >
                 {Object.keys(FEEDBACK_REASON).map((reasonE) => (
-                  <option
-                    key={`key-reason-${FEEDBACK_REASON[reasonE].code}`}
-                    value={FEEDBACK_REASON[reasonE].code}
-                  >
+                  <option key={`key-reason-${uuidv4()}`} value={FEEDBACK_REASON[reasonE].code}>
                     {FEEDBACK_REASON[reasonE].name}
                   </option>
                 ))}

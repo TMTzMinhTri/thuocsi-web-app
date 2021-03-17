@@ -133,7 +133,7 @@ export default function ProductListing({
                       onChange={handleChangeSort}
                     >
                       {SORT_LIST.map((item) => (
-                        <option key={item.value} value={item.value}>
+                        <option key={uuidv4()} value={item.value}>
                           {item.label}
                         </option>
                       ))}
@@ -190,7 +190,7 @@ export default function ProductListing({
                   onChange={handleChangeSort}
                 >
                   {SORT_LIST.map((item) => (
-                    <option key={item.value} value={item.value}>
+                    <option key={uuidv4()} value={item.value}>
                       {item.label}
                     </option>
                   ))}
@@ -218,7 +218,7 @@ export default function ProductListing({
                   </Link>
                   {group &&
                     group.map((item) => (
-                      <Link key={item.categoryID} href={`/categories/${item.slug}`}>
+                      <Link key={uuidv4()} href={`/categories/${item.slug}`}>
                         <div
                           className={`${styles.accordionLink} ${
                             item.slug === slug ? styles.active : ''
@@ -249,7 +249,7 @@ export default function ProductListing({
                   {brand &&
                     brand.length > 0 &&
                     brand.map((item) => (
-                      <Link key={item.manufacturerID} href={`/manufacturers/${item.slug}`}>
+                      <Link key={uuidv4()} href={`/manufacturers/${item.slug}`}>
                         <div
                           className={`${styles.accordionLink} ${
                             item.slug === slug ? styles.active : ''
@@ -300,7 +300,7 @@ export default function ProductListing({
                   )}
                   {tabs.map((item) => (
                     <Link
-                      key={`tabs-${item.code}`}
+                      key={`tabs-${uuidv4()}`}
                       href={{
                         pathname: pathName,
                         query: { ...getTabQuery(), currentTab: item.value },

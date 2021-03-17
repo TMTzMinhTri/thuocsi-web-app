@@ -86,7 +86,7 @@ export default function OrderInfoTabs({ user, orders, status }) {
           {orders.map((order) => (
             <OrderRow
               {...order}
-              key={order.orderNo}
+              key={uuidV4()}
               user={user}
               handleSetOrderStatus={handleChangeOrderStatus}
             />

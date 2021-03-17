@@ -20,6 +20,7 @@ import { faTag } from '@fortawesome/free-solid-svg-icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Link from 'next/link';
 import clsx from 'clsx';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 const Transition = React.forwardRef((props, ref) => (
@@ -127,7 +128,7 @@ export default function FilterMobileDialogs({
               {tags &&
                 tags.map((item) => (
                   <Link
-                    key={`tags-${item.slug}`}
+                    key={`tags-${uuidv4()}`}
                     href={{
                       pathname: pathName,
                       query: { ...tabQuery, current_tab: item.slug },
@@ -168,7 +169,7 @@ export default function FilterMobileDialogs({
                       </Link>
                       {group &&
                         group.map((item) => (
-                          <Link key={item.categoryID} href={`/categories/${item.slug}`}>
+                          <Link key={uuidv4()} href={`/categories/${item.slug}`}>
                             <div
                               className={`${styles.accordionLink} ${
                                 item.slug === slug ? styles.active : ''
@@ -199,7 +200,7 @@ export default function FilterMobileDialogs({
                       {brand &&
                         brand.length > 0 &&
                         brand.map((item) => (
-                          <Link key={item.manufacturerID} href={`/manufacturers/${item.slug}`}>
+                          <Link key={uuidv4()} href={`/manufacturers/${item.slug}`}>
                             <div
                               className={`${styles.accordionLink} ${
                                 item.slug === slug ? styles.active : ''

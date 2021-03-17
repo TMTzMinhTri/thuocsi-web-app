@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faUser, faEye } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
+import { v4 as uuidv4 } from 'uuid';
 
 import { CART_URL, HOME_PAGE, PRODUCTS_URL } from 'constants/Paths';
 import { ProductClient } from 'clients';
@@ -63,8 +64,8 @@ function renderMostSearched(data, classes) {
     return null;
   }
 
-  const listItems = data.map(({ name, id }) => (
-    <TagComp name={name} key={`tags-${id}`} href={HOME_PAGE} color="white" />
+  const listItems = data.map(({ name }) => (
+    <TagComp name={name} key={`tags-${uuidv4()}`} href={HOME_PAGE} color="white" />
   ));
   return (
     <div className={styles.navBarContaint}>
@@ -82,12 +83,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
   const [menu, setMenu] = useState([]);
   const router = useRouter();
 
-  const {
-    isAuthenticated,
-    toggleLogin,
-    toggleSignUp,
-    toggleRegisterGuest
-  } = useAuth();
+  const { isAuthenticated, toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();
 
   renderMostSearched(mostResearched, classes);
 
@@ -156,7 +152,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
                   href={getUrl(item.url, item.redirectUrl)}
                   color="white"
                   target={item.redirectUrl && '_blank'}
-                  key={item.id}
+                  key={uuidv4()}
                 >
                   {item.isNew && <span className={styles.badge}>Mới</span>}
                   <Icon className={`${item.icon} ${styles.navIcon}`} />

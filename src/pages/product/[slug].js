@@ -189,7 +189,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   const ingredientEle =
     ingredient &&
     ingredient.map((row) => (
-      <TableRow key={row.name}>
+      <TableRow key={uuidv4()}>
         <TableCell className={styles.border_right} component="th" scope="row">
           <LinkComp className={styles.text_capitalize} href={`${INGREDIENT}/${row.slug}`}>
             {row.name}

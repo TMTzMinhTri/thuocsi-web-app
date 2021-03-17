@@ -5,13 +5,14 @@ import { Container } from '@material-ui/core';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { imagePartnerSlider, settingsPartner } from 'constants/data';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './styles.module.css';
 
 const Partners = () => {
   const ref = useRef({});
   const partnerItem = imagePartnerSlider.map((item) => (
-    <div key={`partner-${item.id}`} className={styles.item}>
+    <div key={`partner-${uuidv4()}`} className={styles.item}>
       <Image src={item.url} width={item.width} height={item.height} />
     </div>
   ));
