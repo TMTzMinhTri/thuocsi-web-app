@@ -13,6 +13,7 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
   const { addImportant, removeImportant, cartItems } = useCart();
+  const maxImportant = Math.ceil((cartItems.length * 20) / 100);
   const [unset, setUnset] = useState(false);
   const { imageUrls } = product;
   const importantList = cartItems.filter((item) => item.isImportant);
@@ -101,9 +102,9 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
         visible={isShowModalWarning}
         title="Đánh dấu sản phẩm quan trọng"
         content={`Bạn cần chọn thêm ${
-          importantList.length === Math.ceil((cartItems.length * 20) / 100)
-            ? Math.ceil((cartItems.length * 20) / 100) * 5
-            : Math.ceil((cartItems.length * 20) / 100) * 5 - cartItems.length
+          importantList.length === maxImportant
+            ? maxImportant * 5
+            : maxImportant * 5 - cartItems.length
         } sản phẩm khác nhau trong giỏ hàng để có thể đánh dấu quan trọng`}
         btnOnClose="Đóng"
         btnOkRender={false}

@@ -249,7 +249,8 @@ const ProductCardBuy = ({
         visible={isShowModalWarning}
         title="Xin xác nhận"
         content="Số lượng sản phẩm hiện không thỏa điều kiện để đánh dấu quan trọng. Vui lòng bỏ đánh dấu để tiếp tục xóa"
-        btnOnClose="OK"
+        btnOkRender={false}
+        btnOnClose="Đóng"
       />
       <ErrorQuantityCartModal
         product={product}
