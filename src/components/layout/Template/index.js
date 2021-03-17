@@ -104,7 +104,7 @@ export default function Template({
                     btnType="primary"
                     href="tel:02873008840"
                   >
-                    Gọi nhận viên hỗ trợ
+                    Gọi nhân viên hỗ trợ
                   </ButtonHeader>
                   <ButtonHeader variant="contained" btnType="primary" onClick={toggleSignUp}>
                     Tạo tài khoản
