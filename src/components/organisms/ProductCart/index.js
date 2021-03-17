@@ -12,7 +12,7 @@ import styles from './styles.module.css';
 const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
-  const { addImportant, removeImportant, cartItems } = useCart();
+  const { addImportant, removeImportant, cartItems = [] } = useCart();
   const maxImportant = Math.ceil((cartItems.length * 20) / 100);
   const [unset, setUnset] = useState(false);
   const { imageUrls } = product;
