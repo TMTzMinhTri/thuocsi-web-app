@@ -67,7 +67,7 @@ export const CartContextProvider = ({ children }) => {
 
   const updateCartItem = async (payload) => {
     const cartRes = await CartClient.updateCartItem(payload);
-    if (!isValid(cartRes) && cartRes.status === 'ERROR') {
+    if (!isValid(cartRes) && cartRes.errorCode === 'CART_MAX_QUANTITY') {
       const revertPayload = payload;
       revertPayload.q = revertPayload.product.maxQuantity;
       const res = await CartClient.updateCartItem(revertPayload);

@@ -69,7 +69,7 @@ const ProductCardBuy = ({
     if (response.status === 'OK') {
       setValue(q);
     }
-    if (response.status === 'ERROR') {
+    if (response.errorCode === 'CART_MAX_QUANTITY') {
       setValue(maxQuantity);
     }
   };
