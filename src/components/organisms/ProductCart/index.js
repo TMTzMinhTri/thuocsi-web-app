@@ -15,9 +15,8 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const { addImportant, removeImportant, cartItems } = useCart();
   const [unset, setUnset] = useState(false);
   const { imageUrls } = product;
-
+  const importantList = cartItems.filter((item) => item.isImportant);
   const handleSetImportant = () => {
-    const importantList = cartItems.filter((item) => item.isImportant);
     if (isImportant) {
       setUnset(true);
     } else {
@@ -100,8 +99,12 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
       <CustomModal
         onClose={toggleWarning}
         visible={isShowModalWarning}
-        title="Xin xác nhận"
-        content="Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm"
+        title="Đánh dấu sản phẩm quan trọng"
+        content={`Bạn cần chọn thêm ${
+          importantList.length === Math.ceil((cartItems.length * 20) / 100)
+            ? Math.ceil((cartItems.length * 20) / 100) * 5
+            : Math.ceil((cartItems.length * 20) / 100) * 5 - cartItems.length
+        } sản phẩm khác nhau trong giỏ hàng để có thể đánh dấu quan trọng`}
         btnOnClose="Đóng"
         btnOkRender={false}
       />
