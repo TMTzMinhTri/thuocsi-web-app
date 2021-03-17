@@ -69,10 +69,10 @@ export const CartContextProvider = ({ children }) => {
     const cartRes = await CartClient.updateCartItem(payload);
     if (!isValid(cartRes) && cartRes.errorCode === 'CART_MAX_QUANTITY') {
       const revertPayload = payload;
-      revertPayload.q = payload.product.maxQuantity;
+      revertPayload.q = revertPayload.product.maxQuantity;
       const res = await CartClient.updateCartItem(revertPayload);
       dispatch({ type: INCREASE_BY, payload: revertPayload });
-      await reloadDataCart({ res });
+      await reloadDataCart({ res, errorMessage: 'Cập nhật giỏ hàng không thành công' });
     }
     await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
 

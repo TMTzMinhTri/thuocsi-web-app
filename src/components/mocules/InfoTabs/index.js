@@ -8,6 +8,7 @@ import {
 } from '@material-ui/icons';
 import Link from 'next/link';
 import { formatCurrency } from 'utils/FormatNumber';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 const tabs = [
@@ -32,7 +33,7 @@ const InfoTabs = ({ value, name, balance = 0 }) => (
     </div>
     <MenuList>
       {tabs.map((tab) => (
-        <Link href={tab.link} key={`tab-${tab.id}`}>
+        <Link href={tab.link} key={`tab-${uuidv4()}`}>
           <MenuItem
             button={false}
             classes={{ root: value === tab.id ? styles.tab_active : styles.tab_inactive }}
