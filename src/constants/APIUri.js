@@ -26,6 +26,7 @@ const REFERRAL = `${CUSTOMER_API_PREFIX}/me/reference/list`;
 const SEND_SMS = `${CUSTOMER_API_PREFIX}/me/reference`;
 const RETRY_SEND_SMS = `${CUSTOMER_API_PREFIX}/me/reference/sms`;
 const PROMO = `${CUSTOMER_API_PREFIX}/promos`;
+const BANK_ACCOUNT = `${INFO}/account/bank`;
 
 export const CUSTOMER_API = {
   REGISTER,
@@ -37,6 +38,7 @@ export const CUSTOMER_API = {
   SEND_SMS,
   RETRY_SEND_SMS,
   REGISTER_GUEST,
+  BANK_ACCOUNT
 };
 
 const CATEGORY_API_PREFIX = '/marketplace/product/v1';

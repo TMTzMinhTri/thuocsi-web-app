@@ -1,6 +1,6 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { OrderClient, isValid, isValidWithoutData } from 'clients';
+import { OrderClient, isValid, isValidWithoutData, CustomerClient } from 'clients';
 import { doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
@@ -8,7 +8,8 @@ import { NOT_FOUND_URL } from 'constants/Paths';
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
-    const [orderRes] = await Promise.all([OrderClient.getOrderById({ id: Number(id), ctx })]);
+    const [orderRes,bankRes] = await Promise.all([OrderClient.getOrderById({ id: Number(id), ctx }), CustomerClient.getBankAccount(ctx)]);
+
     if (!isValid(orderRes)) {
       return {
         redirect: {
@@ -19,12 +20,14 @@ export async function getServerSideProps(ctx) {
     }
     const order = orderRes.data[0] || {};
     const { orderNo = '' } = order;
+    const bankInfo = bankRes[0] || []
     const productsRes = await OrderClient.getProductByOrderNo({ orderNo, ctx });
     if (!isValidWithoutData(productsRes)) {
       return {
         props: {
           order,
           products: [],
+          bankInfo
         },
       };
     }
@@ -37,6 +40,7 @@ export async function getServerSideProps(ctx) {
         props: {
           order,
           products,
+          bankInfo
         },
       };
     }
@@ -49,12 +53,13 @@ export async function getServerSideProps(ctx) {
       props: {
         order,
         products: productDetails,
+        bankInfo
       },
     };
   });
 }
 
-const MyOrder = ({ user, order, products = [], isMobile }) => {
+const MyOrder = ({ user, order, products = [], isMobile, bankInfo}) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const titleMobile = `Chi tiết đơn hàng #${order.orderId}`
   return (
@@ -62,7 +67,7 @@ const MyOrder = ({ user, order, products = [], isMobile }) => {
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer isMobile={isMobile} value={2} name={user?.name}>
-            <OrderDetailContainer isMobile={isMobile} order={order} products={products} user={user} />
+            <OrderDetailContainer isMobile={isMobile} order={order} products={products} user={user} bankInfo={bankInfo} />
           </InfoContainer>
         </Container>
       </div>
