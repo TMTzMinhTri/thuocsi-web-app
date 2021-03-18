@@ -39,7 +39,7 @@ const ProductCardContent = ({
       <div className={row ? clsx(styles.product_title, styles.h40) : styles.product_title}>
         <Link href={`/product/${slug}`}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
-            {isDeal ? deal.name : name}
+            {isDeal && deal ? deal.name : name}
           </Typography>
         </Link>
 
