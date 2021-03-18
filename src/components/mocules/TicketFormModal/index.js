@@ -15,10 +15,10 @@ const TicketFormModal = (props) => {
   const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo } = props;
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
   const [val, setVal] = useState({
-    bankCode: bankInfo && bankInfo.bankCode || '',
-    bankName: bankInfo && bankInfo.bankName || '',
-    bankBranch: bankInfo && bankInfo.bankBranch || '',
-    bankAccountName: bankInfo && bankInfo.bankAccountName || '',
+    bankCode: bankInfo && bankInfo?.bankCode || '',
+    bankName: bankInfo && bankInfo?.bankName || '',
+    bankBranch: bankInfo && bankInfo?.bankBranch || '',
+    bankAccountName: bankInfo && bankInfo?.bankAccountName || '',
     note: '',
     imageUrls: [],
   });
