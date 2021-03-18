@@ -39,6 +39,7 @@ const OrderRow = ({
   status,
   totalPrice,
   handleSetOrderStatus,
+  bankInfo
 }) => {
   const [amount, setAmount] = useState(0);
   const [orderTicket, setOrderTicket] = useState({});
@@ -139,7 +140,8 @@ const OrderRow = ({
           </Grid>
         </Grid>
       </Grid>
-      <TicketFormModal {...orderTicket} visible={open} onClose={toggleOpen} />
+      {open &&
+        <TicketFormModal {...orderTicket} bankInfo={bankInfo} visible={open} onClose={toggleOpen} />}
     </Paper>
   );
 };

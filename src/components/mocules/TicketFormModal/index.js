@@ -12,15 +12,13 @@ import styles from './style.module.css';
 import InfoInput from '../InfoInput';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, orderID, name, phone, orderTime, orderNo } = props;
-
+  const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo } = props;
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
-
   const [val, setVal] = useState({
-    bankCode: '',
-    bankName: '',
-    bankBranch: '',
-    accountName: '',
+    bankCode: bankInfo?.bankCode || '',
+    bankName: bankInfo?.bankName || '',
+    bankBranch: bankInfo?.bankBranch || '',
+    bankAccountName: bankInfo?.bankAccountName || '',
     note: '',
     imageUrls: [],
   });
@@ -65,7 +63,7 @@ const TicketFormModal = (props) => {
           <div className={styles.info_group}>
             <Grid item xs={12} className={styles.text_body}>
               <span className={styles.label}>Phản hồi về đơn hàng #</span>
-              <span className={styles.value}>{orderID}</span>:
+              <span className={styles.value}>{orderID}</span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
               <span className={styles.label}>Mã đơn hàng: </span>
@@ -109,13 +107,13 @@ const TicketFormModal = (props) => {
               md={6}
               isRequired
               label="Tên chủ tài khoản"
-              htmlFor="accountName"
+              htmlFor="bankAccountName"
             >
               <InfoInput
-                id="accountName"
+                id="bankAccountName"
                 placeholder="Nhập tên chủ tài khoản"
-                value={val.accountName}
-                onChange={(e) => handleChangeValue('accountName', e.target.value)}
+                value={val.bankAccountName}
+                onChange={(e) => handleChangeValue('bankAccountName', e.target.value)}
               />
             </InfoFormControl>
             <InfoFormControl xs={12} md={6} isRequired label="Số tài khoản" htmlFor="bankCode">
