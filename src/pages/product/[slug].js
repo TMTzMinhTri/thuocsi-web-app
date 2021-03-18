@@ -92,7 +92,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     deal,
   } = product;
 
-  const maxQuantity = isDeal ? deal.maxQuantity : prdMaxQuantity;
+  const maxQuantity = isDeal && deal ? deal.maxQuantity : prdMaxQuantity;
 
   // const { quantity } = product;
 
@@ -215,7 +215,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
             <Grid sm={12} md={8} item>
               <Grid container>
                 <Grid xs={12} item>
-                  <h1 className={styles.product_name}>{isDeal ? deal.name : name}</h1>
+                  <h1 className={styles.product_name}>{isDeal && deal ? deal.name : name}</h1>
                   <div className={styles.product_tags}>
                     {tags && tags.map((item) => <TagType key={uuidv4()} item={item} />)}
                   </div>
@@ -283,7 +283,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                           </TableContainer>
                         </Popover>
                       </div>
-                      {isDeal && (
+                      {isDeal && deal && (
                         <div className={styles.deal_section}>
                           <CountdownTimerDetail
                             className={styles.count_down}

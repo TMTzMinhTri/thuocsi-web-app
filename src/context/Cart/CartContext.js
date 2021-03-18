@@ -148,10 +148,10 @@ export const CartContextProvider = ({ children }) => {
       customerShippingAddress,
     });
     if (!isValid(res)) {
-      NotifyUtils.error('Cập nhập phương thức giao hàng thất bại ');
+      NotifyUtils.error(res?.message || 'Cập nhật phương thức giao hàng thất bại ');
       return;
     }
-    NotifyUtils.success('Cập nhập phương thức giao hàng thành công');
+    NotifyUtils.success('Cập nhật phương thức giao hàng thành công');
     updateCart();
   };
 
@@ -168,10 +168,10 @@ export const CartContextProvider = ({ children }) => {
       customerWardCode,
     });
     if (!isValid(res)) {
-      NotifyUtils.error('Cập nhập phương thức thanh toán thất bại ');
+      NotifyUtils.error(res.message || 'Cập nhật phương thức thanh toán thất bại ');
       return;
     }
-    NotifyUtils.success('Cập nhập phương thức thanh toán thành công');
+    NotifyUtils.success('Cập nhật phương thức thanh toán thành công');
     updateCart();
   };
 

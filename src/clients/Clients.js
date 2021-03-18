@@ -13,7 +13,7 @@ export function isValid(resp) {
 }
 
 export function getFirst(resp, def = null) {
-  return isValid(resp) ? resp.data[0] : def;
+  return resp && resp.data && resp.data.length > 0 ? resp.data[0] : def;
 }
 
 export function getData(resp, def = []) {

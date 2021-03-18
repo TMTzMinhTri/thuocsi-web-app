@@ -34,7 +34,7 @@ const ProductCardBuy = ({
   isMobile,
   cartItems,
 }) => {
-  const maxQuantity = isDeal ? deal.maxQuantity : productMaxQuantity;
+  const maxQuantityProduct = isDeal && deal ? deal.maxQuantity : productMaxQuantity;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
@@ -66,13 +66,15 @@ const ProductCardBuy = ({
   };
 
   const updateCart = async (q) => {
-    const response = await updateCartItem({ product, q: parseInt(q, 10) });
+    if (!q) {
+      return;
+    }
+    const response = await updateCartItem({ product, q: parseFloat(q) });
     if (isValid(response)) {
       setValue(q);
-    }
-    if (response.errorCode === 'CART_MAX_QUANTITY') {
-      const { quantity = maxQuantity } = getFirst(response, {});
-      setValue(quantity);
+    } else if (response.errorCode === 'CART_MAX_QUANTITY') {
+      const { quantity = maxQuantityProduct } = getFirst(response, {});
+      updateCart(quantity);
     }
   };
 
@@ -110,8 +112,9 @@ const ProductCardBuy = ({
   };
 
   const handleInputChange = (e) => {
-    if (/^\d+$/.test(e.currentTarget.value) || !e.currentTarget.value) {
-      const curValue = parseInt(e.currentTarget.value || 0, 10);
+    const val = e.currentTarget.value;
+    if (/^\d+$/.test(val) || !val) {
+      const curValue = parseFloat(val || 0);
       setValue(curValue);
       if (!curValue || curValue === 0) {
         if (value === 0) return;
@@ -149,7 +152,7 @@ const ProductCardBuy = ({
         <>
           {isAuthenticated ? (
             <>
-              {isDeal ? (
+              {isDeal && deal ? (
                 <div
                   className={
                     row
@@ -173,13 +176,13 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
                 </div>
               )}
-              {!isMobile && maxQuantity ? (
+              {!isMobile && maxQuantityProduct ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
                   }
                 >
-                  Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
+                  Đặt tối đa {formatNumber(maxQuantityProduct)} sản phẩm
                 </Typography>
               ) : null}
               <CardActions
@@ -201,7 +204,7 @@ const ProductCardBuy = ({
                   className={value > 0 && styles.has_item}
                 />
                 <PlusButton
-                  disabled={maxQuantity && value >= maxQuantity}
+                  disabled={maxQuantityProduct && value >= maxQuantityProduct}
                   onClick={() => handleIncrease()}
                 />
                 {cart && (
@@ -216,13 +219,13 @@ const ProductCardBuy = ({
                   </Tooltip>
                 )}
               </CardActions>
-              {isMobile && maxQuantity ? (
+              {isMobile && maxQuantityProduct ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
                   }
                 >
-                  Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
+                  Đặt tối đa {formatNumber(maxQuantityProduct)} sản phẩm
                 </Typography>
               ) : null}
             </>

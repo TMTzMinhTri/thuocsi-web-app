@@ -168,7 +168,11 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
                 <LinkComp className={styles.navBarRightLink} href={CART_URL}>
                   <Tooltip title="Giỏ hàng" arrow>
                     <IconButton aria-label="cart">
-                      <Badge badgeContent={itemCount} invisible={itemCount === 0} color="secondary">
+                      <Badge
+                        badgeContent={itemCount || 0}
+                        invisible={itemCount === 0}
+                        color="secondary"
+                      >
                         <LocalMallOutlined className={styles.rIcon} />
                       </Badge>
                     </IconButton>
