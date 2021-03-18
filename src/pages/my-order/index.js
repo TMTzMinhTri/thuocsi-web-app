@@ -12,7 +12,7 @@ export async function getServerSideProps(ctx) {
   const { status = ENUM_ORDER_STATUS.ALL } = ctx.query;
 
   return doWithServerSide(ctx, async () => {
-    const [ordersRes,bankRes] = await Promise.all([OrderClient.getOrders({ status, ctx }), CustomerClient.getBankAccount(ctx)]);
+    const [ordersRes,bankData] = await Promise.all([OrderClient.getOrders({ status, ctx }), CustomerClient.getBankAccount(ctx)]);
     if (!isValid(ordersRes)) {
       return {
         props: {
@@ -21,7 +21,7 @@ export async function getServerSideProps(ctx) {
       };
     }
     const { data } = ordersRes;
-    const bankInfo = bankRes[0] || [];
+    const bankInfo = bankData[0] || null;
     const orders =
       status !== ENUM_ORDER_STATUS.ALL ? data.filter((order) => order.status === status) : data;
     return {

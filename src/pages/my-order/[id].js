@@ -8,7 +8,7 @@ import { NOT_FOUND_URL } from 'constants/Paths';
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
-    const [orderRes,bankRes] = await Promise.all([OrderClient.getOrderById({ id: Number(id), ctx }), CustomerClient.getBankAccount(ctx)]);
+    const [orderRes,bankData] = await Promise.all([OrderClient.getOrderById({ id: Number(id), ctx }), CustomerClient.getBankAccount(ctx)]);
 
     if (!isValid(orderRes)) {
       return {
@@ -20,7 +20,7 @@ export async function getServerSideProps(ctx) {
     }
     const order = orderRes.data[0] || {};
     const { orderNo = '' } = order;
-    const bankInfo = bankRes[0] || []
+    const bankInfo = bankData[0] || null;
     const productsRes = await OrderClient.getProductByOrderNo({ orderNo, ctx });
     if (!isValidWithoutData(productsRes)) {
       return {

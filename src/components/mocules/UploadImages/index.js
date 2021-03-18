@@ -6,7 +6,7 @@ import RUG, { DropArea } from 'react-upload-gallery';
 import { UploadImageService } from 'services';
 
 const UploadImages = (props) => {
-  const { onChange, images = [], limit = 2 } = props;
+  const { onChange, images = [], limit = 6 } = props;
   const [imageUrls, setImageUrls] = useState([]);
 
   const customRequest = ({ uid, file, action, onSuccess, onError }) => {

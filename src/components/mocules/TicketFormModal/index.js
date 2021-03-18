@@ -13,13 +13,12 @@ import InfoInput from '../InfoInput';
 
 const TicketFormModal = (props) => {
   const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo } = props;
-
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
   const [val, setVal] = useState({
-    bankCode: bankInfo.bankCode || '',
-    bankName: bankInfo.bankName || '',
-    bankBranch: bankInfo.bankBranch || '',
-    bankAccountName: bankInfo.bankAccountName || '',
+    bankCode: bankInfo && bankInfo.bankCode || '',
+    bankName: bankInfo && bankInfo.bankName || '',
+    bankBranch: bankInfo && bankInfo.bankBranch || '',
+    bankAccountName: bankInfo && bankInfo.bankAccountName || '',
     note: '',
     imageUrls: [],
   });
@@ -172,7 +171,7 @@ const TicketFormModal = (props) => {
             justify="space-evenly"
             spacing={1}
           >
-            <UploadImages onChange={handleOnChangeImages} limit={6} />
+            <UploadImages onChange={handleOnChangeImages} />
           </Grid>
           <Grid className={styles.textarea} item container justify="center" xs={12} spacing={1}>
             <Button className="payment_button" onClick={onSubmit}>
