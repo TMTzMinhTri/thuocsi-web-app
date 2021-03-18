@@ -46,7 +46,7 @@ const ReferralList = () => {
 
   const handleRetrySms = async ({ code }) => {
     const res = await CustomerService.retrySendSMS({ code });
-    if (!isValid) {
+    if (!isValid(res)) {
       NotifyUtils.error(`Gửi sms không thành công: ${res.message}`);
     } else {
       NotifyUtils.success('Gửi SMS giới thiệu thành công');

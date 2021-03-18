@@ -59,5 +59,5 @@ export default {
   updateProfile,
   sendSms,
   retrySendSms,
-  getBankAccount
+  getBankAccount,
 };

@@ -26,7 +26,10 @@ function ReferralTable({ referrals, handleRetrySms }) {
               </TableCell>
               <TableCell align="left">{row.code}</TableCell>
               <TableCell align="left">
-                {DateTimeUtils.getFormattedDate(new Date(row.expireTime), 'DD/MM/YYYY HH:mm:ss')}
+                {DateTimeUtils.getFormattedDate(
+                  new Date(row?.timeSendSMS || null),
+                  'DD/MM/YYYY HH:mm:ss',
+                )}
               </TableCell>
               <TableCell align="left">
                 {row.isRegister ? row.userName : 'Chưa tạo tài khoản'}

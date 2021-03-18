@@ -9,6 +9,7 @@ import debounce from 'utils/debounce';
 import { CustomModal } from 'components/mocules';
 import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
 import DealSection from 'components/mocules/DealSection';
+import { getFirst, isValid } from 'clients';
 import RemoveProductModal from '../RemoveProductModal';
 import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
@@ -66,11 +67,12 @@ const ProductCardBuy = ({
 
   const updateCart = async (q) => {
     const response = await updateCartItem({ product, q: parseInt(q, 10) });
-    if (response.status === 'OK') {
+    if (isValid(response)) {
       setValue(q);
     }
     if (response.errorCode === 'CART_MAX_QUANTITY') {
-      setValue(maxQuantity);
+      const { quantity = maxQuantity } = getFirst(response, {});
+      setValue(quantity);
     }
   };
 

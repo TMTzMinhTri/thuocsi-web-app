@@ -5,6 +5,7 @@ import { isValidWithoutData } from 'clients';
 import { useRouter } from 'next/router';
 import { useCart } from 'context';
 import { CART_URL } from 'constants/Paths';
+import { NotifyUtils } from 'utils';
 import EditOrderModal from '../EditOrderModal';
 
 const EditOrderButton = ({ orderNo }) => {
@@ -17,6 +18,7 @@ const EditOrderButton = ({ orderNo }) => {
   const handleClickOk = async () => {
     const res = await OrderService.deleteOrder({ orderNo });
     if (!isValidWithoutData(res)) {
+      NotifyUtils.error(res?.message || 'Đã có lỗi xảy ra, xin vui lòng thử lại sau');
       return;
     }
     updateCart();

@@ -68,8 +68,14 @@ const OrderDetailContainer = ({ order, products, bankInfo, user, isMobile }) => 
             </Grid>
           </Grid>
         </Paper>
-        {open &&
-        <TicketFormModal {...orderTicket} bankInfo={bankInfo} visible={open} onClose={toggleOpen} />}
+        {open && (
+          <TicketFormModal
+            {...orderTicket}
+            bankInfo={bankInfo}
+            visible={open}
+            onClose={toggleOpen}
+          />
+        )}
       </Grid>
 
       <Grid item className={styles.print_invoice}>

@@ -104,7 +104,9 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
       setQuantity(q);
     }
     if (response.errorCode === 'CART_MAX_QUANTITY') {
-      setQuantity(maxQuantity);
+      // get quanity can add from response and compare with maxQuantity
+      const { quantity: quantityCanAdd } = getFirst(response, {});
+      setQuantity(quantityCanAdd);
     }
   };
 

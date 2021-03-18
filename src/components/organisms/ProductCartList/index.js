@@ -6,6 +6,7 @@ import { QUICK_ORDER } from 'constants/Paths';
 import CartNote from 'components/mocules/CartNote';
 import { v4 as uuidv4 } from 'uuid';
 import ProductCart from '../ProductCart';
+
 import styles from './style.module.css';
 
 const ProductCartList = ({ products, isMobile }) => (
