@@ -23,7 +23,7 @@
   .wrapper {
     background-color: #f4f7fc;
   }
-  .alert{
+  .alert {
     margin-bottom: 10px;
   }
 }
@@ -31,4 +31,19 @@
   .wrapper {
     padding: 48px 0;
   }
+}
+
+.alert {
+  width: 100%;
+}
+
+.instruction_text {
+  display: flex;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.08);
+  color: #919aa3 !important;
+  /* padding: 1rem !important; */
+  margin-bottom: 1.5rem !important;
 }

@@ -7,6 +7,7 @@ import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
 import { MY_ORDER_URL } from 'constants/Paths';
 import { useModal } from 'hooks';
+import { v4 as uuidv4 } from 'uuid';
 import EditOrderButton from '../EditOrderButton';
 import TicketButton from '../TicketButton';
 import TicketFormModal from '../TicketFormModal';
@@ -38,6 +39,7 @@ const OrderRow = ({
   status,
   totalPrice,
   handleSetOrderStatus,
+  bankInfo
 }) => {
   const [amount, setAmount] = useState(0);
   const [orderTicket, setOrderTicket] = useState({});
@@ -76,7 +78,7 @@ const OrderRow = ({
           className={styles.grid}
         >
           <Grid item>
-            <Link href={`${MY_ORDER_URL}/${orderID}`} key={`order-row-${orderID}`}>
+            <Link href={`${MY_ORDER_URL}/${orderID}`} key={`order-row-${uuidv4()}`}>
               <h4 className={styles.order_id}>#{orderID} &nbsp;</h4>
             </Link>
           </Grid>
@@ -138,7 +140,8 @@ const OrderRow = ({
           </Grid>
         </Grid>
       </Grid>
-      <TicketFormModal {...orderTicket} visible={open} onClose={toggleOpen} />
+      {open &&
+        <TicketFormModal {...orderTicket} bankInfo={bankInfo} visible={open} onClose={toggleOpen} />}
     </Paper>
   );
 };

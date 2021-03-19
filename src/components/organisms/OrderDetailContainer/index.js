@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useModal } from 'hooks';
 import styles from './styles.module.css';
 
-const OrderDetailContainer = ({ order, products, user, isMobile }) => {
+const OrderDetailContainer = ({ order, products, bankInfo, user, isMobile }) => {
   const [orderTicket, setOrderTicket] = useState({});
   const [open, toggleOpen] = useModal();
 
@@ -68,7 +68,14 @@ const OrderDetailContainer = ({ order, products, user, isMobile }) => {
             </Grid>
           </Grid>
         </Paper>
-        <TicketFormModal {...orderTicket} visible={open} onClose={toggleOpen} />
+        {open && (
+          <TicketFormModal
+            {...orderTicket}
+            bankInfo={bankInfo}
+            visible={open}
+            onClose={toggleOpen}
+          />
+        )}
       </Grid>
 
       <Grid item className={styles.print_invoice}>

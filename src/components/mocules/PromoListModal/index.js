@@ -4,6 +4,7 @@ import { Grid, Divider } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { PromoService } from 'services';
 import { formatCurrency } from 'utils/FormatNumber';
+import { v4 as uuidv4 } from 'uuid';
 import CartCouponCard from '../CartCouponCard';
 import styles from './style.module.css';
 import Button from './Button';
@@ -103,7 +104,7 @@ const PromoListModal = memo((props) => {
                   <Grid
                     className={styles.coupon_card_grid}
                     item
-                    key={voucher.code}
+                    key={uuidv4()}
                     style={{ width: '100%' }}
                   >
                     <CartCouponCard

@@ -60,7 +60,6 @@ async function loadDataProductCollection(ctx) {
   }
   const dataCart = getFirst(cart);
   const cartObject = {};
-  // console.log('dataCart ', dataCart);
   // eslint-disable-next-line no-restricted-syntax
   if (dataCart && dataCart.cartItems.length > 0) {
     // eslint-disable-next-line no-restricted-syntax

@@ -1,6 +1,6 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
-import { AccountForm, EnterpriseForm, DeliveryForm } from 'components/mocules';
+import { AccountForm, EnterpriseForm } from 'components/mocules';
 import { CustomerClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
 import { i18n } from 'i18n-lib';
@@ -53,7 +53,7 @@ const AccountInfoFormContainer = ({ user, t }) => {
   const handleUpdateProfile = async () => {
     try {
       const errL = validateForm(value);
-      if(Object.keys(errL).length !== 0){
+      if (Object.keys(errL).length !== 0) {
         setErr(errL);
         throw Error('Thông tin chưa đúng');
       }
@@ -84,7 +84,7 @@ const AccountInfoFormContainer = ({ user, t }) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <DeliveryForm
+        {/* <DeliveryForm
           {...value}
           handleSetValue={handleSetValue}
           handleChangeAddress={handleChangeAddress}
@@ -93,7 +93,7 @@ const AccountInfoFormContainer = ({ user, t }) => {
             district: err.deliveryDistrictCode,
             ward: err.deliveryWardCode,
           }}
-        />
+        /> */}
       </Grid>
       <Grid item xs={12}>
         <Grid container justify="center">

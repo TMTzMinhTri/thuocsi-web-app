@@ -6,7 +6,7 @@ import RUG, { DropArea } from 'react-upload-gallery';
 import { UploadImageService } from 'services';
 
 const UploadImages = (props) => {
-  const { onChange, images = [] } = props;
+  const { onChange, images = [], limit = 6 } = props;
   const [imageUrls, setImageUrls] = useState([]);
 
   const customRequest = ({ uid, file, action, onSuccess, onError }) => {
@@ -62,7 +62,7 @@ const UploadImages = (props) => {
   return (
     <RUG
       rules={{
-        limit: 6,
+        limit,
       }}
       accept={['jpg', 'jpeg', 'png']}
       source={(response) => response.data[0]}
@@ -93,7 +93,8 @@ const UploadImages = (props) => {
             >
               <CloudUpload className={`rug-handle-icon ${isDrag ? '__arrow' : ''}`} />
               <div className="rug-handle-info">
-                <div className="rug-handle-drop-text">Kéo thả để tải ảnh</div>
+                <div className="rug-handle-drop-text">Kéo thả hoặc nhấp vào đây để tải ảnh</div>
+                <div className="rug-handle-limit-message">(Được phép tải tối đa {limit} ảnh)</div>
               </div>
             </div>
           )}

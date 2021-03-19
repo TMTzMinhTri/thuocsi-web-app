@@ -5,6 +5,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { InfoTable } from 'components/atoms';
 import { useRouter } from 'next/router';
 import { ALIGN } from 'constants/Enums';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 const heads = [
@@ -25,7 +26,7 @@ function PromoTable({ promos }) {
       <InfoTable heads={heads}>
         {promos.length !== 0 &&
           promos.map((row) => (
-            <TableRow key={row.code} hover>
+            <TableRow key={uuidv4()} hover>
               <TableCell align="left">
                 <Tooltip title={row.description} aria-label="add" placement="top">
                   <Grid container direction="column">

@@ -2,11 +2,12 @@ import React from 'react';
 import { Grid, Container } from '@material-ui/core';
 import { linkQuestionItemRight, linkQuestionItemLeft, LINK_ALL_QUESTION } from 'constants/data';
 import { LinkComp, ButtonDefault } from 'components/atoms';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 const renderLinkItem = (data) =>
   data.map((item) => (
-    <LinkComp target="_blank" key={`question-${item.id}`} className={styles.link} href={item.href}>
+    <LinkComp target="_blank" key={`question-${uuidv4()}`} className={styles.link} href={item.href}>
       {item.title}
     </LinkComp>
   ));

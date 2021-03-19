@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Grid } from '@material-ui/core';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 const ManufacturerList = ({ manufacturers = [], text = '' }) => (
@@ -11,7 +12,7 @@ const ManufacturerList = ({ manufacturers = [], text = '' }) => (
     </div>
     <Grid container className={styles.container} spacing={2}>
       {manufacturers.map((val) => (
-        <Grid item xs={3} key={val.slug}>
+        <Grid item xs={3} key={uuidv4()}>
           <Link href={`manufacturers/${val.slug}`}>
             <div className={styles.manufacturer}> {val?.name} </div>
           </Link>
