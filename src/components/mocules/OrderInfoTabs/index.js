@@ -39,7 +39,7 @@ const tabs = [
   { label: 'Huỷ', value: ENUM_ORDER_STATUS.CANCEL },
 ];
 
-export default function OrderInfoTabs({ user, orders, status, bankInfo }) {
+export default function OrderInfoTabs({ user, orders, status, bankInfo, reasonsList }) {
   const router = useRouter();
 
   const handleChangeOrderStatus = (statusR) => {
@@ -90,6 +90,7 @@ export default function OrderInfoTabs({ user, orders, status, bankInfo }) {
               user={user}
               handleSetOrderStatus={handleChangeOrderStatus}
               bankInfo={bankInfo}
+              reasonsList={reasonsList}
             />
           ))}
         </Grid>

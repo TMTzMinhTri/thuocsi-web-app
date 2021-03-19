@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Modal, InfoFormControl, Button } from 'components/atoms';
 import { Grid, TextField, NativeSelect } from '@material-ui/core';
-import { FEEDBACK_REASON } from 'constants/Enums';
 import { ExpandMore } from '@material-ui/icons';
 import { TicketClient, isValid } from 'clients';
 import NotifyUtils from 'utils/NotifyUtils';
@@ -13,8 +12,8 @@ import InfoInput from '../InfoInput';
 import validateForm from './validateForm';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo } = props;
-  const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
+  const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo, reasonsList } = props;
+  const [reason, setReason] = useState(0);
   const [val, setVal] = useState({
     bankCode: bankInfo?.bankCode || '',
     bankName: bankInfo?.bankName || '',
@@ -23,7 +22,6 @@ const TicketFormModal = (props) => {
     note: '',
     imageUrls: [],
   });
-
   const handleChangeValue = (key, value) => {
     setVal({ ...val, [key]: value });
   };
@@ -38,7 +36,7 @@ const TicketFormModal = (props) => {
       orderNo,
       saleOrderCode: orderNo,
       saleOrderID: orderID,
-      reasons: [FEEDBACK_REASON[reason].code],
+      reasons: [reasonsList[reason].code],
     };
     try {
       validateForm(val);
@@ -95,9 +93,9 @@ const TicketFormModal = (props) => {
                 onChange={handleOnChangeReason}
                 className={styles.reason_select}
               >
-                {Object.keys(FEEDBACK_REASON).map((reasonE) => (
-                  <option key={`key-reason-${uuidv4()}`} value={FEEDBACK_REASON[reasonE].code}>
-                    {FEEDBACK_REASON[reasonE].name}
+                {Object.keys(reasonsList).map((reasonE) => (
+                  <option key={`key-reason-${uuidv4()}`} value={reasonE}>
+                    {reasonsList[reasonE].name}
                   </option>
                 ))}
               </NativeSelect>

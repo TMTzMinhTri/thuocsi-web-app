@@ -1,6 +1,6 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { OrderClient, isValid, isValidWithoutData, CustomerClient } from 'clients';
+import { OrderClient, isValid, isValidWithoutData, CustomerClient, TicketClient, getData } from 'clients';
 import { doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
@@ -8,9 +8,10 @@ import { NOT_FOUND_URL } from 'constants/Paths';
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
-    const [orderRes, bankData] = await Promise.all([
+    const [orderRes, bankData, reasonsRes] = await Promise.all([
       OrderClient.getOrderById({ id: Number(id), ctx }),
       CustomerClient.getBankAccount(ctx),
+      TicketClient.getListReasons(ctx)
     ]);
 
     if (!isValid(orderRes)) {
@@ -24,6 +25,7 @@ export async function getServerSideProps(ctx) {
     const order = orderRes.data[0] || {};
     const { orderNo = '' } = order;
     const bankInfo = bankData[0] || null;
+    const reasonsList = getData(reasonsRes);
     const productsRes = await OrderClient.getProductByOrderNo({ orderNo, ctx });
     if (!isValidWithoutData(productsRes)) {
       return {
@@ -31,6 +33,7 @@ export async function getServerSideProps(ctx) {
           order,
           products: [],
           bankInfo,
+          reasonsList
         },
       };
     }
@@ -44,6 +47,7 @@ export async function getServerSideProps(ctx) {
           order,
           products,
           bankInfo,
+          reasonsList
         },
       };
     }
@@ -57,12 +61,13 @@ export async function getServerSideProps(ctx) {
         order,
         products: productDetails,
         bankInfo,
+        reasonsList
       },
     };
   });
 }
 
-const MyOrder = ({ user, order, products = [], isMobile, bankInfo }) => {
+const MyOrder = ({ user, order, products = [], isMobile, bankInfo, reasonsList }) => {
   const title = 'Đơn hàng của bạn – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const titleMobile = `Chi tiết đơn hàng #${order.orderId}`;
   return (
@@ -76,6 +81,7 @@ const MyOrder = ({ user, order, products = [], isMobile, bankInfo }) => {
               products={products}
               user={user}
               bankInfo={bankInfo}
+              reasonsList={reasonsList}
             />
           </InfoContainer>
         </Container>

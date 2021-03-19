@@ -6,9 +6,9 @@ const createFeedback = (body) => {
   return POST({ url, body });
 };
 
-export const getListReasons = () => {
+export const getListReasons = (ctx) => {
   const url = TICKET_API.TASK_REASONS;
-  return GET({ url });
+  return GET({ url, ctx });
 };
 
 export default {
