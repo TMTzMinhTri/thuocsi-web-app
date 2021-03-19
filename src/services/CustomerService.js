@@ -9,27 +9,36 @@ export const getReferralList = async ({ offset = OFFSET_DEFAULT, limit = LIMIT_D
   if (isValid(res)) {
     res.data = res.data.map((referral) => {
       const { timeSendSMS = null, smsTotalSent = 0, expireTime } = referral;
+
+      // check expired
+      if (DateTimeUtils.compareTime(expireTime, Date.now()) < 0) {
+        return {
+          ...referral,
+          canResendSMS: false,
+          message: 'Không thể gửi. Bạn đã quá thời hạn gửi đến số điện thoại này!',
+        };
+      }
+
+      // check send total
+      if (smsTotalSent >= 5) {
+        return {
+          ...referral,
+          canResendSMS: false,
+          message: 'Không thể gửi. Bạn không thể gửi quá 5 lần!',
+        };
+      }
+      // check > 3h
       const dateLastSend = new Date(timeSendSMS).getTime();
       const curTime = new Date().getTime();
-      let message = '';
-      // check > 3h
-      let canResendSMS = true;
       if (curTime - dateLastSend <= 10800000) {
-        canResendSMS = false;
-        message = 'Chưa thể gửi lại. Trong vòng 3 giờ, bạn chỉ có thể gửi 1 tin SMS!';
+        return {
+          ...referral,
+          canResendSMS: false,
+          message: 'Chưa thể gửi lại. Trong vòng 3 giờ, bạn chỉ có thể gửi 1 tin SMS!',
+        };
       }
 
-      if (smsTotalSent >= 5) {
-        canResendSMS = false;
-        message = 'Không thể gửi. Bạn không thể gửi quá 5 lần!';
-      }
-
-      if (DateTimeUtils.compareTime(expireTime, Date.now()) < 0) {
-        canResendSMS = false;
-        message = 'Không thể gửi. Bạn đã quá thời hạn gửi đến số điện thoại này!';
-      }
-
-      return { ...referral, canResendSMS, message };
+      return { ...referral, canResendSMS: true };
     });
   }
 
