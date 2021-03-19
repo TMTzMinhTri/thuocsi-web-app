@@ -27,7 +27,7 @@ function ReferralTable({ referrals, handleRetrySms }) {
               <TableCell align="left">{row.code}</TableCell>
               <TableCell align="left">
                 {DateTimeUtils.getFormattedDate(
-                  new Date(row?.lastTimeSendSMS || null),
+                  new Date(row?.expireTime || null),
                   'DD/MM/YYYY HH:mm:ss',
                 )}
               </TableCell>
@@ -46,9 +46,7 @@ function ReferralTable({ referrals, handleRetrySms }) {
                     </Button>
                   </div>
                 ) : (
-                  <span className={styles.text_danger}>
-                    Chưa thể gửi lại. Trong vòng 3 giờ, bạn chỉ có thể gửi 1 tin SMS!
-                  </span>
+                  <span className={styles.text_danger}>{row.message}</span>
                 )}
               </TableCell>
             </TableRow>
