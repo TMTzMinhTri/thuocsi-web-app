@@ -34,6 +34,7 @@ const ProductCardBuy = ({
   isMobile,
   cartItems,
 }) => {
+  const maxDeal = deal?.maxQuantity - deal?.quantity || 0;
   const maxQuantityProduct = isDeal && deal ? deal.maxQuantity : productMaxQuantity;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
@@ -183,6 +184,15 @@ const ProductCardBuy = ({
                   }
                 >
                   Đặt tối đa {formatNumber(maxQuantityProduct)} sản phẩm
+                </Typography>
+              ) : null}
+              {!isMobile && maxDeal ? (
+                <Typography
+                  className={
+                    row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
+                  }
+                >
+                  Deal còn lại {formatNumber(maxDeal)} sản phẩm
                 </Typography>
               ) : null}
               <CardActions
