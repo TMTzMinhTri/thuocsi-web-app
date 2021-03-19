@@ -27,7 +27,7 @@ function ReferralTable({ referrals, handleRetrySms }) {
               <TableCell align="left">{row.code}</TableCell>
               <TableCell align="left">
                 {DateTimeUtils.getFormattedDate(
-                  new Date(row?.timeSendSMS || null),
+                  new Date(row?.lastTimeSendSMS || null),
                   'DD/MM/YYYY HH:mm:ss',
                 )}
               </TableCell>

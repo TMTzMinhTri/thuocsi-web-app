@@ -7,8 +7,8 @@ export const getReferralList = async ({ offset = OFFSET_DEFAULT, limit = LIMIT_D
   const res = await CustomerClient.getReferral({ params });
   if (isValid(res)) {
     res.data = res.data.map((referral) => {
-      const { timeSendSMS = null } = referral;
-      const dateLastSend = new Date(timeSendSMS).getTime();
+      const { lastTimeSendSMS = null } = referral;
+      const dateLastSend = new Date(lastTimeSendSMS).getTime();
       const curTime = new Date().getTime();
 
       // check > 3h

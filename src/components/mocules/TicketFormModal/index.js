@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import UploadImages from '../UploadImages';
 import styles from './style.module.css';
 import InfoInput from '../InfoInput';
+import validateForm from './validateForm';
 
 const TicketFormModal = (props) => {
   const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo } = props;
@@ -40,6 +41,7 @@ const TicketFormModal = (props) => {
       reasons: [FEEDBACK_REASON[reason].code],
     };
     try {
+      validateForm(val);
       const feedbackResult = await TicketClient.createFeedback(data);
       if (!isValid(feedbackResult))
         throw new Error(feedbackResult.message || 'Gửi phản hồi thất bại');
@@ -102,13 +104,7 @@ const TicketFormModal = (props) => {
             </InfoFormControl>
           </Grid>
           <Grid item xs={12} container justify="space-evenly" spacing={1}>
-            <InfoFormControl
-              xs={12}
-              md={6}
-              isRequired
-              label="Tên chủ tài khoản"
-              htmlFor="bankAccountName"
-            >
+            <InfoFormControl xs={12} md={6} label="Tên chủ tài khoản" htmlFor="bankAccountName">
               <InfoInput
                 id="bankAccountName"
                 placeholder="Nhập tên chủ tài khoản"
@@ -116,7 +112,7 @@ const TicketFormModal = (props) => {
                 onChange={(e) => handleChangeValue('bankAccountName', e.target.value)}
               />
             </InfoFormControl>
-            <InfoFormControl xs={12} md={6} isRequired label="Số tài khoản" htmlFor="bankCode">
+            <InfoFormControl xs={12} md={6} label="Số tài khoản" isRequired htmlFor="bankCode">
               <InfoInput
                 id="bankCode"
                 placeholder="Nhập số tài khoản"
@@ -124,7 +120,7 @@ const TicketFormModal = (props) => {
                 onChange={(e) => handleChangeValue('bankCode', e.target.value)}
               />
             </InfoFormControl>
-            <InfoFormControl xs={12} md={6} isRequired label="Ngân hàng" htmlFor="bankName">
+            <InfoFormControl xs={12} md={6} label="Ngân hàng" htmlFor="bankName">
               <InfoInput
                 id="bankName"
                 placeholder="Nhập tên ngân hàng"
@@ -132,7 +128,7 @@ const TicketFormModal = (props) => {
                 onChange={(e) => handleChangeValue('bankName', e.target.value)}
               />
             </InfoFormControl>
-            <InfoFormControl xs={12} md={6} isRequired label="Chi nhánh" htmlFor="bankBranch">
+            <InfoFormControl xs={12} md={6} label="Chi nhánh" htmlFor="bankBranch">
               <InfoInput
                 id="bankBranch"
                 placeholder="Nhập tên chi nhánh"
