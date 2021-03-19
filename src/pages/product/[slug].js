@@ -92,10 +92,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     deal,
   } = product;
 
-  const percentDealSold = (deal.quantity / deal.maxQuantity) * 100;
-  const soldOutCondition = deal.maxQuantity - deal.quantity === 0;
-
-  const maxQuantity = isDeal ? deal.maxQuantity : prdMaxQuantity;
+  const maxQuantity = isDeal && deal ? deal.maxQuantity : prdMaxQuantity;
 
   // const { quantity } = product;
 
@@ -107,7 +104,9 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
       setQuantity(q);
     }
     if (response.errorCode === 'CART_MAX_QUANTITY') {
-      setQuantity(maxQuantity);
+      // get quanity can add from response and compare with maxQuantity
+      const { quantity: quantityCanAdd } = getFirst(response, {});
+      setQuantity(quantityCanAdd);
     }
   };
 
@@ -175,6 +174,8 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   };
 
   const renderCondition = () => {
+    const percentDealSold = (deal.quantity / deal.maxQuantity) * 100;
+    const soldOutCondition = deal.maxQuantity - deal.quantity === 0;
     if (percentDealSold < 50) {
       return `Đã bán ${deal.quantity}`;
     }
@@ -190,7 +191,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   const ingredientEle =
     ingredient &&
     ingredient.map((row) => (
-      <TableRow key={row.name}>
+      <TableRow key={uuidv4()}>
         <TableCell className={styles.border_right} component="th" scope="row">
           <LinkComp className={styles.text_capitalize} href={`${INGREDIENT}/${row.slug}`}>
             {row.name}
@@ -214,7 +215,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
             <Grid sm={12} md={8} item>
               <Grid container>
                 <Grid xs={12} item>
-                  <h1 className={styles.product_name}>{isDeal ? deal.name : name}</h1>
+                  <h1 className={styles.product_name}>{isDeal && deal ? deal.name : name}</h1>
                   <div className={styles.product_tags}>
                     {tags && tags.map((item) => <TagType key={uuidv4()} item={item} />)}
                   </div>
@@ -282,7 +283,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                           </TableContainer>
                         </Popover>
                       </div>
-                      {isDeal && (
+                      {isDeal && deal && (
                         <div className={styles.deal_section}>
                           <CountdownTimerDetail
                             className={styles.count_down}

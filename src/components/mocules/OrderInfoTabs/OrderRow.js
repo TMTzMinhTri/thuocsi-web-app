@@ -6,9 +6,11 @@ import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
 import { MY_ORDER_URL } from 'constants/Paths';
-// import PrintInvoiceButton from '../PrintInvoiceButton';
+import { useModal } from 'hooks';
+import { v4 as uuidv4 } from 'uuid';
 import EditOrderButton from '../EditOrderButton';
 import TicketButton from '../TicketButton';
+import TicketFormModal from '../TicketFormModal';
 import styles from './styles.module.css';
 import OrderStatusButton from './OrderStatusButton';
 
@@ -32,12 +34,20 @@ const OrderRow = ({
   orderNo,
   createdTime,
   deliveryDate,
+  customerName,
+  customerPhone,
   status,
   totalPrice,
-  user,
   handleSetOrderStatus,
+  bankInfo
 }) => {
   const [amount, setAmount] = useState(0);
+  const [orderTicket, setOrderTicket] = useState({});
+  const [open, toggleOpen] = useModal();
+
+  const handleChangeOrderTicket = (value) => {
+    setOrderTicket(value);
+  };
   useEffect(() => {
     async function fetchData() {
       try {
@@ -55,7 +65,6 @@ const OrderRow = ({
     }
     fetchData();
   }, []);
-  const { name, phone } = user;
   const maxWidth = useMediaQuery('(max-width:715px)');
   return (
     <Paper square={!maxWidth} className={styles.paper} elevation={0}>
@@ -69,7 +78,7 @@ const OrderRow = ({
           className={styles.grid}
         >
           <Grid item>
-            <Link href={`${MY_ORDER_URL}/${orderID}`} key={`order-row-${orderID}`}>
+            <Link href={`${MY_ORDER_URL}/${orderID}`} key={`order-row-${uuidv4()}`}>
               <h4 className={styles.order_id}>#{orderID} &nbsp;</h4>
             </Link>
           </Grid>
@@ -117,15 +126,22 @@ const OrderRow = ({
           )}
           <Grid item>
             <TicketButton
-              orderID={orderID}
-              name={name}
-              phone={phone}
-              orderNo={orderNo}
-              orderTime={createdTime}
+              order={{
+                orderID,
+                orderNo,
+                orderTime: createdTime,
+                deliveryDate,
+                name: customerName,
+                phone: customerPhone,
+              }}
+              handleChangeOrderTicket={handleChangeOrderTicket}
+              handleOpenModal={toggleOpen}
             />
           </Grid>
         </Grid>
       </Grid>
+      {open &&
+        <TicketFormModal {...orderTicket} bankInfo={bankInfo} visible={open} onClose={toggleOpen} />}
     </Paper>
   );
 };

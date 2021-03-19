@@ -14,7 +14,7 @@ const PromotionProduct = ({ products = [] }) => (
             {products.map((item) => (
               <Grid key={uuidv4()} item xl={3} lg={3} md={2} xs={6} className={styles.customGrid}>
                 <ProductCardVertical
-                  key={`products-${item.sku}`}
+                  key={`products-${uuidv4()}`}
                   product={item}
                   value={item.quantity || 0}
                   category

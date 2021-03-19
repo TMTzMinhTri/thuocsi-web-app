@@ -155,7 +155,7 @@ const PrintInvoiceModal = memo((props) => {
               const { price, quantity, totalPrice } = product;
               const { name = '', slug = '' } = product.productInfo || {};
               return (
-                <TableRow key={name} hover>
+                <TableRow key={uuidv4()} hover>
                   <TableCell align={ALIGN.LEFT} className={styles.product_name}>
                     <LinkComp
                       variant="h5"

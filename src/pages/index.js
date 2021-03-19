@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductClient, MarketingClient } from 'clients';
+import { ProductClient, MarketingClient, getFirst } from 'clients';
 import { doWithServerSide, SettingService } from 'services';
 import dynamic from 'next/dynamic';
 
@@ -17,7 +17,7 @@ export async function getServerSideProps(ctx) {
         mostResearched,
         infoBanner: infoBanner?.data || [],
         blocks,
-        settings: settingsResult.data ? settingsResult.data : [],
+        settings: getFirst(settingsResult),
       },
     };
   });

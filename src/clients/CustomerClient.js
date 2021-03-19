@@ -42,6 +42,15 @@ export async function updateProfile(data) {
   return result;
 }
 
+export async function getBankAccount(ctx) {
+  const url = CUSTOMER_API.BANK_ACCOUNT;
+  const result = await GET({ url, ctx });
+  if (!isValid(result)) {
+    return [];
+  }
+  return result.data;
+}
+
 export default {
   getOrder,
   getReferral,
@@ -50,4 +59,5 @@ export default {
   updateProfile,
   sendSms,
   retrySendSms,
+  getBankAccount,
 };

@@ -26,6 +26,7 @@ const REFERRAL = `${CUSTOMER_API_PREFIX}/me/reference/list`;
 const SEND_SMS = `${CUSTOMER_API_PREFIX}/me/reference`;
 const RETRY_SEND_SMS = `${CUSTOMER_API_PREFIX}/me/reference/sms`;
 const PROMO = `${CUSTOMER_API_PREFIX}/promos`;
+const BANK_ACCOUNT = `${INFO}/account/bank`;
 
 export const CUSTOMER_API = {
   REGISTER,
@@ -37,6 +38,7 @@ export const CUSTOMER_API = {
   SEND_SMS,
   RETRY_SEND_SMS,
   REGISTER_GUEST,
+  BANK_ACCOUNT
 };
 
 const CATEGORY_API_PREFIX = '/marketplace/product/v1';
@@ -64,6 +66,7 @@ const INGREDIENT_LIST = `${INGREDIENT}/list`;
 const INGREDIENT_PRODUCT_LIST = `${INGREDIENT}/list`;
 
 const MANUFACTURER = `${PRODUCT_API_PREFIX}/manufacturers`;
+const MANUFACTURER_DETAIL = `${PRODUCT_API_PREFIX}/manufacturer`;
 const MANUFACTURER_LIST = `${MANUFACTURER}/list`;
 
 const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
@@ -78,6 +81,7 @@ export const PRODUCT_API = {
   INGREDIENT_PRODUCT_LIST,
   MANUFACTURER,
   MANUFACTURER_LIST,
+  MANUFACTURER_DETAIL,
   PRODUCT_LIST,
   PRODUCT_LIST_COLLECTION,
   TAGS,
@@ -134,7 +138,7 @@ export const ORDER_API = {
 
 // Supplier API
 
-const SUPPLIER_API_PREFIX = '/seller/profiler/v1';
+const SUPPLIER_API_PREFIX = '/seller/core/v1';
 const SUPPLIER_INFO = `${SUPPLIER_API_PREFIX}/seller/info`;
 
 export const SUPPLIER_API = {

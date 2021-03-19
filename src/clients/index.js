@@ -16,4 +16,5 @@ export { default as PricingClients } from './PricingClients';
 export { default as TicketClient } from './TicketClient';
 export { default as SettingClient } from './SettingClient';
 export { default as MarketingClient } from './MarketingClient';
+export { default as UploadImageClient } from './UploadImageClient';
 export * from './Clients';

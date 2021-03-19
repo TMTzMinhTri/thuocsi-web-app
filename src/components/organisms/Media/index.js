@@ -2,12 +2,13 @@ import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import Image from 'next/image';
 import { imageMediaTop, imageMediaBottom } from 'constants/data';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './styles.module.css';
 
 const renderMediaItem = (data) =>
   data.map((item) => (
-    <Grid key={`media-${item.id}`} className={styles.hover_link} item xs={6} sm={4} md={3}>
+    <Grid key={`media-${uuidv4()}`} className={styles.hover_link} item xs={6} sm={4} md={3}>
       <a href={item.href} target="_blank" rel="noreferrer">
         <Image
           className={item.dark && styles.dark}

@@ -22,6 +22,7 @@ const ProductCardContent = ({
   seller = '',
   isDeal,
   deal,
+  cartItemType,
 }) => (
   <CardContent
     className={`${className}
@@ -39,7 +40,7 @@ const ProductCardContent = ({
       <div className={row ? clsx(styles.product_title, styles.h40) : styles.product_title}>
         <Link href={`/product/${slug}`}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
-            {isDeal ? deal.name : name}
+            {isDeal && deal ? deal.name : name}
           </Typography>
         </Link>
 
@@ -92,6 +93,24 @@ const ProductCardContent = ({
           </a>
         ))}
       </Typography>
+    )}
+    {cartItemType === 'DEAL' && (
+      <div
+        className={
+          row
+            ? styles.product_title_wrap
+            : clsx(styles.product_title_wrap, styles.product_title_column_wrap)
+        }
+      >
+        <Typography
+          className={clsx(styles.product_category)}
+          variant="body2"
+          color="error"
+          component="p"
+        >
+          Số lượng có hạn! Hãy mau thanh toán để được hưởng giá ưu đãi.
+        </Typography>
+      </div>
     )}
   </CardContent>
 );

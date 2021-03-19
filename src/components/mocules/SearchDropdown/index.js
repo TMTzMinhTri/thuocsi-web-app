@@ -1,6 +1,7 @@
 import React from 'react';
 import { getPathProductBySlug } from 'constants/Paths';
 import LinkComp from 'components/atoms/LinkComp';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 const SearchDropdown = (props) => {
@@ -17,7 +18,7 @@ const SearchDropdown = (props) => {
           {data[0].products.map((item) => (
             <LinkComp
               className={styles.searchResults}
-              key={item.skuId}
+              key={uuidv4()}
               item={item}
               href={getPathProductBySlug(item.slug)}
             >
@@ -39,7 +40,7 @@ const SearchDropdown = (props) => {
             <b className={styles.textPrimary}>Tất Cả Nhà Sản Xuất </b>
           </LinkComp>
           {data[0].manufacturers.map((item) => (
-            <LinkComp className={styles.searchResults} key={item.id} item={item} href="/">
+            <LinkComp className={styles.searchResults} key={uuidv4()} item={item} href="/">
               {item.name}
             </LinkComp>
           ))}

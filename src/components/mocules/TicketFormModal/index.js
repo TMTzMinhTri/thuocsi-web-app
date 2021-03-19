@@ -2,24 +2,25 @@ import { useState } from 'react';
 import { Modal, InfoFormControl, Button } from 'components/atoms';
 import { Grid, TextField, NativeSelect } from '@material-ui/core';
 import { FEEDBACK_REASON } from 'constants/Enums';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { ExpandMore } from '@material-ui/icons';
 import { TicketClient, isValid } from 'clients';
 import NotifyUtils from 'utils/NotifyUtils';
 import DateTimeUtils from 'utils/DateTimeUtils';
+import { v4 as uuidv4 } from 'uuid';
+import UploadImages from '../UploadImages';
 import styles from './style.module.css';
 import InfoInput from '../InfoInput';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, orderID, name, phone, orderTime, orderNo } = props;
-
+  const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo } = props;
   const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
-
   const [val, setVal] = useState({
-    bankCode: '',
-    bankName: '',
-    bankBranch: '',
-    accountName: '',
+    bankCode: bankInfo?.bankCode || '',
+    bankName: bankInfo?.bankName || '',
+    bankBranch: bankInfo?.bankBranch || '',
+    bankAccountName: bankInfo?.bankAccountName || '',
     note: '',
+    imageUrls: [],
   });
 
   const handleChangeValue = (key, value) => {
@@ -42,11 +43,17 @@ const TicketFormModal = (props) => {
       const feedbackResult = await TicketClient.createFeedback(data);
       if (!isValid(feedbackResult))
         throw new Error(feedbackResult.message || 'Gửi phản hồi thất bại');
+      NotifyUtils.success('Gửi phản hồi thành công');
+      // clear
+      onClose();
+      setVal({});
     } catch (error) {
       NotifyUtils.error(error.message);
     }
+  };
 
-    NotifyUtils.success('Gửi phản hồi thành công');
+  const handleOnChangeImages = (imgs) => {
+    setVal({ ...val, imageUrls: imgs });
   };
   return (
     <Modal open={visible} onClose={onClose}>
@@ -55,48 +62,58 @@ const TicketFormModal = (props) => {
         <Grid container className={styles.container}>
           <div className={styles.info_group}>
             <Grid item xs={12} className={styles.text_body}>
-              <span className={styles.label}>Phản hồi về đơn hàng #</span><span className={styles.value}>{orderID}</span>:
+              <span className={styles.label}>Phản hồi về đơn hàng #</span>
+              <span className={styles.value}>{orderID}</span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
-              <span className={styles.label}>Mã đơn hàng: </span><span className={styles.value}>{orderID}</span>
+              <span className={styles.label}>Mã đơn hàng: </span>
+              <span className={styles.value}>{orderID}</span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
-              <span className={styles.label}>Tên khách hàng: </span><span className={styles.value}>{name}</span>
+              <span className={styles.label}>Tên khách hàng: </span>
+              <span className={styles.value}>{name}</span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
-              <span className={styles.label}>Ngày đặt hàng: </span><span className={styles.value}>{DateTimeUtils.getFormattedWithDate(new Date(orderTime))}</span>
+              <span className={styles.label}>Ngày đặt hàng: </span>
+              <span className={styles.value}>
+                {DateTimeUtils.getFormattedWithDate(new Date(orderTime))}
+              </span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
-              <span className={styles.label}>Số điện thoại: </span><span className={styles.value}>{phone}</span>
+              <span className={styles.label}>Số điện thoại: </span>
+              <span className={styles.value}>{phone}</span>
             </Grid>
           </div>
           <Grid item xs={12} container justify="flex-start" spacing={1}>
             <InfoFormControl xs={12} md={6} label="Lý do phản hồi" isRequired>
               <NativeSelect
                 input={<InfoInput />}
-                IconComponent={ExpandMoreIcon}
+                IconComponent={ExpandMore}
                 value={reason}
                 onChange={handleOnChangeReason}
                 className={styles.reason_select}
               >
                 {Object.keys(FEEDBACK_REASON).map((reasonE) => (
-                  <option
-                    key={`key-reason-${FEEDBACK_REASON[reasonE].code}`}
-                    value={FEEDBACK_REASON[reasonE].code}
-                  >
+                  <option key={`key-reason-${uuidv4()}`} value={FEEDBACK_REASON[reasonE].code}>
                     {FEEDBACK_REASON[reasonE].name}
                   </option>
-              ))}
+                ))}
               </NativeSelect>
             </InfoFormControl>
           </Grid>
           <Grid item xs={12} container justify="space-evenly" spacing={1}>
-            <InfoFormControl xs={12} md={6} isRequired label="Tên chủ tài khoản" htmlFor="accountName">
+            <InfoFormControl
+              xs={12}
+              md={6}
+              isRequired
+              label="Tên chủ tài khoản"
+              htmlFor="bankAccountName"
+            >
               <InfoInput
-                id="accountName"
+                id="bankAccountName"
                 placeholder="Nhập tên chủ tài khoản"
-                value={val.accountName}
-                onChange={(e) => handleChangeValue('accountName', e.target.value)}
+                value={val.bankAccountName}
+                onChange={(e) => handleChangeValue('bankAccountName', e.target.value)}
               />
             </InfoFormControl>
             <InfoFormControl xs={12} md={6} isRequired label="Số tài khoản" htmlFor="bankCode">
@@ -124,7 +141,14 @@ const TicketFormModal = (props) => {
               />
             </InfoFormControl>
           </Grid>
-          <Grid className={styles.textarea} item xs={12} container justify="space-evenly" spacing={1}>
+          <Grid
+            className={styles.textarea}
+            item
+            xs={12}
+            container
+            justify="space-evenly"
+            spacing={1}
+          >
             <InfoFormControl label="Nội dung phản hồi" xs={12} isRequired htmlFor="description">
               <br />
               <TextField
@@ -139,10 +163,15 @@ const TicketFormModal = (props) => {
               />
             </InfoFormControl>
           </Grid>
-          <Grid className={styles.textarea} item xs={12} container justify="space-evenly" spacing={1}>
-            <InfoFormControl label="Hình ảnh minh hoạ lỗi" xs={12} isRequired htmlFor="name">
-              <Button className="response__button--upload">Bạn có thể upload tối đa 6 hình</Button>
-            </InfoFormControl>
+          <Grid
+            className={styles.textarea}
+            item
+            xs={12}
+            container
+            justify="space-evenly"
+            spacing={1}
+          >
+            <UploadImages onChange={handleOnChangeImages} />
           </Grid>
           <Grid className={styles.textarea} item container justify="center" xs={12} spacing={1}>
             <Button className="payment_button" onClick={onSubmit}>

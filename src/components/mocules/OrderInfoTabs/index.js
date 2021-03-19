@@ -39,7 +39,7 @@ const tabs = [
   { label: 'Huỷ', value: ENUM_ORDER_STATUS.CANCEL },
 ];
 
-export default function OrderInfoTabs({ user, orders, status }) {
+export default function OrderInfoTabs({ user, orders, status, bankInfo }) {
   const router = useRouter();
 
   const handleChangeOrderStatus = (statusR) => {
@@ -86,9 +86,10 @@ export default function OrderInfoTabs({ user, orders, status }) {
           {orders.map((order) => (
             <OrderRow
               {...order}
-              key={order.orderNo}
+              key={uuidV4()}
               user={user}
               handleSetOrderStatus={handleChangeOrderStatus}
+              bankInfo={bankInfo}
             />
           ))}
         </Grid>

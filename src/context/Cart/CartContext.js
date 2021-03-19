@@ -69,10 +69,15 @@ export const CartContextProvider = ({ children }) => {
     const cartRes = await CartClient.updateCartItem(payload);
     if (!isValid(cartRes) && cartRes.errorCode === 'CART_MAX_QUANTITY') {
       const revertPayload = payload;
-      revertPayload.q = payload.product.maxQuantity;
+      // get quanity can add from response and compare with maxQuantity
+      const { quantity = revertPayload.product.maxQuantity } = getFirst(cartRes, {});
+      revertPayload.q = quantity;
       const res = await CartClient.updateCartItem(revertPayload);
       dispatch({ type: INCREASE_BY, payload: revertPayload });
-      await reloadDataCart({ res });
+      await reloadDataCart({
+        res,
+        errorMessage: res.message || 'Cập nhật giỏ hàng không thành công',
+      });
     }
     await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
 
@@ -143,10 +148,10 @@ export const CartContextProvider = ({ children }) => {
       customerShippingAddress,
     });
     if (!isValid(res)) {
-      NotifyUtils.error('Cập nhập phương thức giao hàng thất bại ');
+      NotifyUtils.error(res?.message || 'Cập nhật phương thức giao hàng thất bại ');
       return;
     }
-    NotifyUtils.success('Cập nhập phương thức giao hàng thành công');
+    NotifyUtils.success('Cập nhật phương thức giao hàng thành công');
     updateCart();
   };
 
@@ -163,10 +168,10 @@ export const CartContextProvider = ({ children }) => {
       customerWardCode,
     });
     if (!isValid(res)) {
-      NotifyUtils.error('Cập nhập phương thức thanh toán thất bại ');
+      NotifyUtils.error(res.message || 'Cập nhật phương thức thanh toán thất bại ');
       return;
     }
-    NotifyUtils.success('Cập nhập phương thức thanh toán thành công');
+    NotifyUtils.success('Cập nhật phương thức thanh toán thành công');
     updateCart();
   };
 

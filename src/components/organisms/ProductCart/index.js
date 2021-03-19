@@ -12,12 +12,12 @@ import styles from './styles.module.css';
 const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const [isShowModal, toggle] = useModal();
   const [isShowModalWarning, toggleWarning] = useModal();
-  const { addImportant, removeImportant, cartItems } = useCart();
+  const { addImportant, removeImportant, cartItems = [] } = useCart();
+  const maxImportant = Math.ceil((cartItems.length * 20) / 100);
   const [unset, setUnset] = useState(false);
   const { imageUrls } = product;
-
+  const importantList = cartItems.filter((item) => item.isImportant);
   const handleSetImportant = () => {
-    const importantList = cartItems.filter((item) => item.isImportant);
     if (isImportant) {
       setUnset(true);
     } else {
@@ -100,8 +100,12 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
       <CustomModal
         onClose={toggleWarning}
         visible={isShowModalWarning}
-        title="Xin xác nhận"
-        content="Số lượng sản phẩm được đánh dấu quan trọng không được nhiều hơn 20% tổng số sản phẩm"
+        title="Đánh dấu sản phẩm quan trọng"
+        content={`Bạn cần chọn thêm ${
+          importantList.length === maxImportant
+            ? maxImportant * 5
+            : maxImportant * 5 - cartItems.length
+        } sản phẩm khác nhau trong giỏ hàng để có thể đánh dấu quan trọng`}
         btnOnClose="Đóng"
         btnOkRender={false}
       />

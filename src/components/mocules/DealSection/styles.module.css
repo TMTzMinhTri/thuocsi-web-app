@@ -1,9 +1,16 @@
 .deal_section {
     display: flex;
     
+    margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
 }
+
+@media (max-width: 468px) {
+    .deal_section {
+        flex-direction: column;
+    }
+  }
 
 .root_process {
     height: 16px!important;
@@ -19,6 +26,7 @@
 .process_wrapper {
     position: relative;
     flex: 50%!important;
+    margin-bottom: 5px;
 }
 
 .process_content {

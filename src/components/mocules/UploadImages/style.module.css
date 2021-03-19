@@ -69,3 +69,6 @@
   display: flex;
   flex-wrap: wrap;
 }
+.rug-handle-icon{
+  width: 70px;
+}

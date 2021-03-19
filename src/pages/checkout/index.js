@@ -68,16 +68,16 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     totalPrice = 0,
     updateDeliveryMethod,
     updatePaymentMethod,
-    paymentMethod = 'PAYMENT_METHOD_NORMAL',
-    deliveryPlatform = 'DELIVERY_PLATFORM_NORMAL',
+    paymentMethod,
+    deliveryPlatform,
+    customerName,
+    customerPhone,
+    customerEmail,
+    customerProvinceCode,
+    customerDistrictCode,
+    customerWardCode,
+    customerShippingAddress,
   } = useCart();
-
-  const {
-    customerShippingAddress = '',
-    customerDistrictCode = '0',
-    customerProvinceCode = '0',
-    customerWardCode = '0',
-  } = cart[0];
 
   // Xử lý ngày tháng
   const [state, setState] = React.useState({
@@ -87,13 +87,13 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   const title = `${itemCount} Sản phẩm trong giỏ hàng nhé!`;
 
   const [value, setValue] = useState({
-    customerName: user.name || '',
-    customerPhone: user.phone || '',
-    customerEmail: user.email || '',
-    customerShippingAddress,
-    customerDistrictCode,
-    customerProvinceCode,
-    customerWardCode,
+    customerName: customerName || user.name || '',
+    customerPhone: customerPhone || user.phone || '',
+    customerEmail: customerEmail || user.email || '',
+    customerShippingAddress: customerShippingAddress || user.address || '',
+    customerDistrictCode: customerDistrictCode || user.districtCode || '0',
+    customerProvinceCode: customerProvinceCode || user.provinceCode || '0',
+    customerWardCode: customerWardCode || user.wardCode || '0',
   });
 
   const [totalWard, setTotalWard] = useState();

@@ -6,13 +6,14 @@ import { Card, CardHeader, Avatar, CardContent, Typography, Container } from '@m
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { settingsCustomer, customerFeedbackData } from 'constants/data';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './styles.module.css';
 
 const SliderComp = () => {
   const ref = useRef({});
   const sliderItem = customerFeedbackData.map((item) => (
-    <div key={`slider-${item.id}`} className={styles.box}>
+    <div key={`slider-${uuidv4()}`} className={styles.box}>
       <Card className={styles.root}>
         <CardHeader
           avatar={<Avatar src={item.avatar} aria-label="recipe" className={styles.large} />}

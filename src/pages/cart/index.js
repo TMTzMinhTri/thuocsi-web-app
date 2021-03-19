@@ -20,6 +20,9 @@ function Cart({ isMobile, user }) {
   const pageTitle = `Giỏ hàng (${itemCount})`;
   const pageName = 'cart';
   if (loading) return <LoadingScreen />;
+
+  const isHaveProductDeal = cartItems.filter((item) => item.cartItemType === 'DEAL').length > 0;
+
   return (
     <Template
       title={title}
@@ -30,24 +33,36 @@ function Cart({ isMobile, user }) {
       balance={user.balance}
     >
       <Container className={styles.wrapper} maxWidth="lg">
+        {user.level !== 'LEVEL_GUEST' || isMobile === false ? null : (
+          <Alert className={styles.alert} severity="error">
+            Đây là tài khoản dùng thử. Giỏ hàng sẽ không thể lưu và thanh toán được. Xin bạn vui
+            lòng tạo tài khoản cá nhân để sử dụng tính năng này! Cảm ơn!
+          </Alert>
+        )}
         {user?.isActive || isMobile === false ? null : (
           <Alert className={styles.alert} severity="error">
             Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
           </Alert>
         )}
-        {user.level !== 'LEVEL_GUEST' || isMobile === false ? null : (
-          <Alert className={styles.alert} severity="error">
-            Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
-          </Alert>
-        )}
+
         {cartItems && cartItems.length > 0 ? (
           <>
             {!isMobile && (
-              <div style={{ marginBottom: '12px' }}>
-                <Typography className={styles.cart_title} variant="h5" component="h3">
-                  Giỏ hàng
-                </Typography>
-              </div>
+              <>
+                <div style={{ marginBottom: '12px' }}>
+                  <Typography className={styles.cart_title} variant="h5" component="h3">
+                    Giỏ hàng
+                  </Typography>
+                </div>
+                {isHaveProductDeal && (
+                  <div className={styles.instruction_text}>
+                    <Alert className={styles.alert} severity="error">
+                      Lưu ý: Giỏ hàng có sản phẩm khuyến mãi. Sau khi thanh toán, đơn hàng sẽ không
+                      thể chỉnh sửa được.
+                    </Alert>
+                  </div>
+                )}
+              </>
             )}
             <Grid container spacing={3}>
               <Grid sm={8} item>
