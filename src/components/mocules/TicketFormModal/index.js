@@ -13,7 +13,7 @@ import validateForm from './validateForm';
 
 const TicketFormModal = (props) => {
   const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo, reasonsList } = props;
-  const [reason, setReason] = useState(0);
+  const [reason, setReason] = useState('');
   const [val, setVal] = useState({
     bankCode: bankInfo?.bankCode || '',
     bankName: bankInfo?.bankName || '',
