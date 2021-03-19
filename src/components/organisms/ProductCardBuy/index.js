@@ -35,7 +35,7 @@ const ProductCardBuy = ({
   cartItems,
 }) => {
   const maxDeal = deal?.maxQuantity - deal?.quantity || 0;
-  const maxQuantityProduct = isDeal && deal ? maxDeal : productMaxQuantity;
+  const maxQuantityProduct = isDeal && deal ? deal.maxQuantity : productMaxQuantity;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
@@ -205,7 +205,7 @@ const ProductCardBuy = ({
                   className={value > 0 && styles.has_item}
                 />
                 <PlusButton
-                  disabled={maxQuantityProduct && value >= maxQuantityProduct}
+                  disabled={maxQuantityProduct && value >= (maxDeal || maxQuantityProduct)}
                   onClick={() => handleIncrease()}
                 />
                 {cart && (

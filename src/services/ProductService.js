@@ -93,7 +93,11 @@ export const getListTabs = async ({ ctx }) => {
   return res.data;
 };
 
-export const getDeals = async ({ ctx, params }) => ProductClient.getDeals({ ctx, params });
+export const getDeals = async ({ ctx, params }) => {
+  const result = await ProductClient.getDeals({ ctx, params });
+  if (!isValid(result)) return result;
+  return mapDataProduct({ ctx, result });
+}
 
 export default {
   loadDataProduct,
