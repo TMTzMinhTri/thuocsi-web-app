@@ -21,6 +21,7 @@ const ProductCardBuy = ({
   maxQuantity: productMaxQuantity,
   not_support_delivery: noSupportDelivery,
   price,
+  salePrice = 0,
   // dealPrice,
   isDeal = false,
   deal = {},
@@ -40,6 +41,7 @@ const ProductCardBuy = ({
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
   const importantList = cartItems?.filter((item) => item.isImportant);
+  const priceShow = formatCurrency(cart ? salePrice : price);
 
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
@@ -174,7 +176,7 @@ const ProductCardBuy = ({
                       : clsx(styles.price_wrapper, styles.price_wrapper_column)
                   }
                 >
-                  <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
+                  <Typography className={styles.deal_price}>{priceShow}</Typography>
                 </div>
               )}
               {!isMobile && maxQuantityProduct ? (
