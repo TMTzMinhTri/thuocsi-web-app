@@ -162,9 +162,9 @@ const ProductCardBuy = ({
                   }
                 >
                   <Typography className={styles.deal_price}>
-                    {formatCurrency(deal?.salePrice)}
+                    {formatCurrency(deal?.price)}
                   </Typography>
-                  <Typography className={styles.old_price}>{formatCurrency(salePrice)}</Typography>
+                  <Typography className={styles.old_price}>{formatCurrency(product?.salePrice)}</Typography>
                 </div>
               ) : (
                 <div
