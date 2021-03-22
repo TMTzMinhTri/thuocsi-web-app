@@ -78,7 +78,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
 
   const {
     name,
-    price,
+    salePrice,
     unit,
     volume,
     ingredient = [],
@@ -248,15 +248,15 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                             {isDeal && deal ? (
                               <>
                                 <span className={styles.deal_price}>
-                                  {formatCurrency(deal?.price)}
+                                  {formatCurrency(deal?.salePrice)}
                                 </span>
                                 <span className={styles.old_price}>
-                                  {formatCurrency(price)}
+                                  {formatCurrency(salePrice)}
                                 </span>
                               </>
                             ) : (
                               <span className={styles.deal_price}>
-                                {formatCurrency(price)}
+                                {formatCurrency(salePrice)}
                               </span>
                             )}
                             {isMobile && maxQuantity ? (
