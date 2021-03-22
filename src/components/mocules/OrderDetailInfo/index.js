@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Grid, makeStyles, Typography } from '@material-ui/core';
-import { i18n } from 'i18n-lib';
+import { useTranslation } from 'next-i18next';
 import styles from './styles.module.css';
 
 const NOT_YET = '(Chưa có)';
@@ -19,7 +19,6 @@ const OrderDetailInfo = ({
   customerShippingAddress,
   customerEmail,
   customerPhone,
-  t,
   note,
   paymentMethod,
   deliveryTrackingNumber,
@@ -27,6 +26,7 @@ const OrderDetailInfo = ({
   deliveryPlatform,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation('common');
 
   return (
     <div className={styles.info}>
@@ -108,4 +108,4 @@ const OrderDetailInfo = ({
   );
 };
 
-export default i18n.withTranslation('common')(React.memo(OrderDetailInfo));
+export default React.memo(OrderDetailInfo);

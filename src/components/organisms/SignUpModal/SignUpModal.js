@@ -3,7 +3,6 @@ import { isValid } from 'clients';
 import { AuthService } from 'services';
 import { NotifyUtils } from 'utils';
 import { useAuth } from 'context';
-import { i18n } from 'i18n-lib';
 import { useRouter } from 'next/router';
 import { AuthModal, SignUpForm } from 'components/mocules';
 import { QUICK_ORDER } from 'constants/Paths';
@@ -85,4 +84,4 @@ const SignUpModal = React.memo((props) => {
   );
 });
 
-export default i18n.withTranslation('apiErrors')(SignUpModal);
+export default SignUpModal;

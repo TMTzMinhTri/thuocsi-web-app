@@ -8,10 +8,11 @@ import {
 import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
 import { Button, Input, CheckBox } from 'components/atoms';
 import { FormDataUtils } from 'utils';
-import { i18n } from 'i18n-lib';
+
+import { useTranslation } from 'next-i18next';
 
 const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClickSignUp }) => {
-  const { t } = i18n.useTranslation();
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [errorUserName, setErrorUserName] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);

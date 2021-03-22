@@ -2,25 +2,25 @@ import React, { useState } from 'react';
 import { FormControl } from '@material-ui/core';
 import { Button, Input } from 'components/atoms';
 import { FormDataUtils } from 'utils';
-import { i18n } from 'i18n-lib';
+import { useTranslation } from 'next-i18next';
 import styles from './styles.module.css';
 
 const SignInForm = React.memo(({ className, onClickRegister }) => {
-  const { t } = i18n.useTranslation();
+  const { t } = useTranslation();
   const regExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
   const [errorPhone, setErrorPhone] = useState(false);
-  const [errorPhoneMessage, setErrorPhoneMessage] = useState("");
+  const [errorPhoneMessage, setErrorPhoneMessage] = useState('');
 
   const validatePhone = (data) => {
     setErrorPhone(false);
     if (data === '') {
       setErrorPhone(true);
-      setErrorPhoneMessage("Vui lòng nhập số điện thoại");
+      setErrorPhoneMessage('Vui lòng nhập số điện thoại');
       return false;
     }
     if (!data.match(regExp)) {
       setErrorPhone(true);
-      setErrorPhoneMessage("Số điện thoại bạn nhập không đúng");
+      setErrorPhoneMessage('Số điện thoại bạn nhập không đúng');
       return false;
     }
     return true;
@@ -31,23 +31,21 @@ const SignInForm = React.memo(({ className, onClickRegister }) => {
     const data = FormDataUtils.convert(e);
     e.preventDefault();
     if (!validatePhone(data.phone)) {
-      return
+      return;
     }
     onClickRegister(data);
   };
 
   const handleOnChange = (e) => {
     e.preventDefault();
-    validatePhone(e.target.value)
-  }
+    validatePhone(e.target.value);
+  };
 
   return (
     <div className={styles.form}>
       <form className={className} onSubmit={handleRegisterGuest}>
         <h1 className={styles.title}>Vui lòng nhập số điện thoại trước khi dùng thử</h1>
-        <FormControl
-          className={styles.formInput}
-        >
+        <FormControl className={styles.formInput}>
           <Input
             id="phone"
             name="phone"
@@ -57,13 +55,9 @@ const SignInForm = React.memo(({ className, onClickRegister }) => {
             error={errorPhone}
             onChange={handleOnChange}
           />
-          <div className={styles.error}>
-            {errorPhone && errorPhoneMessage}
-          </div>
+          <div className={styles.error}>{errorPhone && errorPhoneMessage}</div>
         </FormControl>
-        <div className={styles.bottom_text}>
-          Mã khuyến mãi 100k dành cho nhà thuốc mới đăng ký
-        </div>
+        <div className={styles.bottom_text}>Mã khuyến mãi 100k dành cho nhà thuốc mới đăng ký</div>
         <div className={styles.btnWrapper}>
           <Button className="btnLogin" color="white" type="submit">
             {t('tester.register')}

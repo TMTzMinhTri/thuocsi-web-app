@@ -15,7 +15,7 @@ import Theme from 'components/layout/Theme';
 import { ToastContainer } from 'react-toastify';
 
 /// I18N
-import { i18n } from 'i18n-lib';
+import { appWithTranslation } from 'next-i18next';
 
 // CSS global
 import '../styles/globals.css';
@@ -128,4 +128,4 @@ MyApp.getInitialProps = async (appContext) => {
   };
 };
 
-export default i18n.appWithTranslation(MyApp);
+export default appWithTranslation(MyApp);

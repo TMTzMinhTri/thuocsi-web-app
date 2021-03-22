@@ -1,4 +1,4 @@
-const { nextI18NextRewrites } = require('next-i18next/rewrites');
+const { i18n } = require('./next-i18next.config');
 
 const localeSubpaths = {};
 
@@ -10,6 +10,7 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
 }
 
 module.exports = {
+  i18n,
   images: {
     domains: ['assets.thuocsi.vn', 'storage.googleapis.com', 'www.facebook.com'],
   },
@@ -39,9 +40,9 @@ module.exports = {
       },
     ];
   },
-  rewrites: async () => nextI18NextRewrites(localeSubpaths),
-  publicRuntimeConfig: {
-    localeSubpaths,
-  },
+  // rewrites: async () => nextI18NextRewrites(localeSubpaths),
+  // publicRuntimeConfig: {
+  //   localeSubpaths,
+  // },
   pageExtensions: ['js'],
 };

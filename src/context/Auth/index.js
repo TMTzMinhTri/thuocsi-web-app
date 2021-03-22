@@ -9,7 +9,7 @@ import { NotifyUtils } from 'utils';
 import { useModal } from 'hooks';
 import { QUICK_ORDER } from 'constants/Paths';
 
-import { i18n } from 'i18n-lib';
+import { useTranslation } from 'next-i18next';
 
 const AuthContext = createContext({});
 
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const [isShowRegisterGuest, toggleRegisterGuest] = useModal(false);
   const [isShowGuestExpiredTime, toggleShowGuestExpiredTime] = useModal();
 
-  const { t } = i18n.useTranslation(['apiErrors']);
+  const { t } = useTranslation('apiErrors');
 
   const handleChangeForget = useCallback(() => {
     toggleLogin();
@@ -130,6 +130,8 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       .then((result) => {
         if (!isValid(result)) {
           const errorCode = `login.${result.errorCode}`;
+          console.log(t);
+          console.log(t(errorCode));
           NotifyUtils.error(t(errorCode));
           return;
         }
