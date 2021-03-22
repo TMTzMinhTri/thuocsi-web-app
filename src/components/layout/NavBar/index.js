@@ -20,7 +20,7 @@ import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CART_URL, HOME_PAGE, PRODUCTS_URL } from 'constants/Paths';
-import { ProductClient } from 'clients';
+import { SettingClient } from 'clients';
 
 import { Toggle, SearchInput } from 'components/mocules';
 
@@ -107,7 +107,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
 
   useEffect(() => {
     async function loadMenu() {
-      const data = await ProductClient.getMenu();
+      const data = await SettingClient.getMenu();
       setMenu(data);
     }
     loadMenu();

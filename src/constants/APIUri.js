@@ -11,12 +11,15 @@ export const ACCOUNT_API = {
 
 // MARKETPLACE
 
+// PRICING
 const PRICING_API_PREFIX = '/marketplace/pricing/v1';
 const DELIVERY_METHOD = `${PRICING_API_PREFIX}/delivery-platform/list`;
 const PAYMENT_METHOD = `${PRICING_API_PREFIX}/payment-method/list`;
 export const PRICING_API = { PAYMENT_METHOD, DELIVERY_METHOD };
 
+// CUSTOMER
 const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
+
 const REGISTER = `${CUSTOMER_API_PREFIX}/register`;
 const REGISTER_GUEST = `${CUSTOMER_API_PREFIX}/guest`;
 const INFO = `${CUSTOMER_API_PREFIX}/me`;
@@ -38,20 +41,10 @@ export const CUSTOMER_API = {
   SEND_SMS,
   RETRY_SEND_SMS,
   REGISTER_GUEST,
-  BANK_ACCOUNT
+  BANK_ACCOUNT,
 };
 
-const CATEGORY_API_PREFIX = '/marketplace/product/v1';
-const BRAND = `${CATEGORY_API_PREFIX}/manufacturers/list`;
-const GROUP = `${CATEGORY_API_PREFIX}/category/list`;
-const CATEGORY_INFO = `${CATEGORY_API_PREFIX}/categories/info`;
-const MANUFACTURER_INFO = `${CATEGORY_API_PREFIX}/manufacturers/info`;
-export const CATEGORY_API = {
-  BRAND,
-  GROUP,
-  CATEGORY_INFO,
-  MANUFACTURER_INFO,
-};
+// PRODUCTS
 
 const CONTENT_API_PREFIX = '/marketplace/content/v1';
 const STATIC_CONTENT = `${CONTENT_API_PREFIX}/static`;
@@ -61,38 +54,26 @@ export const CONTENT_API = {
 
 const PRODUCT_API_PREFIX = '/marketplace/product/v1';
 
-const INGREDIENT = `${PRODUCT_API_PREFIX}/ingredients`;
-const INGREDIENT_LIST = `${INGREDIENT}/list`;
-const INGREDIENT_PRODUCT_LIST = `${INGREDIENT}/list`;
-
-const MANUFACTURER = `${PRODUCT_API_PREFIX}/manufacturers`;
-const MANUFACTURER_DETAIL = `${PRODUCT_API_PREFIX}/manufacturer`;
-const MANUFACTURER_LIST = `${MANUFACTURER}/list`;
-
-const PRODUCT_LIST = `${PRODUCT_API_PREFIX}/products/list`;
-const PRODUCT_LIST_COLLECTION = `${PRODUCT_API_PREFIX}/collection/page`;
-const TAGS = `${PRODUCT_API_PREFIX}/tags/list`;
-const TABS_ACTIVE = `${PRODUCT_API_PREFIX}/tabs/active`;
-const DEALS = `${PRODUCT_API_PREFIX}/products/deal/list`;
-
 export const PRODUCT_API = {
-  INGREDIENT,
-  INGREDIENT_LIST,
-  INGREDIENT_PRODUCT_LIST,
-  MANUFACTURER,
-  MANUFACTURER_LIST,
-  MANUFACTURER_DETAIL,
-  PRODUCT_LIST,
-  PRODUCT_LIST_COLLECTION,
-  TAGS,
-  TABS_ACTIVE,
-  DEALS,
+  INGREDIENT: `${PRODUCT_API_PREFIX}/ingredients`,
+  INGREDIENT_LIST: `${PRODUCT_API_PREFIX}/ingredients/list`,
+  INGREDIENT_PRODUCT_LIST: `${PRODUCT_API_PREFIX}/ingredients/list`,
+  MANUFACTURER: `${PRODUCT_API_PREFIX}/manufacturers`,
+  MANUFACTURER_LIST: `${PRODUCT_API_PREFIX}/manufacturers/list`,
+  MANUFACTURER_DETAIL: `${PRODUCT_API_PREFIX}/manufacturer`,
+  MANUFACTURER_INFO: `${PRODUCT_API_PREFIX}/manufacturer/info`,
+  PRODUCT_LIST: `${PRODUCT_API_PREFIX}/products/list`,
+  PRODUCT_LIST_COLLECTION: `${PRODUCT_API_PREFIX}/collection/page`,
+  TAGS: `${PRODUCT_API_PREFIX}/tags/list`,
+  TABS_ACTIVE: `${PRODUCT_API_PREFIX}/tabs/active`,
+  DEALS: `${PRODUCT_API_PREFIX}/products/deal/list`,
+  CATEGORY_LIST: `${PRODUCT_API_PREFIX}/category/list`,
+  CATEGORY_INFO: `${PRODUCT_API_PREFIX}/categories/info`,
 };
 
 const CORE_MASTER_DATA_PREFIX = '/core/master-data/v1';
 const PROVINCE_LIST = `${CORE_MASTER_DATA_PREFIX}/provinces/list`;
 const DISTRICT = `${CORE_MASTER_DATA_PREFIX}/districts`;
-// administrative/list
 const ADMINISTRATIVE = `${CORE_MASTER_DATA_PREFIX}/administratives/list`;
 export const CORE_API = {
   PROVINCE_LIST,
@@ -113,6 +94,17 @@ export const CART_API = {
   CART_UPDATE_REDEEM_CODE,
 };
 
+const ORDER_API_PREFIX = '/marketplace/order/v1';
+export const ORDER_ITEM_LIST = `${ORDER_API_PREFIX}/me/order-item`;
+export const ORDER_INFO = `${ORDER_API_PREFIX}/me/order`;
+export const MY_ORDER_LIST = `${ORDER_API_PREFIX}/me/orders`;
+
+export const ORDER_API = {
+  ORDER_ITEM_LIST,
+  ORDER_INFO,
+  MY_ORDER_LIST,
+};
+
 // promotion
 // /marketplace/promotion/v1/promotion
 const PROMOTION_API_PREFIX = '/marketplace/promotion/v1';
@@ -125,17 +117,6 @@ export const PROMOTION_API = {
   PROMOTION_DETAI_VOUCHER_CODE,
 };
 
-const ORDER_API_PREFIX = '/marketplace/order/v1';
-export const ORDER_ITEM_LIST = `${ORDER_API_PREFIX}/me/order-item`;
-export const ORDER_INFO = `${ORDER_API_PREFIX}/me/order`;
-export const MY_ORDER_LIST = `${ORDER_API_PREFIX}/me/orders`;
-
-export const ORDER_API = {
-  ORDER_ITEM_LIST,
-  ORDER_INFO,
-  MY_ORDER_LIST,
-};
-
 // Supplier API
 
 const SUPPLIER_API_PREFIX = '/seller/core/v1';
@@ -143,7 +124,6 @@ const SUPPLIER_INFO = `${SUPPLIER_API_PREFIX}/seller/info`;
 
 export const SUPPLIER_API = {
   SUPPLIER_INFO,
-  SUPPLIER_API_PREFIX,
 };
 
 const NOTIFICATION_API_PREFIX = '/integration/notification/v1';
@@ -172,7 +152,6 @@ const MARKETING_API_PREFIX = '/marketplace/marketing/v1';
 const BANNER = `${MARKETING_API_PREFIX}/banners/available`;
 
 export const MARKETING_API = {
-  MARKETING_API_PREFIX,
   BANNER,
 };
 
@@ -181,7 +160,6 @@ const TASK = `${TICKET_API_PREFIX}/me/task`;
 const TASK_REASONS = `${TICKET_API_PREFIX}/tasks/reasons/list`;
 
 export const TICKET_API = {
-  TICKET_API_PREFIX,
   TASK,
   TASK_REASONS,
 };
