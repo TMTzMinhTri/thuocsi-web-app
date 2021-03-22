@@ -16,7 +16,7 @@ const DealSection = ({ dealEndDay, totalSold = 0, total = 0 }) => (
         variant="determinate"
         value={(totalSold / total) * 100}
       />
-      <Typography className={styles.process_content}>Đã bán {totalSold}</Typography>
+      <Typography className={styles.process_content}>Còn lại {total - totalSold}</Typography>
     </div>
     <CountdownTimer className={styles.count_down} dealEndDay={dealEndDay} />
   </div>

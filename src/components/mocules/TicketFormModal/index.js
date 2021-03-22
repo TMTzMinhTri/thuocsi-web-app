@@ -13,7 +13,7 @@ import validateForm from './validateForm';
 
 const TicketFormModal = (props) => {
   const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo, reasonsList } = props;
-  const [reason, setReason] = useState(0);
+  const [reason, setReason] = useState('');
   const [val, setVal] = useState({
     bankCode: bankInfo?.bankCode || '',
     bankName: bankInfo?.bankName || '',
@@ -36,7 +36,7 @@ const TicketFormModal = (props) => {
       orderNo,
       saleOrderCode: orderNo,
       saleOrderID: orderID,
-      reasons: [reasonsList[reason].code],
+      reasons: [reason],
     };
     try {
       validateForm(val);
@@ -93,9 +93,9 @@ const TicketFormModal = (props) => {
                 onChange={handleOnChangeReason}
                 className={styles.reason_select}
               >
-                {Object.keys(reasonsList).map((reasonE) => (
-                  <option key={`key-reason-${uuidv4()}`} value={reasonE}>
-                    {reasonsList[reasonE].name}
+                {reasonsList.map((reasonE) => (
+                  <option key={`key-reason-${uuidv4()}`} value={reasonE.code}>
+                    {reasonE.name}
                   </option>
                 ))}
               </NativeSelect>

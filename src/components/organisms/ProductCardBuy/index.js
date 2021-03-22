@@ -34,7 +34,8 @@ const ProductCardBuy = ({
   isMobile,
   cartItems,
 }) => {
-  const maxQuantityProduct = isDeal && deal ? deal.maxQuantity : productMaxQuantity;
+  const maxQtyDeal = deal?.maxQuantity - deal?.quantity || 0;
+  const maxQuantityProduct = isDeal && (maxQtyDeal || productMaxQuantity);
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
