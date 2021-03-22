@@ -176,9 +176,9 @@ const TicketFormModal = (props) => {
             spacing={1}
           >
             <InfoFormControl
-              label="Hình ảnh phản hồi"
+              label="Hình ảnh minh họa"
               xs={12}
-              isRequired
+              
               className={styles.customText}
             />
             <br />
