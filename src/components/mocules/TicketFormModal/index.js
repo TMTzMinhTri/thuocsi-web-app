@@ -168,7 +168,7 @@ const TicketFormModal = (props) => {
             </InfoFormControl>
           </Grid>
           <Grid
-            className={styles.textarea}
+            className={styles.imagesField}
             item
             xs={12}
             container
