@@ -61,7 +61,8 @@
 .container [class*='input__info'] {
   height: 50px !important;
 }
-.textarea{
+.textarea,
+.imagesField{
   margin-top: 10px !important;
 }
 .info_group{
@@ -72,4 +73,11 @@
 }
 .rug-handle-icon{
   width: 70px;
+}
+.customText{
+  margin-bottom: 5px;
+}
+
+.imagesField [class*='info_form_grid']{
+  margin-bottom: 5px;
 }

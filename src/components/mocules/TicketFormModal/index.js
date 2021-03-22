@@ -12,7 +12,17 @@ import InfoInput from '../InfoInput';
 import validateForm from './validateForm';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo, reasonsList } = props;
+  const {
+    visible,
+    onClose,
+    orderID,
+    name,
+    phone,
+    orderTime,
+    orderNo,
+    bankInfo,
+    reasonsList,
+  } = props;
   const [reason, setReason] = useState('');
   const [val, setVal] = useState({
     bankCode: bankInfo?.bankCode || '',
@@ -110,7 +120,7 @@ const TicketFormModal = (props) => {
                 onChange={(e) => handleChangeValue('bankAccountName', e.target.value)}
               />
             </InfoFormControl>
-            <InfoFormControl xs={12} md={6} label="Số tài khoản" isRequired htmlFor="bankCode">
+            <InfoFormControl xs={12} md={6} label="Số tài khoản" htmlFor="bankCode">
               <InfoInput
                 id="bankCode"
                 placeholder="Nhập số tài khoản"
@@ -146,7 +156,7 @@ const TicketFormModal = (props) => {
             <InfoFormControl label="Nội dung phản hồi" xs={12} isRequired htmlFor="description">
               <br />
               <TextField
-                id="description"
+                id="note"
                 multiline
                 rows={4}
                 variant="outlined"
@@ -158,13 +168,20 @@ const TicketFormModal = (props) => {
             </InfoFormControl>
           </Grid>
           <Grid
-            className={styles.textarea}
+            className={styles.imagesField}
             item
             xs={12}
             container
             justify="space-evenly"
             spacing={1}
           >
+            <InfoFormControl
+              label="Hình ảnh phản hồi"
+              xs={12}
+              isRequired
+              className={styles.customText}
+            />
+            <br />
             <UploadImages onChange={handleOnChangeImages} />
           </Grid>
           <Grid className={styles.textarea} item container justify="center" xs={12} spacing={1}>

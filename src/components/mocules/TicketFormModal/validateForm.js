@@ -1,8 +1,8 @@
 import { ValidateUtils } from 'utils';
 
-const validateForm = ({ bankCode }) => {
-  if (ValidateUtils.isEmpty(bankCode)) throw Error('Số tài khoản không được rỗng');
-  if (!ValidateUtils.isNumber(bankCode)) throw Error('số tài khoản sai định dạng');
+const validateForm = ({ note, imageUrls }) => {
+  if (ValidateUtils.isEmpty(note)) throw Error('Bạn chưa nhập nội dung phản hồi');
+  if (ValidateUtils.isEmpty(imageUrls)) throw Error('Vui lòng gửi hình ảnh phản hồi');
 };
 
 export default validateForm;
