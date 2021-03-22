@@ -93,7 +93,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   } = product;
 
   const maxQuantity = isDeal && deal ? deal.maxQuantity : prdMaxQuantity;
-  const amountRemaining = formatNumber(maxQuantity - product.quantity);
+  const amountRemaining = formatNumber(maxQuantity - (deal?.quantity || 0));
 
   // const { quantity } = product;
 
