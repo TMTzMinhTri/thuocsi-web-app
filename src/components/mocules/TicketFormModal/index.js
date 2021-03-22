@@ -175,12 +175,7 @@ const TicketFormModal = (props) => {
             justify="space-evenly"
             spacing={1}
           >
-            <InfoFormControl
-              label="Hình ảnh minh họa"
-              xs={12}
-              
-              className={styles.customText}
-            />
+            <InfoFormControl label="Hình ảnh minh họa" xs={12} className={styles.customText} />
             <br />
             <UploadImages onChange={handleOnChangeImages} />
           </Grid>

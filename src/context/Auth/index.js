@@ -96,7 +96,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     const res = await getUserInfo();
     const userInfo = getFirst(res, null);
     // check guest user expireAt
-    if (userInfo && userInfo.level === 'LEVEL_GUEST') {
+    if (userInfo && userInfo.isQuest) {
       const timeRemaining = new Date(userInfo.expireAt).getTime() - new Date().getTime();
 
       // time remaining

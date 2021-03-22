@@ -55,7 +55,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     return <LoadingScreen />;
   }
 
-  if (user.guestId && user.guestId > 0) {
+  if (user.isQuest) {
     NotifyUtils.info(
       'Bạn đang sử dụng tài khoản dùng thử, vui lòng tạo tài khoản để có thể thanh toán đơn hàng.',
     );

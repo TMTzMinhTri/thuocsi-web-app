@@ -4,7 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Link from 'next/link';
 import { LocalOffer } from '@material-ui/icons';
 import { FormatNumber } from 'utils';
-import { useCart , useAuth } from 'context';
+import { useCart, useAuth } from 'context';
 import { useRouter } from 'next/router';
 import { CART_URL, CHECKOUT_URL } from 'constants/Paths';
 import clsx from 'clsx';
@@ -12,7 +12,6 @@ import PromoListModal from 'components/mocules/PromoListModal';
 import { CartClient } from 'clients';
 import { isEmpty } from 'utils/ValidateUtils';
 import styles from '../styles.module.css';
-
 
 const DeleteIconButton = (props) => (
   <IconButton {...props} style={{ padding: 0 }}>
@@ -89,7 +88,7 @@ const FooterWithCart = () => {
                   }}
                   className={styles.disabled}
                   variant="outlined"
-                  disabled={user.level === "LEVEL_GUEST"}
+                  disabled={user.isQuest}
                 >
                   Thanh toán
                 </Button>
@@ -105,7 +104,7 @@ const FooterWithCart = () => {
                     root: styles.btn_checkout,
                   }}
                   variant="outlined"
-                  disabled={user.level === "LEVEL_GUEST"}
+                  disabled={user.isQuest}
                 >
                   Tiếp tục
                 </Button>

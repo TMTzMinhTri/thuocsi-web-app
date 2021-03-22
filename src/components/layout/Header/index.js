@@ -102,7 +102,6 @@ const InfoHeader = memo(({ t }) => {
         ) : (
           <>
             <SearchInpuEle />
-
             <div className={styles.rSection}>
               <Menu
                 id="fade-menu"

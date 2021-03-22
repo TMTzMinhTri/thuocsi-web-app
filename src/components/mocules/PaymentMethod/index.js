@@ -33,7 +33,7 @@ const renderPaymentMethod = ({ item }) => {
   );
 };
 
-const PaymentMethod = ({ handleChange, selectedValue, paymentMethods }) => (
+const PaymentMethod = ({ handleChange, selectedValue = '', paymentMethods = [] }) => (
   <Paper className={styles.root} elevation={4}>
     <h1 className={styles.title}>Hình thức thanh toán</h1>
 

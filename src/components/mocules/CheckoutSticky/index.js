@@ -18,6 +18,7 @@ import { LinkComp, ButtonDefault } from 'components/atoms';
 
 import styles from './styles.module.css';
 
+// comp thanh toán , sticky
 const CheckoutSticky = ({
   data,
   dataCustomer,
@@ -125,10 +126,6 @@ const CheckoutSticky = ({
     const response = await CheckoutClient.Checkout(formValue);
     if (isValid(response)) {
       const { orderId } = response.data[0];
-      // if (savedInfo?.checked) {
-      //   handleUpdateProfile();
-      // }
-      // update
       updateCart();
       router.push(`${THANKYOU_URL}/${orderId}`);
     } else {
@@ -223,7 +220,7 @@ const CheckoutSticky = ({
               <div className={styles.price}>{formatCurrency(subTotalPrice)}</div>
               <div>
                 <ButtonDefault
-                  disabled={!checkCondition.checked || user.level === 'LEVEL_GUEST'}
+                  disabled={!checkCondition.checked || user.isQuest}
                   btnType="warning"
                   onClick={handleSubmit}
                   classes={{

@@ -32,7 +32,7 @@ const PaymentButton = ({ user }) => (
         Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
       </Alert>
     )}
-    {user.level === 'LEVEL_GUEST' && (
+    {user.isQuest && (
       <Alert severity="error" style={{ margin: '5px' }}>
         Đây là tài khoản dùng thử. Giỏ hàng sẽ không thể lưu và thanh toán được. Xin bạn vui lòng
         tạo tài khoản cá nhân để sử dụng tính năng này! Cảm ơn!

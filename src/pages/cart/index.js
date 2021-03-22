@@ -33,13 +33,13 @@ function Cart({ isMobile, user }) {
       balance={user.balance}
     >
       <Container className={styles.wrapper} maxWidth="lg">
-        {user.level !== 'LEVEL_GUEST' || isMobile === false ? null : (
+        {user?.isQuest && isMobile && (
           <Alert className={styles.alert} severity="error">
             Đây là tài khoản dùng thử. Giỏ hàng sẽ không thể lưu và thanh toán được. Xin bạn vui
             lòng tạo tài khoản cá nhân để sử dụng tính năng này! Cảm ơn!
           </Alert>
         )}
-        {user?.isActive || isMobile === false ? null : (
+        {!user?.isActive && isMobile && (
           <Alert className={styles.alert} severity="error">
             Tạm thời chưa thanh toán được vì tài khoản chưa được kích hoạt.
           </Alert>
