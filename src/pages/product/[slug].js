@@ -248,10 +248,10 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                             {isDeal && deal ? (
                               <>
                                 <span className={styles.deal_price}>
-                                  {formatCurrency(deal?.salePrice)}
+                                  {formatCurrency(deal?.price)}
                                 </span>
                                 <span className={styles.old_price}>
-                                  {formatCurrency(salePrice)}
+                                  {formatCurrency(product.salePrice)}
                                 </span>
                               </>
                             ) : (
