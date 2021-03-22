@@ -101,12 +101,16 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
 
       // time remaining
       // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
-      setTimeout(() => logout(() => {
-        if (router.pathname !== '/') {
-          router.push('/');
-        }
-        toggleShowGuestExpiredTime();
-      }), timeRemaining);
+      setTimeout(
+        () =>
+          logout(() => {
+            if (router.pathname !== '/') {
+              router.push('/');
+            }
+            toggleShowGuestExpiredTime();
+          }),
+        timeRemaining,
+      );
     }
 
     setInfoUser(userInfo);
@@ -156,15 +160,15 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     AuthService.registerGuest(data)
       .then((result) => {
         if (!isValid(result)) {
-          if(result.errorCode === "CUSTOMER_EXISTED"){
+          if (result.errorCode === 'CUSTOMER_EXISTED') {
             NotifyUtils.error(result.message);
             toggleRegisterGuest(false);
             toggleLogin();
-          } else{
+          } else {
             const errorCode = `login.${result.errorCode}`;
             NotifyUtils.error(t(errorCode));
           }
-          return
+          return;
         }
         const { phone } = getFirst(result);
         const userName = `guest${phone}`;
@@ -198,7 +202,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   }, []);
 
   useEffect(() => {
-    loadUserFromCookies();
+    if (user === null) loadUserFromCookies();
   }, [pathname, loadUserFromCookies]);
 
   return (
@@ -225,7 +229,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         handleChangeSignIn,
         handleChangeSignUp,
         handleChangeRegisterGuest,
-        handleResetPassword
+        handleResetPassword,
       }}
     >
       {children}

@@ -28,14 +28,6 @@ async function getInfoBanner() {
   return result.data;
 }
 
-async function getMenu() {
-  const result = await GET({ url: '/menu', mock: true });
-  if (!isValid(result)) {
-    return [];
-  }
-  return result.data;
-}
-
 async function loadDataPormotion(ctx) {
   const res = await GET({ url: '/mock/product', mock: true, ctx });
   if (!isValid(res)) {
@@ -95,7 +87,6 @@ export default {
   loadDataMostSearch,
   loadFeedback,
   getInfoBanner,
-  getMenu,
   loadDataPormotion,
   loadDataProductCollection,
   loadDataManufacturer,

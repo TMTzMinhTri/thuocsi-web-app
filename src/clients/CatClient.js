@@ -1,15 +1,15 @@
-import { CATEGORY_API, PRODUCT_API } from 'constants/APIUri';
+import { PRODUCT_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
 
 async function loadBrand(ctx) {
-  const res = await GET({ url: CATEGORY_API.BRAND, ctx, isBasic: true });
+  const res = await GET({ url: PRODUCT_API.MANUFACTURER, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }
   return res.data;
 }
 async function loadGroup(ctx) {
-  const res = await GET({ url: CATEGORY_API.GROUP, ctx, isBasic: true });
+  const res = await GET({ url: PRODUCT_API.CATEGORY_LIST, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }
@@ -17,7 +17,7 @@ async function loadGroup(ctx) {
 }
 async function loadCategoryInfoBySlug(ctx) {
   const { query } = ctx;
-  const url = `${CATEGORY_API.CATEGORY_INFO}?q=${query.slug || ''}`;
+  const url = `${PRODUCT_API.CATEGORY_INFO}?q=${query.slug || ''}`;
   const res = await GET({ url, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
@@ -27,7 +27,7 @@ async function loadCategoryInfoBySlug(ctx) {
 
 async function loadManufacturerInfoBySlug(ctx) {
   const { query } = ctx;
-  const url = `${CATEGORY_API.MANUFACTURER_INFO}?q=${query.slug || ''}`;
+  const url = `${PRODUCT_API.MANUFACTURER_INFO}?q=${query.slug || ''}`;
   const res = await GET({ url, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
