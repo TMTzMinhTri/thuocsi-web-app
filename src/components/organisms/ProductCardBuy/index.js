@@ -10,6 +10,7 @@ import { CustomModal } from 'components/mocules';
 import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
 import DealSection from 'components/mocules/DealSection';
 import { getFirst, isValid } from 'clients';
+import { MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
 import RemoveProductModal from '../RemoveProductModal';
 import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
@@ -35,7 +36,7 @@ const ProductCardBuy = ({
   cartItems,
 }) => {
   const maxQtyDeal = deal?.maxQuantity - deal?.quantity || 0;
-  const maxQuantityProduct = isDeal && (maxQtyDeal || productMaxQuantity);
+  const maxQuantityProduct = isDeal && maxQtyDeal || productMaxQuantity < MAX_PRODUCT_QTY_DISPLAY && productMaxQuantity;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
@@ -174,7 +175,7 @@ const ProductCardBuy = ({
                       : clsx(styles.price_wrapper, styles.price_wrapper_column)
                   }
                 >
-                  <Typography className={styles.deal_price}>{salePrice}</Typography>
+                  <Typography className={styles.deal_price}>{formatCurrency(salePrice)}</Typography>
                 </div>
               )}
               {!isMobile && maxQuantityProduct ? (
