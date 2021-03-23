@@ -1,17 +1,27 @@
 import { Template, OrderDetailContainer, InfoContainer } from 'components';
 import { Container } from '@material-ui/core';
-import { OrderClient, isValid, isValidWithoutData, CustomerClient, TicketClient, getData } from 'clients';
+import {
+  OrderClient,
+  isValid,
+  isValidWithoutData,
+  CustomerClient,
+  TicketClient,
+  getData,
+} from 'clients';
 import { doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
-    const [orderRes, bankData, reasonsRes] = await Promise.all([
+    const [orderRes, bankData, reasonsRes, i18next] = await Promise.all([
       OrderClient.getOrderById({ id: Number(id), ctx }),
       CustomerClient.getBankAccount(ctx),
-      TicketClient.getListReasons(ctx)
+      TicketClient.getListReasons(ctx),
+      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
     ]);
 
     if (!isValid(orderRes)) {
@@ -33,7 +43,8 @@ export async function getServerSideProps(ctx) {
           order,
           products: [],
           bankInfo,
-          reasonsList
+          reasonsList,
+          ...i18next,
         },
       };
     }
@@ -47,7 +58,8 @@ export async function getServerSideProps(ctx) {
           order,
           products,
           bankInfo,
-          reasonsList
+          reasonsList,
+          ...i18next,
         },
       };
     }
@@ -61,7 +73,8 @@ export async function getServerSideProps(ctx) {
         order,
         products: productDetails,
         bankInfo,
-        reasonsList
+        reasonsList,
+        ...i18next,
       },
     };
   });

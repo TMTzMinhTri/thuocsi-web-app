@@ -26,6 +26,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { MOBILE } from 'constants/Device';
 
 import { fbpixel, gtag, ScrollToTop } from 'utils';
+import { FACEBOOK_MESSENGER_ID } from 'sysconfig';
 import MessengerChat from 'utils/MessengerChat';
 
 const MyApp = (props) => {
@@ -84,7 +85,7 @@ const MyApp = (props) => {
               <CartContextProvider>
                 <NotiContextProvider>
                   <Component {...pageProps} />
-                  <MessengerChat pageId="548944538816598" ref={refContainer} />
+                  <MessengerChat pageId={FACEBOOK_MESSENGER_ID} ref={refContainer} />
                   <ScrollToTop />
                 </NotiContextProvider>
                 <ToastContainer limit={6} />
