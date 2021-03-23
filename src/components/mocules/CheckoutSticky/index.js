@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Paper, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +24,7 @@ const CheckoutSticky = ({
   dataCustomer,
   onSetError,
   isMobile,
+  onLoading
   // savedInfo,
 }) => {
   const {
@@ -39,7 +40,7 @@ const CheckoutSticky = ({
   } = useCart();
   const { user } = useAuth();
   const router = useRouter();
-  const [checkCondition, setCheckCondition] = React.useState({
+  const [checkCondition, setCheckCondition] = useState({
     checked: false,
   });
   const GreenCheckbox = React.memo((props) => (
@@ -111,14 +112,17 @@ const CheckoutSticky = ({
   };
 
   const handleSubmit = async () => {
+    onLoading(true);
     const formValue = {
       ...data,
       ...dataCustomer,
     };
     if (!validateSubmit(formValue)) {
+      onLoading(false);
       return;
     }
     if (!checkCondition.checked) {
+      onLoading(false);
       NotifyUtils.error(`Bạn chưa chấp nhận điều khoản sử dụng`);
       return;
     }
@@ -129,6 +133,7 @@ const CheckoutSticky = ({
       updateCart();
       router.push(`${THANKYOU_URL}/${orderId}`);
     } else {
+      onLoading(false);
       NotifyUtils.error(
         `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
       );

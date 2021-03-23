@@ -141,7 +141,7 @@ export const CartContextProvider = ({ children }) => {
     customerShippingAddress,
   }) => {
     const res = await CartClient.updateDeliveryMethod({
-      deliveryPlatform: deliveryMethod,
+      deliveryMethod,
       customerDistrictCode,
       customerProvinceCode,
       customerWardCode,

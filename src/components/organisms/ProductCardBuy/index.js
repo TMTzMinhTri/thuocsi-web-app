@@ -20,7 +20,7 @@ const IMPORTANT_PERCENT_MAX = 20 / 100;
 const ProductCardBuy = ({
   maxQuantity: productMaxQuantity,
   not_support_delivery: noSupportDelivery,
-  price,
+  salePrice = 0,
   // dealPrice,
   isDeal = false,
   deal = {},
@@ -143,7 +143,7 @@ const ProductCardBuy = ({
               row ? styles.price_wrapper : clsx(styles.price_wrapper, styles.price_wrapper_column)
             }
           >
-            <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
+            <Typography className={styles.deal_price}>{formatCurrency(salePrice)}</Typography>
           </div>
           <Typography textAlign="center" className={clsx(styles.text_danger, styles.center)}>
             Chưa hỗ trợ giao tỉnh
@@ -164,7 +164,7 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>
                     {formatCurrency(deal?.price)}
                   </Typography>
-                  <Typography className={styles.old_price}>{formatCurrency(price)}</Typography>
+                  <Typography className={styles.old_price}>{formatCurrency(product?.salePrice)}</Typography>
                 </div>
               ) : (
                 <div
@@ -174,7 +174,7 @@ const ProductCardBuy = ({
                       : clsx(styles.price_wrapper, styles.price_wrapper_column)
                   }
                 >
-                  <Typography className={styles.deal_price}>{formatCurrency(price)}</Typography>
+                  <Typography className={styles.deal_price}>{salePrice}</Typography>
                 </div>
               )}
               {!isMobile && maxQuantityProduct ? (
