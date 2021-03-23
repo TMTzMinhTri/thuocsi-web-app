@@ -57,6 +57,7 @@ const MyApp = (props) => {
     };
   }, [router.events]);
 
+  // TODO:
   return (
     <>
       <Head>
