@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { isValidWithoutData } from 'clients';
 import { AuthService } from 'services';
 import { NotifyUtils } from 'utils';
-import { i18n } from 'i18n-lib';
+import { useTranslation } from 'next-i18next';
+
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { AuthModal, ForgetPasswordForm } from '../../mocules';
 import styles from './styles.module.css';
@@ -13,14 +14,14 @@ const ForgetPasswordModal = React.memo((props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTimeOut, setIsTimeOut] = useState(false);
   const [toggleResend, setToggleResend] = useState(false);
-  const { t } = i18n.useTranslation(['apiErrors']);
+  const { t } = useTranslation('apiErrors');
 
   const onClickPhoneForm = async (data) => {
     setIsLoading(true);
     const result = await AuthService.passwordRecovery(data);
     if (isValidWithoutData(result)) {
       setStep(2);
-      NotifyUtils.success("Yêu cầu thay đổi mật khẩu thành công. Kiểm tra tin nhắn để lấy mã OTP");
+      NotifyUtils.success('Yêu cầu thay đổi mật khẩu thành công. Kiểm tra tin nhắn để lấy mã OTP');
       setIsLoading(false);
       setToggleResend(!toggleResend);
     } else {
@@ -50,9 +51,12 @@ const ForgetPasswordModal = React.memo((props) => {
     if (isValidWithoutData(result)) {
       setStep(3);
       setIsLoading(false);
-      NotifyUtils.success("Mật khẩu mới đã được cập nhật");
+      NotifyUtils.success('Mật khẩu mới đã được cập nhật');
     } else {
-      const errorCode = `login.${result.errorCode}`;
+      let errorCode = `login.${result.errorCode}`;
+      if (result.errorCode === 'NOT_FOUND') {
+        errorCode = 'Nhập sai mã OTP. Vui lòng kiểm tra lại';
+      }
       NotifyUtils.error(t(errorCode));
       setIsLoading(false);
     }
@@ -62,7 +66,7 @@ const ForgetPasswordModal = React.memo((props) => {
     setStep(1);
     setIsTimeOut(false);
     setIsLoading(false);
-  }
+  };
 
   const handleClose = () => {
     clearState();
@@ -71,7 +75,7 @@ const ForgetPasswordModal = React.memo((props) => {
 
   const timeOut = () => {
     setIsTimeOut(true);
-  }
+  };
   return (
     <AuthModal
       visible={visible}

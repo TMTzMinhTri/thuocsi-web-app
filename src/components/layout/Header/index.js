@@ -10,7 +10,7 @@ import { LOGO_THUOCSI } from 'constants/Images';
 import { HeaderUser, SearchInput } from 'components/mocules';
 import { LinkComp, ButtonHeader } from 'components/atoms';
 import { useAuth, useNotify } from 'context';
-import { i18n } from 'i18n-lib';
+import { useTranslation } from 'next-i18next';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import styles from './styles.module.css';
@@ -50,7 +50,8 @@ const HeaderInfoEle = memo(() => (
   </div>
 ));
 
-const InfoHeader = memo(({ t }) => {
+const InfoHeader = memo(() => {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { user, isAuthenticated, toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();
@@ -102,7 +103,6 @@ const InfoHeader = memo(({ t }) => {
         ) : (
           <>
             <SearchInpuEle />
-
             <div className={styles.rSection}>
               <Menu
                 id="fade-menu"
@@ -196,4 +196,4 @@ const InfoHeader = memo(({ t }) => {
   );
 });
 
-export default i18n.withTranslation()(InfoHeader);
+export default InfoHeader;

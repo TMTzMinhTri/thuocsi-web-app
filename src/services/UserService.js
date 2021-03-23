@@ -3,6 +3,7 @@ import { AuthClient, getFirst, isValid } from 'clients';
 const wrapInfo = (info) => ({
   ...info,
   isActive: info.status === 'ACTIVE',
+  isQuest: info.level === 'LEVEL_GUEST',
   createdTime: null,
   lastUpdatedTime: null,
 });

@@ -9,7 +9,7 @@ import { NotifyUtils } from 'utils';
 import { useModal } from 'hooks';
 import { QUICK_ORDER } from 'constants/Paths';
 
-import { i18n } from 'i18n-lib';
+import { useTranslation } from 'next-i18next';
 
 const AuthContext = createContext({});
 
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   const [isShowRegisterGuest, toggleRegisterGuest] = useModal(false);
   const [isShowGuestExpiredTime, toggleShowGuestExpiredTime] = useModal();
 
-  const { t } = i18n.useTranslation(['apiErrors']);
+  const { t } = useTranslation('apiErrors');
 
   const handleChangeForget = useCallback(() => {
     toggleLogin();
@@ -96,17 +96,21 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     const res = await getUserInfo();
     const userInfo = getFirst(res, null);
     // check guest user expireAt
-    if (userInfo && userInfo.level === 'LEVEL_GUEST') {
+    if (userInfo && userInfo.isQuest) {
       const timeRemaining = new Date(userInfo.expireAt).getTime() - new Date().getTime();
 
       // time remaining
       // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
-      setTimeout(() => logout(() => {
-        if (router.pathname !== '/') {
-          router.push('/');
-        }
-        toggleShowGuestExpiredTime();
-      }), timeRemaining);
+      setTimeout(
+        () =>
+          logout(() => {
+            if (router.pathname !== '/') {
+              router.push('/');
+            }
+            toggleShowGuestExpiredTime();
+          }),
+        timeRemaining,
+      );
     }
 
     setInfoUser(userInfo);
@@ -156,15 +160,15 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     AuthService.registerGuest(data)
       .then((result) => {
         if (!isValid(result)) {
-          if(result.errorCode === "CUSTOMER_EXISTED"){
+          if (result.errorCode === 'CUSTOMER_EXISTED') {
             NotifyUtils.error(result.message);
             toggleRegisterGuest(false);
             toggleLogin();
-          } else{
+          } else {
             const errorCode = `login.${result.errorCode}`;
             NotifyUtils.error(t(errorCode));
           }
-          return
+          return;
         }
         const { phone } = getFirst(result);
         const userName = `guest${phone}`;
@@ -198,7 +202,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   }, []);
 
   useEffect(() => {
-    loadUserFromCookies();
+    if (user === null) loadUserFromCookies();
   }, [pathname, loadUserFromCookies]);
 
   return (
@@ -225,7 +229,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         handleChangeSignIn,
         handleChangeSignUp,
         handleChangeRegisterGuest,
-        handleResetPassword
+        handleResetPassword,
       }}
     >
       {children}

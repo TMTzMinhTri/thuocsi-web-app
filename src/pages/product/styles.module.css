@@ -108,7 +108,16 @@
 .product_price {
     color: #00b46e;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+.old_price{
+    padding-left: 10px;
+    color: #919aa3;
+    font-size: 20px!important;
+    font-weight: 500;
+    text-decoration: line-through;
 }
 
 .product_action {
@@ -207,7 +216,8 @@
     font-size: 12.8px!important;
     font-weight: 400!important;
     color: #dc3545 !important;
-    line-height: 2!important;
+    line-height: 1!important;
+    margin-bottom: 5px !important;
 }
 
 .supplierYearWrap {
@@ -312,6 +322,13 @@
     .detail_wrapper {
         background-color: #f4f7fc;
         padding-bottom: 80px;
+    }
+    .price_info {
+        display: block !important;
+        margin-bottom: 24px;
+    }
+    .text_danger{
+        margin-top: 10px !important;
     }
 }
 

@@ -40,6 +40,16 @@
     resize: vertical;
 }
 
+.overlay{
+    background-color: #00000094 !important;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9;
+}
+
 @media (max-width: 767px){
     .payment_wrapper {
         padding: 0 15px 80px;

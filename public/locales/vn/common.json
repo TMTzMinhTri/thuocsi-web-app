@@ -1,0 +1,50 @@
+{
+  "h1": "a Simple example",
+  "page": {
+    "homepage": "Trang chủ",
+    "notification": "Trang thông báo",
+    "cart": "Trang giỏ hàng",
+    "products": "Trang danh sách sản phẩm",
+    "promotion": "Trang mã giảm giá",
+    "deals": "Trang khuyến mãi"
+  },
+  "login": "Đăng nhập",
+  "logout": "Đăng xuất",
+  "register": "Tạo tài khoản",
+  "tester": {
+    "test": "Dùng thử",
+    "register": "Đăng ký",
+    "success": "Đăng ký dùng thử thành công"
+  },
+  "forget_password": "Quên mật khẩu",
+  "news": "Tin Tức",
+  "recruitment": "Tuyển dụng",
+  "api.login.NOT_FOUND": "Không tìm thấy thông tin người dùng",
+  "api": {
+    "login": {
+      "SUCCESS": "Đăng nhập thành công",
+      "NOT_FOUND": "Không tìm thấy thông tin người dùng",
+      "CUSTOMER_EXISTED": "Người dùng này đã đăng ký"
+    }
+  },
+  "payment": {
+    "method": {
+      "COD": "Thanh toán tiền mặt khi nhận hàng",
+      "CK": "Chuyển Khoản",
+      "PAYMENT_METHOD_NORMAL": "Thanh toán tiền mặt khi nhận hàng",
+      "PAYMENT_METHOD_BANK": "Chuyển khoản"
+    }
+  },
+  "delivery": {
+    "method": {
+      "DELIVERY_PLATFORM_SUPER": "Giao hàng siêu cấp",
+      "DELIVERY_PLATFORM_NORMAL": "Giao hàng tiêu chuẩn",
+      "DELIVERY_PLATFORM_FAST": "Giao hàng nhanh"
+    }
+  },
+  "scope": {
+    "PHARMACY": "Nhà thuốc",
+    "CLINIC": "Phòng khám",
+    "DRUGSTORE": "Tiệm thuốc"
+  }
+}

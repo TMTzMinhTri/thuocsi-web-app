@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAuth, useCart } from 'context';
-import { i18n } from 'i18n-lib';
 import { AuthModal, RegisterGuestForm } from 'components/mocules';
 
 const RegisterGuestModal = ({ className, visible, onClose }) => {
@@ -32,4 +31,4 @@ const RegisterGuestModal = ({ className, visible, onClose }) => {
   );
 };
 
-export default i18n.withTranslation('apiErrors')(React.memo(RegisterGuestModal));
+export default React.memo(RegisterGuestModal);

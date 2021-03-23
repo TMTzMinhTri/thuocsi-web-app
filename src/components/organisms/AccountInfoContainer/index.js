@@ -3,12 +3,13 @@ import { Grid } from '@material-ui/core';
 import { AccountForm, EnterpriseForm } from 'components/mocules';
 import { CustomerClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
-import { i18n } from 'i18n-lib';
+import { useTranslation } from 'next-i18next';
 import UpdateButton from './UpdateButton';
 import validateForm from './validateForm';
 import styles from './styles.module.css';
 
-const AccountInfoFormContainer = ({ user, t }) => {
+const AccountInfoFormContainer = ({ user }) => {
+  const { t } = useTranslation();
   const {
     name,
     phone,
@@ -104,4 +105,4 @@ const AccountInfoFormContainer = ({ user, t }) => {
   );
 };
 
-export default i18n.withTranslation('common')(React.memo(AccountInfoFormContainer));
+export default React.memo(AccountInfoFormContainer);

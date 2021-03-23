@@ -78,7 +78,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
 
   const {
     name,
-    price,
+    salePrice,
     unit,
     volume,
     ingredient = [],
@@ -89,10 +89,11 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     manufacturer,
     countryOfManufacture,
     isDeal,
-    deal,
+    deal
   } = product;
 
   const maxQuantity = isDeal && deal ? deal.maxQuantity : prdMaxQuantity;
+  const amountRemaining = formatNumber(maxQuantity - (deal?.quantity || 0));
 
   // const { quantity } = product;
 
@@ -244,10 +245,23 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       <div className={styles.price_info}>
                         <div className={styles.product_price_group}>
                           <span className={styles.product_price}>
-                            {price && formatCurrency(price)}
+                            {isDeal && deal ? (
+                              <>
+                                <span className={styles.deal_price}>
+                                  {formatCurrency(deal?.price)}
+                                </span>
+                                <span className={styles.old_price}>
+                                  {formatCurrency(product.salePrice)}
+                                </span>
+                              </>
+                            ) : (
+                              <span className={styles.deal_price}>
+                                {formatCurrency(salePrice)}
+                              </span>
+                            )}
                             {isMobile && maxQuantity ? (
                               <Typography className={styles.text_danger}>
-                                Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
+                                Đặt tối đa {amountRemaining} sản phẩm
                               </Typography>
                             ) : null}
                           </span>
@@ -308,7 +322,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       <>
                         {!isMobile && maxQuantity ? (
                           <Typography className={styles.text_danger}>
-                            Đặt tối đa {formatNumber(maxQuantity)} sản phẩm
+                            Đặt tối đa {amountRemaining} sản phẩm
                           </Typography>
                         ) : null}
                       </>

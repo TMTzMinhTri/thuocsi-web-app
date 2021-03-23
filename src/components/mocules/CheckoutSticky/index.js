@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Paper, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
@@ -18,11 +18,13 @@ import { LinkComp, ButtonDefault } from 'components/atoms';
 
 import styles from './styles.module.css';
 
+// comp thanh toán , sticky
 const CheckoutSticky = ({
   data,
   dataCustomer,
   onSetError,
   isMobile,
+  onLoading
   // savedInfo,
 }) => {
   const {
@@ -38,7 +40,7 @@ const CheckoutSticky = ({
   } = useCart();
   const { user } = useAuth();
   const router = useRouter();
-  const [checkCondition, setCheckCondition] = React.useState({
+  const [checkCondition, setCheckCondition] = useState({
     checked: false,
   });
   const GreenCheckbox = React.memo((props) => (
@@ -110,14 +112,17 @@ const CheckoutSticky = ({
   };
 
   const handleSubmit = async () => {
+    onLoading(true);
     const formValue = {
       ...data,
       ...dataCustomer,
     };
     if (!validateSubmit(formValue)) {
+      onLoading(false);
       return;
     }
     if (!checkCondition.checked) {
+      onLoading(false);
       NotifyUtils.error(`Bạn chưa chấp nhận điều khoản sử dụng`);
       return;
     }
@@ -125,13 +130,10 @@ const CheckoutSticky = ({
     const response = await CheckoutClient.Checkout(formValue);
     if (isValid(response)) {
       const { orderId } = response.data[0];
-      // if (savedInfo?.checked) {
-      //   handleUpdateProfile();
-      // }
-      // update
       updateCart();
       router.push(`${THANKYOU_URL}/${orderId}`);
     } else {
+      onLoading(false);
       NotifyUtils.error(
         `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
       );
@@ -223,7 +225,7 @@ const CheckoutSticky = ({
               <div className={styles.price}>{formatCurrency(subTotalPrice)}</div>
               <div>
                 <ButtonDefault
-                  disabled={!checkCondition.checked || user.level === 'LEVEL_GUEST'}
+                  disabled={!checkCondition.checked || user.isQuest}
                   btnType="warning"
                   onClick={handleSubmit}
                   classes={{

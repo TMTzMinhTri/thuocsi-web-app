@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAuth, useCart } from 'context';
-import { i18n } from 'i18n-lib';
 import { AuthModal, SignInForm } from 'components/mocules';
 
 const SignInModal = ({ className, visible, onClose, onChangeForget, onChangeSignUp }) => {
@@ -35,4 +34,4 @@ const SignInModal = ({ className, visible, onClose, onChangeForget, onChangeSign
   );
 };
 
-export default i18n.withTranslation('apiErrors')(React.memo(SignInModal));
+export default React.memo(SignInModal);

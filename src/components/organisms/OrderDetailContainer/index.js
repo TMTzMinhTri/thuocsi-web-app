@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useModal } from 'hooks';
 import styles from './styles.module.css';
 
-const OrderDetailContainer = ({ order, products, bankInfo, user, isMobile }) => {
+const OrderDetailContainer = ({ order, products, bankInfo, reasonsList, user, isMobile }) => {
   const [orderTicket, setOrderTicket] = useState({});
   const [open, toggleOpen] = useModal();
 
@@ -72,6 +72,7 @@ const OrderDetailContainer = ({ order, products, bankInfo, user, isMobile }) => 
           <TicketFormModal
             {...orderTicket}
             bankInfo={bankInfo}
+            reasonsList={reasonsList}
             visible={open}
             onClose={toggleOpen}
           />

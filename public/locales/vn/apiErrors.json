@@ -1,0 +1,18 @@
+{
+  "success": "Thành công",
+  "error": "Đã xảy ra lỗi",
+  "500": "Đã xảy ra lỗi",
+  "login": {
+    "undefined": "Đăng nhập thất bại",
+    "success": "Đăng nhập thành công .",
+    "NOT_FOUND": "Không tìm thấy thông tin người dùng",
+    "WRONG_PASSWORD": "Bạn đã nhập sai thông tin người dùng.",
+    "Not found any matched account.": "Không tìm thấy thông tin người dùng",
+    "CUSTOMER_EXISTED": "Người dùng đăng ký đã tồn tại",
+    "MISSING_TOKEN": "Bạn chưa nhập mã OTP",
+    "UPPER_REQUIRED": "Mật khẩu yêu cầu ít nhất 1 ký tự hoa"
+  },
+  "loginNotFound": "Không tìm thấy thông tin người dùng",
+  "INVALID_SESSION_TOKEN": "Tài khoản đã bị đăng xuất, xin vui lòng đăng nhập lại.",
+  "AUTHORIZATION_MISSING": "Bạn cần đăng nhập để thực hiện thao tác này "
+}

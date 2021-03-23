@@ -15,7 +15,7 @@ import { faSignOutAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { LINK_REGISTER, LOGO_FOOTER_REGISTER } from 'constants/Images';
 import { useRouter } from 'next/router';
 import { useAuth, useCart } from 'context';
-import { ProductClient } from 'clients';
+import { SettingClient } from 'clients';
 import { PRODUCTS_URL } from 'constants/Paths';
 import CustomModal from 'components/mocules/CustomModal';
 import { useModal } from 'hooks';
@@ -47,7 +47,7 @@ const SideBar = () => {
   }
   useEffect(() => {
     async function loadMenu() {
-      const data = await ProductClient.getMenu();
+      const data = await SettingClient.getMenu();
       setMenu(data);
     }
     loadMenu();

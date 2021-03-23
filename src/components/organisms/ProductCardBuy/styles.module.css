@@ -111,6 +111,11 @@
     .has_item input{
         color: #343a40;
     }
+    .text_danger {
+        font-size: 12px!important;
+        line-height: 1!important;
+        margin: 10px 0 !important;
+    }
 }
 @media (min-width: 768px) {
     .price_wrapper {

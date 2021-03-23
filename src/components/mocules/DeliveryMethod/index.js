@@ -67,7 +67,7 @@ const renderDeliveryMethod = ({ item, addressSelect, totalPrice = 0 }) => {
 
 const DeliveryMethod = ({
   handleChange,
-  selectedValue,
+  selectedValue = '',
   deliveryMethods,
   addressSelect,
   totalPrice,

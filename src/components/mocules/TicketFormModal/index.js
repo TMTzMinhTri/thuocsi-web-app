@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Modal, InfoFormControl, Button } from 'components/atoms';
 import { Grid, TextField, NativeSelect } from '@material-ui/core';
-import { FEEDBACK_REASON } from 'constants/Enums';
 import { ExpandMore } from '@material-ui/icons';
 import { TicketClient, isValid } from 'clients';
 import NotifyUtils from 'utils/NotifyUtils';
@@ -10,10 +9,21 @@ import { v4 as uuidv4 } from 'uuid';
 import UploadImages from '../UploadImages';
 import styles from './style.module.css';
 import InfoInput from '../InfoInput';
+import validateForm from './validateForm';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, orderID, name, phone, orderTime, orderNo, bankInfo } = props;
-  const [reason, setReason] = useState(FEEDBACK_REASON.VAN_DE_KHAC.code);
+  const {
+    visible,
+    onClose,
+    orderID,
+    name,
+    phone,
+    orderTime,
+    orderNo,
+    bankInfo,
+    reasonsList,
+  } = props;
+  const [reason, setReason] = useState('');
   const [val, setVal] = useState({
     bankCode: bankInfo?.bankCode || '',
     bankName: bankInfo?.bankName || '',
@@ -22,7 +32,6 @@ const TicketFormModal = (props) => {
     note: '',
     imageUrls: [],
   });
-
   const handleChangeValue = (key, value) => {
     setVal({ ...val, [key]: value });
   };
@@ -37,9 +46,10 @@ const TicketFormModal = (props) => {
       orderNo,
       saleOrderCode: orderNo,
       saleOrderID: orderID,
-      reasons: [FEEDBACK_REASON[reason].code],
+      reasons: [reason],
     };
     try {
+      validateForm(val);
       const feedbackResult = await TicketClient.createFeedback(data);
       if (!isValid(feedbackResult))
         throw new Error(feedbackResult.message || 'Gửi phản hồi thất bại');
@@ -93,22 +103,16 @@ const TicketFormModal = (props) => {
                 onChange={handleOnChangeReason}
                 className={styles.reason_select}
               >
-                {Object.keys(FEEDBACK_REASON).map((reasonE) => (
-                  <option key={`key-reason-${uuidv4()}`} value={FEEDBACK_REASON[reasonE].code}>
-                    {FEEDBACK_REASON[reasonE].name}
+                {reasonsList.map((reasonE) => (
+                  <option key={`key-reason-${uuidv4()}`} value={reasonE.code}>
+                    {reasonE.name}
                   </option>
                 ))}
               </NativeSelect>
             </InfoFormControl>
           </Grid>
           <Grid item xs={12} container justify="space-evenly" spacing={1}>
-            <InfoFormControl
-              xs={12}
-              md={6}
-              isRequired
-              label="Tên chủ tài khoản"
-              htmlFor="bankAccountName"
-            >
+            <InfoFormControl xs={12} md={6} label="Tên chủ tài khoản" htmlFor="bankAccountName">
               <InfoInput
                 id="bankAccountName"
                 placeholder="Nhập tên chủ tài khoản"
@@ -116,7 +120,7 @@ const TicketFormModal = (props) => {
                 onChange={(e) => handleChangeValue('bankAccountName', e.target.value)}
               />
             </InfoFormControl>
-            <InfoFormControl xs={12} md={6} isRequired label="Số tài khoản" htmlFor="bankCode">
+            <InfoFormControl xs={12} md={6} label="Số tài khoản" htmlFor="bankCode">
               <InfoInput
                 id="bankCode"
                 placeholder="Nhập số tài khoản"
@@ -124,7 +128,7 @@ const TicketFormModal = (props) => {
                 onChange={(e) => handleChangeValue('bankCode', e.target.value)}
               />
             </InfoFormControl>
-            <InfoFormControl xs={12} md={6} isRequired label="Ngân hàng" htmlFor="bankName">
+            <InfoFormControl xs={12} md={6} label="Ngân hàng" htmlFor="bankName">
               <InfoInput
                 id="bankName"
                 placeholder="Nhập tên ngân hàng"
@@ -132,7 +136,7 @@ const TicketFormModal = (props) => {
                 onChange={(e) => handleChangeValue('bankName', e.target.value)}
               />
             </InfoFormControl>
-            <InfoFormControl xs={12} md={6} isRequired label="Chi nhánh" htmlFor="bankBranch">
+            <InfoFormControl xs={12} md={6} label="Chi nhánh" htmlFor="bankBranch">
               <InfoInput
                 id="bankBranch"
                 placeholder="Nhập tên chi nhánh"
@@ -152,7 +156,7 @@ const TicketFormModal = (props) => {
             <InfoFormControl label="Nội dung phản hồi" xs={12} isRequired htmlFor="description">
               <br />
               <TextField
-                id="description"
+                id="note"
                 multiline
                 rows={4}
                 variant="outlined"
@@ -164,13 +168,15 @@ const TicketFormModal = (props) => {
             </InfoFormControl>
           </Grid>
           <Grid
-            className={styles.textarea}
+            className={styles.imagesField}
             item
             xs={12}
             container
             justify="space-evenly"
             spacing={1}
           >
+            <InfoFormControl label="Hình ảnh minh họa" xs={12} className={styles.customText} />
+            <br />
             <UploadImages onChange={handleOnChangeImages} />
           </Grid>
           <Grid className={styles.textarea} item container justify="center" xs={12} spacing={1}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { ProductClient, MarketingClient, getFirst } from 'clients';
 import { doWithServerSide, SettingService } from 'services';
 import dynamic from 'next/dynamic';
@@ -18,6 +19,7 @@ export async function getServerSideProps(ctx) {
         infoBanner: infoBanner?.data || [],
         blocks,
         settings: getFirst(settingsResult),
+        ...(await serverSideTranslations(ctx.locale, ['common', 'apiErrors'])),
       },
     };
   });

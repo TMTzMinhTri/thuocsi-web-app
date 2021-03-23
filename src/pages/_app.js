@@ -15,7 +15,7 @@ import Theme from 'components/layout/Theme';
 import { ToastContainer } from 'react-toastify';
 
 /// I18N
-import { i18n } from 'i18n-lib';
+import { appWithTranslation } from 'next-i18next';
 
 // CSS global
 import '../styles/globals.css';
@@ -27,8 +27,6 @@ import { MOBILE } from 'constants/Device';
 
 import { fbpixel, gtag, ScrollToTop } from 'utils';
 import MessengerChat from 'utils/MessengerChat';
-
-const NAMESPACE_REQUIRED_DEFAULT = 'common';
 
 const MyApp = (props) => {
   const { Component, pageProps } = props;
@@ -107,7 +105,6 @@ MyApp.propTypes = {
 
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
-  const { defaultProps } = appContext.Component;
   let isMobile = '';
   try {
     const UA = appContext.ctx.req.headers['user-agent'];
@@ -116,19 +113,12 @@ MyApp.getInitialProps = async (appContext) => {
     isMobile = `can not detect device - ${error}`;
   }
 
-  // check is client
-  // init web socket
-
   return {
     ...appProps,
     pageProps: {
       isMobile: !!isMobile,
-      namespacesRequired: [
-        ...(appProps.pageProps.namespacesRequired || [NAMESPACE_REQUIRED_DEFAULT]),
-        ...(defaultProps?.i18nNamespaces || []),
-      ],
     },
   };
 };
 
-export default i18n.appWithTranslation(MyApp);
+export default appWithTranslation(MyApp);
