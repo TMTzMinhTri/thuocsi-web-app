@@ -126,16 +126,16 @@ const CheckoutSticky = ({
       return;
     }
 
-    // const response = await CheckoutClient.Checkout(formValue);
-    // if (isValid(response)) {
-    //   const { orderId } = response.data[0];
-    //   updateCart();
-    //   router.push(`${THANKYOU_URL}/${orderId}`);
-    // } else {
-    //   NotifyUtils.error(
-    //     `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
-    //   );
-    // }
+    const response = await CheckoutClient.Checkout(formValue);
+    if (isValid(response)) {
+      const { orderId } = response.data[0];
+      updateCart();
+      router.push(`${THANKYOU_URL}/${orderId}`);
+    } else {
+      NotifyUtils.error(
+        `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
+      );
+    }
   };
 
   return (
