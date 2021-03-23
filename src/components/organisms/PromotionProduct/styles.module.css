@@ -37,8 +37,8 @@
 
 @media (max-width: 470px) {
   .customGrid {
-    max-width: 66% !important;
-    flex-basis: 66% !important;
+    max-width: 50% !important;
+    flex-basis: 50% !important;
   }
 }
 
