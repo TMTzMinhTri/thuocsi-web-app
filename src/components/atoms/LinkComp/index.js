@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable no-unused-expressions */
 import React from 'react';
 import Link from 'next/link';

@@ -41,22 +41,25 @@ import { ProductService, doWithServerSide, SupplierService } from 'services';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from 'constants/Paths';
-import { DOMAIN_SELLER_CENTER } from 'sysconfig';
+import { DOMAIN_SELLER_CENTER, NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
 import { NotifyUtils } from 'utils';
 import Router from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [productRes, supplier] = await Promise.all([
+    const [productRes, supplier, i18next] = await Promise.all([
       ProductService.loadDataProductDetail({ ctx }),
       SupplierService.getInfoSupplier({ ctx }),
+      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
     ]);
     return {
       props: {
         product: getFirst(productRes),
         supplier,
+        ...i18next,
       },
     };
   });
@@ -89,7 +92,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     manufacturer,
     countryOfManufacture,
     isDeal,
-    deal
+    deal,
   } = product;
 
   const maxQuantity = isDeal && deal ? deal.maxQuantity : prdMaxQuantity;
@@ -255,9 +258,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                                 </span>
                               </>
                             ) : (
-                              <span className={styles.deal_price}>
-                                {formatCurrency(salePrice)}
-                              </span>
+                              <span className={styles.deal_price}>{formatCurrency(salePrice)}</span>
                             )}
                             {isMobile && maxQuantity ? (
                               <Typography className={styles.text_danger}>

@@ -6,12 +6,16 @@ import CardInfo from 'components/mocules/CardInfo';
 import { Container, Typography, Grid } from '@material-ui/core';
 import { ProductService, doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
+
 import styles from './style.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [productRes] = await Promise.all([
+    const [productRes, i18next] = await Promise.all([
       ProductService.loadDataProduct({ ctx, isTotal: true }),
+      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
     ]);
     const page = Number(ctx.query.page) || 1;
     const { data = [], total = 0 } = productRes;
@@ -20,6 +24,7 @@ export async function getServerSideProps(ctx) {
         products: data,
         total,
         page,
+        ...i18next,
       },
     };
   });
