@@ -26,7 +26,7 @@ const OrderDetailInfo = ({
   deliveryPlatform,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   return (
     <div className={styles.info}>
