@@ -106,7 +106,9 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   });
 
   const dataCustomer = {
+    paymentMethods,
     paymentMethod,
+    deliveryMethods,
     deliveryPlatform,
     totalWard,
   };

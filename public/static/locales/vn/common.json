@@ -32,7 +32,8 @@
       "COD": "Thanh toán tiền mặt khi nhận hàng",
       "CK": "Chuyển Khoản",
       "PAYMENT_METHOD_NORMAL": "Thanh toán tiền mặt khi nhận hàng",
-      "PAYMENT_METHOD_BANK": "Chuyển khoản"
+      "PAYMENT_METHOD_BANK": "Chuyển khoản",
+      "VISA_PAYMENT": "Thanh toán bằng VISA"
     }
   },
   "delivery": {
