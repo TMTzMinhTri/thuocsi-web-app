@@ -118,6 +118,10 @@
 .check_agree_txt a:hover{
     color: #00683f;
 }
+.checkout_label_second{
+    color: #848484;
+    font-size: 12px;
+}
 @media (max-width: 767px) {
     .checkout_title h1{
         margin: 0;
