@@ -53,7 +53,7 @@ const ForgetPasswordModal = React.memo((props) => {
       NotifyUtils.success("Mật khẩu mới đã được cập nhật");
     }
     else {
-      var errorCode = `login.${result.errorCode}`;
+      let errorCode = `login.${result.errorCode}`;
       if (result.errorCode === 'NOT_FOUND'){
         errorCode = 'Nhập sai mã OTP. Vui lòng kiểm tra lại'
       }
