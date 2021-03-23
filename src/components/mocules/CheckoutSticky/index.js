@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Paper, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +15,7 @@ import {
 import { THANKYOU_URL } from 'constants/Paths';
 import { PAYMENT_METHOD } from 'constants/Enums';
 import { LinkComp, ButtonDefault } from 'components/atoms';
+import LoadingScreen from 'components/organisms/LoadingScreen';
 
 import styles from './styles.module.css';
 
@@ -39,9 +40,10 @@ const CheckoutSticky = ({
   } = useCart();
   const { user } = useAuth();
   const router = useRouter();
-  const [checkCondition, setCheckCondition] = React.useState({
+  const [checkCondition, setCheckCondition] = useState({
     checked: false,
   });
+  const [isLoading, setIsLoading] = useState(false)
   const GreenCheckbox = React.memo((props) => (
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   ));
@@ -111,6 +113,7 @@ const CheckoutSticky = ({
   };
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     const formValue = {
       ...data,
       ...dataCustomer,
@@ -123,16 +126,16 @@ const CheckoutSticky = ({
       return;
     }
 
-    const response = await CheckoutClient.Checkout(formValue);
-    if (isValid(response)) {
-      const { orderId } = response.data[0];
-      updateCart();
-      router.push(`${THANKYOU_URL}/${orderId}`);
-    } else {
-      NotifyUtils.error(
-        `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
-      );
-    }
+    // const response = await CheckoutClient.Checkout(formValue);
+    // if (isValid(response)) {
+    //   const { orderId } = response.data[0];
+    //   updateCart();
+    //   router.push(`${THANKYOU_URL}/${orderId}`);
+    // } else {
+    //   NotifyUtils.error(
+    //     `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
+    //   );
+    // }
   };
 
   return (
@@ -236,6 +239,11 @@ const CheckoutSticky = ({
           </div>
         )}
       </div>
+      {isLoading && (
+        <div className={styles.overlay}>
+          <LoadingScreen />
+        </div>
+      )}
     </div>
   );
 };
