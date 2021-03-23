@@ -8,14 +8,20 @@ import { doWithServerSide, NotifyService } from 'services';
 import { DateTimeUtils } from 'utils';
 import { withLogin } from 'HOC';
 import { v4 as uuidv4 } from 'uuid';
+import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [listNotifyRes] = await Promise.all([NotifyService.getNotifications({ ctx })]);
+    const [listNotifyRes, i18next] = await Promise.all([
+      NotifyService.getNotifications({ ctx }),
+      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
+    ]);
     return {
       props: {
         listNotify: listNotifyRes?.data || [],
+        ...i18next,
       },
     };
   });

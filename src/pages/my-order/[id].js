@@ -12,15 +12,16 @@ import { doWithServerSide } from 'services';
 import { withLogin } from 'HOC';
 import { NOT_FOUND_URL } from 'constants/Paths';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
-  const i18next = await serverSideTranslations(ctx.locale, ['common', 'apiErrors']);
   return doWithServerSide(ctx, async () => {
-    const [orderRes, bankData, reasonsRes] = await Promise.all([
+    const [orderRes, bankData, reasonsRes, i18next] = await Promise.all([
       OrderClient.getOrderById({ id: Number(id), ctx }),
       CustomerClient.getBankAccount(ctx),
       TicketClient.getListReasons(ctx),
+      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
     ]);
 
     if (!isValid(orderRes)) {
