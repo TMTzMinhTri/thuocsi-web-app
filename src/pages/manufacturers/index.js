@@ -5,10 +5,15 @@ import { ProductClient } from 'clients';
 import { doWithServerSide } from 'services';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
+import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [manufacturers] = await Promise.all([ProductClient.loadDataManufacturer(ctx)]);
+    const [manufacturers, i18next] = await Promise.all([
+      ProductClient.loadDataManufacturer(ctx),
+      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
+    ]);
     const convertManufacturers = (manu = []) =>
       manu
         .sort((a, b) => a.name.localeCompare(b.name))
@@ -20,6 +25,7 @@ export async function getServerSideProps(ctx) {
     return {
       props: {
         manufacturers: convertManufacturers(manufacturers),
+        ...i18next,
       },
     };
   });

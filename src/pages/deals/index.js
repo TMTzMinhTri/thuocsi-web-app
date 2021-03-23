@@ -3,15 +3,20 @@ import Template from 'components/layout/Template';
 import PromotionProduct from 'components/organisms/PromotionProduct';
 import { getData } from 'clients';
 import { ProductService } from 'services';
+
+import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
-  const [dealRes] = await Promise.all([
+  const [dealRes, i18next] = await Promise.all([
     ProductService.getDeals({ ctx, params: { offset: 0, limit: 1000, isGetTotal: true } }),
+    serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
   ]);
   return {
     props: {
       products: getData(dealRes, []),
+      ...i18next,
     },
   };
 }
