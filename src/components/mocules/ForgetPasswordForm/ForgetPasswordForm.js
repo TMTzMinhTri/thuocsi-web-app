@@ -158,7 +158,7 @@ const ForgetPasswordForm = React.memo(
 
     const onResend = () => {
       startCoundown(SECOND_TIMEOUT);
-      onClickPhoneForm({phoneNumber:phoneValue});
+      onClickPhoneForm({phoneNumber:phoneValue, type:"CUSTOMER"});
     }
 
     useEffect(() => {
