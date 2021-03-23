@@ -47,6 +47,7 @@ export async function getServerSideProps(ctx) {
 
 const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMethods }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   // validate user isActive
   if (!user.isActive) {
@@ -147,6 +148,10 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     });
   };
 
+  const handleLoading = (val) => {
+    setIsLoading(val);
+  }
+
   return (
     <Template title={title} isMobile={isMobile} point={user.point} balance={user.balance}>
       <div className={styles.wrapper_gray}>
@@ -188,6 +193,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
             <Grid item xs={12} md={4}>
               <CheckoutSticky
                 onSetError={handleSetError}
+                onLoading={handleLoading}
                 cart={cart}
                 data={value}
                 dataCustomer={dataCustomer}
@@ -199,6 +205,11 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
           </Grid>
         </div>
       </div>
+      {isLoading && (
+        <div className={styles.overlay}>
+          <LoadingScreen />
+        </div>
+      )}
     </Template>
   );
 };

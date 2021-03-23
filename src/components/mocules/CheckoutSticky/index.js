@@ -15,7 +15,6 @@ import {
 import { THANKYOU_URL } from 'constants/Paths';
 import { PAYMENT_METHOD } from 'constants/Enums';
 import { LinkComp, ButtonDefault } from 'components/atoms';
-import LoadingScreen from 'components/organisms/LoadingScreen';
 
 import styles from './styles.module.css';
 
@@ -25,6 +24,7 @@ const CheckoutSticky = ({
   dataCustomer,
   onSetError,
   isMobile,
+  onLoading
   // savedInfo,
 }) => {
   const {
@@ -43,7 +43,6 @@ const CheckoutSticky = ({
   const [checkCondition, setCheckCondition] = useState({
     checked: false,
   });
-  const [isLoading, setIsLoading] = useState(false)
   const GreenCheckbox = React.memo((props) => (
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   ));
@@ -113,15 +112,17 @@ const CheckoutSticky = ({
   };
 
   const handleSubmit = async () => {
-    setIsLoading(true);
+    onLoading(true);
     const formValue = {
       ...data,
       ...dataCustomer,
     };
     if (!validateSubmit(formValue)) {
+      onLoading(false);
       return;
     }
     if (!checkCondition.checked) {
+      onLoading(false);
       NotifyUtils.error(`Bạn chưa chấp nhận điều khoản sử dụng`);
       return;
     }
@@ -132,6 +133,7 @@ const CheckoutSticky = ({
       updateCart();
       router.push(`${THANKYOU_URL}/${orderId}`);
     } else {
+      onLoading(false);
       NotifyUtils.error(
         `Thanh toán không thành công chi tiết : ${response.message || 'Lỗi hệ thống'}`,
       );
@@ -239,11 +241,6 @@ const CheckoutSticky = ({
           </div>
         )}
       </div>
-      {isLoading && (
-        <div className={styles.overlay}>
-          <LoadingScreen />
-        </div>
-      )}
     </div>
   );
 };
