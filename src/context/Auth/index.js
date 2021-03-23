@@ -130,8 +130,6 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
       .then((result) => {
         if (!isValid(result)) {
           const errorCode = `login.${result.errorCode}`;
-          console.log(t);
-          console.log(t(errorCode));
           NotifyUtils.error(t(errorCode));
           return;
         }
@@ -197,8 +195,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     const result = await AuthService.resetPassword(data);
     if (isValid(result)) {
       NotifyUtils.info(result.message);
-    }
-    else {
+    } else {
       const errorCode = `login.${result.errorCode}`;
       NotifyUtils.error(t(errorCode));
     }

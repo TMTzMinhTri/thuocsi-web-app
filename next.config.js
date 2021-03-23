@@ -1,7 +1,5 @@
 const { i18n } = require('./next-i18next.config');
 
-const localeSubpaths = {};
-
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
   console.log = function () {};
   console.debug = function () {};
@@ -40,9 +38,5 @@ module.exports = {
       },
     ];
   },
-  // rewrites: async () => nextI18NextRewrites(localeSubpaths),
-  // publicRuntimeConfig: {
-  //   localeSubpaths,
-  // },
   pageExtensions: ['js'],
 };

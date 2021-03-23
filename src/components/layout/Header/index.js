@@ -52,8 +52,6 @@ const HeaderInfoEle = memo(() => (
 
 const InfoHeader = memo(() => {
   const { t } = useTranslation();
-  console.log(t);
-  console.log(t('login'));
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { user, isAuthenticated, toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();

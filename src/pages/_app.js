@@ -28,8 +28,6 @@ import { MOBILE } from 'constants/Device';
 import { fbpixel, gtag, ScrollToTop } from 'utils';
 import MessengerChat from 'utils/MessengerChat';
 
-const NAMESPACE_REQUIRED_DEFAULT = 'common';
-
 const MyApp = (props) => {
   const { Component, pageProps } = props;
   const refContainer = useRef('fb-msgr');
@@ -107,7 +105,6 @@ MyApp.propTypes = {
 
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
-  const { defaultProps } = appContext.Component;
   let isMobile = '';
   try {
     const UA = appContext.ctx.req.headers['user-agent'];
@@ -120,10 +117,6 @@ MyApp.getInitialProps = async (appContext) => {
     ...appProps,
     pageProps: {
       isMobile: !!isMobile,
-      namespacesRequired: [
-        ...(appProps.pageProps.namespacesRequired || [NAMESPACE_REQUIRED_DEFAULT]),
-        ...(defaultProps?.i18nNamespaces || []),
-      ],
     },
   };
 };
