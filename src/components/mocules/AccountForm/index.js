@@ -21,7 +21,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue, err }) => {
     <Paper className={styles.root} elevation={4}>
       <h1 className={styles.title}> Thông tin tài khoản </h1>
       <Grid container>
-        <InfoFormControl xs={12} isRequired label="Họ Tên khách hàng" htmlFor="name" error={err.name}>
+        <InfoFormControl xs={12} isRequired label="Họ tên khách hàng" htmlFor="name" error={err.name}>
           <InfoInput
             id="name"
             placeholder="Họ và tên"
@@ -31,7 +31,7 @@ const AccountForm = ({ name, email, phone, password, handleSetValue, err }) => {
           />
         </InfoFormControl>
 
-        <InfoFormControl xs={12} isRequired label="Số Điện Thoại" htmlFor="phone" error={err.phone}>
+        <InfoFormControl xs={12} isRequired label="Số điện thoại" htmlFor="phone" error={err.phone}>
           <InfoInput
             id="phone"
             placeholder="Số điện thoại"
