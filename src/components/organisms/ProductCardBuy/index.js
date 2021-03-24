@@ -36,7 +36,7 @@ const ProductCardBuy = ({
   cartItems,
 }) => {
   const maxQtyDeal = deal?.maxQuantity - deal?.quantity || 0;
-  const maxQuantityProduct = isDeal && maxQtyDeal || productMaxQuantity < MAX_PRODUCT_QTY_DISPLAY && productMaxQuantity;
+  const maxQuantityProduct = isDeal && maxQtyDeal || productMaxQuantity;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
@@ -178,7 +178,7 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(salePrice)}</Typography>
                 </div>
               )}
-              {!isMobile && maxQuantityProduct ? (
+              {!isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
@@ -221,7 +221,7 @@ const ProductCardBuy = ({
                   </Tooltip>
                 )}
               </CardActions>
-              {isMobile && maxQuantityProduct ? (
+              {isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)

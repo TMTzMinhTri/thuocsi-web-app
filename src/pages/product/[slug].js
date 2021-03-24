@@ -45,6 +45,7 @@ import { DOMAIN_SELLER_CENTER, NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
 import { NotifyUtils } from 'utils';
 import Router from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
 
 import styles from './styles.module.css';
 
@@ -260,7 +261,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                             ) : (
                               <span className={styles.deal_price}>{formatCurrency(salePrice)}</span>
                             )}
-                            {isMobile && maxQuantity ? (
+                            {isMobile && maxQuantity && maxQuantity < MAX_PRODUCT_QTY_DISPLAY ? (
                               <Typography className={styles.text_danger}>
                                 Đặt tối đa {amountRemaining} sản phẩm
                               </Typography>
@@ -321,7 +322,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                         </div>
                       )}
                       <>
-                        {!isMobile && maxQuantity ? (
+                        {!isMobile && maxQuantity && maxQuantity < MAX_PRODUCT_QTY_DISPLAY ? (
                           <Typography className={styles.text_danger}>
                             Đặt tối đa {amountRemaining} sản phẩm
                           </Typography>
