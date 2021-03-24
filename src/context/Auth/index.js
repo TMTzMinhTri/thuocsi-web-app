@@ -160,13 +160,16 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
     AuthService.registerGuest(data)
       .then((result) => {
         if (!isValid(result)) {
-          if (result.errorCode === 'CUSTOMER_EXISTED') {
-            NotifyUtils.error(result.message);
-            toggleRegisterGuest(false);
-            toggleLogin();
-          } else {
-            const errorCode = `login.${result.errorCode}`;
-            NotifyUtils.error(t(errorCode));
+          switch (result.errorCode) {
+            case 'ACCOUNT_NOT_ACCEPTED':
+              NotifyUtils.error("Tài khoản này đã được đăng ký dùng thử. Bạn không thể tiếp tục");
+              toggleRegisterGuest(false);
+              toggleLogin();
+              break;
+            default:
+              NotifyUtils.error(result.message);
+              toggleRegisterGuest(false);
+              toggleLogin();
           }
           return;
         }
