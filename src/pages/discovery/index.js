@@ -3,7 +3,7 @@ import Template from 'components/layout/Template';
 import { DISCOVERY_URL } from 'sysconfig';
 import styles from './styles.module.css';
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps() {
   return {
     props: {},
   };
