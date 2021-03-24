@@ -36,11 +36,13 @@ const OrderRow = ({
   deliveryDate,
   customerName,
   customerPhone,
+  customerID,
+  customerCode,
   status,
   totalPrice,
   handleSetOrderStatus,
   bankInfo,
-  reasonsList
+  reasonsList,
 }) => {
   const [amount, setAmount] = useState(0);
   const [orderTicket, setOrderTicket] = useState({});
@@ -141,8 +143,17 @@ const OrderRow = ({
           </Grid>
         </Grid>
       </Grid>
-      {open &&
-        <TicketFormModal {...orderTicket} bankInfo={bankInfo} reasonsList={reasonsList} visible={open} onClose={toggleOpen} />}
+      {open && (
+        <TicketFormModal
+          {...orderTicket}
+          bankInfo={bankInfo}
+          reasonsList={reasonsList}
+          customerID={customerID}
+          customerCode={customerCode}
+          visible={open}
+          onClose={toggleOpen}
+        />
+      )}
     </Paper>
   );
 };

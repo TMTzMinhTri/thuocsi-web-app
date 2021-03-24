@@ -77,7 +77,7 @@ export default function OrderInfoTabs({ user, orders, status, bankInfo, reasonsL
           <div className={styles.not_order_container}>
             <div className={styles.not_order_title}>Không có đơn hàng</div>
             <div>
-              <ComeHomeButton onClick={handleComehome}> Về trang đặt hàng nhanh </ComeHomeButton>
+              <ComeHomeButton onClick={handleComehome}> Đến trang đặt hàng nhanh </ComeHomeButton>
             </div>
           </div>
         </Grid>
@@ -92,7 +92,7 @@ export default function OrderInfoTabs({ user, orders, status, bankInfo, reasonsL
               bankInfo={bankInfo}
               reasonsList={reasonsList}
             />
-          ))}
+            ))}
         </Grid>
       )}
     </Grid>
