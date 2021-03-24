@@ -10,7 +10,7 @@ const DiscoveryModal = memo((props) => {
   return (
     <Modal className={className} open={visible} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
-        <iframe className={styles.iframe} src={DISCOVERY_URL} width="100%" height="100%" />
+        <iframe title="Discovery" className={styles.iframe} src={DISCOVERY_URL} width="100%" height="100%" />
       </div>
     </Modal>
   );
