@@ -61,7 +61,7 @@ const DeliveryInfoForm = ({
         <InfoFormControl
           xs={12}
           isRequired
-          label={<span className={styles.fw500}>Họ Tên khách hàng</span>}
+          label={<span className={styles.fw500}>Họ tên khách hàng</span>}
           htmlFor="customerName"
         >
           <InfoInput
@@ -81,7 +81,7 @@ const DeliveryInfoForm = ({
           <InfoFormControl
             xs={maxWidthScope ? 12 : 3}
             isRequired
-            label={<span className={styles.fw500}>Số Điện Thoại</span>}
+            label={<span className={styles.fw500}>Số điện thoại</span>}
             htmlFor="customerPhone"
           >
             <InfoInput
