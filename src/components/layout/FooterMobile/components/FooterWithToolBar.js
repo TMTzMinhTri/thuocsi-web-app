@@ -39,7 +39,7 @@ const FooterWithToolBar = () => {
       </div>
       <div className={styles.grow} />
       <div className={clsx(styles.icon, router.pathname === '/my-order' && styles.active)}>
-        <Link href="/my-order">
+        <Link href="/discovery">
           <IconButton color="inherit">
             <AssignmentTurnedInOutlined />
             <span className={styles.text}>Đơn hàng</span>
