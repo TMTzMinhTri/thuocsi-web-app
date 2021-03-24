@@ -41,10 +41,12 @@ const CheckoutSticky = ({
   const [checkCondition, setCheckCondition] = useState({
     checked: false,
   });
-  const deliveryData = dataCustomer.deliveryMethods.filter((item) => item.code === dataCustomer.deliveryMethod) || [];
-  const subTitleDelivery = deliveryData?.[0]?.subTitle || null
-  const paymentData = dataCustomer.paymentMethods.filter((item) => item.code === dataCustomer.paymentMethod) || [];
-  const subTitlePayment = paymentData?.[0]?.subTitle || null
+  const deliveryData =
+    dataCustomer.deliveryMethods.filter((item) => item.code === dataCustomer.deliveryMethod) || [];
+  const subTitleDelivery = deliveryData?.[0]?.subTitle || null;
+  const paymentData =
+    dataCustomer.paymentMethods.filter((item) => item.code === dataCustomer.paymentMethod) || [];
+  const subTitlePayment = paymentData?.[0]?.subTitle || null;
   const GreenCheckbox = React.memo((props) => (
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   ));
@@ -163,15 +165,23 @@ const CheckoutSticky = ({
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>
-            <div className={styles.checkout_label_first}>{deliveryData?.[0]?.name || "Phí vận chuyển"}</div>
-            {subTitleDelivery && <div className={styles.checkout_label_second}>{subTitleDelivery}</div>}
+            <div className={styles.checkout_label_first}>
+              {deliveryData?.[0]?.name || 'Phí vận chuyển'}
+            </div>
+            {subTitleDelivery && (
+              <div className={styles.checkout_label_second}>{subTitleDelivery}</div>
+            )}
           </div>
           <div className={styles.checkout_content}>{formatCurrency(deliveryPlatformFee)}</div>
         </div>
         <div className={styles.d_flex}>
           <div className={styles.checkout_label}>
-            <div className={styles.checkout_label_first}>{paymentData?.[0]?.name || "Phí thanh toán"}</div>
-            {subTitlePayment && <div className={styles.checkout_label_second}>{subTitlePayment}</div>}
+            <div className={styles.checkout_label_first}>
+              {paymentData?.[0]?.name || 'Phí thanh toán'}
+            </div>
+            {subTitlePayment && (
+              <div className={styles.checkout_label_second}>{subTitlePayment}</div>
+            )}
           </div>
           <div className={styles.checkout_content}>{formatCurrency(paymentMethodFee)}</div>
         </div>
