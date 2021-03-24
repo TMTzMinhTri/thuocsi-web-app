@@ -95,7 +95,7 @@ export const CART_API = {
   CART_REMOVE,
   CART_UPDATE_REDEEM_CODE,
   DELIVERY_METHOD_UPDATE,
-  PAYMENT_METHOD_UPDATE
+  PAYMENT_METHOD_UPDATE,
 };
 
 const ORDER_API_PREFIX = '/marketplace/order/v1';
@@ -160,10 +160,10 @@ export const MARKETING_API = {
 };
 
 const TICKET_API_PREFIX = '/marketplace/ticket/v1';
-const TASK = `${TICKET_API_PREFIX}/me/task`;
-const TASK_REASONS = `${TICKET_API_PREFIX}/tasks/reasons/list`;
+const TICKET = `${TICKET_API_PREFIX}/ticket/customer`;
+const TICKET_REASONS = `${TICKET_API_PREFIX}/reasons/list`;
 
 export const TICKET_API = {
-  TASK,
-  TASK_REASONS,
+  TICKET,
+  TICKET_REASONS,
 };
