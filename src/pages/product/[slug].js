@@ -15,7 +15,7 @@ import {
   LinearProgress,
 } from '@material-ui/core';
 import { formatCurrency, formatNumber } from 'utils/FormatNumber';
-import { tabsProductData } from 'constants/data';
+import { tabsProductData, MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchDollar, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -45,7 +45,6 @@ import { DOMAIN_SELLER_CENTER, NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
 import { NotifyUtils } from 'utils';
 import Router from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
 
 import styles from './styles.module.css';
 
