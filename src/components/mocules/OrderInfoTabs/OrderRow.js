@@ -6,9 +6,10 @@ import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
 import { MY_ORDER_URL } from 'constants/Paths';
-import { useModal } from 'hooks';
+import { useModal, useIsMobile } from 'hooks';
 import { v4 as uuidv4 } from 'uuid';
 import EditOrderButton from '../EditOrderButton';
+import DiscoveryButton from '../DiscoveryButton';
 import TicketButton from '../TicketButton';
 import TicketFormModal from '../TicketFormModal';
 import styles from './styles.module.css';
@@ -40,11 +41,12 @@ const OrderRow = ({
   totalPrice,
   handleSetOrderStatus,
   bankInfo,
-  reasonsList
+  reasonsList,
 }) => {
   const [amount, setAmount] = useState(0);
   const [orderTicket, setOrderTicket] = useState({});
   const [open, toggleOpen] = useModal();
+  const { isMobile } = useIsMobile();
 
   const handleChangeOrderTicket = (value) => {
     setOrderTicket(value);
@@ -122,7 +124,11 @@ const OrderRow = ({
           </Grid> */}
           {status === ENUM_ORDER_STATUS.PENDING && (
             <Grid item>
-              <EditOrderButton orderNo={orderNo} />
+              {isMobile() ? (
+                <DiscoveryButton orderNo={orderNo} />
+              ) : (
+                <EditOrderButton orderNo={orderNo} />
+              )}
             </Grid>
           )}
           <Grid item>
@@ -141,8 +147,15 @@ const OrderRow = ({
           </Grid>
         </Grid>
       </Grid>
-      {open &&
-        <TicketFormModal {...orderTicket} bankInfo={bankInfo} reasonsList={reasonsList} visible={open} onClose={toggleOpen} />}
+      {open && (
+        <TicketFormModal
+          {...orderTicket}
+          bankInfo={bankInfo}
+          reasonsList={reasonsList}
+          visible={open}
+          onClose={toggleOpen}
+        />
+      )}
     </Paper>
   );
 };
