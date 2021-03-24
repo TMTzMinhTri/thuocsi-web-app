@@ -22,8 +22,11 @@ const TicketFormModal = (props) => {
     orderNo,
     bankInfo,
     reasonsList,
+    customerCode,
+    customerID,
   } = props;
-  const [reason, setReason] = useState('');
+  const firstReason = reasonsList.length !== 0 ? reasonsList[0].value : '';
+  const [reason, setReason] = useState(firstReason);
   const [val, setVal] = useState({
     bankCode: bankInfo?.bankCode || '',
     bankName: bankInfo?.bankName || '',
@@ -44,6 +47,8 @@ const TicketFormModal = (props) => {
     const data = {
       ...val,
       orderNo,
+      customerID,
+      customerCode,
       saleOrderCode: orderNo,
       saleOrderID: orderID,
       reasons: [reason],
@@ -104,8 +109,8 @@ const TicketFormModal = (props) => {
                 className={styles.reason_select}
               >
                 {reasonsList.map((reasonE) => (
-                  <option key={`key-reason-${uuidv4()}`} value={reasonE.code}>
-                    {reasonE.name}
+                  <option key={`key-reason-${uuidv4()}`} value={reasonE.value}>
+                    {reasonE.label}
                   </option>
                 ))}
               </NativeSelect>

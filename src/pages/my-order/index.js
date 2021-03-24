@@ -12,7 +12,11 @@ export async function getServerSideProps(ctx) {
   const { status = ENUM_ORDER_STATUS.ALL } = ctx.query;
 
   return doWithServerSide(ctx, async () => {
-    const [ordersRes,bankData,reasonsRes] = await Promise.all([OrderClient.getOrders({ status, ctx }), CustomerClient.getBankAccount(ctx),TicketClient.getListReasons(ctx)]);
+    const [ordersRes, bankData, reasonsRes] = await Promise.all([
+      OrderClient.getOrders({ status, ctx }),
+      CustomerClient.getBankAccount(ctx),
+      TicketClient.getListReasons(ctx),
+    ]);
     if (!isValid(ordersRes)) {
       return {
         props: {
@@ -22,6 +26,7 @@ export async function getServerSideProps(ctx) {
     }
     const { data } = ordersRes;
     const bankInfo = bankData[0] || null;
+
     const reasonsList = getData(reasonsRes);
     const orders =
       status !== ENUM_ORDER_STATUS.ALL ? data.filter((order) => order.status === status) : data;
@@ -30,7 +35,7 @@ export async function getServerSideProps(ctx) {
         orders,
         status,
         bankInfo,
-        reasonsList
+        reasonsList,
       },
     };
   });
@@ -43,7 +48,13 @@ const MyOrder = ({ user, isMobile, orders = [], status, bankInfo, reasonsList })
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer isMobile={isMobile} value={2} title="Đơn hàng của tôi" name={user?.name}>
-            <OrderInfoContainer user={user} orders={orders} status={status} bankInfo={bankInfo} reasonsList={reasonsList} />
+            <OrderInfoContainer
+              user={user}
+              orders={orders}
+              status={status}
+              bankInfo={bankInfo}
+              reasonsList={reasonsList}
+            />
           </InfoContainer>
         </Container>
       </div>

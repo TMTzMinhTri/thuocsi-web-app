@@ -37,6 +37,8 @@ const OrderRow = ({
   deliveryDate,
   customerName,
   customerPhone,
+  customerID,
+  customerCode,
   status,
   totalPrice,
   handleSetOrderStatus,
@@ -152,6 +154,8 @@ const OrderRow = ({
           {...orderTicket}
           bankInfo={bankInfo}
           reasonsList={reasonsList}
+          customerID={customerID}
+          customerCode={customerCode}
           visible={open}
           onClose={toggleOpen}
         />
