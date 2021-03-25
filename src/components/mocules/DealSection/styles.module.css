@@ -17,7 +17,8 @@
     border-radius: 9px;
 }
 
-.count_down {
+.count_down,
+.startDate {
     flex: 70%;
     font-size: 12px;
     text-align: right;

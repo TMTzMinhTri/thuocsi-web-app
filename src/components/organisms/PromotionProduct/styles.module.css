@@ -15,39 +15,6 @@
   color: #fff;
 }
 
-@media (min-width: 1360px) and (max-width: 1700px) {
-  .customGrid {
-    max-width: 20% !important;
-    flex-basis: 20% !important;
-  }
-}
-@media (min-width: 1701px) {
-  .customGrid {
-    max-width: 20% !important;
-    flex-basis: 20% !important;
-  }
-}
-
-@media (min-width: 960px) {
-  .customGrid {
-    max-width: 30% !important;
-    flex-basis: 30% !important;
-  }
-}
-
-@media (max-width: 470px) {
-  .customGrid {
-    max-width: 50% !important;
-    flex-basis: 50% !important;
-  }
-}
-
-@media (max-width: 320px) {
-  .customGrid {
-    max-width: 100% !important;
-    flex-basis: 100% !important;
-  }
-}
 
 @media (max-width: 767px) {
   .noData{

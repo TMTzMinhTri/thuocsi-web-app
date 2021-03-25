@@ -16,6 +16,10 @@
     font-weight: bold!important;
 }
 
+.root_input .input[class*='disabled'] {
+    color: gray;
+}
+
 .focus {
     border: 1px solid #35ffb0!important;
     box-shadow: 0 0 0 0.2rem rgb(0 180 110 / 25%)!important;

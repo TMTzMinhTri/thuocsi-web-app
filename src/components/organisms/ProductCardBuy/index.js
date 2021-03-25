@@ -37,6 +37,7 @@ const ProductCardBuy = ({
 }) => {
   const maxQtyDeal = deal?.maxQuantity - deal?.quantity || 0;
   const maxQuantityProduct = isDeal && maxQtyDeal || productMaxQuantity;
+  const outOfStock = deal?.maxQuantity === (deal?.quantity || 0) || false;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
@@ -131,7 +132,9 @@ const ProductCardBuy = ({
     <>
       {isDeal && row && (
         <DealSection
+          dealStartTime={deal?.startTime}
           dealEndDay={deal?.endTime}
+          maxQuantity={deal?.maxQuantity}
           totalSold={deal.quantity}
           total={deal.maxQuantity}
         />
@@ -194,7 +197,7 @@ const ProductCardBuy = ({
                     : clsx(styles.product_action, styles.product_action_column)
                 }
               >
-                <MinusButton onClick={handleDecrease} />
+                <MinusButton disabled={outOfStock} onClick={handleDecrease} />
                 <InputProduct
                   product={product}
                   id={id}
@@ -204,9 +207,10 @@ const ProductCardBuy = ({
                   value={value}
                   name={name}
                   className={value > 0 && styles.has_item}
+                  disabled={outOfStock}
                 />
                 <PlusButton
-                  disabled={maxQuantityProduct && value >= maxQuantityProduct}
+                  disabled={outOfStock || (maxQuantityProduct && value >= maxQuantityProduct)}
                   onClick={() => handleIncrease()}
                 />
                 {cart && (

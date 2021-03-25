@@ -12,7 +12,7 @@ const PromotionProduct = ({ products = [] }) => (
         <div className={styles.product_grid_wrapper}>
           <Grid container spacing={2}>
             {products.map((item) => (
-              <Grid key={uuidv4()} item xl={3} lg={3} md={2} xs={6} className={styles.customGrid}>
+              <Grid key={uuidv4()} item xs={6} sm={4} md={4} lg={3} xl={2} className={styles.customGrid}>
                 <ProductCardVertical
                   key={`products-${uuidv4()}`}
                   product={item}

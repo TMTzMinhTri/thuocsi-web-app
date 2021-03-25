@@ -3,7 +3,7 @@ import { Input } from '@material-ui/core';
 import clsx from 'clsx';
 import styles from './styles.module.css';
 
-const InputProduct = memo(({ className, name, searchInput, key, onChange, value, product }) => (
+const InputProduct = memo(({ className, name, searchInput, key, onChange, value, product, disabled = false }) => (
   <Input
     name={name}
     key={key}
@@ -17,6 +17,7 @@ const InputProduct = memo(({ className, name, searchInput, key, onChange, value,
     placeholder="0"
     onChange={(e) => onChange(e, product)}
     value={value}
+    disabled={disabled}
   />
 ));
 
