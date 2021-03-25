@@ -7,15 +7,25 @@ import clsx from 'clsx';
 import styles from './styles.module.css';
 
 const renderPaymentMethod = ({ item }) => {
-  const { code, name, description } = item;
+  const { code, name, description, subTitle, url } = item;
   return (
     <React.Fragment key={uuidv4()}>
       <FormControlLabel
         key={uuidv4()}
         value={code}
         control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
-        label={<b className={styles.fw500}>{name}</b>}
+        label={(
+          <div className={styles.fw500}>
+            {name}{' '}
+            {code === 'PAYMENT_METHOD_BANK' && url && (
+              <a href={url} target="_blank" rel="noreferrer">
+                (Hướng dẫn chuyển khoản)
+              </a>
+            )}
+          </div>
+        )}
       />
+      {subTitle && <div className={styles.subTitle}>{subTitle}</div>}
 
       {description && (
         <React.Fragment key={uuidv4()}>

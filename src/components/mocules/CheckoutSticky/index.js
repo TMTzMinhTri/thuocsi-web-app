@@ -13,7 +13,6 @@ import {
   isValid,
 } from 'clients';
 import { THANKYOU_URL } from 'constants/Paths';
-import { PAYMENT_METHOD } from 'constants/Enums';
 import { LinkComp, ButtonDefault } from 'components/atoms';
 
 import styles from './styles.module.css';
@@ -24,7 +23,7 @@ const CheckoutSticky = ({
   dataCustomer,
   onSetError,
   isMobile,
-  onLoading
+  onLoading,
   // savedInfo,
 }) => {
   const {
@@ -32,7 +31,6 @@ const CheckoutSticky = ({
     subTotalPrice = 0,
     totalPrice = 0,
     deliveryPlatformFee = 0,
-    paymentMethod,
     paymentMethodFee = 0,
     itemCount = 0,
     discount = 0,
@@ -43,6 +41,12 @@ const CheckoutSticky = ({
   const [checkCondition, setCheckCondition] = useState({
     checked: false,
   });
+  const deliveryData =
+    dataCustomer.deliveryMethods.filter((item) => item.code === dataCustomer.deliveryMethod) || [];
+  const subTitleDelivery = deliveryData?.[0]?.subTitle || null;
+  const paymentData =
+    dataCustomer.paymentMethods.filter((item) => item.code === dataCustomer.paymentMethod) || [];
+  const subTitlePayment = paymentData?.[0]?.subTitle || null;
   const GreenCheckbox = React.memo((props) => (
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   ));
@@ -160,12 +164,25 @@ const CheckoutSticky = ({
           <div className={styles.checkout_content}>{formatCurrency(subTotalPrice)}</div>
         </div>
         <div className={styles.d_flex}>
-          <div className={styles.checkout_label}>Phí vận chuyển</div>
+          <div className={styles.checkout_label}>
+            <div className={styles.checkout_label_first}>
+              {deliveryData?.[0]?.name || 'Phí vận chuyển'}
+            </div>
+            {subTitleDelivery && (
+              <div className={styles.checkout_label_second}>{subTitleDelivery}</div>
+            )}
+          </div>
           <div className={styles.checkout_content}>{formatCurrency(deliveryPlatformFee)}</div>
         </div>
-        {PAYMENT_METHOD === paymentMethod}
         <div className={styles.d_flex}>
-          <div className={styles.checkout_label}>Giảm 0.5% cho đơn hàng chuyển khoản trước</div>
+          <div className={styles.checkout_label}>
+            <div className={styles.checkout_label_first}>
+              {paymentData?.[0]?.name || 'Phí thanh toán'}
+            </div>
+            {subTitlePayment && (
+              <div className={styles.checkout_label_second}>{subTitlePayment}</div>
+            )}
+          </div>
           <div className={styles.checkout_content}>{formatCurrency(paymentMethodFee)}</div>
         </div>
         {redeemCode && redeemCode.length > 0 && (

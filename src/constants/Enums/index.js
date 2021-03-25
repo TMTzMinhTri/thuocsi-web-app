@@ -5,12 +5,13 @@ export const ENUM_SCOPE = {
 };
 
 export const ENUM_ORDER_STATUS = {
-  PENDING: 'WaitConfirm',
-  ALL: 'all',
-  COMPLETED: 'completed',
-  CANCEL: 'Canceled',
-  DELIVERY: 'delivery',
-  CONFIRM: 'Confirmed',
+  ALL: 'ALL',
+  WAIT_TO_CONFIRM: 'WAIT_TO_CONFIRM',
+  CONFIRMED: 'CONFIRMED',
+  PROCESSING: 'PROCESSING',
+  DELIVERING: 'DELIVERING',
+  CANCEL: 'CANCEL',
+  COMPLETED: 'COMPLETED',
 };
 
 export const PAYMENT_METHOD = {
@@ -239,6 +240,24 @@ export const FEEDBACK_REASON = LIST_REASONS_MAP;
 //     name: 'Đóng dư hàng',
 //   },
 // };
+
+export const ENUM_ORDER_STATUS_LABEL = {
+  [ENUM_ORDER_STATUS.WAIT_TO_CONFIRM]: 'Chờ xác nhận',
+  [ENUM_ORDER_STATUS.CONFIRMED]: 'Đã xác nhận',
+  [ENUM_ORDER_STATUS.PROCESSING]: 'Đang xử lý',
+  [ENUM_ORDER_STATUS.DELIVERING]: 'Đang vận chuyển',
+  [ENUM_ORDER_STATUS.CANCEL]: 'Đã hủy',
+  [ENUM_ORDER_STATUS.COMPLETED]: 'Đã hoàn tất',
+};
+
+export const ENUM_ORDER_STATUS_COLOR = {
+  [ENUM_ORDER_STATUS.WAIT_TO_CONFIRM]: 'btn--default',
+  [ENUM_ORDER_STATUS.CONFIRMED]: 'btn--default',
+  [ENUM_ORDER_STATUS.PROCESSING]: 'btn--default',
+  [ENUM_ORDER_STATUS.DELIVERING]: 'btn--delivery',
+  [ENUM_ORDER_STATUS.CANCEL]: 'btn--cancel',
+  [ENUM_ORDER_STATUS.COMPLETED]: 'btn--complete',
+};
 
 export default {
   ENUM_SCOPE,

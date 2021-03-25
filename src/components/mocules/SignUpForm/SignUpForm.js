@@ -53,8 +53,12 @@ const SignUpForm = React.memo((props) => {
 
   useEffect(() => {
     const getListProvince = async () => {
-      const provinceResult = await AddressService.getProvinces();
-      setProvinces(provinceResult);
+      try {
+        const provinceResult = await AddressService.getProvinces();
+        setProvinces(provinceResult);
+      } catch (error) {
+        NotifyUtils.error('Lấy danh sách tỉnh thành không thành công');
+      }
     };
     getListProvince();
   }, []);

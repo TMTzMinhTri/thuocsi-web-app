@@ -15,7 +15,7 @@ import {
   LinearProgress,
 } from '@material-ui/core';
 import { formatCurrency, formatNumber } from 'utils/FormatNumber';
-import { tabsProductData } from 'constants/data';
+import { tabsProductData, MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchDollar, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -260,7 +260,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                             ) : (
                               <span className={styles.deal_price}>{formatCurrency(salePrice)}</span>
                             )}
-                            {isMobile && maxQuantity ? (
+                            {isMobile && maxQuantity && maxQuantity < MAX_PRODUCT_QTY_DISPLAY ? (
                               <Typography className={styles.text_danger}>
                                 Đặt tối đa {amountRemaining} sản phẩm
                               </Typography>
@@ -321,7 +321,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                         </div>
                       )}
                       <>
-                        {!isMobile && maxQuantity ? (
+                        {!isMobile && maxQuantity && maxQuantity < MAX_PRODUCT_QTY_DISPLAY ? (
                           <Typography className={styles.text_danger}>
                             Đặt tối đa {amountRemaining} sản phẩm
                           </Typography>

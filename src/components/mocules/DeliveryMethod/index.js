@@ -10,21 +10,21 @@ import styles from './styles.module.css';
 
 const renderDeliveryMethod = ({ item, addressSelect, totalPrice = 0 }) => {
   const { description, code, name, feeValue, condition = {} } = item;
-  const { customerProvinceCode = '0' } = addressSelect;
+  const { customerDistrictCode = '0' } = addressSelect;
   const label = (
     <>
       <b className={styles.fw500}>{name}</b>
       {feeValue > 0 && (
         <>
           {' '}
-          Phí vận chuyện <i className={styles.fw500}>({formatCurrency(feeValue)})</i>
+          Phí vận chuyển <i className={styles.fw500}>({formatCurrency(feeValue)})</i>
         </>
       )}
     </>
   );
 
   let disable = false;
-  const { maxPrice, minPrice, provinceCodes = null } = condition;
+  const { maxPrice, minPrice, locationCodes = null } = condition;
 
   if (!disable && maxPrice && maxPrice > 0 && totalPrice > maxPrice) {
     disable = true;
@@ -36,10 +36,10 @@ const renderDeliveryMethod = ({ item, addressSelect, totalPrice = 0 }) => {
 
   if (
     !disable &&
-    customerProvinceCode &&
-    provinceCodes &&
-    provinceCodes.length > 0 &&
-    provinceCodes.indexOf(customerProvinceCode) === -1
+    customerDistrictCode &&
+    locationCodes &&
+    locationCodes.length > 0 &&
+    locationCodes.indexOf(customerDistrictCode) === -1
   ) {
     disable = true;
   }
