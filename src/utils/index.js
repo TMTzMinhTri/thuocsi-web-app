@@ -1,6 +1,7 @@
 export { default as DateTimeUtils } from './DateTimeUtils';
 export { default as FormatNumber } from './FormatNumber';
-export { default as FormatDate } from './FormatDate';
+export { default as formatDate } from './FormatDate';
+export { default as calculateTimeLeft } from './calculateTimeLeft';
 export { default as FormDataUtils } from './FormDataUtils';
 export { default as CookiesParser } from './CookieParser';
 export { default as GetQuantityProductFromCart } from './GetQuantityProductFromCart';

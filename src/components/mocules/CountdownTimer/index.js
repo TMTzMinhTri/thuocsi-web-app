@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { calculateTimeLeft } from 'utils';
 import { NoSsr } from '@material-ui/core';
 
 // thuannc
@@ -6,37 +7,12 @@ import { NoSsr } from '@material-ui/core';
 // MUST FIX
 
 function CountdownTimer({ prefix, dealEndDay, ...otherProps }) {
-  const calculateTimeLeft = () => {
-    const difference = +new Date(dealEndDay) - +new Date();
-    let timeLeft = {};
 
-    if (difference > 0) {
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
-        .toString()
-        .padStart(2, '0');
-      const minutes = `:${Math.floor((difference / 1000 / 60) % 60)
-        .toString()
-        .padStart(2, '0')}:`;
-      const seconds = Math.floor((difference / 1000) % 60)
-        .toString()
-        .padStart(2, '0');
-      timeLeft = {
-        days,
-        hours,
-        minutes,
-        seconds,
-      };
-    }
-
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(dealEndDay));
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
+      setTimeLeft(calculateTimeLeft(dealEndDay));
     }, 1000);
     return () => clearTimeout(timer);
   });

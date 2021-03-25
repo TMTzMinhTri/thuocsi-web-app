@@ -1,61 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { LinearProgress, Typography } from '@material-ui/core';
-import formatDate from 'utils/FormatDate';
+import { formatDate } from 'utils';
 import CountdownTimer from '../CountdownTimer';
 
 import styles from './styles.module.css';
 
-const DealSection = ({ dealEndDay, dealStartTime, maxQuantity, totalSold = 0, total = 0 }) => {
-  const calculateTimeLeft = (time) => {
-    const difference = +new Date(time) - +new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
-        .toString()
-        .padStart(2, '0');
-      const minutes = `:${Math.floor((difference / 1000 / 60) % 60)
-        .toString()
-        .padStart(2, '0')}:`;
-      const seconds = Math.floor((difference / 1000) % 60)
-        .toString()
-        .padStart(2, '0');
-      timeLeft = {
-        days,
-        hours,
-        minutes,
-        seconds,
-      };
-    }
-
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(dealStartTime));
-  const ready = Object.keys(timeLeft).length === 0 || false;
+const DealSection = ({ dealEndDay, dealReady, dealStartTime, maxQuantity, totalSold = 0, total = 0 }) => {
   const date = formatDate(dealStartTime);
-
-  const timerComponents = [];
-  Object.keys(timeLeft).forEach((interval) => {
-    if (!timeLeft[interval]) {
-      return;
-    }
-
-    timerComponents.push(
-      <span key={`timer-${Math.random()}`}>
-        {timeLeft[interval]}
-        {interval === 'days' ? ' ngày ' : null}
-      </span>,
-    );
-  });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft(dealStartTime));
-    }, 1000);
-    return () => clearTimeout(timer);
-  });
 
   return (
     <div className={styles.deal_section}>
@@ -63,18 +14,19 @@ const DealSection = ({ dealEndDay, dealStartTime, maxQuantity, totalSold = 0, to
         <LinearProgress
           classes={{
             root: styles.root_process,
-            barColorPrimary: styles.bar_background,
-            colorPrimary: styles.blur_background,
+            barColorPrimary: styles.blur_background,
+            colorPrimary: styles.bar_background,
           }}
           variant="determinate"
           value={(totalSold / total) * 100}
         />
         <Typography className={styles.process_content}>
-          {ready && (maxQuantity === totalSold) ? 'Cháy hàng' : `Đã bán${totalSold}`}
-          {!ready && 'Sắp mở bán'}
+          {dealReady && maxQuantity === totalSold && 'Hết hàng'}
+          {dealReady && maxQuantity > totalSold && `Đã bán ${totalSold}`}
+          {!dealReady && 'Sắp mở bán'}
         </Typography>
       </div>
-      {ready ? (
+      {dealReady ? (
         <CountdownTimer className={styles.count_down} dealEndDay={dealEndDay} />
       ) : (
         <div className={styles.startDate}>{date}</div>
