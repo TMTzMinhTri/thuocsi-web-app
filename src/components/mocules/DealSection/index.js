@@ -6,7 +6,7 @@ import CountdownTimer from '../CountdownTimer';
 import styles from './styles.module.css';
 
 const DealSection = ({ dealEndDay, dealReady, dealStartTime, maxQuantity, totalSold = 0, total = 0 }) => {
-  const date = formatDate(dealStartTime);
+  const startDate = formatDate(dealStartTime);
 
   return (
     <div className={styles.deal_section}>
@@ -29,7 +29,7 @@ const DealSection = ({ dealEndDay, dealReady, dealStartTime, maxQuantity, totalS
       {dealReady ? (
         <CountdownTimer className={styles.count_down} dealEndDay={dealEndDay} />
       ) : (
-        <div className={styles.startDate}>{date}</div>
+        <div className={styles.startDate}>{startDate}</div>
       )}
     </div>
   );
