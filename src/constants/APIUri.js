@@ -14,8 +14,15 @@ export const ACCOUNT_API = {
 // PRICING
 const PRICING_API_PREFIX = '/marketplace/pricing/v1';
 const DELIVERY_METHOD = `${PRICING_API_PREFIX}/delivery-platform/list`;
+const DELIVERY_METHOD_DETAIL = `${PRICING_API_PREFIX}/delivery-platform`;
 const PAYMENT_METHOD = `${PRICING_API_PREFIX}/payment-method/list`;
-export const PRICING_API = { PAYMENT_METHOD, DELIVERY_METHOD };
+const PAYMENT_METHOD_DETAIL = `${PRICING_API_PREFIX}/payment-method`;
+export const PRICING_API = {
+  PAYMENT_METHOD,
+  DELIVERY_METHOD,
+  PAYMENT_METHOD_DETAIL,
+  DELIVERY_METHOD_DETAIL,
+};
 
 // CUSTOMER
 const CUSTOMER_API_PREFIX = '/marketplace/customer/v1';
