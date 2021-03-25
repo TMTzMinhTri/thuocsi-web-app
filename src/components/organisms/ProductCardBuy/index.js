@@ -9,6 +9,7 @@ import debounce from 'utils/debounce';
 import { CustomModal } from 'components/mocules';
 import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'components/atoms';
 import DealSection from 'components/mocules/DealSection';
+import { calculateTimeLeft } from 'utils';
 import { getFirst, isValid } from 'clients';
 import { MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
 import RemoveProductModal from '../RemoveProductModal';
@@ -36,7 +37,10 @@ const ProductCardBuy = ({
   cartItems,
 }) => {
   const maxQtyDeal = deal?.maxQuantity - deal?.quantity || 0;
-  const maxQuantityProduct = isDeal && maxQtyDeal || productMaxQuantity;
+  const maxQuantityProduct = (isDeal && maxQtyDeal) || productMaxQuantity;
+  const outOfStock = deal?.maxQuantity === (deal?.quantity || 0) || false;
+  const timeLeft = calculateTimeLeft(deal?.startTime) || {};
+  const dealReady = Object.keys(timeLeft).length === 0 || false;
   const [value, setValue] = useState(product.quantity || 0);
   const { isAuthenticated, toggleLogin } = useAuth();
   const [isShowModalWarning, toggleWarning] = useModal();
@@ -131,7 +135,10 @@ const ProductCardBuy = ({
     <>
       {isDeal && row && (
         <DealSection
+          dealStartTime={deal?.startTime}
           dealEndDay={deal?.endTime}
+          dealReady={dealReady}
+          maxQuantity={deal?.maxQuantity}
           totalSold={deal.quantity}
           total={deal.maxQuantity}
         />
@@ -165,7 +172,9 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>
                     {formatCurrency(deal?.price)}
                   </Typography>
-                  <Typography className={styles.old_price}>{formatCurrency(product?.salePrice)}</Typography>
+                  <Typography className={styles.old_price}>
+                    {formatCurrency(product?.salePrice)}
+                  </Typography>
                 </div>
               ) : (
                 <div
@@ -178,7 +187,7 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(salePrice)}</Typography>
                 </div>
               )}
-              {!isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY? (
+              {!isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
@@ -187,41 +196,83 @@ const ProductCardBuy = ({
                   Đặt tối đa {formatNumber(maxQuantityProduct)} sản phẩm
                 </Typography>
               ) : null}
-              <CardActions
-                className={
-                  row
-                    ? styles.product_action
-                    : clsx(styles.product_action, styles.product_action_column)
-                }
-              >
-                <MinusButton onClick={handleDecrease} />
-                <InputProduct
-                  product={product}
-                  id={id}
-                  onChange={handleInputChange}
-                  searchInput={searchInput}
-                  type={type}
-                  value={value}
-                  name={name}
-                  className={value > 0 && styles.has_item}
-                />
-                <PlusButton
-                  disabled={maxQuantityProduct && value >= maxQuantityProduct}
-                  onClick={() => handleIncrease()}
-                />
-                {cart && (
-                  <Tooltip title="Xoá sản phẩm">
-                    <IconButton className={styles.remove_icon} onClick={removeProductOutCart}>
-                      {isMobile ? (
-                        <Close className={styles.icon} />
-                      ) : (
-                        <Delete className={styles.icon} />
-                      )}
-                    </IconButton>
-                  </Tooltip>
-                )}
-              </CardActions>
-              {isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY? (
+              {isDeal ? (
+                <CardActions
+                  className={
+                    row
+                      ? styles.product_action
+                      : clsx(styles.product_action, styles.product_action_column)
+                  }
+                >
+                  <MinusButton disabled={outOfStock || !dealReady} onClick={handleDecrease} />
+                  <InputProduct
+                    product={product}
+                    id={id}
+                    onChange={handleInputChange}
+                    searchInput={searchInput}
+                    type={type}
+                    value={value}
+                    name={name}
+                    className={value > 0 && styles.has_item}
+                    disabled={outOfStock || !dealReady}
+                  />
+                  <PlusButton
+                    disabled={
+                      !dealReady || outOfStock || (maxQuantityProduct && value >= maxQuantityProduct)
+                    }
+                    onClick={() => handleIncrease()}
+                  />
+
+                  {cart && (
+                    <Tooltip title="Xoá sản phẩm">
+                      <IconButton className={styles.remove_icon} onClick={removeProductOutCart}>
+                        {isMobile ? (
+                          <Close className={styles.icon} />
+                        ) : (
+                          <Delete className={styles.icon} />
+                        )}
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                </CardActions>
+              ) : (
+                <CardActions
+                  className={
+                    row
+                      ? styles.product_action
+                      : clsx(styles.product_action, styles.product_action_column)
+                  }
+                >
+                  <MinusButton onClick={handleDecrease} />
+                  <InputProduct
+                    product={product}
+                    id={id}
+                    onChange={handleInputChange}
+                    searchInput={searchInput}
+                    type={type}
+                    value={value}
+                    name={name}
+                    className={value > 0 && styles.has_item}
+                  />
+                  <PlusButton
+                    disabled={maxQuantityProduct && value >= maxQuantityProduct}
+                    onClick={() => handleIncrease()}
+                  />
+
+                  {cart && (
+                    <Tooltip title="Xoá sản phẩm">
+                      <IconButton className={styles.remove_icon} onClick={removeProductOutCart}>
+                        {isMobile ? (
+                          <Close className={styles.icon} />
+                        ) : (
+                          <Delete className={styles.icon} />
+                        )}
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                </CardActions>
+              )}
+              {isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)

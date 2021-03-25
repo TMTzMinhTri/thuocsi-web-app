@@ -42,7 +42,7 @@ import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from 'constants/Paths';
 import { DOMAIN_SELLER_CENTER, NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
-import { NotifyUtils } from 'utils';
+import { NotifyUtils, calculateTimeLeft, formatDate } from 'utils';
 import Router from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -97,8 +97,10 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
 
   const maxQuantity = isDeal && deal ? deal.maxQuantity : prdMaxQuantity;
   const amountRemaining = formatNumber(maxQuantity - (deal?.quantity || 0));
-
-  // const { quantity } = product;
+  const outOfStock = deal?.maxQuantity === (deal?.quantity || 0) || false;
+  const timeLeft = calculateTimeLeft(deal?.startTime) || {};
+  const dealReady = Object.keys(timeLeft).length === 0 || false;
+  const startDate = formatDate(deal?.startTime) || null;
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [quantity, setQuantity] = useState(product.quantity || 0);
@@ -180,6 +182,9 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   const renderCondition = () => {
     const percentDealSold = (deal.quantity / deal.maxQuantity) * 100;
     const soldOutCondition = deal.maxQuantity - deal.quantity === 0;
+    if (!dealReady) {
+      return 'Sắp mở bán';
+    }
     if (percentDealSold < 50) {
       return `Đã bán ${deal.quantity}`;
     }
@@ -300,23 +305,29 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       </div>
                       {isDeal && deal && (
                         <div className={styles.deal_section}>
-                          <CountdownTimerDetail
-                            className={styles.count_down}
-                            dealEndDay={deal.endTime}
-                          />
+                          {dealReady ? (
+                            <CountdownTimerDetail
+                              className={styles.count_down}
+                              dealEndDay={deal.endTime}
+                            />
+                          ) : (
+                            startDate && <div className={styles.startDate}>{startDate}</div>
+                          )}
                           <div className={styles.process_wrapper}>
                             <Typography className={styles.process_content}>
                               {renderCondition()}
                             </Typography>
-                            <LinearProgress
-                              classes={{
-                                root: styles.root_process,
-                                barColorPrimary: styles.bar_background,
-                                colorPrimary: styles.blur_background,
-                              }}
-                              variant="determinate"
-                              value={deal.quantity / deal.maxQuantity}
-                            />
+                            {dealReady && (
+                              <LinearProgress
+                                classes={{
+                                  root: styles.root_process,
+                                  barColorPrimary: styles.bar_background,
+                                  colorPrimary: styles.blur_background,
+                                }}
+                                variant="determinate"
+                                value={deal.quantity / deal.maxQuantity}
+                              />
+                            )}
                           </div>
                         </div>
                       )}
@@ -327,24 +338,45 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                           </Typography>
                         ) : null}
                       </>
-                      {!isMobile && (
-                        <>
-                          <div className={styles.product_action}>
-                            <MinusButton className={styles.minus} onClick={handleDecrease} />
-                            <InputProduct
-                              product={product}
-                              id={product.sku}
-                              className={styles.input_product}
-                              onChange={handleInputChange}
-                              value={quantity}
-                            />
-                            <PlusButton
-                              disabled={maxQuantity && quantity >= maxQuantity}
-                              className={styles.plus}
-                              onClick={() => handleIncrease()}
-                            />
-                          </div>
-                        </>
+                      {!isMobile && isDeal ? (
+                        <div className={styles.product_action}>
+                          <MinusButton
+                            disabled={outOfStock || !dealReady}
+                            className={styles.minus}
+                            onClick={handleDecrease}
+                          />
+                          <InputProduct
+                            product={product}
+                            id={product.sku}
+                            className={styles.input_product}
+                            onChange={handleInputChange}
+                            value={quantity}
+                            disabled={outOfStock || !dealReady}
+                          />
+                          <PlusButton
+                            disabled={
+                              !dealReady || outOfStock || (maxQuantity && quantity >= maxQuantity)
+                            }
+                            className={styles.plus}
+                            onClick={() => handleIncrease()}
+                          />
+                        </div>
+                      ) : (
+                        <div className={styles.product_action}>
+                          <MinusButton className={styles.minus} onClick={handleDecrease} />
+                          <InputProduct
+                            product={product}
+                            id={product.sku}
+                            className={styles.input_product}
+                            onChange={handleInputChange}
+                            value={quantity}
+                          />
+                          <PlusButton
+                            disabled={maxQuantity && quantity >= maxQuantity}
+                            className={styles.plus}
+                            onClick={() => handleIncrease()}
+                          />
+                        </div>
                       )}
                     </>
                   ) : (
