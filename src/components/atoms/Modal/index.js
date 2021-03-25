@@ -21,6 +21,9 @@ const StyledModal = styled(ModalItem)`
   align-items: center;
   justify-content: center;
   padding: 15px;
+  &.signup-modal .auth-modal-content{
+    height: 100%;
+  }
 `;
 
 export default React.memo(StyledModal);

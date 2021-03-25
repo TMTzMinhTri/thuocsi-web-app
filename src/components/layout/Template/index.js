@@ -84,6 +84,7 @@ export default function Template({
               visible={isShowSignUp}
               onClose={toggleSignUp}
               onChangeSignIn={handleChangeSignIn}
+              className="signup-modal"
             />
             <RegisterGuestModal
               visible={isShowRegisterGuest}
