@@ -16,4 +16,22 @@ export const getListDeliveryMethod = async ({ ctx }) => {
   return deliveryRes.data;
 };
 
-export default { getListPaymentMethod, getListDeliveryMethod };
+export const getDetailPaymentMethod = async ({ ctx, paymentMethodCode }) => {
+  const paymentMethodRes = await PricingClients.getPaymentMethod({ ctx, paymentMethodCode });
+  return paymentMethodRes;
+};
+
+export const getDetailDeliveryMethod = async ({ ctx, deliveryPlatformCode }) => {
+  const deliveryMethodRes = await PricingClients.getDetailDeliveryMethod({
+    ctx,
+    deliveryPlatformCode,
+  });
+  return deliveryMethodRes;
+};
+
+export default {
+  getListPaymentMethod,
+  getListDeliveryMethod,
+  getDetailPaymentMethod,
+  getDetailDeliveryMethod,
+};
