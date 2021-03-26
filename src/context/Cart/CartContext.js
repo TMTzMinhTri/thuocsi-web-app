@@ -76,7 +76,7 @@ export const CartContextProvider = ({ children }) => {
       dispatch({ type: INCREASE_BY, payload: revertPayload });
       await reloadDataCart({
         res,
-        errorMessage: res.message || 'Cập nhật giỏ hàng không thành công',
+        errorMessage: res.message || 'Số lượng đặt hàng vượt quá giới hạn',
       });
     }
     await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
