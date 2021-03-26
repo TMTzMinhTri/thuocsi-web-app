@@ -121,15 +121,38 @@ export const getPromotionDetailByVoucherCode = async ({ voucherCode }) => {
 
   return parseVoucherDetail({ ...voucherInfo, conditions, rewards });
 };
+const beautyPromo = ({
+  conditions,
+  code,
+  endTime,
+  promotionName,
+  promotionType,
+  status,
+  type,
+  voucherId,
+  rewards,
+  startTime,
+  voucherCodes,
+}) => ({
+  conditions,
+  code,
+  endTime,
+  promotionName,
+  promotionType,
+  status,
+  type,
+  voucherId,
+  rewards,
+  startTime,
+  voucherCodes,
+});
 
 async function getPromoActive({ ctx }) {
   const promoRes = await PromoClient.getPromosActive({ ctx });
   if (!isValid(promoRes)) {
     return [];
   }
-
-  const promoActive = promoRes.data;
-
+  const promoActive = promoRes.data.map((item) => beautyPromo(item));
   return promoActive;
 }
 
