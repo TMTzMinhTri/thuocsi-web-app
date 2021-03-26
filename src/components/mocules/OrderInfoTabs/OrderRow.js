@@ -13,7 +13,7 @@ import TicketFormModal from '../TicketFormModal';
 import styles from './styles.module.css';
 import OrderStatusButton from './OrderStatusButton';
 
-const MyOrderDetail = ({ amount, createdTime, deliveryDate }) => (
+const MyOrderDetail = ({ amount, createdTime, deliveryDate = null }) => (
   <Grid item xs={12}>
     <div>
       <span className={styles.order_detail_label}>Sản phẩm: </span> {amount}
@@ -22,10 +22,12 @@ const MyOrderDetail = ({ amount, createdTime, deliveryDate }) => (
       <span className={styles.order_detail_label}>Ngày mua: </span>
       {DateTimeUtils.getFormattedDate(new Date(createdTime), 'DD/MM/YYYY HH:mm:ss')}
     </div>
-    <div>
-      <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
-      {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate || Date.now()))}
-    </div>
+    {deliveryDate && (
+      <div>
+        <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
+        {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate))}
+      </div>
+    )}
   </Grid>
 );
 const OrderRow = ({
@@ -109,7 +111,8 @@ const OrderRow = ({
           {/* <Grid item>
             <PrintInvoiceButton orderNo={orderNo} user={user} disabled={status !== ENUM_ORDER_STATUS.PENDING} />
           </Grid> */}
-          {status === ENUM_ORDER_STATUS.PENDING && (
+
+          {status === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM && (
             <Grid item>
               <EditOrderButton orderNo={orderNo} />
             </Grid>

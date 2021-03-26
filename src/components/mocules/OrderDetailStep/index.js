@@ -84,10 +84,10 @@ function ColorlibStepIcon({ icon, active, completed }) {
 const steps = ['Chờ xác nhận', 'Đã xác nhận', 'Đang xử lý', 'Đang giao hàng', 'Hoàn tất'];
 
 const MappingStep = {
-  [ENUM_ORDER_STATUS.PENDING]: 0,
-  [ENUM_ORDER_STATUS.CONFIRM]: 1,
+  [ENUM_ORDER_STATUS.WAIT_TO_CONFIRM]: 0,
+  [ENUM_ORDER_STATUS.CONFIRMED]: 1,
   // forbidden
-  [ENUM_ORDER_STATUS.DELIVERY]: 3,
+  [ENUM_ORDER_STATUS.DELIVERING]: 3,
   [ENUM_ORDER_STATUS.COMPLETED]: 4,
 };
 

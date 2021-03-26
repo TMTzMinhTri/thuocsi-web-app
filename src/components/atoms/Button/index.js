@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
+import { palette } from 'constants/Colors';
 
 const CustomButton = memo((props) => {
   const { btnType, children, className, suffix, color, backgroundColor, ...rest } = props;
@@ -82,11 +83,18 @@ const StyledButton = styled(CustomButton)`
 
     &--green {
       color: #fff !important;
-      background: #00b46e !important;
-      border: 1px solid #00b46e !important;
+      background: #00b46e;
+      border: 1px solid #00b46e;
       &:hover {
         color: #00b46e !important;
         background: #fff !important;
+      }
+
+      &.Mui-disabled {
+        color: #212529 !important;
+        opacity: 0.65 !important;
+        background: ${palette.grey.default} !important;
+        border: 1px solid ${palette.grey.default} !important;
       }
     }
   }
@@ -97,7 +105,13 @@ const StyledButton = styled(CustomButton)`
     border-color: #00b46e !important;
     text-transform: none !important;
     width: 100%;
-    // padding: 5px 55px !important;
+
+      &.Mui-disabled {
+        color: #212529 !important;
+        opacity: 0.65 !important;
+        background: ${palette.grey.default} !important;
+        border: 1px solid ${palette.grey.default} !important;
+      }
   }
 
   &.payment_button {
@@ -109,6 +123,12 @@ const StyledButton = styled(CustomButton)`
     text-transform: unset !important;
     font-weight: 500;
     margin: 10px;
+    &.Mui-disabled {
+      color: #212529 !important;
+      opacity: 0.65 !important;
+      background: ${palette.grey.default} !important;
+      border: 1px solid ${palette.grey.default} !important;
+    }
   }
 
   &.response__button--upload {
@@ -118,6 +138,12 @@ const StyledButton = styled(CustomButton)`
     background: #fff !important;
     color: rgba(0, 0, 0, 0.23) !important;
     border: 1px solid rgba(0, 0, 0, 0.23) !important;
+    &.Mui-disabled {
+      color: #212529 !important;
+      opacity: 0.65 !important;
+      background: ${palette.grey.default} !important;
+      border: 1px solid ${palette.grey.default} !important;
+    }
   }
 
   &.response__button--send {
