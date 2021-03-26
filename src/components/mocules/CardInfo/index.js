@@ -95,6 +95,8 @@ const CardInfo = ({ cart, promo, className, user }) => {
 
   const redeemText = promoInfo ? promoInfo.code : '';
 
+  const isEmptyRedeemCode = isEmpty(redeemCode);
+
   return (
     <div className={className}>
       <Grid className={clsx(styles.container)} container>
@@ -118,7 +120,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
             <Typography className={clsx(styles.number, styles.price)}>
               {formatCurrency(subTotalPrice || 0)}
             </Typography>
-            {!isEmpty(redeemCode) && isCanApplyVoucherCode && (
+            {!isEmptyRedeemCode && isCanApplyVoucherCode && (
               <Typography className={clsx(styles.total)}>
                 {formatCurrency(Math.max(subTotalPrice - discount, 0))}
               </Typography>
@@ -141,14 +143,14 @@ const CardInfo = ({ cart, promo, className, user }) => {
                     onClick={handleSetPromoVisible}
                     className={clsx(
                       styles.counpon_button,
-                      !isCanApplyVoucherCode && !isEmpty(redeemCode) ? styles.textLineThrought : '',
+                      !isCanApplyVoucherCode && !isEmptyRedeemCode ? styles.textLineThrought : '',
                     )}
                   >
-                    {!isEmpty(redeemCode) ? redeemText : 'Dùng mã khuyến mãi'}
+                    {!isEmptyRedeemCode ? redeemText : 'Dùng mã khuyến mãi'}
                   </Typography>
                 </Tooltip>
               </div>
-              {!isEmpty(redeemCode) && <DeleteIconButton onClick={handleRemoveRedeemCode} />}
+              {!isEmptyRedeemCode && <DeleteIconButton onClick={handleRemoveRedeemCode} />}
             </Grid>
             <Grid
               className={clsx(styles.wrapper)}
@@ -159,7 +161,7 @@ const CardInfo = ({ cart, promo, className, user }) => {
                 borderBottom: '1px solid rgba(195, 204, 220, 0.4)',
               }}
             >
-              {!isCanApplyVoucherCode && !isEmpty(redeemCode) ? (
+              {!isCanApplyVoucherCode && !isEmptyRedeemCode ? (
                 <Typography style={{ fontSize: 'small' }}>
                   <i>{messageApplyVoucherCode}</i>
                 </Typography>

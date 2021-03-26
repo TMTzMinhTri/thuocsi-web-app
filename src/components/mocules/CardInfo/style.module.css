@@ -67,6 +67,7 @@
 }
 .textLineThrought {
   text-decoration-line: line-through;
+  color: #919aa3 !important;
 }
 
 .btn {
