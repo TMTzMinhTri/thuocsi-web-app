@@ -30,7 +30,6 @@ export async function getServerSideProps(ctx) {
 const ThankYou = ({ order = {}, isMobile }) => {
   const title = 'Cảm ơn bạn đã đặt hàng tại thuocsi.vn!';
   const { orderId, deliveryDate, orderNo } = order;
-  console.log(order)
   return (
     <Template title={title} isMobile={isMobile} pageTitle="Đặt hàng thành công">
       <div style={{ backgroundColor: '#f4f7fc' }}>
