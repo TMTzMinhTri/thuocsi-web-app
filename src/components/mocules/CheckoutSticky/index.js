@@ -35,7 +35,7 @@ const CheckoutSticky = ({
     itemCount = 0,
     discount = 0,
     updateCart,
-    redeemApplyResult,
+    redeemApplyResult = [],
   } = useCart();
 
   const { user } = useAuth();
@@ -55,10 +55,7 @@ const CheckoutSticky = ({
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   ));
 
-  const redeemCodeValue = redeemCode && redeemCode[0];
-  const redeemCodeApplyed =
-    redeemApplyResult &&
-    redeemApplyResult.filter((item) => item.code === redeemCodeValue && item.canUse)[0];
+  const { canUse = false, code = '' } = redeemApplyResult[0] || {};
 
   const handleCheckCondition = (event) => {
     setCheckCondition({ ...checkCondition, [event.target.name]: event.target.checked });
@@ -194,11 +191,11 @@ const CheckoutSticky = ({
           </div>
           <div className={styles.checkout_content}>{formatCurrency(paymentMethodFee)}</div>
         </div>
-        {redeemCodeApplyed && (
+        {canUse && redeemCode && redeemCode[0] && (
           <div className={clsx(styles.d_flex, styles.checkout_promo_code)}>
             <div>
               <FontAwesomeIcon className={styles.icon} icon={faTags} />
-              <span>{redeemCodeApplyed}</span>
+              <span>{code}</span>
             </div>
             <div className={styles.bank_info_content}>{`-${formatCurrency(discount)}`}</div>
           </div>
