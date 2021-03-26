@@ -1,5 +1,6 @@
 import React from 'react';
 import { Paper, Grid, makeStyles, Typography } from '@material-ui/core';
+import DateTimeUtils from 'utils/DateTimeUtils';
 import styles from './styles.module.css';
 
 const NOT_YET = '(Chưa có)';
@@ -83,7 +84,12 @@ const OrderDetailInfo = ({
                 <span>{deliveryMethodName} </span>
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
-                Ngày giao:&nbsp; <span>{deliveryDate || NOT_YET} </span>
+                Ngày giao:&nbsp;
+                <span>
+                  {deliveryDate
+                    ? DateTimeUtils.getFormattedWithDate(new Date(deliveryDate))
+                    : NOT_YET}
+                </span>
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
                 Mã vận đơn:&nbsp; <span>{deliveryTrackingNumber || NOT_YET} </span>
