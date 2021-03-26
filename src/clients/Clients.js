@@ -123,7 +123,6 @@ async function request({
     }
 
     // console.log('result : ', result);
-
     // console.log(` fetch data ${link}`, result);
     return result;
   } catch (err) {

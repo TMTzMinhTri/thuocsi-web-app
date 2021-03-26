@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Grid, Paper, useMediaQuery } from '@material-ui/core';
-import { DateTimeUtils, NotifyUtils } from 'utils';
+import { DateTimeUtils } from 'utils';
 import { formatCurrency } from 'utils/FormatNumber';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
-import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
 import { MY_ORDER_URL } from 'constants/Paths';
 import { useModal } from 'hooks';
@@ -43,31 +42,15 @@ const OrderRow = ({
   handleSetOrderStatus,
   bankInfo,
   reasonsList,
+  totalItems,
 }) => {
-  const [amount, setAmount] = useState(0);
   const [orderTicket, setOrderTicket] = useState({});
   const [open, toggleOpen] = useModal();
 
   const handleChangeOrderTicket = (value) => {
     setOrderTicket(value);
   };
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // will change in future
-        const res = await OrderClient.getProductByOrderNo({ orderNo });
-        if (!isValid(res)) throw Error('Lấy danh sách sản phẩm không thành công');
-        const quantity = res.data.reduce(
-          (accumulator, currentValue) => accumulator + (currentValue?.quantity || 0),
-          0,
-        );
-        setAmount(quantity);
-      } catch (error) {
-        NotifyUtils.error(error.message || 'Lấy danh sách thất bại');
-      }
-    }
-    fetchData();
-  }, []);
+
   const maxWidth = useMediaQuery('(max-width:715px)');
   return (
     <Paper square={!maxWidth} className={styles.paper} elevation={0}>
@@ -89,7 +72,11 @@ const OrderRow = ({
             <OrderStatusButton status={status} handleSetOrderStatus={handleSetOrderStatus} />
           </Grid>
           {maxWidth ? null : (
-            <MyOrderDetail amount={amount} createdTime={createdTime} deliveryDate={deliveryDate} />
+            <MyOrderDetail
+              amount={totalItems}
+              createdTime={createdTime}
+              deliveryDate={deliveryDate}
+            />
           )}
         </Grid>
 
