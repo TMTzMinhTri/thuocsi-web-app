@@ -161,7 +161,7 @@ const ProductCardBuy = ({
         <>
           {isAuthenticated ? (
             <>
-              {isDeal && deal ? (
+              {isDeal && deal && deal?.dealType === 'DEAL' ? (
                 <div
                   className={
                     row
@@ -218,7 +218,9 @@ const ProductCardBuy = ({
                   />
                   <PlusButton
                     disabled={
-                      !dealReady || outOfStock || (maxQuantityProduct && value >= maxQuantityProduct)
+                      !dealReady ||
+                      outOfStock ||
+                      (maxQuantityProduct && value >= maxQuantityProduct)
                     }
                     onClick={() => handleIncrease()}
                   />
