@@ -199,7 +199,7 @@ a {
 
 .back-to-top {
   position: fixed;
-  bottom: 6em;
+  bottom: -30px;
   right: 1em;
   z-index: 100;
   transition: bottom 0.5s;
@@ -212,6 +212,12 @@ a {
   text-align: center;
   cursor: pointer;
   line-height: 1;
+  opacity: 0;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  bottom: 6em;
 }
 
 .back-to-top-text {
@@ -233,9 +239,11 @@ input[type=number] {
 }
 @media (max-width: 767px) {
   .back-to-top {
-    bottom: 5em;
     width: 2.4em;
     height: 2.4em;
+  }
+  .back-to-top.visible {
+    bottom: 5em;
   }
 
   .back-to-top-text {

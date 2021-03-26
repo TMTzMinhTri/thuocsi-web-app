@@ -51,7 +51,7 @@ const PromoListModal = memo((props) => {
             const { type, minOrderValue } = condition;
             switch (type) {
               case 'ORDER_VALUE':
-                if (minOrderValue && totalPrice <= minOrderValue) {
+                if (minOrderValue && totalPrice < minOrderValue) {
                   isDisable = true;
                   message = `Giá trị giỏ hàng cần lớn hơn ${formatCurrency(minOrderValue)}`;
                 }

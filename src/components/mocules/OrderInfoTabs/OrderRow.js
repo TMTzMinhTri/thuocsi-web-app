@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Grid, Paper, useMediaQuery } from '@material-ui/core';
-import { DateTimeUtils, NotifyUtils } from 'utils';
+import { DateTimeUtils } from 'utils';
 import { formatCurrency } from 'utils/FormatNumber';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
-import { OrderClient, isValid } from 'clients';
 import Link from 'next/link';
 import { MY_ORDER_URL } from 'constants/Paths';
 import { useModal } from 'hooks';
@@ -14,7 +13,7 @@ import TicketFormModal from '../TicketFormModal';
 import styles from './styles.module.css';
 import OrderStatusButton from './OrderStatusButton';
 
-const MyOrderDetail = ({ amount, createdTime, deliveryDate }) => (
+const MyOrderDetail = ({ amount, createdTime, deliveryDate = null }) => (
   <Grid item xs={12}>
     <div>
       <span className={styles.order_detail_label}>Sản phẩm: </span> {amount}
@@ -23,10 +22,12 @@ const MyOrderDetail = ({ amount, createdTime, deliveryDate }) => (
       <span className={styles.order_detail_label}>Ngày mua: </span>
       {DateTimeUtils.getFormattedDate(new Date(createdTime), 'DD/MM/YYYY HH:mm:ss')}
     </div>
-    <div>
-      <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
-      {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate || Date.now()))}
-    </div>
+    {deliveryDate && (
+      <div>
+        <span className={styles.order_detail_label}> Dự kiến giao ngày: </span>
+        {DateTimeUtils.getFormattedWithDate(new Date(deliveryDate))}
+      </div>
+    )}
   </Grid>
 );
 const OrderRow = ({
@@ -43,31 +44,15 @@ const OrderRow = ({
   handleSetOrderStatus,
   bankInfo,
   reasonsList,
+  totalItems,
 }) => {
-  const [amount, setAmount] = useState(0);
   const [orderTicket, setOrderTicket] = useState({});
   const [open, toggleOpen] = useModal();
 
   const handleChangeOrderTicket = (value) => {
     setOrderTicket(value);
   };
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // will change in future
-        const res = await OrderClient.getProductByOrderNo({ orderNo });
-        if (!isValid(res)) throw Error('Lấy danh sách sản phẩm không thành công');
-        const quantity = res.data.reduce(
-          (accumulator, currentValue) => accumulator + (currentValue?.quantity || 0),
-          0,
-        );
-        setAmount(quantity);
-      } catch (error) {
-        NotifyUtils.error(error.message || 'Lấy danh sách thất bại');
-      }
-    }
-    fetchData();
-  }, []);
+
   const maxWidth = useMediaQuery('(max-width:715px)');
   return (
     <Paper square={!maxWidth} className={styles.paper} elevation={0}>
@@ -89,7 +74,11 @@ const OrderRow = ({
             <OrderStatusButton status={status} handleSetOrderStatus={handleSetOrderStatus} />
           </Grid>
           {maxWidth ? null : (
-            <MyOrderDetail amount={amount} createdTime={createdTime} deliveryDate={deliveryDate} />
+            <MyOrderDetail
+              amount={totalItems}
+              createdTime={createdTime}
+              deliveryDate={deliveryDate}
+            />
           )}
         </Grid>
 
@@ -122,7 +111,8 @@ const OrderRow = ({
           {/* <Grid item>
             <PrintInvoiceButton orderNo={orderNo} user={user} disabled={status !== ENUM_ORDER_STATUS.PENDING} />
           </Grid> */}
-          {status === ENUM_ORDER_STATUS.PENDING && (
+
+          {status === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM && (
             <Grid item>
               <EditOrderButton orderNo={orderNo} />
             </Grid>

@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function ScrollToTop() {
-  const [isVisible, setIsVisible] = useState(false);
+  const divRef = useRef(null);
 
   // Show button when page is scorlled upto given distance
   const toggleVisibility = () => {
-    if (window.pageYOffset > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
+    if (window.pageYOffset > 300 && !divRef.current?.classList?.contains('visible')) {
+      divRef.current?.classList?.add('visible');
+    }
+    if (window.pageYOffset <= 300 && divRef.current?.classList?.contains('visible')) {
+      divRef.current?.classList?.remove('visible')
     }
   };
 
@@ -28,13 +29,9 @@ export default function ScrollToTop() {
   }, []);
 
   return (
-    <div>
-      {isVisible && (
-        <div className="back-to-top" onClick={scrollToTop} role="presentation">
-          <FontAwesomeIcon icon={faChevronUp} />
-          <div className="back-to-top-text">TOP</div>
-        </div>
-      )}
+    <div ref={divRef} className="back-to-top" onClick={scrollToTop} role="presentation">
+      <FontAwesomeIcon icon={faChevronUp} />
+      <div className="back-to-top-text">TOP</div>
     </div>
   );
 }

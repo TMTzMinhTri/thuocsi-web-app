@@ -5,7 +5,6 @@ import {
   OrderDetailInfo,
   OrderDetailProduct,
   TicketButton,
-  PrintInvoiceButton,
   EditOrderButton,
   TicketFormModal,
 } from 'components/mocules';
@@ -16,13 +15,16 @@ import Link from 'next/link';
 import { useModal } from 'hooks';
 import styles from './styles.module.css';
 
-const OrderDetailContainer = ({ order, products, bankInfo, reasonsList, user, isMobile }) => {
+const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile }) => {
   const [orderTicket, setOrderTicket] = useState({});
   const [open, toggleOpen] = useModal();
 
   const handleChangeOrderTicket = (value) => {
     setOrderTicket(value);
   };
+
+  // const isCanExport = order;
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -41,7 +43,9 @@ const OrderDetailContainer = ({ order, products, bankInfo, reasonsList, user, is
                 <div className={styles.order_status_bottom_text}>
                   Dự kiến giao vào &nbsp;
                   <span>
-                    {DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate || Date.now()))}
+                    {order.deliveryDate
+                      ? DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate))
+                      : '(Chưa có)'}
                   </span>
                 </div>
               </Grid>
@@ -83,11 +87,12 @@ const OrderDetailContainer = ({ order, products, bankInfo, reasonsList, user, is
         <Paper classes={{ root: styles.container }} elevation={3}>
           <Grid className={styles.print_invoice_button} container direction="row">
             <Grid item xs={3}>
-              <PrintInvoiceButton
+              {/* OFF print invoice for deploy */}
+              {/* <PrintInvoiceButton
                 orderNo={order.orderNo}
                 user={user}
                 disabled={order.status !== ENUM_ORDER_STATUS.PENDING}
-              />
+              /> */}
             </Grid>
 
             <Grid item container direction="column" justify="center" xs={5}>
@@ -115,9 +120,13 @@ const OrderDetailContainer = ({ order, products, bankInfo, reasonsList, user, is
 
       <Grid className={styles.table_wrapper} item xs={12}>
         <OrderDetailProduct
-          products={products}
+          products={order?.products || []}
           promoName={order?.redeemCode}
           totalDiscount={order?.totalDiscount}
+          total={order?.totalPrice}
+          paymentMethodFee={order?.paymentMethodFee}
+          deliveryPlatformFee={order?.deliveryPlatformFee}
+          subTotalPrice={order?.subTotalPrice}
         />
       </Grid>
       <Grid item xs={12} className={styles.comeback}>

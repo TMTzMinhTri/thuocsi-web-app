@@ -8,7 +8,7 @@ import { CART_URL } from 'constants/Paths';
 import { NotifyUtils } from 'utils';
 import EditOrderModal from '../EditOrderModal';
 
-const EditOrderButton = ({ orderNo }) => {
+const EditOrderButton = ({ orderNo, canEdit }) => {
   const [val, setVal] = useState(false);
   const router = useRouter();
   const { updateCart } = useCart();
@@ -24,9 +24,16 @@ const EditOrderButton = ({ orderNo }) => {
     updateCart();
     router.push(CART_URL);
   };
+
+  // const classNameBtn = canEdit ? "my-order__button my-order__button--green" : "my-order__button my-order__button--green"
+
   return (
     <>
-      <Button className="my-order__button my-order__button--green" onClick={handleChangeVal}>
+      <Button
+        className="my-order__button my-order__button--green"
+        onClick={handleChangeVal}
+        disabled={!canEdit}
+      >
         Sửa đơn hàng
       </Button>
       <EditOrderModal visible={val} onClose={handleChangeVal} onClickOk={handleClickOk} />

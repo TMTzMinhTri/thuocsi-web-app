@@ -48,7 +48,6 @@ const AuthModal = styled(AuthModalCustom)`
       }
     }
     .auth-modal-content {
-      height: 100%;
       overflow: hidden;
     }
     .auth-modal-body{

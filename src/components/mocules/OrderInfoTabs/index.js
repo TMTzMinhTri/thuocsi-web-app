@@ -32,9 +32,10 @@ const ComeHomeButton = styled(Button)`
 
 const tabs = [
   { label: 'Tất cả', value: ENUM_ORDER_STATUS.ALL },
-  { label: 'Chờ Xác Nhận', value: ENUM_ORDER_STATUS.PENDING },
-  { label: 'Đã Xác Nhận', value: ENUM_ORDER_STATUS.CONFIRM },
-  { label: 'Đang Giao', value: ENUM_ORDER_STATUS.DELIVERY },
+  { label: 'Chờ Xác Nhận', value: ENUM_ORDER_STATUS.WAIT_TO_CONFIRM },
+  { label: 'Đã Xác Nhận', value: ENUM_ORDER_STATUS.CONFIRMED },
+  { label: 'Đang xử lý', value: ENUM_ORDER_STATUS.PROCESSING },
+  { label: 'Đang Giao', value: ENUM_ORDER_STATUS.DELIVERING },
   { label: 'Hoàn Tất', value: ENUM_ORDER_STATUS.COMPLETED },
   { label: 'Huỷ', value: ENUM_ORDER_STATUS.CANCEL },
 ];
@@ -59,16 +60,17 @@ export default function OrderInfoTabs({ user, orders, status, bankInfo, reasonsL
             centered
             classes={{ indicator: styles.indicator }}
           >
-            {tabs.map((tab) => (
-              <CustomTab
-                key={uuidV4()}
-                label={tab.label}
-                disableFocusRipple
-                disableRipple
-                onClick={() => handleChangeOrderStatus(tab.value)}
-                value={tab.value}
-              />
-            ))}
+            {tabs &&
+              tabs.map(({ label, value }) => (
+                <CustomTab
+                  key={uuidV4()}
+                  label={label}
+                  disableFocusRipple
+                  disableRipple
+                  onClick={() => handleChangeOrderStatus(value)}
+                  value={value}
+                />
+              ))}
           </Tabs>
         </Paper>
       </Grid>
@@ -83,15 +85,16 @@ export default function OrderInfoTabs({ user, orders, status, bankInfo, reasonsL
         </Grid>
       ) : (
         <Grid item xs={12}>
-          {orders.map((order) => (
-            <OrderRow
-              {...order}
-              key={uuidV4()}
-              user={user}
-              handleSetOrderStatus={handleChangeOrderStatus}
-              bankInfo={bankInfo}
-              reasonsList={reasonsList}
-            />
+          {orders &&
+            orders.map((order) => (
+              <OrderRow
+                {...order}
+                key={uuidV4()}
+                user={user}
+                handleSetOrderStatus={handleChangeOrderStatus}
+                bankInfo={bankInfo}
+                reasonsList={reasonsList}
+              />
             ))}
         </Grid>
       )}

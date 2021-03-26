@@ -35,7 +35,9 @@ const CheckoutSticky = ({
     itemCount = 0,
     discount = 0,
     updateCart,
+    redeemApplyResult = [],
   } = useCart();
+
   const { user } = useAuth();
   const router = useRouter();
   const [checkCondition, setCheckCondition] = useState({
@@ -43,13 +45,17 @@ const CheckoutSticky = ({
   });
   const deliveryData =
     dataCustomer.deliveryMethods.filter((item) => item.code === dataCustomer.deliveryMethod) || [];
+
   const subTitleDelivery = deliveryData?.[0]?.subTitle || null;
   const paymentData =
     dataCustomer.paymentMethods.filter((item) => item.code === dataCustomer.paymentMethod) || [];
   const subTitlePayment = paymentData?.[0]?.subTitle || null;
+
   const GreenCheckbox = React.memo((props) => (
     <Checkbox classes={{ root: styles.checkbox }} color="default" {...props} />
   ));
+
+  const { canUse = false, code = '' } = redeemApplyResult[0] || {};
 
   const handleCheckCondition = (event) => {
     setCheckCondition({ ...checkCondition, [event.target.name]: event.target.checked });
@@ -185,11 +191,11 @@ const CheckoutSticky = ({
           </div>
           <div className={styles.checkout_content}>{formatCurrency(paymentMethodFee)}</div>
         </div>
-        {redeemCode && redeemCode.length > 0 && (
+        {canUse && redeemCode && redeemCode[0] && (
           <div className={clsx(styles.d_flex, styles.checkout_promo_code)}>
             <div>
               <FontAwesomeIcon className={styles.icon} icon={faTags} />
-              <span>{redeemCode}</span>
+              <span>{code}</span>
             </div>
             <div className={styles.bank_info_content}>{`-${formatCurrency(discount)}`}</div>
           </div>

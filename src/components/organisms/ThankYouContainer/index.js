@@ -14,11 +14,14 @@ const WatchOrderButton = ({ handleClick }) => (
   </Button>
 );
 
-const ThankYouContainer = ({ orderID = 0, orderNo, deliveryDate }) => {
+const ThankYouContainer = ({ orderID = 0, orderNo, deliveryDate, canEdit = false }) => {
   const handleWatchOrder = () => {
     Router.push(`${MY_ORDER_URL}/${orderID}`);
   };
-  const deliveryDateStr = DateTimeUtils.getFormattedWithDate(new Date(deliveryDate || new Date()));
+
+  // todo : không có delivery date thì off
+  const deliveryDateStr = DateTimeUtils.getFormattedWithDate(new Date(deliveryDate));
+
   return (
     <Grid container spacing={2} className={styles.container} direction="column">
       <Grid className={styles.icon}>
@@ -27,10 +30,12 @@ const ThankYouContainer = ({ orderID = 0, orderNo, deliveryDate }) => {
       <Typography variant="h5" className={styles.title}>
         Cảm ơn bạn đã đặt hàng tại thuocsi.vn!
       </Typography>
-      <Grid item>
-        Dự kiến giao vào
-        <strong>{deliveryDateStr} </strong>
-      </Grid>
+      {deliveryDate && (
+        <Grid item>
+          Dự kiến giao vào
+          <strong>{deliveryDateStr} </strong>
+        </Grid>
+      )}
 
       <Grid item>
         Đơn hàng sẽ được xác nhận bằng tin nhắn trong vòng 60 phút.
@@ -44,7 +49,7 @@ const ThankYouContainer = ({ orderID = 0, orderNo, deliveryDate }) => {
         vòng 2 tiếng và được hỗ trợ huỷ đơn hàng trong vòng 12 tiếng sau khi đặt hàng
       </Grid>
       <Grid item container justify="center">
-        <EditOrderButton orderNo={orderNo} />
+        <EditOrderButton orderNo={orderNo} canEdit={canEdit} />
         <WatchOrderButton handleClick={handleWatchOrder} />
       </Grid>
     </Grid>
