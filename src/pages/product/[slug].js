@@ -321,11 +321,11 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                               <LinearProgress
                                 classes={{
                                   root: styles.root_process,
-                                  barColorPrimary: styles.bar_background,
-                                  colorPrimary: styles.blur_background,
+                                  barColorPrimary: styles.blur_background,
+                                  colorPrimary: styles.bar_background,
                                 }}
                                 variant="determinate"
-                                value={deal.quantity / deal.maxQuantity}
+                                value={(deal.quantity / deal.maxQuantity) * 100}
                               />
                             )}
                           </div>
