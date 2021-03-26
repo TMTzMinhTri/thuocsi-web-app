@@ -23,6 +23,11 @@ const StyledModal = styled(ModalItem)`
   padding: 15px;
   &.signup-modal .auth-modal-content{
     height: 100%;
+    max-height: 780px;
+  }
+  &.signup-modal .auth-modal-body{
+    overflow: auto;
+    height: calc(100% - 50px);
   }
 `;
 
