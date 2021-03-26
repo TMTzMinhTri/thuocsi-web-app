@@ -253,7 +253,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       <div className={styles.price_info}>
                         <div className={styles.product_price_group}>
                           <span className={styles.product_price}>
-                            {isDeal && deal ? (
+                            {isDeal && deal && deal.dealType === 'DEAL' ? (
                               <>
                                 <span className={styles.deal_price}>
                                   {formatCurrency(deal?.price)}
