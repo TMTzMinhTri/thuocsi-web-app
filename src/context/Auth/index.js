@@ -13,7 +13,7 @@ import { useTranslation } from 'next-i18next';
 
 const AuthContext = createContext({});
 
-export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
+export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -162,7 +162,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
         if (!isValid(result)) {
           switch (result.errorCode) {
             case 'ACCOUNT_NOT_ACCEPTED':
-              NotifyUtils.error("Tài khoản này đã được đăng ký dùng thử. Bạn không thể tiếp tục");
+              NotifyUtils.error('Tài khoản này đã được đăng ký dùng thử. Bạn không thể tiếp tục');
               toggleRegisterGuest(false);
               toggleLogin();
               break;
@@ -207,6 +207,24 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode }) => {
   useEffect(() => {
     if (user === null) loadUserFromCookies();
   }, [pathname, loadUserFromCookies]);
+
+  useEffect(() => {
+    const loadUserV1 = async () => {
+      const result = await AuthService.loginv1({ tokenv1 });
+      if (isValid(result)) {
+        NotifyUtils.info(result.message);
+
+        const userInfo = getFirst(result);
+        login(userInfo, true);
+      } else {
+        const errorCode = `login.${result.errorCode}`;
+        NotifyUtils.error(t(errorCode));
+      }
+    };
+    if (tokenv1) {
+      loadUserV1();
+    }
+  }, [tokenv1]);
 
   return (
     <AuthContext.Provider

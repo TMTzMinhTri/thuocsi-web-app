@@ -15,17 +15,22 @@ export const login = async (body) =>
     body,
     isAuth: false,
   });
-export const passwordRecovery = async (body) => POST({ url: ACCOUNT_API.PASSWORD_RECOVERY, body, isBasic: true });
-export const passwordUpdate = async (body) => PUT({ url: ACCOUNT_API.PASSWORD_RECOVERY, body, isBasic: true });
+export const passwordRecovery = async (body) =>
+  POST({ url: ACCOUNT_API.PASSWORD_RECOVERY, body, isBasic: true });
+
+export const passwordUpdate = async (body) =>
+  PUT({ url: ACCOUNT_API.PASSWORD_RECOVERY, body, isBasic: true });
 
 export const loginLocal = async (body) =>
   POST({ url: '/login', body, page: true, mock: true, isAuth: false });
 
-// {username password }
+// { username password }
 export const signUp = async (body) => POST({ url: CUSTOMER_API.REGISTER, body, isAuth: false });
 
 export const registerGuest = async (body) =>
   POST({ url: CUSTOMER_API.REGISTER_GUEST, body, isBasic: true });
+
+export const registerV1 = async ({ t }) => GET({ url: CUSTOMER_API.REGISTER, params: { t } });
 
 export const getAccountInfo = async ({ ctx }) => GET({ url: ACCOUNT_API.GET_ACCOUNT_INFO, ctx });
 
@@ -43,5 +48,6 @@ export default {
   loginLocal,
   getAccountInfo,
   passwordRecovery,
-  passwordUpdate
+  passwordUpdate,
+  registerV1,
 };

@@ -35,7 +35,7 @@ const MyApp = (props) => {
 
   const router = useRouter();
 
-  const { refer, action, login, forgetpasscode } = router?.query || {};
+  const { refer, action, login, forgetpasscode, t } = router?.query || {};
   const isShowingLogin = login === 'true';
 
   // config https://material-ui.com/guides/server-rendering/
@@ -78,6 +78,7 @@ const MyApp = (props) => {
             refer={refer}
             forgetpasscode={forgetpasscode}
             action={action}
+            tokenv1={t}
           >
             {/* Protect route */}
             <LoadingRoute>

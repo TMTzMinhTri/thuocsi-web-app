@@ -23,6 +23,11 @@ export const registerGuest = async (data) => {
   return registerGuestRes;
 };
 
+export const loginv1 = async ({ tokenv1 }) => {
+  const registerUserV1 = await AuthClient.registerV1({ t: tokenv1 });
+  return registerUserV1;
+};
+
 export const passwordRecovery = async (data) => {
   const passwordRecoveryRes = await AuthClient.passwordRecovery(data);
   return passwordRecoveryRes;
@@ -33,4 +38,12 @@ export const passwordUpdate = async (data) => {
   return passwordUpdateRes;
 };
 
-export default { login, signUp, registerGuest, loginLocal, passwordRecovery, passwordUpdate};
+export default {
+  login,
+  loginv1,
+  signUp,
+  registerGuest,
+  loginLocal,
+  passwordRecovery,
+  passwordUpdate,
+};

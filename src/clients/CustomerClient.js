@@ -5,6 +5,7 @@ const retrySendSms = ({ code }) => {
   const url = CUSTOMER_API.RETRY_SEND_SMS;
   return POST({ url, params: { code } });
 };
+
 const sendSms = ({ phoneNumber }) => {
   const url = CUSTOMER_API.SEND_SMS;
   return POST({ url, body: { phone: phoneNumber } });
