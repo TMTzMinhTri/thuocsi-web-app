@@ -1,6 +1,5 @@
 import React from 'react';
 import { Paper, Grid, makeStyles, Typography } from '@material-ui/core';
-import { useTranslation } from 'next-i18next';
 import styles from './styles.module.css';
 
 const NOT_YET = '(Chưa có)';
@@ -20,13 +19,12 @@ const OrderDetailInfo = ({
   customerEmail,
   customerPhone,
   note,
-  paymentMethod,
   deliveryTrackingNumber,
   deliveryDate,
-  deliveryPlatform,
+  deliveryMethodName,
+  paymentMethodName,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
 
   return (
     <div className={styles.info}>
@@ -74,7 +72,7 @@ const OrderDetailInfo = ({
                 Hình thức thanh toán:
               </Typography>
               <Typography variant="h6" className={styles.info_value}>
-                {t(`payment.method.${paymentMethod}`) || NOT_YET}
+                {paymentMethodName}
               </Typography>
             </Paper>
           </Grid>
@@ -82,7 +80,7 @@ const OrderDetailInfo = ({
             <Paper className={classes.paper} elevation={3}>
               <Typography variant="h5" className={styles.info_label}>
                 Đơn vị vận chuyển:&nbsp;
-                <span>{t(`delivery.method.${deliveryPlatform}`) || NOT_YET} </span>
+                <span>{deliveryMethodName} </span>
               </Typography>
               <Typography variant="h5" className={styles.info_label}>
                 Ngày giao:&nbsp; <span>{deliveryDate || NOT_YET} </span>

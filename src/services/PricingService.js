@@ -17,7 +17,7 @@ export const getListDeliveryMethod = async ({ ctx }) => {
 };
 
 export const getDetailPaymentMethod = async ({ ctx, paymentMethodCode }) => {
-  const paymentMethodRes = await PricingClients.getPaymentMethod({ ctx, paymentMethodCode });
+  const paymentMethodRes = await PricingClients.getDetailPaymentMethod({ ctx, paymentMethodCode });
   return paymentMethodRes;
 };
 

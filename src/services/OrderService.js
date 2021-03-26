@@ -9,7 +9,7 @@ export const deleteOrder = async ({ orderNo }) => {
 // get order detail ( page order detail )
 export const getOrderDetail = async ({ ctx, orderId }) => {
   const orderRes = await OrderClient.getOrderById({ id: Number(orderId), ctx });
-  if (isValid(orderRes)) {
+  if (!isValid(orderRes)) {
     return orderRes;
   }
   const order = getFirst(orderRes, {});
@@ -39,9 +39,7 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
     orderItems: products,
     ctx,
   });
-
   order.products = products;
-  orderRes.data = [order];
 
   if (isValid(orderItemInfoRes)) {
     const orderItemInfoMap = orderItemInfoRes.data[0];
@@ -51,7 +49,8 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
     }));
   }
 
+  orderRes.data = [order];
   return orderRes;
 };
 
-export default { deleteOrder };
+export default { deleteOrder, getOrderDetail };

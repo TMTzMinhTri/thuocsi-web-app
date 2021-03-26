@@ -92,7 +92,7 @@ export default function OrderInfoTabs({ user, orders, status, bankInfo, reasonsL
               bankInfo={bankInfo}
               reasonsList={reasonsList}
             />
-            ))}
+          ))}
         </Grid>
       )}
     </Grid>
