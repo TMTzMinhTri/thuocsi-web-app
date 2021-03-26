@@ -43,7 +43,9 @@ const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile }) => {
                 <div className={styles.order_status_bottom_text}>
                   Dự kiến giao vào &nbsp;
                   <span>
-                    {DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate || Date.now()))}
+                    {order.deliveryDate
+                      ? DateTimeUtils.getFormattedWithDate(new Date(order.deliveryDate))
+                      : '(Chưa có)'}
                   </span>
                 </div>
               </Grid>
@@ -121,6 +123,10 @@ const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile }) => {
           products={order?.products || []}
           promoName={order?.redeemCode}
           totalDiscount={order?.totalDiscount}
+          total={order?.totalPrice}
+          paymentMethodFee={order?.paymentMethodFee}
+          deliveryPlatformFee={order?.deliveryPlatformFee}
+          subTotalPrice={order?.subTotalPrice}
         />
       </Grid>
       <Grid item xs={12} className={styles.comeback}>
