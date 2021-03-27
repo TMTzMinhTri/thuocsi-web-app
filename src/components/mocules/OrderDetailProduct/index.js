@@ -22,7 +22,7 @@ const OrderDetailProduct = ({
   products,
   promoName,
   totalDiscount,
-  totalPrice,
+  totalPrice: totalPriceAll,
   paymentMethodFee,
   deliveryPlatformFee,
   subTotalPrice,
@@ -121,7 +121,7 @@ const OrderDetailProduct = ({
         Tổng cộng
       </Grid>
       <Grid item className={styles.price}>
-        {formatCurrency(totalPrice)}
+        {formatCurrency(totalPriceAll)}
       </Grid>
     </Grid>
   </TableContainer>
