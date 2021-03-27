@@ -83,11 +83,11 @@ const StyledButton = styled(CustomButton)`
 
     &--green {
       color: #fff !important;
-      background: #00b46e;
-      border: 1px solid #00b46e;
+      background-color: #00b46e !important;
+      border: 1px solid #00b46e !important;
       &:hover {
         color: #00b46e !important;
-        background: #fff !important;
+        background-color: #fff !important;
       }
 
       &.Mui-disabled {
