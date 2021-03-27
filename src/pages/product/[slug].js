@@ -317,17 +317,15 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                             <Typography className={styles.process_content}>
                               {renderCondition()}
                             </Typography>
-                            {dealReady && (
-                              <LinearProgress
-                                classes={{
-                                  root: styles.root_process,
-                                  barColorPrimary: styles.blur_background,
-                                  colorPrimary: styles.bar_background,
-                                }}
-                                variant="determinate"
-                                value={(deal.quantity / deal.maxQuantity) * 100}
-                              />
-                            )}
+                            <LinearProgress
+                              classes={{
+                                root: styles.root_process,
+                                barColorPrimary: styles.blur_background,
+                                colorPrimary: styles.bar_background,
+                              }}
+                              variant="determinate"
+                              value={(deal.quantity / deal.maxQuantity) * 100}
+                            />
                           </div>
                         </div>
                       )}
