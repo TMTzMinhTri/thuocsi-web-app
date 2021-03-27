@@ -17,8 +17,8 @@ const validateForm = ({
   if (districtCode === '0') throw Error('Quận/Huyện không được trống');
   if (wardCode === '0') throw Error('Phường/Xã phố không được trống');
 
-  if (!ValidateUtils.validateEmail(email)) throw Error('email sai định dạng');
-  if (!ValidateUtils.isNumber(mst)) throw Error('mã số thuế sai định dạng');
+  if (!ValidateUtils.validateEmail(email)) throw Error('Email sai định dạng');
+  if (!ValidateUtils.isNumber(mst)) throw Error('Mã số thuế sai định dạng');
 };
 
 export default validateForm;
