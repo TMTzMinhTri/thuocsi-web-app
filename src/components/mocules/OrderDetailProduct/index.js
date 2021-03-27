@@ -84,10 +84,8 @@ const OrderDetailProduct = ({
             );
           })}
         <TableRow key={uuidV4()} className={styles.product_row}>
-          <TableCell />
-          <TableCell />
-          <TableCell />
-          <TableCell align="right" colSpan="2">
+          
+          <TableCell align="right" colSpan="5">
             <div className={styles.total_bottom}>Tạm tính :</div>
             <div className={styles.total_bottom}>Phí theo hình thức thanh toán :</div>
             <div className={styles.total_bottom}>Phí vận chuyển :</div>
