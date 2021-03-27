@@ -261,7 +261,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
         window.location.href = DOMAINT_TS;
       }
     };
-    if (tokenv1) {
+    if (tokenv1 && !isAuthenticated) {
       loadUserV1();
     }
   }, [tokenv1]);
