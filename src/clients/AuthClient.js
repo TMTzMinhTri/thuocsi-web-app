@@ -30,7 +30,8 @@ export const signUp = async (body) => POST({ url: CUSTOMER_API.REGISTER, body, i
 export const registerGuest = async (body) =>
   POST({ url: CUSTOMER_API.REGISTER_GUEST, body, isBasic: true });
 
-export const registerV1 = async ({ t }) => GET({ url: CUSTOMER_API.REGISTER, params: { t } });
+export const registerV1 = async ({ t }) =>
+  GET({ url: CUSTOMER_API.REGISTER, params: { t }, isAuth: false, isBasic: true });
 
 export const getAccountInfo = async ({ ctx }) => GET({ url: ACCOUNT_API.GET_ACCOUNT_INFO, ctx });
 
