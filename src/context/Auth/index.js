@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { isValid, getSessionTokenClient, getFirst } from 'clients';
@@ -20,13 +21,23 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { pathname } = router;
-  const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
-  const [isShowSignUp, toggleSignUp] = useModal(!!referralCode);
+  // const [isShowLogin, toggleLogin] = useModal(isShowingLogin);
+  // const [isShowSignUp, toggleSignUp] = useModal(!!referralCode);
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
-  const [isShowRegisterGuest, toggleRegisterGuest] = useModal(false);
+  // const [isShowRegisterGuest, toggleRegisterGuest] = useModal(false);
+  const [isShowLogin] = useModal(isShowingLogin);
+  const [isShowSignUp] = useModal(!!referralCode);
+  // const [isShowForgetPassword] = useModal();
+  const [isShowRegisterGuest] = useModal(false);
+
   const [isShowGuestExpiredTime, toggleShowGuestExpiredTime] = useModal();
 
   const { t } = useTranslation('apiErrors');
+
+  // hanler redirect v1
+  const toggleLogin = () => (window.location.href = DOMAINT_TS);
+  const toggleSignUp = () => (window.location.href = DOMAINT_TS);
+  const toggleRegisterGuest = () => (window.location.href = DOMAINT_TS);
 
   const handleChangeForget = useCallback(() => {
     // toggleLogin();
@@ -130,7 +141,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
       );
     } else {
       // redirect to mienbac.thuocsi.vn
-      window.location.href = DOMAINT_TS;
+      // window.location.href = DOMAINT_TS;
     }
 
     setInfoUser(userInfo);
@@ -235,6 +246,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
         NotifyUtils.info(result.message);
         const userInfo = getFirst(result);
         login(userInfo, true);
+        router.push('/');
       } else {
         const errorCode = `login.${result.errorCode}`;
         NotifyUtils.error(result.message || t(errorCode));
