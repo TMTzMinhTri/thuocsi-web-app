@@ -123,7 +123,7 @@ const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile }) => {
           products={order?.products || []}
           promoName={order?.redeemCode}
           totalDiscount={order?.totalDiscount}
-          total={order?.totalPrice}
+          totalPrice={order?.totalPrice}
           paymentMethodFee={order?.paymentMethodFee}
           deliveryPlatformFee={order?.deliveryPlatformFee}
           subTotalPrice={order?.subTotalPrice}

@@ -22,7 +22,7 @@ const OrderDetailProduct = ({
   products,
   promoName,
   totalDiscount,
-  total,
+  totalPrice,
   paymentMethodFee,
   deliveryPlatformFee,
   subTotalPrice,
@@ -99,11 +99,11 @@ const OrderDetailProduct = ({
           </TableCell>
 
           <TableCell align="right">
-            <div className={styles.total_bottom}>{formatNumber(total)} </div>
+            <div className={styles.total_bottom}>{formatNumber(subTotalPrice)} </div>
             <div className={styles.total_bottom}>{formatNumber(paymentMethodFee)} </div>
             <div className={styles.total_bottom}>{formatNumber(deliveryPlatformFee)} </div>
             {!isEmpty(promoName) && (
-              <div className={styles.total_bottom}>{formatNumber(totalDiscount)} </div>
+              <div className={styles.total_bottom}>{formatNumber(-totalDiscount)} </div>
             )}
           </TableCell>
         </TableRow>
@@ -121,7 +121,7 @@ const OrderDetailProduct = ({
         Tổng cộng
       </Grid>
       <Grid item className={styles.price}>
-        {formatCurrency(subTotalPrice)}
+        {formatCurrency(totalPrice)}
       </Grid>
     </Grid>
   </TableContainer>
