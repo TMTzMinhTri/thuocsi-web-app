@@ -32,7 +32,7 @@ const TicketFormModal = (props) => {
     bankName: bankInfo?.bankName || '',
     bankBranch: bankInfo?.bankBranch || '',
     bankAccountName: bankInfo?.bankAccountName || '',
-    note: '',
+    feedBackContent: '',
     imageUrls: [],
   });
   const handleChangeValue = (key, value) => {
@@ -54,6 +54,7 @@ const TicketFormModal = (props) => {
       reasons: [reason],
     };
     try {
+      console.log(val)
       validateForm(val);
       const feedbackResult = await TicketClient.createFeedback(data);
       if (!isValid(feedbackResult))
@@ -161,13 +162,13 @@ const TicketFormModal = (props) => {
             <InfoFormControl label="Nội dung phản hồi" xs={12} isRequired htmlFor="description">
               <br />
               <TextField
-                id="note"
+                id="feedBackContent"
                 multiline
                 rows={4}
                 variant="outlined"
                 placeholder="Mời nhập nội dung phản hồi"
                 value={val.note}
-                onChange={(e) => handleChangeValue('note', e.target.value)}
+                onChange={(e) => handleChangeValue('feedBackContent', e.target.value)}
                 style={{ background: '#fff' }}
               />
             </InfoFormControl>
