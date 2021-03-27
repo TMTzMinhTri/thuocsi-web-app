@@ -58,8 +58,8 @@ export default function Products({
       isMobile={isMobile}
       pageName={cat}
       pageTitle={pageTitle}
-      point={user.point}
-      balance={user.balance}
+      point={user?.point || 0}
+      balance={user?.balance || 0}
     >
       <ProductListing
         products={products}
