@@ -62,6 +62,7 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
                   key={`search-product-${item.skuId}`}
                   product={item}
                   isMobile={isMobile}
+                  type="quick-order"
                 />
               ),
           )}
