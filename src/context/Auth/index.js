@@ -8,6 +8,7 @@ import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
 import { useModal } from 'hooks';
 import { QUICK_ORDER } from 'constants/Paths';
+import { DOMAINT_TS } from 'sysconfig';
 
 import { useTranslation } from 'next-i18next';
 
@@ -28,23 +29,35 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   const { t } = useTranslation('apiErrors');
 
   const handleChangeForget = useCallback(() => {
-    toggleLogin();
-    toggleForgetPassword();
+    // toggleLogin();
+    // toggleForgetPassword();
+
+    // redirect to mienbac.thuocsi.vn
+    window.location.href = DOMAINT_TS;
   }, [toggleLogin, toggleForgetPassword]);
 
   const handleChangeSignIn = useCallback(() => {
-    toggleSignUp();
-    toggleLogin();
+    // redirect to mienbac.thuocsi.vn
+    window.location.href = DOMAINT_TS;
+
+    // toggleSignUp();
+    // toggleLogin();
   }, [toggleSignUp, toggleLogin]);
 
   const handleChangeSignUp = useCallback(() => {
-    toggleLogin();
-    toggleSignUp();
+    // redirect to mienbac.thuocsi.vn
+    window.location.href = DOMAINT_TS;
+
+    // toggleLogin();
+    // toggleSignUp();
   }, [toggleLogin, toggleSignUp]);
 
   const handleChangeRegisterGuest = useCallback(() => {
-    toggleLogin();
-    toggleRegisterGuest();
+    // toggleLogin();
+    // toggleRegisterGuest();
+
+    // redirect to mienbac.thuocsi.vn
+    window.location.href = DOMAINT_TS;
   }, [toggleLogin, toggleRegisterGuest]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
@@ -88,7 +101,11 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     if (typeof callback === 'function') {
       return callback();
     }
-    window.location.href = '/';
+    // window.location.href = '/';
+
+    // redirect to mienbac.thuocsi.vn
+    window.location.href = DOMAINT_TS;
+
     return false;
   };
 
@@ -111,6 +128,9 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
           }),
         timeRemaining,
       );
+    } else {
+      // redirect to mienbac.thuocsi.vn
+      window.location.href = DOMAINT_TS;
     }
 
     setInfoUser(userInfo);
@@ -213,12 +233,14 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
       const result = await AuthService.loginv1({ tokenv1 });
       if (isValid(result)) {
         NotifyUtils.info(result.message);
-
         const userInfo = getFirst(result);
         login(userInfo, true);
       } else {
         const errorCode = `login.${result.errorCode}`;
-        NotifyUtils.error(t(errorCode));
+        NotifyUtils.error(result.message || t(errorCode));
+
+        // redirect to mienbac.thuocsi.vn
+        window.location.href = DOMAINT_TS;
       }
     };
     if (tokenv1) {
