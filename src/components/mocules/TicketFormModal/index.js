@@ -54,7 +54,6 @@ const TicketFormModal = (props) => {
       reasons: [reason],
     };
     try {
-      console.log(val)
       validateForm(val);
       const feedbackResult = await TicketClient.createFeedback(data);
       if (!isValid(feedbackResult))
