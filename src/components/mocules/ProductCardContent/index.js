@@ -94,7 +94,7 @@ const ProductCardContent = ({
         ))}
       </Typography>
     )}
-    {cartItemType === 'DEAL' && (
+    {(cartItemType === 'DEAL' || cartItemType === 'COMBO') && (
       <div
         className={
           row
