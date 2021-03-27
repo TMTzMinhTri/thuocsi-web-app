@@ -45,10 +45,10 @@ export default function Template({
   } = useAuth();
   const { clearCart } = useCart();
   useEffect(() => {
-    if(!isAuthenticated && isShowGuestExpiredTime) {
+    if (!isAuthenticated && isShowGuestExpiredTime) {
       clearCart();
     }
-  }, [isShowGuestExpiredTime])
+  }, [isShowGuestExpiredTime]);
   return (
     <div>
       <Head>
@@ -94,24 +94,25 @@ export default function Template({
             <CustomModal
               visible={isShowGuestExpiredTime}
               onClose={toggleShowGuestExpiredTime}
-              content="Thời gian dùng thử đã hết. Mời bạn vui lòng tạo tài khoản để sử dụng hoặc gọi chúng tôi để được hỗ trợ tốt nhất!"
+              content="Thời gian dùng thử đã hết. Mời bạn vui lòng tạo tài khoản để sử dụng hoặc nhắn tin chúng tôi để được hỗ trợ tốt nhất!"
               btnOkRender={false}
               btnCloseRender={false}
-              customBtnRender={(
+              customBtnRender={
+                // eslint-disable-next-line react/jsx-wrap-multilines
                 <div className={styles.btngroup}>
-                  <ButtonHeader
+                  {/* <ButtonHeader
                     className={styles.custombtn}
                     variant="contained"
                     btnType="primary"
                     href="tel:02873008840"
                   >
                     Gọi nhân viên hỗ trợ
-                  </ButtonHeader>
+                  </ButtonHeader> */}
                   <ButtonHeader variant="contained" btnType="primary" onClick={toggleSignUp}>
                     Tạo tài khoản
                   </ButtonHeader>
                 </div>
-              )}
+              }
             />
           </>
         )}
