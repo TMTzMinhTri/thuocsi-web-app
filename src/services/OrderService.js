@@ -22,7 +22,8 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
   // order can edit if status === wait to confirm && 30 minutes
   order.canEdit =
     status === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM &&
-    +new Date(Date.now()) - +new Date(createdTime) <= MINUTES_30;
+    +new Date() - +new Date(createdTime) <= MINUTES_30;
+    
   const [productsRes, paymentRes, deliveryRes] = await Promise.all([
     OrderClient.getProductByOrderNo({ orderNo, ctx }),
     getDetailPaymentMethod({ ctx, paymentMethodCode: paymentMethod }),
