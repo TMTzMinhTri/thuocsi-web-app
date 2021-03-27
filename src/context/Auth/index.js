@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-return-assign */
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -9,7 +10,7 @@ import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
 import { useModal } from 'hooks';
 import { QUICK_ORDER } from 'constants/Paths';
-import { DOMAINT_TS } from 'sysconfig';
+import { DOMAINT_TS, ENV } from 'sysconfig';
 
 import { useTranslation } from 'next-i18next';
 
@@ -25,7 +26,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   // const [isShowSignUp, toggleSignUp] = useModal(!!referralCode);
   const [isShowForgetPassword, toggleForgetPassword] = useModal();
   // const [isShowRegisterGuest, toggleRegisterGuest] = useModal(false);
-  const [isShowLogin] = useModal(isShowingLogin);
+  let [isShowLogin] = useModal(isShowingLogin);
   const [isShowSignUp] = useModal(!!referralCode);
   // const [isShowForgetPassword] = useModal();
   const [isShowRegisterGuest] = useModal(false);
@@ -35,9 +36,14 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   const { t } = useTranslation('apiErrors');
 
   // hanler redirect v1
-  const toggleLogin = () => (window.location.href = DOMAINT_TS);
+  let toggleLogin = () => (window.location.href = DOMAINT_TS);
   const toggleSignUp = () => (window.location.href = DOMAINT_TS);
   const toggleRegisterGuest = () => (window.location.href = DOMAINT_TS);
+
+  // dev
+  if (ENV === 'dev') {
+    [isShowLogin, toggleLogin] = useModal(isShowingLogin);
+  }
 
   const handleChangeForget = useCallback(() => {
     // toggleLogin();
@@ -255,7 +261,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
         window.location.href = DOMAINT_TS;
       }
     };
-    if (tokenv1) {
+    if (tokenv1 && !isAuthenticated) {
       loadUserV1();
     }
   }, [tokenv1]);
