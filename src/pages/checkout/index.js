@@ -159,7 +159,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   };
 
   return (
-    <Template title={title} isMobile={isMobile} point={user.point} balance={user.balance}>
+    <Template title={title} isMobile={isMobile} point={user?.point || 0} balance={user.balance}>
       <div className={styles.wrapper_gray}>
         <div className={styles.payment_wrapper}>
           <Grid spacing={4} container>
