@@ -36,9 +36,9 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   const { t } = useTranslation('apiErrors');
 
   // hanler redirect v1
-  let toggleLogin = () => (window.location.href = DOMAINT_TS);
-  const toggleSignUp = () => (window.location.href = DOMAINT_TS);
-  const toggleRegisterGuest = () => (window.location.href = DOMAINT_TS);
+  let toggleLogin = () => (window.location.href = `${DOMAINT_TS}?login=true`);
+  const toggleSignUp = () => (window.location.href = `${DOMAINT_TS}?signup=true`);
+  const toggleRegisterGuest = () => (window.location.href = `${DOMAINT_TS}?signup=true`);
 
   // dev
   if (ENV === 'dev') {

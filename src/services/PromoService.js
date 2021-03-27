@@ -26,7 +26,7 @@ export const parseCondition = (condition) => {
   switch (type) {
     case 'ORDER_VALUE':
       if (minOrderValue) {
-        message.push(`Giá trị đơn hàng lơn hơn ${formatCurrency(minOrderValue)}`);
+        message.push(`Giá trị đơn hàng lớn hơn ${formatCurrency(minOrderValue)}`);
       }
 
       break;

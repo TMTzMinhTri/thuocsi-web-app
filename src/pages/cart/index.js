@@ -29,7 +29,7 @@ function Cart({ isMobile, user }) {
       isMobile={isMobile}
       pageName={pageName}
       pageTitle={pageTitle}
-      point={user.point}
+      point={user?.point || 0}
       balance={user.balance}
     >
       <Container className={styles.wrapper} maxWidth="lg">

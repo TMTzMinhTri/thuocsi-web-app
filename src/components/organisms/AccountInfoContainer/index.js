@@ -36,9 +36,9 @@ const AccountInfoFormContainer = ({ user }) => {
     wardCode,
     mst,
     address,
-    deliveryProvinceCode: provinceCode,
-    deliveryDistrictCode: districtCode,
-    deliveryWardCode: wardCode,
+    // deliveryProvinceCode: provinceCode,
+    // deliveryDistrictCode: districtCode,
+    // deliveryWardCode: wardCode,
     customerID,
   });
 
@@ -53,11 +53,7 @@ const AccountInfoFormContainer = ({ user }) => {
 
   const handleUpdateProfile = async () => {
     try {
-      const errL = validateForm(value);
-      if (Object.keys(errL).length !== 0) {
-        setErr(errL);
-        throw Error('Thông tin chưa đúng');
-      }
+      validateForm(value);
       const res = await CustomerClient.updateProfile(value);
       if (!isValid(res)) throw Error(res?.message);
       NotifyUtils.success('Cập nhật thông tin thành công');

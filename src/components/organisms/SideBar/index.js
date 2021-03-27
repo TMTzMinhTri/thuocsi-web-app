@@ -73,7 +73,7 @@ const SideBar = () => {
         <div className={styles.sidebar__user_bonus_point}>
           Điểm thưởng
           <div className={styles.sidebar__user_bonus_point_amount}>
-            {user.point ? user.point : 0}
+            {user?.point || 0}
           </div>
         </div>
       </div>
