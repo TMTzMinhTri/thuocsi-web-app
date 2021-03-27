@@ -6,3 +6,4 @@ export const FACEBOOK_MESSENGER_ID = process.env.NEXT_PUBLIC_FACEBOOK_MESSENGER_
 export const DISCOVERY_URL = process.env.NEXT_PUBLIC_DISCOVERY || '';
 export const NEXT_I18NEXT_NAME_SPACES = ['common', 'apiErrors'];
 export const DOMAINT_TS = process.env.NEXT_PUBLIC_DOMAIN_TS || '';
+export const ENV = process.env.NEXT_PUBLIC_ENV || 'stg';
