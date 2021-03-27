@@ -22,8 +22,7 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
   // order can edit if status === wait to confirm && 30 minutes
   order.canEdit =
     status === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM &&
-    +new Date() - +new Date(createdTime) <= MINUTES_30;
-
+    +new Date(Date.now()) - +new Date(createdTime) <= MINUTES_30;
   const [productsRes, paymentRes, deliveryRes] = await Promise.all([
     OrderClient.getProductByOrderNo({ orderNo, ctx }),
     getDetailPaymentMethod({ ctx, paymentMethodCode: paymentMethod }),
@@ -47,7 +46,7 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
   // check can edit :  order have item combo or deal can't edit
   order.canEdit =
     order.canEdit &&
-    products.filter((item) => item && item.orderType !== ENUM_ORDER_TYPE.NORMAL).length > 0;
+    products.filter((item) => item && item.orderType !== ENUM_ORDER_TYPE.NORMAL).length === 0;
 
   const orderItemInfoRes = await OrderClient.getInfoOrderItem({
     orderItems: products,
