@@ -50,6 +50,7 @@ const ReferralList = () => {
       NotifyUtils.error(`Gửi sms không thành công: ${res.message}`);
     } else {
       NotifyUtils.success('Gửi SMS giới thiệu thành công');
+      loadData();
     }
   };
   return (
