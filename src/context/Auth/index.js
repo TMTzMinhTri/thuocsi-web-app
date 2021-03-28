@@ -41,7 +41,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   const toggleRegisterGuest = () => (window.location.href = `${DOMAIN_TS}?signup=true`);
 
   // dev
-  if (ENV === 'dev') {
+  if (ENV !== 'PRD') {
     [isShowLogin, toggleLogin] = useModal(isShowingLogin);
   }
 
@@ -265,7 +265,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
               // redirect to mienbac.thuocsi.vn
               window.location.href = DOMAIN_TS_MIEN_BAC;
             }
-          } else {
+          } else if (ENV === 'PRD') {
             window.location.href = DOMAIN_TS;
           }
       });

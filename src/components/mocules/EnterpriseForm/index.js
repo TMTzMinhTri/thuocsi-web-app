@@ -91,7 +91,7 @@ const EnterpriseForm = ({
             }}
           />
         </InfoFormControl>
-        <InfoFormControl xs={12} label="Địa chỉ nhà thuốc/phòng khám" htmlFor="address">
+        <InfoFormControl xs={12} label="Địa chỉ nhà thuốc/phòng khám" htmlFor="address" isRequired>
           <InfoInput
             id="address"
             placeholder="Địa chỉ"

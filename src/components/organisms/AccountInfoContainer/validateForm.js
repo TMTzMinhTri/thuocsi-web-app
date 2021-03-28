@@ -9,6 +9,7 @@ const validateForm = ({
   phone,
   email,
   //   password,
+  address,
   provinceCode,
   districtCode,
   wardCode,
@@ -21,6 +22,7 @@ const validateForm = ({
   if (ValidateUtils.isEmpty(name)) throw Error('Bạn chưa điền tên');
   if (ValidateUtils.isEmpty(phone)) throw Error('Bạn chưa điền số điện thoại');
   if (ValidateUtils.isEmpty(mst)) throw Error('Bạn chưa điền mã số thuế');
+  if (ValidateUtils.isEmpty(address)) throw Error('Bạn chưa điền địa chỉ');
 
   if (!provinceCode || provinceCode === DEFAULT_PROVINCE_VALUE)
     throw Error('Tỉnh/Thành Phố không được trống');
