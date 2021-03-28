@@ -73,11 +73,13 @@ export const getOrders = async ({ ctx, status }) => {
   const orderListData = getData(orderRes);
   const orders = await Promise.all(
     orderListData.map(async (order) => {
+      const { createdTime, status: orderStatus, orderNo } = order;
       let canEdit =
-        order.status === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM &&
-        +new Date() - +new Date(order.createdTime) <= MINUTES_30;
+        orderStatus === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM &&
+        +new Date() - +new Date(createdTime) <= MINUTES_30;
       if (!canEdit) return { ...order, canEdit };
-      const productRes = await OrderClient.getProductByOrderNo({ orderNo: order.orderNo, ctx });
+
+      const productRes = await OrderClient.getProductByOrderNo({ orderNo, ctx });
       if (!isValid(productRes)) return { ...order, canEdit };
       const products = productRes.data;
       canEdit =
