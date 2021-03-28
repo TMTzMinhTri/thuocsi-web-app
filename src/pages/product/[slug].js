@@ -36,7 +36,7 @@ import {
 import { LoadingScreen, ErrorQuantityCartModal } from 'components/organisms';
 import Template from 'components/layout/Template';
 import useModal from 'hooks/useModal';
-import { getFirst } from 'clients';
+import { getFirst, isValid } from 'clients';
 import { ProductService, doWithServerSide, SupplierService } from 'services';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
@@ -105,14 +105,15 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [quantity, setQuantity] = useState(product.quantity || 0);
   const updateCart = async (q) => {
-    const response = await updateCartItem({ product, q });
-    if (response.status === 'OK') {
-      setQuantity(q);
+    if (!q) {
+      return;
     }
-    if (response.errorCode === 'CART_MAX_QUANTITY') {
-      // get quanity can add from response and compare with maxQuantity
-      const { quantity: quantityCanAdd } = getFirst(response, {});
-      setQuantity(quantityCanAdd);
+    const response = await updateCartItem({ product, q: parseFloat(q) });
+    if (isValid(response)) {
+      setQuantity(q);
+    } else if (response.errorCode === 'CART_MAX_QUANTITY') {
+      const { qty = maxQuantity } = getFirst(response, {});
+      updateCart(qty);
     }
   };
 
