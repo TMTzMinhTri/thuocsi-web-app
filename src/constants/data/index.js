@@ -384,3 +384,4 @@ export const PAGE_SIZE = 20;
 export const HOLIDAYS = ['0209', '3004', '0105', '0204', '0101'];
 
 export const MAX_PRODUCT_QTY_DISPLAY = 100000
+export const MAX_PRODUCT_INPUT = 100000

@@ -11,7 +11,7 @@ import { MinusButton, PlusButton, InputProduct, Button as CustomButton } from 'c
 import DealSection from 'components/mocules/DealSection';
 import { calculateTimeLeft } from 'utils';
 import { getFirst, isValid } from 'clients';
-import { MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
+import { MAX_PRODUCT_QTY_DISPLAY, MAX_PRODUCT_INPUT } from 'constants/data';
 import RemoveProductModal from '../RemoveProductModal';
 import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
@@ -119,7 +119,7 @@ const ProductCardBuy = ({
 
   const handleInputChange = (e) => {
     const val = e.currentTarget.value;
-    if (/^\d+$/.test(val) || !val) {
+    if (/^\d+$/.test(val) && val < MAX_PRODUCT_INPUT || !val) {
       const curValue = parseFloat(val || 0);
       setValue(curValue);
       if (!curValue || curValue === 0) {
