@@ -3,8 +3,8 @@ import OrderInfoContainer from 'components/organisms/OrderInfoContainer';
 import InfoContainer from 'components/organisms/InfoContainer';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
 import { Container } from '@material-ui/core';
-import { OrderClient, CustomerClient, TicketClient, isValid, getData } from 'clients';
-import { doWithServerSide } from 'services';
+import { CustomerClient, TicketClient, isValid, getData } from 'clients';
+import { doWithServerSide, OrderService } from 'services';
 
 import { withLogin } from 'HOC';
 
@@ -13,7 +13,7 @@ export async function getServerSideProps(ctx) {
 
   return doWithServerSide(ctx, async () => {
     const [ordersRes, bankData, reasonsRes] = await Promise.all([
-      OrderClient.getOrders({ status, ctx }),
+      OrderService.getOrders({ status, ctx }),
       CustomerClient.getBankAccount(ctx),
       TicketClient.getListReasons(ctx),
     ]);
