@@ -11,7 +11,7 @@ export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
   return doWithServerSide(ctx, async () => {
     const [orderRes, bankData, reasonsRes, i18next] = await Promise.all([
-      OrderService.getOrderDetail({ orderId: id, ctx }),
+      OrderService.getOrderDetail({ orderId: Number(id), ctx }),
       CustomerClient.getBankAccount(ctx),
       TicketClient.getListReasons(ctx),
       serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),

@@ -45,6 +45,7 @@ const OrderRow = ({
   bankInfo,
   reasonsList,
   totalItems,
+  canEdit,
 }) => {
   const [orderTicket, setOrderTicket] = useState({});
   const [open, toggleOpen] = useModal();
@@ -114,7 +115,7 @@ const OrderRow = ({
 
           {status === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM && (
             <Grid item>
-              <EditOrderButton orderNo={orderNo} />
+              <EditOrderButton orderNo={orderNo} canEdit={canEdit} />
             </Grid>
           )}
           <Grid item>
