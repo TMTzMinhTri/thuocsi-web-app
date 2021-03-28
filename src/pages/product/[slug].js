@@ -67,7 +67,7 @@ export async function getServerSideProps(ctx) {
 
 export default function ProductDetail({ product, supplier = [], isMobile }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [value, setValue] = React.useState('1');
+  const [tabValue, setTabValue] = React.useState('1');
 
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
@@ -137,8 +137,8 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
 
   const yearNumber = new Date().getFullYear() - supplier.yearFounded;
 
-  const handleChange = (event, newValue) => {
-    setQuantity(newValue);
+  const handleChangeTab = (event, newValue) => {
+    setTabValue(newValue);
   };
 
   const handleClick = (event) => {
@@ -516,10 +516,10 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
             </Grid>
             <Grid className={styles.gridTab} item md={9}>
               <ProductDetailTabs
-                handleChange={handleChange}
+                handleChange={handleChangeTab}
                 data={tabsProductData}
                 product={product}
-                value={value}
+                value={tabValue}
               />
             </Grid>
           </Grid>
