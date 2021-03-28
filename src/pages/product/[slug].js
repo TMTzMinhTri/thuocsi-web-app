@@ -138,7 +138,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   const yearNumber = new Date().getFullYear() - supplier.yearFounded;
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setQuantity(newValue);
   };
 
   const handleClick = (event) => {
@@ -169,7 +169,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   const handleInputChange = (e) => {
     if (/^\d+$/.test(e.currentTarget.value) || !e.currentTarget.value) {
       const curValue = e.currentTarget.value;
-      setValue(curValue);
+      setQuantity(curValue);
       if (!curValue || curValue === 0) {
         if (quantity === 0) return;
         handler(product, 'remove');
