@@ -166,14 +166,14 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     setQuantity(q);
     handler(q, 'update');
   };
-  
+
   const handleInputChange = (e) => {
     const val = e.currentTarget.value;
-    if (/^\d+$/.test(val) && val < MAX_PRODUCT_INPUT || !val) {
+    if ((/^\d+$/.test(val) && val < MAX_PRODUCT_INPUT) || !val) {
       const curValue = parseFloat(val || 0);
       setQuantity(curValue);
       if (!curValue || curValue === 0) {
-        if (value === 0) return;
+        if (curValue === 0) return;
         handler(product, 'remove');
       } else {
         handler(+curValue, 'update');
