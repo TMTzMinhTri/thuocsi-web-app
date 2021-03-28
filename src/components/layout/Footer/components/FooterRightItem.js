@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-import { EmailOutlined, Call } from '@material-ui/icons';
+import { EmailOutlined } from '@material-ui/icons';
 import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
@@ -32,7 +32,7 @@ const FooterRightItem = () => (
           <FontAwesomeIcon icon={faFacebookF} />
         </a>
       </div>
-      <div className={styles.phone_wrap}>
+      {/* <div className={styles.phone_wrap}>
         <div>
           <div className={styles.icon_circle}>
             <Call
@@ -46,7 +46,7 @@ const FooterRightItem = () => (
         <Link href="tel:02873008840">
           <Typography className={clsx(styles.contact, styles.link)}>02 873 008 840</Typography>
         </Link>
-      </div>
+      </div> */}
     </div>
     <div>
       <small>Từ T2 đến T6: 8:00 - 18:00</small>

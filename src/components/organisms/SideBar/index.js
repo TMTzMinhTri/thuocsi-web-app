@@ -34,17 +34,21 @@ const SideBar = () => {
     clearCart();
   };
   const getActivePage = () => {
-    if (router.pathname === '/products' || router.pathname === '/categories/[slug]' || router.pathname === '/manufacturers/[slug]') {
+    if (
+      router.pathname === '/products' ||
+      router.pathname === '/categories/[slug]' ||
+      router.pathname === '/manufacturers/[slug]'
+    ) {
       return PRODUCTS_URL;
-    } 
-      return router.pathname;
-  }
+    }
+    return router.pathname;
+  };
   const getUrl = (url, redirectUrl) => {
     if (redirectUrl) {
       return redirectUrl;
-    } 
-      return url;
-  }
+    }
+    return url;
+  };
   useEffect(() => {
     async function loadMenu() {
       const data = await SettingClient.getMenu();
@@ -72,9 +76,7 @@ const SideBar = () => {
 
         <div className={styles.sidebar__user_bonus_point}>
           Điểm thưởng
-          <div className={styles.sidebar__user_bonus_point_amount}>
-            {user?.point || 0}
-          </div>
+          <div className={styles.sidebar__user_bonus_point_amount}>{user?.point || 0}</div>
         </div>
       </div>
       <div className={styles.sidebar__user_name}>
@@ -82,14 +84,9 @@ const SideBar = () => {
       </div>
       <hr className={styles.hr} />
       <ul className={styles.items}>
-        <li
-          key="home"
-        >
+        <li key="home">
           <LinkComp
-            className={clsx(
-              styles.sidebar__item_link,
-              getActivePage() === "/" && styles.active,
-            )}
+            className={clsx(styles.sidebar__item_link, getActivePage() === '/' && styles.active)}
             name="Trang chủ"
             href="/"
             color="white"
@@ -98,9 +95,7 @@ const SideBar = () => {
           </LinkComp>
         </li>
         {menu.map((item) => (
-          <li
-            key={item.id}
-          >
+          <li key={item.id}>
             <LinkComp
               className={clsx(
                 styles.sidebar__item_link,
@@ -109,7 +104,7 @@ const SideBar = () => {
               name={item.name}
               href={getUrl(item.url, item.redirectUrl)}
               color="white"
-              target={item.redirectUrl && "_blank"}
+              target={item.redirectUrl && '_blank'}
             >
               <Icon className={item.icon} />
               {item.isNew && <span className={styles.badge}>Mới</span>}
@@ -230,7 +225,7 @@ const SideBar = () => {
             <Icon className={`icon-mail ${styles.navIcon}`} />
           </LinkComp>
         </li>
-        <li>
+        {/* <li>
           <LinkComp
             className={clsx(
               styles.sidebar__item_link,
@@ -242,7 +237,7 @@ const SideBar = () => {
           >
             <Icon className={`icon-phone ${styles.navIcon}`} />
           </LinkComp>
-        </li>
+        </li> */}
       </ul>
       <div className={styles.contact_more}>
         <div className={styles.open_hours}>Từ T2 đến T6: 8:00 - 18:00</div>
