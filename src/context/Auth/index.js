@@ -10,7 +10,7 @@ import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
 import { useModal } from 'hooks';
 import { QUICK_ORDER } from 'constants/Paths';
-import { DOMAINT_TS, ENV } from 'sysconfig';
+import { DOMAIN_TS, DOMAIN_TS_MIEN_BAC, ENV } from 'sysconfig';
 
 import { useTranslation } from 'next-i18next';
 
@@ -36,9 +36,9 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   const { t } = useTranslation('apiErrors');
 
   // hanler redirect v1
-  let toggleLogin = () => (window.location.href = `${DOMAINT_TS}?login=true`);
-  const toggleSignUp = () => (window.location.href = `${DOMAINT_TS}?signup=true`);
-  const toggleRegisterGuest = () => (window.location.href = `${DOMAINT_TS}?signup=true`);
+  let toggleLogin = () => (window.location.href = `${DOMAIN_TS}?login=true`);
+  const toggleSignUp = () => (window.location.href = `${DOMAIN_TS}?signup=true`);
+  const toggleRegisterGuest = () => (window.location.href = `${DOMAIN_TS}?signup=true`);
 
   // dev
   if (ENV === 'dev') {
@@ -50,12 +50,12 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     // toggleForgetPassword();
 
     // redirect to mienbac.thuocsi.vn
-    window.location.href = DOMAINT_TS;
+    window.location.href = DOMAIN_TS;
   }, [toggleLogin, toggleForgetPassword]);
 
   const handleChangeSignIn = useCallback(() => {
     // redirect to mienbac.thuocsi.vn
-    window.location.href = DOMAINT_TS;
+    window.location.href = DOMAIN_TS;
 
     // toggleSignUp();
     // toggleLogin();
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
 
   const handleChangeSignUp = useCallback(() => {
     // redirect to mienbac.thuocsi.vn
-    window.location.href = DOMAINT_TS;
+    window.location.href = DOMAIN_TS;
 
     // toggleLogin();
     // toggleSignUp();
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     // toggleRegisterGuest();
 
     // redirect to mienbac.thuocsi.vn
-    window.location.href = DOMAINT_TS;
+    window.location.href = DOMAIN_TS;
   }, [toggleLogin, toggleRegisterGuest]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
@@ -121,38 +121,42 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     // window.location.href = '/';
 
     // redirect to mienbac.thuocsi.vn
-    window.location.href = DOMAINT_TS;
+    window.location.href = DOMAIN_TS;
 
     return false;
   };
 
-  const loadUserFromCookies = useCallback(async () => {
-    const res = await getUserInfo();
-    const userInfo = getFirst(res, null);
-    // check guest user expireAt
-    if (userInfo && userInfo.isQuest) {
-      const timeRemaining = new Date(userInfo.expireAt).getTime() - new Date().getTime();
+  const loadUserFromCookies = useCallback(
+    async (callback) => {
+      const res = await getUserInfo();
+      const userInfo = getFirst(res, null);
+      // check guest user expireAt
+      if (userInfo && userInfo.isQuest) {
+        const timeRemaining = new Date(userInfo.expireAt).getTime() - new Date().getTime();
 
-      // time remaining
-      // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
-      setTimeout(
-        () =>
-          logout(() => {
-            if (router.pathname !== '/') {
-              router.push('/');
-            }
-            toggleShowGuestExpiredTime();
-          }),
-        timeRemaining,
-      );
-    } else {
-      // redirect to mienbac.thuocsi.vn
-      // window.location.href = DOMAINT_TS;
-    }
+        // time remaining
+        // console.log("time remaining: ", `${Math.floor(timeRemaining/1000/60)  }m`);
+        setTimeout(
+          () =>
+            logout(() => {
+              if (router.pathname !== '/') {
+                router.push('/');
+              }
+              toggleShowGuestExpiredTime();
+            }),
+          timeRemaining,
+        );
+      } else {
+        // redirect to mienbac.thuocsi.vn
+        // window.location.href = DOMAINT_TS;
+      }
 
-    setInfoUser(userInfo);
-    setIsLoading(false);
-  }, [getUserInfo, setIsLoading]);
+      setInfoUser(userInfo);
+      setIsLoading(false);
+      if (callback) callback(userInfo);
+    },
+    [getUserInfo, setIsLoading],
+  );
 
   const login = (info, rememberMe) => {
     setCookies(info, rememberMe);
@@ -242,29 +246,52 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   }, []);
 
   useEffect(() => {
-    if (user === null) loadUserFromCookies();
-  }, [pathname, loadUserFromCookies]);
+    if (user === null)
+      loadUserFromCookies(async (userInfo) => {
+        // nếu không có user thì check token
+        if (!userInfo)
+          if (tokenv1) {
+            // redirect
+            const result = await AuthService.loginv1({ tokenv1 });
+            // console.log('result login v1 ', result);
+            if (isValid(result)) {
+              NotifyUtils.info(result.message);
+              login(getFirst(result), true);
+              router.push('/');
+            } else {
+              const errorCode = `login.${result.errorCode}`;
+              NotifyUtils.error(result.message || t(errorCode));
 
-  useEffect(() => {
-    const loadUserV1 = async () => {
-      const result = await AuthService.loginv1({ tokenv1 });
-      if (isValid(result)) {
-        NotifyUtils.info(result.message);
-        const userInfo = getFirst(result);
-        login(userInfo, true);
-        router.push('/');
-      } else {
-        const errorCode = `login.${result.errorCode}`;
-        NotifyUtils.error(result.message || t(errorCode));
+              // redirect to mienbac.thuocsi.vn
+              window.location.href = DOMAIN_TS_MIEN_BAC;
+            }
+          } else {
+            window.location.href = DOMAIN_TS;
+          }
+      });
+  }, [pathname, loadUserFromCookies, tokenv1]);
 
-        // redirect to mienbac.thuocsi.vn
-        window.location.href = DOMAINT_TS;
-      }
-    };
-    if (tokenv1 && !isAuthenticated) {
-      loadUserV1();
-    }
-  }, [tokenv1]);
+  // useEffect(() => {
+  //   const loadUserV1 = async () => {
+  //     const result = await AuthService.loginv1({ tokenv1 });
+  //     console.log('result login v1 ', result);
+  //     if (isValid(result)) {
+  //       NotifyUtils.info(result.message);
+  //       const userInfo = getFirst(result);
+  //       login(userInfo, true);
+  //       router.push('/');
+  //     } else {
+  //       const errorCode = `login.${result.errorCode}`;
+  //       NotifyUtils.error(result.message || t(errorCode));
+
+  //       // redirect to mienbac.thuocsi.vn
+  //       window.location.href = DOMAINT_TS;
+  //     }
+  //   };
+  //   if (tokenv1 && !isAuthenticated) {
+  //     loadUserV1();
+  //   }
+  // }, [tokenv1]);
 
   return (
     <AuthContext.Provider
