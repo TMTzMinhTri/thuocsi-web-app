@@ -23,7 +23,7 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
   order.canEdit =
     status === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM &&
     +new Date() - +new Date(createdTime) <= MINUTES_30;
-    
+
   const [productsRes, paymentRes, deliveryRes] = await Promise.all([
     OrderClient.getProductByOrderNo({ orderNo, ctx }),
     getDetailPaymentMethod({ ctx, paymentMethodCode: paymentMethod }),
@@ -67,4 +67,28 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
   return orderRes;
 };
 
-export default { deleteOrder, getOrderDetail };
+export const getOrders = async ({ ctx, status }) => {
+  const orderRes = await OrderClient.getOrders({ status, ctx });
+  if (!isValid(orderRes)) return orderRes;
+  const orderListData = getData(orderRes);
+  const orders = await Promise.all(
+    orderListData.map(async (order) => {
+      const { createdTime, status: orderStatus, orderNo } = order;
+      let canEdit =
+        orderStatus === ENUM_ORDER_STATUS.WAIT_TO_CONFIRM &&
+        +new Date() - +new Date(createdTime) <= MINUTES_30;
+      if (!canEdit) return { ...order, canEdit };
+
+      const productRes = await OrderClient.getProductByOrderNo({ orderNo, ctx });
+      if (!isValid(productRes)) return { ...order, canEdit };
+      const products = productRes.data;
+      canEdit =
+        products.filter((item) => item && item.orderType !== ENUM_ORDER_TYPE.NORMAL).length === 0;
+      return { ...order, canEdit };
+    }),
+  );
+  orderRes.data = orders;
+  return orderRes;
+};
+
+export default { deleteOrder, getOrderDetail, getOrders };
