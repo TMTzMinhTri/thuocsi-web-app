@@ -7,6 +7,7 @@ import {
   TicketButton,
   EditOrderButton,
   TicketFormModal,
+  PrintInvoiceButton,
 } from 'components/mocules';
 import { PATH_INFO_BILL, MY_ORDER_URL } from 'constants/Paths';
 import { ENUM_ORDER_STATUS } from 'constants/Enums';
@@ -15,7 +16,9 @@ import Link from 'next/link';
 import { useModal } from 'hooks';
 import styles from './styles.module.css';
 
-const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile }) => {
+const isShowInvoice = false;
+
+const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile, user }) => {
   const [orderTicket, setOrderTicket] = useState({});
   const [open, toggleOpen] = useModal();
 
@@ -24,6 +27,37 @@ const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile }) => {
   };
 
   // const isCanExport = order;
+
+  const PrintInvoiceEle = (
+    <Grid item className={styles.print_invoice}>
+      <Paper classes={{ root: styles.container }} elevation={3}>
+        <Grid className={styles.print_invoice_button} container direction="row">
+          <Grid item xs={3}>
+            <PrintInvoiceButton
+              orderNo={order.orderNo}
+              user={user}
+              disabled={order.status !== ENUM_ORDER_STATUS.PENDING}
+            />
+          </Grid>
+          <Grid item container direction="column" justify="center" xs={5}>
+            {order.status === ENUM_ORDER_STATUS.CANCEL ||
+            order.status === ENUM_ORDER_STATUS.COMPLETED ? (
+              <div className={styles.text_danger}>
+                Đơn hàng của bạn đã quá thời gian để xuất hóa đơn
+              </div>
+            ) : (
+              <div className={styles.text_bill}>
+                Xem thông tin xuất hoá đơn đỏ&nbsp;
+                <a href={PATH_INFO_BILL} target="_blank" rel="noreferrer">
+                  tại đây
+                </a>
+              </div>
+            )}
+          </Grid>
+        </Grid>
+      </Paper>
+    </Grid>
+  );
 
   return (
     <Grid container>
@@ -83,36 +117,7 @@ const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile }) => {
         )}
       </Grid>
 
-      <Grid item className={styles.print_invoice}>
-        <Paper classes={{ root: styles.container }} elevation={3}>
-          <Grid className={styles.print_invoice_button} container direction="row">
-            <Grid item xs={3}>
-              {/* OFF print invoice for deploy */}
-              {/* <PrintInvoiceButton
-                orderNo={order.orderNo}
-                user={user}
-                disabled={order.status !== ENUM_ORDER_STATUS.PENDING}
-              /> */}
-            </Grid>
-
-            <Grid item container direction="column" justify="center" xs={5}>
-              {order.status === ENUM_ORDER_STATUS.CANCEL ||
-              order.status === ENUM_ORDER_STATUS.COMPLETED ? (
-                <div className={styles.text_danger}>
-                  Đơn hàng của bạn đã quá thời gian để xuất hóa đơn
-                </div>
-              ) : (
-                <div className={styles.text_bill}>
-                  Xem thông tin xuất hoá đơn đỏ&nbsp;
-                  <a href={PATH_INFO_BILL} target="_blank" rel="noreferrer">
-                    tại đây
-                  </a>
-                </div>
-              )}
-            </Grid>
-          </Grid>
-        </Paper>
-      </Grid>
+      {isShowInvoice && <PrintInvoiceEle />}
 
       <Grid item xs={12}>
         <OrderDetailInfo {...order} />
