@@ -83,7 +83,6 @@ export const getOrders = async ({ ctx, status }) => {
       if (!isValid(productRes)) return { ...order, canEdit };
       const products = productRes.data;
       canEdit =
-        canEdit &&
         products.filter((item) => item && item.orderType !== ENUM_ORDER_TYPE.NORMAL).length === 0;
       return { ...order, canEdit };
     }),
