@@ -56,7 +56,7 @@ const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile }) => {
                 direction="row"
                 justify="flex-end"
               >
-                <EditOrderButton orderNo={order.orderNo} />
+                <EditOrderButton orderNo={order.orderNo} canEdit={order.canEdit} />
                 <TicketButton
                   order={{
                     ...order,

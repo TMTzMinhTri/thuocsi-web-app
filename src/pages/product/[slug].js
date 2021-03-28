@@ -36,7 +36,7 @@ import {
 import { LoadingScreen, ErrorQuantityCartModal } from 'components/organisms';
 import Template from 'components/layout/Template';
 import useModal from 'hooks/useModal';
-import { getFirst } from 'clients';
+import { getFirst, isValid } from 'clients';
 import { ProductService, doWithServerSide, SupplierService } from 'services';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
@@ -67,7 +67,7 @@ export async function getServerSideProps(ctx) {
 
 export default function ProductDetail({ product, supplier = [], isMobile }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [value, setValue] = React.useState('1');
+  const [tabValue, setTabValue] = React.useState('1');
 
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
@@ -105,14 +105,15 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [quantity, setQuantity] = useState(product.quantity || 0);
   const updateCart = async (q) => {
-    const response = await updateCartItem({ product, q });
-    if (response.status === 'OK') {
-      setQuantity(q);
+    if (!q) {
+      return;
     }
-    if (response.errorCode === 'CART_MAX_QUANTITY') {
-      // get quanity can add from response and compare with maxQuantity
-      const { quantity: quantityCanAdd } = getFirst(response, {});
-      setQuantity(quantityCanAdd);
+    const response = await updateCartItem({ product, q: parseFloat(q) });
+    if (isValid(response)) {
+      setQuantity(q);
+    } else if (response.errorCode === 'CART_MAX_QUANTITY') {
+      const { qty = maxQuantity } = getFirst(response, {});
+      updateCart(qty);
     }
   };
 
@@ -137,8 +138,8 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
 
   const yearNumber = new Date().getFullYear() - supplier.yearFounded;
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChangeTab = (event, newValue) => {
+    setTabValue(newValue);
   };
 
   const handleClick = (event) => {
@@ -165,16 +166,17 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     setQuantity(q);
     handler(q, 'update');
   };
-
+  
   const handleInputChange = (e) => {
     const val = e.currentTarget.value;
-    if (/^\d+$/.test(val) && val < MAX_PRODUCT_INPUT|| !val) {
-      setValue(val);
-      if (!val || val === 0) {
-        if (quantity === 0) return;
+    if (/^\d+$/.test(val) && val < MAX_PRODUCT_INPUT || !val) {
+      const curValue = parseFloat(val || 0);
+      setQuantity(curValue);
+      if (!curValue || curValue === 0) {
+        if (value === 0) return;
         handler(product, 'remove');
       } else {
-        handler(+val, 'update');
+        handler(+curValue, 'update');
       }
     }
   };
@@ -516,10 +518,10 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
             </Grid>
             <Grid className={styles.gridTab} item md={9}>
               <ProductDetailTabs
-                handleChange={handleChange}
+                handleChange={handleChangeTab}
                 data={tabsProductData}
                 product={product}
-                value={value}
+                value={tabValue}
               />
             </Grid>
           </Grid>

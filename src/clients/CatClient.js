@@ -2,7 +2,7 @@ import { PRODUCT_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
 
 async function loadBrand(ctx) {
-  const res = await GET({ url: PRODUCT_API.MANUFACTURER, ctx, isBasic: true });
+  const res = await GET({ url: PRODUCT_API.MANUFACTURER_LIST, ctx, isBasic: true });
   if (!isValid(res)) {
     return [];
   }
