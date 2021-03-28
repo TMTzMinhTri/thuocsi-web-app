@@ -69,7 +69,7 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
 
 export const getOrders = async ({ ctx, status }) => {
   const orderRes = await OrderClient.getOrders({ status, ctx });
-  if (!isValid(orderRes)) return [];
+  if (!isValid(orderRes)) return orderRes;
   const orderListData = getData(orderRes);
   const orders = await Promise.all(
     orderListData.map(async (order) => {
