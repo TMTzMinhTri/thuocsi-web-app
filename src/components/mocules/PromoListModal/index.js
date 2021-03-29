@@ -71,7 +71,7 @@ const PromoListModal = memo((props) => {
   }, [totalPrice, visible]);
 
   useEffect(() => {
-    const prms = searchString(promos, text);
+    const prms = searchString(promos, text?.toUpperCase() || '');
     setPromoSearchs(prms);
   }, [promos, text]);
 
