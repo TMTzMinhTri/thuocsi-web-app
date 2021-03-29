@@ -48,9 +48,7 @@ const FooterRightItem = () => (
         </Link>
       </div> */}
     </div>
-    <div>
-      <small>Từ T2 đến T6: 8:00 - 18:00</small>
-    </div>
+    <div>{/* <small>Từ T2 đến T6: 8:00 - 18:00</small> */}</div>
     <div className={styles.mb2}>
       <Image src={LOGO_MOBILE} width="445" height="445" />
     </div>

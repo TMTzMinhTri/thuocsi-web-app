@@ -240,7 +240,7 @@ const SideBar = () => {
         </li> */}
       </ul>
       <div className={styles.contact_more}>
-        <div className={styles.open_hours}>Từ T2 đến T6: 8:00 - 18:00</div>
+        {/* <div className={styles.open_hours}>Từ T2 đến T6: 8:00 - 18:00</div> */}
         <a
           className={styles.fb}
           href="https://www.facebook.com/thuocsivn/"
