@@ -164,7 +164,7 @@ export const getVoucherCodesActive = async ({ ctx }) => {
 
     return [
       ...voucherList,
-      ...voucherCodes.map((v) =>
+      ...voucherCodes?.map((v) =>
         parseVoucherDetail({
           ...v,
           conditions,

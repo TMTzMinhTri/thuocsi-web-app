@@ -1,6 +1,6 @@
 import { CartClient, GET, isValid, ProductClient } from 'clients';
 import { PRODUCT_API } from 'constants/APIUri';
-import { PAGE_SIZE } from 'constants/data';
+import { PAGE_SIZE_30, PAGE_SIZE } from 'constants/data';
 import { convertArrayToMap } from 'utils/ArrUtils';
 import { isEmpty } from 'utils/ValidateUtils';
 
@@ -25,7 +25,7 @@ export const mapDataProduct = async ({ ctx, result }) => {
 export const loadDataProduct = async ({ ctx, isTotal }) => {
   const params = {
     ...ctx.query,
-    limit: PAGE_SIZE,
+    limit: PAGE_SIZE_30,
     getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
   };
 
@@ -97,7 +97,7 @@ export const getDeals = async ({ ctx, params }) => {
   const result = await ProductClient.getDeals({ ctx, params });
   if (!isValid(result)) return result;
   return mapDataProduct({ ctx, result });
-}
+};
 
 export default {
   loadDataProduct,

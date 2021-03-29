@@ -153,7 +153,7 @@ const CartCounponCard = (props) => {
                 </div>
               </Grid>
 
-              {type === PROMO_TYPE.VOUCHERCODE && (
+              {!isDisable && type === PROMO_TYPE.VOUCHERCODE && (
                 <Grid item style={{ paddingTop: '5px' }}>
                   Đơn hàng sau khi áp dụng :{' '}
                   <strong style={{ color: 'red' }}>
