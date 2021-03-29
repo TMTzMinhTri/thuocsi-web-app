@@ -74,7 +74,9 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   const { toggleLogin, isAuthenticated } = useAuth();
 
   if (!product) {
-    NotifyUtils.error('Không tìm thấy sản phẩm. Gọi 02 873 008 840 để hỏi thêm về sản phẩm này.');
+    NotifyUtils.error(
+      'Không tìm thấy sản phẩm. Hãy liên hệ chúng tôi để hỏi thêm về sản phẩm này.',
+    );
     Router.push(PRODUCTS_URL);
     return <LoadingScreen />;
   }

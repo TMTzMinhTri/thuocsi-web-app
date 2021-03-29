@@ -277,7 +277,7 @@ export default function ProductListing({
                   {name}
                 </Typography>
               )}
-              <SearchResultText total={total} page={page} pages={pages} />
+              <SearchResultText total={total} page={page} pages={pages} limit={products?.length} />
             </div>
             {!isMobile && (
               <div>
