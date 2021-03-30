@@ -16,7 +16,7 @@ const MyLoyaltyPoint = ({ user, isMobile }) => {
     <Template title={title} isMobile={isMobile} pageTitle={name}>
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
-          <InfoContainer value={5} title="Điểm tích luỹ" name={user?.name} isMobile={isMobile}>
+          <InfoContainer value={6} title="Điểm tích luỹ" name={user?.name} isMobile={isMobile}>
             <Grid item xs={12} className={styles.loyalty_point_row}>
               Bạn đang có <span className={styles.point}>{user?.point}</span> điểm tích lũy.
             </Grid>

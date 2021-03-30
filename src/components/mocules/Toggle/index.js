@@ -7,6 +7,7 @@ import {
   LocalOffer as LocalOfferIcon,
   ExitToApp as ExitToAppIcon,
   MonetizationOn as MonetizationOnIcon,
+  Message as MessageIcon,
 } from '@material-ui/icons';
 import { Button, MenuItem, Typography, Divider } from '@material-ui/core';
 import { useAuth, useCart } from 'context';
@@ -89,6 +90,10 @@ export default function Toggle({ point, balance }) {
           text="Mã giảm giá của tôi"
         >
           <LocalOfferIcon />
+        </MenuDropDownItem>
+
+        <MenuDropDownItem handleClick={() => router.push('/users/tickets')} text="Phản hồi của tôi">
+          <MessageIcon />
         </MenuDropDownItem>
 
         <MenuDropDownItem

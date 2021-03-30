@@ -21,6 +21,7 @@ export { default as AccountInfoFormContainer } from './AccountInfoContainer';
 export { default as OrderInfoContainer } from './OrderInfoContainer';
 export { default as ReferralList } from './ReferralList';
 export { default as PromoList } from './PromoList';
+export { default as TicketList } from './TicketList';
 export { default as ProductListing } from './ProductListing';
 export { default as LoadingScreen } from './LoadingScreen';
 export { default as OrderDetailContainer } from './OrderDetailContainer';
