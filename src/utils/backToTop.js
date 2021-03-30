@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function ScrollToTop() {
+export default function ScrollToTop({pathname}) {
   const divRef = useRef(null);
-
+  const page = pathname.replace(/[/]/g,'');
   // Show button when page is scorlled upto given distance
   const toggleVisibility = () => {
     if (window.pageYOffset > 300 && !divRef.current?.classList?.contains('visible')) {
@@ -29,7 +29,7 @@ export default function ScrollToTop() {
   }, []);
 
   return (
-    <div ref={divRef} className="back-to-top" onClick={scrollToTop} role="presentation">
+    <div ref={divRef} className={`back-to-top ${page}`} onClick={scrollToTop} role="presentation">
       <FontAwesomeIcon icon={faChevronUp} />
       <div className="back-to-top-text">TOP</div>
     </div>
