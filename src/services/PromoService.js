@@ -190,7 +190,13 @@ const getPromoCodeDetail = async (voucherCode) => {
 
   return {
     ...promoDetailResult,
-    data: [parseVoucherDetail({ ...promotion, voucherCodes: [{ ...data, promotion: null }] })],
+    data: [
+      parseVoucherDetail({
+        ...promotion,
+        code: voucherCode,
+        voucherCodes: [{ ...data, promotion: null }],
+      }),
+    ],
   };
 };
 
