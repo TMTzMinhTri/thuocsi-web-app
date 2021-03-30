@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { Button } from 'components/atoms';
 
-const FindButton = ({ className }) => <Button className={className}> Tìm </Button>;
+const FindButton = ({ className, onClick }) => (
+  <Button className={className} onClick={onClick}>
+    Tìm
+  </Button>
+);
 
 const StyledButton = styled(FindButton)`
   color: #fff !important;
