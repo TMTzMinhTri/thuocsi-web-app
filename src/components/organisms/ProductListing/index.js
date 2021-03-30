@@ -20,7 +20,7 @@ import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'components/atoms';
 import { SearchResultText } from 'components/mocules';
-import { SORT_PRODUCT, SORT_PRODUCT_NOT_LOGIN, PAGE_SIZE } from 'constants/data';
+import { SORT_PRODUCT, SORT_PRODUCT_NOT_LOGIN, PAGE_SIZE_30 } from 'constants/data';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faTag } from '@fortawesome/free-solid-svg-icons';
 import FilterProductOnMobile from 'components/organisms/FilterProductOnMobile';
@@ -46,7 +46,7 @@ export default function ProductListing({
 }) {
   const [isloading, setIsLoading] = useState(true);
   const [numPage, setNumPage] = useState(page);
-  const pages = Math.ceil(total / PAGE_SIZE);
+  const pages = Math.ceil(total / PAGE_SIZE_30);
   const router = useRouter();
   const pathName = `/${catName}/${slug}`;
   const [open, toggleOpenFilter] = useModal();
