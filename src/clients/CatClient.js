@@ -1,15 +1,15 @@
 import { PRODUCT_API } from 'constants/APIUri';
 import { GET, isValid } from './Clients';
 
-async function loadBrand(ctx) {
-  const res = await GET({ url: PRODUCT_API.MANUFACTURER_LIST, ctx, isBasic: true });
+async function loadBrand({ ctx, params }) {
+  const res = await GET({ url: PRODUCT_API.MANUFACTURER_LIST, ctx, isBasic: true, params });
   if (!isValid(res)) {
     return [];
   }
   return res.data;
 }
-async function loadGroup(ctx) {
-  const res = await GET({ url: PRODUCT_API.CATEGORY_LIST, ctx, isBasic: true });
+async function loadGroup({ ctx, params }) {
+  const res = await GET({ url: PRODUCT_API.CATEGORY_LIST, ctx, isBasic: true, params });
   if (!isValid(res)) {
     return [];
   }
