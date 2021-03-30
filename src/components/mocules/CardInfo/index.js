@@ -59,7 +59,6 @@ const CardInfo = ({ cart, promo, className, user }) => {
     redeemCode,
     promoInfo,
     redeemApplyResult,
-    discount,
   } = cartInfo;
 
   const router = useRouter();
@@ -118,11 +117,11 @@ const CardInfo = ({ cart, promo, className, user }) => {
           >
             <Typography className={styles.text}>Tổng tiền</Typography>
             <Typography className={clsx(styles.number, styles.price)}>
-              {formatCurrency(subTotalPrice || 0)}
+              {formatCurrency(totalPrice || 0)}
             </Typography>
             {!isEmptyRedeemCode && isCanApplyVoucherCode && (
               <Typography className={clsx(styles.total)}>
-                {formatCurrency(Math.max(subTotalPrice - discount, 0))}
+                {formatCurrency(Math.max(subTotalPrice, 0))}
               </Typography>
             )}
           </Grid>

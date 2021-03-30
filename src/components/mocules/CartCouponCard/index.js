@@ -65,6 +65,7 @@ const CartCounponCard = (props) => {
     handleChangePromo,
     totalPrice = 0,
     isDisable,
+    message,
     className,
     conditionsVi = [],
   } = props;
@@ -224,6 +225,17 @@ const CartCounponCard = (props) => {
                           </div>
                         )),
                       )}
+                    {message && (
+                      <Typography
+                        style={{
+                          fontSize: 'small',
+                          color: palette.error.main,
+                          marginBottom: '10px',
+                        }}
+                      >
+                        {message}
+                      </Typography>
+                    )}
                   </AccordionDetails>
                 </Accordion>
               </Grid>
