@@ -26,7 +26,13 @@
   margin-top: 20px;
   width: 510px;
 }
-
+.close{
+  position: absolute;
+  top: 22px;
+  right: 12px;
+  width: 1.3em;
+  height: 1.3em;
+}
 .counpon_list [class*='MuiGrid-spacing-xs-1'] {
   width: 100% !important;
   /* margin-left: 0 !important;
