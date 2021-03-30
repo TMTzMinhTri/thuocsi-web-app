@@ -67,20 +67,25 @@ const renderDeliveryMethod = ({ item, addressSelect, totalPrice = 0 }) => {
 
 const DeliveryMethod = ({
   handleChange,
-  selectedValue = '',
   deliveryMethods,
+  selectedValue,
   addressSelect,
   totalPrice,
-}) => (
-  <Paper className={styles.root} elevation={4}>
-    <h1 className={styles.title}>Hình thức giao hàng</h1>
-    <FormControl component="fieldset">
-      <RadioGroup value={selectedValue} onChange={handleChange}>
-        {deliveryMethods &&
-          deliveryMethods.map((item) => renderDeliveryMethod({ item, addressSelect, totalPrice }))}
-      </RadioGroup>
-    </FormControl>
-  </Paper>
-);
+}) => {
+  const selectedVal = selectedValue || deliveryMethods[0]?.code;
+  return (
+    <Paper className={styles.root} elevation={4}>
+      <h1 className={styles.title}>Hình thức giao hàng</h1>
+      <FormControl component="fieldset">
+        <RadioGroup value={selectedVal} onChange={handleChange}>
+          {deliveryMethods &&
+            deliveryMethods.map((item) =>
+              renderDeliveryMethod({ item, addressSelect, totalPrice }),
+            )}
+        </RadioGroup>
+      </FormControl>
+    </Paper>
+  );
+};
 
 export default DeliveryMethod;

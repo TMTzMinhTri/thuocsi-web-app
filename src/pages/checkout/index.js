@@ -49,7 +49,7 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMethods }) => {
+const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods = [], deliveryMethods = [] }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -68,13 +68,16 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     return <LoadingScreen />;
   }
 
+  const deliveryMethodDefault = deliveryMethods[0]?.code || '';
+  const paymentMethodDefault = paymentMethods[0]?.code || '';
+
   const {
     itemCount = 0,
     totalPrice = 0,
     updateDeliveryMethod,
     updatePaymentMethod,
-    paymentMethod,
-    deliveryPlatform,
+    paymentMethod = paymentMethodDefault,
+    deliveryPlatform = deliveryMethodDefault,
     customerName,
     customerPhone,
     customerEmail,
@@ -159,7 +162,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   };
 
   return (
-    <Template title={title} isMobile={isMobile} point={user?.point || 0} balance={user?.balance || 0}>
+    <Template
+      title={title}
+      isMobile={isMobile}
+      point={user?.point || 0}
+      balance={user?.balance || 0}
+    >
       <div className={styles.wrapper_gray}>
         <div className={styles.payment_wrapper}>
           <Grid spacing={4} container>
