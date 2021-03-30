@@ -293,7 +293,7 @@ export const TICKET_STATUS = [
   {
     value: 'IN_PROCESS',
     label: 'Đang xử lý',
-    color: '#000',
+    color: '#0081CF',
     iconColor: '#55cccc',
     icon: <AssignmentReturnedIcon />,
   },

@@ -8,8 +8,8 @@ import Link from 'next/link';
 import styles from './styles.module.css';
 
 const heads = [
-  { text: 'Mã đơn hàng', align: ALIGN.LEFT },
   { text: 'Đơn hàng', align: ALIGN.LEFT },
+  { text: 'Mã đơn hàng', align: ALIGN.LEFT },
   { text: 'Thời gian tạo', align: ALIGN.LEFT },
   { text: 'Lí do', align: ALIGN.LEFT },
   { text: 'Trạng thái', align: ALIGN.LEFT },
@@ -20,24 +20,27 @@ function TicketTable({ tickets }) {
     <div style={{ overflowX: 'auto' }}>
       <InfoTable heads={heads} className={styles.bottom_square}>
         {tickets.length > 0 ? (
-          tickets.map((row) => {
-            console.log(row.saleOrderID);
-            const ticketStatus = TICKET_STATUS.find((ticketStt) => ticketStt.value === row.status);
+          tickets.map((ticket) => {
+            const ticketStatus = TICKET_STATUS.find(
+              (ticketStt) => ticketStt.value === ticket.status,
+            );
             return (
               <TableRow hover key={uuidv4()}>
-                <TableCell align="left">{row.code}</TableCell>
                 <TableCell align="left">
-                  <Link href={`${MY_ORDER_URL}/${row.saleOrderID}`}>{`#${row.saleOrderID}`}</Link>
+                  <Link href={`${MY_ORDER_URL}/${ticket.saleOrderID}`}>
+                    {`#${ticket.saleOrderID}`}
+                  </Link>
                 </TableCell>
+                <TableCell align="left">{ticket.code}</TableCell>
                 <TableCell align="left">
                   {DateTimeUtils.getFormattedDate(
-                    new Date(row?.createdTime || null),
+                    new Date(ticket?.createdTime || null),
                     'DD/MM/YYYY HH:mm:ss',
                   )}
                 </TableCell>
                 <TableCell align={ALIGN.LEFT}>
                   <Grid container direction="column" spacing={1}>
-                    {row.reasons.map((reasonEl) => {
+                    {ticket.reasons.map((reasonEl) => {
                       const reasonName =
                         LIST_REASONS.find((reason) => reason.code === reasonEl)?.name || '';
                       return (
