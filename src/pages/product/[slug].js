@@ -8,7 +8,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Button,
   IconButton,
   Popover,
   Typography,
@@ -18,7 +17,7 @@ import { formatCurrency, formatNumber } from 'utils/FormatNumber';
 import { tabsProductData, MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchDollar, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faSearchDollar } from '@fortawesome/free-solid-svg-icons';
 import {
   InputProduct,
   MinusButton,
@@ -30,7 +29,6 @@ import {
   MultiImageBox,
   TagType,
   ProductDetailTabs,
-  SellerInfo,
   CountdownTimerDetail,
 } from 'components/mocules';
 import { LoadingScreen, ErrorQuantityCartModal } from 'components/organisms';
@@ -40,8 +38,8 @@ import { getFirst, isValid } from 'clients';
 import { ProductService, doWithServerSide, SupplierService } from 'services';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
-import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from 'constants/Paths';
-import { DOMAIN_SELLER_CENTER, NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
+import { INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from 'constants/Paths';
+import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
 import { NotifyUtils, calculateTimeLeft, formatDate } from 'utils';
 import Router from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -65,7 +63,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-export default function ProductDetail({ product, supplier = [], isMobile }) {
+export default function ProductDetail({ product, isMobile }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [tabValue, setTabValue] = React.useState('1');
 
@@ -90,7 +88,6 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     category,
     tags,
     maxQuantity: prdMaxQuantity,
-    seller,
     manufacturer,
     countryOfManufacture,
     isDeal,
@@ -138,7 +135,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
 
   const title = `${name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
 
-  const yearNumber = new Date().getFullYear() - supplier.yearFounded;
+  // const yearNumber = new Date().getFullYear() - supplier.yearFounded;
 
   const handleChangeTab = (event, newValue) => {
     setTabValue(newValue);
@@ -391,7 +388,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                     </CustomButton>
                   )}
                 </Grid>
-                <Grid className={styles.product_content_wrap} item md={5}>
+                {/* <Grid className={styles.product_content_wrap} item md={5}>
                   <div className={styles.product_suppliers}>
                     <p>
                       Hệ thống sẽ chọn nhà cung cấp tốt nhất cho bạn.
@@ -453,7 +450,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       </Button>
                     </div>
                   </div>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
           </Grid>

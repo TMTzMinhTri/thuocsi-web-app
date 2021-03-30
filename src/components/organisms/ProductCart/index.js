@@ -101,11 +101,11 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
         onClose={toggleWarning}
         visible={isShowModalWarning}
         title="Đánh dấu sản phẩm quan trọng"
-        content={`Bạn cần chọn thêm ${
+        content={`Bạn cần thêm ${
           importantList.length === maxImportant
             ? maxImportant * 5
             : maxImportant * 5 - cartItems.length
-        } sản phẩm khác nhau trong giỏ hàng để có thể đánh dấu quan trọng`}
+        } sản phẩm vào giỏ hàng để có thể đánh dấu quan trọng`}
         btnOnClose="Đóng"
         btnOkRender={false}
       />
