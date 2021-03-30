@@ -87,7 +87,7 @@ const MyApp = (props) => {
                 <NotiContextProvider>
                   <Component {...pageProps} />
                   <MessengerChat pageId={FACEBOOK_MESSENGER_ID} ref={refContainer} />
-                  <ScrollToTop />
+                  <ScrollToTop {...router} />
                 </NotiContextProvider>
                 <ToastContainer limit={6} />
               </CartContextProvider>
