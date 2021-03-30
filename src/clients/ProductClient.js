@@ -83,6 +83,14 @@ export const getTabs = async ({ ctx }) =>
 export const getDeals = async ({ ctx, params }) =>
   GET({ url: PRODUCT_API.DEALS, params, ctx, isBasic: true });
 
+export const getSettingTags = ({ ctx }) =>
+  GET({
+    url: PRODUCT_API.TAGS,
+    ctx,
+    isBasic: true,
+    params: { isActive: true },
+  });
+
 export default {
   loadDataMostSearch,
   loadFeedback,
@@ -91,5 +99,6 @@ export default {
   loadDataProductCollection,
   loadDataManufacturer,
   getTabs,
+  getSettingTags,
   getDeals,
 };

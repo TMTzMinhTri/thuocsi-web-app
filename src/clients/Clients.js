@@ -99,8 +99,8 @@ async function request({
         };
       }
     }
-    // console.log('link : ', link);
 
+    // console.log('link : ', link);
     if (parameters) {
       const parameterStr = RequestUtils.convertObjectToParameter(parameters);
       if (parameterStr.length > 0) link += (link.indexOf('?') >= 0 ? '&' : '?') + parameterStr;
@@ -123,7 +123,7 @@ async function request({
     }
 
     // console.log('result : ', result);
-    // console.log(` fetch data ${link}`, result);
+    console.log(` fetch data ${link}`, result);
     return result;
   } catch (err) {
     // console.log('err ', err);
