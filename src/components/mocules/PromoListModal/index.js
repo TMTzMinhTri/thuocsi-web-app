@@ -80,7 +80,10 @@ const PromoListModal = memo((props) => {
   return (
     <Modal className={className} open={visible} {...restProps} onClose={onClose}>
       <div className={styles.confirm_modal_wrap}>
-        <h2> Mã khuyến mãi </h2>
+        <div className={styles.modal_title}>
+          <h2> Mã khuyến mãi </h2>
+          <CloseIcon className={styles.close} onClick={onClose} />
+        </div>
         <Divider />
         <Grid container>
           <Grid item xs={9} md={10}>
