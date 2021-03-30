@@ -3,22 +3,16 @@ import InfoContainer from 'components/organisms/InfoContainer';
 import TicketList from 'components/organisms/TicketList';
 import { Container } from '@material-ui/core';
 import { doWithServerSide } from 'services';
-import { TicketClient, isValid } from 'clients';
+import { TicketClient, getData } from 'clients';
 import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const ticketRes = await TicketClient.getListTicket(ctx);
-    if (!isValid(ticketRes)) {
-      return {
-        props: {
-          tickets: [],
-        },
-      };
-    }
+    const data = getData(ticketRes);
     return {
       props: {
-        tickets: ticketRes.data,
+        tickets: data,
       },
     };
   });
