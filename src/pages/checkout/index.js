@@ -114,9 +114,9 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods = [], delivery
 
   const dataCustomer = {
     paymentMethods,
-    paymentMethod,
+    paymentMethod: paymentMethod || paymentMethodDefault,
     deliveryMethods,
-    deliveryPlatform,
+    deliveryPlatform: deliveryPlatform || deliveryMethodDefault,
     totalWard,
   };
 
