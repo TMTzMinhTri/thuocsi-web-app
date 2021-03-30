@@ -105,7 +105,7 @@ export const parseListCondition = (conditions) => conditions.map((cond) => parse
 export const parseVoucherDetail = (voucherInfo) => {
   if (!voucherInfo) return null;
 
-  const { rewards, conditions } = voucherInfo;
+  const { rewards = [], conditions = [] } = voucherInfo;
   const rewardsVi = parseListReward(rewards);
   const conditionsVi = parseListCondition(conditions);
   return { ...voucherInfo, rewardsVi, conditionsVi };
@@ -156,11 +156,9 @@ async function getPromoActive({ ctx }) {
   return promoActive;
 }
 
-export const getVoucherCodesActive = async ({ ctx }) => {
-  const promoActive = await getPromoActive({ ctx });
-
-  const vouchers = promoActive.reduce((voucherList, promo) => {
-    const { conditions, voucherCodes, rewards, promotionType } = promo;
+export const parseListConditionVoucher = (vouchers = []) =>
+  vouchers.reduce((voucherList, promo) => {
+    const { conditions, voucherCodes = [], rewards, promotionType } = promo;
 
     return [
       ...voucherList,
@@ -175,7 +173,31 @@ export const getVoucherCodesActive = async ({ ctx }) => {
     ];
   }, []);
 
-  return vouchers;
+export const getVoucherCodesActive = async ({ ctx }) => {
+  const promoActive = await getPromoActive({ ctx });
+
+  return parseListConditionVoucher(promoActive);
+};
+
+const getPromoCodeDetail = async (voucherCode) => {
+  const promoDetailResult = await PromoClient.getPromoDetailByVoucherCode({ voucherCode });
+  if (!isValid(promoDetailResult)) {
+    return promoDetailResult;
+  }
+  // map data detail
+  const data = getFirst(promoDetailResult);
+  const { promotion } = data;
+
+  return {
+    ...promoDetailResult,
+    data: [
+      parseVoucherDetail({
+        ...promotion,
+        code: voucherCode,
+        voucherCodes: [{ ...data, promotion: null }],
+      }),
+    ],
+  };
 };
 
 export default {
@@ -184,4 +206,5 @@ export default {
   parseListReward,
   parseReward,
   getVoucherCodesActive,
+  getPromoCodeDetail,
 };
