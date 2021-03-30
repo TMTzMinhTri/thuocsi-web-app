@@ -42,11 +42,11 @@ const PromoListModal = memo((props) => {
   const parseConditionVoucher = useCallback((voucher) => {
     let isDisable = false;
     let message = '';
-    const { conditions = [], maxUsagePerCustomer, usageTotal } = voucher;
-    if (maxUsagePerCustomer && usageTotal && maxUsagePerCustomer <= usageTotal) {
-      isDisable = true;
-      return { ...voucher, isDisable, message: 'Đã hết lượt sử dụng' };
-    }
+    const { conditions = [] } = voucher;
+    // if (maxUsagePerCustomer && usageTotal && maxUsagePerCustomer <= usageTotal) {
+    //   isDisable = true;
+    //   return { ...voucher, isDisable, message: 'Đã hết lượt sử dụng' };
+    // }
 
     conditions.forEach((condition) => {
       const { type, minOrderValue } = condition;
