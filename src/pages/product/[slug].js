@@ -388,7 +388,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                     </CustomButton>
                   )}
                 </Grid>
-                <Grid className={styles.product_content_wrap} item md={5}>
+                {/* <Grid className={styles.product_content_wrap} item md={5}>
                   <div className={styles.product_suppliers}>
                     <p>
                       Hệ thống sẽ chọn nhà cung cấp tốt nhất cho bạn.
@@ -450,7 +450,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
                       </Button>
                     </div>
                   </div>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
           </Grid>
