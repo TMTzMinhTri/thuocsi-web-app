@@ -100,6 +100,7 @@
   font-size: 16px;
   font-weight: 400;
   word-break: break-all;
+  text-transform: capitalize;
 }
 .group .accordionLink:hover,
 .group .accordionLink.active{

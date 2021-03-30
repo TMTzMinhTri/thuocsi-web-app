@@ -283,6 +283,9 @@
         margin-right: 0;
         margin-left: 0;
     }
+    .product_price{
+        display: block;
+    }
     .container{
         padding: 0;
     }

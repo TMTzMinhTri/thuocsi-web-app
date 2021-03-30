@@ -30,7 +30,9 @@ export async function getServerSideProps(ctx) {
 
 const Ingredient = ({ ingredientRes = {}, products = [], isMobile }) => {
   if (!isValid(ingredientRes)) {
-    NotifyUtils.error('Không tìm thấy hoạt chất. Gọi 02 873 008 840 để hỏi thêm về hoạt chất này.');
+    NotifyUtils.error(
+      'Không tìm thấy hoạt chất. Hãy liên hệ chúng tôi để hỏi thêm về hoạt chất này.',
+    );
     Router.push(INGREDIENT);
     return <LoadingScreen />;
   }

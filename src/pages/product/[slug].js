@@ -72,7 +72,9 @@ export default function ProductDetail({ product, isMobile }) {
   const { toggleLogin, isAuthenticated } = useAuth();
 
   if (!product) {
-    NotifyUtils.error('Không tìm thấy sản phẩm. Gọi 02 873 008 840 để hỏi thêm về sản phẩm này.');
+    NotifyUtils.error(
+      'Không tìm thấy sản phẩm. Hãy liên hệ chúng tôi để hỏi thêm về sản phẩm này.',
+    );
     Router.push(PRODUCTS_URL);
     return <LoadingScreen />;
   }
@@ -334,46 +336,47 @@ export default function ProductDetail({ product, isMobile }) {
                           </Typography>
                         ) : null}
                       </>
-                      {!isMobile && isDeal ? (
-                        <div className={styles.product_action}>
-                          <MinusButton
-                            disabled={outOfStock || !dealReady}
-                            className={styles.minus}
-                            onClick={handleDecrease}
-                          />
-                          <InputProduct
-                            product={product}
-                            id={product.sku}
-                            className={styles.input_product}
-                            onChange={handleInputChange}
-                            value={quantity}
-                            disabled={outOfStock || !dealReady}
-                          />
-                          <PlusButton
-                            disabled={
-                              !dealReady || outOfStock || (maxQuantity && quantity >= maxQuantity)
-                            }
-                            className={styles.plus}
-                            onClick={() => handleIncrease()}
-                          />
-                        </div>
-                      ) : (
-                        <div className={styles.product_action}>
-                          <MinusButton className={styles.minus} onClick={handleDecrease} />
-                          <InputProduct
-                            product={product}
-                            id={product.sku}
-                            className={styles.input_product}
-                            onChange={handleInputChange}
-                            value={quantity}
-                          />
-                          <PlusButton
-                            disabled={maxQuantity && quantity >= maxQuantity}
-                            className={styles.plus}
-                            onClick={() => handleIncrease()}
-                          />
-                        </div>
-                      )}
+                      {!isMobile &&
+                        (isDeal ? (
+                          <div className={styles.product_action}>
+                            <MinusButton
+                              disabled={outOfStock || !dealReady}
+                              className={styles.minus}
+                              onClick={handleDecrease}
+                            />
+                            <InputProduct
+                              product={product}
+                              id={product.sku}
+                              className={styles.input_product}
+                              onChange={handleInputChange}
+                              value={quantity}
+                              disabled={outOfStock || !dealReady}
+                            />
+                            <PlusButton
+                              disabled={
+                                !dealReady || outOfStock || (maxQuantity && quantity >= maxQuantity)
+                              }
+                              className={styles.plus}
+                              onClick={() => handleIncrease()}
+                            />
+                          </div>
+                        ) : (
+                          <div className={styles.product_action}>
+                            <MinusButton className={styles.minus} onClick={handleDecrease} />
+                            <InputProduct
+                              product={product}
+                              id={product.sku}
+                              className={styles.input_product}
+                              onChange={handleInputChange}
+                              value={quantity}
+                            />
+                            <PlusButton
+                              disabled={maxQuantity && quantity >= maxQuantity}
+                              className={styles.plus}
+                              onClick={() => handleIncrease()}
+                            />
+                          </div>
+                        ))}
                     </>
                   ) : (
                     <CustomButton
