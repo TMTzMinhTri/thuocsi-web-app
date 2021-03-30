@@ -250,6 +250,9 @@ input[type=number] {
     font-size: 14px;
     font-weight: 500;
   }
+  .back-to-top.cart{
+    display: none;
+  }
 }
 
 .rug {
