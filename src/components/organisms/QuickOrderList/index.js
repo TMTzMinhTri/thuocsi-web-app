@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { isValid, SearchClient } from 'clients';
+import { isValid } from 'clients';
 import { debounceFunc500 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
 import { PAGE_SIZE } from 'constants/data';
 import { SearchOrder } from 'components/mocules';
+import { ProductService } from 'services';
 import ProductCardHorizontal from '../ProductCardHorizontal';
 
 import styles from './style.module.css';
@@ -26,7 +27,7 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
   }, [totalVal]);
 
   const fetchData = async (keywords, num) => {
-    const res = await SearchClient.searchProducts(keywords, num);
+    const res = await ProductService.searchProducts(keywords, num);
     if (isValid(res)) {
       setTotalVal(res.total);
       setSearchProduct(res.data);
