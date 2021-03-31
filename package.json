@@ -41,7 +41,7 @@
     "react-transition-group": "^4.4.1",
     "react-upload-gallery": "^0.2.0",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.2.1",
+    "styled-components": "5.2.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
