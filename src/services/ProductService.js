@@ -22,6 +22,23 @@ export const mapDataProduct = async ({ ctx, result }) => {
   return result;
 };
 
+export const searchProducts = async (keyword, page) => {
+  const url = '/marketplace/product/v1/products/list';
+  const params = {
+    page,
+    q: keyword || null,
+    limit: PAGE_SIZE,
+    getTotal: true,
+  };
+  const result = await GET({ url, params });
+
+  if (!isValid(result)) {
+    return result;
+  }
+
+  return mapDataProduct({ result });
+};
+
 export const loadDataProduct = async ({ ctx, isTotal }) => {
   const params = {
     ...ctx.query,
@@ -107,4 +124,5 @@ export default {
   loadProductWithManufacturer,
   getListTabs,
   getDeals,
+  searchProducts,
 };
