@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import {
   makeStyles,
@@ -20,13 +20,12 @@ import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CART_URL, HOME_PAGE, PRODUCTS_URL } from 'constants/Paths';
-import { SettingClient } from 'clients';
 
 import { Toggle, SearchInput } from 'components/mocules';
 
 // comp
 import { LinkComp, TagComp } from 'components/atoms';
-
+import { MENU } from 'constants/data';
 import styles from './styles.module.css';
 
 const { LinkStyled } = LinkStyledClass;
@@ -80,7 +79,6 @@ function renderMostSearched(data, classes) {
 export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
   const { itemCount } = useCart();
   const classes = useStyle();
-  const [menu, setMenu] = useState([]);
   const router = useRouter();
 
   const { isAuthenticated, toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();
@@ -103,14 +101,6 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
     return () => {
       window.removeEventListener('scroll', scrollCallBack);
     };
-  }, []);
-
-  useEffect(() => {
-    async function loadMenu() {
-      const data = await SettingClient.getMenu();
-      setMenu(data);
-    }
-    loadMenu();
   }, []);
 
   const getActivePage = () => {
@@ -142,7 +132,7 @@ export default function NavBar({ mostResearched, point = 0, balance = 0 }) {
               </LinkComp>
             </div>
             <div className={isAuthenticated ? styles.link_wrap : clsx(styles.link_wrap, styles.jc)}>
-              {menu.map((item) => (
+              {MENU.map((item) => (
                 <LinkComp
                   className={clsx(
                     classes.link,
