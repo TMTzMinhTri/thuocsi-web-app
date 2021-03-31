@@ -31,7 +31,7 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "clsx": "latest",
     "js-cookie": "^2.2.1",
-    "next": "^10.0.7",
+    "next": "10.0.7",
     "next-i18next": "^8.1.2",
     "prop-types": "latest",
     "react": "latest",
