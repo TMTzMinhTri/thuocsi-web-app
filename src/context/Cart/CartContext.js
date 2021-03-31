@@ -24,7 +24,7 @@ export const CartContextProvider = ({ children }) => {
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
     try {
       if (!isValid(cartRes)) {
-        if (cartRes.message) {
+        if (cartRes && cartRes.message) {
           NotifyUtils.error(cartRes.message);
         } else if (errorMessage) {
           NotifyUtils.error(errorMessage);
