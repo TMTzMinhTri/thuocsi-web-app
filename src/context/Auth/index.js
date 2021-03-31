@@ -247,7 +247,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
 
   useEffect(() => {
     if (user === null)
-      loadUserFromCookies(async () => {
+      loadUserFromCookies(async (userInfo) => {
         // nếu không có user thì check token
         if (tokenv1) {
           // redirect
@@ -264,7 +264,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
             // redirect to mienbac.thuocsi.vn
             window.location.href = DOMAIN_TS_MIEN_BAC;
           }
-        } else if (ENV === 'prd') {
+        } else if (ENV === 'prd' && !userInfo) {
           window.location.href = DOMAIN_TS;
         }
       });
