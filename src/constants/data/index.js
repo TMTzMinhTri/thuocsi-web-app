@@ -422,11 +422,4 @@ export const MENU = [
     url: '/promo-codes',
     isNew: true,
   },
-  // {
-  //   id: '6',
-  //   name: 'Hàng Mới',
-  //   icon: 'fab fa-hotjar',
-  //   redirectUrl: 'https://try.thuocsi.vn/daitiechangmoi',
-  //   isNew: true
-  // }
 ];
