@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Modal } from 'components/atoms';
 import { Grid } from '@material-ui/core';
 import DateTimeUtils from 'utils/DateTimeUtils';
+import { OrderClient, getFirst } from 'clients';
 import styles from './style.module.css';
 
 const TicketFormModal = (props) => {
@@ -10,9 +11,18 @@ const TicketFormModal = (props) => {
 
   const splitNumber = (n) => {};
 
-  useEffect(() => {}, []);
-  const { orderID, orderTime, bankName, bankCode } = ticket;
-  const { name, phone } = user;
+  useEffect(() => {
+    async function fechData() {
+      const orderRes = await OrderClient.getOrderById({ id: ticket.orderId });
+
+      setOrder(getFirst(orderRes));
+    }
+    fechData();
+  }, []);
+  const { orderId, orderTime, bankName, bankCode } = ticket;
+
+  const { customerEmail: email, customerName: name, customerPhone: phone, createdTime } = order;
+
   return (
     <Modal open={visible} onClose={onClose}>
       <div className={styles.feedback_order}>
@@ -21,11 +31,11 @@ const TicketFormModal = (props) => {
           <div className={styles.info_group}>
             <Grid item xs={12} className={styles.text_body}>
               <span className={styles.label}>Phản hồi về đơn hàng #</span>
-              <span className={styles.value}>{orderID}</span>
+              <span className={styles.value}>{orderId}</span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
               <span className={styles.label}>Mã đơn hàng: </span>
-              <span className={styles.value}>{orderID}</span>
+              <span className={styles.value}>{orderId}</span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>
               <span className={styles.label}>Tên khách hàng: </span>
@@ -34,7 +44,7 @@ const TicketFormModal = (props) => {
             <Grid item xs={12} md={6} className={styles.text_body}>
               <span className={styles.label}>Ngày đặt hàng: </span>
               <span className={styles.value}>
-                {DateTimeUtils.getFormattedWithDate(new Date(orderTime))}
+                {DateTimeUtils.getFormattedWithDate(new Date(createdTime))}
               </span>
             </Grid>
             <Grid item xs={12} md={6} className={styles.text_body}>

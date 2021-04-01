@@ -9,6 +9,7 @@ import { withLogin } from 'HOC';
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
     const ticketRes = await TicketClient.getListTicket(ctx);
+    console.log(ticketRes);
     const data = getData(ticketRes);
     return {
       props: {

@@ -38,11 +38,9 @@ function TicketTable({ tickets, user }) {
             return (
               <TableRow hover key={uuidv4()} onClick={() => handleViewDetail(ticket)}>
                 <TableCell align="left">
-                  <Link href={`${MY_ORDER_URL}/${ticket.saleOrderID}`}>
-                    {`#${ticket.saleOrderID}`}
-                  </Link>
+                  <Link href={`${MY_ORDER_URL}/${ticket.orderId}`}>{`#${ticket.orderId}`}</Link>
                 </TableCell>
-                <TableCell align="left">{ticket.code}</TableCell>
+                <TableCell align="left">{ticket.orderCode}</TableCell>
                 <TableCell align="left">
                   {DateTimeUtils.getFormattedDate(
                     new Date(ticket?.createdTime || null),
