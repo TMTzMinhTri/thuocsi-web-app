@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, useContext, useEffect } from 'react';
 import { getFirst, isValid } from 'clients';
 import { NotifyService, UserService } from 'services';
-// import { NotifyUtils } from 'utils';
+import { NotifyUtils } from 'utils';
 import NotiReducer from './NotiReducer';
 
 export const NOTIFY_TYPES = {
@@ -73,11 +73,30 @@ export const NotiContextProvider = ({ children }) => {
         try {
           // NotifyUtils.success('SOCKET: is on message ');
           const data = JSON.parse(e.data);
-          if (data.topic === 'CONNECTED') {
-            authSocket({});
-          } else {
-            // NotifyUtils.info('Bạn có thông báo mới.');
-            fetchData();
+          if (data) {
+            const { topic } = data;
+            switch (topic) {
+              case 'CONNECTED':
+                authSocket({});
+                break;
+              case 'AUTHORIZATION':
+                break;
+              case 'CONNECTION':
+                break;
+              case 'PROMOTION':
+                break;
+              case 'EVENT':
+                break;
+              case 'ANNOUNCEMENT':
+                NotifyUtils.info('Bạn có thông báo mới.');
+                fetchData();
+                break;
+              case 'CART_UPDATE':
+                NotifyUtils.info('Giỏ hàng vừa có sự thay đổi.');
+                break;
+              default:
+                break;
+            }
           }
         } catch (ex) {
           console.log(ex);

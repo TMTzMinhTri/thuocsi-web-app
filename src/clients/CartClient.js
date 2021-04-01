@@ -1,7 +1,5 @@
-import { PRODUCT_API, CART_API } from 'constants/APIUri';
-import { convertArrayToMap } from 'utils/ArrUtils';
-import { isEmpty } from 'utils/ValidateUtils';
-import { GET, POST, PUT, isValidWithData } from './Clients';
+import { CART_API } from 'constants/APIUri';
+import { GET, POST, PUT } from './Clients';
 
 const loadDataCart = async (ctx) => GET({ url: CART_API.CART_INFO, ctx });
 
@@ -15,34 +13,6 @@ const updateCartItem = async (data) => {
 
 // { sku, quantity, isImportant }
 const updateCartItemImportant = async (body) => POST({ url: CART_API.CART_ADD, body });
-
-const getInfoCartItem = async (data) => {
-  if (isEmpty(data)) {
-    return [];
-  }
-  const body = { codes: data.map((item) => item.sku) };
-  const res = await POST({ url: PRODUCT_API.PRODUCT_LIST, body });
-  if (!isValidWithData(res)) {
-    return [];
-  }
-
-  const mapProducts = convertArrayToMap(res.data, 'sku');
-
-  return data.map((item) => {
-    // TODO: ẩn nhà cung cấp
-    // const { imageUrls, unit, volume, name, maxQuantity, slug, seller } =
-    const { imageUrls, unit, volume, name, maxQuantity, slug } = mapProducts.get(item.sku) || {};
-    return {
-      ...item,
-      imageUrls,
-      unit: unit && unit === '<nil>' ? '' : unit,
-      volume,
-      name,
-      maxQuantity,
-      slug,
-    };
-  });
-};
 
 const removeCartItem = ({ sku }) => {
   const body = { sku };
@@ -69,7 +39,6 @@ export default {
   removeCartItem,
   updateRedeemCode,
   updateNote,
-  getInfoCartItem,
   updateCartItemImportant,
   updateDeliveryMethod,
   updatePaymentMethod,

@@ -1,7 +1,8 @@
 import React, { createContext, useReducer, useContext, useEffect, useCallback } from 'react';
 import { NotifyUtils } from 'utils';
-import { PromoService } from 'services';
+import { PromoService, CartService } from 'services';
 import { isValid, CartClient, getFirst } from 'clients';
+import { capitalizeText } from 'utils/StringUtils';
 import { CartReducer } from './CartReducer';
 
 import { FETCH_SUCCESS, FETCH_ERROR, ADD_ITEM, INCREASE_BY, CLEAR, CHECKOUT } from './CartType';
@@ -32,17 +33,14 @@ export const CartContextProvider = ({ children }) => {
         return;
       }
       const cartData = getFirst(cartRes);
-
       const { cartItems, redeemCode = [] } = cartData;
-
       const [cartItemsInfo, promoInfo] = await Promise.all([
-        CartClient.getInfoCartItem(cartItems),
+        CartService.getInfoCartItem(cartItems),
         getPromoInfo({ voucherCode: redeemCode[0] }),
       ]);
 
       cartData.cartItems = cartItemsInfo;
       cartData.promoInfo = promoInfo;
-
       dispatch({ type: FETCH_SUCCESS, payload: cartData || [] });
       if (successMessage) NotifyUtils.success(successMessage);
     } catch (error) {
@@ -83,7 +81,7 @@ export const CartContextProvider = ({ children }) => {
     }
     await reloadDataCart({
       cartRes,
-      successMessage: 'Đã cập nhật giỏ hàng',
+      successMessage: `Đã cập nhật ${capitalizeText(payload.product.name)} thành công`,
       errorMessage: 'Cập nhập sản phẩm thất bại',
     });
 
@@ -120,7 +118,7 @@ export const CartContextProvider = ({ children }) => {
     const cartRes = await CartClient.removeCartItem(payload);
     await reloadDataCart({
       cartRes,
-      successMessage: 'Xoá sản phẩm thành công',
+      successMessage: `Sản phẩm ${capitalizeText(payload.name)} đã được xóa ra khỏi giỏ hàng`,
       errorMessage: 'Xoá sản phẩm thất bại',
     });
   };
