@@ -118,6 +118,7 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods = [], delivery
     deliveryMethods,
     deliveryPlatform: deliveryPlatform || deliveryMethodDefault,
     totalWard,
+    ordersCount: user.ordersCount || 0,
   };
 
   if (!cart || cart?.length === 0) {

@@ -35,7 +35,7 @@ const getInfoCartItem = async (data) => {
     return {
       ...item,
       imageUrls,
-      unit,
+      unit: unit && unit === '<nil>' ? '' : unit,
       volume,
       name,
       maxQuantity,
