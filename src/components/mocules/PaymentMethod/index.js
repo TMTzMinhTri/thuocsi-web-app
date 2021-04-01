@@ -14,7 +14,7 @@ const renderPaymentMethod = ({ item }) => {
         key={uuidv4()}
         value={code}
         control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
-        label={
+        label={(
           <div className={styles.fw500}>
             {name}{' '}
             {code === 'PAYMENT_METHOD_BANK' && url && (
@@ -23,7 +23,7 @@ const renderPaymentMethod = ({ item }) => {
               </a>
             )}
           </div>
-        }
+        )}
       />
       {subTitle && <div className={styles.subTitle}>{subTitle}</div>}
 
