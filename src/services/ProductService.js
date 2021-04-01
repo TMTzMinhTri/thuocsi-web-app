@@ -117,6 +117,9 @@ export const getDeals = async ({ ctx, params }) => {
   return mapDataProduct({ ctx, result });
 };
 
+export const getSettingTags = async ({ ctx, params }) =>
+  ProductClient.getSettingTags({ ctx, params });
+
 export default {
   loadDataProduct,
   mapDataProduct,
@@ -124,6 +127,7 @@ export default {
   loadProductWithCategory,
   loadProductWithManufacturer,
   getListTabs,
+  getSettingTags,
   getDeals,
   searchProducts,
 };

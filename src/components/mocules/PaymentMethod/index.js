@@ -16,6 +16,7 @@ const renderPaymentMethod = ({ item }) => {
         value={code}
         control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
         label={
+          // eslint-disable-next-line react/jsx-wrap-multilines
           <div className={styles.fw500}>
             {name}{' '}
             {code === 'PAYMENT_METHOD_BANK' && url && (

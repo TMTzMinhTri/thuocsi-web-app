@@ -30,6 +30,7 @@ export async function getServerSideProps(ctx) {
     const reasonsList = getData(reasonsRes);
     const orders =
       status !== ENUM_ORDER_STATUS.ALL ? data.filter((order) => order.status === status) : data;
+
     return {
       props: {
         orders,
