@@ -175,7 +175,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
           return;
         }
 
-        NotifyUtils.success(t('login.success'));
+        NotifyUtils.success('Đăng nhập thành công');
 
         const userInfo = getFirst(result);
         login(userInfo, rememberMe === '');

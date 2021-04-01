@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { FormControl } from '@material-ui/core';
 import { Button, Input } from 'components/atoms';
 import { FormDataUtils } from 'utils';
-import { useTranslation } from 'next-i18next';
 import styles from './styles.module.css';
 
 const SignInForm = React.memo(({ className, onClickRegister }) => {
-  const { t } = useTranslation();
   const regExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
   const [errorPhone, setErrorPhone] = useState(false);
   const [errorPhoneMessage, setErrorPhoneMessage] = useState('');
@@ -60,7 +58,7 @@ const SignInForm = React.memo(({ className, onClickRegister }) => {
         <div className={styles.bottom_text}>Mã khuyến mãi 100k dành cho nhà thuốc mới đăng ký</div>
         <div className={styles.btnWrapper}>
           <Button className="btnLogin" color="white" type="submit">
-            {t('tester.register')}
+            Đăng Ký
           </Button>
         </div>
       </form>

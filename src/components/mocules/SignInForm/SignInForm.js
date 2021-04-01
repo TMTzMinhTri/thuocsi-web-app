@@ -9,10 +9,7 @@ import { FormControl, IconButton, InputAdornment } from '@material-ui/core';
 import { Button, Input, CheckBox } from 'components/atoms';
 import { FormDataUtils } from 'utils';
 
-import { useTranslation } from 'next-i18next';
-
 const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClickSignUp }) => {
-  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [errorUserName, setErrorUserName] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
@@ -118,11 +115,11 @@ const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClick
         </div>
         <div className="forgetPassword">
           <a href="/" className="forgetPassword" onClick={handleClickForget}>
-            {t('forget_password')}
+            Quên Mật Khẩu
           </a>
         </div>
         <Button className="btnLogin" color="white" type="submit">
-          {t('login')}
+          Đăng Ký
         </Button>
         <div className="register">
           <span className="text-capitalize">
