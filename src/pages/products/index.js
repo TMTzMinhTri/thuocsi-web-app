@@ -25,7 +25,6 @@ export async function getServerSideProps(ctx) {
     return {
       props: {
         products: data,
-        productsRes,
         total,
         currentTab,
         page,
@@ -52,9 +51,7 @@ export default function Products({
   slug = '',
   isMobile,
   isAuthenticated,
-  productsRes,
 }) {
-  console.log('Products >> ', productsRes);
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'products';
   const pageTitle = 'Sản phẩm';

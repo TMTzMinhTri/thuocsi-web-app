@@ -5,8 +5,7 @@ import { useSetting } from 'context';
 
 const TagType = ({ item, date }) => {
   const { getStyleBySlugOfTag } = useSetting();
-  const props = TagTypeProps[item.style] || getStyleBySlugOfTag(item.slug) || TagTypeProps.default;
-  console.log('Tag type : ', props);
+  const props = getStyleBySlugOfTag(item.slug) || TagTypeProps.default;
   return <Tag date={date} name={item.name} {...props} />;
 };
 

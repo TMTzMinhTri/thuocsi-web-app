@@ -1,5 +1,4 @@
 import { getData } from 'clients';
-import setting from 'pages/api/setting';
 import { createContext, useState, useContext, useEffect } from 'react';
 import { ProductService } from 'services';
 import { convertArrayToMap } from 'utils/ArrUtils';
@@ -7,12 +6,11 @@ import { convertArrayToMap } from 'utils/ArrUtils';
 const SettingContext = createContext({});
 
 export const SettingProvider = ({ children }) => {
-  const [settingsTabs, setSettingsTabs] = useState({});
+  const [settingsTabs, setSettingsTabs] = useState(new Map());
 
   // config settings tabs
   const getSettingTabs = async () => {
-    console.log('set setting tabs ', settingsTabs);
-    const settingsTagsResult = await ProductService.getListTabs({});
+    const settingsTagsResult = await ProductService.getSettingTags({});
     const data = getData(settingsTagsResult);
     const mapSlugToType = convertArrayToMap(data, 'slug');
     setSettingsTabs(mapSlugToType);
@@ -20,16 +18,12 @@ export const SettingProvider = ({ children }) => {
 
   useEffect(() => {
     // load data settings
-    if (!settingsTabs || settingsTabs.length === 0) getSettingTabs();
+    if (settingsTabs.size === 0) getSettingTabs();
 
     //
   }, []);
 
-  const getStyleBySlugOfTag = (slug) => {
-    console.log('get styles by slug of tag');
-    console.log(setting, slug);
-    return settingsTabs[slug];
-  };
+  const getStyleBySlugOfTag = (slug) => settingsTabs.get(slug);
 
   return (
     <SettingContext.Provider
