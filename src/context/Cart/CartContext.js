@@ -22,8 +22,6 @@ export const CartContextProvider = ({ children }) => {
 
   // reload cart
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
-    // console.log(cartRes);
-
     try {
       if (!isValid(cartRes)) {
         if (cartRes && cartRes.message) {
@@ -34,9 +32,7 @@ export const CartContextProvider = ({ children }) => {
         return;
       }
       const cartData = getFirst(cartRes);
-      // console.log('cartData', cartData);
       const { cartItems, redeemCode = [] } = cartData;
-      // console.log(cartItems);
       const [cartItemsInfo, promoInfo] = await Promise.all([
         CartService.getInfoCartItem(cartItems),
         getPromoInfo({ voucherCode: redeemCode[0] }),

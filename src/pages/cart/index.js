@@ -17,7 +17,6 @@ function Cart({ isMobile, user }) {
 
   const [, setCartList] = useState();
   const { cartItems, loading, itemCount } = useCart();
-  console.log(cartItems);
   const pageTitle = `Giỏ hàng (${itemCount})`;
   const pageName = 'cart';
   if (loading) return <LoadingScreen />;
