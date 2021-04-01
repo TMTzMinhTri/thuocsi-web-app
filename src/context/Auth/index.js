@@ -166,7 +166,17 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
 
       .then((result) => {
         if (!isValid(result)) {
-          NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
+          const { errorCode } = result;
+          switch (errorCode) {
+            case 'NOT_FOUND':
+              NotifyUtils.error('Không tìm thấy thông tin người dùng.');
+              break;
+            case 'WRONG_PASSWORD':
+              NotifyUtils.error('Bạn đã nhập sai thông tin người dùng.');
+              break;
+            default:
+              NotifyUtils.error('Không tìm thấy thông tin người dùng.');
+          }
           return;
         }
 
