@@ -12,8 +12,6 @@ import { useModal } from 'hooks';
 import { QUICK_ORDER } from 'constants/Paths';
 import { DOMAIN_TS, DOMAIN_TS_MIEN_BAC, ENV } from 'sysconfig';
 
-import { useTranslation } from 'next-i18next';
-
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }) => {
@@ -32,8 +30,6 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   const [isShowRegisterGuest] = useModal(false);
 
   const [isShowGuestExpiredTime, toggleShowGuestExpiredTime] = useModal();
-
-  const { t } = useTranslation('apiErrors');
 
   // hanler redirect v1
   let toggleLogin = () => (window.location.href = `${DOMAIN_TS}?login=true`);
@@ -170,8 +166,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
 
       .then((result) => {
         if (!isValid(result)) {
-          const errorCode = `login.${result.errorCode}`;
-          NotifyUtils.error(t(errorCode));
+          NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
           return;
         }
 
@@ -189,7 +184,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
         }
       })
       .catch(() => {
-        NotifyUtils.error(t('error'));
+        NotifyUtils.error('Đã có lỗi xảy ra');
       })
       .finally(() => {
         setIsLoading(false);
@@ -228,7 +223,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
         }
       })
       .catch(() => {
-        NotifyUtils.error(t('error'));
+        NotifyUtils.error('Đã có lỗi xảy ra');
       })
       .finally(() => {
         setIsLoading(false);
@@ -240,8 +235,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     if (isValid(result)) {
       NotifyUtils.info(result.message);
     } else {
-      const errorCode = `login.${result.errorCode}`;
-      NotifyUtils.error(t(errorCode));
+      NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
     }
   }, []);
 
@@ -258,8 +252,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
             login(getFirst(result), true);
             router.push('/');
           } else {
-            const errorCode = `login.${result.errorCode}`;
-            NotifyUtils.error(result.message || t(errorCode));
+            NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
 
             // redirect to mienbac.thuocsi.vn
             window.location.href = DOMAIN_TS_MIEN_BAC;

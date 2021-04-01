@@ -7,17 +7,12 @@ import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
 import { useIsMobile } from 'hooks';
 
-import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styles from './styles.module.css';
 
 // const ONE_HOUR_SECONDS =
 
 export async function getStaticProps(ctx) {
-  const [ingredients, i18next] = await Promise.all([
-    IngredientCLient.loadDataIngredient(ctx),
-    serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
-  ]);
+  const [ingredients] = await Promise.all([IngredientCLient.loadDataIngredient(ctx)]);
   const convertIngredients = (ingre = []) =>
     ingre
       .sort((a, b) => a.name.localeCompare(b.name))
@@ -29,7 +24,6 @@ export async function getStaticProps(ctx) {
   return {
     props: {
       ingredients: convertIngredients(ingredients),
-      ...i18next,
     },
     revalidate: 300,
   };

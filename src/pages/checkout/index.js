@@ -20,25 +20,21 @@ import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
 import { CART_URL } from 'constants/Paths';
 
-import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   try {
     return doWithServerSide(ctx, async () => {
-      const [cartRes, paymentMethods, deliveryMethods, i18next] = await Promise.all([
+      const [cartRes, paymentMethods, deliveryMethods] = await Promise.all([
         CartClient.loadDataCart(ctx),
         PricingService.getListPaymentMethod({ ctx }),
         PricingService.getListDeliveryMethod({ ctx }),
-        serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
       ]);
       return {
         props: {
           cart: getData(cartRes),
           paymentMethods,
           deliveryMethods,
-          ...i18next,
         },
       };
     });
