@@ -1,5 +1,6 @@
-import { CartClient, GET, isValid, ProductClient } from 'clients';
+import { CartClient, GET, POST, isValid, ProductClient } from 'clients';
 import { PRODUCT_API } from 'constants/APIUri';
+import { HTTP_STATUS } from 'constants/Enums';
 import { PAGE_SIZE_30, PAGE_SIZE } from 'constants/data';
 import { convertArrayToMap } from 'utils/ArrUtils';
 import { isEmpty } from 'utils/ValidateUtils';
@@ -116,6 +117,36 @@ export const getDeals = async ({ ctx, params }) => {
   return mapDataProduct({ ctx, result });
 };
 
+export const getProductInfoMapFromSkus = async ({ ctx, skus }) => {
+  const skuListArray = [];
+  const LIMIT = 50;
+  for (let i = 0; i < skus.length; i += LIMIT) {
+    skuListArray.push(skus.slice(i, i + LIMIT));
+  }
+  const responses = await Promise.all(
+    skuListArray.map((skuList) => {
+      const body = {
+        codes: skuList,
+      };
+      const params = {
+        limit: LIMIT + 1,
+      };
+      return POST({ url: PRODUCT_API.PRODUCT_LIST, body, params, ctx });
+    }),
+  );
+
+  const mapProducts = {};
+  responses.forEach((response) => {
+    response?.data?.forEach((product) => {
+      mapProducts[product?.sku] = product;
+    });
+  });
+
+  return {
+    status: HTTP_STATUS.Ok,
+    data: [mapProducts],
+  };
+};
 export default {
   loadDataProduct,
   mapDataProduct,
@@ -125,4 +156,5 @@ export default {
   getListTabs,
   getDeals,
   searchProducts,
+  getProductInfoMapFromSkus,
 };

@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext, useEffect, useCallback } from 'react';
 import { NotifyUtils } from 'utils';
-import { PromoService } from 'services';
+import { PromoService, CartService } from 'services';
 import { isValid, CartClient, getFirst } from 'clients';
 import { CartReducer } from './CartReducer';
 
@@ -22,6 +22,8 @@ export const CartContextProvider = ({ children }) => {
 
   // reload cart
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
+    // console.log(cartRes);
+
     try {
       if (!isValid(cartRes)) {
         if (cartRes && cartRes.message) {
@@ -32,9 +34,9 @@ export const CartContextProvider = ({ children }) => {
         return;
       }
       const cartData = getFirst(cartRes);
-
+      // console.log('cartData', cartData);
       const { cartItems, redeemCode = [] } = cartData;
-
+      // console.log(cartItems);
       const [cartItemsInfo, promoInfo] = await Promise.all([
         CartClient.getInfoCartItem(cartItems),
         getPromoInfo({ voucherCode: redeemCode[0] }),
@@ -42,7 +44,6 @@ export const CartContextProvider = ({ children }) => {
 
       cartData.cartItems = cartItemsInfo;
       cartData.promoInfo = promoInfo;
-
       dispatch({ type: FETCH_SUCCESS, payload: cartData || [] });
       if (successMessage) NotifyUtils.success(successMessage);
     } catch (error) {
