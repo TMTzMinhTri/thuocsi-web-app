@@ -19,7 +19,7 @@
     "cm": "git add . && git commit -m",
     "clear-branch": "git branch | grep -v 'dev' | xargs git branch -D"
   },
-  "pre-commit": "checkEslintAndBuild",
+  "pre-commit": "lint:check",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
