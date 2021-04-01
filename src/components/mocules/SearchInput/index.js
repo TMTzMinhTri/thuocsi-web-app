@@ -18,7 +18,7 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
   const handleSearchbox = (e) => {
     setKeyword(e.target.value);
     const fetchData = async () => {
-      const res = await SearchClient.searchKeywords(e.target.value);
+      const res = await SearchClient.searchKeywords(keyword);
       setSearchProduct(res);
     };
     debounceFunc500(fetchData);
