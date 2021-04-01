@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { TableRow, TableCell, Chip, Grid, Button } from '@material-ui/core';
 import { InfoTable } from 'components/atoms';
 import { DateTimeUtils } from 'utils';
@@ -5,6 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { ALIGN, TICKET_STATUS, LIST_REASONS } from 'constants/Enums';
 import { MY_ORDER_URL } from 'constants/Paths';
 import Link from 'next/link';
+import { TicketDetailModal } from 'components/mocules';
+import { useModal } from 'hooks';
 import styles from './styles.module.css';
 
 const heads = [
@@ -16,6 +19,14 @@ const heads = [
 ];
 
 function TicketTable({ tickets }) {
+  const [open, toggle] = useModal();
+  const [currentTicket, setCurrentTicket] = useState({});
+
+  const handleViewDetail = (ticket) => {
+    setCurrentTicket(ticket);
+    toggle();
+  };
+
   return (
     <div style={{ overflowX: 'auto' }}>
       <InfoTable heads={heads} className={styles.bottom_square}>
@@ -25,7 +36,7 @@ function TicketTable({ tickets }) {
               (ticketStt) => ticketStt.value === ticket.status,
             );
             return (
-              <TableRow hover key={uuidv4()}>
+              <TableRow hover key={uuidv4()} onClick={() => handleViewDetail(ticket)}>
                 <TableCell align="left">
                   <Link href={`${MY_ORDER_URL}/${ticket.saleOrderID}`}>
                     {`#${ticket.saleOrderID}`}
@@ -76,6 +87,7 @@ function TicketTable({ tickets }) {
             </TableCell>
           </TableRow>
         )}
+        <TicketDetailModal visible={open} onClose={toggle} ticket={currentTicket} />
       </InfoTable>
     </div>
   );

@@ -1,4 +1,5 @@
 import { PRODUCT_API, CART_API } from 'constants/APIUri';
+import { MAX_PRODUCT_CART } from 'constants/data';
 import { convertArrayToMap } from 'utils/ArrUtils';
 import { isEmpty } from 'utils/ValidateUtils';
 import { GET, POST, PUT, isValidWithData } from './Clients';
@@ -21,7 +22,10 @@ const getInfoCartItem = async (data) => {
     return [];
   }
   const body = { codes: data.map((item) => item.sku) };
-  const res = await POST({ url: PRODUCT_API.PRODUCT_LIST, body });
+  const params = {
+    limit: MAX_PRODUCT_CART,
+  };
+  const res = await POST({ url: PRODUCT_API.PRODUCT_LIST, body, params });
   if (!isValidWithData(res)) {
     return [];
   }

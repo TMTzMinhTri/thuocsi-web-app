@@ -13,7 +13,7 @@ export const getListReasons = (ctx) => {
 
 export const getListTicket = (ctx) => {
   const url = TICKET_API.TICKET_LIST;
-  return GET({ url, ctx });
+  return GET({ url, ctx, mock: true });
 };
 export default {
   createFeedback,

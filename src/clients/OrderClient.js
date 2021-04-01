@@ -1,5 +1,6 @@
 import { ORDER_API, PRODUCT_API } from 'constants/APIUri';
 import { ENUM_ORDER_STATUS, HTTP_STATUS } from 'constants/Enums';
+import { MAX_PRODUCT_CART } from 'constants/data';
 import { GET, POST, isValid, OFFSET_DEFAULT, LIMIT_DEFAULT, DELETE } from './Clients';
 
 async function getOrders({ offset = OFFSET_DEFAULT, limit = LIMIT_DEFAULT, status, ctx }) {
@@ -55,7 +56,15 @@ async function getInfoOrderItem({ orderItems = [], ctx }) {
   const body = {
     codes: arraySku,
   };
-  const res = await POST({ url: PRODUCT_API.PRODUCT_LIST, body, ctx });
+  const params = {
+    limit: MAX_PRODUCT_CART,
+  };
+  const res = await POST({
+    url: PRODUCT_API.PRODUCT_LIST,
+    body,
+    ctx,
+    params,
+  });
 
   if (!isValid(res)) {
     return res;
