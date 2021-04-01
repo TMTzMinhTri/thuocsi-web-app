@@ -5,6 +5,8 @@ import { PAGE_SIZE_30, PAGE_SIZE } from 'constants/data';
 import { convertArrayToMap } from 'utils/ArrUtils';
 import { isEmpty } from 'utils/ValidateUtils';
 
+const LIMIT = 50;
+
 export const mapDataProduct = async ({ ctx, result }) => {
   const cartRes = await CartClient.loadDataCart(ctx);
   if (!isValid(cartRes)) {
@@ -119,7 +121,6 @@ export const getDeals = async ({ ctx, params }) => {
 
 export const getProductInfoMapFromSkus = async ({ ctx, skus }) => {
   const skuListArray = [];
-  const LIMIT = 50;
   for (let i = 0; i < skus.length; i += LIMIT) {
     skuListArray.push(skus.slice(i, i + LIMIT));
   }
