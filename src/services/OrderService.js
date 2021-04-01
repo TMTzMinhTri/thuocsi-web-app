@@ -22,16 +22,8 @@ async function getInfoOrderItem({ orderItems = [], ctx }) {
       message: 'Dữ liệu không đủ',
     };
   }
-  const mapInfoRes = await getProductInfoMapFromSkus({ skus, ctx });
-  const mapInfo = getFirst(mapInfoRes);
-
-  return {
-    status: HTTP_STATUS.Ok,
-    message: 'Lấy thông tin sản phẩm thành công',
-    data: [mapInfo],
-  };
+  return getProductInfoMapFromSkus({ skus, ctx });
 }
-
 // get order detail ( page order detail )
 export const getOrderDetail = async ({ ctx, orderId }) => {
   const orderRes = await OrderClient.getOrderById({ id: Number(orderId), ctx });

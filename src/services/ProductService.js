@@ -129,7 +129,7 @@ export const getProductInfoMapFromSkus = async ({ ctx, skus }) => {
         codes: skuList,
       };
       const params = {
-        limit: LIMIT + 1,
+        limit: LIMIT,
       };
       return POST({ url: PRODUCT_API.PRODUCT_LIST, body, params, ctx });
     }),
