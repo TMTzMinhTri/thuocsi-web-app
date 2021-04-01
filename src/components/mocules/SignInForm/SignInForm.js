@@ -119,7 +119,7 @@ const SignInForm = React.memo(({ className, onClickForget, onClickLogin, onClick
           </a>
         </div>
         <Button className="btnLogin" color="white" type="submit">
-          Đăng Ký
+          Đăng Nhập
         </Button>
         <div className="register">
           <span className="text-capitalize">
