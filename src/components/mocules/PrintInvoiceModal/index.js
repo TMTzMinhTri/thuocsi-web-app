@@ -152,7 +152,7 @@ const PrintInvoiceModal = memo((props) => {
           />
           <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
             {products.map((product) => {
-              const { price, quantity, totalPrice } = product;
+              const { salePrice, quantity, totalPrice } = product;
               const { name = '', slug = '' } = product.productInfo || {};
               return (
                 <TableRow key={uuidv4()} hover>
@@ -165,7 +165,7 @@ const PrintInvoiceModal = memo((props) => {
                       {name}
                     </LinkComp>
                   </TableCell>
-                  <TableCell align={ALIGN.RIGHT}>{formatNumber(price)}</TableCell>
+                  <TableCell align={ALIGN.RIGHT}>{formatNumber(salePrice)}</TableCell>
                   <TableCell align={ALIGN.RIGHT}>{formatNumber(quantity)}</TableCell>
                   <TableCell align={ALIGN.RIGHT}>{formatNumber(totalPrice)}</TableCell>
                 </TableRow>
