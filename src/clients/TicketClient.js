@@ -12,7 +12,7 @@ export const getListReasons = (ctx) => {
 };
 
 export const getListTicket = (ctx) => {
-  const url = TICKET_API.TICKET_LIST;
+  const url = TICKET_API.TICKET;
   return GET({ url, ctx, mock: true });
 };
 export default {

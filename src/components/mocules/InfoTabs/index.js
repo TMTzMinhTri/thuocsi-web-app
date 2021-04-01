@@ -22,7 +22,7 @@ const tabs = [
     id: 4,
     link: '/users/user-promo-codes',
   },
-  { label: 'Phản hồi của tôi', icon: <MessageIcon />, id: 5, link: '/users/tickets' },
+  { label: 'Phản hồi của tôi', icon: <MessageIcon />, id: 5, link: '/users/my-ticket' },
   { label: 'Điểm tích luỹ', icon: <MonetizationOnIcon />, id: 6, link: '/users/loyalty_points' },
 ];
 const InfoTabs = ({ value, name, balance = 0 }) => (

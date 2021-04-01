@@ -7,7 +7,7 @@
   outline: 0;
 }
 
-.container{
+.container {
   padding: 15px;
 }
 
@@ -19,9 +19,8 @@
   font-weight: 600;
   padding: 15px;
   margin-bottom: 15px;
-  
 }
-.label{
+.label {
   color: #565656;
   font-weight: 400;
 }
@@ -62,22 +61,49 @@
   height: 50px !important;
 }
 .textarea,
-.imagesField{
+.imagesField {
   margin-top: 10px !important;
 }
-.info_group{
+.info_group {
   margin-bottom: 20px !important;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
-.rug-handle-icon{
+.rug-handle-icon {
   width: 70px;
 }
-.customText{
+.customText {
   margin-bottom: 5px;
 }
 
-.imagesField [class*='info_form_grid']{
+.imagesField [class*='info_form_grid'] {
   margin-bottom: 5px;
+}
+
+.card {
+  position: relative;
+  width: 70%;
+  height: 30vh;
+  border-radius: 10px;
+  background-image: linear-gradient(to right top, #0089ba, #0078c0, #0064c3, #004ec1, #1730b5);
+  border: 1px solid black;
+}
+
+.bank_name {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  font-size: 45px;
+  font-weight: 700;
+  color: white;
+}
+
+.bank_code {
+  position: absolute;
+  left: 20%;
+  top: 35%;
+  font-size: 25px;
+  font-weight: 700;
+  color: white;
 }

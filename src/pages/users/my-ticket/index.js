@@ -26,7 +26,7 @@ const MyTicket = ({ user, isMobile, tickets }) => {
       <div style={{ backgroundColor: '#f4f7fc' }}>
         <Container maxWidth="lg">
           <InfoContainer value={5} title="Danh sách phản hồi" name={user?.name}>
-            <TicketList tickets={tickets} />
+            <TicketList tickets={tickets} user={user} />
           </InfoContainer>
         </Container>
       </div>

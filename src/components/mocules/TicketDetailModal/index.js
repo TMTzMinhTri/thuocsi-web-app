@@ -1,31 +1,18 @@
-import { useState } from 'react';
-import { Modal, InfoFormControl, Button } from 'components/atoms';
-import { Grid, TextField, NativeSelect } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
-import { TicketClient, isValid } from 'clients';
-import NotifyUtils from 'utils/NotifyUtils';
+import { useEffect, useState } from 'react';
+import { Modal } from 'components/atoms';
+import { Grid } from '@material-ui/core';
 import DateTimeUtils from 'utils/DateTimeUtils';
-import { v4 as uuidv4 } from 'uuid';
-import UploadImages from '../UploadImages';
 import styles from './style.module.css';
-import InfoInput from '../InfoInput';
-import validateForm from './validateForm';
 
 const TicketFormModal = (props) => {
-  const { visible, onClose, ticket } = props;
+  const { visible, onClose, ticket, user } = props;
+  const [order, setOrder] = useState({});
 
-  const {
-    orderID,
-    name,
-    phone,
-    orderTime,
-    orderNo,
-    orderCode,
-    bankInfo,
-    reasonsList,
-    customerCode,
-    customerID,
-  } = ticket;
+  const splitNumber = (n) => {};
+
+  useEffect(() => {}, []);
+  const { orderID, orderTime, bankName, bankCode } = ticket;
+  const { name, phone } = user;
   return (
     <Modal open={visible} onClose={onClose}>
       <div className={styles.feedback_order}>
@@ -34,8 +21,32 @@ const TicketFormModal = (props) => {
           <div className={styles.info_group}>
             <Grid item xs={12} className={styles.text_body}>
               <span className={styles.label}>Phản hồi về đơn hàng #</span>
-              <span className={styles.value}>{orderCode}</span>
+              <span className={styles.value}>{orderID}</span>
             </Grid>
+            <Grid item xs={12} md={6} className={styles.text_body}>
+              <span className={styles.label}>Mã đơn hàng: </span>
+              <span className={styles.value}>{orderID}</span>
+            </Grid>
+            <Grid item xs={12} md={6} className={styles.text_body}>
+              <span className={styles.label}>Tên khách hàng: </span>
+              <span className={styles.value}>{name}</span>
+            </Grid>
+            <Grid item xs={12} md={6} className={styles.text_body}>
+              <span className={styles.label}>Ngày đặt hàng: </span>
+              <span className={styles.value}>
+                {DateTimeUtils.getFormattedWithDate(new Date(orderTime))}
+              </span>
+            </Grid>
+            <Grid item xs={12} md={6} className={styles.text_body}>
+              <span className={styles.label}>Số điện thoại: </span>
+              <span className={styles.value}>{phone}</span>
+            </Grid>
+          </div>
+          <div className={styles.card}>
+            <div className={styles.bank_name}> {bankName} </div>
+            <div className={styles.bank_code}> {bankCode} </div>
+            {/* <div className={styles.bank_code}> {bankCode} </div>
+            <div className={styles.bank_code}> {bankCode} </div> */}
           </div>
         </Grid>
       </div>

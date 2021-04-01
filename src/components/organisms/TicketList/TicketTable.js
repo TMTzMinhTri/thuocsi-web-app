@@ -18,7 +18,7 @@ const heads = [
   { text: 'Trạng thái', align: ALIGN.LEFT },
 ];
 
-function TicketTable({ tickets }) {
+function TicketTable({ tickets, user }) {
   const [open, toggle] = useModal();
   const [currentTicket, setCurrentTicket] = useState({});
 
@@ -87,7 +87,7 @@ function TicketTable({ tickets }) {
             </TableCell>
           </TableRow>
         )}
-        <TicketDetailModal visible={open} onClose={toggle} ticket={currentTicket} />
+        <TicketDetailModal visible={open} onClose={toggle} ticket={currentTicket} user={user} />
       </InfoTable>
     </div>
   );
