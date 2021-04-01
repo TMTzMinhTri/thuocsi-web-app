@@ -38,7 +38,7 @@ export const CartContextProvider = ({ children }) => {
       const { cartItems, redeemCode = [] } = cartData;
       // console.log(cartItems);
       const [cartItemsInfo, promoInfo] = await Promise.all([
-        CartClient.getInfoCartItem(cartItems),
+        CartService.getInfoCartItem(cartItems),
         getPromoInfo({ voucherCode: redeemCode[0] }),
       ]);
 
