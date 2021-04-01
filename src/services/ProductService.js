@@ -124,21 +124,20 @@ export const getProductInfoMapFromSkus = async ({ ctx, skus }) => {
   for (let i = 0; i < skus.length; i += LIMIT) {
     skuListArray.push(skus.slice(i, i + LIMIT));
   }
+  const mapProducts = {};
   const responses = await Promise.all(
-    skuListArray.map((skuList) => {
-      const body = {
-        codes: skuList,
-      };
-      const params = {
-        limit: LIMIT,
-      };
-      return POST({ url: PRODUCT_API.PRODUCT_LIST, body, params, ctx });
-    }),
+    skuListArray.map((codes) =>
+      POST({
+        url: PRODUCT_API.PRODUCT_LIST,
+        body: { codes },
+        params: { limit: LIMIT },
+        ctx,
+      }),
+    ),
   );
 
-  const mapProducts = {};
-  responses.forEach((response) => {
-    response?.data?.forEach((product) => {
+  responses.forEach(({ data }) => {
+    data?.forEach((product) => {
       mapProducts[product?.sku] = product;
     });
   });
