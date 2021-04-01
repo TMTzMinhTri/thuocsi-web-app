@@ -24,7 +24,9 @@ export const CartContextProvider = ({ children }) => {
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
     try {
       if (!isValid(cartRes)) {
-        if (errorMessage) {
+        if (cartRes && cartRes.message) {
+          NotifyUtils.error(cartRes.message);
+        } else if (errorMessage) {
           NotifyUtils.error(errorMessage);
         }
         return;
@@ -79,14 +81,22 @@ export const CartContextProvider = ({ children }) => {
         errorMessage: res.message || 'Số lượng đặt hàng vượt quá giới hạn',
       });
     }
-    await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
+    await reloadDataCart({
+      cartRes,
+      successMessage: 'Đã cập nhật giỏ hàng',
+      errorMessage: 'Cập nhập sản phẩm thất bại',
+    });
 
     return cartRes;
   };
 
   const increase = async (payload) => {
     const cartRes = await CartClient.updateCartItem(payload);
-    reloadDataCart({ cartRes, successMessage: 'Thêm sản phẩm thành công' });
+    reloadDataCart({
+      cartRes,
+      successMessage: 'Thêm sản phẩm thành công',
+      errorMessage: 'Cập nhập sản phẩm thất bại',
+    });
   };
 
   const increaseBy = (payload) => {
@@ -95,7 +105,11 @@ export const CartContextProvider = ({ children }) => {
 
   const decrease = async (payload) => {
     const cartRes = await CartClient.updateCartItem(payload);
-    await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
+    await reloadDataCart({
+      cartRes,
+      successMessage: 'Đã cập nhật giỏ hàng,',
+      errorMessage: 'Cập nhập sản phẩm thất bại',
+    });
   };
 
   const addProduct = (payload) => {
@@ -104,7 +118,11 @@ export const CartContextProvider = ({ children }) => {
 
   const removeCartItem = async (payload) => {
     const cartRes = await CartClient.removeCartItem(payload);
-    await reloadDataCart({ cartRes, successMessage: 'Xoá sản phẩm thành công' });
+    await reloadDataCart({
+      cartRes,
+      successMessage: 'Xoá sản phẩm thành công',
+      errorMessage: 'Xoá sản phẩm thất bại',
+    });
   };
 
   const clearCart = () => {
@@ -121,7 +139,11 @@ export const CartContextProvider = ({ children }) => {
       isImportant: true,
       quantity: payload.quantity,
     });
-    await updateCart({ cartRes, successMessage: 'Đánh dấu quan trọng thành công ' });
+    await updateCart({
+      cartRes,
+      successMessage: 'Đánh dấu quan trọng thành công ',
+      errorMessage: 'Đánh dấu quan trọng sản phẩm thất bại',
+    });
   };
 
   const removeImportant = async (payload) => {
@@ -130,7 +152,11 @@ export const CartContextProvider = ({ children }) => {
       isImportant: false,
       quantity: payload.quantity,
     });
-    await updateCart({ cartRes, successMessage: 'Xoá đánh dấu quan trọng thành công' });
+    await updateCart({
+      cartRes,
+      successMessage: 'Xoá đánh dấu quan trọng thành công',
+      errorMessage: 'Xoá đánh dấu quan trọng thất bại',
+    });
   };
 
   const updateDeliveryMethod = async ({

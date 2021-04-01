@@ -249,25 +249,24 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     if (user === null)
       loadUserFromCookies(async (userInfo) => {
         // nếu không có user thì check token
-        if (!userInfo)
-          if (tokenv1) {
-            // redirect
-            const result = await AuthService.loginv1({ tokenv1 });
-            // console.log('result login v1 ', result);
-            if (isValid(result)) {
-              NotifyUtils.info(result.message);
-              login(getFirst(result), true);
-              router.push('/');
-            } else {
-              const errorCode = `login.${result.errorCode}`;
-              NotifyUtils.error(result.message || t(errorCode));
+        if (tokenv1) {
+          // redirect
+          const result = await AuthService.loginv1({ tokenv1 });
+          // console.log('result login v1 ', result);
+          if (isValid(result)) {
+            NotifyUtils.info(result.message);
+            login(getFirst(result), true);
+            router.push('/');
+          } else {
+            const errorCode = `login.${result.errorCode}`;
+            NotifyUtils.error(result.message || t(errorCode));
 
-              // redirect to mienbac.thuocsi.vn
-              window.location.href = DOMAIN_TS_MIEN_BAC;
-            }
-          } else if (ENV === 'prd') {
-            window.location.href = DOMAIN_TS;
+            // redirect to mienbac.thuocsi.vn
+            window.location.href = DOMAIN_TS_MIEN_BAC;
           }
+        } else if (ENV === 'prd' && !userInfo) {
+          window.location.href = DOMAIN_TS;
+        }
       });
   }, [pathname, loadUserFromCookies, tokenv1]);
 
