@@ -37,7 +37,7 @@ const RemoveProductModal = memo((props) => {
             <div className={styles.remove_item_content}>
               <div className={styles.remove_item_cart_name}>{product.name && product.name}</div>
               <div className={styles.remove_item_cart_price}>
-                {product.price && formatCurrency(product.price)}
+                {product.salePrice && formatCurrency(product.salePrice)}
               </div>
             </div>
           </Card>

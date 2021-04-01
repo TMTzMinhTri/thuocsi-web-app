@@ -41,7 +41,7 @@ const CheckoutSticky = ({
   const { user } = useAuth();
   const router = useRouter();
   const [checkCondition, setCheckCondition] = useState({
-    checked: false,
+    checked: dataCustomer?.ordersCount > 0 || false,
   });
   const deliveryData =
     dataCustomer.deliveryMethods.filter((item) => item.code === dataCustomer.deliveryMethod) || [];

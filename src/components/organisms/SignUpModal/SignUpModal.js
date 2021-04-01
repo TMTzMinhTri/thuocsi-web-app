@@ -40,7 +40,7 @@ const SignUpModal = React.memo((props) => {
               NotifyUtils.error(t(errorCode));
               return;
             }
-            NotifyUtils.success(t('login.success'));
+            NotifyUtils.success('Đăng nhập thành công');
             const userInfo = resultlogin.data[0];
             login(userInfo, false);
 

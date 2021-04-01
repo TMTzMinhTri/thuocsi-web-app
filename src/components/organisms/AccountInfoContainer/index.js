@@ -3,13 +3,11 @@ import { Grid } from '@material-ui/core';
 import { AccountForm, EnterpriseForm } from 'components/mocules';
 import { CustomerClient, isValid } from 'clients';
 import { NotifyUtils } from 'utils';
-import { useTranslation } from 'next-i18next';
 import UpdateButton from './UpdateButton';
 import validateForm from './validateForm';
 import styles from './styles.module.css';
 
 const AccountInfoFormContainer = ({ user }) => {
-  const { t } = useTranslation();
   const {
     name,
     phone,
@@ -23,12 +21,14 @@ const AccountInfoFormContainer = ({ user }) => {
     legalRepresentative,
     customerID,
   } = user;
+
+  // TODO: SCope
   const [value, setValue] = useState({
     name,
     phone,
     email,
     password: '',
-    scope: t(`scope.${scope}`),
+    scope,
     legalRepresentative,
     bussinessName: '',
     provinceCode,

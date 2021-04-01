@@ -8,14 +8,17 @@ import { useRouter } from 'next/router';
 import { ThemeProvider as StyledTheme } from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { AuthProvider, CartContextProvider, LoadingRoute, NotiContextProvider } from 'context';
+import {
+  AuthProvider,
+  CartContextProvider,
+  LoadingRoute,
+  NotiContextProvider,
+  SettingProvider,
+} from 'context';
 import Theme from 'components/layout/Theme';
 
 // Toast
 import { ToastContainer } from 'react-toastify';
-
-/// I18N
-import { appWithTranslation } from 'next-i18next';
 
 // CSS global
 import '../styles/globals.css';
@@ -24,9 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { MOBILE } from 'constants/Device';
-
 import { fbpixel, gtag, ScrollToTop } from 'utils';
-import { FACEBOOK_MESSENGER_ID } from 'sysconfig';
 import MessengerChat from 'utils/MessengerChat';
 
 const MyApp = (props) => {
@@ -85,9 +86,12 @@ const MyApp = (props) => {
               {/* Cart context provider */}
               <CartContextProvider>
                 <NotiContextProvider>
-                  <Component {...pageProps} />
-                  <MessengerChat pageId={FACEBOOK_MESSENGER_ID} ref={refContainer} />
-                  <ScrollToTop {...router} />
+                  {/* settings config all */}
+                  <SettingProvider>
+                    <Component {...pageProps} />
+                    <MessengerChat ref={refContainer} />
+                    <ScrollToTop {...router} />
+                  </SettingProvider>
                 </NotiContextProvider>
                 <ToastContainer limit={6} />
               </CartContextProvider>
@@ -124,4 +128,4 @@ MyApp.getInitialProps = async (appContext) => {
   };
 };
 
-export default appWithTranslation(MyApp);
+export default MyApp;

@@ -17,8 +17,8 @@ import styles from './styles.module.css';
 export async function getServerSideProps(ctx) {
   const [productsRes, brand, group, tabs, supplierRes] = await Promise.all([
     ProductService.loadDataProduct({ ctx }),
-    CatClient.loadBrand(ctx),
-    CatClient.loadGroup(ctx),
+    CatClient.loadBrand({ ctx, params: { limit: 20 } }),
+    CatClient.loadGroup({ ctx, params: { limit: 20 } }),
     ProductService.getListTabs({ ctx }),
     SupplierService.getInfoSupplier({ ctx }),
   ]);

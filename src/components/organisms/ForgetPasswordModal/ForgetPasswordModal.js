@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { isValidWithoutData } from 'clients';
 import { AuthService } from 'services';
 import { NotifyUtils } from 'utils';
-import { useTranslation } from 'next-i18next';
 
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { AuthModal, ForgetPasswordForm } from '../../mocules';
@@ -14,7 +13,6 @@ const ForgetPasswordModal = React.memo((props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTimeOut, setIsTimeOut] = useState(false);
   const [toggleResend, setToggleResend] = useState(false);
-  const { t } = useTranslation('apiErrors');
 
   const onClickPhoneForm = async (data) => {
     setIsLoading(true);
@@ -25,8 +23,7 @@ const ForgetPasswordModal = React.memo((props) => {
       setIsLoading(false);
       setToggleResend(!toggleResend);
     } else {
-      const errorCode = `login.${result.errorCode}`;
-      NotifyUtils.error(t(errorCode));
+      NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
       setIsLoading(false);
     }
   };
@@ -39,8 +36,7 @@ const ForgetPasswordModal = React.memo((props) => {
       NotifyUtils.info(result.message);
       setIsLoading(false);
     } else {
-      const errorCode = `login.${result.errorCode}`;
-      NotifyUtils.error(t(errorCode));
+      NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
       setIsLoading(false);
     }
   };
@@ -53,11 +49,7 @@ const ForgetPasswordModal = React.memo((props) => {
       setIsLoading(false);
       NotifyUtils.success('Mật khẩu mới đã được cập nhật');
     } else {
-      let errorCode = `login.${result.errorCode}`;
-      if (result.errorCode === 'NOT_FOUND') {
-        errorCode = 'Nhập sai mã OTP. Vui lòng kiểm tra lại';
-      }
-      NotifyUtils.error(t(errorCode));
+      NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
       setIsLoading(false);
     }
   };

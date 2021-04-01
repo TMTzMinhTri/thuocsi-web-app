@@ -6,9 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 80",
-    "start-local": "next start -p 8000",
+    "start-local": "next start -p 8000 ",
     "start-debug": "NODE_OPTIONS='--inspect' next start -p 8000",
-    "build:local": "next build && NODE_OPTIONS='--inspect' next start -p 8000",
+    "build:local": "next build && next start -p 8000",
     "prd": "yarn build  && yarn start",
     "test": "cross-env NODE_ENV=test mocha",
     "lint:check": "eslint --ext=js,jsx src",
@@ -19,7 +19,7 @@
     "cm": "git add . && git commit -m",
     "clear-branch": "git branch | grep -v 'dev' | xargs git branch -D"
   },
-  "pre-commit": "checkEslintAndBuild",
+  "pre-commit": "lint:check",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -32,7 +32,6 @@
     "clsx": "latest",
     "js-cookie": "^2.2.1",
     "next": "10.0.7",
-    "next-i18next": "^8.1.2",
     "prop-types": "latest",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
