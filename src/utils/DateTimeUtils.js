@@ -1,10 +1,10 @@
 function getDayOfWeek(n) {
-  if (n === 0) return 'Thứ Hai';
-  if (n === 1) return 'Thứ Ba';
-  if (n === 2) return 'Thứ Tư';
-  if (n === 3) return 'Thứ Năm';
-  if (n === 4) return 'Thứ Sáu';
-  if (n === 5) return 'Thứ bảy';
+  if (n === 1) return 'Thứ Hai';
+  if (n === 2) return 'Thứ Ba';
+  if (n === 3) return 'Thứ Tư';
+  if (n === 4) return 'Thứ Năm';
+  if (n === 5) return 'Thứ Sáu';
+  if (n === 6) return 'Thứ bảy';
   return 'Chủ Nhật';
 }
 function getFormattedDate(date, format = 'DD/MM/YYYY') {
