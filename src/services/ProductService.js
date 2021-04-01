@@ -16,6 +16,7 @@ export const mapDataProduct = async ({ ctx, result }) => {
     // eslint-disable-next-line no-param-reassign
     result.data = result.data.map((item) => ({
       ...item,
+      unit: item.unit && item.unit === '<nil>' ? '' : item.unit,
       quantity: cartObject.get(item.sku)?.quantity || 0,
     }));
   }
