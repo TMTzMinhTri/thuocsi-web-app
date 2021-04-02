@@ -21,13 +21,16 @@ const StyledModal = styled(ModalItem)`
   align-items: center;
   justify-content: center;
   padding: 15px;
-  &.signup-modal .auth-modal-content{
+  &.signup-modal .auth-modal-content {
     height: 100%;
     max-height: 780px;
   }
-  &.signup-modal .auth-modal-body{
+  &.signup-modal .auth-modal-body {
     overflow: auto;
     height: calc(100% - 50px);
+  }
+  &.ticket-modal {
+    border-radius: 40px;
   }
 `;
 
