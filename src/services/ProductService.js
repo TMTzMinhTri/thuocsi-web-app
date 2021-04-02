@@ -8,21 +8,22 @@ import { isEmpty } from 'utils/ValidateUtils';
 const LIMIT = 50;
 
 export const mapDataProduct = async ({ ctx, result }) => {
+  let cartObject = new Map();
+
   const cartRes = await CartClient.loadDataCart(ctx);
-  if (!isValid(cartRes)) {
-    return result;
+  if (isValid(cartRes)) {
+    const cart = cartRes.data[0];
+    if (cart && !isEmpty(cart.cartItems)) {
+      cartObject = convertArrayToMap(cart.cartItems, 'sku');
+    }
   }
 
-  const cart = cartRes.data[0];
-  if (cart && !isEmpty(cart.cartItems)) {
-    const cartObject = convertArrayToMap(cart.cartItems, 'sku');
-    // eslint-disable-next-line no-param-reassign
-    result.data = result.data.map((item) => ({
-      ...item,
-      unit: item.unit && item.unit === '<nil>' ? '' : item.unit,
-      quantity: cartObject.get(item.sku)?.quantity || 0,
-    }));
-  }
+  // eslint-disable-next-line no-param-reassign
+  result.data = result.data.map((item) => ({
+    ...item,
+    unit: item.unit && item.unit === '<nil>' ? '' : item.unit,
+    quantity: cartObject.get(item.sku)?.quantity || 0,
+  }));
   return result;
 };
 
