@@ -5,18 +5,21 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { WEB_STYLES } from 'styles';
 import { SearchClient } from 'clients';
-import { debounceFunc200, debounceFunc100 } from 'utils/debounce';
+import { debounceFunc200 } from 'utils/debounce';
 import SearchDropdown from '../SearchDropdown';
+
 import styles from './styles.module.css';
 
 const SearchInput = memo(({ classCustom, ...restProps }) => {
   const router = useRouter();
   const [searchProduct, setSearchProduct] = useState([]);
   const [keyword, setKeyword] = useState('');
+  const [hidden, setHidden] = useState(false);
 
   const handleSearchbox = (e) => {
     const val = e.target.value;
     setKeyword(val);
+    setHidden(true);
     const fetchData = async () => {
       const res = await SearchClient.searchKeywords(val);
       setSearchProduct(res);
@@ -32,11 +35,12 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
   };
 
   const handleFocus = (e) => {
+    setHidden(true);
     setKeyword(e.target.value);
   };
 
   const handleBlur = () => {
-    debounceFunc100(() => setKeyword(''));
+    debounceFunc200(() => setHidden(false));
   };
   return (
     <div className={clsx(styles.search_wrap, classCustom)} onBlur={handleBlur}>
@@ -62,7 +66,7 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
           onFocus={handleFocus}
         />
       </form>
-      {keyword && <SearchDropdown keyword={keyword} data={searchProduct} />}
+      {hidden && <SearchDropdown keyword={keyword} data={searchProduct} />}
     </div>
   );
 });
