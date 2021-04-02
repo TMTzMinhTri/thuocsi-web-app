@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.css';
 
 const SearchDropdown = (props) => {
-  const { data, keyword, onClick } = props;
+  const { data, keyword } = props;
   return (
     <div className={styles.searchDropdown}>
       {data[0] && data[0].products ? (
@@ -19,7 +19,6 @@ const SearchDropdown = (props) => {
               className={styles.searchResults}
               key={uuidv4()}
               href={getPathProductBySlug(item.slug)}
-              onClick={onClick}
             >
               {item.name}
             </LinkComp>
