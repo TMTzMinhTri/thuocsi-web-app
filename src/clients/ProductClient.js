@@ -83,7 +83,7 @@ export const getTabs = async ({ ctx }) =>
 export const getDeals = async ({ ctx, params }) =>
   GET({ url: PRODUCT_API.DEALS, params, ctx, isBasic: true });
 
-export const getSettingTags = ({ ctx }) =>
+export const getSettingTags = async ({ ctx }) =>
   GET({
     url: PRODUCT_API.TAGS,
     ctx,
