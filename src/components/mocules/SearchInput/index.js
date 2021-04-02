@@ -40,9 +40,8 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
       setKeyword('');
     }, 100);
   };
-
   return (
-    <div className={clsx(styles.search_wrap, classCustom)} onBlur={handleBlur}>
+    <div className={clsx(styles.search_wrap, classCustom)}>
       <form>
         <TextField
           {...restProps}
@@ -65,11 +64,7 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
           onFocus={handleFocus}
         />
       </form>
-      {keyword && (
-        <>
-          <SearchDropdown keyword={keyword} data={searchProduct} />
-        </>
-      )}
+      {keyword && <SearchDropdown keyword={keyword} data={searchProduct} onClick={handleBlur} />}
     </div>
   );
 });
