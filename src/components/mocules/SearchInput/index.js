@@ -5,8 +5,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { WEB_STYLES } from 'styles';
 import { SearchClient } from 'clients';
-import { debounceFunc500 } from 'utils/debounce';
-
+import { debounceFunc200, debounceFunc100 } from 'utils/debounce';
 import SearchDropdown from '../SearchDropdown';
 import styles from './styles.module.css';
 
@@ -16,12 +15,13 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
   const [keyword, setKeyword] = useState('');
 
   const handleSearchbox = (e) => {
-    setKeyword(e.target.value);
+    const val = e.target.value;
+    setKeyword(val);
     const fetchData = async () => {
-      const res = await SearchClient.searchKeywords(keyword);
+      const res = await SearchClient.searchKeywords(val);
       setSearchProduct(res);
     };
-    debounceFunc500(fetchData);
+    debounceFunc200(fetchData);
   };
 
   const handleKeyDown = (event) => {
@@ -36,12 +36,10 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
   };
 
   const handleBlur = () => {
-    setTimeout(() => {
-      setKeyword('');
-    }, 100);
+    debounceFunc100(() => setKeyword(''));
   };
   return (
-    <div className={clsx(styles.search_wrap, classCustom)}>
+    <div className={clsx(styles.search_wrap, classCustom)} onBlur={handleBlur}>
       <form>
         <TextField
           {...restProps}
@@ -64,7 +62,7 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
           onFocus={handleFocus}
         />
       </form>
-      {keyword && <SearchDropdown keyword={keyword} data={searchProduct} onClick={handleBlur} />}
+      {keyword && <SearchDropdown keyword={keyword} data={searchProduct} />}
     </div>
   );
 });
