@@ -7,7 +7,12 @@ if (process.env.NODE_ENV === 'PRODUCTION' || process.env.ENV === 'prd') {
 
 module.exports = {
   images: {
-    domains: ['assets.thuocsi.vn', 'storage.googleapis.com', 'www.facebook.com'],
+    domains: [
+      'assets.thuocsi.vn',
+      'storage.googleapis.com',
+      'www.facebook.com',
+      'img-proxy.v2-dev.thuocsi.vn',
+    ],
   },
   async redirects() {
     return [

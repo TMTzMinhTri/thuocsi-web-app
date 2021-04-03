@@ -8,3 +8,6 @@ export const NEXT_I18NEXT_NAME_SPACES = ['common', 'apiErrors'];
 export const DOMAIN_TS = process.env.NEXT_PUBLIC_DOMAIN_TS || '';
 export const DOMAIN_TS_MIEN_BAC = process.env.NEXT_PUBLIC_DOMAIN_TS_MIEN_BAC || '';
 export const ENV = process.env.NEXT_PUBLIC_ENV || 'stg';
+export const GG_IMAGE = process.env.NEXT_PUBLIC_DOMAIN_GG_IMAGE || 'https://storage.googleapis.com';
+export const PROXY_IMAGE =
+  process.env.NEXT_PUBLIC_DOMAIN_PROXY_IMAGE || 'https://img-proxy.v2-dev.thuocsi.vn';

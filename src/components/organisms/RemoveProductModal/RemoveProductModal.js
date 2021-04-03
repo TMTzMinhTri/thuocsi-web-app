@@ -28,7 +28,7 @@ const RemoveProductModal = memo((props) => {
             <div className={styles.remove_item_image}>
               <Image
                 className={styles.remove_item_image}
-                src={(product.imageUrls && product.imageUrls[0]) || MISSING_IMAGE}
+                src={`${(product.imagesProxy && product.imagesProxy[0]) || MISSING_IMAGE}?size=80`}
                 width={80}
                 height={80}
                 alt={product.name && product.name}
