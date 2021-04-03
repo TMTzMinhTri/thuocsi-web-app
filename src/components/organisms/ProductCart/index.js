@@ -15,7 +15,7 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
   const { addImportant, removeImportant, cartItems = [] } = useCart();
   const maxImportant = Math.ceil((cartItems.length * 20) / 100);
   const [unset, setUnset] = useState(false);
-  const { imageUrls } = product;
+  const { imagesProxy } = product;
   const importantList = cartItems.filter((item) => item.isImportant);
   const handleSetImportant = () => {
     if (isImportant) {
@@ -56,7 +56,7 @@ const ProductCart = ({ product, name, isMobile, isImportant }) => {
                 alt={product.name}
                 height="80"
                 width="80"
-                image={(imageUrls && imageUrls[0]) || MISSING_IMAGE}
+                image={`${(imagesProxy && imagesProxy[0]) || MISSING_IMAGE}?size=80`}
               />
             </CardActionArea>
           </div>
