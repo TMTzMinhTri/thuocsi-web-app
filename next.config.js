@@ -12,6 +12,7 @@ module.exports = {
       'storage.googleapis.com',
       'www.facebook.com',
       'img-proxy.v2-dev.thuocsi.vn',
+      'img-proxy.thuocsi.vn',
     ],
   },
   async redirects() {
