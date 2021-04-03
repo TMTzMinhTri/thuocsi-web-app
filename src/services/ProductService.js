@@ -4,8 +4,13 @@ import { HTTP_STATUS } from 'constants/Enums';
 import { PAGE_SIZE_30, PAGE_SIZE } from 'constants/data';
 import { convertArrayToMap } from 'utils/ArrUtils';
 import { isEmpty } from 'utils/ValidateUtils';
+import { GG_IMAGE, PROXY_IMAGE } from 'sysconfig';
 
 const LIMIT = 50;
+
+export const getLinkProxy = (url = null) => url && url.replace(GG_IMAGE, PROXY_IMAGE);
+
+export const getProxyImageList = (images = []) => images.map((url) => getLinkProxy(url));
 
 export const mapDataProduct = async ({ ctx, result }) => {
   let cartObject = new Map();
@@ -17,10 +22,10 @@ export const mapDataProduct = async ({ ctx, result }) => {
       cartObject = convertArrayToMap(cart.cartItems, 'sku');
     }
   }
-
   // eslint-disable-next-line no-param-reassign
   result.data = result.data.map((item) => ({
     ...item,
+    imagesProxy: getProxyImageList(item?.imageUrls) || [],
     unit: item.unit && item.unit === '<nil>' ? '' : item.unit,
     quantity: cartObject.get(item.sku)?.quantity || 0,
   }));
@@ -143,7 +148,10 @@ export const getProductInfoMapFromSkus = async ({ ctx, skus }) => {
 
   responses.forEach(({ data }) => {
     data?.forEach((product) => {
-      mapProducts[product?.sku] = product;
+      mapProducts[product?.sku] = {
+        ...product,
+        imagesProxy: getProxyImageList(product?.imageUrls) || [],
+      };
     });
   });
 
@@ -163,4 +171,6 @@ export default {
   getDeals,
   searchProducts,
   getProductInfoMapFromSkus,
+  getProxyImageList,
+  getLinkProxy,
 };

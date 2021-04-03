@@ -216,7 +216,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
         <div className={styles.container}>
           <Grid container className={styles.detail_card}>
             <Grid className={styles.image_gallery} sm={12} md={4} item>
-              <MultiImageBox images={product.imageUrls} />
+              <MultiImageBox images={product.imagesProxy} />
               <small className={styles.text_muted}>
                 * Hình sản phẩm có thể thay đổi theo thời gian
               </small>

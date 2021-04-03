@@ -15,6 +15,7 @@ import { isEmpty } from 'utils/ValidateUtils';
 import { getPathProductBySlug } from 'constants/Paths';
 import { MISSING_IMAGE } from 'constants/Images';
 import { v4 as uuidV4 } from 'uuid';
+import Image from 'next/image';
 import styles from './styles.module.css';
 import SellerInfo from '../SellerInfo';
 
@@ -43,7 +44,7 @@ const OrderDetailProduct = ({
         {products &&
           products.map((product) => {
             const { salePrice, totalPrice, quantity, isImportant } = product;
-            const { imageUrls = [], name = '', slug = '', seller = null } =
+            const { imagesProxy = [], name = '', slug = '', seller = null } =
               product?.productInfo || {};
 
             return (
@@ -53,8 +54,8 @@ const OrderDetailProduct = ({
                 </TableCell>
                 <TableCell>
                   <LinkComp href={getPathProductBySlug(slug)}>
-                    <img
-                      src={!isEmpty(imageUrls) ? imageUrls[0] : MISSING_IMAGE}
+                    <Image
+                      src={!isEmpty(imagesProxy) ? `${imagesProxy[0]}?size=50` : MISSING_IMAGE}
                       alt={name}
                       width={50}
                       height={30}
@@ -84,7 +85,6 @@ const OrderDetailProduct = ({
             );
           })}
         <TableRow key={uuidV4()} className={styles.product_row}>
-          
           <TableCell align="right" colSpan="5">
             <div className={styles.total_bottom}>Tạm tính :</div>
             <div className={styles.total_bottom}>Phí theo hình thức thanh toán :</div>

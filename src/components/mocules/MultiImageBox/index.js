@@ -35,7 +35,7 @@ const MultiImageBox = ({ loading, images, imageType }) => {
                     height="200px"
                     alt={`${imageType}-main-image`}
                     className={styles.imageMain}
-                    src={images[selectedImage]}
+                    src={`${images[selectedImage]}?size=200`}
                   />
                 </ButtonBase>
               ) : (
@@ -78,7 +78,7 @@ const MultiImageBox = ({ loading, images, imageType }) => {
                         className={clsx(styles.thumbnailImage, {
                           [styles.thumbnailSelected]: index === selectedImage,
                         })}
-                        src={src}
+                        src={`${src}?size=50`}
                       />
                     </ButtonBase>
                   )}
@@ -113,8 +113,8 @@ const MultiImageBox = ({ loading, images, imageType }) => {
                     ? `${imageType}-auxiliary-image-${selectedImage}`
                     : undefined
                 }
-                width="275px"
-                height="275px"
+                layout="fill"
+                objectFit="contain"
                 className={styles.modalImage}
                 src={images[selectedImage]}
               />
