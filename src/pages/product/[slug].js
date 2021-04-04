@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useCallback } from 'react';
 import {
   Grid,
@@ -63,13 +64,6 @@ export async function getServerSideProps(ctx) {
 }
 
 const ProductDetail = ({ product, supplier = [], isMobile }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [tabValue, setTabValue] = React.useState('1');
-
-  const { updateCartItem, removeCartItem } = useCart();
-  const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
-  const { toggleLogin, isAuthenticated } = useAuth();
-
   if (!product) {
     NotifyUtils.error(
       'Không tìm thấy sản phẩm. Hãy liên hệ chúng tôi để hỏi thêm về sản phẩm này.',
@@ -77,6 +71,13 @@ const ProductDetail = ({ product, supplier = [], isMobile }) => {
     Router.push(PRODUCTS_URL);
     return <LoadingScreen />;
   }
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [tabValue, setTabValue] = useState('1');
+
+  const { updateCartItem, removeCartItem } = useCart();
+  const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
+  const { toggleLogin, isAuthenticated } = useAuth();
 
   const {
     name,
