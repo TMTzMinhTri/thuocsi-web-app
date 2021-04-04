@@ -74,13 +74,12 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   }, [toggleLogin, toggleRegisterGuest]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
-    const { expiredTime = new Date(), bearerToken = null } = info;
+    const { bearerToken = null } = info;
     Cookies.set(ACCESS_TOKEN, bearerToken);
     Cookies.set(REMEMBER_ME, rememberMe);
     if (rememberMe) {
-      const DateExpired = new Date(expiredTime);
       Cookies.set(ACCESS_TOKEN_LONGLIVE, bearerToken, {
-        expires: DateExpired,
+        expires: 5,
       });
     }
   }, []);
@@ -114,10 +113,11 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     if (typeof callback === 'function') {
       return callback();
     }
-    // window.location.href = '/';
 
     // redirect to mienbac.thuocsi.vn
-    window.location.href = DOMAIN_TS;
+    setTimeout(() => {
+      window.location.href = DOMAIN_TS;
+    }, 1500);
 
     return false;
   };
@@ -262,10 +262,12 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
             login(getFirst(result), true);
             router.push('/');
           } else {
+            logout();
             NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
-
             // redirect to mienbac.thuocsi.vn
-            window.location.href = DOMAIN_TS_MIEN_BAC;
+            setTimeout(() => {
+              window.location.href = DOMAIN_TS_MIEN_BAC;
+            }, 1500);
           }
         } else if (ENV === 'prd' && !userInfo) {
           window.location.href = DOMAIN_TS;

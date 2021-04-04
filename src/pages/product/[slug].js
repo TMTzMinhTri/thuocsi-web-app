@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useCallback } from 'react';
 import {
   Grid,
@@ -44,7 +45,7 @@ import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from '
 import { DOMAIN_SELLER_CENTER } from 'sysconfig';
 import { NotifyUtils, calculateTimeLeft, formatDate } from 'utils';
 import Router from 'next/router';
-
+import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -62,14 +63,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-export default function ProductDetail({ product, supplier = [], isMobile }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [tabValue, setTabValue] = React.useState('1');
-
-  const { updateCartItem, removeCartItem } = useCart();
-  const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
-  const { toggleLogin, isAuthenticated } = useAuth();
-
+const ProductDetail = ({ product, supplier = [], isMobile }) => {
   if (!product) {
     NotifyUtils.error(
       'Không tìm thấy sản phẩm. Hãy liên hệ chúng tôi để hỏi thêm về sản phẩm này.',
@@ -77,6 +71,13 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     Router.push(PRODUCTS_URL);
     return <LoadingScreen />;
   }
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [tabValue, setTabValue] = useState('1');
+
+  const { updateCartItem, removeCartItem } = useCart();
+  const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
+  const { toggleLogin, isAuthenticated } = useAuth();
 
   const {
     name,
@@ -532,4 +533,6 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
       />
     </Template>
   );
-}
+};
+
+export default withLogin(ProductDetail, false);

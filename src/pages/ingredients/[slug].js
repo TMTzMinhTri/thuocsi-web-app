@@ -9,6 +9,7 @@ import { doWithServerSide } from 'services';
 import { INGREDIENT } from 'constants/Paths';
 import { Container } from '@material-ui/core';
 import Router from 'next/router';
+import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -52,4 +53,4 @@ const Ingredient = ({ ingredientRes = {}, products = [], isMobile }) => {
   );
 };
 
-export default Ingredient;
+export default withLogin(Ingredient, false, { url: '/ingredients' });

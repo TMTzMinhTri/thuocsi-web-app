@@ -3,7 +3,7 @@ import Template from 'components/layout/Template';
 import PromotionProduct from 'components/organisms/PromotionProduct';
 import { getData } from 'clients';
 import { ProductService } from 'services';
-
+import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -37,4 +37,4 @@ const DealsPage = ({ products = [], isMobile }) => {
     </Template>
   );
 };
-export default DealsPage;
+export default withLogin(DealsPage, false);

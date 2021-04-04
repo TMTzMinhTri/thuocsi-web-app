@@ -5,6 +5,7 @@ import { ProductClient } from 'clients';
 import { doWithServerSide } from 'services';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
@@ -39,4 +40,4 @@ const Manufacturers = ({ manufacturers = [], isMobile }) => {
   );
 };
 
-export default Manufacturers;
+export default withLogin(Manufacturers, false);

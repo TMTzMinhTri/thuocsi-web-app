@@ -4,6 +4,7 @@ import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
 import CatClient from 'clients/CatClient';
 import { ProductService } from 'services';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   const [productsRes, catInfo, brand, group, tabs] = await Promise.all([
@@ -34,7 +35,7 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-export default function Products({
+const ManufacturersDetail = ({
   products,
   catInfo = '',
   total,
@@ -47,7 +48,7 @@ export default function Products({
   isMobile,
   isAuthenticated,
   tabs = [],
-}) {
+}) => {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'manufacturers';
   const pageTitle = 'Sản phẩm';
@@ -70,4 +71,5 @@ export default function Products({
       />
     </Template>
   );
-}
+};
+export default withLogin(ManufacturersDetail, false);
