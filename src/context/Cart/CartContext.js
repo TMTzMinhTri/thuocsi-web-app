@@ -32,6 +32,7 @@ export const CartContextProvider = ({ children }) => {
         }
         return;
       }
+      if (successMessage) NotifyUtils.success(successMessage);
       const cartData = getFirst(cartRes);
       const { cartItems, redeemCode = [] } = cartData;
       const [cartItemsInfo, promoInfo] = await Promise.all([
@@ -42,7 +43,6 @@ export const CartContextProvider = ({ children }) => {
       cartData.cartItems = cartItemsInfo;
       cartData.promoInfo = promoInfo;
       dispatch({ type: FETCH_SUCCESS, payload: cartData || [] });
-      if (successMessage) NotifyUtils.success(successMessage);
     } catch (error) {
       NotifyUtils.error(error.message || 'Tải giỏ hàng thất bại');
       dispatch({ type: FETCH_ERROR });
@@ -77,13 +77,16 @@ export const CartContextProvider = ({ children }) => {
       await reloadDataCart({
         res,
         // errorMessage: res.message || 'Số lượng đặt hàng vượt quá giới hạn',
+        successMessage: `Đã cập nhật ${capitalizeText(
+          payload.product.name,
+        )}  số lượng tối đa có thể đặt`,
       });
-    }
-    await reloadDataCart({
-      cartRes,
-      successMessage: `Đã cập nhật ${capitalizeText(payload.product.name)} thành công`,
-      errorMessage: 'Cập nhập sản phẩm thất bại',
-    });
+    } else
+      await reloadDataCart({
+        cartRes,
+        successMessage: `Đã cập nhật ${capitalizeText(payload.product.name)} thành công`,
+        errorMessage: 'Cập nhập sản phẩm thất bại',
+      });
 
     return cartRes;
   };
