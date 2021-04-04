@@ -74,13 +74,12 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   }, [toggleLogin, toggleRegisterGuest]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
-    const { expiredTime = new Date(), bearerToken = null } = info;
+    const { bearerToken = null } = info;
     Cookies.set(ACCESS_TOKEN, bearerToken);
     Cookies.set(REMEMBER_ME, rememberMe);
     if (rememberMe) {
-      const DateExpired = new Date(expiredTime);
       Cookies.set(ACCESS_TOKEN_LONGLIVE, bearerToken, {
-        expires: DateExpired,
+        expires: 5,
       });
     }
   }, []);
