@@ -5,6 +5,7 @@ import ProductListing from 'components/organisms/ProductListing';
 import CatClient from 'clients/CatClient';
 import { TAB_LIST } from 'constants/data';
 import { doWithServerSide, ProductService } from 'services';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
@@ -35,7 +36,7 @@ export async function getServerSideProps(ctx) {
   });
 }
 
-export default function Products({
+const Products = ({
   products,
   total,
   brand = [],
@@ -47,7 +48,7 @@ export default function Products({
   slug = '',
   isMobile,
   isAuthenticated,
-}) {
+}) => {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'products';
   const pageTitle = 'Sản phẩm';
@@ -78,4 +79,6 @@ export default function Products({
       />
     </Template>
   );
-}
+};
+
+export default withLogin(Products, false, { url: '/products' });

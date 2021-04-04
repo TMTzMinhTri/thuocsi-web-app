@@ -30,6 +30,7 @@ export const doWithServerSide = async (ctx, callback, redirect = null) => {
     result = result || {};
     result.props = result.props || {};
     result.props.user = user || null;
+    result.props.isInvalidToken = accRes?.errorCode === 'INVALID_SESSION_TOKEN';
     // result.props.sessionToken = sessionToken;
     result.props.isAuthenticated = isAuthenticated;
     return result;

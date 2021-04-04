@@ -15,6 +15,7 @@ export const getAccount = async (ctx) => {
   } else {
     userRes = await AuthClient.getUser();
   }
+
   if (!isValid(userRes)) {
     return userRes;
   }
@@ -24,8 +25,7 @@ export const getAccount = async (ctx) => {
   const wrapData = wrapInfo(info);
   // change data
   return {
-    status: userRes.status,
-    message: userRes.message,
+    ...userRes,
     data: [wrapData],
   };
 };
