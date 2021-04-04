@@ -81,4 +81,4 @@ const Products = ({
   );
 };
 
-export default withLogin(Products, false, { url: '/products' });
+export default withLogin(Products, false, { url: '/products?login=true' });

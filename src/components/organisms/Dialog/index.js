@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { useEffect, useState } from 'react';
 import { withStyles, useTheme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -48,21 +49,29 @@ export default function CustomizedDialogs({ url, open, maxWidth, handleClose }) 
 
   return (
     <div className={styles.custom}>
-      <Dialog scroll="body" fullScreen={fullScreen} fullWidth maxWidth={maxWidth} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      <Dialog
+        scroll="body"
+        fullScreen={fullScreen}
+        fullWidth
+        maxWidth={maxWidth}
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {loading
-            ? <GridLineItem counts={1} />
-            : data.title && data.title}
+          {loading ? <GridLineItem counts={1} /> : data.title && data.title}
         </DialogTitle>
         <DialogContent dividers>
-          {loading
-            ? <GridLineItem counts={6} />
-            : (
-              <>
-                <Typography className={styles.title} variant="h5">{data.title && data.title}</Typography>
-                <div dangerouslySetInnerHTML={{ __html: data.body }} />
-              </>
-            )}
+          {loading ? (
+            <GridLineItem counts={6} />
+          ) : (
+            <>
+              <Typography className={styles.title} variant="h5">
+                {data.title && data.title}
+              </Typography>
+              <div dangerouslySetInnerHTML={{ __html: data.body }} />
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </div>

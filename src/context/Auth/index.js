@@ -113,10 +113,11 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     if (typeof callback === 'function') {
       return callback();
     }
-    // window.location.href = '/';
 
     // redirect to mienbac.thuocsi.vn
-    window.location.href = DOMAIN_TS;
+    setTimeout(() => {
+      window.location.href = DOMAIN_TS;
+    }, 1500);
 
     return false;
   };
@@ -261,10 +262,12 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
             login(getFirst(result), true);
             router.push('/');
           } else {
+            logout();
             NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
-
             // redirect to mienbac.thuocsi.vn
-            window.location.href = DOMAIN_TS_MIEN_BAC;
+            setTimeout(() => {
+              window.location.href = DOMAIN_TS_MIEN_BAC;
+            }, 1500);
           }
         } else if (ENV === 'prd' && !userInfo) {
           window.location.href = DOMAIN_TS;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NotifyUtils } from 'utils';
 import LoadingScreen from 'components/organisms/LoadingScreen';
+import { removeSessionToken } from 'clients';
 // import Router from 'next/router';
 
 export const withLogin = (Component, checkLogin = true, redirect = {}) => ({ ...props }) => {
@@ -19,9 +20,13 @@ export const withLogin = (Component, checkLogin = true, redirect = {}) => ({ ...
   }
 
   if (msg && msg.length > 0) {
+    removeSessionToken();
     NotifyUtils.error(msg);
     // Router.push(url && url.length > 0 ? url : '/?login=true');
-    window.location.href = url && url.length > 0 ? url : '/?login=true';
+    setTimeout(() => {
+      window.location.href = url && url.length > 0 ? url : '/?login=true';
+    }, 2000);
+
     return <LoadingScreen />;
   }
 

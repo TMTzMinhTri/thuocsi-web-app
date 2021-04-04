@@ -33,8 +33,8 @@ export function getSessionToken(ctx) {
 }
 
 export function removeSessionToken() {
-  Cookies.set(ACCESS_TOKEN, null);
-  Cookies.set(ACCESS_TOKEN_LONGLIVE, null);
+  Cookies.remove(ACCESS_TOKEN);
+  Cookies.remove(ACCESS_TOKEN_LONGLIVE);
 }
 
 export function getSessionTokenClient() {
