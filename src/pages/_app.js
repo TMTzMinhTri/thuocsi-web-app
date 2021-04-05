@@ -97,7 +97,7 @@ const MyApp = (props) => {
                   limit={6}
                   pauseOnHover={false}
                   hideProgressBar
-                  autoClose={1000}
+                  autoClose={3000}
                   closeOnClick
                 />
               </CartContextProvider>
