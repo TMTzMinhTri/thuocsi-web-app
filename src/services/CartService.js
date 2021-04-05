@@ -22,9 +22,7 @@ export const getInfoCartItem = async (data) => {
 
   return data.map((item) => {
     // TODO: ẩn nhà cung cấp
-    // const { imageUrls, unit, volume, name, maxQuantity, slug, seller } =
-    const { imageUrls, imagesProxy, unit, volume, name, maxQuantity, slug } =
-      mapInfo[item.sku] || {};
+    const { imageUrls, imagesProxy, unit, volume, name, slug } = mapInfo[item.sku] || {};
     return {
       ...item,
       imageUrls,
@@ -32,7 +30,6 @@ export const getInfoCartItem = async (data) => {
       unit: unit && unit === '<nil>' ? '' : unit,
       volume,
       name,
-      maxQuantity,
       slug,
     };
   });

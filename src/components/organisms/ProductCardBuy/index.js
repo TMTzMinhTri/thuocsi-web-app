@@ -75,7 +75,7 @@ const ProductCardBuy = ({
     if (!q) {
       return;
     }
-    const response = await updateCartItem({ product, q: parseFloat(q) });
+    const response = await updateCartItem({ product, q: parseFloat(q) }, true);
     if (isValid(response)) {
       setValue(q);
     } else if (response.errorCode === 'CART_MAX_QUANTITY') {

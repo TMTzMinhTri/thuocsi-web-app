@@ -93,7 +93,13 @@ const MyApp = (props) => {
                     <ScrollToTop {...router} />
                   </SettingProvider>
                 </NotiContextProvider>
-                <ToastContainer limit={6} />
+                <ToastContainer
+                  limit={6}
+                  pauseOnHover={false}
+                  hideProgressBar
+                  autoClose={3000}
+                  closeOnClick
+                />
               </CartContextProvider>
             </LoadingRoute>
           </AuthProvider>
