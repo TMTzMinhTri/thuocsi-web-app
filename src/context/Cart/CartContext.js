@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, useContext, useEffect, useCallback } from 'react';
 import { NotifyUtils } from 'utils';
 import { PromoService, CartService } from 'services';
-import { isValid, CartClient, getFirst } from 'clients';
+import { isValid, CartClient, getFirst, isValidWithoutData } from 'clients';
 import { capitalizeText } from 'utils/StringUtils';
 import { CartReducer } from './CartReducer';
 
@@ -24,7 +24,7 @@ export const CartContextProvider = ({ children }) => {
   // reload cart
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
     try {
-      if (!isValid(cartRes)) {
+      if (!isValidWithoutData(cartRes)) {
         if (cartRes && cartRes.message) {
           NotifyUtils.error(cartRes.message);
         } else if (errorMessage) {
@@ -33,6 +33,7 @@ export const CartContextProvider = ({ children }) => {
         return;
       }
       if (successMessage) NotifyUtils.success(successMessage);
+
       const cartData = getFirst(cartRes);
       const { cartItems, redeemCode = [] } = cartData;
       const [cartItemsInfo, promoInfo] = await Promise.all([
@@ -55,7 +56,7 @@ export const CartContextProvider = ({ children }) => {
       dispatch({ type: FETCH_ERROR });
       return;
     }
-    await reloadDataCart({ cartRes });
+    reloadDataCart({ cartRes });
   }, []);
 
   useEffect(() => {
@@ -74,7 +75,7 @@ export const CartContextProvider = ({ children }) => {
       revertPayload.q = quantity;
       const res = await CartClient.updateCartItem(revertPayload);
       dispatch({ type: INCREASE_BY, payload: revertPayload });
-      await reloadDataCart({
+      reloadDataCart({
         res,
         // errorMessage: res.message || 'Số lượng đặt hàng vượt quá giới hạn',
         successMessage: `Đã cập nhật ${capitalizeText(
@@ -82,7 +83,7 @@ export const CartContextProvider = ({ children }) => {
         )}  số lượng tối đa có thể đặt`,
       });
     } else
-      await reloadDataCart({
+      reloadDataCart({
         cartRes,
         successMessage: `Đã cập nhật ${capitalizeText(payload.product.name)} thành công`,
         errorMessage: 'Cập nhập sản phẩm thất bại',
@@ -106,7 +107,7 @@ export const CartContextProvider = ({ children }) => {
 
   const decrease = async (payload) => {
     const cartRes = await CartClient.updateCartItem(payload);
-    await reloadDataCart({
+    reloadDataCart({
       cartRes,
       successMessage: 'Đã cập nhật giỏ hàng,',
       errorMessage: 'Cập nhập sản phẩm thất bại',
@@ -119,7 +120,7 @@ export const CartContextProvider = ({ children }) => {
 
   const removeCartItem = async (payload) => {
     const cartRes = await CartClient.removeCartItem(payload);
-    await reloadDataCart({
+    reloadDataCart({
       cartRes,
       successMessage: `Sản phẩm ${capitalizeText(payload.name)} đã được xóa ra khỏi giỏ hàng`,
       errorMessage: 'Xoá sản phẩm thất bại',
@@ -140,7 +141,7 @@ export const CartContextProvider = ({ children }) => {
       isImportant: true,
       quantity: payload.quantity,
     });
-    await updateCart({
+    updateCart({
       cartRes,
       successMessage: 'Đánh dấu quan trọng thành công ',
       errorMessage: 'Đánh dấu quan trọng sản phẩm thất bại',
@@ -153,7 +154,7 @@ export const CartContextProvider = ({ children }) => {
       isImportant: false,
       quantity: payload.quantity,
     });
-    await updateCart({
+    updateCart({
       cartRes,
       successMessage: 'Xoá đánh dấu quan trọng thành công',
       errorMessage: 'Xoá đánh dấu quan trọng thất bại',

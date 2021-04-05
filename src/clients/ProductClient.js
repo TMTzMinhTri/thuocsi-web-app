@@ -1,6 +1,6 @@
 import { GetQuantityProductFromCart } from 'utils';
 import { PRODUCT_API } from 'constants/APIUri';
-import { GET, getFirst, isValid } from './Clients';
+import { GET, getFirst, isValid, POST } from './Clients';
 import CartClient from './CartClient';
 
 async function loadDataMostSearch(ctx) {
@@ -91,6 +91,14 @@ export const getSettingTags = async ({ ctx }) =>
     params: { isActive: true },
   });
 
+export const getProducts = async ({ ctx, codes, limit }) =>
+  POST({
+    url: PRODUCT_API.PRODUCT_LIST,
+    body: { codes },
+    params: { limit },
+    ctx,
+  });
+
 export default {
   loadDataMostSearch,
   loadFeedback,
@@ -101,4 +109,5 @@ export default {
   getTabs,
   getSettingTags,
   getDeals,
+  getProducts,
 };

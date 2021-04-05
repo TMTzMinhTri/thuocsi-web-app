@@ -1,4 +1,4 @@
-import { CartClient, GET, POST, isValid, ProductClient } from 'clients';
+import { CartClient, GET, isValid, ProductClient } from 'clients';
 import { PRODUCT_API } from 'constants/APIUri';
 import { HTTP_STATUS } from 'constants/Enums';
 import { PAGE_SIZE_30, PAGE_SIZE } from 'constants/data';
@@ -136,14 +136,7 @@ export const getProductInfoMapFromSkus = async ({ ctx, skus }) => {
   }
   const mapProducts = {};
   const responses = await Promise.all(
-    skuListArray.map((codes) =>
-      POST({
-        url: PRODUCT_API.PRODUCT_LIST,
-        body: { codes },
-        params: { limit: LIMIT },
-        ctx,
-      }),
-    ),
+    skuListArray.map((codes) => ProductClient.getProducts({ codes, ctx, limit: LIMIT })),
   );
 
   responses.forEach(({ data }) => {
