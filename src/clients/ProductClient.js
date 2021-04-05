@@ -53,7 +53,7 @@ async function loadDataProductCollection(ctx) {
   const dataCart = getFirst(cart);
   const cartObject = {};
   // eslint-disable-next-line no-restricted-syntax
-  if (dataCart && dataCart.cartItems.length > 0) {
+  if (dataCart && dataCart?.cartItems?.length > 0) {
     // eslint-disable-next-line no-restricted-syntax
     for (const item of dataCart.cartItems) {
       cartObject[item.sku] = item;

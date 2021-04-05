@@ -13,6 +13,14 @@ export const CartContextProvider = ({ children }) => {
   const initialState = { loading: true };
   const [state, dispatch] = useReducer(CartReducer, initialState);
 
+  const clearCart = () => {
+    dispatch({ type: CLEAR });
+  };
+
+  const handleCheckout = () => {
+    dispatch({ type: CHECKOUT });
+  };
+
   const getPromoInfo = useCallback(async ({ voucherCode }) => {
     if (!voucherCode) {
       return null;
@@ -20,6 +28,8 @@ export const CartContextProvider = ({ children }) => {
     const promoData = await PromoService.getPromotionDetailByVoucherCode({ voucherCode });
     return promoData;
   });
+
+  // const getTotalCartItem = async () => {};
 
   // reload cart
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
@@ -35,7 +45,11 @@ export const CartContextProvider = ({ children }) => {
       if (successMessage) NotifyUtils.success(successMessage);
 
       const cartData = getFirst(cartRes);
-      const { cartItems, redeemCode = [] } = cartData;
+      if (!cartData) {
+        clearCart();
+        return;
+      }
+      const { cartItems = [], redeemCode = [] } = cartData || {};
       const [cartItemsInfo, promoInfo] = await Promise.all([
         CartService.getInfoCartItem(cartItems),
         getPromoInfo({ voucherCode: redeemCode[0] }),
@@ -56,7 +70,7 @@ export const CartContextProvider = ({ children }) => {
       dispatch({ type: FETCH_ERROR });
       return;
     }
-    reloadDataCart({ cartRes });
+    await reloadDataCart({ cartRes });
   }, []);
 
   useEffect(() => {
@@ -66,29 +80,38 @@ export const CartContextProvider = ({ children }) => {
     fetchData();
   }, [updateCart]);
 
-  const updateCartItem = async (payload) => {
+  const updateCartItem = async (payload, reload = false) => {
     const cartRes = await CartClient.updateCartItem(payload);
-    if (!isValid(cartRes) && cartRes.errorCode === 'CART_MAX_QUANTITY') {
+    if (isValid(cartRes)) {
+      NotifyUtils.success(`Đã cập nhật ${capitalizeText(payload.product.name)} thành công`);
+    } else if (cartRes.errorCode === 'CART_MAX_QUANTITY') {
       const revertPayload = payload;
       // get quanity can add from response and compare with maxQuantity
       const { quantity = revertPayload.product.maxQuantity } = getFirst(cartRes, {});
       revertPayload.q = quantity;
       const res = await CartClient.updateCartItem(revertPayload);
+      if (res) {
+        NotifyUtils.success(`Đã cập nhật ${capitalizeText(payload.product.name)} thành công`);
+      } else {
+        NotifyUtils.error(`Cập nhập sản phẩm thất bại`);
+      }
       dispatch({ type: INCREASE_BY, payload: revertPayload });
-      reloadDataCart({
-        res,
-        // errorMessage: res.message || 'Số lượng đặt hàng vượt quá giới hạn',
-        successMessage: `Đã cập nhật ${capitalizeText(
-          payload.product.name,
-        )}  số lượng tối đa có thể đặt`,
-      });
-    } else
+      if (reload) {
+        reloadDataCart({
+          cartRes,
+        });
+      }
+    }
+    if (reload) {
       reloadDataCart({
         cartRes,
-        successMessage: `Đã cập nhật ${capitalizeText(payload.product.name)} thành công`,
-        errorMessage: 'Cập nhập sản phẩm thất bại',
       });
-
+    }
+    // reloadDataCart({
+    //   cartRes,
+    //   successMessage: `Đã cập nhật ${capitalizeText(payload.product.name)} thành công`,
+    //   errorMessage: 'Cập nhập sản phẩm thất bại',
+    // });
     return cartRes;
   };
 
@@ -125,14 +148,6 @@ export const CartContextProvider = ({ children }) => {
       successMessage: `Sản phẩm ${capitalizeText(payload.name)} đã được xóa ra khỏi giỏ hàng`,
       errorMessage: 'Xoá sản phẩm thất bại',
     });
-  };
-
-  const clearCart = () => {
-    dispatch({ type: CLEAR });
-  };
-
-  const handleCheckout = () => {
-    dispatch({ type: CHECKOUT });
   };
 
   const addImportant = async (payload) => {
