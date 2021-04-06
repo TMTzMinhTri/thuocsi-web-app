@@ -1,4 +1,4 @@
-import { CartClient, GET, isValid, ProductClient } from 'clients';
+import { CartClient, GET, isValid, POST, ProductClient } from 'clients';
 import { PRODUCT_API } from 'constants/APIUri';
 import { HTTP_STATUS } from 'constants/Enums';
 import { PAGE_SIZE_30, PAGE_SIZE } from 'constants/data';
@@ -32,19 +32,33 @@ export const mapDataProduct = async ({ ctx, result }) => {
   return result;
 };
 
-export const searchProducts = async (keyword, page) => {
-  const url = '/marketplace/product/v1/products/list';
-  const params = {
-    page,
-    q: keyword || null,
-    limit: PAGE_SIZE,
+// search product
+export const searchProductsQuickOrder = async (keyword, page = 1) => {
+  const url = '/marketplace/product/v1/search/fuzzy';
+  const body = {
+    offset: (page - 1) * PAGE_SIZE_30,
+    text: keyword || null,
+    limit: PAGE_SIZE_30,
     getTotal: true,
+    getPrice: true,
   };
-  const result = await GET({ url, params });
+  const result = await POST({ url, body });
 
   if (!isValid(result)) {
     return result;
   }
+  return mapDataProduct({ result });
+};
+
+export const loadDataQuickOrder = async ({ page }) => {
+  const params = {
+    page,
+    limit: PAGE_SIZE_30,
+    getTotal: true,
+  };
+
+  const result = await GET({ url: PRODUCT_API.PRODUCT_LIST, params });
+  if (!isValid(result)) return result;
 
   return mapDataProduct({ result });
 };
@@ -162,8 +176,9 @@ export default {
   getListTabs,
   getSettingTags,
   getDeals,
-  searchProducts,
+  searchProductsQuickOrder,
   getProductInfoMapFromSkus,
   getProxyImageList,
   getLinkProxy,
+  loadDataQuickOrder,
 };
