@@ -1,4 +1,4 @@
-import { CartClient, GET, isValid, ProductClient } from 'clients';
+import { CartClient, GET, isValid, POST, ProductClient } from 'clients';
 import { PRODUCT_API } from 'constants/APIUri';
 import { HTTP_STATUS } from 'constants/Enums';
 import { PAGE_SIZE_30, PAGE_SIZE } from 'constants/data';
@@ -32,20 +32,20 @@ export const mapDataProduct = async ({ ctx, result }) => {
   return result;
 };
 
-export const searchProducts = async (keyword, page) => {
-  const url = '/marketplace/product/v1/products/list';
-  const params = {
-    page,
-    q: keyword || null,
+export const searchProducts = async (keyword, page = 1) => {
+  const url = '/marketplace/product/v1/search/fuzzy';
+  const body = {
+    offset: (page - 1) * PAGE_SIZE,
+    text: keyword || null,
     limit: PAGE_SIZE,
     getTotal: true,
+    getPrice: true,
   };
-  const result = await GET({ url, params });
+  const result = await POST({ url, body });
 
   if (!isValid(result)) {
     return result;
   }
-
   return mapDataProduct({ result });
 };
 
