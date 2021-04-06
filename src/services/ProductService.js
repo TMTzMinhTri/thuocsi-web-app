@@ -32,12 +32,13 @@ export const mapDataProduct = async ({ ctx, result }) => {
   return result;
 };
 
-export const searchProducts = async (keyword, page = 1) => {
+// search product
+export const searchProductsQuickOrder = async (keyword, page = 1) => {
   const url = '/marketplace/product/v1/search/fuzzy';
   const body = {
-    offset: (page - 1) * PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE_30,
     text: keyword || null,
-    limit: PAGE_SIZE,
+    limit: PAGE_SIZE_30,
     getTotal: true,
     getPrice: true,
   };
@@ -46,6 +47,19 @@ export const searchProducts = async (keyword, page = 1) => {
   if (!isValid(result)) {
     return result;
   }
+  return mapDataProduct({ result });
+};
+
+export const loadDataQuickOrder = async ({ page }) => {
+  const params = {
+    page,
+    limit: PAGE_SIZE_30,
+    getTotal: true,
+  };
+
+  const result = await GET({ url: PRODUCT_API.PRODUCT_LIST, params });
+  if (!isValid(result)) return result;
+
   return mapDataProduct({ result });
 };
 
@@ -162,8 +176,9 @@ export default {
   getListTabs,
   getSettingTags,
   getDeals,
-  searchProducts,
+  searchProductsQuickOrder,
   getProductInfoMapFromSkus,
   getProxyImageList,
   getLinkProxy,
+  loadDataQuickOrder,
 };

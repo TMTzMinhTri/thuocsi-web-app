@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isValid } from 'clients';
 import { debounceFunc500 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
-import { PAGE_SIZE } from 'constants/data';
+import { PAGE_SIZE_30 } from 'constants/data';
 import { SearchOrder } from 'components/mocules';
 import { ProductService } from 'services';
 import ProductCardHorizontal from '../ProductCardHorizontal';
@@ -23,11 +23,17 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
   }, []);
 
   useEffect(() => {
-    setPages(Math.ceil(totalVal / PAGE_SIZE));
+    setPages(Math.ceil(totalVal / PAGE_SIZE_30));
   }, [totalVal]);
 
   const fetchData = async (keywords, num) => {
-    const res = await ProductService.searchProducts(keywords, num);
+    let res = {};
+
+    if (!keywords || keywords.length === 0) {
+      res = await ProductService.loadDataQuickOrder({ page: num });
+    } else {
+      res = await ProductService.searchProductsQuickOrder(keywords, num);
+    }
     if (isValid(res)) {
       setTotalVal(res.total);
       setSearchProduct(res.data);
