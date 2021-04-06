@@ -1,17 +1,16 @@
 import React from 'react';
 import { ProductClient, MarketingClient, getFirst } from 'clients';
-import { doWithServerSide, SettingService } from 'services';
+import { doWithServerSide, ProductService, SettingService } from 'services';
 
 import dynamic from 'next/dynamic';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const isTotal = false;
     const [settingsResult, mostResearched, infoBanner, blocks] = await Promise.all([
       SettingService.getListSetting({ ctx }),
       ProductClient.loadDataMostSearch(ctx),
       MarketingClient.getListBanner(ctx),
-      ProductClient.loadDataProductCollection(ctx, isTotal),
+      ProductService.loadDataProductCollection(ctx),
     ]);
     return {
       props: {
