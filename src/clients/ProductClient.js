@@ -67,7 +67,7 @@ export const getProducts = async ({ ctx, codes, limit }) =>
   });
 
 export const getDataCollections = async ({ ctx }) =>
-  GET({ url: PRODUCT_API.PRODUCT_LIST_COLLECTION, params: { q: 'MAIN_PAGE', isBasic: true, ctx } });
+  GET({ url: PRODUCT_API.PRODUCT_LIST_COLLECTION, params: { q: 'MAIN_PAGE' }, isBasic: true, ctx });
 
 export default {
   loadDataMostSearch,
