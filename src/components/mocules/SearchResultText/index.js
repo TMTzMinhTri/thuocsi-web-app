@@ -30,6 +30,11 @@ export default function SearchResultText({ total = '', page = '', pages = '', li
 
   return (
     <div className={styles.search_result}>
+      {total === 0 && (
+        <div>
+          Hiển thị <strong>0</strong> sản phẩm
+        </div>
+      )}
       {total < limit && total > 0 && (
         <div>
           Hiển thị <strong>tất cả {number().lastNum}</strong> sản phẩm
