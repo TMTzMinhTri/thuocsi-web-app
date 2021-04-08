@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import App from 'next/app';
 import { useRouter } from 'next/router';
+import getConfig from'next/config'
 
 // Theme
 import { ThemeProvider as StyledTheme } from 'styled-components';
@@ -30,6 +31,7 @@ import { MOBILE } from 'constants/Device';
 import { fbpixel, gtag, ScrollToTop } from 'utils';
 import MessengerChat from 'utils/MessengerChat';
 
+const{ publicRuntimeConfig }= getConfig();
 const MyApp = (props) => {
   const { Component, pageProps } = props;
   const refContainer = useRef('fb-msgr');
@@ -130,6 +132,7 @@ MyApp.getInitialProps = async (appContext) => {
     ...appProps,
     pageProps: {
       isMobile: !!isMobile,
+      buildId: publicRuntimeConfig.buildId,
     },
   };
 };
