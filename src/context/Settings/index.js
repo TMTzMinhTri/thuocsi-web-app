@@ -21,7 +21,7 @@ export const SettingProvider = ({ children }) => {
     // load data settings
     if (settingsTabs.size === 0) getSettingTabs();
     //
-  }, []);
+  }, [settingsTabs.size]);
 
   const getStyleBySlugOfTag = (slug) =>
     TagTypeProps[settingsTabs.get(slug)] || TagTypeProps.default;

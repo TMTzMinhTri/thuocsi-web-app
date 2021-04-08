@@ -1,7 +1,5 @@
-import { GetQuantityProductFromCart } from 'utils';
 import { PRODUCT_API } from 'constants/APIUri';
-import { GET, getFirst, isValid, POST } from './Clients';
-import CartClient from './CartClient';
+import { GET, isValid, POST } from './Clients';
 
 async function loadDataMostSearch(ctx) {
   const url = '/product/most-search';
@@ -36,37 +34,6 @@ async function loadDataPormotion(ctx) {
   return res.data;
 }
 
-async function loadDataProductCollection(ctx) {
-  const url = `${PRODUCT_API.PRODUCT_LIST_COLLECTION}?q=MAIN_PAGE`;
-  const result = await GET({ url, ctx, isBasic: true });
-  if (!isValid(result)) {
-    return [];
-  }
-
-  let cart = {};
-  let productListWithQuantityInCart = {};
-  try {
-    cart = await CartClient.loadDataCart(ctx);
-  } catch (error) {
-    cart.status = 'ERROR';
-  }
-  const dataCart = getFirst(cart);
-  const cartObject = {};
-  // eslint-disable-next-line no-restricted-syntax
-  if (dataCart && dataCart?.cartItems?.length > 0) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const item of dataCart.cartItems) {
-      cartObject[item.sku] = item;
-    }
-
-    productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity2(result, cartObject);
-  } else {
-    productListWithQuantityInCart = result.data || [];
-  }
-
-  return productListWithQuantityInCart;
-}
-
 // TODO  @dat.le
 async function loadDataManufacturer(ctx) {
   const res = await GET({ url: PRODUCT_API.MANUFACTURER_LIST, ctx, isBasic: true });
@@ -99,15 +66,18 @@ export const getProducts = async ({ ctx, codes, limit }) =>
     ctx,
   });
 
+export const getDataCollections = async ({ ctx }) =>
+  GET({ url: PRODUCT_API.PRODUCT_LIST_COLLECTION, params: { q: 'MAIN_PAGE' }, isBasic: true, ctx });
+
 export default {
   loadDataMostSearch,
   loadFeedback,
   getInfoBanner,
   loadDataPormotion,
-  loadDataProductCollection,
   loadDataManufacturer,
   getTabs,
   getSettingTags,
   getDeals,
   getProducts,
+  getDataCollections,
 };
