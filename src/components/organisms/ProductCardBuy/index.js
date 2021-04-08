@@ -191,9 +191,9 @@ const ProductCardBuy = ({
                 </div>
               )}
               {!isMobile &&
+              cartItemType !== ENUM_ORDER_TYPE.DEAL &&
               maxQuantityProduct &&
-              maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY &&
-              cartItemType !== ENUM_ORDER_TYPE.DEAL ? (
+              maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
@@ -281,9 +281,9 @@ const ProductCardBuy = ({
                 </CardActions>
               )}
               {isMobile &&
+              cartItemType !== ENUM_ORDER_TYPE.DEAL &&
               maxQuantityProduct &&
-              maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY &&
-              cartItemType !== ENUM_ORDER_TYPE.DEAL ? (
+              maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
