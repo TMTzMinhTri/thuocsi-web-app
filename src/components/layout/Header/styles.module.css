@@ -236,8 +236,13 @@
 .notifyBox {
   width: 360px;
   max-width: 100%;
+  max-height: 470px;
+  overflow-y: auto;
 }
-
+.notificationsItem:hover{
+  background-color: #f3f3f3 !important;
+  transition: all .5s;
+}
 .title_wrap {
   display: flex;
   align-items: center;
