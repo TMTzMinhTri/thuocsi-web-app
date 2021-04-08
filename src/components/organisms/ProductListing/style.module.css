@@ -155,7 +155,7 @@
 }
 .product_listing{
   margin-top: 10px;
-  margin-bottom: 90px;
+  padding-bottom: 90px;
 }
 .pagging{
   display: flex;
