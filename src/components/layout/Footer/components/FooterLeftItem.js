@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { useModal } from 'hooks';
 import {
-  LINK_LICENSE,
   LINK_REGISTER,
   LOGO_AHAMOVE,
   LOGO_GHN,
@@ -19,6 +18,7 @@ import {
 } from 'constants/Images';
 import { Dialog } from 'components/organisms';
 import { LinkComp } from 'components/atoms';
+import { LINK_LICENSE } from 'sysconfig';
 import styles from '../styles.module.css';
 
 const FooterLeftItem = () => {

@@ -232,6 +232,7 @@ class MessengerChat extends Component {
     }
     // Add a random key to rerender. Reference:
     // https://stackoverflow.com/questions/30242530/dangerouslysetinnerhtml-doesnt-update-during-render
+    // eslint-disable-next-line react/no-danger
     return <div key={Date()} dangerouslySetInnerHTML={this.createMarkup()} />;
   }
 }

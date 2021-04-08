@@ -1,4 +1,4 @@
-import { CartClient, GET, isValid, POST, ProductClient } from 'clients';
+import { CartClient, GET, getData, getFirst, isValid, POST, ProductClient } from 'clients';
 import { PRODUCT_API } from 'constants/APIUri';
 import { HTTP_STATUS } from 'constants/Enums';
 import { PAGE_SIZE_30, PAGE_SIZE } from 'constants/data';
@@ -167,6 +167,48 @@ export const getProductInfoMapFromSkus = async ({ ctx, skus }) => {
     data: [mapProducts],
   };
 };
+
+// TODO:
+async function loadDataProductCollection(ctx) {
+  const result = await ProductClient.getDataCollections({ ctx });
+  if (!isValid(result)) {
+    return [];
+  }
+
+  let cart = {};
+
+  try {
+    cart = await CartClient.loadDataCart(ctx);
+  } catch (error) {
+    cart.status = 'ERROR';
+  }
+  const dataCart = getFirst(cart);
+  const cartObject = {};
+
+  let blocks = getData(result);
+  // eslint-disable-next-line no-restricted-syntax
+  if (dataCart && dataCart?.cartItems?.length > 0) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of dataCart.cartItems) {
+      cartObject[item.sku] = item;
+    }
+
+    // productListWithQuantityInCart = GetQuantityProductFromCart.GetQuantity2(result, cartObject);
+
+    if (blocks && blocks.length > 0) {
+      blocks = blocks.map(({ data = [] }) => ({
+        data: data?.map((product) => ({
+          ...product,
+          imagesProxy: getProxyImageList(product.imageUrls),
+          quantity: cart[product.sku]?.quantity || 0,
+        })),
+      }));
+    }
+  }
+
+  return blocks;
+}
+
 export default {
   loadDataProduct,
   mapDataProduct,
@@ -180,5 +222,6 @@ export default {
   getProductInfoMapFromSkus,
   getProxyImageList,
   getLinkProxy,
+  loadDataProductCollection,
   loadDataQuickOrder,
 };

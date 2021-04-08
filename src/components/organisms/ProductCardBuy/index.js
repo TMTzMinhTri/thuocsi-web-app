@@ -120,7 +120,9 @@ const ProductCardBuy = ({
   const handleInputChange = (e) => {
     const val = e.currentTarget.value;
     if (/^\d+$/.test(val) || !val) {
-      const curValue = parseFloat(val || 0);
+      let curValue = parseFloat(val || 0);
+      curValue = Math.min(maxQuantityProduct, curValue);
+      if (curValue === value) return;
       setValue(curValue);
       if (!curValue || curValue === 0) {
         if (value === 0) return;
