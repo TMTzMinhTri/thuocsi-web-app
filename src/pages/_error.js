@@ -6,19 +6,12 @@ import { useRollbar } from 'hooks';
 import { useAuth } from 'context';
 import styles from '../styles/error.module.css';
 
-function Error({ statusCode, buildId = '' }) {
-  const rollbar = useRollbar();
+function Error(props) {
+  const { statusCode } = props;
   const { user } = useAuth();
+  const rollbar = useRollbar(user);
+
   useEffect(() => {
-    rollbar.configure({
-      payload: {
-        person: {
-          id: user?.customerID || '-----',
-          username: user?.username || 'visitors',
-        },
-        buildId,
-      },
-    });
     rollbar.critical(statusCode);
   }, []);
 
