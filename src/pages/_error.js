@@ -15,8 +15,8 @@ function Error({ statusCode, buildId = '' }) {
         person: {
           id: user?.customerID || '-----',
           username: user?.username || 'visitors',
-          buildId,
         },
+        buildId,
       },
     });
     rollbar.critical(statusCode);

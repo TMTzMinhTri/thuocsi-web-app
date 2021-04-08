@@ -2,27 +2,21 @@ import React, { useEffect } from 'react';
 import { Typography, Grid, Container, Button } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRollbar } from 'hooks';
 import { useAuth } from 'context';
+import { useRollbar } from 'hooks';
+
 import styles from '../styles/error.module.css';
 
-const Error404 = ({buildId = ''}) => {
-  const statusCode = '404';
-  const rollbar = useRollbar();
+const Error404 = () => {
   const { user } = useAuth();
+  const statusCode = '404';
+  const rollbar = useRollbar(user);
+
   useEffect(() => {
-    rollbar.configure({
-      payload: {
-        person: {
-          id: user?.customerID || '-----',
-          username: user?.username || 'visitors',
-          buildId
-        }
-      },
-    });
     rollbar.error(statusCode);
   }, []);
-  return(
+
+  return (
     <Container className={styles.pageError}>
       <Grid container style={{ width: '100%' }}>
         <Grid item container xs={12}>
@@ -46,7 +40,7 @@ const Error404 = ({buildId = ''}) => {
             <br />
             <ul className={styles.list}>
               <li className={styles.link}>
-                <Link href="/">
+                <Link href="/" prefetch={false}>
                   <Button variant="contained" color="primary">
                     Quay lại trang chủ
                   </Button>
@@ -57,6 +51,6 @@ const Error404 = ({buildId = ''}) => {
         </Grid>
       </Grid>
     </Container>
-  )
+  );
 };
 export default Error404;

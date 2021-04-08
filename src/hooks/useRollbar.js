@@ -1,13 +1,17 @@
 import Rollbar from 'rollbar';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
 
 export const SCROLLBAR_KEY = process.env.NEXT_PUBLIC_SCROLLBAR_KEY;
+
 const getErrorMessage = (rollbar) => {
   const configure = (payload) => rollbar.configure(payload);
-  const critical = (payload) => rollbar.critical(payload);
-  const error = (payload) => rollbar.error(payload);
-  const warning = (payload) => rollbar.warning(payload);
-  const info = (payload) => rollbar.info(payload);
-  const debug = (payload) => rollbar.debug(payload);
+  const critical = (message) => rollbar.critical(message);
+  const error = (message) => rollbar.error(message);
+  const warning = (message) => rollbar.warning(message);
+  const info = (message) => rollbar.info(message);
+  const debug = (message) => rollbar.debug(message);
   return {
     configure,
     critical,
@@ -18,13 +22,23 @@ const getErrorMessage = (rollbar) => {
   };
 };
 
-const useRollbar = () => {
-  const rollbar = new Rollbar({
-    accessToken: SCROLLBAR_KEY,
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-  });
-  return getErrorMessage(rollbar);
-};
+const rollbar = new Rollbar({
+  accessToken: SCROLLBAR_KEY,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+});
+
+const useRollbar = (user) =>
+  getErrorMessage(
+    rollbar.configure({
+      payload: {
+        person: {
+          id: user?.customerID || '-----',
+          username: user?.username || 'visitors',
+        },
+        buildId: publicRuntimeConfig.buildId,
+      },
+    }),
+  );
 
 export default useRollbar;
