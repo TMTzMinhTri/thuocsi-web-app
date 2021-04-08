@@ -16,7 +16,7 @@ import {
   LinearProgress,
 } from '@material-ui/core';
 import { formatCurrency, formatNumber } from 'utils/FormatNumber';
-import { tabsProductData, MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
+import { tabsProductData, MAX_PRODUCT_QTY_DISPLAY, MAX_PRODUCT_INPUT } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchDollar, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -168,11 +168,12 @@ const ProductDetail = ({ product, supplier = [], isMobile }) => {
   };
 
   const handleInputChange = (e) => {
-    if (/^\d+$/.test(e.currentTarget.value) || !e.currentTarget.value) {
-      const curValue = e.currentTarget.value;
+    const val = e.currentTarget.value;
+    if ((/^\d+$/.test(val) && val < MAX_PRODUCT_INPUT) || !val) {
+      const curValue = parseFloat(val || 0);
       setQuantity(curValue);
       if (!curValue || curValue === 0) {
-        if (quantity === 0) return;
+        if (curValue === 0) return;
         handler(product, 'remove');
       } else {
         handler(+curValue, 'update');
