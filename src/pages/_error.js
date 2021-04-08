@@ -35,12 +35,12 @@ function Error({ statusCode, buildId = '' }) {
             <Typography align="center" variant="h5">
               {statusCode
                 ? `Lỗi ${statusCode} xảy ra từ phía hệ thống`
-                : 'Lỗi xảy ra từ phí trình duyệt'}
+                : 'Lỗi xảy ra từ phía trình duyệt'}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography align="center" variant="subtitle2" className={styles.weightLow}>
-              Nếu bạn cần trợ giúp hãy liên hệ với chúng tôi qua số điện thoại: 02 873 008 840
+              Nếu bạn cần trợ giúp hãy liên hệ với chúng tôi qua facebook messenger thuocsi
             </Typography>
           </Grid>
           <Grid align="center" item xs={12}>

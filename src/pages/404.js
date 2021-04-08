@@ -38,7 +38,7 @@ const Error404 = ({buildId = ''}) => {
           </Grid>
           <Grid item xs={12}>
             <Typography align="center" variant="subtitle2" className={styles.weightLow}>
-              Nếu bạn cần trợ giúp hãy liên hệ với chúng tôi qua số điện thoại: 02 873 008 840
+              Nếu bạn cần trợ giúp hãy liên hệ với chúng tôi qua facebook messenger thuocsi
             </Typography>
           </Grid>
           <Grid align="center" item xs={12}>
