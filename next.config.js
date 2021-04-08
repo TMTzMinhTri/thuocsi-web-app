@@ -5,7 +5,14 @@ if (process.env.NODE_ENV === 'PRODUCTION' || process.env.ENV === 'prd') {
   console.info = function () {};
 }
 
+const generateBuildId = () => {
+  return new Date();
+}
+
 module.exports = {
+  publicRuntimeConfig: {
+    buildId: generateBuildId(),
+  },
   images: {
     domains: [
       'assets.thuocsi.vn',
