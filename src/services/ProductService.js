@@ -223,4 +223,5 @@ export default {
   getProxyImageList,
   getLinkProxy,
   loadDataProductCollection,
+  loadDataQuickOrder,
 };

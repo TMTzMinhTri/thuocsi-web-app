@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isValid } from 'clients';
-import { debounceFunc500 } from 'utils/debounce';
+import { debounceFunc100 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
 import { PAGE_SIZE_30 } from 'constants/data';
 import { SearchOrder } from 'components/mocules';
@@ -47,12 +47,12 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
     const { value } = e.target;
     setKeyword(value);
     setNumPage(1);
-    debounceFunc500(() => fetchData(value, 1));
+    debounceFunc100(() => fetchData(value, 1));
   };
 
   const handleChangePage = (event, value) => {
     setNumPage(value);
-    debounceFunc500(() => fetchData(keyword, value));
+    debounceFunc100(() => fetchData(keyword, value));
   };
 
   return (

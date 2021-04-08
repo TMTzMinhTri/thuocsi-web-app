@@ -423,4 +423,3 @@ export const MENU = [
     isNew: true,
   },
 ];
-export const MAX_PRODUCT_INPUT = 100000;

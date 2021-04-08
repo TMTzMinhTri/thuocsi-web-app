@@ -16,7 +16,7 @@ import {
   LinearProgress,
 } from '@material-ui/core';
 import { formatCurrency, formatNumber } from 'utils/FormatNumber';
-import { tabsProductData, MAX_PRODUCT_QTY_DISPLAY, MAX_PRODUCT_INPUT } from 'constants/data';
+import { tabsProductData, MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchDollar, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -130,7 +130,7 @@ const ProductDetail = ({ product, supplier = [], isMobile }) => {
   // TODO:
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const handler = useCallback(
-    debounce((val, updateType) => handleCart(val, updateType), 500),
+    debounce((val, updateType) => handleCart(val, updateType), 300),
     [],
   );
 
@@ -169,8 +169,10 @@ const ProductDetail = ({ product, supplier = [], isMobile }) => {
 
   const handleInputChange = (e) => {
     const val = e.currentTarget.value;
-    if ((/^\d+$/.test(val) && val < MAX_PRODUCT_INPUT) || !val) {
-      const curValue = parseFloat(val || 0);
+
+    if (/^\d+$/.test(val) || !val) {
+      const curValue = Math.min(parseFloat(val || 0), prdMaxQuantity);
+
       setQuantity(curValue);
       if (!curValue || curValue === 0) {
         if (curValue === 0) return;
