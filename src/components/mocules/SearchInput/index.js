@@ -35,8 +35,11 @@ const SearchInput = memo(({ classCustom, ...restProps }) => {
   };
 
   const handleFocus = (e) => {
-    setHidden(true);
-    setKeyword(e.target.value);
+    const val = e?.target?.value;
+    if (val && val.length > 0) {
+      setHidden(true);
+      setKeyword(e.target.value);
+    }
   };
 
   const handleBlur = () => {
