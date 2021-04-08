@@ -1,6 +1,10 @@
 import React from 'react';
 import { Icon, IconButton, Toolbar, Badge } from '@material-ui/core';
-import { Whatshot, AssignmentTurnedInOutlined, NotificationsNoneOutlined } from '@material-ui/icons';
+import {
+  Whatshot,
+  AssignmentTurnedInOutlined,
+  NotificationsNoneOutlined,
+} from '@material-ui/icons';
 import Fab from '@material-ui/core/Fab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -12,23 +16,27 @@ const FooterWithToolBar = () => {
   return (
     <Toolbar>
       <div className={clsx(styles.icon, router.pathname === '/products' && styles.active)}>
-        <Link href="/products">
+        <Link href="/products" prefetch={false}>
           <IconButton edge="start" color="inherit">
             <Icon className="icon-product" />
             <span className={styles.text}>Sản phẩm</span>
           </IconButton>
         </Link>
       </div>
-      <div className={clsx(styles.icon, styles.promo, router.pathname === '/deals' && styles.active)}>
-        <Link href="/deals">
+      <div
+        className={clsx(styles.icon, styles.promo, router.pathname === '/deals' && styles.active)}
+      >
+        <Link href="/deals" prefetch={false}>
           <IconButton edge="start" color="inherit">
             <Whatshot />
             <span className={styles.text}>Khuyến mãi</span>
           </IconButton>
         </Link>
       </div>
-      <div className={clsx(styles.icon_special, router.pathname === '/quick-order' && styles.active)}>
-        <Link href="/quick-order">
+      <div
+        className={clsx(styles.icon_special, router.pathname === '/quick-order' && styles.active)}
+      >
+        <Link href="/quick-order" prefetch={false}>
           <div className={styles.qordericon}>
             <Fab aria-label="icon-quick-order" className={styles.fabButton}>
               <Icon className="icon-quick-order" />
@@ -39,7 +47,7 @@ const FooterWithToolBar = () => {
       </div>
       <div className={styles.grow} />
       <div className={clsx(styles.icon, router.pathname === '/my-order' && styles.active)}>
-        <Link href="/my-order">
+        <Link href="/my-order" prefetch={false}>
           <IconButton color="inherit">
             <AssignmentTurnedInOutlined />
             <span className={styles.text}>Đơn hàng</span>
@@ -47,7 +55,7 @@ const FooterWithToolBar = () => {
         </Link>
       </div>
       <div className={clsx(styles.icon, router.pathname === '/notifications' && styles.active)}>
-        <Link href="/notifications">
+        <Link href="/notifications" prefetch={false}>
           <IconButton edge="end" color="inherit">
             <Badge badgeContent=" " variant="dot" color="secondary">
               <NotificationsNoneOutlined />

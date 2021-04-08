@@ -38,7 +38,7 @@ const Error404 = ({ className }) => (
           <br />
           <ul className="list">
             <li>
-              <Link href="/">
+              <Link prefetch={false} href="/">
                 <Button color="#fff">Quay lại trang chủ</Button>
               </Link>
             </li>

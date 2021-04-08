@@ -243,13 +243,13 @@ export default function ProductListing({
               </AccordionSummary>
               <AccordionDetails className="accordion-detail">
                 <div>
-                  <Link key="all-products" href="/products">
+                  <Link key="all-products" href="/products" prefetch={false}>
                     <div className={styles.accordionLink}>Tất cả sản phẩm</div>
                   </Link>
                   {brand &&
                     brand.length > 0 &&
                     brand.map((item) => (
-                      <Link key={uuidv4()} href={`/manufacturers/${item.slug}`}>
+                      <Link key={uuidv4()} href={`/manufacturers/${item.slug}`} prefetch={false}>
                         <div
                           className={`${styles.accordionLink} ${
                             item.slug === slug ? styles.active : ''
@@ -284,6 +284,7 @@ export default function ProductListing({
                 <div className={styles.filters}>
                   {(total > 0 || tabs.length > 0) && (
                     <Link
+                      prefetch={false}
                       href={{
                         pathname: pathName,
                         query: { ...getTabQuery() },
@@ -300,6 +301,7 @@ export default function ProductListing({
                   )}
                   {tabs.map((item) => (
                     <Link
+                      prefetch={false}
                       key={`tabs-${uuidv4()}`}
                       href={{
                         pathname: pathName,

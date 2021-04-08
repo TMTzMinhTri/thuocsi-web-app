@@ -62,7 +62,7 @@ async function request({
     mock api : folder:  /api
     dev / production : /backend
    */
-    // const logTime = +new Date();
+    const logTime = +new Date();
     const headers = {};
     const parameters = { ...params };
     let link = url;
@@ -108,7 +108,7 @@ async function request({
     }
 
     // console.log(' fetch data ', link, method, headers, body);
-    // const logTimeFetch = +new Date();
+    const logTimeFetch = +new Date();
     const res = await fetch(link, {
       method,
       credentials: 'same-origin',
@@ -126,11 +126,11 @@ async function request({
 
     // console.log('result : ', result);
     // console.log(` fetch data ${link}`, result);
-    // const timeExcute = +new Date() - logTime;
-    // const timeFetchAPI = +new Date() - logTimeFetch;
-    // console.log(` fetch data ${link}`, timeFetchAPI, timeExcute);
-    // result.timeExcute = timeExcute;
-    // result.timeFetchAPI = timeFetchAPI;
+    const timeExcute = +new Date() - logTime;
+    const timeFetchAPI = +new Date() - logTimeFetch;
+    console.log(` fetch data ${link}`, timeFetchAPI, timeExcute);
+    result.timeExcute = timeExcute;
+    result.timeFetchAPI = timeFetchAPI;
     return result;
   } catch (err) {
     // console.log('err ', err);

@@ -1,4 +1,5 @@
-import { Template, AccountInfoFormContainer, InfoContainer } from 'components';
+import Template from 'components/layout/Template';
+import { AccountInfoFormContainer, InfoContainer } from 'components/organisms';
 import { Container } from '@material-ui/core';
 import { doWithServerSide } from 'services';
 import { withLogin } from 'HOC';

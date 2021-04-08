@@ -1,7 +1,7 @@
 import { getFirst, isValid, PromoClient } from 'clients';
 import { isEmpty } from 'utils/ValidateUtils';
-import { PROMO_REWARD_TYPE } from 'constants/Enums';
 import { formatCurrency, formatNumber } from 'utils/FormatNumber';
+import { PROMO_REWARD_TYPE } from 'constants/Enums';
 
 export const parseReward = (reward) => {
   if (!reward) {

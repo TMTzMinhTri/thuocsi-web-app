@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Grid, Container } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from 'components';
+import Button from 'components/atoms/Button';
 import '../styles/error.module.css';
 
 const Error500 = () => (
@@ -37,7 +37,7 @@ const Error500 = () => (
           <br />
           <ul className="list">
             <li>
-              <Link href="/">
+              <Link prefetch={false} href="/">
                 <Button color="#fff">Quay lại trang chủ</Button>
               </Link>
             </li>

@@ -67,7 +67,11 @@ const OrderRow = ({
           className={styles.grid}
         >
           <Grid item>
-            <Link href={`${MY_ORDER_URL}/${orderID}`} key={`order-row-${uuidv4()}`}>
+            <Link
+              href={`${MY_ORDER_URL}/${orderID}`}
+              key={`order-row-${uuidv4()}`}
+              prefetch={false}
+            >
               <h4 className={styles.order_id}>#{orderID} &nbsp;</h4>
             </Link>
           </Grid>

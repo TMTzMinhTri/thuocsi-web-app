@@ -24,38 +24,60 @@ const CustomerSupportContainer = () => (
     <Grid item xs={12}>
       <Paper style={{ padding: '16px' }} className={styles.paper}>
         <div>
-          <Link href={ABOUT_US_URL}> Giới thiệu về thuocsi.vn </Link>
+          <Link href={ABOUT_US_URL} prefetch={false}>
+            Giới thiệu về thuocsi.vn
+          </Link>
         </div>
         <div>
-          <Link href={CAREER}> Tuyển dụng | Recruitment </Link>
+          <Link href={CAREER} prefetch={false}>
+            Tuyển dụng | Recruitment
+          </Link>
         </div>
         <div>
-          <Link href="/"> Đăng ký bán hàng cùng thuocsi </Link>
+          <Link href="/" prefetch={false}>
+            Đăng ký bán hàng cùng thuocsi
+          </Link>
         </div>
         <Divider />
         <div>
-          <Link href={PRIVACY_POLICY_URL}> Chính sách bảo mật </Link>
+          <Link href={PRIVACY_POLICY_URL} prefetch={false}>
+            Chính sách bảo mật
+          </Link>
         </div>
         <div>
-          <Link href={QNA}> Câu hỏi thường gặp (Q&A) </Link>
+          <Link href={QNA} prefetch={false}>
+            Câu hỏi thường gặp (Q&A)
+          </Link>
         </div>
         <div>
-          <Link href={GENERAL_POLICY_URL}> Chính sách quy định chung </Link>
+          <Link prefetch={false} href={GENERAL_POLICY_URL}>
+            Chính sách quy định chung
+          </Link>
         </div>
         <div>
-          <Link href={CONDITIONS_OF_USE_URL}> Điều khoản sử dụng </Link>
+          <Link prefetch={false} href={CONDITIONS_OF_USE_URL}>
+            Điều khoản sử dụng
+          </Link>
         </div>
         <div>
-          <Link href={DISPUTE_RESOLUTION_URL}> Cơ chế giải quyết tranh chấp </Link>
+          <Link prefetch={false} href={DISPUTE_RESOLUTION_URL}>
+            Cơ chế giải quyết tranh chấp
+          </Link>
         </div>
         <div>
-          <Link href={TERMS_URL}> Thỏa thuận về dịch vụ TMDT </Link>
+          <Link prefetch={false} href={TERMS_URL}>
+            Thỏa thuận về dịch vụ TMDT
+          </Link>
         </div>
         <div>
-          <Link href={ORDER_GUIDE}> Hướng dẫn đặt hàng </Link>
+          <Link prefetch={false} href={ORDER_GUIDE}>
+            Hướng dẫn đặt hàng
+          </Link>
         </div>
         <div>
-          <Link href={REGULATIONS_URL}> Quy chế hoạt động </Link>
+          <Link prefetch={false} href={REGULATIONS_URL}>
+            Quy chế hoạt động
+          </Link>
         </div>
       </Paper>
     </Grid>
@@ -65,7 +87,10 @@ const CustomerSupportContainer = () => (
     <Grid item xs={12}>
       <Paper style={{ padding: '16px' }} className={styles.paper}>
         <div>
-          <Link href="/"> thuocsi.vn </Link> là website thuộc sở hữu của công ty TNHH Buymed.
+          <Link prefetch={false} href="/">
+            thuocsi.vn
+          </Link>
+          là website thuộc sở hữu của công ty TNHH Buymed.
         </div>
         <br />
         <div>
@@ -80,7 +105,9 @@ const CustomerSupportContainer = () => (
         <div>tại Sở Kế Hoạch Và Đầu Tư Thành Phố Hồ Chí Minh</div>
         <div>
           Số Giấy phép Sàn thương mại điện tử:
-          <Link href={LICENSE_PDF}> 0314758651/KD-0368 </Link>
+          <Link prefetch={false} href={LICENSE_PDF}>
+            0314758651/KD-0368
+          </Link>
         </div>
       </Paper>
     </Grid>

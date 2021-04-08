@@ -23,7 +23,7 @@ const FooterRightItem = () => (
         <div className={styles.icon_circle}>
           <EmailOutlined style={{ width: '20x', height: '20px' }} />
         </div>
-        <Link href="mailto:hotro@thuocsi.vn">
+        <Link href="mailto:hotro@thuocsi.vn" prefetch={false}>
           <Typography className={clsx(styles.contact, styles.divider, styles.link)}>
             hotro@thuocsi.vn
           </Typography>
