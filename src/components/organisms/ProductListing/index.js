@@ -129,24 +129,6 @@ export default function ProductListing({
     );
   };
 
-  const changeTab = (event, queryTab, value) => {
-    event.preventDefault();
-    if (value === currentTab) return;
-    setIsLoading(true);
-    router.push(
-      {
-        pathname: pathName,
-        query: { ...queryTab, currentTab: value}
-      },
-      null,
-      options,
-    );
-
-    window.scrollTo({
-      top: mainRef.current.offsetTop - 100,
-      behavior: 'smooth',
-    });
-  }
   return (
     <div className={styles.wrapper}>
       {isMobile ? (
@@ -318,27 +300,41 @@ export default function ProductListing({
           <div>
             <div className={styles.filters}>
               {(total > 0 || tabs.length > 0) && (
-                <Fab
-                  variant="extended"
-                  aria-label="all"
-                  className={clsx(currentTab === '' && styles.active, styles.filter_btn)}
-                  onClick={(e) => changeTab(e, getTabQuery())}
+                <Link
+                  href={{
+                    pathname: pathName,
+                    query: { ...getTabQuery() },
+                  }}
+                  scroll={false}
                 >
-                  Tất cả sản phẩm
-                </Fab>
+                  <Fab
+                    variant="extended"
+                    aria-label="all"
+                    className={clsx(currentTab === '' && styles.active, styles.filter_btn)}
+                  >
+                    Tất cả sản phẩm
+                  </Fab>
+                </Link>
               )}
               {tabs.map((item) => (
-                <Fab
+                <Link
                   key={`tabs-${uuidv4()}`}
-                  variant="extended"
-                  aria-label="all"
-                  className={clsx(currentTab === item.value && styles.active, styles.filter_btn)}
-                  onClick={(e) => changeTab(e, getTabQuery(), item.value)}
+                  href={{
+                    pathname: pathName,
+                    query: { ...getTabQuery(), currentTab: item.value },
+                  }}
+                  scroll={false}
                 >
-                  {item.leftIcon && <span className={styles.iconLeft}>{item.leftIcon}</span>}
-                  {item.name}
-                  {item.rightIcon && <span className={styles.iconRight}>{item.rightIcon}</span>}
-                </Fab>
+                  <Fab
+                    variant="extended"
+                    aria-label="all"
+                    className={clsx(currentTab === item.value && styles.active, styles.filter_btn)}
+                  >
+                    {item.leftIcon && <span className={styles.iconLeft}>{item.leftIcon}</span>}
+                    {item.name}
+                    {item.rightIcon && <span className={styles.iconRight}>{item.rightIcon}</span>}
+                  </Fab>
+                </Link>
               ))}
             </div>
           </div>
