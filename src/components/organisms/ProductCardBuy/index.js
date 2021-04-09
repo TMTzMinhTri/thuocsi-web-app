@@ -37,6 +37,7 @@ const ProductCardBuy = ({
   isMobile,
   cartItems,
 }) => {
+  const { cartItemType } = product;
   const maxQtyDeal = deal?.maxQuantity - deal?.quantity || 0;
   const maxQuantityProduct = (isDeal && maxQtyDeal) || productMaxQuantity;
   const outOfStock = deal?.maxQuantity === (deal?.quantity || 0) || false;
@@ -51,7 +52,6 @@ const ProductCardBuy = ({
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { updateCartItem, removeCartItem } = useCart();
 
-  const { cartItemType } = product;
   const removeProductOutCart = () => {
     toggleRemove();
   };
@@ -194,6 +194,7 @@ const ProductCardBuy = ({
               )}
               {!isMobile &&
               cartItemType !== ENUM_ORDER_TYPE.DEAL &&
+              cartItemType !== ENUM_ORDER_TYPE.COMBO &&
               maxQuantityProduct &&
               maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
@@ -284,6 +285,7 @@ const ProductCardBuy = ({
               )}
               {isMobile &&
               cartItemType !== ENUM_ORDER_TYPE.DEAL &&
+              cartItemType !== ENUM_ORDER_TYPE.COMBO &&
               maxQuantityProduct &&
               maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography

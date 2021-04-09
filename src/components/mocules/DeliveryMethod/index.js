@@ -16,7 +16,6 @@ const renderDeliveryMethod = ({ item, addressSelect, totalPrice = 0 }) => {
       <b className={styles.fw500}>{name}</b>
       {feeValue > 0 && (
         <>
-          {' '}
           Phí vận chuyển <i className={styles.fw500}>({formatCurrency(feeValue)})</i>
         </>
       )}

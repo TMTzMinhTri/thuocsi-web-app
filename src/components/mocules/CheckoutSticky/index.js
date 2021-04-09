@@ -70,7 +70,7 @@ const CheckoutSticky = ({
   );
   const LabelConfirm = (
     <span className={styles.check_agree_txt}>
-      Tôi đồng ý với{' '}
+      Tôi đồng ý với
       <LinkComp href="/condition" color="#00b46e" target>
         Điều khoản sử dụng
       </LinkComp>

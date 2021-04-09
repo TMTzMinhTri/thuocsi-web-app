@@ -42,7 +42,7 @@ export default function SearchResultText({ total = '', page = '', pages = '', li
       )}
       {total > limit && total > 0 && (
         <div>
-          Hiển thị <strong>{`${number().firstNum} - ${number().lastNum}`}</strong> trên tổng số{' '}
+          Hiển thị <strong>{`${number().firstNum} - ${number().lastNum}`}</strong> trên tổng số
           <strong>{total}</strong> sản phẩm
         </div>
       )}

@@ -136,8 +136,7 @@ const OrderDetailContainer = ({ order, bankInfo, reasonsList, isMobile, user }) 
       </Grid>
       <Grid item xs={12} className={styles.comeback}>
         <Link href={MY_ORDER_URL} prefetch={false}>
-          {' '}
-          &lt;&lt; Quay lại đơn hàng của tôi{' '}
+          &lt;&lt; Quay lại đơn hàng của tôi
         </Link>
       </Grid>
     </Grid>
