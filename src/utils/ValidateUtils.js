@@ -34,13 +34,7 @@ export const formValidateEmail = (e) => {
 };
 
 const validatePhone = (phone) => {
-  const re = /^\+?([0-9]{2})\)?[-. ]?([0-9]{2,3})[-. ]?([0-9]{0,3})[-. ]?([0-9]{0,4})$/gim;
-
-  // [-. ] :  Dấu . ngăn cách (optional)
-  // +?([0-9]{2})\) : mã quốc gia
-  // ([0-9]{2,3} : mã vùng
-  // ([0-9]{0,3})[-. ]?([0-9]{0,4}) : dãy số điện thoại
-  //
+  const re = /^(03|05|07|08|09|02[1|2|3|4|5|6|7|8|9])+([0-9]{8})\b/;
   return re.test(String(phone));
 };
 function Error(message, type) {
