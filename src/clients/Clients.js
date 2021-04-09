@@ -128,7 +128,7 @@ async function request({
     // console.log(` fetch data ${link}`, result);
     const timeExcute = +new Date() - logTime;
     const timeFetchAPI = +new Date() - logTimeFetch;
-    console.log(` fetch data ${link}`, timeFetchAPI, timeExcute);
+    // console.log(` fetch data ${link}`, timeFetchAPI, timeExcute);
     result.timeExcute = timeExcute;
     result.timeFetchAPI = timeFetchAPI;
     return result;
