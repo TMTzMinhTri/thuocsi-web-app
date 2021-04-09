@@ -9,8 +9,8 @@ export async function getServerSideProps(ctx) {
   const [productsRes, catInfo, brand, group, tabs] = await Promise.all([
     ProductService.loadProductWithCategory({ ctx }),
     CatClient.loadCategoryInfoBySlug(ctx),
-    CatClient.loadBrand(ctx),
-    CatClient.loadGroup(ctx),
+    CatClient.loadBrand({ ctx, params: { limit: 20 } }),
+    CatClient.loadGroup({ ctx, params: { limit: 20 } }),
     ProductService.getListTabs({ ctx }),
   ]);
   const currentTab = ctx.query.currentTab || '';

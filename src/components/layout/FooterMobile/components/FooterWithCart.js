@@ -79,7 +79,7 @@ const FooterWithCart = () => {
           </div>
           <div>
             {router.pathname === CHECKOUT_URL && (
-              <Link href="/checkout">
+              <Link href="/checkout" prefetch={false}>
                 <Button
                   classes={{
                     label: styles.label,
@@ -96,7 +96,7 @@ const FooterWithCart = () => {
             )}
 
             {router.pathname === CART_URL && (
-              <Link href="/checkout">
+              <Link href="/checkout" prefetch={false}>
                 <Button
                   classes={{
                     label: styles.label,
@@ -111,7 +111,7 @@ const FooterWithCart = () => {
               </Link>
             )}
             {router.pathname !== CART_URL && router.pathname !== CHECKOUT_URL && (
-              <Link href="/cart">
+              <Link href="/cart" prefetch={false}>
                 <Button
                   classes={{ label: styles.label, outlined: styles.outlined, root: styles.root }}
                   variant="outlined"

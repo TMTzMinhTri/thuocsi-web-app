@@ -23,7 +23,7 @@ const FooterRightItem = () => (
         <div className={styles.icon_circle}>
           <EmailOutlined style={{ width: '20x', height: '20px' }} />
         </div>
-        <Link href="mailto:hotro@thuocsi.vn">
+        <Link href="mailto:hotro@thuocsi.vn" prefetch={false}>
           <Typography className={clsx(styles.contact, styles.divider, styles.link)}>
             hotro@thuocsi.vn
           </Typography>
@@ -48,9 +48,7 @@ const FooterRightItem = () => (
         </Link>
       </div> */}
     </div>
-    <div>
-      <small>Từ T2 đến T6: 8:00 - 18:00</small>
-    </div>
+    <div>{/* <small>Từ T2 đến T6: 8:00 - 18:00</small> */}</div>
     <div className={styles.mb2}>
       <Image src={LOGO_MOBILE} width="445" height="445" />
     </div>

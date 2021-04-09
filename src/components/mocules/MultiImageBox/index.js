@@ -31,11 +31,13 @@ const MultiImageBox = ({ loading, images, imageType }) => {
               {images ? (
                 <ButtonBase classes={{ root: styles.imgButtonBase }} onClick={handleOpen}>
                   <Image
-                    width="200px"
-                    height="200px"
+                    width={227}
+                    height={143}
+                    objectFit="contain"
                     alt={`${imageType}-main-image`}
                     className={styles.imageMain}
-                    src={images[selectedImage]}
+                    src={`${images[selectedImage]}?size=200`}
+                    quality={100}
                   />
                 </ButtonBase>
               ) : (
@@ -69,16 +71,18 @@ const MultiImageBox = ({ loading, images, imageType }) => {
                   ) : (
                     <ButtonBase
                       classes={{ root: styles.imgButtonBase }}
-                      onClick={() => handleImageSelection(index)}
+                      onClick={() => index !== selectedImage && handleImageSelection(index)}
                     >
                       <Image
-                        width="70px"
-                        height="70px"
+                        width={70}
+                        height={70}
+                        objectFit="contain"
                         alt={src ? `${imageType}-auxiliary-image-${index}` : undefined}
                         className={clsx(styles.thumbnailImage, {
                           [styles.thumbnailSelected]: index === selectedImage,
                         })}
-                        src={src}
+                        src={`${src}?size=70`}
+                        quality={100}
                       />
                     </ButtonBase>
                   )}
@@ -113,10 +117,11 @@ const MultiImageBox = ({ loading, images, imageType }) => {
                     ? `${imageType}-auxiliary-image-${selectedImage}`
                     : undefined
                 }
-                width="275px"
-                height="275px"
+                layout="fill"
+                objectFit="contain"
                 className={styles.modalImage}
                 src={images[selectedImage]}
+                quality={100}
               />
               <IconButton classes={{ root: styles.modalButton }} onClick={handleNext}>
                 <ArrowRight />

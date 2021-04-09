@@ -1,19 +1,16 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Template, ManufacturerContainer } from 'components';
+import Template from 'components/layout/Template';
+import ManufacturerContainer from 'components/organisms/ManufacturerContainer';
 import { ProductClient } from 'clients';
 import { doWithServerSide } from 'services';
 import { Container } from '@material-ui/core';
 import { changeAlias } from 'utils/StringUtils';
-import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [manufacturers, i18next] = await Promise.all([
-      ProductClient.loadDataManufacturer(ctx),
-      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
-    ]);
+    const [manufacturers] = await Promise.all([ProductClient.loadDataManufacturer(ctx)]);
     const convertManufacturers = (manu = []) =>
       manu
         .sort((a, b) => a.name.localeCompare(b.name))
@@ -25,7 +22,6 @@ export async function getServerSideProps(ctx) {
     return {
       props: {
         manufacturers: convertManufacturers(manufacturers),
-        ...i18next,
       },
     };
   });
@@ -45,4 +41,4 @@ const Manufacturers = ({ manufacturers = [], isMobile }) => {
   );
 };
 
-export default Manufacturers;
+export default withLogin(Manufacturers, false);

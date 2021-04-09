@@ -35,7 +35,7 @@ const InfoTabs = ({ value, name, balance = 0 }) => (
     </div>
     <MenuList>
       {tabs.map((tab) => (
-        <Link href={tab.link} key={`tab-${uuidv4()}`}>
+        <Link href={tab.link} key={`tab-${uuidv4()}`} prefetch={false}>
           <MenuItem
             button={false}
             classes={{ root: value === tab.id ? styles.tab_active : styles.tab_inactive }}

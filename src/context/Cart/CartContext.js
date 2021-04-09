@@ -1,7 +1,8 @@
 import React, { createContext, useReducer, useContext, useEffect, useCallback } from 'react';
 import { NotifyUtils } from 'utils';
-import { PromoService } from 'services';
-import { isValid, CartClient, getFirst } from 'clients';
+import { PromoService, CartService } from 'services';
+import { isValid, CartClient, getFirst, isValidWithoutData } from 'clients';
+import { capitalizeText } from 'utils/StringUtils';
 import { CartReducer } from './CartReducer';
 
 import { FETCH_SUCCESS, FETCH_ERROR, ADD_ITEM, INCREASE_BY, CLEAR, CHECKOUT } from './CartType';
@@ -12,6 +13,14 @@ export const CartContextProvider = ({ children }) => {
   const initialState = { loading: true };
   const [state, dispatch] = useReducer(CartReducer, initialState);
 
+  const clearCart = () => {
+    dispatch({ type: CLEAR });
+  };
+
+  const handleCheckout = () => {
+    dispatch({ type: CHECKOUT });
+  };
+
   const getPromoInfo = useCallback(async ({ voucherCode }) => {
     if (!voucherCode) {
       return null;
@@ -20,29 +29,35 @@ export const CartContextProvider = ({ children }) => {
     return promoData;
   });
 
+  // const getTotalCartItem = async () => {};
+
   // reload cart
   const reloadDataCart = async ({ cartRes, successMessage, errorMessage }) => {
     try {
-      if (!isValid(cartRes)) {
-        if (errorMessage) {
+      if (!isValidWithoutData(cartRes)) {
+        if (cartRes && cartRes.message) {
+          NotifyUtils.error(cartRes.message);
+        } else if (errorMessage) {
           NotifyUtils.error(errorMessage);
         }
         return;
       }
+      if (successMessage) NotifyUtils.success(successMessage);
+
       const cartData = getFirst(cartRes);
-
-      const { cartItems, redeemCode = [] } = cartData;
-
+      if (!cartData) {
+        clearCart();
+        return;
+      }
+      const { cartItems = [], redeemCode = [] } = cartData || {};
       const [cartItemsInfo, promoInfo] = await Promise.all([
-        CartClient.getInfoCartItem(cartItems),
+        CartService.getInfoCartItem(cartItems),
         getPromoInfo({ voucherCode: redeemCode[0] }),
       ]);
 
       cartData.cartItems = cartItemsInfo;
       cartData.promoInfo = promoInfo;
-
       dispatch({ type: FETCH_SUCCESS, payload: cartData || [] });
-      if (successMessage) NotifyUtils.success(successMessage);
     } catch (error) {
       NotifyUtils.error(error.message || 'Tải giỏ hàng thất bại');
       dispatch({ type: FETCH_ERROR });
@@ -65,28 +80,48 @@ export const CartContextProvider = ({ children }) => {
     fetchData();
   }, [updateCart]);
 
-  const updateCartItem = async (payload) => {
+  const updateCartItem = async (payload, reload = false) => {
     const cartRes = await CartClient.updateCartItem(payload);
-    if (!isValid(cartRes) && cartRes.errorCode === 'CART_MAX_QUANTITY') {
+    if (isValid(cartRes)) {
+      NotifyUtils.success(`Đã cập nhật ${capitalizeText(payload.product.name)} thành công`);
+    } else if (cartRes.errorCode === 'CART_MAX_QUANTITY') {
       const revertPayload = payload;
       // get quanity can add from response and compare with maxQuantity
       const { quantity = revertPayload.product.maxQuantity } = getFirst(cartRes, {});
       revertPayload.q = quantity;
       const res = await CartClient.updateCartItem(revertPayload);
+      if (res) {
+        NotifyUtils.success(`Đã cập nhật ${capitalizeText(payload.product.name)} thành công`);
+      } else {
+        NotifyUtils.error(`Cập nhập sản phẩm thất bại`);
+      }
       dispatch({ type: INCREASE_BY, payload: revertPayload });
-      await reloadDataCart({
-        res,
-        errorMessage: res.message || 'Số lượng đặt hàng vượt quá giới hạn',
+      if (reload) {
+        reloadDataCart({
+          cartRes,
+        });
+      }
+    }
+    if (reload) {
+      reloadDataCart({
+        cartRes,
       });
     }
-    await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
-
+    // reloadDataCart({
+    //   cartRes,
+    //   successMessage: `Đã cập nhật ${capitalizeText(payload.product.name)} thành công`,
+    //   errorMessage: 'Cập nhập sản phẩm thất bại',
+    // });
     return cartRes;
   };
 
   const increase = async (payload) => {
     const cartRes = await CartClient.updateCartItem(payload);
-    reloadDataCart({ cartRes, successMessage: 'Thêm sản phẩm thành công' });
+    reloadDataCart({
+      cartRes,
+      successMessage: 'Thêm sản phẩm thành công',
+      errorMessage: 'Cập nhập sản phẩm thất bại',
+    });
   };
 
   const increaseBy = (payload) => {
@@ -95,7 +130,11 @@ export const CartContextProvider = ({ children }) => {
 
   const decrease = async (payload) => {
     const cartRes = await CartClient.updateCartItem(payload);
-    await reloadDataCart({ cartRes, successMessage: 'Đã cập nhật giỏ hàng' });
+    reloadDataCart({
+      cartRes,
+      successMessage: 'Đã cập nhật giỏ hàng,',
+      errorMessage: 'Cập nhập sản phẩm thất bại',
+    });
   };
 
   const addProduct = (payload) => {
@@ -104,15 +143,11 @@ export const CartContextProvider = ({ children }) => {
 
   const removeCartItem = async (payload) => {
     const cartRes = await CartClient.removeCartItem(payload);
-    await reloadDataCart({ cartRes, successMessage: 'Xoá sản phẩm thành công' });
-  };
-
-  const clearCart = () => {
-    dispatch({ type: CLEAR });
-  };
-
-  const handleCheckout = () => {
-    dispatch({ type: CHECKOUT });
+    reloadDataCart({
+      cartRes,
+      successMessage: `Sản phẩm ${capitalizeText(payload.name)} đã được xóa ra khỏi giỏ hàng`,
+      errorMessage: 'Xoá sản phẩm thất bại',
+    });
   };
 
   const addImportant = async (payload) => {
@@ -121,7 +156,11 @@ export const CartContextProvider = ({ children }) => {
       isImportant: true,
       quantity: payload.quantity,
     });
-    await updateCart({ cartRes, successMessage: 'Đánh dấu quan trọng thành công ' });
+    updateCart({
+      cartRes,
+      successMessage: 'Đánh dấu quan trọng thành công ',
+      errorMessage: 'Đánh dấu quan trọng sản phẩm thất bại',
+    });
   };
 
   const removeImportant = async (payload) => {
@@ -130,7 +169,11 @@ export const CartContextProvider = ({ children }) => {
       isImportant: false,
       quantity: payload.quantity,
     });
-    await updateCart({ cartRes, successMessage: 'Xoá đánh dấu quan trọng thành công' });
+    updateCart({
+      cartRes,
+      successMessage: 'Xoá đánh dấu quan trọng thành công',
+      errorMessage: 'Xoá đánh dấu quan trọng thất bại',
+    });
   };
 
   const updateDeliveryMethod = async ({

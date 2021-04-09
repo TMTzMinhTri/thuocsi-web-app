@@ -12,6 +12,7 @@ import DealSection from 'components/mocules/DealSection';
 import { calculateTimeLeft } from 'utils';
 import { getFirst, isValid } from 'clients';
 import { MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
+import { ENUM_ORDER_TYPE } from 'constants/Enums';
 import RemoveProductModal from '../RemoveProductModal';
 import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
@@ -49,6 +50,8 @@ const ProductCardBuy = ({
   const [isShowModalRemove, toggleRemove] = useModal();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { updateCartItem, removeCartItem } = useCart();
+
+  const { cartItemType } = product;
   const removeProductOutCart = () => {
     toggleRemove();
   };
@@ -75,7 +78,7 @@ const ProductCardBuy = ({
     if (!q) {
       return;
     }
-    const response = await updateCartItem({ product, q: parseFloat(q) });
+    const response = await updateCartItem({ product, q: parseFloat(q) }, true);
     if (isValid(response)) {
       setValue(q);
     } else if (response.errorCode === 'CART_MAX_QUANTITY') {
@@ -120,7 +123,9 @@ const ProductCardBuy = ({
   const handleInputChange = (e) => {
     const val = e.currentTarget.value;
     if (/^\d+$/.test(val) || !val) {
-      const curValue = parseFloat(val || 0);
+      let curValue = parseFloat(val || 0);
+      curValue = Math.min(maxQuantityProduct, curValue);
+      if (curValue === value) return;
       setValue(curValue);
       if (!curValue || curValue === 0) {
         if (value === 0) return;
@@ -187,7 +192,10 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(salePrice)}</Typography>
                 </div>
               )}
-              {!isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
+              {!isMobile &&
+              cartItemType !== ENUM_ORDER_TYPE.DEAL &&
+              maxQuantityProduct &&
+              maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
@@ -274,7 +282,10 @@ const ProductCardBuy = ({
                   )}
                 </CardActions>
               )}
-              {isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
+              {isMobile &&
+              cartItemType !== ENUM_ORDER_TYPE.DEAL &&
+              maxQuantityProduct &&
+              maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)

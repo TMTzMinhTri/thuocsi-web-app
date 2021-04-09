@@ -37,8 +37,8 @@ const ProductCardContent = ({
           : clsx(styles.product_title_wrap, styles.product_title_column_wrap)
       }
     >
-      <div className={row ? clsx(styles.product_title, styles.h40) : styles.product_title}>
-        <Link href={`/product/${slug}`}>
+      <div className={styles.product_title}>
+        <Link href={`/product/${slug}`} prefetch={false}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
             {isDeal && deal ? deal.name : name}
           </Typography>

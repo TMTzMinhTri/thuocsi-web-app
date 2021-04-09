@@ -12,8 +12,6 @@ import { useModal } from 'hooks';
 import { QUICK_ORDER } from 'constants/Paths';
 import { DOMAIN_TS, DOMAIN_TS_MIEN_BAC, ENV } from 'sysconfig';
 
-import { useTranslation } from 'next-i18next';
-
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }) => {
@@ -33,15 +31,13 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
 
   const [isShowGuestExpiredTime, toggleShowGuestExpiredTime] = useModal();
 
-  const { t } = useTranslation('apiErrors');
-
   // hanler redirect v1
   let toggleLogin = () => (window.location.href = `${DOMAIN_TS}?login=true`);
   const toggleSignUp = () => (window.location.href = `${DOMAIN_TS}?signup=true`);
   const toggleRegisterGuest = () => (window.location.href = `${DOMAIN_TS}?signup=true`);
 
   // dev
-  if (ENV === 'dev') {
+  if (ENV !== 'prd') {
     [isShowLogin, toggleLogin] = useModal(isShowingLogin);
   }
 
@@ -78,13 +74,12 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
   }, [toggleLogin, toggleRegisterGuest]);
 
   const setCookies = useCallback((info, rememberMe = false) => {
-    const { expiredTime = new Date(), bearerToken = null } = info;
+    const { bearerToken = null } = info;
     Cookies.set(ACCESS_TOKEN, bearerToken);
     Cookies.set(REMEMBER_ME, rememberMe);
     if (rememberMe) {
-      const DateExpired = new Date(expiredTime);
       Cookies.set(ACCESS_TOKEN_LONGLIVE, bearerToken, {
-        expires: DateExpired,
+        expires: 5,
       });
     }
   }, []);
@@ -118,10 +113,11 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     if (typeof callback === 'function') {
       return callback();
     }
-    // window.location.href = '/';
 
     // redirect to mienbac.thuocsi.vn
-    window.location.href = DOMAIN_TS;
+    setTimeout(() => {
+      window.location.href = DOMAIN_TS;
+    }, 1500);
 
     return false;
   };
@@ -170,12 +166,21 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
 
       .then((result) => {
         if (!isValid(result)) {
-          const errorCode = `login.${result.errorCode}`;
-          NotifyUtils.error(t(errorCode));
+          const { errorCode } = result;
+          switch (errorCode) {
+            case 'NOT_FOUND':
+              NotifyUtils.error('Không tìm thấy thông tin người dùng.');
+              break;
+            case 'WRONG_PASSWORD':
+              NotifyUtils.error('Bạn đã nhập sai thông tin người dùng.');
+              break;
+            default:
+              NotifyUtils.error('Không tìm thấy thông tin người dùng.');
+          }
           return;
         }
 
-        NotifyUtils.success(t('login.success'));
+        NotifyUtils.success('Đăng nhập thành công');
 
         const userInfo = getFirst(result);
         login(userInfo, rememberMe === '');
@@ -189,7 +194,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
         }
       })
       .catch(() => {
-        NotifyUtils.error(t('error'));
+        NotifyUtils.error('Đã có lỗi xảy ra');
       })
       .finally(() => {
         setIsLoading(false);
@@ -228,7 +233,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
         }
       })
       .catch(() => {
-        NotifyUtils.error(t('error'));
+        NotifyUtils.error('Đã có lỗi xảy ra');
       })
       .finally(() => {
         setIsLoading(false);
@@ -240,8 +245,7 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     if (isValid(result)) {
       NotifyUtils.info(result.message);
     } else {
-      const errorCode = `login.${result.errorCode}`;
-      NotifyUtils.error(t(errorCode));
+      NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
     }
   }, []);
 
@@ -249,25 +253,25 @@ export const AuthProvider = ({ children, isShowingLogin, referralCode, tokenv1 }
     if (user === null)
       loadUserFromCookies(async (userInfo) => {
         // nếu không có user thì check token
-        if (!userInfo)
-          if (tokenv1) {
-            // redirect
-            const result = await AuthService.loginv1({ tokenv1 });
-            // console.log('result login v1 ', result);
-            if (isValid(result)) {
-              NotifyUtils.info(result.message);
-              login(getFirst(result), true);
-              router.push('/');
-            } else {
-              const errorCode = `login.${result.errorCode}`;
-              NotifyUtils.error(result.message || t(errorCode));
-
-              // redirect to mienbac.thuocsi.vn
-              window.location.href = DOMAIN_TS_MIEN_BAC;
-            }
+        if (tokenv1) {
+          // redirect
+          const result = await AuthService.loginv1({ tokenv1 });
+          // console.log('result login v1 ', result);
+          if (isValid(result)) {
+            NotifyUtils.info(result.message);
+            login(getFirst(result), true);
+            router.push('/');
           } else {
-            window.location.href = DOMAIN_TS;
+            logout();
+            NotifyUtils.error(result?.message || 'Đã có lỗi xảy ra');
+            // redirect to mienbac.thuocsi.vn
+            setTimeout(() => {
+              window.location.href = DOMAIN_TS_MIEN_BAC;
+            }, 1500);
           }
+        } else if (ENV === 'prd' && !userInfo) {
+          window.location.href = DOMAIN_TS;
+        }
       });
   }, [pathname, loadUserFromCookies, tokenv1]);
 

@@ -2,6 +2,7 @@ import React, { memo, useState, useEffect } from 'react';
 import { Modal, InfoFormControl, InfoTable, Button, LinkComp } from 'components/atoms';
 import { Grid, TableRow, TableCell, Divider } from '@material-ui/core';
 import { OrderClient, isValid } from 'clients';
+import { OrderService } from 'services';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { NotifyUtils } from 'utils';
@@ -81,7 +82,7 @@ const PrintInvoiceModal = memo((props) => {
         const res = await OrderClient.getProductByOrderNo({ orderNo });
         if (!isValid(res)) throw Error();
         let orderItems = res?.data || [];
-        const orderItemInfoRes = await OrderClient.getInfoOrderItem({ orderItems });
+        const orderItemInfoRes = await OrderService.getInfoOrderItem({ orderItems });
         if (!isValid(orderItemInfoRes)) throw Error('Load thông tin sản phẩm thất bại');
         const orderItemInfoMap = orderItemInfoRes.data[0];
         orderItems = orderItems.map((product) => {
@@ -152,7 +153,7 @@ const PrintInvoiceModal = memo((props) => {
           />
           <InfoTable heads={heads} stickyHeader className={styles.ovfy}>
             {products.map((product) => {
-              const { price, quantity, totalPrice } = product;
+              const { salePrice, quantity, totalPrice } = product;
               const { name = '', slug = '' } = product.productInfo || {};
               return (
                 <TableRow key={uuidv4()} hover>
@@ -165,7 +166,7 @@ const PrintInvoiceModal = memo((props) => {
                       {name}
                     </LinkComp>
                   </TableCell>
-                  <TableCell align={ALIGN.RIGHT}>{formatNumber(price)}</TableCell>
+                  <TableCell align={ALIGN.RIGHT}>{formatNumber(salePrice)}</TableCell>
                   <TableCell align={ALIGN.RIGHT}>{formatNumber(quantity)}</TableCell>
                   <TableCell align={ALIGN.RIGHT}>{formatNumber(totalPrice)}</TableCell>
                 </TableRow>

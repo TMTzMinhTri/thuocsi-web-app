@@ -29,12 +29,13 @@ function LinkComp(props) {
     onMouseOver,
     target,
     variant = 'body2',
+    prefetch = false,
     ...rest
   } = props;
   const classes = useStyles(props);
 
   return (
-    <Link href={href} className={classes.linkRoot} onMouseOver={onMouseOver}>
+    <Link href={href} className={classes.linkRoot} onMouseOver={onMouseOver} prefetch={prefetch}>
       <a
         {...rest}
         className={clsx(classes.root, className)}

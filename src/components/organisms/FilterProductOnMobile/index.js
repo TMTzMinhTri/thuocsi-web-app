@@ -116,7 +116,7 @@ export default function FilterMobileDialogs({
                 <FontAwesomeIcon icon={faTag} />
                 <span>Đánh dấu</span>
               </div>
-              <Link href={pathName}>
+              <Link href={pathName} prefetch={false}>
                 <Fab
                   variant="extended"
                   aria-label="all"
@@ -128,6 +128,7 @@ export default function FilterMobileDialogs({
               {tags &&
                 tags.map((item) => (
                   <Link
+                    prefetch={false}
                     key={`tags-${uuidv4()}`}
                     href={{
                       pathname: pathName,
@@ -160,7 +161,7 @@ export default function FilterMobileDialogs({
                   </AccordionSummary>
                   <AccordionDetails className="accordion-detail">
                     <div>
-                      <Link key="all-products" href="/products">
+                      <Link key="all-products" href="/products" prefetch={false}>
                         <div
                           className={`${styles.accordionLink} ${slug === '' ? styles.active : ''}`}
                         >
@@ -169,7 +170,7 @@ export default function FilterMobileDialogs({
                       </Link>
                       {group &&
                         group.map((item) => (
-                          <Link key={uuidv4()} href={`/categories/${item.slug}`}>
+                          <Link key={uuidv4()} href={`/categories/${item.slug}`} prefetch={false}>
                             <div
                               className={`${styles.accordionLink} ${
                                 item.slug === slug ? styles.active : ''
@@ -194,13 +195,17 @@ export default function FilterMobileDialogs({
                   </AccordionSummary>
                   <AccordionDetails className="accordion-detail">
                     <div>
-                      <Link key="all-products" href="/products">
+                      <Link key="all-products" href="/products" prefetch={false}>
                         <div className={styles.accordionLink}>Tất cả sản phẩm</div>
                       </Link>
                       {brand &&
                         brand.length > 0 &&
                         brand.map((item) => (
-                          <Link key={uuidv4()} href={`/manufacturers/${item.slug}`}>
+                          <Link
+                            key={uuidv4()}
+                            href={`/manufacturers/${item.slug}`}
+                            prefetch={false}
+                          >
                             <div
                               className={`${styles.accordionLink} ${
                                 item.slug === slug ? styles.active : ''

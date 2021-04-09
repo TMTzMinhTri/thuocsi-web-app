@@ -11,4 +11,5 @@ export { default as OrderService } from './OrderService';
 export { default as PricingService } from './PricingService';
 export { default as SettingService } from './SettingService';
 export { default as UploadImageService } from './UploadImageService';
+export { default as CartService } from './CartService';
 export * from './SsrService';

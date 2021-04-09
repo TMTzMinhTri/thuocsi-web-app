@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-wrap-multilines */
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Paper, FormControlLabel, RadioGroup, Radio, FormControl } from '@material-ui/core';
@@ -14,7 +15,7 @@ const renderPaymentMethod = ({ item }) => {
         key={uuidv4()}
         value={code}
         control={<Radio classes={{ root: clsx(styles.checkbox, styles.checkbox_color) }} />}
-        label={(
+        label={
           <div className={styles.fw500}>
             {name}{' '}
             {code === 'PAYMENT_METHOD_BANK' && url && (
@@ -23,7 +24,7 @@ const renderPaymentMethod = ({ item }) => {
               </a>
             )}
           </div>
-        )}
+        }
       />
       {subTitle && <div className={styles.subTitle}>{subTitle}</div>}
 
@@ -43,16 +44,18 @@ const renderPaymentMethod = ({ item }) => {
   );
 };
 
-const PaymentMethod = ({ handleChange, selectedValue = '', paymentMethods = [] }) => (
-  <Paper className={styles.root} elevation={4}>
-    <h1 className={styles.title}>Hình thức thanh toán</h1>
-
-    <FormControl component="fieldset">
-      <RadioGroup value={selectedValue} onChange={(e) => handleChange(e)}>
-        {paymentMethods && paymentMethods.map((item) => renderPaymentMethod({ item }))}
-      </RadioGroup>
-    </FormControl>
-  </Paper>
-);
+const PaymentMethod = ({ handleChange, selectedValue = '', paymentMethods = [] }) => {
+  const selectedVal = selectedValue || paymentMethods[0]?.code;
+  return (
+    <Paper className={styles.root} elevation={4}>
+      <h1 className={styles.title}>Hình thức thanh toán</h1>
+      <FormControl component="fieldset">
+        <RadioGroup value={selectedVal} onChange={(e) => handleChange(e)}>
+          {paymentMethods && paymentMethods.map((item) => renderPaymentMethod({ item }))}
+        </RadioGroup>
+      </FormControl>
+    </Paper>
+  );
+};
 
 export default PaymentMethod;

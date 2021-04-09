@@ -380,9 +380,47 @@ export const customerFeedbackData = [
 ];
 
 export const PAGE_SIZE = 20;
+export const PAGE_SIZE_30 = 30;
 
 export const HOLIDAYS = ['0209', '3004', '0105', '0204', '0101'];
 
 export const MAX_PRODUCT_QTY_DISPLAY = 100000;
 
 export const MAX_PRODUCT_CART = 200;
+export const MENU = [
+  {
+    id: '1',
+    name: 'Sản Phẩm',
+    icon: 'icon-product',
+    url: '/products',
+    isNew: false,
+  },
+  {
+    id: '2',
+    name: 'Hoạt Chất',
+    icon: 'icon-ingredients',
+    url: '/ingredients',
+    isNew: false,
+  },
+  {
+    id: '3',
+    name: 'Đặt Hàng Nhanh',
+    icon: 'icon-quick-order',
+    url: '/quick-order',
+    isNew: false,
+  },
+  {
+    id: '4',
+    name: 'Khuyến Mãi',
+    icon: 'fab fa-hotjar',
+    url: '/deals',
+    isNew: false,
+  },
+  {
+    id: '5',
+    name: 'Mã Giảm Giá',
+    icon: 'fas fa-tag',
+    url: '/promo-codes',
+    isNew: true,
+  },
+];

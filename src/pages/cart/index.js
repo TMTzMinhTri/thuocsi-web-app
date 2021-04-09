@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Typography, Grid } from '@material-ui/core';
-import { Template, ProductCartList, CardInfo, LinkComp, LoadingScreen, Button } from 'components';
+import Template from 'components/layout/Template';
+import { Button, LinkComp } from 'components/atoms';
+import CardInfo from 'components/mocules/CardInfo';
+import { LoadingScreen, ProductCartList } from 'components/organisms';
+
 import { useCart } from 'context';
 import { withLogin } from 'HOC';
-import { doWithServerSide } from 'services';
+import { doWithServerSide } from 'services/SsrService';
 import { QUICK_ORDER } from 'constants/Paths';
 import { Alert } from '@material-ui/lab';
 import styles from './style.module.css';
@@ -16,7 +20,7 @@ function Cart({ isMobile, user }) {
   const title = 'Giỏ hàng – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
 
   const [, setCartList] = useState();
-  const { cartItems, loading, itemCount } = useCart();
+  const { cartItems = [], loading, itemCount } = useCart();
   const pageTitle = `Giỏ hàng (${itemCount})`;
   const pageName = 'cart';
   if (loading) return <LoadingScreen />;

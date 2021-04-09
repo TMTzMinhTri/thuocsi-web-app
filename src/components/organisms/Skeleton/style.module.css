@@ -1,19 +1,26 @@
-.root{
-    flex-grow: 1;
+.root {
+  flex-grow: 1;
 }
-.item{
-    margin-bottom: 30px !important;
+.item {
+  margin-bottom: 30px !important;
 }
-
+.pagingSkeleton {
+  display: grid;
+  width: 100px;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 150px;
+  margin: 20px auto 20px;
+}
 @media (min-width: 1360px) and (max-width: 1700px) {
-    .item{
-      max-width: 20% !important;
-      flex-basis: 20% !important;
-    }
+  .item {
+    max-width: 20% !important;
+    flex-basis: 20% !important;
+  }
 }
 @media (min-width: 1701px) {
-    .item{
-        max-width: 16.666667% !important;
-        flex-basis: 16.666667% !important;
-    }
+  .item {
+    max-width: 16.666667% !important;
+    flex-basis: 16.666667% !important;
+  }
 }

@@ -5,10 +5,11 @@ import IngredientDetailContainer from 'components/organisms/IngredientDetailCont
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
 import { IngredientCLient, isValid } from 'clients';
-import { doWithServerSide } from 'services';
+import { doWithServerSide } from 'services/SsrService';
 import { INGREDIENT } from 'constants/Paths';
 import { Container } from '@material-ui/core';
 import Router from 'next/router';
+import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
@@ -30,7 +31,9 @@ export async function getServerSideProps(ctx) {
 
 const Ingredient = ({ ingredientRes = {}, products = [], isMobile }) => {
   if (!isValid(ingredientRes)) {
-    NotifyUtils.error('Không tìm thấy hoạt chất. Gọi 02 873 008 840 để hỏi thêm về hoạt chất này.');
+    NotifyUtils.error(
+      'Không tìm thấy hoạt chất. Hãy liên hệ chúng tôi để hỏi thêm về hoạt chất này.',
+    );
     Router.push(INGREDIENT);
     return <LoadingScreen />;
   }
@@ -50,4 +53,4 @@ const Ingredient = ({ ingredientRes = {}, products = [], isMobile }) => {
   );
 };
 
-export default Ingredient;
+export default withLogin(Ingredient, false, { url: '/ingredients' });

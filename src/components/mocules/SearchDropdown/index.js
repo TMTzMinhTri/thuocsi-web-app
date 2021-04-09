@@ -6,7 +6,6 @@ import styles from './styles.module.css';
 
 const SearchDropdown = (props) => {
   const { data, keyword } = props;
-
   return (
     <div className={styles.searchDropdown}>
       {data[0] && data[0].products ? (
@@ -19,10 +18,9 @@ const SearchDropdown = (props) => {
             <LinkComp
               className={styles.searchResults}
               key={uuidv4()}
-              item={item}
               href={getPathProductBySlug(item.slug)}
             >
-              {item.name} {item.seller && item.seller.name ? `- ${item.seller.name}` : ''}
+              {item.name}
             </LinkComp>
           ))}
         </>

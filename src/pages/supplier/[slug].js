@@ -11,14 +11,14 @@ import { Grid } from '@material-ui/core';
 import { LOGO_PHARMACY } from 'constants/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-
+import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   const [productsRes, brand, group, tabs, supplierRes] = await Promise.all([
     ProductService.loadDataProduct({ ctx }),
-    CatClient.loadBrand(ctx),
-    CatClient.loadGroup(ctx),
+    CatClient.loadBrand({ ctx, params: { limit: 20 } }),
+    CatClient.loadGroup({ ctx, params: { limit: 20 } }),
     ProductService.getListTabs({ ctx }),
     SupplierService.getInfoSupplier({ ctx }),
   ]);
@@ -53,7 +53,7 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-export default function Supplier({
+const Supplier = ({
   products,
   total,
   brand = [],
@@ -66,7 +66,7 @@ export default function Supplier({
   isMobile,
   isAuthenticated,
   supplier,
-}) {
+}) => {
   const title = `${supplier.name} – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn`;
   const cat = 'supplier';
   return (
@@ -124,4 +124,6 @@ export default function Supplier({
       />
     </Template>
   );
-}
+};
+
+export default withLogin(Supplier, false);

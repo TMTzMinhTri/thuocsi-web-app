@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import Template from 'components/layout/Template';
 import { v4 as uuidv4 } from 'uuid';
 import { useAuth } from 'context';
+import { withLogin } from 'HOC';
 
 const DynamicWhyBuymed = dynamic(() => import('components/organisms/WhyBuymed'));
 const DynamicCommonQuestion = dynamic(() => import('components/mocules/CommonQuestion'));
@@ -13,7 +14,7 @@ const DynamicHomeCTASection = dynamic(() => import('components/organisms/HomeCTA
 const DynamicBannerSlider = dynamic(() => import('components/organisms/BannerSlider'));
 const DynamicProductSlider = dynamic(() => import('components/organisms/ProductSliderSection'));
 
-export default function LandingPage(props) {
+const LandingPage = (props) => {
   const { settings } = props;
 
   const bannerStatus = settings && settings.banner ? settings.banner.status : 'ON';
@@ -52,4 +53,6 @@ export default function LandingPage(props) {
       <DynamicMedia />
     </Template>
   );
-}
+};
+
+export default withLogin(LandingPage, false);

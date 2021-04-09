@@ -65,6 +65,7 @@ const CartCounponCard = (props) => {
     handleChangePromo,
     totalPrice = 0,
     isDisable,
+    message,
     className,
     conditionsVi = [],
   } = props;
@@ -153,7 +154,7 @@ const CartCounponCard = (props) => {
                 </div>
               </Grid>
 
-              {type === PROMO_TYPE.VOUCHERCODE && (
+              {!isDisable && type === PROMO_TYPE.VOUCHERCODE && (
                 <Grid item style={{ paddingTop: '5px' }}>
                   Đơn hàng sau khi áp dụng :{' '}
                   <strong style={{ color: 'red' }}>
@@ -224,6 +225,17 @@ const CartCounponCard = (props) => {
                           </div>
                         )),
                       )}
+                    {message && (
+                      <Typography
+                        style={{
+                          fontSize: 'small',
+                          color: palette.error.main,
+                          marginBottom: '10px',
+                        }}
+                      >
+                        {message}
+                      </Typography>
+                    )}
                   </AccordionDetails>
                 </Accordion>
               </Grid>

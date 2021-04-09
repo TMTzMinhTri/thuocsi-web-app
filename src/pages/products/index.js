@@ -5,17 +5,15 @@ import ProductListing from 'components/organisms/ProductListing';
 import CatClient from 'clients/CatClient';
 import { TAB_LIST } from 'constants/data';
 import { doWithServerSide, ProductService } from 'services';
-import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [productsRes, brand, group, tabs, i18next] = await Promise.all([
+    const [productsRes, brand, group, tabs] = await Promise.all([
       ProductService.loadDataProduct({ ctx }),
-      CatClient.loadBrand(ctx),
-      CatClient.loadGroup(ctx),
+      CatClient.loadBrand({ ctx, params: { limit: 20 } }),
+      CatClient.loadGroup({ ctx, params: { limit: 20 } }),
       ProductService.getListTabs({ ctx }),
-      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
     ]);
     const currentTab = ctx.query.currentTab || '';
     const sortBy = ctx.query.sortBy || '';
@@ -33,13 +31,12 @@ export async function getServerSideProps(ctx) {
         group,
         slug,
         tabs,
-        ...i18next,
       },
     };
   });
 }
 
-export default function Products({
+const Products = ({
   products,
   total,
   brand = [],
@@ -51,7 +48,7 @@ export default function Products({
   slug = '',
   isMobile,
   isAuthenticated,
-}) {
+}) => {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'products';
   const pageTitle = 'Sản phẩm';
@@ -82,4 +79,6 @@ export default function Products({
       />
     </Template>
   );
-}
+};
+
+export default withLogin(Products, false, { url: '/products?login=true' });

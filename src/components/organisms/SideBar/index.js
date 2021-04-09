@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { Icon } from '@material-ui/core';
@@ -15,10 +15,10 @@ import { faSignOutAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { LINK_REGISTER, LOGO_FOOTER_REGISTER } from 'constants/Images';
 import { useRouter } from 'next/router';
 import { useAuth, useCart } from 'context';
-import { SettingClient } from 'clients';
 import { PRODUCTS_URL } from 'constants/Paths';
 import CustomModal from 'components/mocules/CustomModal';
 import { useModal } from 'hooks';
+import { MENU } from 'constants/data';
 import { LinkComp } from '../../atoms';
 
 import styles from './styles.module.css';
@@ -27,7 +27,6 @@ const SideBar = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
   const { clearCart } = useCart();
-  const [menu, setMenu] = useState([]);
   const [showPoupLogout, toggleLogout] = useModal(false);
   const handleLogout = () => {
     logout();
@@ -49,13 +48,7 @@ const SideBar = () => {
     }
     return url;
   };
-  useEffect(() => {
-    async function loadMenu() {
-      const data = await SettingClient.getMenu();
-      setMenu(data);
-    }
-    loadMenu();
-  }, []);
+
   return (
     <nav className={styles.sidebar_content}>
       <div className={styles.sidebar__user}>
@@ -94,7 +87,7 @@ const SideBar = () => {
             <Icon className="icon-home" />
           </LinkComp>
         </li>
-        {menu.map((item) => (
+        {MENU.map((item) => (
           <li key={item.id}>
             <LinkComp
               className={clsx(
@@ -240,7 +233,7 @@ const SideBar = () => {
         </li> */}
       </ul>
       <div className={styles.contact_more}>
-        <div className={styles.open_hours}>Từ T2 đến T6: 8:00 - 18:00</div>
+        {/* <div className={styles.open_hours}>Từ T2 đến T6: 8:00 - 18:00</div> */}
         <a
           className={styles.fb}
           href="https://www.facebook.com/thuocsivn/"

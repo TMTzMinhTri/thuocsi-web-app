@@ -4,17 +4,15 @@ import Template from 'components/layout/Template';
 import ProductListing from 'components/organisms/ProductListing';
 import CatClient from 'clients/CatClient';
 import { ProductService } from 'services';
-import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { withLogin } from 'HOC';
 
 export async function getServerSideProps(ctx) {
-  const [productsRes, catInfo, brand, group, tabs, i18next] = await Promise.all([
+  const [productsRes, catInfo, brand, group, tabs] = await Promise.all([
     ProductService.loadProductWithManufacturer({ ctx }),
     CatClient.loadManufacturerInfoBySlug(ctx),
-    CatClient.loadBrand(ctx),
-    CatClient.loadGroup(ctx),
+    CatClient.loadBrand({ ctx, params: { limit: 20 } }),
+    CatClient.loadGroup({ ctx, params: { limit: 20 } }),
     ProductService.getListTabs({ ctx }),
-    serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
   ]);
   const currentTab = ctx.query.currentTab || '';
   const sortBy = ctx.query.sortBy || '';
@@ -33,12 +31,11 @@ export async function getServerSideProps(ctx) {
       group,
       slug,
       tabs,
-      ...i18next,
     },
   };
 }
 
-export default function Products({
+const ManufacturersDetail = ({
   products,
   catInfo = '',
   total,
@@ -51,7 +48,7 @@ export default function Products({
   isMobile,
   isAuthenticated,
   tabs = [],
-}) {
+}) => {
   const title = 'Tất cả sản phẩm – Đặt thuốc sỉ rẻ hơn tại thuocsi.vn';
   const cat = 'manufacturers';
   const pageTitle = 'Sản phẩm';
@@ -74,4 +71,5 @@ export default function Products({
       />
     </Template>
   );
-}
+};
+export default withLogin(ManufacturersDetail, false);

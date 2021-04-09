@@ -1,17 +1,72 @@
-const { i18n } = require('./next-i18next.config');
-
-if (process.env.NODE_ENV === 'DEVELOPMENT') {
+if (process.env.NODE_ENV === 'PRODUCTION' || process.env.ENV === 'prd') {
   console.log = function () {};
   console.debug = function () {};
   console.warn = function () {};
   console.info = function () {};
 }
 
+function getFormattedDate(date, format = 'DD/MM/YYYY') {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+
+  return format
+    .replace('DD', String(day).padStart(2, '0'))
+    .replace('MM', String(month).padStart(2, '0'))
+    .replace('YYYY', year)
+    .replace('HH', String(hour).padStart(2, '0'))
+    .replace('mm', String(minute).padStart(2, '0'))
+    .replace('ss', String(second).padStart(2, '0'));
+}
+
+const generateBuildId = () => getFormattedDate(new Date(), 'YYYYMMDDHHmm');
+
 module.exports = {
-  i18n,
-  images: {
-    domains: ['assets.thuocsi.vn', 'storage.googleapis.com', 'www.facebook.com'],
+  publicRuntimeConfig: {
+    buildId: generateBuildId(),
   },
+  images: {
+    domains: [
+      'assets.thuocsi.vn',
+      'storage.googleapis.com',
+      'www.facebook.com',
+      'img-proxy.v2-dev.thuocsi.vn',
+      'img-proxy.thuocsi.vn',
+    ],
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [50, 100, 200],
+  },
+  async headers() {
+    return [
+      {
+        // This works, and returns appropriate Response headers:
+        source: '/(.*).png',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=1800, s-maxage=1800, stale-while-revalidate=1080',
+          },
+        ],
+      },
+      {
+        // This doesn't work for 'Cache-Control' key (works for others though):
+        source: '/_next/image(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            // Instead of this value:
+            value: 'public, max-age=1800, s-maxage=1800, stale-while-revalidate=1800',
+            // Cache-Control response header is `public, max-age=60` in production
+            // and `public, max-age=0, must-revalidate` in development
+          },
+        ],
+      },
+    ];
+  },
+
   async redirects() {
     return [
       {

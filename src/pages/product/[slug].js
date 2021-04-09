@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useCallback } from 'react';
 import {
   Grid,
@@ -41,43 +42,42 @@ import { ProductService, doWithServerSide, SupplierService } from 'services';
 import { useCart, useAuth } from 'context';
 import debounce from 'utils/debounce';
 import { TERMS_URL, INGREDIENT, MANUFACTURERS, CATEGORIES, PRODUCTS_URL } from 'constants/Paths';
-import { DOMAIN_SELLER_CENTER, NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
+import { DOMAIN_SELLER_CENTER } from 'sysconfig';
 import { NotifyUtils, calculateTimeLeft, formatDate } from 'utils';
 import Router from 'next/router';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
+import { withLogin } from 'HOC';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   return doWithServerSide(ctx, async () => {
-    const [productRes, supplier, i18next] = await Promise.all([
+    const [productRes, supplier] = await Promise.all([
       ProductService.loadDataProductDetail({ ctx }),
       SupplierService.getInfoSupplier({ ctx }),
-      serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
     ]);
     return {
       props: {
         product: getFirst(productRes),
         supplier,
-        ...i18next,
       },
     };
   });
 }
 
-export default function ProductDetail({ product, supplier = [], isMobile }) {
+const ProductDetail = ({ product, supplier = [], isMobile }) => {
+  if (!product) {
+    NotifyUtils.error(
+      'Không tìm thấy sản phẩm. Hãy liên hệ chúng tôi để hỏi thêm về sản phẩm này.',
+    );
+    Router.push(PRODUCTS_URL);
+    return <LoadingScreen />;
+  }
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const [tabValue, setTabValue] = React.useState('1');
+  const [tabValue, setTabValue] = useState('1');
 
   const { updateCartItem, removeCartItem } = useCart();
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { toggleLogin, isAuthenticated } = useAuth();
-
-  if (!product) {
-    NotifyUtils.error('Không tìm thấy sản phẩm. Gọi 02 873 008 840 để hỏi thêm về sản phẩm này.');
-    Router.push(PRODUCTS_URL);
-    return <LoadingScreen />;
-  }
 
   const {
     name,
@@ -108,7 +108,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
     if (!q) {
       return;
     }
-    const response = await updateCartItem({ product, q: parseFloat(q) });
+    const response = await updateCartItem({ product, q: parseFloat(q) }, true);
     if (isValid(response)) {
       setQuantity(q);
     } else if (response.errorCode === 'CART_MAX_QUANTITY') {
@@ -130,7 +130,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   // TODO:
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const handler = useCallback(
-    debounce((val, updateType) => handleCart(val, updateType), 500),
+    debounce((val, updateType) => handleCart(val, updateType), 300),
     [],
   );
 
@@ -168,11 +168,14 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
   };
 
   const handleInputChange = (e) => {
-    if (/^\d+$/.test(e.currentTarget.value) || !e.currentTarget.value) {
-      const curValue = e.currentTarget.value;
+    const val = e.currentTarget.value;
+
+    if (/^\d+$/.test(val) || !val) {
+      const curValue = Math.min(parseFloat(val || 0), prdMaxQuantity);
+
       setQuantity(curValue);
       if (!curValue || curValue === 0) {
-        if (quantity === 0) return;
+        if (curValue === 0) return;
         handler(product, 'remove');
       } else {
         handler(+curValue, 'update');
@@ -217,7 +220,7 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
         <div className={styles.container}>
           <Grid container className={styles.detail_card}>
             <Grid className={styles.image_gallery} sm={12} md={4} item>
-              <MultiImageBox images={product.imageUrls} />
+              <MultiImageBox images={product.imagesProxy} />
               <small className={styles.text_muted}>
                 * Hình sản phẩm có thể thay đổi theo thời gian
               </small>
@@ -533,4 +536,6 @@ export default function ProductDetail({ product, supplier = [], isMobile }) {
       />
     </Template>
   );
-}
+};
+
+export default withLogin(ProductDetail, false);

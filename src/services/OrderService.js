@@ -1,6 +1,7 @@
 import { getData, getFirst, isValid, isValidWithoutData, OrderClient } from 'clients';
-import { ENUM_ORDER_STATUS, ENUM_ORDER_TYPE } from 'constants/Enums';
+import { ENUM_ORDER_STATUS, ENUM_ORDER_TYPE, HTTP_STATUS } from 'constants/Enums';
 import { getDetailDeliveryMethod, getDetailPaymentMethod } from './PricingService';
+import { getProductInfoMapFromSkus } from './ProductService';
 
 export const deleteOrder = async ({ orderNo }) => {
   const res = await OrderClient.deleteOrder({ orderNo });
@@ -9,6 +10,20 @@ export const deleteOrder = async ({ orderNo }) => {
 
 const MINUTES_30 = 1800000;
 
+async function getInfoOrderItem({ orderItems = [], ctx }) {
+  const skus = orderItems.reduce((accumulator, item) => {
+    if (item?.productSku) return [...accumulator, item.productSku];
+    return accumulator;
+  }, []);
+
+  if (skus.length === 0) {
+    return {
+      status: HTTP_STATUS.Forbidden,
+      message: 'Dữ liệu không đủ',
+    };
+  }
+  return getProductInfoMapFromSkus({ skus, ctx });
+}
 // get order detail ( page order detail )
 export const getOrderDetail = async ({ ctx, orderId }) => {
   const orderRes = await OrderClient.getOrderById({ id: Number(orderId), ctx });
@@ -49,7 +64,7 @@ export const getOrderDetail = async ({ ctx, orderId }) => {
     order.canEdit &&
     products.filter((item) => item && item.orderType !== ENUM_ORDER_TYPE.NORMAL).length === 0;
 
-  const orderItemInfoRes = await OrderClient.getInfoOrderItem({
+  const orderItemInfoRes = await getInfoOrderItem({
     orderItems: products,
     ctx,
   });
@@ -91,4 +106,4 @@ export const getOrders = async ({ ctx, status }) => {
   return orderRes;
 };
 
-export default { deleteOrder, getOrderDetail, getOrders };
+export default { deleteOrder, getOrderDetail, getOrders, getInfoOrderItem };

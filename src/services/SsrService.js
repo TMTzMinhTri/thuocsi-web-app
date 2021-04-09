@@ -1,4 +1,5 @@
 import { getFirst, isValid } from 'clients';
+import { HTTP_STATUS } from 'constants/index';
 import { getAccount } from './UserService';
 
 export const doWithServerSide = async (ctx, callback, redirect = null) => {
@@ -30,6 +31,7 @@ export const doWithServerSide = async (ctx, callback, redirect = null) => {
     result = result || {};
     result.props = result.props || {};
     result.props.user = user || null;
+    result.props.isInvalidToken = accRes?.status === HTTP_STATUS.Unauthorized;
     // result.props.sessionToken = sessionToken;
     result.props.isAuthenticated = isAuthenticated;
     return result;

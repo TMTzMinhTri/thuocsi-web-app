@@ -10,7 +10,6 @@ import { LOGO_THUOCSI } from 'constants/Images';
 import { HeaderUser, SearchInput } from 'components/mocules';
 import { LinkComp, ButtonHeader } from 'components/atoms';
 import { useAuth, useNotify } from 'context';
-import { useTranslation } from 'next-i18next';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import styles from './styles.module.css';
@@ -51,7 +50,6 @@ const HeaderInfoEle = memo(() => (
 ));
 
 const InfoHeader = memo(() => {
-  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { user, isAuthenticated, toggleLogin, toggleSignUp, toggleRegisterGuest } = useAuth();
@@ -79,7 +77,7 @@ const InfoHeader = memo(() => {
                 onClick={toggleLogin}
                 color="#000"
               >
-                {t('login')}
+                Đăng Nhập
               </ButtonHeader>
               <ButtonHeader
                 variant="contained"
@@ -87,7 +85,7 @@ const InfoHeader = memo(() => {
                 color="white"
                 onClick={toggleSignUp}
               >
-                {t('register')}
+                Tạo Tài Khoản
               </ButtonHeader>
               <ButtonHeader
                 variant="outlined"
@@ -96,7 +94,7 @@ const InfoHeader = memo(() => {
                 onClick={toggleRegisterGuest}
                 className="custombtn"
               >
-                {t('tester.test')}
+                Dùng Thử
               </ButtonHeader>
             </div>
           </>

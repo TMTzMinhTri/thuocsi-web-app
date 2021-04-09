@@ -3,15 +3,15 @@
 
 import React, { useState } from 'react';
 import { Grid, Paper } from '@material-ui/core';
+import Template from 'components/layout/Template';
 import {
-  Template,
   DeliveryInfoForm,
   DeliveryMethod,
   PaymentMethod,
   CheckoutSticky,
-  LoadingScreen,
   CartNote,
-} from 'components';
+} from 'components/mocules';
+import LoadingScreen from 'components/organisms/LoadingScreen';
 import { CartClient, getData } from 'clients';
 import { doWithServerSide, PricingService } from 'services';
 import { useCart } from 'context';
@@ -20,25 +20,21 @@ import { useRouter } from 'next/router';
 import { NotifyUtils } from 'utils';
 import { CART_URL } from 'constants/Paths';
 
-import { NEXT_I18NEXT_NAME_SPACES } from 'sysconfig';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styles from './styles.module.css';
 
 export async function getServerSideProps(ctx) {
   try {
     return doWithServerSide(ctx, async () => {
-      const [cartRes, paymentMethods, deliveryMethods, i18next] = await Promise.all([
+      const [cartRes, paymentMethods, deliveryMethods] = await Promise.all([
         CartClient.loadDataCart(ctx),
         PricingService.getListPaymentMethod({ ctx }),
         PricingService.getListDeliveryMethod({ ctx }),
-        serverSideTranslations(ctx.locale, NEXT_I18NEXT_NAME_SPACES),
       ]);
       return {
         props: {
           cart: getData(cartRes),
           paymentMethods,
           deliveryMethods,
-          ...i18next,
         },
       };
     });
@@ -49,7 +45,7 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMethods }) => {
+const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods = [], deliveryMethods = [] }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -68,13 +64,16 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
     return <LoadingScreen />;
   }
 
+  const deliveryMethodDefault = deliveryMethods[0]?.code || '';
+  const paymentMethodDefault = paymentMethods[0]?.code || '';
+
   const {
     itemCount = 0,
     totalPrice = 0,
     updateDeliveryMethod,
     updatePaymentMethod,
-    paymentMethod,
-    deliveryPlatform,
+    paymentMethod = paymentMethodDefault,
+    deliveryPlatform = deliveryMethodDefault,
     customerName,
     customerPhone,
     customerEmail,
@@ -111,10 +110,11 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
 
   const dataCustomer = {
     paymentMethods,
-    paymentMethod,
+    paymentMethod: paymentMethod || paymentMethodDefault,
     deliveryMethods,
-    deliveryPlatform,
+    deliveryPlatform: deliveryPlatform || deliveryMethodDefault,
     totalWard,
+    ordersCount: user.ordersCount || 0,
   };
 
   if (!cart || cart?.length === 0) {
@@ -159,7 +159,12 @@ const CheckoutPage = ({ user = {}, isMobile, cart, paymentMethods, deliveryMetho
   };
 
   return (
-    <Template title={title} isMobile={isMobile} point={user?.point || 0} balance={user?.balance || 0}>
+    <Template
+      title={title}
+      isMobile={isMobile}
+      point={user?.point || 0}
+      balance={user?.balance || 0}
+    >
       <div className={styles.wrapper_gray}>
         <div className={styles.payment_wrapper}>
           <Grid spacing={4} container>

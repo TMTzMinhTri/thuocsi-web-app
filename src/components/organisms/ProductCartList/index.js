@@ -34,7 +34,7 @@ const ProductCartList = ({ products, isMobile }) => (
       <Info className={styles.info_icon} />
       <Typography>
         Để thêm sản phẩm vào giỏ hàng, vui lòng quay về trang
-        <Link href={QUICK_ORDER}>
+        <Link href={QUICK_ORDER} prefetch={false}>
           <span className={styles.quick_order}>Đặt hàng nhanh </span>
         </Link>
       </Typography>

@@ -41,7 +41,10 @@ const ThankYouContainer = ({ orderID = 0, orderNo, deliveryDate, canEdit = false
         Đơn hàng sẽ được xác nhận bằng tin nhắn trong vòng 60 phút.
         <br />
         Để xuất đơn đỏ, vui lòng vào trang
-        <Link href={MY_ORDER_URL}> Đơn hàng của tôi </Link>
+        <Link prefetch={false} href={MY_ORDER_URL}>
+          {' '}
+          Đơn hàng của tôi{' '}
+        </Link>
         và nhấn vào nút "Xuất hoá đơn".
       </Grid>
       <Grid item className={styles.note} container justify="center" alignItems="center">

@@ -61,6 +61,13 @@ const searchStringInStrings = (arr, str) => {
   }
 
   return rsUnSigned;
-}
+};
 
-export default { hashCode, changeAlias, encodeUrl, searchStringInStrings };
+export const capitalizeText = (phrase) =>
+  phrase
+    .toLowerCase()
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+export default { hashCode, changeAlias, encodeUrl, searchStringInStrings, capitalizeText };
