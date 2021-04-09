@@ -99,7 +99,7 @@ async function loadProductWithCategory({ ctx, isTotal }) {
     page,
     q,
     category,
-    limit: PAGE_SIZE,
+    limit: PAGE_SIZE_30,
     getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
   };
   const result = await GET({ url, ctx, params, isBasic: true });
@@ -118,7 +118,7 @@ async function loadProductWithManufacturer({ ctx, isTotal }) {
     sortBy,
     page,
     q,
-    limit: PAGE_SIZE,
+    limit: PAGE_SIZE_30,
     getTotal: typeof isTotal !== 'undefined' ? isTotal : true,
   };
   const result = await GET({ url, ctx, params, isBasic: true });
