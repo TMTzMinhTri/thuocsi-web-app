@@ -128,6 +128,7 @@ export default function ProductListing({
       </div>
     );
   };
+
   return (
     <div className={styles.wrapper}>
       {isMobile ? (

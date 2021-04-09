@@ -169,10 +169,7 @@ export const MARKETING_API = {
 const TICKET_API_PREFIX = '/marketplace/ticket/v1';
 const TICKET = `${TICKET_API_PREFIX}/ticket/customer`;
 const TICKET_REASONS = `${TICKET_API_PREFIX}/reasons/list`;
-const TICKET_LIST = `${TICKET}/list`;
-
 export const TICKET_API = {
   TICKET,
   TICKET_REASONS,
-  TICKET_LIST,
 };

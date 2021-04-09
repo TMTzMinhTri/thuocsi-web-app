@@ -54,3 +54,4 @@ export { default as CartNote } from './CartNote';
 export { default as CountdownTimerDetail } from './CountdownTimerDetail';
 export { default as UploadImages } from './UploadImages';
 export { default as TicketFormModal } from './TicketFormModal';
+export { default as TicketDetailModal } from './TicketDetailModal';

@@ -386,6 +386,7 @@ export const HOLIDAYS = ['0209', '3004', '0105', '0204', '0101'];
 
 export const MAX_PRODUCT_QTY_DISPLAY = 100000;
 
+export const MAX_PRODUCT_CART = 200;
 export const MENU = [
   {
     id: '1',

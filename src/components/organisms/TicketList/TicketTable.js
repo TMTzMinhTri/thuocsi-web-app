@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { TableRow, TableCell, Chip, Grid, Button } from '@material-ui/core';
 import { InfoTable } from 'components/atoms';
 import { DateTimeUtils } from 'utils';
@@ -5,6 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { ALIGN, TICKET_STATUS, LIST_REASONS } from 'constants/Enums';
 import { MY_ORDER_URL } from 'constants/Paths';
 import Link from 'next/link';
+import { TicketDetailModal } from 'components/mocules';
+import { useModal } from 'hooks';
 import styles from './styles.module.css';
 
 const heads = [
@@ -13,9 +16,18 @@ const heads = [
   { text: 'Thời gian tạo', align: ALIGN.LEFT },
   { text: 'Lí do', align: ALIGN.LEFT },
   { text: 'Trạng thái', align: ALIGN.LEFT },
+  { text: 'Hành động', align: ALIGN.CENTER },
 ];
 
 function TicketTable({ tickets }) {
+  const [open, toggle] = useModal();
+  const [currentTicket, setCurrentTicket] = useState({});
+
+  const handleViewDetail = (ticket) => {
+    setCurrentTicket(ticket);
+    toggle();
+  };
+
   return (
     <div style={{ overflowX: 'auto' }}>
       <InfoTable heads={heads} className={styles.bottom_square}>
@@ -27,11 +39,9 @@ function TicketTable({ tickets }) {
             return (
               <TableRow hover key={uuidv4()}>
                 <TableCell align="left">
-                  <Link href={`${MY_ORDER_URL}/${ticket.saleOrderID}`}>
-                    {`#${ticket.saleOrderID}`}
-                  </Link>
+                  <Link href={`${MY_ORDER_URL}/${ticket.orderId}`}>{`#${ticket.orderId}`}</Link>
                 </TableCell>
-                <TableCell align="left">{ticket.code}</TableCell>
+                <TableCell align="left">{ticket.orderCode}</TableCell>
                 <TableCell align="left">
                   {DateTimeUtils.getFormattedDate(
                     new Date(ticket?.createdTime || null),
@@ -66,16 +76,22 @@ function TicketTable({ tickets }) {
                     style={{ backgroundColor: ticketStatus.color }}
                   />
                 </TableCell>
+                <TableCell align={ALIGN.CENTER}>
+                  <Button onClick={() => handleViewDetail(ticket)} className={styles.detail_text}>
+                    Chi tiết
+                  </Button>
+                </TableCell>
               </TableRow>
             );
           })
         ) : (
           <TableRow hover key={uuidv4()}>
-            <TableCell component="th" scope="row" colSpan={5} align="center">
+            <TableCell component="th" scope="row" colSpan={5} align={ALIGN.CENTER}>
               Bạn chưa gửi phản hồi
             </TableCell>
           </TableRow>
         )}
+        <TicketDetailModal visible={open} onClose={toggle} ticket={currentTicket} />
       </InfoTable>
     </div>
   );

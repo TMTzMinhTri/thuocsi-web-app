@@ -1,0 +1,175 @@
+.feedback_order {
+  width: 100%;
+  max-width: 700px;
+  height: 100%;
+  background: #f4f7fc;
+  overflow: auto;
+  outline: 0;
+  border-radius: 8px;
+}
+
+.container {
+  padding: 15px;
+}
+
+.title {
+  background: rgba(0, 175, 107, 0.8784313725490196);
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.label {
+  color: #565656;
+  font-weight: 400;
+}
+.text_body {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 5px 15px !important;
+}
+
+.button_find {
+  padding: 3px !important;
+}
+
+.text_red {
+  display: block;
+  color: red;
+}
+
+.button_upload {
+}
+
+.button_send {
+  /* color: ; */
+  background: #f4f7fc !important;
+  padding: 25px;
+}
+
+.reason_select {
+  height: 2.4em !important;
+}
+
+.reason_select [class*='MuiInputBase-input'] {
+  padding: 0 0 0 15px !important;
+  height: 100%;
+}
+
+.container [class*='input__info'] {
+  height: 50px !important;
+}
+.textarea,
+.imagesField {
+  margin-top: 10px !important;
+}
+.info_group {
+  margin-bottom: 20px !important;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.rug-handle-icon {
+  width: 70px;
+}
+.customText {
+  margin-bottom: 5px;
+}
+
+.imagesField [class*='info_form_grid'] {
+  margin-bottom: 5px;
+}
+
+.card {
+  position: relative;
+  width: 70%;
+  height: 30vh;
+  border-radius: 10px;
+  background-image: linear-gradient(to right top, #0089ba, #0078c0, #0064c3, #004ec1, #1730b5);
+  border: 1px solid black;
+}
+
+.bank_name {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  font-size: 45px;
+  font-weight: 700;
+  color: white;
+}
+
+.bank_code {
+  position: absolute;
+  left: 20%;
+  top: 35%;
+  font-size: 25px;
+  font-weight: 700;
+  color: white;
+}
+
+.info_bank_title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: block;
+  text-align: center;
+  padding: 5px;
+}
+
+.ticket_status_chip {
+  color: white !important;
+  font-weight: 550;
+  margin-left: 10px;
+}
+
+.ticket_status_chip [class*='MuiChip-icon'] {
+  color: white;
+}
+.ticket_status_chip [class*='MuiSvgIcon-root'] {
+  font-size: 1.15rem;
+}
+.reason_button[class*='MuiButton-root'] {
+  padding: 0 12px;
+  color: rgba(0, 0, 0, 0.87) !important;
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+
+.ticket_img_container {
+  width: 670px;
+  height: 130px;
+  padding: 17px;
+  border: 1px solid rgba(0, 0, 0, 0.26);
+  border-radius: 4px;
+  /* background-color: black; */
+}
+
+.ticket_img {
+  /* margin-left: 10px; */
+  /* padding: 5px; */
+  border: 1px solid rgba(0, 175, 107, 0.8784313725490196);
+  border-radius: 5px;
+  height: 90px;
+}
+
+.pop_over {
+  /* position: fixed !important; */
+  top: 50%;
+  left: 50%;
+}
+
+.text_field [class*='Mui-disabled'] {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 500;
+}
+
+.close_button {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}
+
+.image_modal {
+  position: relative;
+}

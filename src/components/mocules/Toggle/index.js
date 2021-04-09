@@ -92,7 +92,10 @@ export default function Toggle({ point, balance }) {
           <LocalOfferIcon />
         </MenuDropDownItem>
 
-        <MenuDropDownItem handleClick={() => router.push('/users/tickets')} text="Phản hồi của tôi">
+        <MenuDropDownItem
+          handleClick={() => router.push('/users/my-ticket')}
+          text="Phản hồi của tôi"
+        >
           <MessageIcon />
         </MenuDropDownItem>
 
