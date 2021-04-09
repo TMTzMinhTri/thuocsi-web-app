@@ -35,7 +35,6 @@ const TicketFormModal = (props) => {
     code,
   } = ticket;
   const ticketStatus = TICKET_STATUS.find((ticketStt) => ticketStt.value === ticket.status);
-  const { customerName, customerPhone, createdTime = '' } = order;
 
   const [currentImage, setCurrentImage] = useState('');
   const [open, toggle] = useModal();
@@ -65,17 +64,17 @@ const TicketFormModal = (props) => {
               </Grid>
               <Grid item xs={12} md={6} className={styles.text_body}>
                 <span className={styles.label}>Tên khách hàng: </span>
-                <span className={styles.value}>{customerName}</span>
+                <span className={styles.value}>{order.customerName}</span>
               </Grid>
               <Grid item xs={12} md={6} className={styles.text_body}>
                 <span className={styles.label}>Ngày đặt hàng: </span>
                 <span className={styles.value}>
-                  {DateTimeUtils.getFormattedWithDate(new Date(createdTime))}
+                  {DateTimeUtils.getFormattedWithDate(new Date(order.createdTime))}
                 </span>
               </Grid>
               <Grid item xs={12} md={6} className={styles.text_body}>
                 <span className={styles.label}>Số điện thoại: </span>
-                <span className={styles.value}>{customerPhone}</span>
+                <span className={styles.value}>{order.customerPhone}</span>
               </Grid>
 
               <Grid container direction="row" className={styles.text_body}>

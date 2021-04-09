@@ -16,9 +16,10 @@ const heads = [
   { text: 'Thời gian tạo', align: ALIGN.LEFT },
   { text: 'Lí do', align: ALIGN.LEFT },
   { text: 'Trạng thái', align: ALIGN.LEFT },
+  { text: 'Hành động', align: ALIGN.CENTER },
 ];
 
-function TicketTable({ tickets, user }) {
+function TicketTable({ tickets }) {
   const [open, toggle] = useModal();
   const [currentTicket, setCurrentTicket] = useState({});
 
@@ -36,7 +37,7 @@ function TicketTable({ tickets, user }) {
               (ticketStt) => ticketStt.value === ticket.status,
             );
             return (
-              <TableRow hover key={uuidv4()} onClick={() => handleViewDetail(ticket)}>
+              <TableRow hover key={uuidv4()}>
                 <TableCell align="left">
                   <Link href={`${MY_ORDER_URL}/${ticket.orderId}`}>{`#${ticket.orderId}`}</Link>
                 </TableCell>
@@ -75,17 +76,22 @@ function TicketTable({ tickets, user }) {
                     style={{ backgroundColor: ticketStatus.color }}
                   />
                 </TableCell>
+                <TableCell align={ALIGN.CENTER}>
+                  <Button onClick={() => handleViewDetail(ticket)} className={styles.detail_text}>
+                    Chi tiết
+                  </Button>
+                </TableCell>
               </TableRow>
             );
           })
         ) : (
           <TableRow hover key={uuidv4()}>
-            <TableCell component="th" scope="row" colSpan={5} align="center">
+            <TableCell component="th" scope="row" colSpan={5} align={ALIGN.CENTER}>
               Bạn chưa gửi phản hồi
             </TableCell>
           </TableRow>
         )}
-        <TicketDetailModal visible={open} onClose={toggle} ticket={currentTicket} user={user} />
+        <TicketDetailModal visible={open} onClose={toggle} ticket={currentTicket} />
       </InfoTable>
     </div>
   );
