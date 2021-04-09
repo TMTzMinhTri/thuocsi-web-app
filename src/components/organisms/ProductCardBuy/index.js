@@ -193,7 +193,7 @@ const ProductCardBuy = ({
                 </div>
               )}
               {!isMobile &&
-              cartItemType !== ENUM_ORDER_TYPE.DEAL &&
+              cartItemType === ENUM_ORDER_TYPE.NORMAL &&
               maxQuantityProduct &&
               maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
@@ -283,7 +283,7 @@ const ProductCardBuy = ({
                 </CardActions>
               )}
               {isMobile &&
-              cartItemType !== ENUM_ORDER_TYPE.DEAL &&
+              cartItemType === ENUM_ORDER_TYPE.NORMAL &&
               maxQuantityProduct &&
               maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography

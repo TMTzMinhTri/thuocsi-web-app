@@ -42,8 +42,7 @@ const ThankYouContainer = ({ orderID = 0, orderNo, deliveryDate, canEdit = false
         <br />
         Để xuất đơn đỏ, vui lòng vào trang
         <Link prefetch={false} href={MY_ORDER_URL}>
-          {' '}
-          Đơn hàng của tôi{' '}
+          Đơn hàng của tôi
         </Link>
         và nhấn vào nút "Xuất hoá đơn".
       </Grid>
