@@ -19,11 +19,10 @@ const PromoCodesContainer = ({ voucherCodes = [] }) => {
           <li>
             <strong>Đặt hàng </strong>: Vào trang&nbsp;
             <Link prefetch={false} href={QUICK_ORDER}>
-              Đặt hàng nhanh{' '}
+              Đặt hàng nhanh
             </Link>
             &nbsp;hoặc&nbsp;
             <Link prefetch={false} href={PRODUCTS_URL}>
-              {' '}
               Sản phẩm
             </Link>
             &nbsp;để đặt hàng
@@ -31,7 +30,7 @@ const PromoCodesContainer = ({ voucherCodes = [] }) => {
           <li>
             <strong>Vào giỏ hàng</strong>: Vào trang&nbsp;
             <Link prefetch={false} href={CART_URL}>
-              Giỏ hàng{' '}
+              Giỏ hàng
             </Link>
             . Nhấn vào chữ "Dùng mã khuyến mãi"
           </li>

@@ -27,7 +27,9 @@ const IngredientDetailContainer = ({ ingredient, products }) => {
   return (
     <Grid className={styles.container} container>
       <Grid item xs={12}>
-        <h1 className={styles.title} style={{ textAlign: 'center' }}> {ingredient.name} </h1>{' '}
+        <h1 className={styles.title} style={{ textAlign: 'center' }}>
+          {ingredient.name}
+        </h1>
       </Grid>
       <Grid className={styles.detail_tab} item style={{ padding: '0 10vw' }}>
         <ProductDetailTabs

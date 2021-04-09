@@ -25,7 +25,7 @@ const WhyBuymed = () => (
         <Grid className={styles.reason_item} item md={3} xs={12}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12} xs={4}>
             <Icon className={clsx('icon-news-professional', styles.icon)} />
-          </Grid>{' '}
+          </Grid>
           <Grid className={styles.reason_content} item md={12} xs={8}>
             <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff' }}>
               TIN TỨC CHUYÊN MÔN
@@ -38,7 +38,7 @@ const WhyBuymed = () => (
         <Grid className={styles.reason_item} item md={3} xs={12}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12} xs={4}>
             <Icon className={clsx('icon-ship-express', styles.icon)} />
-          </Grid>{' '}
+          </Grid>
           <Grid className={styles.reason_content} item md={12} xs={8}>
             <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff' }}>
               GIAO HÀNG NHANH
@@ -51,7 +51,7 @@ const WhyBuymed = () => (
         <Grid className={styles.reason_item} item md={3} xs={12}>
           <Grid style={{ display: 'flex', justifyContent: 'center' }} item md={12} xs={4}>
             <Icon className={clsx('icon-support', styles.icon)} />
-          </Grid>{' '}
+          </Grid>
           <Grid className={styles.reason_content} item md={12} xs={8}>
             <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff' }}>
               ĐỘI NGŨ CHUYÊN NGHIỆP

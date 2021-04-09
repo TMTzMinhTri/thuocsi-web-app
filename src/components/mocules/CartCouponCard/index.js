@@ -156,7 +156,7 @@ const CartCounponCard = (props) => {
 
               {!isDisable && type === PROMO_TYPE.VOUCHERCODE && (
                 <Grid item style={{ paddingTop: '5px' }}>
-                  Đơn hàng sau khi áp dụng :{' '}
+                  Đơn hàng sau khi áp dụng :
                   <strong style={{ color: 'red' }}>
                     {formatCurrency(String(caculatePrice()))}
                   </strong>
