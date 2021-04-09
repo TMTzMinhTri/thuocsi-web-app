@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { isValid, SearchClient } from 'clients';
-import { debounceFunc500 } from 'utils/debounce';
+import { isValid } from 'clients';
+import { debounceFunc100 } from 'utils/debounce';
 import { Pagination } from '@material-ui/lab';
-import { PAGE_SIZE } from 'constants/data';
+import { PAGE_SIZE_30 } from 'constants/data';
 import { SearchOrder } from 'components/mocules';
+import { ProductService } from 'services';
 import ProductCardHorizontal from '../ProductCardHorizontal';
 
 import styles from './style.module.css';
@@ -22,11 +23,17 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
   }, []);
 
   useEffect(() => {
-    setPages(Math.ceil(totalVal / PAGE_SIZE));
+    setPages(Math.ceil(totalVal / PAGE_SIZE_30));
   }, [totalVal]);
 
   const fetchData = async (keywords, num) => {
-    const res = await SearchClient.searchProducts(keywords, num);
+    let res = {};
+
+    if (!keywords || keywords.length === 0) {
+      res = await ProductService.loadDataQuickOrder({ page: num });
+    } else {
+      res = await ProductService.searchProductsQuickOrder(keywords, num);
+    }
     if (isValid(res)) {
       setTotalVal(res.total);
       setSearchProduct(res.data);
@@ -40,12 +47,12 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
     const { value } = e.target;
     setKeyword(value);
     setNumPage(1);
-    debounceFunc500(() => fetchData(value, 1));
+    debounceFunc100(() => fetchData(value, 1));
   };
 
   const handleChangePage = (event, value) => {
     setNumPage(value);
-    debounceFunc500(() => fetchData(keyword, value));
+    debounceFunc100(() => fetchData(keyword, value));
   };
 
   return (

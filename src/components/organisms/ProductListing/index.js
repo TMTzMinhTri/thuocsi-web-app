@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   NativeSelect,
   FormControl,
@@ -20,10 +20,11 @@ import clsx from 'clsx';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'components/atoms';
 import { SearchResultText } from 'components/mocules';
-import { SORT_PRODUCT, SORT_PRODUCT_NOT_LOGIN, PAGE_SIZE } from 'constants/data';
+import { SORT_PRODUCT, SORT_PRODUCT_NOT_LOGIN, PAGE_SIZE_30 } from 'constants/data';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faTag } from '@fortawesome/free-solid-svg-icons';
 import FilterProductOnMobile from 'components/organisms/FilterProductOnMobile';
+import Skeleton from '@material-ui/lab/Skeleton';
 import GridSkeletonProductHorizontal from '../Skeleton/GirdSkeleton';
 import ProductCardVertical from '../ProductCardVertical';
 
@@ -34,7 +35,7 @@ export default function ProductListing({
   brand = [],
   group = [],
   currentTab = '',
-  page = '',
+  page,
   sortBy = '',
   slug = '',
   catName = '',
@@ -45,17 +46,18 @@ export default function ProductListing({
   tabs = [],
 }) {
   const [isloading, setIsLoading] = useState(true);
-  const [numPage, setNumPage] = useState(page);
-  const pages = Math.ceil(total / PAGE_SIZE);
+  const pages = Math.ceil(total / PAGE_SIZE_30);
   const router = useRouter();
   const pathName = `/${catName}/${slug}`;
   const [open, toggleOpenFilter] = useModal();
+  const mainRef = useRef(null);
+  const options = { scroll: false };
 
   const SORT_LIST = isAuthenticated ? SORT_PRODUCT : SORT_PRODUCT_NOT_LOGIN;
 
   useEffect(() => {
     setIsLoading(false);
-  }, [isloading, open]);
+  }, [page, sortBy, slug, currentTab, open]);
 
   const getQueryObject = () => {
     const query = {};
@@ -78,27 +80,41 @@ export default function ProductListing({
     }
     return query;
   };
-
   const handleChangePage = (event, value) => {
+    event.preventDefault();
     if (page === value) return;
     setIsLoading(true);
+    window.scrollTo({
+      top: mainRef.current.offsetTop - 100,
+      behavior: 'smooth',
+    });
     const query = getQueryObject();
     query.page = value;
-    router.push({
-      pathname: pathName,
-      query,
-    });
-    setNumPage(value);
+    router.push(
+      {
+        pathname: pathName,
+        query,
+      },
+      null,
+      options,
+    );
   };
   const handleChangeSort = (event) => {
     setIsLoading(true);
     const query = getQueryObject();
     query.sortBy = event.target.value || undefined;
-    router.push({
-      pathname: pathName,
-      query,
+    router.push(
+      {
+        pathname: pathName,
+        query,
+      },
+      null,
+      options,
+    );
+    window.scrollTo({
+      top: mainRef.current.offsetTop - 100,
+      behavior: 'smooth',
     });
-    setNumPage(1);
   };
 
   const SelectedTagMobile = () => {
@@ -112,6 +128,25 @@ export default function ProductListing({
       </div>
     );
   };
+
+  const changeTab = (event, queryTab, value) => {
+    event.preventDefault();
+    if (value === currentTab) return;
+    setIsLoading(true);
+    router.push(
+      {
+        pathname: pathName,
+        query: { ...queryTab, currentTab: value}
+      },
+      null,
+      options,
+    );
+
+    window.scrollTo({
+      top: mainRef.current.offsetTop - 100,
+      behavior: 'smooth',
+    });
+  }
   return (
     <div className={styles.wrapper}>
       {isMobile ? (
@@ -243,13 +278,13 @@ export default function ProductListing({
               </AccordionSummary>
               <AccordionDetails className="accordion-detail">
                 <div>
-                  <Link key="all-products" href="/products">
+                  <Link key="all-products" href="/products" prefetch={false}>
                     <div className={styles.accordionLink}>Tất cả sản phẩm</div>
                   </Link>
                   {brand &&
                     brand.length > 0 &&
                     brand.map((item) => (
-                      <Link key={uuidv4()} href={`/manufacturers/${item.slug}`}>
+                      <Link key={uuidv4()} href={`/manufacturers/${item.slug}`} prefetch={false}>
                         <div
                           className={`${styles.accordionLink} ${
                             item.slug === slug ? styles.active : ''
@@ -266,116 +301,105 @@ export default function ProductListing({
         </div>
       )}
 
-      <div className={styles.product_main}>
-        {isloading ? (
-          <GridSkeletonProductHorizontal counts={12} />
-        ) : (
+      <div ref={mainRef} className={styles.product_main}>
+        <div>
+          {name && (
+            <Typography className="product_title" variant="h4" component="h1">
+              {name}
+            </Typography>
+          )}
+          {isloading ? (
+            <Skeleton variant="text" width={300} />
+          ) : (
+            <SearchResultText total={total} page={page} pages={pages} limit={products?.length} />
+          )}
+        </div>
+        {!isMobile && (
           <div>
-            <div>
-              {name && (
-                <Typography className="product_title" variant="h4" component="h1">
-                  {name}
-                </Typography>
+            <div className={styles.filters}>
+              {(total > 0 || tabs.length > 0) && (
+                <Fab
+                  variant="extended"
+                  aria-label="all"
+                  className={clsx(currentTab === '' && styles.active, styles.filter_btn)}
+                  onClick={(e) => changeTab(e, getTabQuery())}
+                >
+                  Tất cả sản phẩm
+                </Fab>
               )}
-              <SearchResultText total={total} page={page} pages={pages} />
+              {tabs.map((item) => (
+                <Fab
+                  key={`tabs-${uuidv4()}`}
+                  variant="extended"
+                  aria-label="all"
+                  className={clsx(currentTab === item.value && styles.active, styles.filter_btn)}
+                  onClick={(e) => changeTab(e, getTabQuery(), item.value)}
+                >
+                  {item.leftIcon && <span className={styles.iconLeft}>{item.leftIcon}</span>}
+                  {item.name}
+                  {item.rightIcon && <span className={styles.iconRight}>{item.rightIcon}</span>}
+                </Fab>
+              ))}
             </div>
-            {!isMobile && (
-              <div>
-                <div className={styles.filters}>
-                  {(total > 0 || tabs.length > 0) && (
-                    <Link
-                      href={{
-                        pathname: pathName,
-                        query: { ...getTabQuery() },
-                      }}
-                    >
-                      <Fab
-                        variant="extended"
-                        aria-label="all"
-                        className={clsx(currentTab === '' && styles.active, styles.filter_btn)}
-                      >
-                        Tất cả sản phẩm
-                      </Fab>
-                    </Link>
-                  )}
-                  {tabs.map((item) => (
-                    <Link
-                      key={`tabs-${uuidv4()}`}
-                      href={{
-                        pathname: pathName,
-                        query: { ...getTabQuery(), currentTab: item.value },
-                      }}
-                    >
-                      <Fab
-                        variant="extended"
-                        aria-label="all"
-                        className={clsx(
-                          currentTab === item.value && styles.active,
-                          styles.filter_btn,
-                        )}
-                      >
-                        {item.leftIcon && <span className={styles.iconLeft}>{item.leftIcon}</span>}
-                        {item.name}
-                        {item.rightIcon && (
-                          <span className={styles.iconRight}>{item.rightIcon}</span>
-                        )}
-                      </Fab>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-            {products && products.length > 0 ? (
-              <main className={styles.product_listing} key={uuidv4()}>
-                <div className={styles.pagging}>
-                  <Pagination
-                    count={pages}
-                    defaultPage={numPage}
-                    boundaryCount={isMobile ? 1 : 2}
-                    siblingCount={isMobile ? 0 : 2}
-                    onChange={handleChangePage}
-                  />
-                </div>
-                <div className={styles.product_grid_wrapper}>
-                  <Grid container spacing={1}>
-                    {products.map((item) => (
-                      <Grid
-                        item
-                        xl={2}
-                        lg={3}
-                        md={4}
-                        xs={6}
-                        className={styles.customGrid}
-                        key={uuidv4()}
-                      >
-                        <ProductCardVertical
-                          key={`products-${item.sku}`}
-                          product={item}
-                          value={item.quantity || 0}
-                          tag
-                          category
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </div>
-                <div className={styles.pagging}>
-                  <Pagination
-                    count={pages}
-                    defaultPage={numPage}
-                    boundaryCount={isMobile ? 1 : 2}
-                    siblingCount={isMobile ? 0 : 2}
-                    onChange={handleChangePage}
-                  />
-                </div>
-              </main>
-            ) : (
-              <Typography variant="body1" className={styles.empty}>
-                Không có sản phẩm
-              </Typography>
-            )}
           </div>
         )}
+        <main className={styles.product_listing} key={uuidv4()}>
+          {isloading ? (
+            <GridSkeletonProductHorizontal counts={12} hasPagingTop hasPagingBottom />
+          ) : (
+            <>
+              {products && products.length > 0 ? (
+                <>
+                  <div className={styles.pagging}>
+                    <Pagination
+                      count={pages}
+                      defaultPage={page}
+                      boundaryCount={isMobile ? 1 : 2}
+                      siblingCount={isMobile ? 0 : 2}
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                  <div className={styles.product_grid_wrapper}>
+                    <Grid container spacing={1}>
+                      {products.map((item) => (
+                        <Grid
+                          item
+                          xl={2}
+                          lg={3}
+                          md={4}
+                          xs={6}
+                          className={styles.customGrid}
+                          key={uuidv4()}
+                        >
+                          <ProductCardVertical
+                            key={`products-${item.sku}`}
+                            product={item}
+                            value={item.quantity || 0}
+                            tag
+                            category
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </div>
+                  <div className={styles.pagging}>
+                    <Pagination
+                      count={pages}
+                      defaultPage={page}
+                      boundaryCount={isMobile ? 1 : 2}
+                      siblingCount={isMobile ? 0 : 2}
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                </>
+              ) : (
+                <Typography variant="body1" className={styles.empty}>
+                  Không có sản phẩm
+                </Typography>
+              )}
+            </>
+          )}
+        </main>
       </div>
     </div>
   );
