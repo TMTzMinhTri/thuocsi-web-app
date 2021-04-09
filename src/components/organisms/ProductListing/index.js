@@ -51,7 +51,6 @@ export default function ProductListing({
   const pathName = `/${catName}/${slug}`;
   const [open, toggleOpenFilter] = useModal();
   const mainRef = useRef(null);
-  const options = { scroll: false };
 
   const SORT_LIST = isAuthenticated ? SORT_PRODUCT : SORT_PRODUCT_NOT_LOGIN;
 
@@ -94,9 +93,7 @@ export default function ProductListing({
       {
         pathname: pathName,
         query,
-      },
-      null,
-      options,
+      }
     );
   };
   const handleChangeSort = (event) => {
@@ -107,9 +104,7 @@ export default function ProductListing({
       {
         pathname: pathName,
         query,
-      },
-      null,
-      options,
+      }
     );
     window.scrollTo({
       top: mainRef.current.offsetTop - 100,
