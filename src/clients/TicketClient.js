@@ -11,7 +11,12 @@ export const getListReasons = (ctx) => {
   return GET({ url, ctx });
 };
 
+export const getListTicket = (ctx) => {
+  const url = TICKET_API.TICKET_LIST;
+  return GET({ url, ctx });
+};
 export default {
   createFeedback,
   getListReasons,
+  getListTicket,
 };

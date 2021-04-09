@@ -5,6 +5,7 @@ import {
   Share as ShareIcon,
   LocalOffer as LocalOfferIcon,
   MonetizationOn as MonetizationOnIcon,
+  Message as MessageIcon,
 } from '@material-ui/icons';
 import Link from 'next/link';
 import { formatCurrency } from 'utils/FormatNumber';
@@ -21,7 +22,8 @@ const tabs = [
     id: 4,
     link: '/users/user-promo-codes',
   },
-  { label: 'Điểm tích luỹ', icon: <MonetizationOnIcon />, id: 5, link: '/users/loyalty_points' },
+  { label: 'Phản hồi của tôi', icon: <MessageIcon />, id: 5, link: '/users/tickets' },
+  { label: 'Điểm tích luỹ', icon: <MonetizationOnIcon />, id: 6, link: '/users/loyalty_points' },
 ];
 const InfoTabs = ({ value, name, balance = 0 }) => (
   <div className={styles.tab_box}>

@@ -1,3 +1,13 @@
+import {
+  MoreHoriz as MoreHorizIcon,
+  // Cancel as CancelIcon,
+  // Done as DoneIcon,
+  AssignmentTurnedIn as AssignmentTurnedInIcon,
+  Assignment as AssignmentIcon,
+  AssignmentReturned as AssignmentReturnedIcon,
+  AssignmentLate as AssignmentLateIcon,
+} from '@material-ui/icons';
+
 export const ENUM_SCOPE = {
   DRUGSTORE: 'DRUGSTORE',
   PHARMACY: 'PHARMACY',
@@ -264,6 +274,44 @@ export const ENUM_ORDER_TYPE = {
   COMBO: 'COMBO',
   DEAL: 'DEAL',
 };
+
+export const TICKET_STATUS = [
+  {
+    value: 'PENDING',
+    label: 'Chưa xử lý',
+    color: '#cc5555',
+    iconColor: '#cc5555',
+    icon: <MoreHorizIcon />,
+  },
+  {
+    value: 'ASSIGNED',
+    label: 'Đã tiếp nhận',
+    color: '#000',
+    iconColor: '#55cccc',
+    icon: <AssignmentIcon />,
+  },
+  {
+    value: 'IN_PROCESS',
+    label: 'Đang xử lý',
+    color: '#0081CF',
+    iconColor: '#55cccc',
+    icon: <AssignmentReturnedIcon />,
+  },
+  {
+    value: 'DONE',
+    label: 'Đã xử lý',
+    color: '#5b5',
+    iconColor: '#5b5',
+    icon: <AssignmentTurnedInIcon />,
+  },
+  {
+    value: 'CANCELLED',
+    label: 'Đã huỷ',
+    color: '#bbb',
+    iconColor: '#bbb',
+    icon: <AssignmentLateIcon />,
+  },
+];
 
 export default {
   ENUM_SCOPE,
