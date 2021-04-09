@@ -12,7 +12,6 @@ import DealSection from 'components/mocules/DealSection';
 import { calculateTimeLeft } from 'utils';
 import { getFirst, isValid } from 'clients';
 import { MAX_PRODUCT_QTY_DISPLAY } from 'constants/data';
-import { ENUM_ORDER_TYPE } from 'constants/Enums';
 import RemoveProductModal from '../RemoveProductModal';
 import ErrorQuantityCartModal from '../ErrorQuantityCartModal';
 
@@ -51,7 +50,6 @@ const ProductCardBuy = ({
   const [isShowModalErrorQuantity, toggleErrorQuantity] = useModal();
   const { updateCartItem, removeCartItem } = useCart();
 
-  const { cartItemType } = product;
   const removeProductOutCart = () => {
     toggleRemove();
   };
@@ -192,10 +190,7 @@ const ProductCardBuy = ({
                   <Typography className={styles.deal_price}>{formatCurrency(salePrice)}</Typography>
                 </div>
               )}
-              {!isMobile &&
-              cartItemType === ENUM_ORDER_TYPE.NORMAL &&
-              maxQuantityProduct &&
-              maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
+              {!isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
@@ -282,10 +277,7 @@ const ProductCardBuy = ({
                   )}
                 </CardActions>
               )}
-              {isMobile &&
-              cartItemType === ENUM_ORDER_TYPE.NORMAL &&
-              maxQuantityProduct &&
-              maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
+              {isMobile && maxQuantityProduct && maxQuantityProduct < MAX_PRODUCT_QTY_DISPLAY ? (
                 <Typography
                   className={
                     row ? styles.text_danger : clsx(styles.text_danger_column, styles.text_danger)
