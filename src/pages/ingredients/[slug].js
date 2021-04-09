@@ -5,7 +5,7 @@ import IngredientDetailContainer from 'components/organisms/IngredientDetailCont
 import LoadingScreen from 'components/organisms/LoadingScreen';
 import { NotifyUtils } from 'utils';
 import { IngredientCLient, isValid } from 'clients';
-import { doWithServerSide } from 'services';
+import { doWithServerSide } from 'services/SsrService';
 import { INGREDIENT } from 'constants/Paths';
 import { Container } from '@material-ui/core';
 import Router from 'next/router';

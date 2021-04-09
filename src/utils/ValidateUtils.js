@@ -43,6 +43,7 @@ const validatePhone = (phone) => {
   //
   return re.test(String(phone));
 };
+
 function Error(message, type) {
   this.message = message;
   this.type = type;

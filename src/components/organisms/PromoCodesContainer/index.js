@@ -18,14 +18,22 @@ const PromoCodesContainer = ({ voucherCodes = [] }) => {
         <ol>
           <li>
             <strong>Đặt hàng </strong>: Vào trang&nbsp;
-            <Link href={QUICK_ORDER}>Đặt hàng nhanh </Link>
+            <Link prefetch={false} href={QUICK_ORDER}>
+              Đặt hàng nhanh{' '}
+            </Link>
             &nbsp;hoặc&nbsp;
-            <Link href={PRODUCTS_URL}> Sản phẩm</Link>
+            <Link prefetch={false} href={PRODUCTS_URL}>
+              {' '}
+              Sản phẩm
+            </Link>
             &nbsp;để đặt hàng
           </li>
           <li>
             <strong>Vào giỏ hàng</strong>: Vào trang&nbsp;
-            <Link href={CART_URL}>Giỏ hàng </Link>. Nhấn vào chữ "Dùng mã khuyến mãi"
+            <Link prefetch={false} href={CART_URL}>
+              Giỏ hàng{' '}
+            </Link>
+            . Nhấn vào chữ "Dùng mã khuyến mãi"
           </li>
           <li>
             <strong>Dùng mã</strong>: Nhập mã muốn dùng vào ô tìm kiếm, hoặc, chọn trong danh sách
@@ -39,9 +47,13 @@ const PromoCodesContainer = ({ voucherCodes = [] }) => {
           </Typography>
           <p className={styles.description}>
             Tham gia chương trình&nbsp;
-            <Link href="/users/referrals">Giới thiệu bạn bè</Link>
+            <Link prefetch={false} href="/users/referrals">
+              Giới thiệu bạn bè
+            </Link>
             ,&nbsp;
-            <Link href="/users/loyalty_points">Đổi điểm tích luỹ</Link>
+            <Link prefetch={false} href="/users/loyalty_points">
+              Đổi điểm tích luỹ
+            </Link>
             &nbsp;để nhận được code riêng
           </p>
 

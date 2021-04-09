@@ -13,7 +13,7 @@ const ManufacturerList = ({ manufacturers = [], text = '' }) => (
     <Grid container className={styles.container} spacing={2}>
       {manufacturers.map((val) => (
         <Grid item xs={3} key={uuidv4()}>
-          <Link href={`manufacturers/${val.slug}`}>
+          <Link href={`manufacturers/${val.slug}`} prefetch={false}>
             <div className={styles.manufacturer}> {val?.name} </div>
           </Link>
         </Grid>

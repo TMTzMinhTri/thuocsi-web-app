@@ -3,15 +3,15 @@
 
 import React, { useState } from 'react';
 import { Grid, Paper } from '@material-ui/core';
+import Template from 'components/layout/Template';
 import {
-  Template,
   DeliveryInfoForm,
   DeliveryMethod,
   PaymentMethod,
   CheckoutSticky,
-  LoadingScreen,
   CartNote,
-} from 'components';
+} from 'components/mocules';
+import LoadingScreen from 'components/organisms/LoadingScreen';
 import { CartClient, getData } from 'clients';
 import { doWithServerSide, PricingService } from 'services';
 import { useCart } from 'context';
