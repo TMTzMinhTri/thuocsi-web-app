@@ -1,4 +1,5 @@
-import { Template, OrderDetailContainer, InfoContainer } from 'components';
+import Template from 'components/layout/Template';
+import { OrderDetailContainer, InfoContainer } from 'components/organisms';
 import { Container } from '@material-ui/core';
 import { isValid, CustomerClient, TicketClient, getData, getFirst } from 'clients';
 import { doWithServerSide, OrderService } from 'services';

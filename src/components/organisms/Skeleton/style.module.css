@@ -10,7 +10,7 @@
   grid-gap: 5px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 150px;
-  margin: 40px auto 40px;
+  margin: 20px auto 20px;
 }
 @media (min-width: 1360px) and (max-width: 1700px) {
   .item {

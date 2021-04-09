@@ -40,7 +40,9 @@ const FooterLeftItem = () => {
         <Typography className={styles.mb1}>
           <b>
             <span className={styles.primary_color}>
-              <Link href="/">thuocsi.vn</Link>
+              <Link href="/" prefetch={false}>
+                thuocsi.vn
+              </Link>
             </span>{' '}
             là website thuộc sở hữu của công ty TNHH Buymed.
           </b>
@@ -71,7 +73,7 @@ const FooterLeftItem = () => {
         <p className={styles.footer_header}>THÔNG TIN CHUNG</p>
         <Grid container>
           <Grid sm={6} item>
-            <Link href="/about-us">
+            <Link href="/about-us" prefetch={false}>
               <Typography
                 className={
                   router.pathname === '/about-us' ? clsx(styles.active, styles.link) : styles.link
@@ -80,7 +82,7 @@ const FooterLeftItem = () => {
                 Giới thiệu về thuocsi.vn
               </Typography>
             </Link>
-            <Link href="/how-to-order">
+            <Link href="/how-to-order" prefetch={false}>
               <Typography className={styles.link}>Hướng dẫn đặt hàng</Typography>
             </Link>
             <div
@@ -91,7 +93,7 @@ const FooterLeftItem = () => {
             >
               <Typography className={styles.link}>Chính sách bảo mật</Typography>
             </div>
-            <Link href="/faq">
+            <Link href="/faq" prefetch={false}>
               <Typography className={styles.link}>Câu hỏi thường gặp (Q&A)</Typography>
             </Link>
             <div

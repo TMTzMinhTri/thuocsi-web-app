@@ -38,7 +38,7 @@ const ProductCardContent = ({
       }
     >
       <div className={styles.product_title}>
-        <Link href={`/product/${slug}`}>
+        <Link href={`/product/${slug}`} prefetch={false}>
           <Typography className={styles.product_name} gutterBottom variant="h5" component="h2">
             {isDeal && deal ? deal.name : name}
           </Typography>

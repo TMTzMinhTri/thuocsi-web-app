@@ -5,7 +5,6 @@ import { getSessionTokenClient } from 'clients';
 import styles from './styles.module.css';
 
 export async function getServerSideProps() {
-  
   return {
     props: {},
   };
@@ -19,7 +18,13 @@ const Discovery = ({ isMobile }) => {
   return (
     <Template title={title} isMobile={isMobile} pageName={name} pageTitle={pageTitle}>
       <div className={styles.discovery_wrapper}>
-        <iframe title="Discovery" className={styles.iframe} src={`${DISCOVERY_URL}?token=${token}`} width="100%" height="100%" />
+        <iframe
+          title="Discovery"
+          className={styles.iframe}
+          src={`${DISCOVERY_URL}?token=${token}`}
+          width="100%"
+          height="100%"
+        />
       </div>
     </Template>
   );

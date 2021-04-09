@@ -53,6 +53,11 @@ const QuickOrderList = ({ products, isMobile, page, total }) => {
   const handleChangePage = (event, value) => {
     setNumPage(value);
     debounceFunc100(() => fetchData(keyword, value));
+    window.scrollTo({
+      top: 100,
+      left: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (

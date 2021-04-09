@@ -17,13 +17,13 @@ const HeaderWithCart = memo(() => {
   return (
     <div className={styles.headerWithCart}>
       <div className={styles.rSection}>
-        <Link href={QUICK_ORDER}>
+        <Link href={QUICK_ORDER} prefetch={false}>
           <IconButton className={styles.icon} aria-label="search">
             <Search />
           </IconButton>
         </Link>
         {router.pathname !== CART_URL && (
-          <LinkComp className={styles.navBarRightLink} href={CART_URL}>
+          <LinkComp className={styles.navBarRightLink} href={CART_URL} prefetch={false}>
             <IconButton aria-label="cart">
               <Badge badgeContent={itemCount} invisible={false} color="secondary">
                 <LocalMallOutlined className={styles.rIcon} />
